@@ -29,12 +29,11 @@ git pull
 ### Compile
 ```
 meson build
-cd build
-ninja
+ninja -C build/
 ```
 
 ### Play
 ```
-./demo
+./build/demo
 ```
 
