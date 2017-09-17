@@ -33,4 +33,23 @@ int C_Towers::getLevel() const
 	return m_level;
 }
 
+string C_Towers::getName() const
+{
+	return m_name;
+}
 
+bool operator==(C_Towers const& a, C_Towers const& b)
+{
+	return a.isEqualTo(b);
+}
+
+bool C_Towers::isEqualTo(C_Towers const& b) const
+{
+	return(m_name == b.m_name);
+}
+
+
+bool operator!=(C_Towers const& a, C_Towers const& b)
+{
+	return!(a==b);
+}
