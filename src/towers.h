@@ -12,6 +12,7 @@ class C_Towers
 	//methods
 	C_Towers();
 	C_Towers(std::string name, std::string weaponName, int weaponDamage, int weaponFireRate);
+	C_Towers(C_Towers const& original);
 	~C_Towers();
 
 	void shoot(C_invaders &target);
@@ -20,15 +21,16 @@ class C_Towers
 	std::string getName() const;
 
 	bool isEqualTo(C_Towers const& b) const;
-
+	C_Towers& operator=(C_Towers const& original);
 	private:
 	//attibuts
 	int m_level;
 	std::string m_name;
-	C_Weapon m_weapon;
+	C_Weapon *m_weapon;
 };
 
 bool operator==(C_Towers const& a, C_Towers const& b);
 bool operator!=(C_Towers const& a, C_Towers const& b);
+
 
 #endif
