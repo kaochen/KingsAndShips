@@ -3,29 +3,26 @@
 
 #include <iostream>
 #include <string>
+#include "gameUnits.h"
 #include "weapons.h"
 #include "invaders.h"
 
-class C_Towers
+class C_Towers: public C_GameUnits
 {
 	public:
 	//methods
 	C_Towers();
-	C_Towers(std::string name, std::string weaponName, int weaponDamage, int weaponFireRate);
+	C_Towers(std::string name, int grade, std::string weaponName, int weaponDamage, int weaponFireRate);
 	C_Towers(C_Towers const& original);
 	~C_Towers();
 
 	void shoot(C_invaders &target);
 	void displayStatus() const;
-	int getLevel() const;
-	std::string getName() const;
 
 	bool isEqualTo(C_Towers const& b) const;
 	C_Towers& operator=(C_Towers const& original);
 	private:
 	//attibuts
-	int m_level;
-	std::string m_name;
 	C_Weapon *m_weapon;
 };
 
