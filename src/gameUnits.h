@@ -13,9 +13,11 @@ class C_GameUnits
 	C_GameUnits(C_GameUnits const& original);
 	virtual ~C_GameUnits();
 
-	std::string getName() const;
+	virtual std::string getName() const;
 	virtual void displayStatus() const;
-	int getRank() const;
+	virtual void receiveDamage(int nbDamage);
+	virtual bool alive() const;
+	virtual int getRank() const;
 
 	protected:
 	//attibuts

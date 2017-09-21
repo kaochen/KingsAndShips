@@ -8,10 +8,14 @@ C_GameUnits::C_GameUnits():
 	m_name("UNIT"),
 	m_life(100),
 	m_rank(1)
-{}
+{
+	cout << "Add new default unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
+}
 
 C_GameUnits::C_GameUnits(string name, int rank):m_name(name),m_life(100),m_rank(rank)
-{}
+{
+	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
+}
 
 //delete
 C_GameUnits::~C_GameUnits()
@@ -34,6 +38,21 @@ string C_GameUnits::getName() const
 void C_GameUnits::displayStatus() const
 {
  	cout << "Name: " << m_name << " Life: " << m_life  << " Rank : " << m_rank<< endl;
+}
+
+
+void C_GameUnits::receiveDamage(int nbDamage)
+{
+	m_life -=nbDamage;
+	if (m_life < 0)
+	{
+		m_life = 0;
+	}
+}
+
+bool C_GameUnits::alive() const
+{
+	return m_life>0;
 }
 
 

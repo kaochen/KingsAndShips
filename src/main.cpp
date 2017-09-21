@@ -11,21 +11,25 @@ using namespace std;
 int main()
 {
 	//create list of units
-	vector < C_GameUnits* > gameUnitsList;
+	vector < C_Shooter* > gameUnitsList;
 	// Load Towers into the list
 	gameUnitsList.push_back(new C_Towers );
-	gameUnitsList.push_back(new C_Towers("TOWER1",1,"GUN",30,4) );
+	gameUnitsList.push_back(new C_Towers(1));
+
+	gameUnitsList.push_back(new C_invaders(2));
 
 	//displayList
+	cout << "=====================" << endl;
 	for (unsigned int i(0); i < gameUnitsList.size(); i++)
 		{
 		gameUnitsList[i]->displayStatus();
 		}
 
-	C_invaders soldier1("SOLDIER","GUN",10,3);
-	soldier1.displayStatus();
-	soldier1.displayStatus();
+	cout << "=====================" << endl;
+	gameUnitsList[0]->shoot(*gameUnitsList[2]);
+	gameUnitsList[2]->displayStatus();
 
+	cout << "=====================" << endl;
 	//destroy list
 	for (unsigned int i(0); i < gameUnitsList.size(); i++)
 		{
