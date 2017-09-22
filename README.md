@@ -37,3 +37,8 @@ ninja -C build/
 ./build/demo
 ```
 
+### Install
+
+### Dev links :
+https://www.kraxel.org/blog/tag/meson-ninja/
+http://www.willusher.io/pages/sdl2/

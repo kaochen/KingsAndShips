@@ -2,6 +2,7 @@
 #include <string.h>
 #include <vector>
 
+#include "window.h"
 #include "towers.h"
 #include "invaders.h"
 
@@ -10,12 +11,18 @@ using namespace std;
 
 int main()
 {
+	initSDL();
+	//create main window
+	SDL_Window* window = nullptr;
+	SDL_Renderer* renderer = nullptr;
+	createWindow(window,renderer);
+
+
 	//create list of units
 	vector < C_Shooter* > gameUnitsList;
 	// Load Towers into the list
 	gameUnitsList.push_back(new C_Towers );
 	gameUnitsList.push_back(new C_Towers(1));
-
 	gameUnitsList.push_back(new C_invaders(2));
 
 	//displayList
@@ -36,6 +43,16 @@ int main()
 		delete gameUnitsList[i];
 		gameUnitsList[i]=0;
 		}
+
+	cout << "start of delay" << endl;
+	SDL_Delay(4000);
+	cout << "end of delay" << endl;
+
+	//Cleanup before leaving
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	TTF_Quit();
+	SDL_Quit();
 
 	return 0;
 }
