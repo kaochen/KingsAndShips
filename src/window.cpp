@@ -23,8 +23,9 @@ void initSDL()
 
 }
 
-int createWindow(SDL_Window* window, SDL_Renderer* renderer)
+void createWindow(SDL_Window* window, SDL_Renderer* renderer)
 {
+ 	initSDL();
  	window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
@@ -36,11 +37,9 @@ int createWindow(SDL_Window* window, SDL_Renderer* renderer)
 		{
 			cout << "SDL_CreateWindow() failed " << SDL_GetError() << endl;
 			SDL_Quit();
-			return 1;
 		}
 	else
 		{
-			cout << "SDL_CreateWindow() succeed " << SDL_GetError() << endl;
 			// Create a renderer from the window
 			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 			if (renderer == nullptr)
@@ -48,12 +47,19 @@ int createWindow(SDL_Window* window, SDL_Renderer* renderer)
 					SDL_DestroyWindow(window);
 					cout << "SDL_GetWindowSurface() failed " << SDL_GetError() << endl;
 					SDL_Quit();
-					return 1;
 				}
 
 		}
-
+cout << "The main window has been created successfully" << endl;
 }
 
 
-
+void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
+{
+	//Cleanup before leaving
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	TTF_Quit();
+	SDL_Quit();
+	cout << "Bye" << endl;
+}

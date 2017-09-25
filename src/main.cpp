@@ -11,7 +11,6 @@ using namespace std;
 
 int main()
 {
-	initSDL();
 	//create main window
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
@@ -49,10 +48,6 @@ int main()
 	cout << "end of delay" << endl;
 
 	//Cleanup before leaving
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	TTF_Quit();
-	SDL_Quit();
-
+	quitProgram(window, renderer);
 	return 0;
 }

@@ -9,5 +9,6 @@
 
 void initSDL();
 
-int createWindow(SDL_Window* window, SDL_Renderer* renderer);
+void createWindow(SDL_Window* window, SDL_Renderer* renderer);
+void quitProgram(SDL_Window* window, SDL_Renderer* renderer);
 #endif
