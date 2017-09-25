@@ -32,3 +32,6 @@ void C_Shooter::displayStatus() const
  	m_weapon->displayStatus();
 }
 
+void C_Shooter::printOnScreen(SDL_Renderer *renderer){
+	cout << "do not used" << endl;
+}

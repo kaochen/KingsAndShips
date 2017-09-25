@@ -14,9 +14,11 @@ class C_Shooter : public C_GameUnits
 	virtual ~C_Shooter();
 	virtual	void displayStatus() const;
 	virtual void shoot(C_Shooter &target);
+	virtual	void printOnScreen(SDL_Renderer *renderer);
 
 	protected:
 	C_Weapon *m_weapon;
+	C_Texture *m_texture;
 };
 
 #endif

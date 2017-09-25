@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "surfaces.h"
 
 class C_GameUnits
 {
@@ -24,6 +25,8 @@ class C_GameUnits
 	std::string m_name;
 	int m_life;
 	int m_rank;
+	int m_x;
+	int m_y;
 };
 
 #endif

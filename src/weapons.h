@@ -14,8 +14,8 @@ public:
 	void change(std::string name, int damage, int fireRate);
 	void displayStatus() const;
 	int getDamage() const;
-	int getFireRate() const;;
-	int getFireRange() const;;
+	int getFireRate() const;
+	int getFireRange() const;
 
 private:
 	std::string m_name;

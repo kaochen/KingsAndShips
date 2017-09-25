@@ -50,8 +50,8 @@ int main()
 	//create list of units
 	vector < C_Shooter* > gameUnitsList;
 	// Load Towers into the list
-	gameUnitsList.push_back(new C_Towers );
-	gameUnitsList.push_back(new C_Towers(1));
+	gameUnitsList.push_back(new C_Towers(renderer) );
+	gameUnitsList.push_back(new C_Towers(renderer,1));
 	gameUnitsList.push_back(new C_invaders(2));
 
 	//displayList
@@ -75,11 +75,10 @@ int main()
 
 //-----------------------------------------------------------------------------
 
-	SDL_RenderClear(renderer);
-	SDL_Texture* towerPix = loadTexture("data/img/original/Tower_01.png",renderer);
-
-	renderTexture(towerPix, renderer, 10, 10);
-	SDL_RenderPresent(renderer);
+	//SDL_RenderClear(renderer);
+	cout << "marker 1" << endl;
+	//gameUnitsList[1]->printOnScreen(renderer);
+	//SDL_RenderPresent(renderer);
 
 	cout << "start of delay" << endl;
 	SDL_Delay(4000);
