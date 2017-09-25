@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+
 void initSDL();
 
 void createWindow(SDL_Window* window, SDL_Renderer* renderer);

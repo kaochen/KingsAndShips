@@ -7,7 +7,7 @@ all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf, sdl2_gfx ]
 
 
 src01 = ['src/gameUnits.cpp','src/weapons.cpp','src/shooter.cpp','src/towers.cpp','src/invaders.cpp']
-src02 = ['src/window.cpp','src/main.cpp']
+src02 = ['src/surfaces.cpp','src/window.cpp','src/main.cpp']
 
 all_src = [src01, src02]
 

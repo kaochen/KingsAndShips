@@ -9,22 +9,23 @@ using namespace std;
 void initSDL()
 {
 
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) == -1)
-		{
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) == -1){
 			logSDLerror("SDL_Init() failed");
 			exit (EXIT_FAILURE);
 		}
 
-	if(TTF_Init() == -1)
-		{
+	if(TTF_Init() == -1){
 			cout << "TTF_init() failed: " << TTF_GetError() << endl;
 			exit (EXIT_FAILURE);
 		}
 
+	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG){
+		logSDLerror("IMG_Init");
+		SDL_Quit;
+		}
 }
 
-void createWindow(SDL_Window* window, SDL_Renderer* renderer)
-{
+void createWindow(SDL_Window* window, SDL_Renderer* renderer){
  	initSDL();
  	window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
@@ -48,7 +49,6 @@ void createWindow(SDL_Window* window, SDL_Renderer* renderer)
 					logSDLerror("SDL_GetWindowSurface() failed");
 					SDL_Quit();
 				}
-
 		}
 cout << "The main window has been created successfully" << endl;
 }
@@ -67,5 +67,5 @@ void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
 
 void logSDLerror(const string &msg)
 {
-	cout << msg << "error: " << SDL_GetError() << endl;
+	cout << msg << " error: " << SDL_GetError() << endl;
 }

@@ -1,21 +1,51 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "window.h"
 #include "towers.h"
 #include "invaders.h"
+#include "surfaces.h"
+
 
 using namespace std;
 
 
 int main()
 {
+	//init SDL
+ 	initSDL();
+	SDL_ClearError();
+
 	//create main window
+
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	createWindow(window,renderer);
+ 	window = SDL_CreateWindow("TOWER",
+			      SDL_WINDOWPOS_UNDEFINED,
+			      SDL_WINDOWPOS_UNDEFINED,
+			      800,
+			      600,
+			      SDL_WINDOW_MOUSE_FOCUS);
 
+	if (window == nullptr){
+			logSDLerror("SDL_CreateWindow() failed");
+			SDL_Quit();
+		}
+	else{
+			// Create a renderer from the window
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			if (renderer == nullptr){
+					SDL_DestroyWindow(window);
+					logSDLerror("SDL_GetWindowSurface() failed");
+					SDL_Quit();
+				}
+		}
+	cout << "The main window has been created successfully" << endl;
+
+//-----------------------------------------------------------------------------
 
 	//create list of units
 	vector < C_Shooter* > gameUnitsList;
@@ -43,11 +73,24 @@ int main()
 		gameUnitsList[i]=0;
 		}
 
+//-----------------------------------------------------------------------------
+
+	SDL_RenderClear(renderer);
+	SDL_Texture* towerPix = loadTexture("data/img/original/Tower_01.png",renderer);
+
+	renderTexture(towerPix, renderer, 10, 10);
+	SDL_RenderPresent(renderer);
+
 	cout << "start of delay" << endl;
 	SDL_Delay(4000);
 	cout << "end of delay" << endl;
 
 	//Cleanup before leaving
-	quitProgram(window, renderer);
+	//quitProgram(window, renderer);
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window);
+	TTF_Quit();
+	SDL_Quit();
+	cout << "Bye" << endl;
 	return 0;
 }
