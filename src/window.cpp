@@ -11,7 +11,7 @@ void initSDL()
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) == -1)
 		{
-			cout << "SDL_init() failed: " << SDL_GetError() << endl;
+			logSDLerror("SDL_Init() failed");
 			exit (EXIT_FAILURE);
 		}
 
@@ -35,7 +35,7 @@ void createWindow(SDL_Window* window, SDL_Renderer* renderer)
 
 	if (window == nullptr)
 		{
-			cout << "SDL_CreateWindow() failed " << SDL_GetError() << endl;
+			logSDLerror("SDL_CreateWindow() failed");
 			SDL_Quit();
 		}
 	else
@@ -45,7 +45,7 @@ void createWindow(SDL_Window* window, SDL_Renderer* renderer)
 			if (renderer == nullptr)
 				{
 					SDL_DestroyWindow(window);
-					cout << "SDL_GetWindowSurface() failed " << SDL_GetError() << endl;
+					logSDLerror("SDL_GetWindowSurface() failed");
 					SDL_Quit();
 				}
 
@@ -62,4 +62,10 @@ void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
 	TTF_Quit();
 	SDL_Quit();
 	cout << "Bye" << endl;
+}
+
+
+void logSDLerror(const string &msg)
+{
+	cout << msg << "error: " << SDL_GetError() << endl;
 }
