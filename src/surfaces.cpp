@@ -2,9 +2,14 @@
 
 using namespace std;
 
-C_Texture::C_Texture(string name, SDL_Texture* image, int seqNbr):
+C_Texture::C_Texture():
+	m_name("texture"),
+	m_seqNbr(1)
+{
+}
+
+C_Texture::C_Texture(string name, int seqNbr):
 	m_name(name),
-	m_image(image),
 	m_seqNbr(seqNbr)
 {
 }
@@ -44,7 +49,4 @@ void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
 }
 
 
-SDL_Texture* C_Texture::getImage() const
-{
-	return m_image;
-}
+

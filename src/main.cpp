@@ -75,7 +75,12 @@ int main()
 
 //-----------------------------------------------------------------------------
 
-	//SDL_RenderClear(renderer);
+	SDL_Texture *image = loadTexture("data/img/original/Tower_01.png", renderer);
+	//gameUnitsList[0]->updateImage(image);
+
+	renderTexture(image, renderer, 10, 40);
+	SDL_RenderPresent(renderer);
+
 	cout << "marker 1" << endl;
 	//gameUnitsList[1]->printOnScreen(renderer);
 	//SDL_RenderPresent(renderer);

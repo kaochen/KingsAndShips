@@ -11,13 +11,12 @@
 class C_Texture
 {
 public:
-	C_Texture(std::string name, SDL_Texture* image, int seqNbr);
+	C_Texture();
+	C_Texture(std::string name, int seqNbr);
 	~C_Texture();
 
-	SDL_Texture* getImage() const;
 protected:
 	std::string m_name;
-	SDL_Texture* m_image;
 	int m_seqNbr;
 };
 

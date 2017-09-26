@@ -13,7 +13,6 @@ class C_Towers: public C_Shooter
 	//methods
 	C_Towers(SDL_Renderer* renderer);
 	C_Towers(SDL_Renderer* renderer,int rank);
-	void printOnScreen(SDL_Renderer *renderer);
 
 	protected:
 };
