@@ -9,6 +9,9 @@
 #include "invaders.h"
 #include "surfaces.h"
 
+#define WINDOW_HEIGHT 800
+#define WINDOW_WIDTH 600
+#define FRAMERATE 30
 
 using namespace std;
 
@@ -26,8 +29,8 @@ int main()
  	window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
-			      800,
-			      600,
+			      WINDOW_HEIGHT,
+			      WINDOW_WIDTH,
 			      SDL_WINDOW_MOUSE_FOCUS);
 
 	if (window == nullptr){
@@ -46,48 +49,72 @@ int main()
 	cout << "The main window has been created successfully" << endl;
 
 //-----------------------------------------------------------------------------
-
-	//create list of units
-	vector < C_Shooter* > gameUnitsList;
-	// Load Towers into the list
-	gameUnitsList.push_back(new C_Towers(renderer) );
-	gameUnitsList.push_back(new C_Towers(renderer,1));
-	gameUnitsList.push_back(new C_invaders(2));
-
-	//displayList
-	cout << "=====================" << endl;
-	for (unsigned int i(0); i < gameUnitsList.size(); i++)
+bool quit = false, forceRefresh = false;
+int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
+SDL_Event event;
+unsigned int windowID = SDL_GetWindowID(window);
+while(!quit)
+{
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
 		{
-		gameUnitsList[i]->displayStatus();
-		}
+		 case SDL_QUIT:
+			quit = true;
+			break;
+		 case SDL_WINDOWEVENT:
+		 	if (event.window.windowID == windowID && event.window.event == SDL_WINDOWEVENT_EXPOSED)
+		 		{ forceRefresh = true;
+		 		break;
+		 		}
+		case SDL_MOUSEMOTION:
+		// get x cursor position
+			if(event.button.x < 0)
+				xCursor = 0;
+			else if(event.button.x > WINDOW_HEIGHT)
+				xCursor = WINDOW_HEIGHT;
+			else
+				xCursor = event.button.x;
 
-	cout << "=====================" << endl;
-	gameUnitsList[0]->shoot(*gameUnitsList[2]);
-	gameUnitsList[2]->displayStatus();
+		// get y cursor position
+			if(event.button.y < 0)
+				yCursor = 0;
+			else if(event.button.y > WINDOW_WIDTH)
+				yCursor = WINDOW_WIDTH;
+			else
+				yCursor = event.button.y;
+			break;
+		case SDL_KEYDOWN:
 
-	cout << "=====================" << endl;
-	//destroy list
-	for (unsigned int i(0); i < gameUnitsList.size(); i++)
-		{
-		delete gameUnitsList[i];
-		gameUnitsList[i]=0;
-		}
+			//listen keyboard
+			switch(event.key.keysym.sym)
+			{
+			case SDLK_q:
+				quit = true;
+				cout << "The quit command (q) has been pressed." << endl;
+				break;
+			}
+		break;
+
+		} // end of switch(event.type)
+
+	}//SDL_PollEvent(&event)
+
+	if (forceRefresh == true)
+		cout << "Cursor: x:"<< xCursor << " y:" << yCursor << endl;
+
+
+	// stop while loop according to the framerate setting
+		currentTime = SDL_GetTicks();
+		if ((currentTime - previousTime) < (1000 / FRAMERATE))
+			SDL_Delay((1000/ FRAMERATE) - (currentTime - previousTime));
+		else
+			previousTime = currentTime;
+
+
+}//end of while(!quit)
 
 //-----------------------------------------------------------------------------
-
-	SDL_Texture *image = loadTexture("data/img/original/Tower_01.png", renderer);
-	//gameUnitsList[0]->updateImage(image);
-
-	renderTexture(image, renderer, 10, 40);
-	SDL_RenderPresent(renderer);
-
-	cout << "marker 1" << endl;
-	//gameUnitsList[1]->printOnScreen(renderer);
-	//SDL_RenderPresent(renderer);
-
-	cout << "start of delay" << endl;
-	SDL_Delay(4000);
-	cout << "end of delay" << endl;
 
 	//Cleanup before leaving
 	//quitProgram(window, renderer);
