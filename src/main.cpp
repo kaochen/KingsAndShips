@@ -4,15 +4,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include "settings.h"
 #include "window.h"
 #include "towers.h"
 #include "invaders.h"
 #include "surfaces.h"
 
-#define WINDOW_HEIGHT 800
-#define WINDOW_WIDTH 600
-#define FRAMERATE 30
-#define SPRITE_SIZE 40
 
 using namespace std;
 
@@ -30,8 +27,8 @@ int main()
  	window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
-			      WINDOW_HEIGHT,
-			      WINDOW_WIDTH,
+			      C_Settings::getWindowHeight(),
+			      C_Settings::getWindowWith(),
 			      SDL_WINDOW_MOUSE_FOCUS);
 
 	if (window == nullptr){
@@ -51,8 +48,8 @@ int main()
 
 //-----------------------------------------------------------------------------
 	//creating the main table
-	int const tableSizeX = WINDOW_WIDTH / SPRITE_SIZE;
-	int const tableSizeY = WINDOW_HEIGHT /SPRITE_SIZE;
+	size_t const tableSizeX = C_Settings::getWindowWith() / SPRITE_SIZE;
+	size_t const tableSizeY = C_Settings::getWindowWith() /SPRITE_SIZE;
 
 	C_GameUnits* grid_units[tableSizeX][tableSizeY];
 	//init the table

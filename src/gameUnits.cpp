@@ -3,7 +3,7 @@
 using namespace std;
 
 
-//contrusctor
+//constructor
 C_GameUnits::C_GameUnits():
 	m_name("UNIT"),
 	m_life(100),
