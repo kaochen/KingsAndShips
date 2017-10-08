@@ -28,7 +28,7 @@ int main()
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
 			      C_Settings::getWindowHeight(),
-			      C_Settings::getWindowWith(),
+			      C_Settings::getWindowWidth(),
 			      SDL_WINDOW_MOUSE_FOCUS);
 
 	if (window == nullptr){
@@ -48,8 +48,8 @@ int main()
 
 //-----------------------------------------------------------------------------
 	//creating the main table
-	size_t const tableSizeX = C_Settings::getWindowWith() / SPRITE_SIZE;
-	size_t const tableSizeY = C_Settings::getWindowWith() /SPRITE_SIZE;
+	size_t const tableSizeX = C_Settings::getTableWidth();
+	size_t const tableSizeY = C_Settings::getTableHeight();
 
 	C_GameUnits* grid_units[tableSizeX][tableSizeY];
 	//init the table

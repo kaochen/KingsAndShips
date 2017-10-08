@@ -14,10 +14,19 @@ C_Settings::~C_Settings()
 }
 
 
-int C_Settings::getWindowWith(){
+int C_Settings::getWindowWidth(){
 	return windowWidth;
 }
 
 int C_Settings::getWindowHeight(){
 	return windowHeight;
+}
+
+
+int C_Settings::getTableWidth(){
+	return windowWidth / SPRITE_SIZE;
+}
+
+int C_Settings::getTableHeight(){
+	return windowHeight / SPRITE_SIZE;
 }

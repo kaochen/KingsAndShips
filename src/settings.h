@@ -16,8 +16,11 @@ class C_Settings
 	C_Settings();
 	~C_Settings();
 
-	static int getWindowWith();
+	static int getWindowWidth();
 	static int getWindowHeight();
+
+	static int getTableWidth();
+	static int getTableHeight();
 
 	private:
 	//attibuts
