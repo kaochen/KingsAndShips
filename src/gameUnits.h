@@ -5,6 +5,7 @@
 #include <string>
 #include "surfaces.h"
 
+
 class C_GameUnits
 {
 	public:
@@ -16,6 +17,7 @@ class C_GameUnits
 
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
+	virtual void shoot(C_GameUnits &target) =0;
 	virtual void receiveDamage(int nbDamage);
 	virtual bool alive() const;
 	virtual int getRank() const;

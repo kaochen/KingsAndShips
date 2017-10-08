@@ -12,6 +12,7 @@
 #define WINDOW_HEIGHT 800
 #define WINDOW_WIDTH 600
 #define FRAMERATE 30
+#define SPRITE_SIZE 40
 
 using namespace std;
 
@@ -49,6 +50,45 @@ int main()
 	cout << "The main window has been created successfully" << endl;
 
 //-----------------------------------------------------------------------------
+	//creating the main table
+	int const tableSizeX = WINDOW_WIDTH / SPRITE_SIZE;
+	int const tableSizeY = WINDOW_HEIGHT /SPRITE_SIZE;
+
+	C_GameUnits* grid_units[tableSizeX][tableSizeY];
+	//init the table
+	for (size_t y = 0; y < tableSizeY; y++){
+		for (size_t x = 0; x < tableSizeX; x++){
+		grid_units[x][y] = nullptr;
+		}
+	}
+	grid_units[1][1] = new C_Towers(renderer,5);
+	grid_units[3][3] = new C_invaders;
+	//displayStatus of the grid
+	for (size_t y = 0; y < tableSizeY; y++){
+		for (size_t x = 0; x < tableSizeX; x++){
+			if (grid_units[x][y] != nullptr)
+				grid_units[x][y]->displayStatus();
+		}
+	}
+
+
+	grid_units[1][1]->shoot(*grid_units[3][3]);
+
+	grid_units[3][3]->displayStatus();
+
+// delete main unit table
+	for (size_t y = 0; y < tableSizeY; y++){
+		for (size_t x = 0; x < tableSizeX; x++){
+			if (grid_units[x][y] != nullptr){
+				delete grid_units[x][y];
+				grid_units[x][y] = nullptr;
+				}
+		}
+	}
+
+
+//-----------------------------------------------------------------------------
+
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
 SDL_Event event;
@@ -100,8 +140,8 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-	if (forceRefresh == true)
-		cout << "Cursor: x:"<< xCursor << " y:" << yCursor << endl;
+	//if (forceRefresh == true)
+	//	cout << "Cursor: x:"<< xCursor << " y:" << yCursor << endl;
 
 
 	// stop while loop according to the framerate setting

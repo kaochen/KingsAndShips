@@ -13,7 +13,7 @@ class C_Shooter : public C_GameUnits
 	C_Shooter(std::string name, int grade);
 	virtual ~C_Shooter();
 	virtual	void displayStatus() const;
-	virtual void shoot(C_Shooter &target);
+	virtual void shoot(C_GameUnits &target);
 	virtual	void printOnScreen(SDL_Renderer *renderer);
 	virtual SDL_Texture* getImage() const;
 	virtual SDL_Texture* updateImage(SDL_Texture *image);

@@ -22,7 +22,7 @@ C_Shooter::~C_Shooter()
 	delete m_weapon;
 }
 
-void C_Shooter::shoot(C_Shooter &target)
+void C_Shooter::shoot(C_GameUnits &target)
 {
 	target.receiveDamage(m_weapon->getDamage());
 	cout << target.getName() << " has been shot" << endl;
