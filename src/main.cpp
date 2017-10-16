@@ -137,8 +137,13 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-	//if (forceRefresh == true)
-	//	cout << "Cursor: x:"<< xCursor << " y:" << yCursor << endl;
+	if (forceRefresh == true){
+		//cout << "Cursor: x:"<< xCursor << " y:" << yCursor << endl;
+		SDL_RenderClear(renderer);
+	 	SDL_Texture* text = loadTexture("data/img/original/Tower1_01.png", renderer);
+ 		renderTexture(text, renderer, xCursor,yCursor);
+ 		SDL_RenderPresent(renderer);
+ 		}
 
 
 	// stop while loop according to the framerate setting
