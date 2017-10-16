@@ -40,12 +40,13 @@ SDL_Texture* loadTexture(const string &path, SDL_Renderer *renderer)
 
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
 {
-	SDL_Rect pos;
-	pos.x = x;
-	pos.y = y;
-
-	SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
-	SDL_RenderCopy(renderer, texture, NULL, &pos);
+	if((x >= 0 || x <= C_Settings::getWindowWidth()) && ( y >= 0  || y <= C_Settings::getWindowHeight())){
+		SDL_Rect pos;
+		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
+		pos.x = x - pos.w/2;
+		pos.y = y - pos.h/2;
+		SDL_RenderCopy(renderer, texture, NULL, &pos);
+		}
 }
 
 

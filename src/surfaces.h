@@ -7,6 +7,7 @@
 #include <string>
 
 #include "window.h"
+#include "settings.h"
 
 class C_Texture
 {

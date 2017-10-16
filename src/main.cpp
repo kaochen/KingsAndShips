@@ -27,8 +27,8 @@ int main()
  	window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
-			      C_Settings::getWindowHeight(),
 			      C_Settings::getWindowWidth(),
+			      C_Settings::getWindowHeight(),
 			      SDL_WINDOW_MOUSE_FOCUS);
 
 	if (window == nullptr){
@@ -86,6 +86,8 @@ int main()
 
 //-----------------------------------------------------------------------------
 
+SDL_Texture* text = loadTexture("data/img/original/Tower1_01.png", renderer);
+
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
 SDL_Event event;
@@ -108,16 +110,16 @@ while(!quit)
 		// get x cursor position
 			if(event.button.x < 0)
 				xCursor = 0;
-			else if(event.button.x > WINDOW_HEIGHT)
-				xCursor = WINDOW_HEIGHT;
+			else if(event.button.x > C_Settings::getWindowWidth())
+				xCursor = C_Settings::getWindowWidth();
 			else
 				xCursor = event.button.x;
 
 		// get y cursor position
 			if(event.button.y < 0)
 				yCursor = 0;
-			else if(event.button.y > WINDOW_WIDTH)
-				yCursor = WINDOW_WIDTH;
+			else if(event.button.y > C_Settings::getWindowHeight())
+				yCursor = C_Settings::getWindowHeight();
 			else
 				yCursor = event.button.y;
 			break;
@@ -138,9 +140,9 @@ while(!quit)
 	}//SDL_PollEvent(&event)
 
 	if (forceRefresh == true){
-		//cout << "Cursor: x:"<< xCursor << " y:" << yCursor << endl;
+		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << C_Settings::getWindowWidth() << endl;
+		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
 		SDL_RenderClear(renderer);
-	 	SDL_Texture* text = loadTexture("data/img/original/Tower1_01.png", renderer);
  		renderTexture(text, renderer, xCursor,yCursor);
  		SDL_RenderPresent(renderer);
  		}
