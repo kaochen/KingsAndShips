@@ -24,9 +24,9 @@ int C_Settings::getWindowHeight(){
 
 
 int C_Settings::getTableWidth(){
-	return windowWidth / SPRITE_SIZE;
+	return windowWidth / TILE_HALF_WIDTH;
 }
 
 int C_Settings::getTableHeight(){
-	return windowHeight / SPRITE_SIZE;
+	return windowHeight / TILE_HALF_HEIGHT;
 }

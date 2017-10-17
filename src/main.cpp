@@ -59,15 +59,14 @@ int main()
 		}
 	}
 
-	grid_units[0][0] = new C_Towers(renderer,5);
-	grid_units[1][0] = new C_Towers(renderer,5);
-	grid_units[1][1] = new C_Towers(renderer,5);
-	grid_units[1][2] = new C_Towers(renderer,5);
-	grid_units[0][1] = new C_Towers(renderer,5);
-	grid_units[0][1] = new C_Towers(renderer,5);
-	grid_units[0][2] = new C_Towers(renderer,5);
-	grid_units[3][4] = new C_Towers(renderer,5);
-	grid_units[3][3] = new C_invaders;
+
+	//fill table with towers for testing
+	for (size_t y = 0; y < tableSizeY; y++){
+		for (size_t x = 0; x < tableSizeX; x++){
+		grid_units[x][y] = new C_Towers(renderer,5);
+		}
+	}
+
 	//displayStatus of the grid
 	for (size_t y = 0; y < tableSizeY; y++){
 		for (size_t x = 0; x < tableSizeX; x++){
@@ -149,8 +148,8 @@ while(!quit)
 	for (size_t y = 0; y < tableSizeY; y++){
 		for (size_t x = 0; x < tableSizeX; x++){
 			if (grid_units[x][y] != nullptr){
-				int y_iso = (x + y) * SPRITE_SIZE;
-				int x_iso = WINDOW_WIDTH /2 + (y - x) * SPRITE_SIZE;
+				int y_iso = (x + y) * TILE_HALF_HEIGHT;
+				int x_iso = WINDOW_WIDTH /2 + (y - x) * TILE_HALF_WIDTH;
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
 				renderTexture(text, renderer, x_iso,y_iso);
 				}
