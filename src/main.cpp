@@ -58,7 +58,15 @@ int main()
 		grid_units[x][y] = nullptr;
 		}
 	}
+
+	grid_units[0][0] = new C_Towers(renderer,5);
+	grid_units[1][0] = new C_Towers(renderer,5);
 	grid_units[1][1] = new C_Towers(renderer,5);
+	grid_units[1][2] = new C_Towers(renderer,5);
+	grid_units[0][1] = new C_Towers(renderer,5);
+	grid_units[0][1] = new C_Towers(renderer,5);
+	grid_units[0][2] = new C_Towers(renderer,5);
+	grid_units[3][4] = new C_Towers(renderer,5);
 	grid_units[3][3] = new C_invaders;
 	//displayStatus of the grid
 	for (size_t y = 0; y < tableSizeY; y++){
@@ -73,15 +81,7 @@ int main()
 
 	grid_units[3][3]->displayStatus();
 
-// delete main unit table
-	for (size_t y = 0; y < tableSizeY; y++){
-		for (size_t x = 0; x < tableSizeX; x++){
-			if (grid_units[x][y] != nullptr){
-				delete grid_units[x][y];
-				grid_units[x][y] = nullptr;
-				}
-		}
-	}
+
 
 
 //-----------------------------------------------------------------------------
@@ -142,7 +142,23 @@ while(!quit)
 	if (forceRefresh == true){
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << C_Settings::getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
+
 		SDL_RenderClear(renderer);
+
+	//displayContent of the grid
+	for (size_t y = 0; y < tableSizeY; y++){
+		for (size_t x = 0; x < tableSizeX; x++){
+			if (grid_units[x][y] != nullptr){
+				int y_iso = (x + y) * SPRITE_SIZE;
+				int x_iso = WINDOW_WIDTH /2 + (y - x) * SPRITE_SIZE;
+				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
+				renderTexture(text, renderer, x_iso,y_iso);
+				}
+		}
+	}
+
+
+
  		renderTexture(text, renderer, xCursor,yCursor);
  		SDL_RenderPresent(renderer);
  		}
@@ -161,6 +177,16 @@ while(!quit)
 //-----------------------------------------------------------------------------
 
 	//Cleanup before leaving
+
+	// delete main unit table
+	for (size_t y = 0; y < tableSizeY; y++){
+		for (size_t x = 0; x < tableSizeX; x++){
+			if (grid_units[x][y] != nullptr){
+				delete grid_units[x][y];
+				grid_units[x][y] = nullptr;
+				}
+		}
+	}
 	//quitProgram(window, renderer);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
