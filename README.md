@@ -42,3 +42,5 @@ ninja -C build/
 ### Dev links :
 https://www.kraxel.org/blog/tag/meson-ninja/
 http://www.willusher.io/pages/sdl2/
+http://clintbellanger.net/articles/isometric_math/
+http://flarerpg.org/tutorials/isometric_tiles/
