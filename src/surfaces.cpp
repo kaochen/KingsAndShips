@@ -73,6 +73,7 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	C_Texture::map_textures = C_Texture::getTextMap();
 	map_textures["Tower1_01.png"] = loadTexture("data/img/original/Tower1_01.png", renderer);
 	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
+	map_textures["Tile_Highlight_Grenn.png"] = loadTexture("data/img/original/Tile_Highlight_Grenn.png", renderer);
 
 }
 

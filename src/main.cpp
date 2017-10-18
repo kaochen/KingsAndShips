@@ -79,6 +79,7 @@ C_Texture::loadTexturesIntoMap(renderer);
 
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
+int xClicLeft = 0, yClicLeft = 0, xClicTable = 0, yClicTable = 0;
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
@@ -112,6 +113,14 @@ while(!quit)
 			else
 				yCursor = event.button.y;
 			break;
+		case SDL_MOUSEBUTTONUP:
+			if (event.button.button ==  SDL_BUTTON_LEFT)
+				{
+					xClicLeft = event.button.x;
+					yClicLeft = event.button.y;
+					cout << "x:" << xClicLeft << " y:" << yClicLeft << endl;
+				}
+
 		case SDL_KEYDOWN:
 
 			//listen keyboard
@@ -133,9 +142,15 @@ while(!quit)
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
 
 		SDL_RenderClear(renderer);
+		//display game content
 		displayGridContent(renderer, grid_units);
-
- 		renderTexture(C_Texture::getText("Tower1_01.png"), renderer, xCursor,yCursor);
+		//display menu
+ 		renderTexture(C_Texture::getText("Tower1_01.png"), renderer, 30,200);
+		//show cursor :
+		if (xClicLeft > 0 && xClicLeft < 80 && yClicLeft > 100 && yClicLeft < 300){
+ 			renderTexture(C_Texture::getText("Tile_Highlight_Grenn.png"), renderer, xCursor,yCursor);
+ 			renderTexture(C_Texture::getText("Tower1_01.png"), renderer, xCursor,yCursor - 30);
+ 		}
  		SDL_RenderPresent(renderer);
  		}
 
