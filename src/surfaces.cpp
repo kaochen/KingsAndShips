@@ -75,3 +75,23 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
 
 }
+
+//displayContent of the grid
+void displayGridContent(SDL_Renderer *renderer,
+			C_GameUnits* grid_units[][TABLE_SIZE]){
+	size_t const gridSize = C_Settings::getGridSize();
+	for (size_t y = 0; y < gridSize; y++){
+		for (size_t x = 0; x < gridSize; x++){
+			int y_iso = (x + y) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+			int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
+			if (grid_units[x][y] != nullptr){
+				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
+				renderTexture(C_Texture::getText("Tower1_01.png"), renderer, x_iso,y_iso);
+				}
+			else{
+				renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);
+
+			}
+		}
+	}
+}

@@ -9,6 +9,7 @@
 
 #include "window.h"
 #include "settings.h"
+#include "gameUnits.h"
 
 class C_Texture
 {
@@ -32,5 +33,6 @@ private:
 SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y);
 
-
+void displayGridContent(SDL_Renderer *renderer,
+			C_GameUnits* grid_units[][TABLE_SIZE]);
 #endif

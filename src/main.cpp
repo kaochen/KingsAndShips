@@ -8,6 +8,7 @@
 #include "window.h"
 #include "towers.h"
 #include "invaders.h"
+#include "gameUnits.h"
 #include "surfaces.h"
 
 
@@ -50,7 +51,8 @@ int main()
 	//creating the main table to store C_GameUnits position
 	size_t const gridSize = C_Settings::getGridSize();
 
-	C_GameUnits* grid_units[gridSize][gridSize];
+	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE];
+
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
@@ -131,23 +133,7 @@ while(!quit)
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
 
 		SDL_RenderClear(renderer);
-
-	//displayContent of the grid
-	for (size_t y = 0; y < gridSize; y++){
-		for (size_t x = 0; x < gridSize; x++){
-			int y_iso = (x + y) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
-			int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
-			if (grid_units[x][y] != nullptr){
-				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
-				renderTexture(C_Texture::getText("Tower1_01.png"), renderer, x_iso,y_iso);
-				}
-			else{
-				renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);
-
-			}
-		}
-	}
-
+		displayGridContent(renderer, grid_units);
 
  		renderTexture(C_Texture::getText("Tower1_01.png"), renderer, xCursor,yCursor);
  		SDL_RenderPresent(renderer);

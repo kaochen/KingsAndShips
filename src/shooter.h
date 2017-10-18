@@ -5,6 +5,7 @@
 #include <string>
 #include "gameUnits.h"
 #include "weapons.h"
+#include "surfaces.h"
 
 class C_Shooter : public C_GameUnits
 {
