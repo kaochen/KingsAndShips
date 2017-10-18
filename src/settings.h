@@ -4,10 +4,9 @@
 #include <iostream>
 #include <string>
 
-#define WINDOW_HEIGHT 600
-#define WINDOW_WIDTH 800
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 #define FRAMERATE 30
-#define SPRITE_SIZE 32
 #define TILE_HALF_HEIGHT 25
 #define TILE_HALF_WIDTH 50
 
