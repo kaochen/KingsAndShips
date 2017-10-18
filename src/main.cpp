@@ -47,29 +47,28 @@ int main()
 	cout << "The main window has been created successfully" << endl;
 
 //-----------------------------------------------------------------------------
-	//creating the main table
-	size_t const tableSizeX = C_Settings::getTableWidth();
-	size_t const tableSizeY = C_Settings::getTableHeight();
+	//creating the main table to store C_GameUnits position
+	size_t const gridSize = C_Settings::getGridSize();
 
-	C_GameUnits* grid_units[tableSizeX][tableSizeY];
+	C_GameUnits* grid_units[gridSize][gridSize];
 	//init the table
-	for (size_t y = 0; y < tableSizeY; y++){
-		for (size_t x = 0; x < tableSizeX; x++){
+	for (size_t y = 0; y < gridSize; y++){
+		for (size_t x = 0; x < gridSize; x++){
 		grid_units[x][y] = nullptr;
 		}
 	}
 
 
 	//fill table with towers for testing
-	for (size_t y = 0; y < tableSizeY; y++){
-		for (size_t x = 0; x < tableSizeX; x++){
+	for (size_t y = 0; y < gridSize; y++){
+		for (size_t x = 0; x < gridSize; x++){
 		grid_units[x][y] = new C_Towers(renderer,5);
 		}
 	}
 
 	//displayStatus of the grid
-	for (size_t y = 0; y < tableSizeY; y++){
-		for (size_t x = 0; x < tableSizeX; x++){
+	for (size_t y = 0; y < gridSize; y++){
+		for (size_t x = 0; x < gridSize; x++){
 			if (grid_units[x][y] != nullptr)
 				grid_units[x][y]->displayStatus();
 		}
@@ -145,11 +144,11 @@ while(!quit)
 		SDL_RenderClear(renderer);
 
 	//displayContent of the grid
-	for (size_t y = 0; y < tableSizeY; y++){
-		for (size_t x = 0; x < tableSizeX; x++){
+	for (size_t y = 0; y < gridSize; y++){
+		for (size_t x = 0; x < gridSize; x++){
 			if (grid_units[x][y] != nullptr){
-				int y_iso = (x + y) * TILE_HALF_HEIGHT;
-				int x_iso = WINDOW_WIDTH /2 + (y - x) * TILE_HALF_WIDTH;
+				int y_iso = (x + y) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+				int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
 				renderTexture(text, renderer, x_iso,y_iso);
 				}
@@ -178,8 +177,8 @@ while(!quit)
 	//Cleanup before leaving
 
 	// delete main unit table
-	for (size_t y = 0; y < tableSizeY; y++){
-		for (size_t x = 0; x < tableSizeX; x++){
+	for (size_t y = 0; y < gridSize; y++){
+		for (size_t x = 0; x < gridSize; x++){
 			if (grid_units[x][y] != nullptr){
 				delete grid_units[x][y];
 				grid_units[x][y] = nullptr;
