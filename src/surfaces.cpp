@@ -2,6 +2,10 @@
 
 using namespace std;
 
+
+map<string, SDL_Texture*> C_Texture::map_textures;
+
+
 C_Texture::C_Texture():
 	m_name("texture"),
 	m_seqNbr(1)
@@ -49,5 +53,25 @@ void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
 		}
 }
 
+map<string, SDL_Texture*>  C_Texture::getTextMap(){
+	return map_textures;
+}
 
+SDL_Texture* C_Texture::getText(string name){
+	map<string, SDL_Texture*> t = C_Texture::getTextMap();
+	map<string, SDL_Texture*>::iterator search = t.find(name);
+	if(search == t.end()){
+		cout << name << " not available in the texture map" << endl;
+		return nullptr;
+	}
+	else{
+		return t[name];
+	}
+}
 
+void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
+	C_Texture::map_textures = C_Texture::getTextMap();
+	map_textures["Tower1_01.png"] = loadTexture("data/img/original/Tower1_01.png", renderer);
+	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
+
+}

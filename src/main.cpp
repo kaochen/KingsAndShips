@@ -59,12 +59,8 @@ int main()
 	}
 
 
-	//fill table with towers for testing
-	for (size_t y = 0; y < gridSize; y++){
-		for (size_t x = 0; x < gridSize; x++){
-		grid_units[x][y] = new C_Towers(renderer,5);
-		}
-	}
+	//fill table with tiles for testing
+	grid_units[15][15] = new C_Towers(renderer,5);
 
 	//displayStatus of the grid
 	for (size_t y = 0; y < gridSize; y++){
@@ -75,16 +71,9 @@ int main()
 	}
 
 
-	grid_units[1][1]->shoot(*grid_units[3][3]);
-
-	grid_units[3][3]->displayStatus();
-
-
-
 
 //-----------------------------------------------------------------------------
-
-SDL_Texture* text = loadTexture("data/img/original/Tower1_01.png", renderer);
+C_Texture::loadTexturesIntoMap(renderer);
 
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
@@ -146,18 +135,21 @@ while(!quit)
 	//displayContent of the grid
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
+			int y_iso = (x + y) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+			int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
 			if (grid_units[x][y] != nullptr){
-				int y_iso = (x + y) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
-				int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
-				renderTexture(text, renderer, x_iso,y_iso);
+				renderTexture(C_Texture::getText("Tower1_01.png"), renderer, x_iso,y_iso);
 				}
+			else{
+				renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);
+
+			}
 		}
 	}
 
 
-
- 		renderTexture(text, renderer, xCursor,yCursor);
+ 		renderTexture(C_Texture::getText("Tower1_01.png"), renderer, xCursor,yCursor);
  		SDL_RenderPresent(renderer);
  		}
 

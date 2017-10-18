@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <map>
 
 #include "window.h"
 #include "settings.h"
@@ -16,11 +17,16 @@ public:
 	C_Texture(std::string name, int seqNbr);
 	~C_Texture();
 
+	static std::map<std::string, SDL_Texture*>  getTextMap();
+	static SDL_Texture* getText(std::string name);
+
+	static void loadTexturesIntoMap(SDL_Renderer *renderer);
 protected:
 	std::string m_name;
 	int m_seqNbr;
+private:
+	static std::map<std::string,SDL_Texture*> map_textures;
 };
-
 
 
 SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
