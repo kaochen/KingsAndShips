@@ -124,8 +124,8 @@ while(!quit)
 					yClicTable = 1 + (xClicLeft / TILE_HALF_WIDTH + yClicLeft / TILE_HALF_HEIGHT) /2;
 					xClicTable = 13 + (yClicLeft / TILE_HALF_HEIGHT - xClicLeft / TILE_HALF_WIDTH) /2;
 					cout << "x:" << xClicTable << " y:" << yClicTable << endl;
-					if(towerSelected){
-						grid_units[xClicTable][yClicTable] = new C_Towers(renderer,5);
+					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
+						grid_units[xClicTable][yClicTable] = new C_Towers(renderer,1);
 						towerSelected = false;
 						}
 				}
