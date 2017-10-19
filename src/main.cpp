@@ -80,6 +80,7 @@ C_Texture::loadTexturesIntoMap(renderer);
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
 int xClicLeft = 0, yClicLeft = 0, xClicTable = 0, yClicTable = 0;
+bool towerSelected = false;
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
@@ -119,6 +120,14 @@ while(!quit)
 					xClicLeft = event.button.x;
 					yClicLeft = event.button.y;
 					cout << "x:" << xClicLeft << " y:" << yClicLeft << endl;
+					//find the match point into the grid
+					yClicTable = 1 + (xClicLeft / TILE_HALF_WIDTH + yClicLeft / TILE_HALF_HEIGHT) /2;
+					xClicTable = 13 + (yClicLeft / TILE_HALF_HEIGHT - xClicLeft / TILE_HALF_WIDTH) /2;
+					cout << "x:" << xClicTable << " y:" << yClicTable << endl;
+					if(towerSelected){
+						grid_units[xClicTable][yClicTable] = new C_Towers(renderer,5);
+						towerSelected = false;
+						}
 				}
 
 		case SDL_KEYDOWN:
@@ -150,6 +159,7 @@ while(!quit)
 		if (xClicLeft > 0 && xClicLeft < 80 && yClicLeft > 100 && yClicLeft < 300){
  			renderTexture(C_Texture::getText("Tile_Highlight_Grenn.png"), renderer, xCursor,yCursor);
  			renderTexture(C_Texture::getText("Tower1_01.png"), renderer, xCursor,yCursor - 30);
+ 			towerSelected = true;
  		}
  		SDL_RenderPresent(renderer);
  		}
