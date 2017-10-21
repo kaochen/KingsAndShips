@@ -62,7 +62,8 @@ int main()
 
 
 	//fill table with tiles for testing
-	grid_units[15][15] = new C_Towers(renderer,5);
+	grid_units[10][10] = new C_Towers(renderer,0);
+	grid_units[15][15] = new C_Towers(renderer,1);
 
 	//displayStatus of the grid
 	for (size_t y = 0; y < gridSize; y++){

@@ -71,6 +71,7 @@ SDL_Texture* C_Texture::getText(string name){
 
 void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	C_Texture::map_textures = C_Texture::getTextMap();
+	map_textures["Tower0_01.png"] = loadTexture("data/img/original/Tower0_01.png", renderer);
 	map_textures["Tower1_01.png"] = loadTexture("data/img/original/Tower1_01.png", renderer);
 	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
 	map_textures["Tile_Highlight_Grenn.png"] = loadTexture("data/img/original/Tile_Highlight_Grenn.png", renderer);
@@ -87,7 +88,15 @@ void displayGridContent(SDL_Renderer *renderer,
 			int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
 			if (grid_units[x][y] != nullptr){
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
-				renderTexture(C_Texture::getText("Tower1_01.png"), renderer, x_iso,y_iso);
+				switch(grid_units[x][y]->getRank()){
+					case 0:
+						renderTexture(C_Texture::getText("Tower0_01.png"), renderer, x_iso,y_iso);
+					break;
+					case 1:
+						renderTexture(C_Texture::getText("Tower1_01.png"), renderer, x_iso,y_iso);
+					break;
+					}
+
 				}
 			else{
 				renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);
