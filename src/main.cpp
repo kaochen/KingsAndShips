@@ -122,8 +122,11 @@ while(!quit)
 					yClicLeft = event.button.y;
 					cout << "x:" << xClicLeft << " y:" << yClicLeft << endl;
 					//find the match point into the grid
-					yClicTable = 1 + (xClicLeft / TILE_HALF_WIDTH + yClicLeft / TILE_HALF_HEIGHT) /2;
-					xClicTable = 13 + (yClicLeft / TILE_HALF_HEIGHT - xClicLeft / TILE_HALF_WIDTH) /2;
+					int xOffset = (C_Settings::getWindowWidth() /2);
+					int yOffset = (C_Settings::getWindowHeight() /2);
+					//cout << "x:" << xClicLeft << " y:" << yClicLeft << "with offset\n";
+					yClicTable = ( ((yClicLeft + yOffset )/TILE_HALF_HEIGHT - (xClicLeft - xOffset) / TILE_HALF_WIDTH )/2);
+					xClicTable = ( ((xClicLeft - xOffset ) / TILE_HALF_WIDTH + (yClicLeft + yOffset)/TILE_HALF_HEIGHT )/2);
 					cout << "x:" << xClicTable << " y:" << yClicTable << endl;
 					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
 						grid_units[xClicTable][yClicTable] = new C_Towers(renderer,1);

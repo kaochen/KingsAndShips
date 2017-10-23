@@ -84,8 +84,8 @@ void displayGridContent(SDL_Renderer *renderer,
 	size_t const gridSize = C_Settings::getGridSize();
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
-			int y_iso = (x + y) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
-			int x_iso = C_Settings::getWindowWidth() /2 + (y - x) * TILE_HALF_WIDTH;
+			int x_iso = C_Settings::getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
+			int y_iso = (y + x) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2  ;
 			if (grid_units[x][y] != nullptr){
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
 				switch(grid_units[x][y]->getRank()){
