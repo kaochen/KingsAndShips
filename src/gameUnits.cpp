@@ -52,8 +52,9 @@ void C_GameUnits::displayStatus() const
 void C_GameUnits::render(int x_iso, int y_iso, SDL_Renderer *renderer){
 	string name = getName();
 	int rank = getRank();
-	string fileName = name + "_0" + to_string(rank) + "_01.png" ;
+	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
 	//cout << "image name is "<< fileName << endl;
+	renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_iso,y_iso);
 	renderTexture(C_Texture::getText(fileName), renderer, x_iso,y_iso);
 }
 

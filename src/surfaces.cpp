@@ -71,12 +71,12 @@ SDL_Texture* C_Texture::getText(string name){
 
 void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	C_Texture::map_textures = C_Texture::getTextMap();
-	map_textures["Tower_00_01.png"] = loadTexture("data/img/original/Tower_00_01.png", renderer);
-	map_textures["Tower_01_01.png"] = loadTexture("data/img/original/Tower_01_01.png", renderer);
+	map_textures["Tower_00_00.png"] = loadTexture("data/img/original/Tower_00_00.png", renderer);
+	map_textures["Tower_01_00.png"] = loadTexture("data/img/original/Tower_01_00.png", renderer);
 	map_textures["boat_01_00.png"] = loadTexture("data/img/original/boat_01_00.png", renderer);
 	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
 	map_textures["SimpleWaterTile.png"] = loadTexture("data/img/original/SimpleWaterTile.png", renderer);
-	map_textures["Tile_Highlight_Grenn.png"] = loadTexture("data/img/original/Tile_Highlight_Grenn.png", renderer);
+	map_textures["Tile_Highlight_Green.png"] = loadTexture("data/img/original/Tile_Highlight_Green.png", renderer);
 
 }
 
