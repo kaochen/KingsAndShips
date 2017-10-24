@@ -71,9 +71,11 @@ SDL_Texture* C_Texture::getText(string name){
 
 void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	C_Texture::map_textures = C_Texture::getTextMap();
-	map_textures["Tower0_01.png"] = loadTexture("data/img/original/Tower0_01.png", renderer);
-	map_textures["Tower1_01.png"] = loadTexture("data/img/original/Tower1_01.png", renderer);
+	map_textures["Tower_00_01.png"] = loadTexture("data/img/original/Tower_00_01.png", renderer);
+	map_textures["Tower_01_01.png"] = loadTexture("data/img/original/Tower_01_01.png", renderer);
+	map_textures["boat_01_00.png"] = loadTexture("data/img/original/boat_01_00.png", renderer);
 	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
+	map_textures["SimpleWaterTile.png"] = loadTexture("data/img/original/SimpleWaterTile.png", renderer);
 	map_textures["Tile_Highlight_Grenn.png"] = loadTexture("data/img/original/Tile_Highlight_Grenn.png", renderer);
 
 }
@@ -87,16 +89,8 @@ void displayGridContent(SDL_Renderer *renderer,
 			int x_iso = C_Settings::getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
 			int y_iso = (y + x) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2  ;
 			if (grid_units[x][y] != nullptr){
+				grid_units[x][y]->render(x_iso, y_iso, renderer);
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
-				switch(grid_units[x][y]->getRank()){
-					case 0:
-						renderTexture(C_Texture::getText("Tower0_01.png"), renderer, x_iso,y_iso);
-					break;
-					case 1:
-						renderTexture(C_Texture::getText("Tower1_01.png"), renderer, x_iso,y_iso);
-					break;
-					}
-
 				}
 			else{
 				renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);

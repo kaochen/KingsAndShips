@@ -2,8 +2,10 @@
 #define GAMEUNITS_H
 
 #include <iostream>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <string>
-//#include "surfaces.h"
+
 
 
 class C_GameUnits
@@ -17,6 +19,9 @@ class C_GameUnits
 
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
+	virtual void render(int           x_iso,
+	                   int           y_iso,
+	                   SDL_Renderer *renderer);
 	virtual void shoot(C_GameUnits &target) =0;
 	virtual void receiveDamage(int nbDamage);
 	virtual bool alive() const;

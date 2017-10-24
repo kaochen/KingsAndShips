@@ -129,7 +129,7 @@ while(!quit)
 					xClicTable = ( ((xClicLeft - xOffset ) / TILE_HALF_WIDTH + (yClicLeft + yOffset)/TILE_HALF_HEIGHT )/2);
 					cout << "x:" << xClicTable << " y:" << yClicTable << endl;
 					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
-						grid_units[xClicTable][yClicTable] = new C_Towers(renderer,1);
+						grid_units[xClicTable][yClicTable] = new C_Towers(renderer,0);
 						towerSelected = false;
 						}
 				}
@@ -158,11 +158,11 @@ while(!quit)
 		//display game content
 		displayGridContent(renderer, grid_units);
 		//display menu
- 		renderTexture(C_Texture::getText("Tower1_01.png"), renderer, 30,200);
+ 		renderTexture(C_Texture::getText("Tower_00_01.png"), renderer, 30,200);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 80 && yClicLeft > 100 && yClicLeft < 300){
  			renderTexture(C_Texture::getText("Tile_Highlight_Grenn.png"), renderer, xCursor,yCursor);
- 			renderTexture(C_Texture::getText("Tower1_01.png"), renderer, xCursor,yCursor - 30);
+ 			renderTexture(C_Texture::getText("Tower_00_01.png"), renderer, xCursor,yCursor - 30);
  			towerSelected = true;
  		}
  		SDL_RenderPresent(renderer);

@@ -1,4 +1,5 @@
 #include "gameUnits.h"
+#include "surfaces.h"
 
 using namespace std;
 
@@ -48,6 +49,13 @@ void C_GameUnits::displayStatus() const
  	cout << "Name: " << m_name << " Life: " << m_life  << " Rank : " << m_rank<< endl;
 }
 
+void C_GameUnits::render(int x_iso, int y_iso, SDL_Renderer *renderer){
+	string name = getName();
+	int rank = getRank();
+	string fileName = name + "_0" + to_string(rank) + "_01.png" ;
+	//cout << "image name is "<< fileName << endl;
+	renderTexture(C_Texture::getText(fileName), renderer, x_iso,y_iso);
+}
 
 void C_GameUnits::receiveDamage(int nbDamage)
 {
