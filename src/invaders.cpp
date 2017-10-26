@@ -12,5 +12,10 @@ C_invaders::C_invaders(int rank):C_Shooter("boat", rank)
 }
 
 
+void C_invaders::displayStatus() const
+{
+	C_Shooter::displayStatus();
+ 	cout << "\tx:"<< m_x << " y:"<< m_y << endl;
+}
 
 

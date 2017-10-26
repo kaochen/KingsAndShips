@@ -27,6 +27,10 @@ class C_GameUnits
 	virtual bool alive() const;
 	virtual int getRank() const;
 
+	virtual int getX() const;
+	virtual int getY() const;
+	virtual void setXY(int x, int y);
+
 	protected:
 	//attibuts
 	std::string m_name;

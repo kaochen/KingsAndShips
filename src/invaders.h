@@ -11,6 +11,7 @@ class C_invaders: public C_Shooter
 	//methods
 	C_invaders();
 	C_invaders(int rank);
+	virtual	void displayStatus() const;
 
 	protected:
 	//attibuts

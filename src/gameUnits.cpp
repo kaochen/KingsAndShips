@@ -77,3 +77,20 @@ int C_GameUnits::getRank() const
 {
 	return m_rank;
 }
+
+int C_GameUnits::getX() const
+{
+	return m_x;
+}
+
+int C_GameUnits::getY() const
+{
+	return m_y;
+}
+
+void C_GameUnits::setXY(int x, int y){
+	m_x = x;
+	m_y = y;
+}
+
+
