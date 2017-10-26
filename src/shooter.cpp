@@ -2,18 +2,12 @@
 
 using namespace std;
 
-C_Shooter::C_Shooter():C_GameUnits("SHOOTER",0,0,1)
-{
-	m_weapon = new C_Weapon();
-}
 
-
-C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
-	C_GameUnits(name, x_grid, y_grid, rank)
+C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE]):
+	C_GameUnits(name, x_grid, y_grid, rank, grid_units)
 {
 	m_weapon = new C_Weapon;
 }
-
 
 C_Shooter::~C_Shooter()
 {

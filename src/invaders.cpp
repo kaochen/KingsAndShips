@@ -2,12 +2,11 @@
 
 using namespace std;
 
-C_invaders::C_invaders():C_Shooter("boat", 0, 0,1)
-{
-}
 
-
-C_invaders::C_invaders(int x_grid, int y_grid,int rank):C_Shooter("boat", x_grid, y_grid ,rank)
+C_invaders::C_invaders(int x_grid,
+			 int y_grid,
+			 int rank,
+			 C_GameUnits* grid_units[][TABLE_SIZE]):C_Shooter("boat", x_grid, y_grid ,rank, grid_units)
 {
 }
 

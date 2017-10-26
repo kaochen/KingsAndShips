@@ -15,7 +15,7 @@ C_GameUnits::C_GameUnits():
 	cout << "Add new default unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
 }
 
-C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
+C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE]):
 	m_name(name),
 	m_life(100),
 	m_rank(rank),
@@ -24,6 +24,7 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 {
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
+ 	grid_units[x_grid][y_grid] = this;
 }
 
 //delete

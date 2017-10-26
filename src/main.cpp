@@ -62,9 +62,9 @@ int main()
 
 
 	//fill table with tiles for testing
-	grid_units[10][10] = new C_Towers(10,10,0);
-	grid_units[15][15] = new C_Towers(15,15,1);
-	grid_units[7][14] = new C_invaders(7,14,1);
+	new C_Towers(10,10,0, grid_units);
+	new C_Towers(15,15,1, grid_units);
+	new C_invaders(7,14,1, grid_units);
 	grid_units[7][14]->move(NORTH,grid_units);
 
 	//displayStatus of the grid
@@ -131,7 +131,7 @@ while(!quit)
 					xClicTable = ( ((xClicLeft - xOffset ) / TILE_HALF_WIDTH + (yClicLeft + yOffset)/TILE_HALF_HEIGHT )/2);
 					cout << "x:" << xClicTable << " y:" << yClicTable << endl;
 					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
-						grid_units[xClicTable][yClicTable] = new C_Towers(xClicTable, yClicTable,0);
+						new C_Towers(xClicTable, yClicTable,0, grid_units);
 						towerSelected = false;
 						}
 				}

@@ -10,8 +10,7 @@
 class C_Shooter : public C_GameUnits
 {
 	public:
-	C_Shooter();
-	C_Shooter(std::string name, int x_grid, int y_grid, int rank);
+	C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE]);
 	virtual ~C_Shooter();
 	virtual	void displayStatus() const;
 	virtual void shoot(C_GameUnits &target);
