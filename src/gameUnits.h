@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include "settings.h"
 
 
 
@@ -30,7 +31,10 @@ class C_GameUnits
 	virtual int getX() const;
 	virtual int getY() const;
 	virtual void setXY(int x, int y);
-
+	virtual void move(int x_grid,
+		      int y_grid,
+		      int direction,
+		      C_GameUnits* grid_units[][TABLE_SIZE]) = 0;
 	protected:
 	//attibuts
 	std::string m_name;

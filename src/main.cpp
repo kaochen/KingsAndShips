@@ -65,6 +65,7 @@ int main()
 	grid_units[10][10] = new C_Towers(0);
 	grid_units[15][15] = new C_Towers(1);
 	grid_units[7][14] = new C_invaders(1);
+	grid_units[7][14]->move(7,14,NORTH,grid_units);
 
 	//displayStatus of the grid
 	for (size_t y = 0; y < gridSize; y++){

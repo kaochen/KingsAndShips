@@ -47,3 +47,8 @@ SDL_Texture* C_Shooter::updateImage(SDL_Texture *image)
 {
 	return m_image;
 }
+
+void C_Shooter::move(int x_grid, int y_grid, int direction,
+			C_GameUnits* grid_units[][TABLE_SIZE])
+{
+}

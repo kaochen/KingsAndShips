@@ -18,6 +18,10 @@ class C_Shooter : public C_GameUnits
 	virtual	void printOnScreen(SDL_Renderer *renderer);
 	virtual SDL_Texture* getImage() const;
 	virtual SDL_Texture* updateImage(SDL_Texture *image);
+	virtual void move(int x_grid,
+		      int y_grid,
+		      int direction,
+		      C_GameUnits* grid_units[][TABLE_SIZE]);
 
 	protected:
 	C_Weapon *m_weapon;

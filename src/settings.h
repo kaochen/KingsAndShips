@@ -12,6 +12,8 @@
 #define TILE_HALF_WIDTH 50
 #define TABLE_SIZE 30
 
+enum Direction {NORTH,SOUTH,EAST,WEST};
+
 class C_Settings
 {
 	public:
