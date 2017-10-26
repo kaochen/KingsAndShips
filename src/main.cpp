@@ -65,7 +65,7 @@ int main()
 	new C_Towers(10,10,0, grid_units);
 	new C_Towers(15,15,1, grid_units);
 	new C_invaders(7,14,1, grid_units);
-	grid_units[7][14]->move(NORTH,grid_units);
+	new C_invaders(7,15,1, grid_units);
 
 	//displayStatus of the grid
 	for (size_t y = 0; y < gridSize; y++){
@@ -83,11 +83,13 @@ C_Texture::loadTexturesIntoMap(renderer);
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
 int xClicLeft = 0, yClicLeft = 0, xClicTable = 0, yClicTable = 0;
+int frameNumber = 0;
 bool towerSelected = false;
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
+	cout << "Frame Number :" << frameNumber << endl;
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
@@ -152,6 +154,29 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
+	if (frameNumber == FRAMERATE){
+		vector<C_GameUnits*> temp;
+		for (size_t y = 0; y < gridSize; y++){
+			for (size_t x = 0; x < gridSize; x++){
+				if (grid_units[x][y] != nullptr){
+					if (grid_units[x][y]->getName() == "boat"){
+						temp.push_back(grid_units[x][y]);
+						cout << "found" << x << ":" << y << endl;
+
+						}
+				}
+			}
+		}
+		for (size_t i = 0; i < temp.size(); i++){
+			temp[i]->move(EAST, grid_units);
+			cout << "move" << endl;
+			forceRefresh = true;
+		}
+
+	}
+
+
+
 	if (forceRefresh == true){
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << C_Settings::getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
@@ -177,6 +202,10 @@ while(!quit)
 			SDL_Delay((1000/ FRAMERATE) - (currentTime - previousTime));
 		else
 			previousTime = currentTime;
+
+		frameNumber++;
+		if (frameNumber > FRAMERATE)
+			frameNumber = 0;
 
 
 }//end of while(!quit)
