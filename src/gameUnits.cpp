@@ -15,14 +15,15 @@ C_GameUnits::C_GameUnits():
 	cout << "Add new default unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
 }
 
-C_GameUnits::C_GameUnits(string name, int rank):
+C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_life(100),
 	m_rank(rank),
-	m_x_grid(0),
-	m_y_grid(0)
+	m_x_grid(x_grid),
+	m_y_grid(y_grid)
 {
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
+ 	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
 }
 
 //delete
@@ -47,6 +48,7 @@ string C_GameUnits::getName() const
 void C_GameUnits::displayStatus() const
 {
  	cout << "Name: " << m_name << " Life: " << m_life  << " Rank : " << m_rank<< endl;
+ 	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
 }
 
 void C_GameUnits::render(int x_iso, int y_iso, SDL_Renderer *renderer){

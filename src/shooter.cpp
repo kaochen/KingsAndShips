@@ -2,17 +2,15 @@
 
 using namespace std;
 
-C_Shooter::C_Shooter():C_GameUnits("SHOOTER",1)
+C_Shooter::C_Shooter():C_GameUnits("SHOOTER",0,0,1)
 {
 	m_weapon = new C_Weapon();
 }
 
 
 C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
-	C_GameUnits(name, rank)
+	C_GameUnits(name, x_grid, y_grid, rank)
 {
-	m_x_grid = x_grid;
-	m_y_grid = y_grid;
 	m_weapon = new C_Weapon;
 }
 

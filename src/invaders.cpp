@@ -16,12 +16,6 @@ C_invaders::~C_invaders()
 }
 
 
-void C_invaders::displayStatus() const
-{
-	C_Shooter::displayStatus();
- 	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
-}
-
 void C_invaders::move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE])
 {
