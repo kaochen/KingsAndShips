@@ -5,15 +5,6 @@ using namespace std;
 
 
 //constructor
-C_GameUnits::C_GameUnits():
-	m_name("UNIT"),
-	m_life(100),
-	m_rank(1),
-	m_x_grid(0),
-	m_y_grid(0)
-{
-	cout << "Add new default unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
-}
 
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE]):
 	m_name(name),
@@ -23,7 +14,7 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUn
 	m_y_grid(y_grid)
 {
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
- 	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
+ 	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid << endl;
  	grid_units[x_grid][y_grid] = this;
 }
 
@@ -49,7 +40,7 @@ string C_GameUnits::getName() const
 void C_GameUnits::displayStatus() const
 {
  	cout << "Name: " << m_name << " Life: " << m_life  << " Rank : " << m_rank<< endl;
- 	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
+ 	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid << endl;
 }
 
 void C_GameUnits::render(int x_iso, int y_iso, SDL_Renderer *renderer){

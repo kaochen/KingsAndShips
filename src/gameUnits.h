@@ -13,7 +13,6 @@ class C_GameUnits
 {
 	public:
 	//methods
-	C_GameUnits();
 	C_GameUnits(std::string name,
 		     int x_grid,
 		     int y_grid,
