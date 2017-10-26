@@ -89,7 +89,10 @@ SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
-	cout << "Frame Number :" << frameNumber << endl;
+	if(frameNumber == FRAMERATE){
+		cout << "One second more"<< endl;
+		}
+
 	while (SDL_PollEvent(&event))
 	{
 		switch (event.type)
@@ -154,7 +157,7 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-	if (frameNumber == FRAMERATE){
+	if (frameNumber == FRAMERATE/FRAMERATE){
 		vector<C_GameUnits*> temp;
 		for (size_t y = 0; y < gridSize; y++){
 			for (size_t x = 0; x < gridSize; x++){

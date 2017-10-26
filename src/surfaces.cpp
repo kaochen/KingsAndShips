@@ -93,7 +93,7 @@ void displayGridContent(SDL_Renderer *renderer,
 				//cout << "x:"<< x_iso << " y:" << y_iso << endl;
 				}
 			else{
-				renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);
+				//renderTexture(C_Texture::getText("SimpleTile.png"), renderer, x_iso,y_iso);
 
 			}
 		}
