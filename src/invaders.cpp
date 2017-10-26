@@ -2,12 +2,12 @@
 
 using namespace std;
 
-C_invaders::C_invaders():C_Shooter("boat",1)
+C_invaders::C_invaders():C_Shooter("boat", 0, 0,1)
 {
 }
 
 
-C_invaders::C_invaders(int rank):C_Shooter("boat", rank)
+C_invaders::C_invaders(int x_grid, int y_grid,int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 }
 
@@ -19,16 +19,14 @@ C_invaders::~C_invaders()
 void C_invaders::displayStatus() const
 {
 	C_Shooter::displayStatus();
- 	cout << "\tx:"<< m_x << " y:"<< m_y << endl;
+ 	cout << "\tx:"<< m_x_grid << " y:"<< m_y_grid << endl;
 }
 
-void C_invaders::move(int x_grid,
-		      int y_grid,
-		      int direction,
+void C_invaders::move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE])
 {
-	int newX_grid = x_grid;
-	int newY_grid = y_grid;
+	int newX_grid = m_x_grid;
+	int newY_grid = m_y_grid;
 	switch (direction){
 	case NORTH:
 		newY_grid--;
@@ -43,7 +41,10 @@ void C_invaders::move(int x_grid,
 		newY_grid--;
 	break;
 	}
-	grid_units[newX_grid][newY_grid] = grid_units[x_grid][y_grid];
-	grid_units[x_grid][y_grid] = nullptr;
+	grid_units[newX_grid][newY_grid] = grid_units[m_x_grid][m_y_grid];
+	// update status
+	grid_units[m_x_grid][m_y_grid] = nullptr;
+	m_x_grid = newX_grid;
+	m_y_grid = newY_grid;
 }
 

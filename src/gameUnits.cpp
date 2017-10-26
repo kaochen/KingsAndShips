@@ -9,8 +9,8 @@ C_GameUnits::C_GameUnits():
 	m_name("UNIT"),
 	m_life(100),
 	m_rank(1),
-	m_x(0),
-	m_y(0)
+	m_x_grid(0),
+	m_y_grid(0)
 {
 	cout << "Add new default unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
 }
@@ -19,8 +19,8 @@ C_GameUnits::C_GameUnits(string name, int rank):
 	m_name(name),
 	m_life(100),
 	m_rank(rank),
-	m_x(0),
-	m_y(0)
+	m_x_grid(0),
+	m_y_grid(0)
 {
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
 }
@@ -78,19 +78,19 @@ int C_GameUnits::getRank() const
 	return m_rank;
 }
 
-int C_GameUnits::getX() const
+int C_GameUnits::getXGrid() const
 {
-	return m_x;
+	return m_x_grid;
 }
 
-int C_GameUnits::getY() const
+int C_GameUnits::getYGrid() const
 {
-	return m_y;
+	return m_y_grid;
 }
 
-void C_GameUnits::setXY(int x, int y){
-	m_x = x;
-	m_y = y;
+void C_GameUnits::setGridXY(int x_grid, int y_grid){
+	m_x_grid = x_grid;
+	m_y_grid = y_grid;
 }
 
 

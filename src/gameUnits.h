@@ -28,20 +28,18 @@ class C_GameUnits
 	virtual bool alive() const;
 	virtual int getRank() const;
 
-	virtual int getX() const;
-	virtual int getY() const;
-	virtual void setXY(int x, int y);
-	virtual void move(int x_grid,
-		      int y_grid,
-		      int direction,
+	virtual int getXGrid() const;
+	virtual int getYGrid() const;
+	virtual void setGridXY(int x, int y);
+	virtual void move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE]) = 0;
 	protected:
 	//attibuts
 	std::string m_name;
 	int m_life;
 	int m_rank;
-	int m_x;
-	int m_y;
+	int m_x_grid;
+	int m_y_grid;
 };
 
 #endif

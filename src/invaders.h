@@ -10,13 +10,11 @@ class C_invaders: public C_Shooter
 	public:
 	//methods
 	C_invaders();
-	C_invaders(int rank);
+	C_invaders(int x_grid, int y_grid,int rank);
 	~C_invaders();
 	virtual	void displayStatus() const;
 
-	virtual void move(int x_grid,
-		      int y_grid,
-		      int direction,
+	virtual void move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE]);
 	protected:
 	//attibuts

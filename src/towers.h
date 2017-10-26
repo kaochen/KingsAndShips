@@ -12,7 +12,7 @@ class C_Towers: public C_Shooter
 	public:
 	//methods
 	C_Towers();
-	C_Towers(int rank);
+	C_Towers(int x_grid, int y_grid, int rank);
 
 	protected:
 };

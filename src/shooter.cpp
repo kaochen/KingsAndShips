@@ -8,9 +8,11 @@ C_Shooter::C_Shooter():C_GameUnits("SHOOTER",1)
 }
 
 
-C_Shooter::C_Shooter(std::string name, int rank):
+C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 	C_GameUnits(name, rank)
 {
+	m_x_grid = x_grid;
+	m_y_grid = y_grid;
 	m_weapon = new C_Weapon;
 }
 
@@ -32,11 +34,6 @@ void C_Shooter::displayStatus() const
  	m_weapon->displayStatus();
 }
 
-void C_Shooter::printOnScreen(SDL_Renderer *renderer){
-
-	renderTexture(m_image, renderer, m_x, m_y);
-
-}
 
 SDL_Texture* C_Shooter::getImage() const
 {
@@ -48,7 +45,7 @@ SDL_Texture* C_Shooter::updateImage(SDL_Texture *image)
 	return m_image;
 }
 
-void C_Shooter::move(int x_grid, int y_grid, int direction,
+void C_Shooter::move(int direction,
 			C_GameUnits* grid_units[][TABLE_SIZE])
 {
 }
