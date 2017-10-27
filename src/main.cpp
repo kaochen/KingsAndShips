@@ -52,6 +52,7 @@ int main()
 	size_t const gridSize = C_Settings::getGridSize();
 
 	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE];
+	vector<C_GameUnits*> boatList;
 
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
@@ -64,8 +65,8 @@ int main()
 	//fill table with tiles for testing
 	new C_Towers(10,10,0, grid_units);
 	new C_Towers(15,15,1, grid_units);
-	new C_invaders(7,14,1, grid_units);
-	new C_invaders(7,15,1, grid_units);
+	boatList.push_back(new C_invaders(7,14,1, grid_units));
+	boatList.push_back(new C_invaders(7,15,1, grid_units));
 
 	//displayStatus of the grid
 	for (size_t y = 0; y < gridSize; y++){
@@ -83,14 +84,14 @@ C_Texture::loadTexturesIntoMap(renderer);
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
 int xClicLeft = 0, yClicLeft = 0, xClicTable = 0, yClicTable = 0;
-int frameNumber = 0;
+int frameNumber = 0, second = 0;
 bool towerSelected = false;
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
 	if(frameNumber == FRAMERATE){
-		cout << "One second more"<< endl;
+		cout << "Second" << second << endl;
 		}
 
 	while (SDL_PollEvent(&event))
@@ -157,25 +158,15 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-	if (frameNumber == FRAMERATE/FRAMERATE){
-		vector<C_GameUnits*> temp;
-		for (size_t y = 0; y < gridSize; y++){
-			for (size_t x = 0; x < gridSize; x++){
-				if (grid_units[x][y] != nullptr){
-					if (grid_units[x][y]->getName() == "boat"){
-						temp.push_back(grid_units[x][y]);
-						cout << "found" << x << ":" << y << endl;
 
-						}
-				}
+	if (second % 5 == 0){
+		if (frameNumber % 1 == 0 && frameNumber < FRAMERATE/4){
+			for (size_t i = 0; i < boatList.size(); i++){
+				boatList[i]->move(EAST, grid_units);
+				cout << "move" << endl;
+				forceRefresh = true;
 			}
 		}
-		for (size_t i = 0; i < temp.size(); i++){
-			temp[i]->move(EAST, grid_units);
-			cout << "move" << endl;
-			forceRefresh = true;
-		}
-
 	}
 
 
@@ -208,7 +199,10 @@ while(!quit)
 
 		frameNumber++;
 		if (frameNumber > FRAMERATE)
+			{
+			second++;
 			frameNumber = 0;
+			}
 
 
 }//end of while(!quit)
