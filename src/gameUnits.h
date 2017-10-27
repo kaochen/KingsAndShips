@@ -36,6 +36,13 @@ class C_GameUnits
 	virtual void setGridXY(int x, int y);
 	virtual void move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE]) = 0;
+
+
+	virtual void xyGridToXYScreen();
+	virtual int getXScreen() const;
+	virtual int getYScreen() const;
+	virtual void xyScreenToXYGrid();
+
 	protected:
 	//attibuts
 	std::string m_name;
@@ -43,6 +50,8 @@ class C_GameUnits
 	int m_rank;
 	int m_x_grid;
 	int m_y_grid;
+	int m_x_screen;
+	int m_y_screen;
 };
 
 #endif

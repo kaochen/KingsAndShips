@@ -13,8 +13,10 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUn
 	m_x_grid(x_grid),
 	m_y_grid(y_grid)
 {
+	xyGridToXYScreen();
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
- 	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid << endl;
+ 	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
+ 	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
  	grid_units[x_grid][y_grid] = this;
 }
 
@@ -87,4 +89,24 @@ void C_GameUnits::setGridXY(int x_grid, int y_grid){
 	m_y_grid = y_grid;
 }
 
+void C_GameUnits::xyGridToXYScreen(){
+			m_x_screen = C_Settings::getWindowWidth()/2 + (m_x_grid - m_y_grid)* TILE_HALF_WIDTH;
+			m_y_screen = (m_y_grid + m_x_grid) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+}
 
+int C_GameUnits::getXScreen() const
+{
+	return m_x_screen;
+}
+
+int C_GameUnits::getYScreen() const
+{
+	return m_y_screen;
+}
+
+void C_GameUnits::xyScreenToXYGrid(){
+		int xOffset = (C_Settings::getWindowWidth() /2);
+		int yOffset = (C_Settings::getWindowHeight() /2);
+		m_x_grid = ( ((m_y_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
+		m_y_grid = ( ((m_y_screen + yOffset )/TILE_HALF_HEIGHT - (m_x_screen - xOffset) / TILE_HALF_WIDTH )/2);
+		}

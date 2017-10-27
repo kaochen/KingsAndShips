@@ -20,70 +20,30 @@ C_invaders::~C_invaders()
 void C_invaders::move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE])
 {
-	int newX_grid = m_x_grid;
-	int newY_grid = m_y_grid;
-	int speed = 10;
-	bool changeCase = false;
-	cout << "In offset " << m_x_screen_offset << ":" << m_y_screen_offset << endl;
-	if (direction == NORTH){
-		m_y_screen_offset -= speed/2;
-		m_x_screen_offset += speed;
-			if (m_y_screen_offset < 0){
-				m_x_screen_offset += TILE_HALF_WIDTH;
-				m_y_screen_offset += TILE_HALF_HEIGHT;
-				changeCase = true;
-				}
-	}
-	if (direction == SOUTH){
-		m_y_screen_offset += speed/2;
-		m_x_screen_offset -= speed;
-			if (m_y_screen_offset < TILE_HALF_HEIGHT){
-				m_x_screen_offset -= TILE_HALF_WIDTH;
-				m_y_screen_offset -= TILE_HALF_HEIGHT;
-				changeCase = true;
-				}
-		}
-	if (direction == EAST){
-		m_x_screen_offset += speed;
-		m_y_screen_offset += speed/2;
-			if (m_x_screen_offset > TILE_HALF_WIDTH){
-				m_x_screen_offset -= TILE_HALF_WIDTH;
-				m_y_screen_offset -= TILE_HALF_HEIGHT;
-				changeCase = true;
-				}
-		}
-	if (direction == WEST){
-		m_x_screen_offset -= speed;
-		m_y_screen_offset -= speed/2;
-			if (m_x_screen_offset < 0){
-				m_x_screen_offset += TILE_HALF_WIDTH;
-				m_y_screen_offset += TILE_HALF_HEIGHT;
-				changeCase = true;
-				}
-		}
-
-	cout << "Out offset " << m_x_screen_offset << ":" << m_y_screen_offset << endl;
-	if (changeCase == true){
-		switch (direction){
-		case NORTH:
-			newY_grid--;
-		break;
-		case SOUTH:
-			newY_grid++;
-		break;
+	int speed = 2;
+	switch (direction){
 		case EAST:
-			newX_grid++;
+			m_x_screen += speed;
+			m_y_screen += speed/2;
 		break;
 		case WEST:
-			newY_grid--;
+			m_x_screen -= speed;
+			m_y_screen -= speed/2;
 		break;
-		}
-		grid_units[newX_grid][newY_grid] = grid_units[m_x_grid][m_y_grid];
-		// update status
-		grid_units[m_x_grid][m_y_grid] = nullptr;
-		m_x_grid = newX_grid;
-		m_y_grid = newY_grid;
-		}
+		case NORTH:
+			m_x_screen += speed;
+			m_y_screen -= speed/2;
+		break;
+		case SOUTH:
+			m_x_screen -= speed;
+			m_y_screen += speed/2;
+		break;
+	}
+	//cout << "before  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
+ 	//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
+	xyScreenToXYGrid();
+	//cout << "after  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
+ 	//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
 }
 
 
