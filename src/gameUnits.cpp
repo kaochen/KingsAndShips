@@ -107,6 +107,8 @@ int C_GameUnits::getYScreen() const
 void C_GameUnits::xyScreenToXYGrid(){
 		int xOffset = (C_Settings::getWindowWidth() /2);
 		int yOffset = (C_Settings::getWindowHeight() /2);
-		m_x_grid = ( ((m_y_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
+		m_x_grid = ( ((m_x_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
 		m_y_grid = ( ((m_y_screen + yOffset )/TILE_HALF_HEIGHT - (m_x_screen - xOffset) / TILE_HALF_WIDTH )/2);
+		//cout << "after  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
+ 		//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
 		}

@@ -39,11 +39,8 @@ void C_invaders::move(int direction,
 			m_y_screen += speed/2;
 		break;
 	}
-	//cout << "before  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
- 	//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
+
 	xyScreenToXYGrid();
-	//cout << "after  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
- 	//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
 }
 
 
