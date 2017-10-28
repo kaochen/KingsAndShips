@@ -48,7 +48,7 @@ void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
 		SDL_Rect pos;
 		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
 		pos.x = x - pos.w/2;
-		pos.y = y - 36; //the tile is not center on the Y axis of the image. 36px above the bottom
+		pos.y = y + 36; //the tile is not center on the Y axis of the image. 36px above the bottom
 		SDL_RenderCopy(renderer, texture, NULL, &pos);
 		}
 }

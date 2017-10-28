@@ -91,7 +91,7 @@ void C_GameUnits::setGridXY(int x_grid, int y_grid){
 
 void C_GameUnits::xyGridToXYScreen(){
 			m_x_screen = C_Settings::getWindowWidth()/2 + (m_x_grid - m_y_grid)* TILE_HALF_WIDTH;
-			m_y_screen = (m_y_grid + m_x_grid) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+			m_y_screen = (m_y_grid + m_x_grid - 4) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
 }
 
 int C_GameUnits::getXScreen() const

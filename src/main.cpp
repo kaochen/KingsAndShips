@@ -83,16 +83,17 @@ C_Texture::loadTexturesIntoMap(renderer);
 
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
-int xClicLeft = 0, yClicLeft = 0, xClicTable = 0, yClicTable = 0;
+float xClicLeft = 0, yClicLeft = 0;
+int xClicTable = 0, yClicTable = 0;
 int frameNumber = 0, second = 0;
 bool towerSelected = false;
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
-	if(frameNumber == FRAMERATE){
+	/*if(frameNumber == FRAMERATE){
 		cout << "Second" << second << endl;
-		}
+		}*/
 
 	while (SDL_PollEvent(&event))
 	{
@@ -130,11 +131,16 @@ while(!quit)
 					yClicLeft = event.button.y;
 					cout << "\tx_screen:" << xClicLeft << " y_screen:" << yClicLeft << endl;
 					//find the match point into the grid
-					int xOffset = (C_Settings::getWindowWidth() /2);
-					int yOffset = (C_Settings::getWindowHeight() /2);
+					float xOffset = (C_Settings::getWindowWidth() /2);
+					float yOffset = (C_Settings::getWindowHeight() /2);
 					//cout << "x:" << xClicLeft << " y:" << yClicLeft << "with offset\n";
-					yClicTable = ( ((yClicLeft + yOffset )/TILE_HALF_HEIGHT - (xClicLeft - xOffset) / TILE_HALF_WIDTH )/2);
-					xClicTable = ( ((xClicLeft - xOffset ) / TILE_HALF_WIDTH + (yClicLeft + yOffset)/TILE_HALF_HEIGHT )/2);
+					float tempX = 0.0, tempY = 0.0;
+					tempY = ( (yClicLeft + yOffset )/(TILE_HALF_HEIGHT*2) - (xClicLeft - xOffset)/(TILE_HALF_WIDTH*2));
+					tempX = ( ((xClicLeft - xOffset ) / TILE_HALF_WIDTH + (yClicLeft + yOffset)/TILE_HALF_HEIGHT )/2);
+					yClicTable = tempY;
+					xClicTable = tempX;
+
+					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
 					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
 						new C_Towers(xClicTable, yClicTable,0, grid_units);
@@ -163,7 +169,7 @@ while(!quit)
 		if (frameNumber % 1 == 0 && frameNumber < FRAMERATE/4){
 			for (size_t i = 0; i < boatList.size(); i++){
 				boatList[i]->move(EAST, grid_units);
-				cout << "move" << endl;
+				//cout << "move" << endl;
 				forceRefresh = true;
 			}
 		}
@@ -178,16 +184,16 @@ while(!quit)
 		SDL_RenderClear(renderer);
 
 		//add a setup background
-		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),36);
+		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2), -64);
 
 		//display game content
 		displayGridContent(renderer, grid_units);
 		//display menu
- 		renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, 30,200);
+ 		renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, 30,100);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 80 && yClicLeft > 100 && yClicLeft < 300){
- 			renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, xCursor,yCursor);
- 			renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, xCursor,yCursor - 30);
+ 			renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, xCursor,yCursor-128);
+ 			renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, xCursor,yCursor -158);
  			towerSelected = true;
  		}
  		SDL_RenderPresent(renderer);
