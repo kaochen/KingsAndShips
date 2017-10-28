@@ -176,6 +176,10 @@ while(!quit)
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
 
 		SDL_RenderClear(renderer);
+
+		//add a setup background
+		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),36);
+
 		//display game content
 		displayGridContent(renderer, grid_units);
 		//display menu
