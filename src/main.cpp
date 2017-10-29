@@ -165,8 +165,8 @@ while(!quit)
 	}//SDL_PollEvent(&event)
 
 
-	if (second % 5 == 0){
-		if (frameNumber % 1 == 0 && frameNumber < FRAMERATE/4){
+	if (second % 1 == 0){
+		if (frameNumber % (FRAMERATE/15) == 0){ //15 is minimun number of image in order to have a clean animation
 			for (size_t i = 0; i < boatList.size(); i++){
 				boatList[i]->move(EAST, grid_units);
 				//cout << "move" << endl;
