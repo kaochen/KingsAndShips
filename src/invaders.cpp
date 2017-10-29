@@ -54,13 +54,3 @@ int C_invaders::getYoffset()
 	return m_y_screen_offset;
 }
 
-void C_invaders::render(int x_iso, int y_iso, SDL_Renderer *renderer){
-	string name = getName();
-	int rank = getRank();
-	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
-	//cout << "image name is "<< fileName << endl;
-	x_iso = x_iso + m_x_screen_offset - TILE_HALF_WIDTH/2;
-	y_iso = y_iso + m_y_screen_offset - TILE_HALF_HEIGHT/2;
-	//renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_iso,y_iso);
-	renderTexture(C_Texture::getText(fileName), renderer, x_iso,y_iso);
-}

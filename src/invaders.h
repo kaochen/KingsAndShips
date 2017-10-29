@@ -14,9 +14,6 @@ class C_invaders: public C_Shooter
 
 	virtual void move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE]);
-	virtual void render(int           x_iso,
-	                    int           y_iso,
-	                    SDL_Renderer *renderer);
 
 	virtual int getXoffset();
 	virtual int getYoffset();
