@@ -8,7 +8,7 @@ using namespace std;
 
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE]):
 	m_name(name),
-	m_life(100),
+	m_life(MAX_LIFE),
 	m_rank(rank),
 	m_x_grid(x_grid),
 	m_y_grid(y_grid)

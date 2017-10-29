@@ -17,6 +17,10 @@ class C_invaders: public C_Shooter
 
 	virtual int getXoffset();
 	virtual int getYoffset();
+
+	virtual void renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer);
+
+	virtual void render(int x_iso, int y_iso, SDL_Renderer *renderer);
 	protected:
 	//attibuts
 	int m_x_screen_offset;
