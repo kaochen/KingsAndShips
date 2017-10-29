@@ -13,6 +13,7 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUn
 	m_x_grid(x_grid),
 	m_y_grid(y_grid)
 {
+	m_y_center_offset = 0;
 	xyGridToXYScreen();
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
@@ -51,7 +52,7 @@ void C_GameUnits::render(int x_iso, int y_iso, SDL_Renderer *renderer){
 	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
 	//cout << "image name is "<< fileName << endl;
 	//renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_iso,y_iso);
-	renderTexture(C_Texture::getText(fileName), renderer, x_iso,y_iso);
+	renderTexture(C_Texture::getText(fileName), renderer, x_iso,y_iso + m_y_center_offset);
 }
 
 void C_GameUnits::receiveDamage(int nbDamage)
@@ -112,3 +113,9 @@ void C_GameUnits::xyScreenToXYGrid(){
 		//cout << "after  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  		//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
 		}
+
+
+int C_GameUnits::getYCenterOffset() const
+{
+	return m_y_center_offset;
+}

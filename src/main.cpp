@@ -184,7 +184,7 @@ while(!quit)
 		SDL_RenderClear(renderer);
 
 		//add a setup background
-		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2), -64);
+		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),-28);
 
 		//display game content
 		displayGridContent(renderer, grid_units);
@@ -192,8 +192,8 @@ while(!quit)
  		renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, 30,100);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 80 && yClicLeft > 100 && yClicLeft < 300){
- 			renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, xCursor,yCursor-128);
- 			renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, xCursor,yCursor -158);
+ 			renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, xCursor,yCursor -100);
+ 			renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, xCursor,yCursor -150);
  			towerSelected = true;
  		}
  		SDL_RenderPresent(renderer);

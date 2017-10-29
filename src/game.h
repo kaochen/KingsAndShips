@@ -10,7 +10,9 @@
 class C_Game
 {
 	public:
+
 	protected:
+
 	private:
 };
 

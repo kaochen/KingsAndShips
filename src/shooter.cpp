@@ -7,6 +7,7 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameU
 	C_GameUnits(name, x_grid, y_grid, rank, grid_units)
 {
 	m_weapon = new C_Weapon;
+	m_y_center_offset = 36;
 }
 
 C_Shooter::~C_Shooter()
