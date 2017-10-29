@@ -184,7 +184,7 @@ while(!quit)
 		SDL_RenderClear(renderer);
 
 		//add a setup background
-		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),-28);
+		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),0);
 
 		//display game content
 		displayGridContent(renderer, grid_units);
