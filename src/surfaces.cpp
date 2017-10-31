@@ -78,6 +78,7 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
 	map_textures["SimpleWaterTile.png"] = loadTexture("data/img/original/SimpleWaterTile.png", renderer);
 	map_textures["Tile_Highlight_Green.png"] = loadTexture("data/img/original/Tile_Highlight_Green.png", renderer);
+	map_textures["CrossBow_01.png"] = loadTexture("data/img/original/CrossBow_01.png", renderer);
 
 }
 
