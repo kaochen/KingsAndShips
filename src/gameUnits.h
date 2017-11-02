@@ -46,6 +46,9 @@ class C_GameUnits: public C_Game
 	virtual int getYCenterOffset() const;
 	virtual int getDistance(int x, int y) const;
 
+
+	virtual void del(C_GameUnits* grid_units[][TABLE_SIZE]);
+
 	protected:
 	//attibuts
 	std::string m_name;
