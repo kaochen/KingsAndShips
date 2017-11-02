@@ -53,6 +53,7 @@ int main()
 
 	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE];
 	vector<C_GameUnits*> boatList;
+	vector<C_GameUnits*> towerVector;
 
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
@@ -63,8 +64,8 @@ int main()
 
 
 	//fill table with tiles for testing
-	new C_Towers(10,10,0, grid_units);
-	new C_Towers(15,15,1, grid_units);
+	towerVector.push_back(new C_Towers(10,10,0, grid_units));
+	towerVector.push_back(new C_Towers(15,15,1, grid_units));
 	boatList.push_back(new C_invaders(7,14,1, grid_units));
 	boatList.push_back(new C_invaders(7,15,1, grid_units));
 
@@ -170,10 +171,22 @@ while(!quit)
 			for (size_t i = 0; i < boatList.size(); i++){
 				boatList[i]->move(EAST, grid_units);
 				//cout << "move" << endl;
-				forceRefresh = true;
 			}
+
+			for (size_t i = 0; i < towerVector.size(); i++){
+				for (size_t i = 0; i < boatList.size(); i++){
+					int x = boatList[i]->getXScreen();
+					int y = boatList[i]->getYScreen();
+					int dist = towerVector[i]->getDistance(x,y);
+					cout << "dist: " << dist << endl;
+					//cout << "move" << endl;
+				}
+			}
+			forceRefresh = true;
 		}
 	}
+
+
 
 
 

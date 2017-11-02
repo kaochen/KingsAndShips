@@ -44,6 +44,7 @@ class C_GameUnits: public C_Game
 	virtual int getYScreen() const;
 	virtual void xyScreenToXYGrid();
 	virtual int getYCenterOffset() const;
+	virtual int getDistance(int x, int y) const;
 
 	protected:
 	//attibuts

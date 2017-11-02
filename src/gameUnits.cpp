@@ -1,5 +1,6 @@
 #include "gameUnits.h"
 #include "surfaces.h"
+#include <cmath>
 
 using namespace std;
 
@@ -118,4 +119,14 @@ void C_GameUnits::xyScreenToXYGrid(){
 int C_GameUnits::getYCenterOffset() const
 {
 	return m_y_center_offset;
+}
+
+
+
+int C_GameUnits::getDistance(int x, int y) const
+{
+	int sideX = m_x_screen - x;
+	int sideY = m_y_screen - y;
+	int dist = sqrt(sideX*sideX + sideY*sideY);
+	return dist;
 }
