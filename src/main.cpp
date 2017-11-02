@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string.h>
 #include <vector>
+#include <map>
+#include <queue>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -92,9 +94,9 @@ SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
-	/*if(frameNumber == FRAMERATE){
-		cout << "Second" << second << endl;
-		}*/
+	if(frameNumber == FRAMERATE){
+		cout << "Second: " << second << endl;
+		}
 
 	while (SDL_PollEvent(&event))
 	{
@@ -169,21 +171,33 @@ while(!quit)
 	if (second % 1 == 0){
 		if (frameNumber % (FRAMERATE/15) == 0){ //15 is minimun number of image in order to have a clean animation
 			for (size_t i = 0; i < boatList.size(); i++){
-				boatList[i]->move(EAST, grid_units);
+				 if(boatList[i] != nullptr){
+					boatList[i]->move(EAST, grid_units);
+					}
 				//cout << "move" << endl;
-			}
-
-			for (size_t i = 0; i < towerVector.size(); i++){
-				for (size_t i = 0; i < boatList.size(); i++){
-					int x = boatList[i]->getXScreen();
-					int y = boatList[i]->getYScreen();
-					int dist = towerVector[i]->getDistance(x,y);
-					cout << "dist: " << dist << endl;
-					//cout << "move" << endl;
-				}
 			}
 			forceRefresh = true;
 		}
+	}
+
+	//shoot every two second
+	if (second % 2 == 0 && frameNumber == FRAMERATE){
+			for (size_t i = 0; i < towerVector.size(); i++){
+				size_t j = 0;
+				map<int, C_GameUnits*> boatDistanceList;
+				priority_queue<int> closestList;
+				for (j = 0; j < boatList.size(); j++){
+					if(boatList[j] != nullptr){
+						int x = boatList[j]->getXScreen();
+						int y = boatList[j]->getYScreen();
+						int dist = towerVector[i]->getDistance(x,y);
+						boatDistanceList[dist] = boatList[j];
+						closestList.push(dist*(-1)); // -1 to reverse the list
+					}
+				}
+				int closest = closestList.top()*(-1);
+				towerVector[i]->shoot(*boatDistanceList[closest]);
+			}
 	}
 
 
