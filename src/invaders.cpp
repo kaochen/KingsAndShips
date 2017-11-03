@@ -37,8 +37,9 @@ void C_invaders::move(int direction,
 			m_y_screen += speed/2;
 		break;
 	}
-
+	grid_units[m_x_grid][m_y_grid] = nullptr; //delete previous position
 	xyScreenToXYGrid();
+	grid_units[m_x_grid][m_y_grid] = this; //move to new position
 }
 
 

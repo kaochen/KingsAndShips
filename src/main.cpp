@@ -71,17 +71,13 @@ int main()
 	//fill table with tiles for testing
 	towerVector.push_back(new C_Towers(10,10,0, grid_units));
 	towerVector.push_back(new C_Towers(15,15,1, grid_units));
+	towerVector.push_back(new C_Towers(11,17,1, grid_units));
 
 	lB.push_back(new C_invaders(1,14,1, grid_units));
 	lB.push_back(new C_invaders(5,12,1, grid_units));
 
 	//displayStatus of the grid
-	for (size_t y = 0; y < gridSize; y++){
-		for (size_t x = 0; x < gridSize; x++){
-			if (grid_units[x][y] != nullptr)
-				grid_units[x][y]->displayStatus();
-		}
-	}
+	displayGridStatus(grid_units);
 
 
 //-----------------------------------------------------------------------------
@@ -218,7 +214,7 @@ while(!quit)
 					else{
 						itB++;
 					}
-					}
+				}
 			}
 
 

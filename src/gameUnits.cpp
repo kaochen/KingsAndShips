@@ -107,12 +107,13 @@ int C_GameUnits::getYScreen() const
 }
 
 void C_GameUnits::xyScreenToXYGrid(){
-		int xOffset = (C_Settings::getWindowWidth() /2);
-		int yOffset = (C_Settings::getWindowHeight() /2);
-		m_x_grid = (2 + ((m_x_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
-		m_y_grid = (3 + ((m_y_screen + yOffset )/TILE_HALF_HEIGHT - (m_x_screen - xOffset) / TILE_HALF_WIDTH )/2);
-		//cout << "after  :x_grid:"<< m_x_grid << " y_grid:"<< m_y_grid << endl;
- 		//cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
+		float xOffset = (C_Settings::getWindowWidth() /2);
+		float yOffset = (C_Settings::getWindowHeight() /2);
+		float tempX = 0.0, tempY = 0.0;
+		tempX = ( ((m_x_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
+		tempY = ( (m_y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (m_x_screen - xOffset)/(TILE_HALF_WIDTH*2));
+		m_x_grid = tempX;
+		m_y_grid = tempY;
 		}
 
 
@@ -135,4 +136,16 @@ void C_GameUnits::del(C_GameUnits* grid_units[][TABLE_SIZE])
 {
 	cout << "Delete boat from:" << m_x_grid << ":" << m_y_grid << endl;
  	grid_units[m_x_grid][m_y_grid] = nullptr;
+}
+
+
+void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE]){
+	for (size_t y = 0; y < TABLE_SIZE; y++){
+		for (size_t x = 0; x < TABLE_SIZE; x++){
+			if (grid_units[x][y] != nullptr){
+				cout <<"Case: " << x <<":" << y << endl;
+				grid_units[x][y]->displayStatus();
+				}
+			}
+		}
 }

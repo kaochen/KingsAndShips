@@ -49,6 +49,7 @@ class C_GameUnits: public C_Game
 
 	virtual void del(C_GameUnits* grid_units[][TABLE_SIZE]);
 
+
 	protected:
 	//attibuts
 	std::string m_name;
@@ -61,4 +62,5 @@ class C_GameUnits: public C_Game
 	int m_y_center_offset;
 };
 
+	void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE]);
 #endif
