@@ -2,6 +2,7 @@
 #include <string.h>
 #include <vector>
 #include <map>
+#include <list>
 #include <queue>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -54,8 +55,10 @@ int main()
 	size_t const gridSize = C_Settings::getGridSize();
 
 	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE];
-	vector<C_GameUnits*> boatList;
+
 	vector<C_GameUnits*> towerVector;
+	list<C_GameUnits*> lB; //listOfBoats
+	list<C_GameUnits*>::iterator itB;
 
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
@@ -68,8 +71,9 @@ int main()
 	//fill table with tiles for testing
 	towerVector.push_back(new C_Towers(10,10,0, grid_units));
 	towerVector.push_back(new C_Towers(15,15,1, grid_units));
-	boatList.push_back(new C_invaders(7,14,1, grid_units));
-	boatList.push_back(new C_invaders(7,15,1, grid_units));
+
+	lB.push_back(new C_invaders(1,14,1, grid_units));
+	lB.push_back(new C_invaders(5,12,1, grid_units));
 
 	//displayStatus of the grid
 	for (size_t y = 0; y < gridSize; y++){
@@ -78,7 +82,6 @@ int main()
 				grid_units[x][y]->displayStatus();
 		}
 	}
-
 
 
 //-----------------------------------------------------------------------------
@@ -167,39 +170,56 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-
 	if (second % 1 == 0){
-		if (frameNumber % (FRAMERATE/15) == 0){ //15 is minimun number of image in order to have a clean animation
-			for (size_t i = 0; i < boatList.size(); i++){
-				 if(boatList[i] != nullptr){
-					boatList[i]->move(EAST, grid_units);
-					}
-				//cout << "move" << endl;
-			}
-			forceRefresh = true;
-		}
-	}
-
-	//shoot every two second
-	if (second % 2 == 0 && frameNumber == FRAMERATE){
-			for (size_t i = 0; i < towerVector.size(); i++){
-				size_t j = 0;
-				map<int, C_GameUnits*> boatDistanceList;
-				priority_queue<int> closestList;
-				for (j = 0; j < boatList.size(); j++){
-					if(boatList[j] != nullptr){
-						int x = boatList[j]->getXScreen();
-						int y = boatList[j]->getYScreen();
-						int dist = towerVector[i]->getDistance(x,y);
-						boatDistanceList[dist] = boatList[j];
-						closestList.push(dist*(-1)); // -1 to reverse the list
-					}
+			if (frameNumber % (FRAMERATE/15) == 0){ //15 is minimun number of image in order to have a clean animation
+				for (itB = lB.begin(); itB != lB.end(); itB++){
+						C_GameUnits* tmp = *itB;
+						tmp->move(EAST, grid_units);
 				}
-				int closest = closestList.top()*(-1);
-				towerVector[i]->shoot(*boatDistanceList[closest]);
+				forceRefresh = true;
 			}
-	}
+		}
 
+
+		if (second % 2 == 0 && frameNumber == FRAMERATE){
+					for (size_t i = 0; i < towerVector.size(); i++){
+						size_t nbrOfBoats = 0;
+						map<int, C_GameUnits*> boatDistanceList;
+						priority_queue<int> closestList;
+						for (itB = lB.begin(); itB != lB.end(); itB++){
+							C_GameUnits* boat = *itB;
+							if(boat != nullptr){
+								nbrOfBoats++;
+								int x = boat->getXScreen();
+								int y = boat->getYScreen();
+								int dist = towerVector[i]->getDistance(x,y);
+								boatDistanceList[dist] = boat;
+								closestList.push(dist*(-1)); // -1 to reverse the list
+							}
+						}
+						if (nbrOfBoats > 0){
+							int closest = closestList.top()*(-1);
+							towerVector[i]->shoot(*boatDistanceList[closest]);
+						}
+					}
+			}
+
+
+
+// drop dead boats
+	if (second % 2 == 0 && frameNumber == FRAMERATE){
+				itB = lB.begin();
+				while (itB != lB.end()){
+					C_GameUnits* boat = *itB;
+					if (boat->alive() == false){
+						lB.erase(itB++);
+						boat->del(grid_units);
+					}
+					else{
+						itB++;
+					}
+					}
+			}
 
 
 
