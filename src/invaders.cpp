@@ -8,8 +8,6 @@ C_invaders::C_invaders(int x_grid,
 			 int rank,
 			 C_GameUnits* grid_units[][TABLE_SIZE]):C_Shooter("boat", x_grid, y_grid ,rank, grid_units)
 {
-	m_x_screen_offset = TILE_HALF_WIDTH;
-	m_y_screen_offset = TILE_HALF_HEIGHT;
 }
 
 C_invaders::~C_invaders()
@@ -44,15 +42,6 @@ void C_invaders::move(int direction,
 }
 
 
-int C_invaders::getXoffset()
-{
-	return m_x_screen_offset;
-}
-
-int C_invaders::getYoffset()
-{
-	return m_y_screen_offset;
-}
 
 void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer)
 	{
