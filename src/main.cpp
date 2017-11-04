@@ -8,6 +8,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "settings.h"
+#include "time.h"
 #include "window.h"
 #include "towers.h"
 #include "invaders.h"
@@ -82,7 +83,7 @@ int main()
 
 //-----------------------------------------------------------------------------
 C_Texture::loadTexturesIntoMap(renderer);
-
+C_Time t;
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
 float xClicLeft = 0, yClicLeft = 0;
@@ -93,9 +94,7 @@ SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
-	if(frameNumber == FRAMERATE){
-		cout << "Second: " << second << endl;
-		}
+	t.displayTime();
 
 	while (SDL_PollEvent(&event))
 	{
@@ -250,6 +249,7 @@ while(!quit)
 		else
 			previousTime = currentTime;
 
+		t.updateFrameNbr();
 		frameNumber++;
 		if (frameNumber > FRAMERATE)
 			{
