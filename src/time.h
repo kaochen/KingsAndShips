@@ -27,6 +27,8 @@ class C_Time: public C_Game
 	private:
 	double m_frameNbr;
 	int m_sec;
+	int m_lastSec;
+
 	double m_startTime;
 	double m_currentTime;
 	double m_previousTime;

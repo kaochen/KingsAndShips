@@ -8,6 +8,7 @@ using namespace std;
 C_Time::C_Time():
 	m_frameNbr(0),
 	m_sec(0),
+	m_lastSec(0),
 	m_framerate(FRAMERATE),
 	m_delay(0)
 {
@@ -35,8 +36,11 @@ void C_Time::updateFrameNbr()
 			m_frameNbr++;
 			m_lastFrameTime = m_currentTime;
 			}
-	if (m_frameNbr > m_framerate)
+
+	if (m_sec != m_lastSec){
 		m_frameNbr = 1;
+		m_lastSec = m_sec;
+		}
 }
 
 void C_Time::updateTime()
