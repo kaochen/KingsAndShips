@@ -5,7 +5,7 @@ sdl2_ttf = dependency('SDL2_ttf')
 sdl2_gfx = dependency('SDL2_gfx')
 all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf, sdl2_gfx ]
 
-src00 = ['src/settings.cpp']
+src00 = ['src/settings.cpp','src/time.h']
 src01 = ['src/weapons.cpp','src/shooter.cpp','src/towers.cpp','src/invaders.cpp']
 src02 = ['src/surfaces.cpp','src/gameUnits.cpp', 'src/game.h','src/window.cpp','src/main.cpp']
 
