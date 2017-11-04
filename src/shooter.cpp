@@ -18,7 +18,7 @@ C_Shooter::~C_Shooter()
 void C_Shooter::shoot(C_GameUnits &target)
 {
 	target.receiveDamage(m_weapon->getDamage());
-	//cout << target.getName() << " has been shot" << endl;
+	cout << target.getName() << " has been shot" << endl;
 }
 
 void C_Shooter::displayStatus() const

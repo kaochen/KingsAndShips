@@ -85,10 +85,9 @@ int main()
 C_Texture::loadTexturesIntoMap(renderer);
 C_Time t;
 bool quit = false, forceRefresh = false;
-int xCursor = 0, yCursor = 0, currentTime = 0, previousTime = 0;
+int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
-int frameNumber = 0, second = 0;
 bool towerSelected = false;
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
@@ -165,18 +164,17 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-	if (second % 1 == 0){
-			if (frameNumber % (FRAMERATE/15) == 0){ //15 is minimun number of image in order to have a clean animation
+	//move boats every two frames
+			if (t.getFrameNbr() % 2 == 0){
 				for (itB = lB.begin(); itB != lB.end(); itB++){
 						C_GameUnits* tmp = *itB;
 						tmp->move(EAST, grid_units);
 				}
 				forceRefresh = true;
 			}
-		}
 
 
-		if (second % 2 == 0 && frameNumber == FRAMERATE){
+		if (t.getSec() % 2 == 0 && t.getFrameNbr() == 10){
 					for (size_t i = 0; i < towerVector.size(); i++){
 						size_t nbrOfBoats = 0;
 						map<int, C_GameUnits*> boatDistanceList;
@@ -202,7 +200,7 @@ while(!quit)
 
 
 // drop dead boats
-	if (second % 2 == 0 && frameNumber == FRAMERATE){
+		if (t.getFrameNbr() == t.getFramerate()){
 				itB = lB.begin();
 				while (itB != lB.end()){
 					C_GameUnits* boat = *itB;
@@ -242,20 +240,9 @@ while(!quit)
  		}
 
 
-	// stop while loop according to the framerate setting
-		currentTime = SDL_GetTicks();
-		if ((currentTime - previousTime) < (1000 / FRAMERATE))
-			SDL_Delay((1000/ FRAMERATE) - (currentTime - previousTime));
-		else
-			previousTime = currentTime;
-
+	// pause the game loop according to the framerate setting
+		t.updateTime();
 		t.updateFrameNbr();
-		frameNumber++;
-		if (frameNumber > FRAMERATE)
-			{
-			second++;
-			frameNumber = 0;
-			}
 
 
 }//end of while(!quit)
