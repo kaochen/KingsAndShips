@@ -70,9 +70,9 @@ int main()
 
 
 	//fill table with tiles for testing
-	towerVector.push_back(new C_Towers(10,10,0, grid_units));
-	towerVector.push_back(new C_Towers(15,15,1, grid_units));
-	towerVector.push_back(new C_Towers(11,17,1, grid_units));
+	//towerVector.push_back(new C_Towers(10,10,0, grid_units));
+	//towerVector.push_back(new C_Towers(15,15,1, grid_units));
+	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
 
 	lB.push_back(new C_invaders(1,14,1, grid_units));
 	lB.push_back(new C_invaders(5,12,1, grid_units));
@@ -143,7 +143,7 @@ while(!quit)
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
 					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
-						new C_Towers(xClicTable, yClicTable,0, grid_units);
+						towerVector.push_back(new C_Towers(xClicTable, yClicTable,0, grid_units));
 						towerSelected = false;
 						}
 				}
@@ -174,7 +174,7 @@ while(!quit)
 			}
 
 
-		if (t.getSec() % 2 == 0 && t.getFrameNbr() == 10){
+		if (t.getSec() % 1 == 0 && t.getFrameNbr() == 1){
 					for (size_t i = 0; i < towerVector.size(); i++){
 						size_t nbrOfBoats = 0;
 						map<int, C_GameUnits*> boatDistanceList;

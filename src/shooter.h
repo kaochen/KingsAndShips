@@ -22,6 +22,7 @@ class C_Shooter : public C_GameUnits
 	protected:
 	C_Weapon *m_weapon;
 	SDL_Texture* m_image;
+	double m_lastShootTime;
 };
 
 #endif

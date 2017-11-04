@@ -2,7 +2,7 @@
 
 using namespace std;
 
-C_Weapon::C_Weapon():m_name("CANON"),m_damage(10),m_fireRate(3)
+C_Weapon::C_Weapon():m_name("CANON"),m_damage(10),m_fireRate(2000)
 {
 }
 

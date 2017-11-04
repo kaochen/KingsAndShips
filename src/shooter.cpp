@@ -8,6 +8,7 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameU
 {
 	m_weapon = new C_Weapon;
 	m_y_center_offset = 36;
+	m_lastShootTime = SDL_GetTicks();
 }
 
 C_Shooter::~C_Shooter()
@@ -17,8 +18,12 @@ C_Shooter::~C_Shooter()
 
 void C_Shooter::shoot(C_GameUnits &target)
 {
-	target.receiveDamage(m_weapon->getDamage());
-	cout << target.getName() << " has been shot" << endl;
+	double currentTime = SDL_GetTicks();
+	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
+		target.receiveDamage(m_weapon->getDamage());
+		m_lastShootTime = currentTime;
+		cout << target.getName() << " has been shot" << endl;
+	}
 }
 
 void C_Shooter::displayStatus() const
