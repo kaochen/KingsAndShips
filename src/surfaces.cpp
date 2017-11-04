@@ -1,4 +1,5 @@
 #include "surfaces.h"
+#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
@@ -95,4 +96,13 @@ void displayGridContent(SDL_Renderer *renderer,
 				}
 		}
 	}
+}
+
+void drawElipse(SDL_Renderer *renderer,
+		int x,
+		int y,
+		int width){
+		int height = width/2;
+		ellipseRGBA(renderer,x,y,width+1,height+1,0,200,0,128);
+		filledEllipseRGBA(renderer,x,y,100,50,0,200,0,32);
 }
