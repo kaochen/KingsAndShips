@@ -47,3 +47,12 @@ void C_Shooter::move(int direction,
 			C_GameUnits* grid_units[][TABLE_SIZE])
 {
 }
+
+int C_Shooter::testFirerange(int x, int y)
+{
+	int dist = getDistance(x,y);
+	if (dist > m_weapon->getFireRange())
+		return -1;
+	else
+		return dist;
+}

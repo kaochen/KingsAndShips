@@ -19,6 +19,8 @@ class C_Shooter : public C_GameUnits
 	virtual void move(int direction,
 		      C_GameUnits* grid_units[][TABLE_SIZE]);
 
+	virtual int testFirerange(int x, int y);
+
 	protected:
 	C_Weapon *m_weapon;
 	SDL_Texture* m_image;

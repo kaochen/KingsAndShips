@@ -9,9 +9,10 @@ class C_Weapon
 {
 public:
 	C_Weapon();
-	C_Weapon(std::string name, int damage, int fireRate);
+	C_Weapon(std::string name, int damage, int fireRate, int fireRange);
 	~C_Weapon();
-	void change(std::string name, int damage, int fireRate);
+
+	void change(std::string name, int damage, int fireRate, int fireRange);
 	void displayStatus() const;
 	int getDamage() const;
 	int getFireRate() const;

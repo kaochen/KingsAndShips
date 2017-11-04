@@ -182,12 +182,14 @@ while(!quit)
 						for (itB = lB.begin(); itB != lB.end(); itB++){
 							C_GameUnits* boat = *itB;
 							if(boat != nullptr){
-								nbrOfBoats++;
 								int x = boat->getXScreen();
 								int y = boat->getYScreen();
-								int dist = towerVector[i]->getDistance(x,y);
-								boatDistanceList[dist] = boat;
-								closestList.push(dist*(-1)); // -1 to reverse the list
+								int dist = towerVector[i]->testFirerange(x,y);
+								if (dist >= 0){
+									boatDistanceList[dist] = boat;
+									closestList.push(dist*(-1));
+									nbrOfBoats++;
+								} // -1 to reverse the list
 							}
 						}
 						if (nbrOfBoats > 0){

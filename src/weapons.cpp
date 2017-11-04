@@ -2,14 +2,15 @@
 
 using namespace std;
 
-C_Weapon::C_Weapon():m_name("CANON"),m_damage(10),m_fireRate(2000)
+C_Weapon::C_Weapon():m_name("CANON"),m_damage(10),m_fireRate(2000),m_fireRange(200)
 {
 }
 
-C_Weapon::C_Weapon(std::string name, int damage, int fireRate):
+C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
 	m_name(name),
 	m_damage(damage),
-	m_fireRate(fireRate)
+	m_fireRate(fireRate),
+	m_fireRange(fireRange)
 {
 }
 
@@ -17,11 +18,12 @@ C_Weapon::~C_Weapon()
 {
 }
 
-void C_Weapon::change(string name, int damage, int fireRate)
+void C_Weapon::change(string name, int damage, int fireRate, int fireRange)
 {
  	m_name = name;
  	m_damage = damage;
  	m_fireRate = fireRate;
+ 	m_fireRange = fireRange;
 }
 
 void C_Weapon::displayStatus() const
