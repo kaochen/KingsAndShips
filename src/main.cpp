@@ -55,7 +55,7 @@ int main()
 	//creating the main table to store C_GameUnits position
 	size_t const gridSize = C_Settings::getGridSize();
 
-	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE];
+	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE][LAYER];
 
 	vector<C_GameUnits*> towerVector;
 	list<C_GameUnits*> lB; //listOfBoats
@@ -64,7 +64,7 @@ int main()
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
-		grid_units[x][y] = nullptr;
+		grid_units[x][y][1] = nullptr;
 		}
 	}
 
@@ -142,7 +142,7 @@ while(!quit)
 
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
-					if(towerSelected == true && grid_units[xClicTable][yClicTable] == nullptr) {
+					if(towerSelected == true && grid_units[xClicTable][yClicTable][1] == nullptr) {
 						towerVector.push_back(new C_Towers(xClicTable, yClicTable,0, grid_units));
 						towerSelected = false;
 						}
@@ -257,9 +257,9 @@ while(!quit)
 	// delete main unit table
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
-			if (grid_units[x][y] != nullptr){
-				delete grid_units[x][y];
-				grid_units[x][y] = nullptr;
+			if (grid_units[x][y][1] != nullptr){
+				delete grid_units[x][y][1];
+				grid_units[x][y][1] = nullptr;
 				}
 		}
 	}

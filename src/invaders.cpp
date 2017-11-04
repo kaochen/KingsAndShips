@@ -6,7 +6,7 @@ using namespace std;
 C_invaders::C_invaders(int x_grid,
 			 int y_grid,
 			 int rank,
-			 C_GameUnits* grid_units[][TABLE_SIZE]):C_Shooter("boat", x_grid, y_grid ,rank, grid_units)
+			 C_GameUnits* grid_units[][TABLE_SIZE][LAYER]):C_Shooter("boat", x_grid, y_grid ,rank, grid_units)
 {
 }
 
@@ -16,7 +16,7 @@ C_invaders::~C_invaders()
 
 
 void C_invaders::move(int direction,
-		      C_GameUnits* grid_units[][TABLE_SIZE])
+		      C_GameUnits* grid_units[][TABLE_SIZE][LAYER])
 {
 	int speed = 2;
 	switch (direction){
@@ -37,9 +37,9 @@ void C_invaders::move(int direction,
 			m_y_screen += speed/2;
 		break;
 	}
-	grid_units[m_x_grid][m_y_grid] = nullptr; //delete previous position
+	grid_units[m_x_grid][m_y_grid][1] = nullptr; //delete previous position
 	xyScreenToXYGrid();
-	grid_units[m_x_grid][m_y_grid] = this; //move to new position
+	grid_units[m_x_grid][m_y_grid][1] = this; //move to new position
 }
 
 

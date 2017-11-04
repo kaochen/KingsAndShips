@@ -35,5 +35,5 @@ void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y);
 void drawElipse(SDL_Renderer *renderer,int x,int y, int width);
 
 void displayGridContent(SDL_Renderer *renderer,
-			C_GameUnits* grid_units[][TABLE_SIZE]);
+			C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
 #endif

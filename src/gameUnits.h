@@ -18,7 +18,7 @@ class C_GameUnits: public C_Game
 		     int x_grid,
 		     int y_grid,
 		     int rank,
-		     C_GameUnits* grid_units[][TABLE_SIZE]);
+		     C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
 	C_GameUnits(C_GameUnits const& original);
 	virtual ~C_GameUnits();
 
@@ -34,7 +34,7 @@ class C_GameUnits: public C_Game
 	virtual int getYGrid() const;
 	virtual void setGridXY(int x, int y);
 	virtual void move(int direction,
-		      C_GameUnits* grid_units[][TABLE_SIZE]) = 0;
+		      C_GameUnits* grid_units[][TABLE_SIZE][LAYER]) = 0;
 
 
 	virtual void xyGridToXYScreen();
@@ -48,7 +48,7 @@ class C_GameUnits: public C_Game
 	virtual int testFirerange(int x, int y) = 0;
 
 
-	virtual void del(C_GameUnits* grid_units[][TABLE_SIZE]);
+	virtual void del(C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
 
 
 	protected:
@@ -63,5 +63,5 @@ class C_GameUnits: public C_Game
 	int m_y_center_offset;
 };
 
-	void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE]);
+	void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
 #endif

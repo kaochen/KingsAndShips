@@ -85,14 +85,14 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 
 //displayContent of the grid
 void displayGridContent(SDL_Renderer *renderer,
-			C_GameUnits* grid_units[][TABLE_SIZE]){
+			C_GameUnits* grid_units[][TABLE_SIZE][LAYER]){
 	size_t const gridSize = C_Settings::getGridSize();
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
-			if (grid_units[x][y] != nullptr){
-				int x_screen = grid_units[x][y]->getXScreen();
-				int y_screen = grid_units[x][y]->getYScreen();
-				grid_units[x][y]->render(x_screen, y_screen, renderer);
+			if (grid_units[x][y][1] != nullptr){
+				int x_screen = grid_units[x][y][1]->getXScreen();
+				int y_screen = grid_units[x][y][1]->getYScreen();
+				grid_units[x][y][1]->render(x_screen, y_screen, renderer);
 				}
 		}
 	}

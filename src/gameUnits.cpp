@@ -7,7 +7,7 @@ using namespace std;
 
 //constructor
 
-C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE]):
+C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE][LAYER]):
 	m_name(name),
 	m_life(MAX_LIFE),
 	m_rank(rank),
@@ -19,7 +19,8 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, C_GameUn
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
- 	grid_units[x_grid][y_grid] = this;
+ 	grid_units[x_grid][y_grid][1] = this;
+ 	grid_units[x_grid][y_grid][0] = nullptr;
 }
 
 //delete
@@ -131,19 +132,19 @@ int C_GameUnits::getDistance(int x, int y) const
 	return dist;
 }
 
-void C_GameUnits::del(C_GameUnits* grid_units[][TABLE_SIZE])
+void C_GameUnits::del(C_GameUnits* grid_units[][TABLE_SIZE][LAYER])
 {
 	cout << "Delete boat from:" << m_x_grid << ":" << m_y_grid << endl;
- 	grid_units[m_x_grid][m_y_grid] = nullptr;
+ 	grid_units[m_x_grid][m_y_grid][1] = nullptr;
 }
 
 
-void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE]){
+void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE][LAYER]){
 	for (size_t y = 0; y < TABLE_SIZE; y++){
 		for (size_t x = 0; x < TABLE_SIZE; x++){
-			if (grid_units[x][y] != nullptr){
+			if (grid_units[x][y][1] != nullptr){
 				cout <<"Case: " << x <<":" << y << endl;
-				grid_units[x][y]->displayStatus();
+				grid_units[x][y][1]->displayStatus();
 				}
 			}
 		}

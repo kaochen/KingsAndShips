@@ -12,6 +12,7 @@
 #define TILE_HALF_WIDTH 50
 #define TABLE_SIZE 30
 #define MAX_LIFE 100
+#define LAYER 2
 
 enum Direction {NORTH,SOUTH,EAST,WEST};
 
