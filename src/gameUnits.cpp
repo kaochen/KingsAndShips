@@ -112,8 +112,8 @@ void C_GameUnits::xyScreenToXYGrid(){
 		float tempX = 0.0, tempY = 0.0;
 		tempX = ( ((m_x_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
 		tempY = ( (m_y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (m_x_screen - xOffset)/(TILE_HALF_WIDTH*2));
-		m_x_grid = tempX;
-		m_y_grid = tempY;
+		m_x_grid = tempX + 2;
+		m_y_grid = tempY + 2;
 		}
 
 
