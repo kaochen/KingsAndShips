@@ -70,8 +70,8 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *rendere
 		    SDL_RenderFillRect( renderer, &r );
 	}
 
-void C_invaders::render(int x_iso, int y_iso, SDL_Renderer *renderer){
-	C_GameUnits::render(x_iso, y_iso,renderer);
-	renderLifeBar(x_iso, y_iso, renderer);
+void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
+	C_GameUnits::render(x_screen, y_screen,renderer);
+	renderLifeBar(x_screen, y_screen, renderer);
 }
 

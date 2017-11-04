@@ -24,9 +24,7 @@ class C_GameUnits: public C_Game
 
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
-	virtual void render(int           x_iso,
-	                   int           y_iso,
-	                   SDL_Renderer *renderer);
+	virtual void render(int x_screen,int y_screen,SDL_Renderer *renderer);
 	virtual void shoot(C_GameUnits &target) =0;
 	virtual void receiveDamage(int nbDamage);
 	virtual bool alive() const;
