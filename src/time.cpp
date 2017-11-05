@@ -47,8 +47,11 @@ void C_Time::updateTime()
 {
 	m_currentTime = SDL_GetTicks() - m_startTime;
 	m_sec = m_currentTime/1000;
+	int delay = (m_frame_duration - m_currentTime - m_previousTime);
+	if (delay < 0){
+		delay = 0;
+		}
 	if ((m_currentTime - m_previousTime) < m_frame_duration){
-			int delay = (m_frame_duration - m_currentTime - m_previousTime);
 			cout << "delay: " << delay << endl;
 			SDL_Delay(delay);
 			}
