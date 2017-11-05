@@ -18,10 +18,10 @@ C_Shooter::~C_Shooter()
 
 void C_Shooter::shoot(C_GameUnits &target)
 {
+	m_weapon->setShooting(true);
 	double currentTime = SDL_GetTicks();
 	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
-		target.receiveDamage(m_weapon->getDamage());
-		updateMissile(target);
+		shootTarget(target);
 		m_lastShootTime = currentTime;
 		cout << target.getName() << " has been shot" << endl;
 	}
@@ -55,18 +55,18 @@ int C_Shooter::testFirerange(C_GameUnits &target)
 	if (dist > m_weapon->getFireRange())
 		return -1;
 	else{
-		m_weapon->setShooting(true);
-		m_weapon->setMissile(*this, target);
 		return dist;
 	    }
 }
 
-void C_Shooter::updateMissile(C_GameUnits &target){
+void C_Shooter::shootTarget(C_GameUnits &target){
 	if(m_weapon->getShooting()){
-		m_weapon->setMissile(*this, target);
-
+		bool test = m_weapon->shoot(*this, target);
+		if (test){
+			target.receiveDamage(m_weapon->getDamage());
+		}
 	}
-};
+}
 
 
 void C_Shooter::render(int x_screen, int y_screen, SDL_Renderer *renderer){

@@ -75,7 +75,7 @@ void C_Weapon::setShooting(bool status)
 	m_shooting = status;
 }
 
-void C_Weapon::setMissile(C_GameUnits &shooter, C_GameUnits &target){
+bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			int x_s_target = target.getXScreen();
 			int y_s_target = target.getYScreen() + 100;
 			int x_s_shooter = shooter.getXScreen();
@@ -90,7 +90,10 @@ void C_Weapon::setMissile(C_GameUnits &shooter, C_GameUnits &target){
 			cout << "ab:" << ab << " b:" << bc << " hyp:"<< hyp << " a:"<< angle << endl;
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;
-			m_dist -= 5;
-			if (m_dist < 20)
+			m_dist -= 10;
+			if (m_dist < 20){
 				m_dist = 80;
+				return true;
+				}
+			return false;
 }

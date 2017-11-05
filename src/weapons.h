@@ -24,7 +24,7 @@ public:
 	int getYScreen() const;
 	bool getShooting() const;
 	void setShooting(bool status);
-	void setMissile(C_GameUnits &shooter, C_GameUnits &target);
+	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 
 	private:
 	std::string m_name;
