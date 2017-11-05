@@ -9,11 +9,11 @@ class C_invaders: public C_Shooter
 {
 	public:
 	//methods
-	C_invaders(int x_grid, int y_grid,int rank,C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
+	C_invaders(int x_grid, int y_grid,int rank,C_GameUnits::S_layer grid[][TABLE_SIZE]);
 	~C_invaders();
 
 	virtual void move(int direction,
-		      C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
+		      C_GameUnits::S_layer grid[][TABLE_SIZE]);
 
 	virtual void renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer);
 

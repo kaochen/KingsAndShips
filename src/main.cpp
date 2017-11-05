@@ -55,7 +55,7 @@ int main()
 	//creating the main table to store C_GameUnits position
 	size_t const gridSize = C_Settings::getGridSize();
 
-	C_GameUnits* grid_units[TABLE_SIZE][TABLE_SIZE][LAYER];
+	C_GameUnits::S_layer grid[TABLE_SIZE][TABLE_SIZE];
 
 	vector<C_GameUnits*> towerVector;
 	list<C_GameUnits*> lB; //listOfBoats
@@ -64,7 +64,7 @@ int main()
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
-		grid_units[x][y][1] = nullptr;
+		grid[x][y].main = nullptr;
 		}
 	}
 
@@ -74,11 +74,11 @@ int main()
 	//towerVector.push_back(new C_Towers(15,15,1, grid_units));
 	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
 
-	lB.push_back(new C_invaders(1,14,1, grid_units));
-	lB.push_back(new C_invaders(5,12,1, grid_units));
+	lB.push_back(new C_invaders(1,14,1, grid));
+	lB.push_back(new C_invaders(5,12,1, grid));
 
 	//displayStatus of the grid
-	displayGridStatus(grid_units);
+	displayGridStatus(grid);
 
 
 //-----------------------------------------------------------------------------
@@ -142,8 +142,8 @@ while(!quit)
 
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
-					if(towerSelected == true && grid_units[xClicTable][yClicTable][1] == nullptr) {
-						towerVector.push_back(new C_Towers(xClicTable, yClicTable,0, grid_units));
+					if(towerSelected == true && grid[xClicTable][yClicTable].main == nullptr) {
+						towerVector.push_back(new C_Towers(xClicTable, yClicTable,0,grid));
 						towerSelected = false;
 						}
 				}
@@ -168,7 +168,7 @@ while(!quit)
 			if (t.getFrameNbr() % 2 == 0){
 				for (itB = lB.begin(); itB != lB.end(); itB++){
 						C_GameUnits* tmp = *itB;
-						tmp->move(EAST, grid_units);
+						tmp->move(EAST, grid);
 				}
 				forceRefresh = true;
 			}
@@ -208,7 +208,7 @@ while(!quit)
 					C_GameUnits* boat = *itB;
 					if (boat->alive() == false){
 						lB.erase(itB++);
-						boat->del(grid_units);
+						boat->del(grid);
 					}
 					else{
 						itB++;
@@ -229,7 +229,7 @@ while(!quit)
 		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),0);
 
 		//display game content
-		displayGridContent(renderer, grid_units);
+		displayGridContent(renderer, grid);
 		//display menu
  		renderTexture(C_Texture::getText("CrossBow_01.png"), renderer, 30,100);
 		//show cursor :
@@ -257,9 +257,13 @@ while(!quit)
 	// delete main unit table
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
-			if (grid_units[x][y][1] != nullptr){
-				delete grid_units[x][y][1];
-				grid_units[x][y][1] = nullptr;
+			if (grid[x][y].main != nullptr){
+				delete grid[x][y].main;
+				grid[x][y].main = nullptr;
+				}
+			 if (grid[x][y].dead != nullptr){
+				delete grid[x][y].dead;
+				grid[x][y].dead = nullptr;
 				}
 		}
 	}

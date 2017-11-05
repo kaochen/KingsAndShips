@@ -3,8 +3,8 @@
 using namespace std;
 
 
-C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameUnits* grid_units[][TABLE_SIZE][LAYER]):
-	C_GameUnits(name, x_grid, y_grid, rank, grid_units)
+C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameUnits::S_layer grid[][TABLE_SIZE]):
+	C_GameUnits(name, x_grid, y_grid, rank, grid)
 {
 	m_weapon = new C_Weapon;
 	m_y_center_offset = 36;
@@ -44,7 +44,7 @@ SDL_Texture* C_Shooter::updateImage(SDL_Texture *image)
 }
 
 void C_Shooter::move(int direction,
-			C_GameUnits* grid_units[][TABLE_SIZE][LAYER])
+                       C_GameUnits::S_layer grid[][TABLE_SIZE])
 {
 }
 

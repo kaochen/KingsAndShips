@@ -12,13 +12,19 @@
 
 class C_GameUnits: public C_Game
 {
+
 	public:
+	struct S_layer{
+		C_GameUnits * main;
+		C_GameUnits * dead;
+		bool path;
+	};
 	//methods
 	C_GameUnits(std::string name,
 		     int x_grid,
 		     int y_grid,
 		     int rank,
-		     C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
+		     S_layer grid[][TABLE_SIZE]);
 	C_GameUnits(C_GameUnits const& original);
 	virtual ~C_GameUnits();
 
@@ -34,7 +40,7 @@ class C_GameUnits: public C_Game
 	virtual int getYGrid() const;
 	virtual void setGridXY(int x, int y);
 	virtual void move(int direction,
-		      C_GameUnits* grid_units[][TABLE_SIZE][LAYER]) = 0;
+		      S_layer grid[][TABLE_SIZE]) = 0;
 
 
 	virtual void xyGridToXYScreen();
@@ -48,7 +54,7 @@ class C_GameUnits: public C_Game
 	virtual int testFirerange(int x, int y) = 0;
 
 
-	virtual void del(C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
+	virtual void del(S_layer grid[][TABLE_SIZE]);
 
 
 	protected:
@@ -63,5 +69,5 @@ class C_GameUnits: public C_Game
 	int m_y_center_offset;
 };
 
-	void displayGridStatus(C_GameUnits* grid_units[][TABLE_SIZE][LAYER]);
+	void displayGridStatus(C_GameUnits::S_layer grid[][TABLE_SIZE]);
 #endif
