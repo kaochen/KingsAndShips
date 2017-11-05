@@ -243,14 +243,22 @@ while(!quit)
 		size_t const gridSize = C_Settings::getGridSize();
 		for (size_t y = 0; y < gridSize; y++){
 			for (size_t x = 0; x < gridSize; x++){
-			if (grid[x][y].water)
-				{
 					int x_s = C_Settings::getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
 					int y_s = (y + x- 4) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
-					renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
-				}
-			}
+					if (grid[x][y].water)
+							renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
+					}
 		}
+		//draw the deads
+		for (size_t y = 0; y < gridSize; y++){
+			for (size_t x = 0; x < gridSize; x++){
+				if (grid[x][y].dead != nullptr){
+						int x_s = grid[x][y].dead->getXScreen();
+						int y_s = grid[x][y].dead->getYScreen();
+						renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, x_s,y_s + 36);
+						}
+					}
+				}
 
 		//display game content
 		displayGridContent(renderer, grid);

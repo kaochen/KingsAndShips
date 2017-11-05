@@ -134,6 +134,7 @@ int C_GameUnits::getDistance(int x, int y) const
 void C_GameUnits::del(S_layer grid[][TABLE_SIZE])
 {
 	cout << "Delete boat from:" << m_x_grid << ":" << m_y_grid << endl;
+ 	grid[m_x_grid][m_y_grid].dead = this;
  	grid[m_x_grid][m_y_grid].main = nullptr;
 }
 
