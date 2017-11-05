@@ -20,8 +20,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, S_layer 
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
  	grid[x_grid][y_grid].main = this;
- 	grid[x_grid][y_grid].dead = nullptr;
- 	grid[x_grid][y_grid].path = true;
 }
 
 //delete

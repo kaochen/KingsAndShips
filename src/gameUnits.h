@@ -18,6 +18,8 @@ class C_GameUnits: public C_Game
 		C_GameUnits * main;
 		C_GameUnits * dead;
 		bool path;
+		bool plot;
+		bool water;
 	};
 	//methods
 	C_GameUnits(std::string name,

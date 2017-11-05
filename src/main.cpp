@@ -65,8 +65,20 @@ int main()
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
 		grid[x][y].main = nullptr;
+		grid[x][y].dead = nullptr;
+		grid[x][y].plot = true;
+		grid[x][y].water = false;
 		}
 	}
+
+	// add some water
+	for (size_t x = 0; x < gridSize; x++){
+		grid[x][12].plot = false;
+		grid[x][12].water = true;
+		grid[x][14].plot = false;
+		grid[x][14].water = true;
+		}
+
 
 
 	//fill table with tiles for testing
@@ -227,6 +239,18 @@ while(!quit)
 
 		//add a setup background
 		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),0);
+		//draw some water
+		size_t const gridSize = C_Settings::getGridSize();
+		for (size_t y = 0; y < gridSize; y++){
+			for (size_t x = 0; x < gridSize; x++){
+			if (grid[x][y].water)
+				{
+					int x_s = C_Settings::getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
+					int y_s = (y + x- 4) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+					renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
+				}
+			}
+		}
 
 		//display game content
 		displayGridContent(renderer, grid);
