@@ -67,6 +67,9 @@ void C_Shooter::shootTarget(C_GameUnits &target){
 		}
 	}
 }
+void C_Shooter::stopShooting(void){
+		m_weapon->setShooting(false);
+		}
 
 
 void C_Shooter::render(int x_screen, int y_screen, SDL_Renderer *renderer){

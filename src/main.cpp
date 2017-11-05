@@ -87,7 +87,9 @@ int main()
 	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
 
 	lB.push_back(new C_invaders(1,14,1, grid));
+	lB.push_back(new C_invaders(6,14,1, grid));
 	lB.push_back(new C_invaders(5,12,1, grid));
+	lB.push_back(new C_invaders(2,12,1, grid));
 
 	//displayStatus of the grid
 	displayGridStatus(grid);
@@ -206,7 +208,10 @@ while(!quit)
 						int closest = closestList.top()*(-1);
 						towerVector[i]->shoot(*boatDistanceList[closest]);
 						}
-					}
+					else {
+						towerVector[i]->stopShooting();
+						}
+				}
 
 
 		// drop dead boats

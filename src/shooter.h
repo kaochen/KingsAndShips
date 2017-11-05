@@ -22,6 +22,7 @@ class C_Shooter : public C_GameUnits
 
 	virtual void render(int x_screen, int y_screen, SDL_Renderer *renderer);
 	virtual void shootTarget(C_GameUnits &target);
+	virtual void stopShooting(void);
 	virtual void renderMissile(SDL_Renderer *renderer);
 	protected:
 	C_Weapon *m_weapon;

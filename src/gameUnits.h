@@ -34,6 +34,7 @@ class C_GameUnits: public C_Game
 	virtual void displayStatus() const;
 	virtual void render(int x_screen,int y_screen,SDL_Renderer *renderer);
 	virtual void shoot(C_GameUnits &target) =0;
+	virtual void stopShooting() =0;
 	virtual void receiveDamage(int nbDamage);
 	virtual bool alive() const;
 	virtual int getRank() const;
