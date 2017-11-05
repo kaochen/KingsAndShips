@@ -194,9 +194,7 @@ while(!quit)
 						for (itB = lB.begin(); itB != lB.end(); itB++){
 							C_GameUnits* boat = *itB;
 							if(boat != nullptr){
-								int x = boat->getXScreen();
-								int y = boat->getYScreen();
-								int dist = towerVector[i]->testFirerange(x,y);
+								int dist = towerVector[i]->testFirerange(*boat);
 								if (dist >= 0){
 									boatDistanceList[dist] = boat;
 									closestList.push(dist*(-1));

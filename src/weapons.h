@@ -4,6 +4,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <string>
+#include "gameUnits.h"
 
 
 class C_Weapon
@@ -23,7 +24,7 @@ public:
 	int getYScreen() const;
 	bool getShooting() const;
 	void setShooting(bool status);
-	void setMissile(int x_s_target,int y_s_target, int x_s_shooter, int y_s_shooter);
+	void setMissile(C_GameUnits &shooter, C_GameUnits &target);
 
 	private:
 	std::string m_name;
@@ -34,6 +35,7 @@ public:
 	int m_y_screen;
 	bool m_shooting;
 	double m_lastShootTime;
+	int m_dist;
 };
 
 

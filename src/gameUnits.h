@@ -53,7 +53,7 @@ class C_GameUnits: public C_Game
 	virtual int getDistance(int x, int y) const;
 
 
-	virtual int testFirerange(int x, int y) = 0;
+	virtual int testFirerange(C_GameUnits &target) = 0;
 	virtual void renderMissile(SDL_Renderer *renderer) = 0;
 
 	virtual void del(S_layer grid[][TABLE_SIZE]);

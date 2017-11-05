@@ -18,7 +18,7 @@ class C_Shooter : public C_GameUnits
 	virtual SDL_Texture* updateImage(SDL_Texture *image);
 	virtual void move(int direction,
 		      C_GameUnits::S_layer grid[][TABLE_SIZE]);
-	virtual int testFirerange(int x, int y);
+	virtual int testFirerange(C_GameUnits &target);
 
 	virtual void render(int x_screen, int y_screen, SDL_Renderer *renderer);
 	virtual void updateMissile(C_GameUnits &target);

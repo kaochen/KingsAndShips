@@ -49,25 +49,21 @@ void C_Shooter::move(int direction,
 {
 }
 
-int C_Shooter::testFirerange(int x, int y)
+int C_Shooter::testFirerange(C_GameUnits &target)
 {
-	int dist = getDistance(x,y);
+	int dist = getDistance(target.getXScreen(),target.getYScreen());
 	if (dist > m_weapon->getFireRange())
 		return -1;
 	else{
 		m_weapon->setShooting(true);
-		m_weapon->setMissile(x,y,m_x_screen,m_y_screen);
+		m_weapon->setMissile(*this, target);
 		return dist;
 	    }
 }
 
 void C_Shooter::updateMissile(C_GameUnits &target){
 	if(m_weapon->getShooting()){
-		int xt = target.getXScreen();
-		int yt = target.getYScreen();
-		int xs = getXScreen();
-		int ys = getYScreen();
-		m_weapon->setMissile(xt,yt,xs,ys);
+		m_weapon->setMissile(*this, target);
 
 	}
 };

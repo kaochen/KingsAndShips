@@ -17,7 +17,8 @@ C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
 	m_name(name),
 	m_damage(damage),
 	m_fireRate(fireRate),
-	m_fireRange(fireRange)
+	m_fireRange(fireRange),
+	m_dist(80)
 {
 	m_lastShootTime = 0;
 }
@@ -74,19 +75,22 @@ void C_Weapon::setShooting(bool status)
 	m_shooting = status;
 }
 
-void C_Weapon::setMissile(int x_s_target,int y_s_target, int x_s_shooter, int y_s_shooter){
-	int a = (x_s_target) - x_s_shooter;
-	int b = (y_s_target + 128) - y_s_shooter;
-	double shootTime = SDL_GetTicks();
-
-	if ((shootTime - m_lastShootTime) > m_fireRange/4){
-			int hyp = sqrt((a*a + b*b)) - 40;
-			double angle = atan2(a,b);//*180/3.14159265;
+void C_Weapon::setMissile(C_GameUnits &shooter, C_GameUnits &target){
+			int x_s_target = target.getXScreen();
+			int y_s_target = target.getYScreen() + 100;
+			int x_s_shooter = shooter.getXScreen();
+			int y_s_shooter = shooter.getYScreen() + 100;
+			int ab = x_s_target - x_s_shooter;
+			int bc = y_s_target - y_s_shooter;
+			int hyp = sqrt((ab*ab + bc*bc));
+			hyp -= hyp*m_dist/100;
+			double angle = atan2(ab,bc);
 			int newA = hyp*sin(angle);
 			int newB = hyp*cos(angle);
-			cout << "a:" << a << " b:" << b << " hyp:"<< hyp << " a:"<< angle << endl;
+			cout << "ab:" << ab << " b:" << bc << " hyp:"<< hyp << " a:"<< angle << endl;
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;
-		}
-
-};
+			m_dist -= 5;
+			if (m_dist < 20)
+				m_dist = 80;
+}
