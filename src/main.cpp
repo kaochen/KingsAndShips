@@ -176,43 +176,40 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
+	//update status
 	//move boats every two frames
-			if (t.getFrameNbr() % 2 == 0){
+		if (t.testNewFrame()){
+				cout << "update status" << endl;
+				forceRefresh = true;
+				//move
 				for (itB = lB.begin(); itB != lB.end(); itB++){
 						C_GameUnits* tmp = *itB;
 						tmp->move(EAST, grid);
 				}
-				forceRefresh = true;
-			}
 
-
-		if (t.getSec() % 1 == 0 && t.getFrameNbr() == 1){
-					for (size_t i = 0; i < towerVector.size(); i++){
-						size_t nbrOfBoats = 0;
-						map<int, C_GameUnits*> boatDistanceList;
-						priority_queue<int> closestList;
-						for (itB = lB.begin(); itB != lB.end(); itB++){
-							C_GameUnits* boat = *itB;
-							if(boat != nullptr){
-								int dist = towerVector[i]->testFirerange(*boat);
-								if (dist >= 0){
-									boatDistanceList[dist] = boat;
-									closestList.push(dist*(-1));
-									nbrOfBoats++;
-								} // -1 to reverse the list
-							}
-						}
-						if (nbrOfBoats > 0){
-							int closest = closestList.top()*(-1);
-							towerVector[i]->shoot(*boatDistanceList[closest]);
+				for (size_t i = 0; i < towerVector.size(); i++){
+					size_t nbrOfBoats = 0;
+					map<int, C_GameUnits*> boatDistanceList;
+					priority_queue<int> closestList;
+					for (itB = lB.begin(); itB != lB.end(); itB++){
+						C_GameUnits* boat = *itB;
+						if(boat != nullptr){
+							int dist = towerVector[i]->testFirerange(*boat);
+							if (dist >= 0){
+								boatDistanceList[dist] = boat;
+								closestList.push(dist*(-1));
+								nbrOfBoats++;
+							} // -1 to reverse the list
 						}
 					}
-			}
+					if (nbrOfBoats > 0){
+						int closest = closestList.top()*(-1);
+						towerVector[i]->shoot(*boatDistanceList[closest]);
+						}
+					}
 
 
-
-// drop dead boats
-		if (t.getFrameNbr() == t.getFramerate()){
+		// drop dead boats
 				itB = lB.begin();
 				while (itB != lB.end()){
 					C_GameUnits* boat = *itB;
@@ -224,12 +221,11 @@ while(!quit)
 						itB++;
 					}
 				}
-			}
 
+//render image
 
-
-
-	if (forceRefresh == true){
+	cout << "render image" << endl;
+	if (forceRefresh){
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << C_Settings::getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
 
@@ -271,11 +267,13 @@ while(!quit)
  		}
  		SDL_RenderPresent(renderer);
  		}
+}
 
+// pause the game loop according to the framerate setting
 
-	// pause the game loop according to the framerate setting
-		t.updateTime();
-		t.updateFrameNbr();
+cout << "update time & delay" << endl;
+t.updateTime();
+t.updateFrameNbr();
 
 
 }//end of while(!quit)

@@ -16,6 +16,7 @@ C_Time::C_Time():
  	m_currentTime = m_startTime;
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
+	m_previousFrameNbr = -1;
 }
 
 C_Time::~C_Time(){
@@ -80,3 +81,13 @@ double C_Time::getDelay()
 	return m_delay;
 }
 
+
+bool C_Time::testNewFrame(){
+	if (m_frameNbr != m_previousFrameNbr){
+		m_previousFrameNbr = m_frameNbr;
+		return true;
+		}
+	else
+		return false;
+
+}

@@ -20,12 +20,14 @@ class C_Time: public C_Game
 	int getFrameNbr();
 	int getFramerate();
 	double getDelay();
+	bool testNewFrame();
 
 
 	protected:
 
 	private:
 	double m_frameNbr;
+	double m_previousFrameNbr;
 	int m_sec;
 	int m_lastSec;
 
