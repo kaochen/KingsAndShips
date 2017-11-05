@@ -19,12 +19,12 @@ C_Shooter::~C_Shooter()
 void C_Shooter::shoot(C_GameUnits &target)
 {
 	m_weapon->setShooting(true);
-	double currentTime = SDL_GetTicks();
-	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
+//	double currentTime = SDL_GetTicks();
+//	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
 		shootTarget(target);
-		m_lastShootTime = currentTime;
+	//	m_lastShootTime = currentTime;
 		cout << target.getName() << " has been shot" << endl;
-	}
+//	}
 }
 
 void C_Shooter::displayStatus() const
