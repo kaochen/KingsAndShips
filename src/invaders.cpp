@@ -71,7 +71,7 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *rendere
 	}
 
 void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
-	C_GameUnits::render(x_screen, y_screen,renderer);
+	C_Shooter::render(x_screen, y_screen,renderer);
 	renderLifeBar(x_screen, y_screen, renderer);
 }
 

@@ -21,6 +21,7 @@ void C_Shooter::shoot(C_GameUnits &target)
 	double currentTime = SDL_GetTicks();
 	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
 		target.receiveDamage(m_weapon->getDamage());
+		updateMissile(target);
 		m_lastShootTime = currentTime;
 		cout << target.getName() << " has been shot" << endl;
 	}
@@ -53,6 +54,37 @@ int C_Shooter::testFirerange(int x, int y)
 	int dist = getDistance(x,y);
 	if (dist > m_weapon->getFireRange())
 		return -1;
-	else
+	else{
+		m_weapon->setShooting(true);
+		m_weapon->setMissile(x,y,m_x_screen,m_y_screen);
 		return dist;
+	    }
+}
+
+void C_Shooter::updateMissile(C_GameUnits &target){
+	if(m_weapon->getShooting()){
+		int xt = target.getXScreen();
+		int yt = target.getYScreen();
+		int xs = getXScreen();
+		int ys = getYScreen();
+		m_weapon->setMissile(xt,yt,xs,ys);
+
+	}
+};
+
+
+void C_Shooter::render(int x_screen, int y_screen, SDL_Renderer *renderer){
+	C_GameUnits::render(x_screen, y_screen,renderer);
+	if (m_weapon->getShooting())
+		renderMissile(renderer);
+}
+
+void C_Shooter::renderMissile(SDL_Renderer *renderer){
+		SDL_Rect m;
+		    m.x = m_weapon->getXScreen();
+		    m.y = m_weapon->getYScreen();
+		    m.w = 5;
+		    m.h = 5;
+		    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 128 );
+		    SDL_RenderFillRect( renderer, &m);
 }

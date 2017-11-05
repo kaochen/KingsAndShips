@@ -2,6 +2,7 @@
 #define WEAPON_H
 
 #include <iostream>
+#include <SDL2/SDL.h>
 #include <string>
 
 
@@ -18,11 +19,21 @@ public:
 	int getFireRate() const;
 	int getFireRange() const;
 
-private:
+	int getXScreen() const;
+	int getYScreen() const;
+	bool getShooting() const;
+	void setShooting(bool status);
+	void setMissile(int x_s_target,int y_s_target, int x_s_shooter, int y_s_shooter);
+
+	private:
 	std::string m_name;
 	int m_damage;
 	int m_fireRate;
 	int m_fireRange;
+	int m_x_screen;
+	int m_y_screen;
+	bool m_shooting;
+	double m_lastShootTime;
 };
 
 
