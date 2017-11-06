@@ -12,8 +12,6 @@ C_Time::C_Time():
 	m_framerate(FRAMERATE),
 	m_delay(0)
 {
- 	m_startTime = SDL_GetTicks();
- 	m_currentTime = m_startTime;
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
 	m_previousFrameNbr = -1;
@@ -24,10 +22,10 @@ C_Time::~C_Time(){
 
 void C_Time::displayTime() const
 {
-	string milliSec = to_string(m_currentTime);
-	milliSec.erase(0,1);
-	milliSec.erase(3,7);
-	cout << "Time: "<< m_sec << "s"<< milliSec;
+	//string milliSec = to_string(m_currentTime);
+	//milliSec.erase(0,1);
+	//milliSec.erase(3,7);
+	cout << "Time: "<< m_sec << "s"<< m_currentTime;
 	cout << " - frame:" << m_frameNbr << "/" << m_framerate << endl;
 }
 
@@ -46,37 +44,40 @@ void C_Time::updateFrameNbr()
 
 void C_Time::updateTime()
 {
-	m_currentTime = SDL_GetTicks() - m_startTime;
+	m_currentTime = SDL_GetTicks();
 	m_sec = m_currentTime/1000;
-	if ((m_currentTime - m_previousTime) < m_frame_duration){
-			int delay = (m_frame_duration - (m_currentTime - m_previousTime));
+	long duration = m_currentTime - m_previousTime;
+	long delay = m_frame_duration - duration;
+	cout << "Current: " << m_currentTime << " Frame duration:" << duration;
+	if ( duration < m_frame_duration){
 			if (delay < 0){
 				delay = 0;
 				}
-			cout << "delay: " << delay << endl;
 			SDL_Delay(delay);
 			}
 		else{
 			m_previousTime = m_currentTime;
 			}
+
+	cout << " delay: " << delay << endl;
 }
 
-int C_Time::getSec()
+long C_Time::getSec()
 {
 	return m_sec;
 }
 
-int C_Time::getFrameNbr()
+long C_Time::getFrameNbr()
 {
 	return m_frameNbr;
 }
 
-int C_Time::getFramerate()
+long C_Time::getFramerate()
 {
 	return m_frameNbr;
 }
 
-double C_Time::getDelay()
+long C_Time::getDelay()
 {
 	return m_delay;
 }

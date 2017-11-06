@@ -19,7 +19,7 @@ C_Shooter::~C_Shooter()
 void C_Shooter::shoot(C_GameUnits &target)
 {
 	m_weapon->setShooting(true);
-//	double currentTime = SDL_GetTicks();
+//	long currentTime = SDL_GetTicks();
 //	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
 		shootTarget(target);
 	//	m_lastShootTime = currentTime;

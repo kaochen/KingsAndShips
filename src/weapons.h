@@ -34,7 +34,7 @@ public:
 	int m_x_screen;
 	int m_y_screen;
 	bool m_shooting;
-	double m_lastShootTime;
+	long m_lastShootTime;
 	int m_dist;
 };
 

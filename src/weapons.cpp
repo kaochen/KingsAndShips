@@ -87,7 +87,7 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			double angle = atan2(ab,bc);
 			int newA = hyp*sin(angle);
 			int newB = hyp*cos(angle);
-			cout << "ab:" << ab << " b:" << bc << " hyp:"<< hyp << " a:"<< angle << endl;
+			//cout << "ab:" << ab << " b:" << bc << " hyp:"<< hyp << " a:"<< angle << endl;
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;
 			m_dist -= 10;
