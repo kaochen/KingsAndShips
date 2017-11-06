@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <vector>
 #include "game.h"
 #include "gameUnits.h"
 #include "invaders.h"
@@ -23,7 +24,7 @@ class C_Level
 	C_Level();
 	~C_Level();
 	void status();
-	void sendNextWave(S_boat list[BOAT_LIST_SIZE]);
+	void sendNextWave(std::vector <S_boat>& l);
 
 	protected:
 	//attibuts

@@ -88,12 +88,12 @@ int main()
 	//towerVector.push_back(new C_Towers(10,10,0, grid_units));
 	//towerVector.push_back(new C_Towers(15,15,1, grid_units));
 	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
-	S_boat l[BOAT_LIST_SIZE];
+	vector <S_boat> l;
 
 	C_Level level;
 	level.sendNextWave(l);
 
-	for (int i = 0; i < BOAT_LIST_SIZE;i++){
+	for (size_t i = 0; i < l.size();i++){
 		grid[l[i].x][l[i].y].main = new C_invaders(l[i].x,l[i].y,l[i].rank);
 		lB.push_back(grid[l[i].x][l[i].y].main);
 	}
