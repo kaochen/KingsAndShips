@@ -14,6 +14,7 @@
 #include "invaders.h"
 #include "gameUnits.h"
 #include "surfaces.h"
+#include "level.h"
 
 
 using namespace std;
@@ -79,7 +80,9 @@ int main()
 		grid[x][14].water = true;
 		}
 
-
+	//load first level
+	C_Level first;
+	first.status();
 
 	//fill table with tiles for testing
 	//towerVector.push_back(new C_Towers(10,10,0, grid_units));
@@ -121,6 +124,7 @@ while(!quit)
 		 		{ forceRefresh = true;
 		 		break;
 		 		}
+		 	break;
 		case SDL_MOUSEMOTION:
 		// get x cursor position
 			if(event.button.x < 0)
@@ -160,8 +164,9 @@ while(!quit)
 						towerVector.push_back(new C_Towers(xClicTable, yClicTable,0,grid));
 						towerSelected = false;
 						}
-				}
 
+				}
+			break;
 		case SDL_KEYDOWN:
 
 			//listen keyboard
@@ -172,7 +177,6 @@ while(!quit)
 				cout << "The quit command (q) has been pressed." << endl;
 				break;
 			}
-		break;
 
 		} // end of switch(event.type)
 
