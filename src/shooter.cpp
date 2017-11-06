@@ -39,14 +39,11 @@ SDL_Texture* C_Shooter::getImage() const
 	return m_image;
 }
 
-SDL_Texture* C_Shooter::updateImage(SDL_Texture *image)
-{
-	return m_image;
-}
 
 void C_Shooter::move(int direction,
                        C_GameUnits::S_layer grid[][TABLE_SIZE])
 {
+	cout << direction << grid[15][15].main->getXScreen(); //I use input to calm gcc -Wextra
 }
 
 int C_Shooter::testFirerange(C_GameUnits &target)
