@@ -57,7 +57,6 @@ class C_GameUnits
 
 	virtual void del(S_layer grid[][TABLE_SIZE]);
 
-
 	protected:
 	//attibuts
 	std::string m_name;

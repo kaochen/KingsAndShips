@@ -148,3 +148,4 @@ void displayGridStatus(C_GameUnits::S_layer grid[][TABLE_SIZE]){
 			}
 		}
 }
+

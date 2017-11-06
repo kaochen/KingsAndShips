@@ -8,6 +8,11 @@
 #include "gameUnits.h"
 #include "invaders.h"
 
+struct S_boat{
+	int rank;
+	int x;
+	int y;
+};
 
 class C_Level
 {
@@ -18,7 +23,7 @@ class C_Level
 	C_Level();
 	~C_Level();
 	void status();
-	void sendNextWave(std::list<C_GameUnits*> boatList);
+	void sendNextWave(S_boat list[BOAT_LIST_SIZE]);
 
 	protected:
 	//attibuts

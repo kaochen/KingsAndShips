@@ -11,6 +11,7 @@
 #define TILE_HALF_HEIGHT 25
 #define TILE_HALF_WIDTH 50
 #define TABLE_SIZE 30
+#define BOAT_LIST_SIZE 4
 #define MAX_LIFE 100
 #define LAYER 2
 

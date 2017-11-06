@@ -88,16 +88,16 @@ int main()
 	//towerVector.push_back(new C_Towers(10,10,0, grid_units));
 	//towerVector.push_back(new C_Towers(15,15,1, grid_units));
 	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
-	grid[1][14].main = new C_invaders(1,14,1);
-	grid[6][14].main = new C_invaders(6,14,1);
-	grid[5][12].main = new C_invaders(5,12,1);
-	grid[2][12].main = new C_invaders(2,12,1);
+	S_boat l[BOAT_LIST_SIZE];
 
+	C_Level level;
+	level.sendNextWave(l);
 
-	lB.push_back(grid[1][14].main);
-	lB.push_back(grid[6][14].main);
-	lB.push_back(grid[5][12].main);
-	lB.push_back(grid[2][12].main);
+	for (int i = 0; i < BOAT_LIST_SIZE;i++){
+		grid[l[i].x][l[i].y].main = new C_invaders(l[i].x,l[i].y,l[i].rank);
+		lB.push_back(grid[l[i].x][l[i].y].main);
+	}
+
 
 	//displayStatus of the grid
 	displayGridStatus(grid);
