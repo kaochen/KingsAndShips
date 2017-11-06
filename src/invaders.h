@@ -9,7 +9,8 @@ class C_invaders: public C_Shooter
 {
 	public:
 	//methods
-	C_invaders(int x_grid, int y_grid,int rank,C_GameUnits::S_layer grid[][TABLE_SIZE]);
+	C_invaders();
+	C_invaders(int x_grid, int y_grid,int rank);
 	~C_invaders();
 
 	virtual void move(int direction,

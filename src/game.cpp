@@ -1,6 +1,10 @@
 #include "game.h"
-#include "surfaces.h"
 
 using namespace std;
+C_Game::C_Game()
+{
+}
 
-
+C_Game::~C_Game()
+{
+}

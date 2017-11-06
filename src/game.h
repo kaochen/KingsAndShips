@@ -11,6 +11,9 @@ class C_Game
 {
 	public:
 
+	C_Game();
+	virtual ~C_Game();
+
 	protected:
 
 	private:

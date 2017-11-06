@@ -3,8 +3,8 @@
 using namespace std;
 
 
-C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank, C_GameUnits::S_layer grid[][TABLE_SIZE]):
-	C_GameUnits(name, x_grid, y_grid, rank, grid)
+C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
+	C_GameUnits(name, x_grid, y_grid, rank)
 {
 	m_weapon = new C_Weapon;
 	m_y_center_offset = 36;

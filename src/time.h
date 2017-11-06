@@ -7,7 +7,7 @@
 #include "game.h"
 
 
-class C_Time: public C_Game
+class C_Time
 {
 	public:
 	C_Time();

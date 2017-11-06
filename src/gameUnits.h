@@ -10,9 +10,8 @@
 
 
 
-class C_GameUnits: public C_Game
+class C_GameUnits
 {
-
 	public:
 	struct S_layer{
 		C_GameUnits * main;
@@ -25,8 +24,7 @@ class C_GameUnits: public C_Game
 	C_GameUnits(std::string name,
 		     int x_grid,
 		     int y_grid,
-		     int rank,
-		     S_layer grid[][TABLE_SIZE]);
+		     int rank);
 	C_GameUnits(C_GameUnits const& original);
 	virtual ~C_GameUnits();
 

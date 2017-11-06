@@ -7,7 +7,7 @@ using namespace std;
 
 //constructor
 
-C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, S_layer grid[][TABLE_SIZE]):
+C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_life(MAX_LIFE),
 	m_rank(rank),
@@ -19,7 +19,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, S_layer 
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
- 	grid[x_grid][y_grid].main = this;
 }
 
 //delete

@@ -88,11 +88,16 @@ int main()
 	//towerVector.push_back(new C_Towers(10,10,0, grid_units));
 	//towerVector.push_back(new C_Towers(15,15,1, grid_units));
 	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
+	grid[1][14].main = new C_invaders(1,14,1);
+	grid[6][14].main = new C_invaders(6,14,1);
+	grid[5][12].main = new C_invaders(5,12,1);
+	grid[2][12].main = new C_invaders(2,12,1);
 
-	lB.push_back(new C_invaders(1,14,1, grid));
-	lB.push_back(new C_invaders(6,14,1, grid));
-	lB.push_back(new C_invaders(5,12,1, grid));
-	lB.push_back(new C_invaders(2,12,1, grid));
+
+	lB.push_back(grid[1][14].main);
+	lB.push_back(grid[6][14].main);
+	lB.push_back(grid[5][12].main);
+	lB.push_back(grid[2][12].main);
 
 	//displayStatus of the grid
 	displayGridStatus(grid);
@@ -161,7 +166,8 @@ while(!quit)
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
 					if(towerSelected == true && grid[xClicTable][yClicTable].main == nullptr) {
-						towerVector.push_back(new C_Towers(xClicTable, yClicTable,0,grid));
+						grid[xClicTable][yClicTable].main = new C_Towers(xClicTable,yClicTable,0);
+						towerVector.push_back(grid[xClicTable][yClicTable].main);
 						towerSelected = false;
 						}
 
