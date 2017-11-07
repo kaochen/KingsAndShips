@@ -14,7 +14,7 @@ class C_invaders: public C_Shooter
 	~C_invaders();
 
 	virtual void move(int direction,
-		      C_GameUnits::S_layer grid[][TABLE_SIZE]);
+		      C_GameUnits::S_layer grid[][GRID_SIZE]);
 
 	virtual void renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer);
 

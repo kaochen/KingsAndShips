@@ -21,7 +21,7 @@ void initSDL()
 
 	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG){
 		logSDLerror("IMG_Init");
-		SDL_Quit;
+		//SDL_Quit;
 		}
 }
 

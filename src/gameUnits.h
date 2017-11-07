@@ -41,7 +41,7 @@ class C_GameUnits
 	virtual int getYGrid() const;
 	virtual void setGridXY(int x, int y);
 	virtual void move(int direction,
-		      S_layer grid[][TABLE_SIZE]) = 0;
+		      S_layer grid[][GRID_SIZE]) = 0;
 
 
 	virtual void xyGridToXYScreen();
@@ -55,7 +55,7 @@ class C_GameUnits
 	virtual int testFirerange(C_GameUnits &target) = 0;
 	virtual void renderMissile(SDL_Renderer *renderer) = 0;
 
-	virtual void del(S_layer grid[][TABLE_SIZE]);
+	virtual void del(S_layer grid[][GRID_SIZE]);
 
 	protected:
 	//attibuts
@@ -69,5 +69,5 @@ class C_GameUnits
 	int m_y_center_offset;
 };
 
-	void displayGridStatus(C_GameUnits::S_layer grid[][TABLE_SIZE]);
+	void displayGridStatus(C_GameUnits::S_layer grid[][GRID_SIZE]);
 #endif

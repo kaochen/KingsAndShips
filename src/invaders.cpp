@@ -15,7 +15,7 @@ C_invaders::~C_invaders()
 
 
 void C_invaders::move(int direction,
-		      C_GameUnits::S_layer grid[][TABLE_SIZE])
+		      C_GameUnits::S_layer grid[][GRID_SIZE])
 {
 	int speed = 2;
 	switch (direction){

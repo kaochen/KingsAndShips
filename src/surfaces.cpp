@@ -45,7 +45,8 @@ SDL_Texture* loadTexture(const string &path, SDL_Renderer *renderer)
 
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
 {
-	if((x >= 0 || x <= C_Settings::getWindowWidth()) && ( y >= 0  || y <= C_Settings::getWindowHeight())){
+	C_Set& settings=C_Set::Instances();
+	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
 		SDL_Rect pos;
 		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
 		pos.x = x - pos.w/2;
@@ -85,10 +86,10 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 
 //displayContent of the grid
 void displayGridContent(SDL_Renderer *renderer,
-			C_GameUnits::S_layer grid[][TABLE_SIZE]){
-	size_t const gridSize = C_Settings::getGridSize();
-	for (size_t y = 0; y < gridSize; y++){
-		for (size_t x = 0; x < gridSize; x++){
+			C_GameUnits::S_layer grid[][GRID_SIZE]){
+	C_Set& settings=C_Set::Instances();
+	for (int y = 0; y < settings.getGridSize(); y++){
+		for (int x = 0; x < settings.getGridSize(); x++){
 			if (grid[x][y].main != nullptr){
 				int x_screen = grid[x][y].main->getXScreen();
 				int y_screen = grid[x][y].main->getYScreen();

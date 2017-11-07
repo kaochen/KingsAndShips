@@ -26,15 +26,17 @@ int main()
  	initSDL();
 	SDL_ClearError();
 
-	//create main window
+	//init settings
+	C_Set& settings=C_Set::Instances();
 
+	//create main window
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
  	window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
-			      C_Settings::getWindowWidth(),
-			      C_Settings::getWindowHeight(),
+			      settings.getWindowWidth(),
+			      settings.getWindowHeight(),
 			      SDL_WINDOW_MOUSE_FOCUS);
 
 	if (window == nullptr){
@@ -54,9 +56,9 @@ int main()
 
 //-----------------------------------------------------------------------------
 	//creating the main table to store C_GameUnits position
-	size_t const gridSize = C_Settings::getGridSize();
+	size_t const gridSize = settings.getGridSize();
 
-	C_GameUnits::S_layer grid[TABLE_SIZE][TABLE_SIZE];
+	C_GameUnits::S_layer grid[GRID_SIZE][GRID_SIZE];
 
 	vector<C_GameUnits*> towerVector;
 	list<C_GameUnits*> lB; //listOfBoats
@@ -134,16 +136,16 @@ while(!quit)
 		// get x cursor position
 			if(event.button.x < 0)
 				xCursor = 0;
-			else if(event.button.x > C_Settings::getWindowWidth())
-				xCursor = C_Settings::getWindowWidth();
+			else if(event.button.x > settings.getWindowWidth())
+				xCursor = settings.getWindowWidth();
 			else
 				xCursor = event.button.x;
 
 		// get y cursor position
 			if(event.button.y < 0)
 				yCursor = 0;
-			else if(event.button.y > C_Settings::getWindowHeight())
-				yCursor = C_Settings::getWindowHeight();
+			else if(event.button.y > settings.getWindowHeight())
+				yCursor = settings.getWindowHeight();
 			else
 				yCursor = event.button.y;
 			break;
@@ -154,8 +156,8 @@ while(!quit)
 					yClicLeft = event.button.y;
 					cout << "\tx_screen:" << xClicLeft << " y_screen:" << yClicLeft << endl;
 					//find the match point into the grid
-					float xOffset = (C_Settings::getWindowWidth() /2);
-					float yOffset = (C_Settings::getWindowHeight() /2);
+					float xOffset = (settings.getWindowWidth() /2);
+					float yOffset = (settings.getWindowHeight() /2);
 					//cout << "x:" << xClicLeft << " y:" << yClicLeft << "with offset\n";
 					float tempX = 0.0, tempY = 0.0;
 					tempY = ( (yClicLeft + yOffset )/(TILE_HALF_HEIGHT*2) - (xClicLeft - xOffset)/(TILE_HALF_WIDTH*2));
@@ -241,19 +243,19 @@ while(!quit)
 
 	cout << "render image" << endl;
 	if (forceRefresh){
-		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << C_Settings::getWindowWidth() << endl;
-		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << C_Settings::getWindowHeight() << endl;
+		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
+		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
 
 		SDL_RenderClear(renderer);
 
 		//add a setup background
-		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (C_Settings::getWindowWidth()/2),0);
+		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (settings.getWindowWidth()/2),0);
 		//draw some water
-		size_t const gridSize = C_Settings::getGridSize();
+		size_t const gridSize = settings.getGridSize();
 		for (size_t y = 0; y < gridSize; y++){
 			for (size_t x = 0; x < gridSize; x++){
-					int x_s = C_Settings::getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
-					int y_s = (y + x- 4) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+					int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
+					int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
 					if (grid[x][y].water)
 							renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
 					}

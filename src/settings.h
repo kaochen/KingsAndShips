@@ -10,33 +10,35 @@
 #define FRAMERATE 30
 #define TILE_HALF_HEIGHT 25
 #define TILE_HALF_WIDTH 50
-#define TABLE_SIZE 30
+#define GRID_SIZE 30
 #define BOAT_LIST_SIZE 4
 #define MAX_LIFE 100
 #define LAYER 2
 
 enum Direction {NORTH,SOUTH,EAST,WEST};
 
-class C_Settings
+//singleton
+class C_Set
 {
-	public:
-	//methods
-	C_Settings();
-	~C_Settings();
+public:
+	static	C_Set& Instances();
+	int getWindowWidth();
+	int getWindowHeight();
+	int getGridSize();
+	int getGridWidth();
+	int getGridHeight();
 
-	static int getWindowWidth();
-	static int getWindowHeight();
+private:
+	C_Set& operator= (const C_Set&){return *this;}
+	C_Set (const C_Set&){}
 
-	static int getTableWidth();
-	static int getTableHeight();
-	static int getGridSize();
+	static C_Set m_instance;
+	C_Set();
+	~C_Set();
 
-	private:
-	//attibuts
-	static int windowWidth;
-	static int windowHeight;
-	static int gridSize;
+	int m_gridSize;
+	int m_windowWidth;
+	int m_windowHeight;
 };
-
 
 #endif

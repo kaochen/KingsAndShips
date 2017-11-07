@@ -90,8 +90,9 @@ void C_GameUnits::setGridXY(int x_grid, int y_grid){
 }
 
 void C_GameUnits::xyGridToXYScreen(){
-			m_x_screen = C_Settings::getWindowWidth()/2 + (m_x_grid - m_y_grid)* TILE_HALF_WIDTH;
-			m_y_screen = (m_y_grid + m_x_grid - 4) * TILE_HALF_HEIGHT - C_Settings::getWindowHeight()/2;
+			C_Set& settings=C_Set::Instances();
+			m_x_screen = settings.getWindowWidth()/2 + (m_x_grid - m_y_grid)* TILE_HALF_WIDTH;
+			m_y_screen = (m_y_grid + m_x_grid - 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
 }
 
 int C_GameUnits::getXScreen() const
@@ -105,8 +106,9 @@ int C_GameUnits::getYScreen() const
 }
 
 void C_GameUnits::xyScreenToXYGrid(){
-		float xOffset = (C_Settings::getWindowWidth() /2);
-		float yOffset = (C_Settings::getWindowHeight() /2);
+		C_Set& settings=C_Set::Instances();
+		float xOffset = (settings.getWindowWidth() /2);
+		float yOffset = (settings.getWindowHeight() /2);
 		float tempX = 0.0, tempY = 0.0;
 		tempX = ( ((m_x_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
 		tempY = ( (m_y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (m_x_screen - xOffset)/(TILE_HALF_WIDTH*2));
@@ -130,7 +132,7 @@ int C_GameUnits::getDistance(int x, int y) const
 	return dist;
 }
 
-void C_GameUnits::del(S_layer grid[][TABLE_SIZE])
+void C_GameUnits::del(S_layer grid[][GRID_SIZE])
 {
 	cout << "Delete boat from:" << m_x_grid << ":" << m_y_grid << endl;
  	grid[m_x_grid][m_y_grid].dead = this;
@@ -138,9 +140,9 @@ void C_GameUnits::del(S_layer grid[][TABLE_SIZE])
 }
 
 
-void displayGridStatus(C_GameUnits::S_layer grid[][TABLE_SIZE]){
-	for (size_t y = 0; y < TABLE_SIZE; y++){
-		for (size_t x = 0; x < TABLE_SIZE; x++){
+void displayGridStatus(C_GameUnits::S_layer grid[][GRID_SIZE]){
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
 			if (grid[x][y].main != nullptr){
 				cout <<"Case: " << x <<":" << y << endl;
 				grid[x][y].main->displayStatus();

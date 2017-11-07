@@ -41,7 +41,7 @@ SDL_Texture* C_Shooter::getImage() const
 
 
 void C_Shooter::move(int direction,
-                       C_GameUnits::S_layer grid[][TABLE_SIZE])
+                       C_GameUnits::S_layer grid[][GRID_SIZE])
 {
 	cout << direction << grid[15][15].main->getXScreen(); //I use input to calm gcc -Wextra
 }
