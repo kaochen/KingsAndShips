@@ -5,6 +5,8 @@ using namespace std;
 
 //constructor
 
+C_Time C_Time::m_instance=C_Time();
+
 C_Time::C_Time():
 	m_frameNbr(0),
 	m_sec(0),
@@ -18,6 +20,11 @@ C_Time::C_Time():
 }
 
 C_Time::~C_Time(){
+}
+
+C_Time& C_Time::Instances()
+{
+	return m_instance;
 }
 
 void C_Time::displayTime() const

@@ -10,8 +10,7 @@
 class C_Time
 {
 	public:
-	C_Time();
-	~C_Time();
+	static	C_Time& Instances();
 	void displayTime() const;
 	void updateFrameNbr();
 	void updateTime();
@@ -26,6 +25,13 @@ class C_Time
 	protected:
 
 	private:
+	C_Time& operator= (const C_Time&){return *this;}
+	C_Time (const C_Time&){}
+
+	static C_Time m_instance;
+	C_Time();
+	~C_Time();
+
 	long m_frameNbr;
 	long m_previousFrameNbr;
 	int m_sec;

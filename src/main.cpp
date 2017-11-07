@@ -28,6 +28,7 @@ int main()
 
 	//init settings
 	C_Set& settings=C_Set::Instances();
+	C_Time& time=C_Time::Instances();
 
 	//create main window
 	SDL_Window* window = nullptr;
@@ -107,7 +108,6 @@ int main()
 
 //-----------------------------------------------------------------------------
 C_Texture::loadTexturesIntoMap(renderer);
-C_Time t;
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
@@ -117,7 +117,7 @@ SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
-	t.displayTime();
+	time.displayTime();
 
 	while (SDL_PollEvent(&event))
 	{
@@ -192,7 +192,7 @@ while(!quit)
 
 	//update status
 	//move boats every two frames
-		if (t.testNewFrame()){
+		if (time.testNewFrame()){
 				cout << "update status" << endl;
 				forceRefresh = true;
 				//move
@@ -289,8 +289,8 @@ while(!quit)
 // pause the game loop according to the framerate setting
 
 cout << "update time & delay" << endl;
-t.updateTime();
-t.updateFrameNbr();
+time.updateTime();
+time.updateFrameNbr();
 
 
 }//end of while(!quit)
