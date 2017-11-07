@@ -117,7 +117,6 @@ SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
 {
-	time.displayTime();
 
 	while (SDL_PollEvent(&event))
 	{
@@ -193,7 +192,8 @@ while(!quit)
 	//update status
 	//move boats every two frames
 		if (time.testNewFrame()){
-				cout << "update status" << endl;
+				cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
+				cout << "Time: " << SDL_GetTicks() << endl <<"update status" << endl;
 				forceRefresh = true;
 				//move
 				for (itB = lB.begin(); itB != lB.end(); itB++){
@@ -289,6 +289,7 @@ while(!quit)
 // pause the game loop according to the framerate setting
 
 cout << "update time & delay" << endl;
+time.displayTime();
 time.updateTime();
 time.updateFrameNbr();
 

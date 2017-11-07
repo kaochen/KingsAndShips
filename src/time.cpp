@@ -29,18 +29,16 @@ C_Time& C_Time::Instances()
 
 void C_Time::displayTime() const
 {
-	//string milliSec = to_string(m_currentTime);
-	//milliSec.erase(0,1);
-	//milliSec.erase(3,7);
-	cout << "Time: "<< m_sec << "s"<< m_currentTime;
+	cout << "Time: "<< SDL_GetTicks() <<  " s:"<< m_sec;
 	cout << " - frame:" << m_frameNbr << "/" << m_framerate << endl;
 }
 
 void C_Time::updateFrameNbr()
 {
-	if ((m_currentTime - m_lastFrameTime) > m_frame_duration){
+	long current = SDL_GetTicks();
+	if ((current - m_lastFrameTime) > m_frame_duration){
 			m_frameNbr++;
-			m_lastFrameTime = m_currentTime;
+			m_lastFrameTime = current;
 			}
 
 	if (m_sec != m_lastSec){
@@ -55,7 +53,7 @@ void C_Time::updateTime()
 	m_sec = m_currentTime/1000;
 	long duration = m_currentTime - m_previousTime;
 	long delay = m_frame_duration - duration;
-	cout << "Current: " << m_currentTime << " Frame duration:" << duration;
+	cout << "Frame duration:" << duration;
 	if ( duration < m_frame_duration){
 			if (delay < 0){
 				delay = 0;
@@ -97,5 +95,4 @@ bool C_Time::testNewFrame(){
 		}
 	else
 		return false;
-
 }
