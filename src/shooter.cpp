@@ -76,11 +76,7 @@ void C_Shooter::render(int x_screen, int y_screen, SDL_Renderer *renderer){
 }
 
 void C_Shooter::renderMissile(SDL_Renderer *renderer){
-		SDL_Rect m;
-		    m.x = m_weapon->getXScreen();
-		    m.y = m_weapon->getYScreen();
-		    m.w = 5;
-		    m.h = 5;
-		    SDL_SetRenderDrawColor( renderer, 255, 0, 0, 128 );
-		    SDL_RenderFillRect( renderer, &m);
+		int x_s = m_weapon->getXScreen();
+		int y_s = m_weapon->getYScreen();
+		renderTexture(C_Texture::getText("Arrow01_South.png"), renderer, x_s,y_s);
 }
