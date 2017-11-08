@@ -289,7 +289,7 @@ while(!quit)
 // pause the game loop according to the framerate setting
 
 cout << "update time & delay" << endl;
-time.displayTime();
+//time.displayTime();
 time.updateTime();
 time.updateFrameNbr();
 

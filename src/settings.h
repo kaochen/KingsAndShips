@@ -15,7 +15,7 @@
 #define MAX_LIFE 100
 #define LAYER 2
 
-enum Direction {NORTH,SOUTH,EAST,WEST};
+enum Direction {NORTH,SOUTH,EAST,WEST,UNKNOWN};
 
 //singleton
 class C_Set

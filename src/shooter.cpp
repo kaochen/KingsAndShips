@@ -78,5 +78,24 @@ void C_Shooter::render(int x_screen, int y_screen, SDL_Renderer *renderer){
 void C_Shooter::renderMissile(SDL_Renderer *renderer){
 		int x_s = m_weapon->getXScreen();
 		int y_s = m_weapon->getYScreen();
-		renderTexture(C_Texture::getText("Arrow01_South.png"), renderer, x_s,y_s);
+		int direction = m_weapon->getDirection();
+		string name;
+		switch(direction){
+		case NORTH:
+			name = "Arrow01_North.png";
+			break;
+		case EAST:
+			name = "Arrow01_East.png";
+			break;
+		case SOUTH:
+			name = "Arrow01_South.png";
+			break;
+		case WEST:
+			name = "Arrow01_West.png";
+			break;
+		case UNKNOWN:
+			name = "Arrow01_North.png";
+			break;
+		}
+		renderTexture(C_Texture::getText(name), renderer, x_s,y_s);
 }

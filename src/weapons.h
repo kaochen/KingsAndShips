@@ -25,6 +25,7 @@ public:
 	bool getShooting() const;
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
+	int getDirection() const;
 
 	private:
 	std::string m_name;
@@ -36,6 +37,7 @@ public:
 	bool m_shooting;
 	long m_lastShootTime;
 	int m_dist;
+	int m_direction;
 };
 
 

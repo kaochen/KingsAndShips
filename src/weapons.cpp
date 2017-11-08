@@ -9,7 +9,8 @@ C_Weapon::C_Weapon():m_name("CANON"),
 		m_fireRange(200),
 		m_x_screen(0),
 		m_y_screen(0),
-		m_shooting(false)
+		m_shooting(false),
+		m_direction(UNKNOWN)
 {
 }
 
@@ -75,6 +76,11 @@ void C_Weapon::setShooting(bool status)
 	m_shooting = status;
 }
 
+int C_Weapon::getDirection() const
+{
+	return m_direction;
+}
+
 bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			int x_s_target = target.getXScreen();
 			int y_s_target = target.getYScreen() + 100;
@@ -88,7 +94,29 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			int newA = hyp*sin(angle);
 			int newB = hyp*cos(angle);
 			angle = angle *180/3.14159265359;
-			cout << "ab:" << ab << " b:" << bc << " hyp:"<< hyp << " a:"<< angle << endl;
+			string direction;
+			if (angle >= -45 && angle < 45){
+				direction = "South";
+				m_direction = SOUTH;
+				}
+			else if(angle >= 45 && angle <=135){
+				direction = "East";
+				m_direction = EAST;
+				}
+			else if	((angle >= 135 && angle <= 180) || (angle >= -180 && angle <= -135) ){
+				direction = "North";
+				m_direction = NORTH;
+				}
+			else if	(angle > -135 && angle < -45){
+				direction = "West";
+				m_direction = WEST;
+				}
+			else{
+				direction = "???";
+				m_direction = UNKNOWN;
+				}
+			cout << "Angle:"<< angle << " Direction: " << direction << endl;
+
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;
 			m_dist -= 10;
