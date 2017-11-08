@@ -93,6 +93,18 @@ void C_Shooter::renderMissile(SDL_Renderer *renderer){
 		case WEST:
 			name = "Arrow01_West.png";
 			break;
+		case NORTH_EAST:
+			name = "Arrow01_NorthEast.png";
+			break;
+		case NORTH_WEST:
+			name = "Arrow01_NorthWest.png";
+			break;
+		case SOUTH_EAST:
+			name = "Arrow01_SouthEast.png";
+			break;
+		case SOUTH_WEST:
+			name = "Arrow01_SouthWest.png";
+			break;
 		case UNKNOWN:
 			name = "Arrow01_North.png";
 			break;

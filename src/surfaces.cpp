@@ -85,6 +85,10 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	map_textures["Arrow01_East.png"] = loadTexture("data/img/original/Arrow01_East.png", renderer);
 	map_textures["Arrow01_North.png"] = loadTexture("data/img/original/Arrow01_North.png", renderer);
 	map_textures["Arrow01_West.png"] = loadTexture("data/img/original/Arrow01_West.png", renderer);
+	map_textures["Arrow01_NorthEast.png"] = loadTexture("data/img/original/Arrow01_NorthEast.png", renderer);
+	map_textures["Arrow01_NorthWest.png"] = loadTexture("data/img/original/Arrow01_NorthWest.png", renderer);
+	map_textures["Arrow01_SouthEast.png"] = loadTexture("data/img/original/Arrow01_SouthEast.png", renderer);
+	map_textures["Arrow01_SouthWest.png"] = loadTexture("data/img/original/Arrow01_SouthWest.png", renderer);
 }
 
 //displayContent of the grid

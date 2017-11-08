@@ -95,24 +95,31 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			int newB = hyp*cos(angle);
 			angle = angle *180/3.14159265359;
 			string direction;
-			if (angle >= -45 && angle < 45){
-				direction = "South";
+			if (angle > -22.5 && angle <= 22.5){
 				m_direction = SOUTH;
 				}
-			else if(angle >= 45 && angle <=135){
-				direction = "East";
+			else if (angle > 22.5 && angle <= 67.5){
+				m_direction = SOUTH_EAST;
+			}
+			else if(angle > 67.5 && angle <=112.5){
 				m_direction = EAST;
 				}
-			else if	((angle >= 135 && angle <= 180) || (angle >= -180 && angle <= -135) ){
-				direction = "North";
+			else if(angle > 112.5 && angle <=157.5){
+				m_direction = NORTH_EAST;
+				}
+			else if((angle > 157.5 && angle <=180) && (angle > -180 && angle <= -157.5)){
 				m_direction = NORTH;
 				}
-			else if	(angle > -135 && angle < -45){
-				direction = "West";
+			else if(angle > -157.5 && angle <= -112.5){
+				m_direction = NORTH_WEST;
+				}
+			else if(angle > -112.5 && angle <=-67.5){
 				m_direction = WEST;
 				}
+			else if(angle > -67.5 && angle <=-22.5){
+				m_direction = SOUTH_WEST;
+				}
 			else{
-				direction = "???";
 				m_direction = UNKNOWN;
 				}
 			cout << "Angle:"<< angle << " Direction: " << direction << endl;
