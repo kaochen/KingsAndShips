@@ -18,13 +18,15 @@ C_Shooter::~C_Shooter()
 
 void C_Shooter::shoot(C_GameUnits &target)
 {
-	m_weapon->setShooting(true);
-//	long currentTime = SDL_GetTicks();
-//	if ((currentTime - m_lastShootTime) > m_weapon->getFireRate()){
+	long currentTime = SDL_GetTicks();
+	if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()){
+		m_weapon->setShooting(true);
 		shootTarget(target);
-	//	m_lastShootTime = currentTime;
 		cout << target.getName() << " has been shot" << endl;
-//	}
+	}
+	else {
+		m_weapon->setShooting(false);
+		}
 }
 
 void C_Shooter::displayStatus() const

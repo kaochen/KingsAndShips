@@ -23,6 +23,7 @@ public:
 	int getXScreen() const;
 	int getYScreen() const;
 	bool getShooting() const;
+	long getLastShootTime() const;
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 	int getDirection() const;

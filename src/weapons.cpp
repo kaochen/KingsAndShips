@@ -5,11 +5,12 @@ using namespace std;
 
 C_Weapon::C_Weapon():m_name("CANON"),
 		m_damage(10),
-		m_fireRate(2000),
+		m_fireRate(500),
 		m_fireRange(200),
 		m_x_screen(0),
 		m_y_screen(0),
 		m_shooting(false),
+		m_lastShootTime(0),
 		m_direction(UNKNOWN)
 {
 }
@@ -19,9 +20,9 @@ C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
 	m_damage(damage),
 	m_fireRate(fireRate),
 	m_fireRange(fireRange),
+	m_lastShootTime(0),
 	m_dist(80)
 {
-	m_lastShootTime = 0;
 }
 
 C_Weapon::~C_Weapon()
@@ -69,6 +70,11 @@ int C_Weapon::getYScreen() const
 bool C_Weapon::getShooting() const
 {
 	return m_shooting;
+}
+
+long C_Weapon::getLastShootTime() const
+{
+	return m_lastShootTime;
 }
 
 void C_Weapon::setShooting(bool status)
@@ -129,6 +135,7 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			m_dist -= 10;
 			if (m_dist < 20){
 				m_dist = 80;
+				m_lastShootTime = SDL_GetTicks();
 				return true;
 				}
 			return false;
