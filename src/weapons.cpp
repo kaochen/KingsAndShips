@@ -10,7 +10,7 @@ C_Weapon::C_Weapon():m_name("CANON"),
 		m_x_screen(0),
 		m_y_screen(0),
 		m_shooting(false),
-		m_lastShootTime(0),
+		m_lastShootTime(SDL_GetTicks()),
 		m_direction(UNKNOWN)
 {
 }
@@ -20,7 +20,7 @@ C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
 	m_damage(damage),
 	m_fireRate(fireRate),
 	m_fireRange(fireRange),
-	m_lastShootTime(0),
+	m_lastShootTime(SDL_GetTicks()),
 	m_dist(80)
 {
 }
