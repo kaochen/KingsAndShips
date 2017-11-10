@@ -92,6 +92,15 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	map_textures["Arrow01_NorthWest.png"] = loadTexture("data/img/original/Arrow01_NorthWest.png", renderer);
 	map_textures["Arrow01_SouthEast.png"] = loadTexture("data/img/original/Arrow01_SouthEast.png", renderer);
 	map_textures["Arrow01_SouthWest.png"] = loadTexture("data/img/original/Arrow01_SouthWest.png", renderer);
+	// smoke
+	map_textures["smoke_01.png"] = loadTexture("data/img/original/smoke_01.png", renderer);
+	map_textures["smoke_02.png"] = loadTexture("data/img/original/smoke_02.png", renderer);
+	map_textures["smoke_03.png"] = loadTexture("data/img/original/smoke_03.png", renderer);
+	map_textures["smoke_04.png"] = loadTexture("data/img/original/smoke_04.png", renderer);
+	map_textures["smoke_05.png"] = loadTexture("data/img/original/smoke_05.png", renderer);
+	map_textures["smoke_06.png"] = loadTexture("data/img/original/smoke_06.png", renderer);
+	map_textures["smoke_07.png"] = loadTexture("data/img/original/smoke_07.png", renderer);
+	map_textures["smoke_08.png"] = loadTexture("data/img/original/smoke_08.png", renderer);
 }
 
 //displayContent of the grid
