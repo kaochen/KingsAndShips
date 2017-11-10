@@ -1,4 +1,5 @@
 #include "invaders.h"
+#include "time.h"
 
 using namespace std;
 
@@ -7,16 +8,23 @@ C_invaders::C_invaders(int x_grid,
 			 int y_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
+	m_moving = false;
+	m_animNbr = 0;
+	m_lastAnimTime = 0;
 }
 
 C_invaders::~C_invaders()
 {
+	m_moving = false;
+	m_animNbr = 0;
+	m_lastAnimTime = 0;
 }
 
 
 void C_invaders::move(int direction,
 		      C_GameUnits::S_layer grid[][GRID_SIZE])
 {
+	m_moving = true;
 	int speed = 2;
 	switch (direction){
 		case EAST:
@@ -40,7 +48,6 @@ void C_invaders::move(int direction,
 	xyScreenToXYGrid();
 	grid[m_x_grid][m_y_grid].main = this; //move to new position
 }
-
 
 
 void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer)
@@ -70,7 +77,25 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *rendere
 	}
 
 void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
-	C_Shooter::render(x_screen, y_screen,renderer);
+	string name = getName();
+	C_Time& time=C_Time::Instances();
+	long delay = time.getFrameDuration()*4;
+	long current = SDL_GetTicks();
+	if (current > m_lastAnimTime + delay){
+		m_animNbr++;
+		m_lastAnimTime = current;
+		}
+
+	if (m_animNbr > 1){
+		m_animNbr = 0;
+	}
+	int rank = getRank();
+	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
+	if (m_moving == true)
+		fileName = name + "Moving_0" + to_string(rank) +"_" + to_string(m_animNbr) + "0.png" ;
+
+	//cout << "image name is "<< fileName << endl;
+	renderTexture(C_Texture::getText(fileName), renderer, x_screen,y_screen + m_y_center_offset);
 	renderLifeBar(x_screen, y_screen, renderer);
 }
 

@@ -19,6 +19,7 @@ class C_Time
 	long getSec();
 	long getFrameNbr();
 	long getFramerate();
+	long getFrameDuration();
 	long getDelay();
 	bool testNewFrame();
 

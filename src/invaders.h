@@ -21,6 +21,9 @@ class C_invaders: public C_Shooter
 	virtual void render(int x_screen, int y_screen, SDL_Renderer *renderer);
 	protected:
 	//attibuts
+	bool m_moving;
+	int m_animNbr;
+	long m_lastAnimTime;
 
 };
 

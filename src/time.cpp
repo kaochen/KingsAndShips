@@ -73,6 +73,11 @@ long C_Time::getFrameNbr()
 	return m_frameNbr;
 }
 
+long C_Time::getFrameDuration()
+{
+	return m_frame_duration;
+}
+
 long C_Time::getFramerate()
 {
 	return m_frameNbr;
