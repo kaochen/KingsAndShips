@@ -12,9 +12,10 @@ class C_Time
 	public:
 	static	C_Time& Instances();
 	void displayTime() const;
-	void updateFrameNbr();
-	void updateTime();
+	void updateFrameNbr(long startTime, long finishTime);
 
+	void updateTime();
+	void delayGameLoop();
 	long getSec();
 	long getFrameNbr();
 	long getFramerate();
@@ -40,6 +41,7 @@ class C_Time
 	long m_currentTime;
 	long m_previousTime;
 	long m_lastFrameTime;
+	long m_lastFrameDuration;
 	long m_framerate;
 	long m_frame_duration;
 	long m_delay;

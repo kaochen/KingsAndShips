@@ -189,11 +189,13 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
+	time.updateTime();
 	//update status
 	//move boats every two frames
 		if (time.testNewFrame()){
 				cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
-				cout << "Time: " << SDL_GetTicks() << endl <<"update status" << endl;
+				long frameStartTime = SDL_GetTicks();
+				cout << "Time: " << frameStartTime << endl <<"update status" << endl;
 				forceRefresh = true;
 				//move
 				for (itB = lB.begin(); itB != lB.end(); itB++){
@@ -284,16 +286,16 @@ while(!quit)
  		}
  		SDL_RenderPresent(renderer);
  		}
-}
+
+		time.updateFrameNbr(frameStartTime, SDL_GetTicks());
+ 		cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
+	}
 
 // pause the game loop according to the framerate setting
 
 cout << "update time & delay" << endl;
-time.displayTime();
-time.updateTime();
-time.updateFrameNbr();
-
-
+	time.displayTime();
+	time.delayGameLoop();
 }//end of while(!quit)
 
 //-----------------------------------------------------------------------------
