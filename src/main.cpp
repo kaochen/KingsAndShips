@@ -266,7 +266,7 @@ while(!quit)
 				if (grid[x][y].dead != nullptr){
 						int x_s = grid[x][y].dead->getXScreen();
 						int y_s = grid[x][y].dead->getYScreen();
-						renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, x_s,y_s + 36);
+						renderTexture(C_Texture::getText("boat_01_Dead.png"), renderer, x_s,y_s + 36);
 						}
 					}
 				}
@@ -289,7 +289,7 @@ while(!quit)
 // pause the game loop according to the framerate setting
 
 cout << "update time & delay" << endl;
-//time.displayTime();
+time.displayTime();
 time.updateTime();
 time.updateFrameNbr();
 
