@@ -72,8 +72,14 @@ int main()
 		grid[x][y].dead = nullptr;
 		grid[x][y].plot = true;
 		grid[x][y].water = false;
+		grid[x][y].ground = GROUND_01;
 		}
 	}
+
+		grid[16][17].ground = GROUND_02;
+		grid[20][21].ground = GROUND_02;
+		grid[10][15].ground = GROUND_02;
+		grid[9][6].ground = GROUND_02;
 
 	// add some water
 	for (size_t x = 0; x < gridSize; x++){
@@ -169,6 +175,7 @@ while(!quit)
 					if(towerSelected == true && grid[xClicTable][yClicTable].main == nullptr) {
 						grid[xClicTable][yClicTable].main = new C_Towers(xClicTable,yClicTable,0);
 						towerVector.push_back(grid[xClicTable][yClicTable].main);
+						grid[xClicTable][yClicTable].ground = GROUND_01;
 						towerSelected = false;
 						}
 
@@ -260,6 +267,10 @@ while(!quit)
 					int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
 					if (grid[x][y].water)
 							renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
+					if (grid[x][y].ground == GROUND_01 && grid[x][y].water == false)
+							renderTexture(C_Texture::getText("Grass_01.png"), renderer, x_s,y_s + 36);
+					if (grid[x][y].ground == GROUND_02 && grid[x][y].water == false)
+							renderTexture(C_Texture::getText("Grass_02.png"), renderer, x_s,y_s + 36);
 					}
 		}
 		//draw the deads
