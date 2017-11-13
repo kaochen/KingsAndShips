@@ -20,7 +20,8 @@ void C_Level::status(){
 	cout << m_name << " " << m_id << endl;
 }
 
-void C_Level::sendNextWave(vector <S_boat>& l, C_GameUnits::S_layer grid[][GRID_SIZE], list<C_GameUnits*>& lB){
+void C_Level::sendNextWave(C_GameUnits::S_layer grid[][GRID_SIZE], list<C_GameUnits*>& lB){
+		vector <S_boat> l;
 		S_boat temp = {1,1,14};
 		l.push_back(temp);
 		temp.x = 6;

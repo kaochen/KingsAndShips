@@ -90,19 +90,9 @@ int main()
 		}
 
 	//load first level
-	C_Level first;
-	first.status();
-
-	//fill table with tiles for testing
-	//towerVector.push_back(new C_Towers(10,10,0, grid_units));
-	//towerVector.push_back(new C_Towers(15,15,1, grid_units));
-	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
-	vector <S_boat> l;
-
-
 	C_Level level;
-	level.sendNextWave(l, grid, lB);
-
+	level.sendNextWave(grid, lB);
+	level.status();
 
 	//displayStatus of the grid
 	displayGridStatus(grid);
@@ -187,7 +177,7 @@ while(!quit)
 				cout << "The quit command (q) has been pressed." << endl;
 				break;
 			case SDLK_n:
-				level.sendNextWave(l, grid, lB);
+				level.sendNextWave(grid, lB);
 				break;
 			}
 
