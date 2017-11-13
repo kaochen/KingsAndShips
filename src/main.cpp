@@ -99,13 +99,9 @@ int main()
 	//towerVector.push_back(new C_Towers(11,17,1, grid_units));
 	vector <S_boat> l;
 
-	C_Level level;
-	level.sendNextWave(l);
 
-	for (size_t i = 0; i < l.size();i++){
-		grid[l[i].x][l[i].y].main = new C_invaders(l[i].x,l[i].y,l[i].rank);
-		lB.push_back(grid[l[i].x][l[i].y].main);
-	}
+	C_Level level;
+	level.sendNextWave(l, grid, lB);
 
 
 	//displayStatus of the grid
@@ -189,6 +185,9 @@ while(!quit)
 			case SDLK_q:
 				quit = true;
 				cout << "The quit command (q) has been pressed." << endl;
+				break;
+			case SDLK_n:
+				level.sendNextWave(l, grid, lB);
 				break;
 			}
 

@@ -20,7 +20,7 @@ void C_Level::status(){
 	cout << m_name << " " << m_id << endl;
 }
 
-void C_Level::sendNextWave(vector <S_boat>& l){
+void C_Level::sendNextWave(vector <S_boat>& l, C_GameUnits::S_layer grid[][GRID_SIZE], list<C_GameUnits*>& lB){
 		S_boat temp = {1,1,14};
 		l.push_back(temp);
 		temp.x = 6;
@@ -33,6 +33,12 @@ void C_Level::sendNextWave(vector <S_boat>& l){
 		l.push_back(temp);
 		temp.x = 5;
 		l.push_back(temp);
+
+
+		for (size_t i = 0; i < l.size();i++){
+		grid[l[i].x][l[i].y].main = new C_invaders(l[i].x,l[i].y,l[i].rank);
+		lB.push_back(grid[l[i].x][l[i].y].main);
+	}
 	cout << "Next wave" << endl;
 }
 
