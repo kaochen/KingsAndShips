@@ -11,7 +11,7 @@ This is work in progress, use it carefully.
 
 ### Dependencies
 ```
-apt install build-essential git gettext meson
+apt install build-essential git gettext meson libxml++
 apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev libsdl2-gfx-dev
 
 ```
@@ -39,8 +39,25 @@ ninja -C build/
 
 ### Install
 
+## Dev tips:
+```
+apt install tiled blender imagemagick
+```
+http://www.mapeditor.org
+
+Build a tileset from images with imagemagick
+```
+montage Src*.png  -tile 8x8 -background none tileset.png
+```
+
 ### Dev links :
-https://www.kraxel.org/blog/tag/meson-ninja/
-http://www.willusher.io/pages/sdl2/
-http://clintbellanger.net/articles/isometric_math/
-http://flarerpg.org/tutorials/isometric_tiles/
+
+ * https://www.kraxel.org/blog/tag/meson-ninja/
+ * http://www.willusher.io/pages/sdl2/
+ * http://clintbellanger.net/articles/isometric_math/
+ * http://flarerpg.org/tutorials/isometric_tiles/
+ * http://doc.mapeditor.org
+
+#### XML : ####
+
+ * https://developer.gnome.org/libxml++-tutorial/stable/
