@@ -1,6 +1,9 @@
 #include "surfaces.h"
 #include <SDL2_gfxPrimitives.h>
 
+#include <libxml++/libxml++.h>
+#include <libxml++/parsers/textreader.h>
+
 using namespace std;
 
 
@@ -8,19 +11,31 @@ map<string, SDL_Texture*> C_Texture::map_textures;
 
 
 C_Texture::C_Texture():
+	m_id(0),
 	m_name("texture"),
-	m_seqNbr(1)
+	m_filePath("default"),
+	m_tile_height(128),
+	m_tile_width(128)
 {
 }
 
-C_Texture::C_Texture(string name, int seqNbr):
+C_Texture::C_Texture(int id, string name, string filePath, int tile_height, int tile_width):
+	m_id(id),
 	m_name(name),
-	m_seqNbr(seqNbr)
+	m_filePath(filePath),
+	m_tile_height(tile_height),
+	m_tile_width(tile_width)
 {
 }
 
 C_Texture::~C_Texture(){
 }
+
+void C_Texture::displayStatus(){
+	cout << "Id:" << m_id << ": "<< m_name << " " << m_filePath;
+	cout << " " << m_tile_width << ":" << m_tile_height << endl;
+}
+
 
 SDL_Texture* loadTexture(const string &path, SDL_Renderer *renderer)
 {
@@ -127,4 +142,62 @@ void drawElipse(SDL_Renderer *renderer,
 		int height = width/2;
 		ellipseRGBA(renderer,x,y,width+1,height+1,0,200,0,128);
 		filledEllipseRGBA(renderer,x,y,100,50,0,200,0,32);
+}
+
+struct indent {
+  int depth_;
+  indent(int depth): depth_(depth) {};
+};
+
+ostream & operator<<(ostream & o, indent const & in)
+{
+  for(int i = 0; i != in.depth_; ++i)
+  {
+    o << "  ";
+  }
+  return o;
+}
+
+void C_Texture::extractTSXfile(vector <C_Texture*>& list)
+{
+
+ xmlpp::TextReader reader("data/levels/boat_01.tsx");
+	string filePath = "noFilePath";
+	string name = "noName";
+	int tilewidth= 0;
+	int tileheight= 0;
+	int id =0;
+    while(reader.read())
+    {
+         if(reader.has_attributes())
+	      {
+		reader.move_to_first_attribute();
+		do
+		{
+		  string attributes = reader.get_name();
+		  if (attributes == "name")
+		  	name = reader.get_value();
+		  if (attributes == "source")
+		  	filePath = reader.get_value();
+		  if (attributes == "tilewidth")
+		  	tilewidth = stoi(reader.get_value());
+		  if (attributes == "tileheight")
+		  	tileheight = stoi(reader.get_value());
+		  if (attributes == "id")
+		  	id = stoi(reader.get_value());
+		  if (attributes == "type"){
+		   	list.push_back(new C_Texture(id, reader.get_value(),filePath, tilewidth, tileheight));
+		   	}
+
+		} while(reader.move_to_next_attribute());
+		reader.move_to_element();
+	      }
+    }
+
+}
+
+void C_Texture::displayTexturesList(vector <C_Texture*>& list){
+	for (size_t i = 0; i < list.size(); i++){
+		list[i]->displayStatus();
+	}
 }

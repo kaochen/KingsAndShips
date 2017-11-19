@@ -65,6 +65,11 @@ int main()
 	list<C_GameUnits*> lB; //listOfBoats
 	list<C_GameUnits*>::iterator itB;
 
+	vector <C_Texture*> textureList;
+	C_Texture t;
+	t.extractTSXfile(textureList);
+	t.displayTexturesList(textureList);
+
 	//init the table
 	for (size_t y = 0; y < gridSize; y++){
 		for (size_t x = 0; x < gridSize; x++){
@@ -189,9 +194,9 @@ while(!quit)
 	//update status
 	//move boats every two frames
 		if (time.testNewFrame()){
-				cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
+				//cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
 				long frameStartTime = SDL_GetTicks();
-				cout << "Time: " << frameStartTime << endl <<"update status" << endl;
+				//cout << "Time: " << frameStartTime << endl <<"update status" << endl;
 				forceRefresh = true;
 				//move
 				for (itB = lB.begin(); itB != lB.end(); itB++){
@@ -239,7 +244,7 @@ while(!quit)
 
 //render image
 
-	cout << "render image" << endl;
+	//cout << "render image" << endl;
 	if (forceRefresh){
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
@@ -288,13 +293,13 @@ while(!quit)
  		}
 
 		time.updateFrameNbr(frameStartTime, SDL_GetTicks());
- 		cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
+ 		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
 	}
 
 // pause the game loop according to the framerate setting
 
-cout << "update time & delay" << endl;
-	time.displayTime();
+//cout << "update time & delay" << endl;
+	//time.displayTime();
 	time.delayGameLoop();
 }//end of while(!quit)
 

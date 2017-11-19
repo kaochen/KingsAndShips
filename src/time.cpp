@@ -53,7 +53,7 @@ void C_Time::delayGameLoop()
 		if (m_lastFrameDuration < m_frame_duration)
 			delay = m_frame_duration - m_lastFrameDuration;
 			}
-	cout << "Delay: " << delay << endl;
+	//cout << "Delay: " << delay << endl;
 	SDL_Delay(delay);
 }
 

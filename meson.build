@@ -8,7 +8,9 @@ sdl2_dep = dependency('sdl2')
 sdl2_image_dep = dependency('SDL2_image')
 sdl2_ttf_dep = dependency('SDL2_ttf')
 sdl2_gfx_dep = dependency('SDL2_gfx')
-all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf_dep, sdl2_gfx_dep ]
+libxml_dep = dependency('libxml++-2.6')
+
+all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf_dep, sdl2_gfx_dep, libxml_dep ]
 
 src00 = ['src/settings.cpp','src/time.cpp','src/level.cpp']
 src01 = ['src/weapons.cpp','src/shooter.cpp','src/towers.cpp','src/invaders.cpp']
