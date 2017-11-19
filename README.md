@@ -47,7 +47,7 @@ http://www.mapeditor.org
 
 Build a tileset from images with imagemagick
 ```
-montage Src*.png  -tile 8x8 -background none tileset.png
+montage Src*.png -tile 8x8 -geometry 128x128 -background none tileset.png
 ```
 
 ### Dev links :
