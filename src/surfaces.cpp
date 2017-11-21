@@ -186,9 +186,9 @@ void C_Texture::extractTSXfile(vector <C_Texture*>& list)
 		  if (attributes == "id")
 		  	id = stoi(reader.get_value());
 		  if (attributes == "type"){
-		   	list.push_back(new C_Texture(id, reader.get_value(),filePath, tilewidth, tileheight));
-		   	}
-
+			string fullname = name +"_" + reader.get_value();
+			list.push_back(new C_Texture(id, fullname ,filePath, tilewidth, tileheight));
+			}
 		} while(reader.move_to_next_attribute());
 		reader.move_to_element();
 	      }
