@@ -163,38 +163,59 @@ void C_Texture::extractTSXfile(vector <C_Texture*>& list)
 
  xmlpp::TextReader reader("data/levels/boat_01.tsx");
 	string filePath = "noFilePath";
-	string name = "noName";
+	string name = "noName", fullname = name;
 	int tilewidth= 0;
 	int tileheight= 0;
-	int id =0;
+	int id =0, previousID = 0;
     while(reader.read())
     {
-         if(reader.has_attributes())
-	      {
-		reader.move_to_first_attribute();
-		do
-		{
-		  string attributes = reader.get_name();
-		  if (attributes == "name")
-		  	name = reader.get_value();
-		  if (attributes == "source")
-		  	filePath = reader.get_value();
-		  if (attributes == "tilewidth")
-		  	tilewidth = stoi(reader.get_value());
-		  if (attributes == "tileheight")
-		  	tileheight = stoi(reader.get_value());
-		  if (attributes == "id")
-		  	id = stoi(reader.get_value());
-		  if (attributes == "type"){
-			string fullname = name +"_" + reader.get_value();
-			list.push_back(new C_Texture(id, fullname ,filePath, tilewidth, tileheight));
-			}
-		} while(reader.move_to_next_attribute());
-		reader.move_to_element();
-	      }
-    }
+    		string nodeName = reader.get_name();
+	      	cout << nodeName << "---namespace---\n";
 
+	      	if (reader.has_attributes()){
+			reader.move_to_first_attribute();
+			do
+			{
+			  string attributes = reader.get_name();
+			  cout << attributes << "-----"<< endl;
+			  //tileset node
+			  if (nodeName == "tileset" && attributes == "name")
+			  	name = reader.get_value();
+			  if (nodeName == "tileset" && attributes == "tilewidth")
+		  		tilewidth = stoi(reader.get_value());
+		  	  if (nodeName == "tileset" && attributes == "tileheight")
+		  		tileheight = stoi(reader.get_value());
+
+			  //image node
+			  if (nodeName == "image" && attributes == "source")
+			  	filePath = reader.get_value();
+
+			  //tile node
+			   if (nodeName == "tile" && attributes == "id"){
+		  		id = stoi(reader.get_value());
+		  		}
+		  	   if (nodeName == "tile" && attributes == "type")
+				fullname = name +"_" + reader.get_value();
+			  //
+			  if (nodeName == "frame" && attributes == "tileid"){
+			  	int tmpId = stoi(reader.get_value());
+			  	if(tmpId != previousID){
+			  		id = tmpId;
+					fullname += "_a";
+					}
+				}
+		  	} while(reader.move_to_next_attribute());
+		}
+	//create new texture
+	if(id != previousID){
+		previousID = id;
+		list.push_back(new C_Texture(id, fullname ,filePath, tilewidth, tileheight));
+	}
+
+	reader.move_to_element();
+    }
 }
+
 
 void C_Texture::displayTexturesList(vector <C_Texture*>& list){
 	for (size_t i = 0; i < list.size(); i++){
