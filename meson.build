@@ -1,7 +1,8 @@
 project('towerdefense','cpp')
 
 add_global_arguments('-Wall',language:'cpp')
-add_global_arguments('-Wextra',language:'cpp')
+add_global_arguments('-Wextra', language:'cpp')
+add_global_arguments('-Wno-deprecated-declarations',language:'cpp')
 add_global_arguments('-g',language:'cpp')
 
 sdl2_dep = dependency('sdl2')
