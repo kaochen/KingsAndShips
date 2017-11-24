@@ -124,14 +124,31 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 void displayGridContent(SDL_Renderer *renderer,
 			C_GameUnits::S_layer grid[][GRID_SIZE]){
 	C_Set& settings=C_Set::Instances();
-	for (int y = 0; y < settings.getGridSize(); y++){
-		for (int x = 0; x < settings.getGridSize(); x++){
-			if (grid[x][y].main != nullptr){
-				int x_screen = grid[x][y].main->getXScreen();
-				int y_screen = grid[x][y].main->getYScreen();
-				grid[x][y].main->render(x_screen, y_screen, renderer);
+	int x_start = 0, y_start = 13;
+	//int x_end = settings.getGridSize();
+	int lineCount = 0, tileCount = 0;
+	for (int l = 0; l < 25; l++){
+		int y = y_start;
+		int x = x_start;
+		for (int r = 0 ; r < 17; r++){
+				cout << "|" << x << ":"<< y;
+				if (grid[x][y].main != nullptr){
+					int x_screen = grid[x][y].main->getXScreen();
+					int y_screen = grid[x][y].main->getYScreen();
+					grid[x][y].main->render(x_screen, y_screen, renderer);
 				}
+				y++;
+				x++;
+				tileCount++;
 		}
+		lineCount++;
+		cout << endl;
+		if (lineCount %2 == 0)
+			y_start--;
+		else
+			x_start++;
+
+		cout << "line: "<< lineCount <<" tile: " << tileCount << endl;
 	}
 }
 
