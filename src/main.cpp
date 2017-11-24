@@ -9,12 +9,14 @@
 
 #include "settings.h"
 #include "time.h"
+#include "grid.h"
 #include "window.h"
 #include "towers.h"
 #include "invaders.h"
 #include "gameUnits.h"
 #include "surfaces.h"
 #include "level.h"
+
 
 
 using namespace std;
