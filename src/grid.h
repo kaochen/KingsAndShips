@@ -12,6 +12,7 @@ class C_Grid
 public:
 	static	C_Grid& Instances();
 
+	void loadLevel(int levelNbr);
 
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}

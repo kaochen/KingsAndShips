@@ -58,6 +58,10 @@ int main()
 	cout << "The main window has been created successfully" << endl;
 
 //-----------------------------------------------------------------------------
+	C_Grid& Sgrid=C_Grid::Instances();
+	Sgrid.loadLevel(1);
+
+
 	//creating the main table to store C_GameUnits position
 	size_t const gridSize = settings.getGridSize();
 

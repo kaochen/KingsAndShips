@@ -23,6 +23,24 @@ C_Grid::~C_Grid()
 {
 }
 
+
+void C_Grid::loadLevel(int levelNbr){
+		cout << "Level Number: " << levelNbr;
+	//setup a basic level for now
+		m_grid[16][17].ground = GROUND_02;
+		m_grid[20][21].ground = GROUND_02;
+		m_grid[10][15].ground = GROUND_02;
+		m_grid[9][6].ground = GROUND_02;
+
+	// add some water
+	for (size_t x = 0; x < GRID_SIZE; x++){
+		m_grid[x][12].plot = false;
+		m_grid[x][12].water = true;
+		m_grid[x][14].plot = false;
+		m_grid[x][14].water = true;
+		}
+}
+
 C_Grid& C_Grid::Instances()
 {
 	return m_instance;
