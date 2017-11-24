@@ -124,13 +124,12 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 void displayGridContent(SDL_Renderer *renderer,
 			C_GameUnits::S_layer grid[][GRID_SIZE]){
 	C_Set& settings=C_Set::Instances();
-	int x_start = 0, y_start = 13;
-	//int x_end = settings.getGridSize();
-	int lineCount = 0, tileCount = 0;
-	for (int l = 0; l < 25; l++){
+	int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
+	for (int l = 0; l < settings.getGridNbrOfLine(); l++){
 		int y = y_start;
 		int x = x_start;
-		for (int r = 0 ; r < 17; r++){
+		cout << "\nline: "<< l << " --";
+		for (int r = 0 ; r < settings.getGridNbrOfRow(); r++){
 				cout << "|" << x << ":"<< y;
 				if (grid[x][y].main != nullptr){
 					int x_screen = grid[x][y].main->getXScreen();
@@ -139,17 +138,14 @@ void displayGridContent(SDL_Renderer *renderer,
 				}
 				y++;
 				x++;
-				tileCount++;
 		}
-		lineCount++;
-		cout << endl;
-		if (lineCount %2 == 0)
+		if (l %2 == 0)
 			y_start--;
 		else
 			x_start++;
 
-		cout << "line: "<< lineCount <<" tile: " << tileCount << endl;
 	}
+	cout << endl;
 }
 
 void drawElipse(SDL_Renderer *renderer,

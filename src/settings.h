@@ -10,7 +10,7 @@
 #define FRAMERATE 30
 #define TILE_HALF_HEIGHT 25
 #define TILE_HALF_WIDTH 50
-#define GRID_SIZE 30
+#define GRID_SIZE 32
 #define BOAT_LIST_SIZE 4
 #define MAX_LIFE 100
 #define LAYER 2
@@ -28,6 +28,10 @@ public:
 	int getGridSize();
 	int getGridWidth();
 	int getGridHeight();
+	int getGridNbrOfLine();
+	int getGridNbrOfRow();
+	int getGridFirstTileX();
+	int getGridFirstTileY();
 
 private:
 	C_Set& operator= (const C_Set&){return *this;}
@@ -40,6 +44,10 @@ private:
 	int m_gridSize;
 	int m_windowWidth;
 	int m_windowHeight;
+	int m_gridNbrOfLine; //nbr of tiles in a line
+	int m_gridNbrOfRow; //nbr of tiles in a row
+	int m_first_tile_x; //first tile to display
+	int m_first_tile_y;
 };
 
 #endif
