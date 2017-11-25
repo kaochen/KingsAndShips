@@ -271,6 +271,7 @@ while(!quit)
 				}
 
 		//display game content
+		Sgrid.renderUnits(renderer);
 		displayGridContent(renderer, grid);
 		//display menu
  		renderTexture(C_Texture::getText("CrossBow_01.png"), renderer, 30,100);

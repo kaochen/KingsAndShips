@@ -14,6 +14,7 @@ public:
 
 	void loadLevel(int levelNbr);
 	void renderFloor(SDL_Renderer *renderer);
+	void renderUnits(SDL_Renderer *renderer);
 
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}

@@ -47,15 +47,8 @@ void C_Grid::loadLevel(int levelNbr){
 }
 
 void C_Grid::renderFloor(SDL_Renderer *renderer){
-
-		C_Set& settings=C_Set::Instances();
-		//add a setup background
-		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (settings.getWindowWidth()/2),0);
-		//draw some water
-
-
-
-int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
+	C_Set& settings=C_Set::Instances();
+	int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
 	for (int l = 0; l < settings.getGridNbrOfLine(); l++){
 		int y = y_start;
 		int x = x_start;
@@ -79,4 +72,30 @@ int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY
 		else
 			x_start++;
 	}
+}
+
+
+void C_Grid::renderUnits(SDL_Renderer *renderer){
+		C_Set& settings=C_Set::Instances();
+		int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
+		for (int l = 0; l < settings.getGridNbrOfLine(); l++){
+			int y = y_start;
+			int x = x_start;
+			//cout << "\nline: "<< l << " --";
+			for (int r = 0 ; r < settings.getGridNbrOfRow(); r++){
+					//cout << "|" << x << ":"<< y;
+					if (m_grid[x][y].main != nullptr){
+						int x_screen = m_grid[x][y].main->getXScreen();
+						int y_screen = m_grid[x][y].main->getYScreen();
+						m_grid[x][y].main->render(x_screen, y_screen, renderer);
+					}
+					y++;
+					x++;
+			}
+			if (l %2 == 0)
+				y_start--;
+			else
+				x_start++;
+		}
+		//cout << endl;
 }
