@@ -128,9 +128,9 @@ void displayGridContent(SDL_Renderer *renderer,
 	for (int l = 0; l < settings.getGridNbrOfLine(); l++){
 		int y = y_start;
 		int x = x_start;
-		cout << "\nline: "<< l << " --";
+		//cout << "\nline: "<< l << " --";
 		for (int r = 0 ; r < settings.getGridNbrOfRow(); r++){
-				cout << "|" << x << ":"<< y;
+				//cout << "|" << x << ":"<< y;
 				if (grid[x][y].main != nullptr){
 					int x_screen = grid[x][y].main->getXScreen();
 					int y_screen = grid[x][y].main->getYScreen();
@@ -145,7 +145,7 @@ void displayGridContent(SDL_Renderer *renderer,
 			x_start++;
 
 	}
-	cout << endl;
+	//cout << endl;
 }
 
 void drawElipse(SDL_Renderer *renderer,

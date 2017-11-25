@@ -257,22 +257,8 @@ while(!quit)
 
 		SDL_RenderClear(renderer);
 
-		//add a setup background
-		renderTexture(C_Texture::getText("SetupBackground.png"), renderer, (settings.getWindowWidth()/2),0);
-		//draw some water
-		size_t const gridSize = settings.getGridSize();
-		for (size_t y = 0; y < gridSize; y++){
-			for (size_t x = 0; x < gridSize; x++){
-					int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
-					int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
-					if (grid[x][y].water)
-							renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
-					if (grid[x][y].ground == GROUND_01 && grid[x][y].water == false)
-							renderTexture(C_Texture::getText("Grass_01.png"), renderer, x_s,y_s + 36);
-					if (grid[x][y].ground == GROUND_02 && grid[x][y].water == false)
-							renderTexture(C_Texture::getText("Grass_02.png"), renderer, x_s,y_s + 36);
-					}
-		}
+		Sgrid.renderFloor(renderer);
+
 		//draw the deads
 		for (size_t y = 0; y < gridSize; y++){
 			for (size_t x = 0; x < gridSize; x++){
