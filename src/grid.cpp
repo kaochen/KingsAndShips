@@ -1,5 +1,7 @@
 #include "grid.h"
 #include "surfaces.h"
+#include "invaders.h"
+#include "towers.h"
 
 using namespace std;
 
@@ -63,7 +65,13 @@ void C_Grid::renderFloor(SDL_Renderer *renderer){
 						renderTexture(C_Texture::getText("Grass_01.png"), renderer, x_s,y_s + 36);
 				if (m_grid[x][y].ground == GROUND_02 && m_grid[x][y].water == false)
 						renderTexture(C_Texture::getText("Grass_02.png"), renderer, x_s,y_s + 36);
+				//draw the deads
 
+				if (m_grid[x][y].dead != nullptr){
+						int x_s = m_grid[x][y].dead->getXScreen();
+						int y_s = m_grid[x][y].dead->getYScreen();
+						renderTexture(C_Texture::getText("boat_01_Dead.png"), renderer, x_s,y_s + 36);
+						}
 				y++;
 				x++;
 		}
@@ -98,4 +106,74 @@ void C_Grid::renderUnits(SDL_Renderer *renderer){
 				x_start++;
 		}
 		//cout << endl;
+}
+
+
+void C_Grid::addANewBoat(int x, int y, int rank){
+	if (m_grid[x][y].water){
+		m_grid[x][y].main = new C_invaders(x,y,rank);
+	}
+	else{
+		cout << "You should place the boat into the water" << endl;
+	}
+}
+
+void C_Grid::addANewTower(int x, int y, int rank){
+	if (m_grid[x][y].main == nullptr){
+		m_grid[x][y].main = new C_Towers(x,y,rank);
+		m_grid[x][y].ground = GROUND_01;
+	}
+}
+
+void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest){
+if(x_from == x_dest && y_from == y_dest){
+	}
+else{
+	if (m_grid[x_from][y_from].main != nullptr){
+		m_grid[x_dest][y_dest].main = m_grid[x_from][y_from].main;
+		m_grid[x_from][y_from].main = nullptr;
+	}
+    }
+}
+
+C_GameUnits* C_Grid::getUnits(int x, int y){
+	return m_grid[x][y].main;
+}
+
+void C_Grid::delUnit(int x_grid, int y_grid){
+	m_grid[x_grid][y_grid].main = nullptr;
+	}
+
+void C_Grid::moveToDead(int x_grid, int y_grid){
+	m_grid[x_grid][y_grid].dead = m_grid[x_grid][y_grid].main;
+	m_grid[x_grid][y_grid].main = nullptr;
+	}
+
+
+
+void C_Grid::displayStatus(){
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+			if (m_grid[x][y].main != nullptr){
+				cout <<"Case: " << x <<":" << y << endl;
+				m_grid[x][y].main->displayStatus();
+				}
+			}
+		}
+}
+
+
+void C_Grid::deleteGrid(){
+	for (size_t y = 0; y < GRID_SIZE; y++){
+			for (size_t x = 0; x < GRID_SIZE; x++){
+				if (m_grid[x][y].main != nullptr){
+					delete m_grid[x][y].main;
+					m_grid[x][y].main = nullptr;
+					}
+				 if (m_grid[x][y].dead != nullptr){
+					delete m_grid[x][y].dead;
+					m_grid[x][y].dead = nullptr;
+					}
+			}
+		}
 }

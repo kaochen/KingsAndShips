@@ -24,7 +24,7 @@ class C_Level
 	C_Level();
 	~C_Level();
 	void status();
-	void sendNextWave(C_GameUnits::S_layer grid[][GRID_SIZE], std::list<C_GameUnits*>& lB);
+	void sendNextWave(std::list<C_GameUnits*>& lB);
 
 	protected:
 	//attibuts

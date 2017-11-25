@@ -16,6 +16,16 @@ public:
 	void renderFloor(SDL_Renderer *renderer);
 	void renderUnits(SDL_Renderer *renderer);
 
+	void addANewBoat(int x, int y, int rank);
+	void addANewTower(int x, int y, int rank);
+	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
+	void delUnit(int x_grid, int y_grid);
+	void moveToDead(int x_grid, int y_grid);
+
+	C_GameUnits* getUnits(int x, int y);
+	void displayStatus();
+	void deleteGrid();
+
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}
 	C_Grid (const C_Grid&){}

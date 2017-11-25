@@ -1,5 +1,6 @@
 #include "gameUnits.h"
 #include "surfaces.h"
+#include "grid.h"
 #include <cmath>
 
 using namespace std;
@@ -30,7 +31,12 @@ C_GameUnits::~C_GameUnits()
 C_GameUnits::C_GameUnits(C_GameUnits const& original):
 	m_name(original.m_name),
 	m_life(original.m_life),
-	m_rank(original.m_rank)
+	m_rank(original.m_rank),
+	m_x_grid(original.m_x_grid),
+	m_y_grid(original.m_y_grid),
+	m_x_screen (original.m_x_screen),
+	m_y_screen (original.m_y_screen),
+	m_y_center_offset (original.m_y_center_offset)
 {}
 
 //get attibuts
@@ -105,16 +111,24 @@ int C_GameUnits::getYScreen() const
 	return m_y_screen;
 }
 
-void C_GameUnits::xyScreenToXYGrid(){
+int C_GameUnits::xScreenToXGrid(int x_screen, int y_screen){
 		C_Set& settings=C_Set::Instances();
 		float xOffset = (settings.getWindowWidth() /2);
 		float yOffset = (settings.getWindowHeight() /2);
-		float tempX = 0.0, tempY = 0.0;
-		tempX = ( ((m_x_screen - xOffset ) / TILE_HALF_WIDTH + (m_y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
-		tempY = ( (m_y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (m_x_screen - xOffset)/(TILE_HALF_WIDTH*2));
-		m_x_grid = tempX + 2;
-		m_y_grid = tempY + 2;
+		float tempX = 0.0;
+		tempX = ( ((x_screen - xOffset ) / TILE_HALF_WIDTH + (y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
+		return tempX + 2;
 		}
+
+int C_GameUnits::yScreenToYGrid(int x_screen, int y_screen){
+		C_Set& settings=C_Set::Instances();
+		float xOffset = (settings.getWindowWidth() /2);
+		float yOffset = (settings.getWindowHeight() /2);
+		float tempY = 0.0;
+		tempY = ( (y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (x_screen - xOffset)/(TILE_HALF_WIDTH*2));
+		return tempY + 2;
+		}
+
 
 
 int C_GameUnits::getYCenterOffset() const
@@ -132,22 +146,13 @@ int C_GameUnits::getDistance(int x, int y) const
 	return dist;
 }
 
-void C_GameUnits::del(S_layer grid[][GRID_SIZE])
+void C_GameUnits::kill()
 {
-	cout << "Delete boat from:" << m_x_grid << ":" << m_y_grid << endl;
- 	grid[m_x_grid][m_y_grid].dead = this;
- 	grid[m_x_grid][m_y_grid].main = nullptr;
+	C_Grid& grid=C_Grid::Instances();
+	cout << "kill boat from:" << m_x_grid << ":" << m_y_grid << endl;
+ 	grid.moveToDead(m_x_grid, m_y_grid);
 }
 
 
-void displayGridStatus(C_GameUnits::S_layer grid[][GRID_SIZE]){
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-			if (grid[x][y].main != nullptr){
-				cout <<"Case: " << x <<":" << y << endl;
-				grid[x][y].main->displayStatus();
-				}
-			}
-		}
-}
+
 

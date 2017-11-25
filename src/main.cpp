@@ -58,14 +58,9 @@ int main()
 	cout << "The main window has been created successfully" << endl;
 
 //-----------------------------------------------------------------------------
-	C_Grid& Sgrid=C_Grid::Instances();
-	Sgrid.loadLevel(1);
+	C_Grid& grid=C_Grid::Instances();
+	grid.loadLevel(1);
 
-
-	//creating the main table to store C_GameUnits position
-	size_t const gridSize = settings.getGridSize();
-
-	C_GameUnits::S_layer grid[GRID_SIZE][GRID_SIZE];
 
 	vector<C_GameUnits*> towerVector;
 	list<C_GameUnits*> lB; //listOfBoats
@@ -76,37 +71,11 @@ int main()
 	t.extractTSXfile(textureList);
 	t.displayTexturesList(textureList);
 
-	//init the table
-	for (size_t y = 0; y < gridSize; y++){
-		for (size_t x = 0; x < gridSize; x++){
-		grid[x][y].main = nullptr;
-		grid[x][y].dead = nullptr;
-		grid[x][y].plot = true;
-		grid[x][y].water = false;
-		grid[x][y].ground = GROUND_01;
-		}
-	}
-
-		grid[16][17].ground = GROUND_02;
-		grid[20][21].ground = GROUND_02;
-		grid[10][15].ground = GROUND_02;
-		grid[9][6].ground = GROUND_02;
-
-	// add some water
-	for (size_t x = 0; x < gridSize; x++){
-		grid[x][12].plot = false;
-		grid[x][12].water = true;
-		grid[x][14].plot = false;
-		grid[x][14].water = true;
-		}
-
 	//load first level
 	C_Level level;
-	level.sendNextWave(grid, lB);
-	level.status();
 
 	//displayStatus of the grid
-	displayGridStatus(grid);
+	grid.displayStatus();
 
 
 //-----------------------------------------------------------------------------
@@ -169,10 +138,9 @@ while(!quit)
 
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
-					if(towerSelected == true && grid[xClicTable][yClicTable].main == nullptr) {
-						grid[xClicTable][yClicTable].main = new C_Towers(xClicTable,yClicTable,0);
-						towerVector.push_back(grid[xClicTable][yClicTable].main);
-						grid[xClicTable][yClicTable].ground = GROUND_01;
+					if(towerSelected == true && grid.getUnits(xClicTable,yClicTable) == nullptr) {
+						grid.addANewTower(xClicTable,yClicTable,0);
+						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
 						towerSelected = false;
 						}
 
@@ -188,7 +156,7 @@ while(!quit)
 				cout << "The quit command (q) has been pressed." << endl;
 				break;
 			case SDLK_n:
-				level.sendNextWave(grid, lB);
+				level.sendNextWave(lB);
 				break;
 			}
 
@@ -207,7 +175,7 @@ while(!quit)
 				//move
 				for (itB = lB.begin(); itB != lB.end(); itB++){
 						C_GameUnits* tmp = *itB;
-						tmp->move(EAST, grid);
+						tmp->move(EAST);
 				}
 
 				for (size_t i = 0; i < towerVector.size(); i++){
@@ -241,7 +209,7 @@ while(!quit)
 					C_GameUnits* boat = *itB;
 					if (boat->alive() == false){
 						lB.erase(itB++);
-						boat->del(grid);
+						boat->kill();
 					}
 					else{
 						itB++;
@@ -254,25 +222,13 @@ while(!quit)
 	if (forceRefresh){
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
-
+		//change background color before clear
+		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
 		SDL_RenderClear(renderer);
-
-		Sgrid.renderFloor(renderer);
-
-		//draw the deads
-		for (size_t y = 0; y < gridSize; y++){
-			for (size_t x = 0; x < gridSize; x++){
-				if (grid[x][y].dead != nullptr){
-						int x_s = grid[x][y].dead->getXScreen();
-						int y_s = grid[x][y].dead->getYScreen();
-						renderTexture(C_Texture::getText("boat_01_Dead.png"), renderer, x_s,y_s + 36);
-						}
-					}
-				}
-
 		//display game content
-		Sgrid.renderUnits(renderer);
-		displayGridContent(renderer, grid);
+		grid.renderFloor(renderer);
+		grid.renderUnits(renderer);
+
 		//display menu
  		renderTexture(C_Texture::getText("CrossBow_01.png"), renderer, 30,100);
 		//show cursor :
@@ -301,18 +257,7 @@ while(!quit)
 	//Cleanup before leaving
 
 	// delete main unit table
-	for (size_t y = 0; y < gridSize; y++){
-		for (size_t x = 0; x < gridSize; x++){
-			if (grid[x][y].main != nullptr){
-				delete grid[x][y].main;
-				grid[x][y].main = nullptr;
-				}
-			 if (grid[x][y].dead != nullptr){
-				delete grid[x][y].dead;
-				grid[x][y].dead = nullptr;
-				}
-		}
-	}
+	grid.deleteGrid();
 	//quitProgram(window, renderer);
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);

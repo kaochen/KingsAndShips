@@ -1,5 +1,6 @@
 #include "invaders.h"
 #include "time.h"
+#include "grid.h"
 
 using namespace std;
 
@@ -21,9 +22,10 @@ C_invaders::~C_invaders()
 }
 
 
-void C_invaders::move(int direction,
-		      C_GameUnits::S_layer grid[][GRID_SIZE])
+void C_invaders::move(int direction)
 {
+
+	C_Grid& grid=C_Grid::Instances();
 	m_moving = true;
 	int speed = 2;
 	switch (direction){
@@ -44,9 +46,17 @@ void C_invaders::move(int direction,
 			m_y_screen += speed/2;
 		break;
 	}
-	grid[m_x_grid][m_y_grid].main = nullptr; //delete previous position
-	xyScreenToXYGrid();
-	grid[m_x_grid][m_y_grid].main = this; //move to new position
+
+	int new_x_grid = xScreenToXGrid (m_x_screen, m_y_screen);
+	int new_y_grid = yScreenToYGrid (m_x_screen, m_y_screen);
+
+	if(m_x_grid != new_x_grid || m_y_grid != new_y_grid){
+		grid.moveUnit(m_x_grid, m_y_grid, new_x_grid, new_y_grid);
+		cout << "Move from:" << m_x_grid << ":" << m_y_grid << " to:" << new_x_grid << ":" << new_y_grid << endl;
+		m_x_grid = new_x_grid;
+		m_y_grid = new_y_grid;
+		}
+
 }
 
 
