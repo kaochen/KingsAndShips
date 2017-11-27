@@ -1,10 +1,24 @@
 #include "window.h"
+#include "settings.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
 using namespace std;
+C_Window C_Window::m_instance=C_Window();
 
+C_Window::C_Window()
+{
+
+}
+
+C_Window::~C_Window(){
+}
+
+C_Window& C_Window::Instances()
+{
+	return m_instance;
+}
 
 void initSDL()
 {
@@ -25,16 +39,18 @@ void initSDL()
 		}
 }
 
-void createWindow(SDL_Window* window, SDL_Renderer* renderer){
+void C_Window::createWindow(){
  	initSDL();
- 	window = SDL_CreateWindow("TOWER",
+
+	C_Set& settings=C_Set::Instances();
+ 	m_window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
-			      800,
-			      600,
+			      settings.getWindowWidth(),
+			      settings.getWindowHeight(),
 			      SDL_WINDOW_MOUSE_FOCUS);
 
-	if (window == nullptr)
+	if (m_window == nullptr)
 		{
 			logSDLerror("SDL_CreateWindow() failed");
 			SDL_Quit();
@@ -42,10 +58,10 @@ void createWindow(SDL_Window* window, SDL_Renderer* renderer){
 	else
 		{
 			// Create a renderer from the window
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-			if (renderer == nullptr)
+			m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+			if (m_renderer == nullptr)
 				{
-					SDL_DestroyWindow(window);
+					SDL_DestroyWindow(m_window);
 					logSDLerror("SDL_GetWindowSurface() failed");
 					SDL_Quit();
 				}
@@ -53,6 +69,15 @@ void createWindow(SDL_Window* window, SDL_Renderer* renderer){
 cout << "The main window has been created successfully" << endl;
 }
 
+
+
+SDL_Window* C_Window::getWindow(){
+	return m_window;
+};
+
+SDL_Renderer* C_Window::getRenderer(){
+	return m_renderer;
+};
 
 void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
 {

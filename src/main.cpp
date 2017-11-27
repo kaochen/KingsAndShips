@@ -31,31 +31,11 @@ int main()
 	//init settings
 	C_Set& settings=C_Set::Instances();
 	C_Time& time=C_Time::Instances();
-
+	C_Window& win=C_Window::Instances();
+	win.createWindow();
 	//create main window
-	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
- 	window = SDL_CreateWindow("TOWER",
-			      SDL_WINDOWPOS_UNDEFINED,
-			      SDL_WINDOWPOS_UNDEFINED,
-			      settings.getWindowWidth(),
-			      settings.getWindowHeight(),
-			      SDL_WINDOW_MOUSE_FOCUS);
-
-	if (window == nullptr){
-			logSDLerror("SDL_CreateWindow() failed");
-			SDL_Quit();
-		}
-	else{
-			// Create a renderer from the window
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-			if (renderer == nullptr){
-					SDL_DestroyWindow(window);
-					logSDLerror("SDL_GetWindowSurface() failed");
-					SDL_Quit();
-				}
-		}
-	cout << "The main window has been created successfully" << endl;
+	SDL_Window* window = win.getWindow ();
+	SDL_Renderer* renderer = win.getRenderer ();
 
 //-----------------------------------------------------------------------------
 	C_Grid& grid=C_Grid::Instances();
