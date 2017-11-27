@@ -21,7 +21,7 @@ public:
 
 
 	void displayStatus();
-	SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
+	SDL_Texture* loadTexture(const std::string &path);
 
 protected:
 	int m_id;
@@ -38,10 +38,10 @@ class C_TextureList
 {
 public:
 	static	C_TextureList& Instances();
-	void renderTexture(std::string name, SDL_Renderer *renderer, int x, int y);
+	void renderTexture(std::string name, int x, int y);
 	std::map<std::string, SDL_Texture*>  getTextMap();
-	void loadTexturesIntoMap(SDL_Renderer *renderer);
-	void extractTSXfile(std::string tsx_File_Path, SDL_Renderer *renderer);
+	void loadTexturesIntoMap();
+	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
 
 private:
@@ -56,6 +56,6 @@ private:
 };
 
 
-void drawElipse(SDL_Renderer *renderer,int x,int y, int width);
+void drawElipse(int x,int y, int width);
 
 #endif

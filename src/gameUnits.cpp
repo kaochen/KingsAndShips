@@ -52,14 +52,14 @@ void C_GameUnits::displayStatus() const
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid << endl;
 }
 
-void C_GameUnits::render(int x_screen, int y_screen, SDL_Renderer *renderer){
+void C_GameUnits::render(int x_screen, int y_screen){
 	string name = getName();
 	int rank = getRank();
 	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, renderer, x_screen,y_screen + m_y_center_offset);
+	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
 }
 
 void C_GameUnits::receiveDamage(int nbDamage)

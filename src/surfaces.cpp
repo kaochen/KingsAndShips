@@ -37,13 +37,14 @@ void C_Texture::displayStatus(){
 }
 
 
-SDL_Texture* C_Texture::loadTexture(const string &path, SDL_Renderer *renderer)
+SDL_Texture* C_Texture::loadTexture(const string &path)
 {
+	C_Window& win=C_Window::Instances();
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
 	if (image != nullptr)
 		{
-		texture = SDL_CreateTextureFromSurface(renderer,image);
+		texture = SDL_CreateTextureFromSurface(win.getRenderer(),image);
 		SDL_FreeSurface(image); //Don't need anymore
 
 		if (texture == nullptr)
@@ -78,9 +79,9 @@ C_TextureList& C_TextureList::Instances()
 }
 
 
-void C_TextureList::renderTexture(string name, SDL_Renderer *renderer, int x, int y)
+void C_TextureList::renderTexture(string name, int x, int y)
 {
-
+	C_Window& win=C_Window::Instances();
 	C_Set& settings=C_Set::Instances();
 	SDL_Texture *texture;
 
@@ -99,7 +100,7 @@ void C_TextureList::renderTexture(string name, SDL_Renderer *renderer, int x, in
 		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
 		pos.x = x - pos.w/2;
 		pos.y = y;
-		SDL_RenderCopy(renderer, texture, NULL, &pos);
+		SDL_RenderCopy(win.getRenderer(), texture, NULL, &pos);
 		}
 }
 
@@ -110,7 +111,7 @@ map<string, SDL_Texture*>  C_TextureList::getTextMap(){
 
 
 
-void C_TextureList::loadTexturesIntoMap(SDL_Renderer *renderer){
+void C_TextureList::loadTexturesIntoMap(){
 	int size = 28;
 	string file[size] = {"Tower_00_00.png","Tower_01_00.png","boat_01_00.png","boatMoving_01_00.png",
 	"boatMoving_01_10.png","boat_01_Dead.png","SimpleTile.png","Grass_01.png","Grass_02.png",
@@ -122,18 +123,18 @@ void C_TextureList::loadTexturesIntoMap(SDL_Renderer *renderer){
 	C_Texture t;
 	for (int i = 0; i < size; i++){
 		string path = "data/img/original/" + file[i];
-		m_map_textures[file[i]] = t.loadTexture(path, renderer);
+		m_map_textures[file[i]] = t.loadTexture(path);
 	}
 }
 
 
-void drawElipse(SDL_Renderer *renderer,
-		int x,
+void drawElipse(int x,
 		int y,
 		int width){
+		C_Window& win=C_Window::Instances();
 		int height = width/2;
-		ellipseRGBA(renderer,x,y,width+1,height+1,0,200,0,128);
-		filledEllipseRGBA(renderer,x,y,100,50,0,200,0,32);
+		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,0,200,0,128);
+		filledEllipseRGBA(win.getRenderer(),x,y,100,50,0,200,0,32);
 }
 
 struct indent {
@@ -150,7 +151,7 @@ ostream & operator<<(ostream & o, indent const & in)
   return o;
 }
 
-void C_TextureList::extractTSXfile(string tsx_File_Path, SDL_Renderer *renderer)
+void C_TextureList::extractTSXfile(string tsx_File_Path)
 {
 
  xmlpp::TextReader reader(tsx_File_Path);
@@ -204,7 +205,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path, SDL_Renderer *renderer)
 	//create new texture
 	if(id != previousID){
 		previousID = id;
-		m_map_textures[fullname] = t.loadTexture(filePath, renderer);
+		m_map_textures[fullname] = t.loadTexture(filePath);
 	}
 
 	reader.move_to_element();

@@ -24,7 +24,6 @@ using namespace std;
 
 int main()
 {
-
 	//init settings
 	C_Set& settings=C_Set::Instances();
 	C_Time& time=C_Time::Instances();
@@ -44,13 +43,13 @@ int main()
 	list<C_GameUnits*>::iterator itB;
 
 	C_TextureList& tList=C_TextureList::Instances();
-	tList.loadTexturesIntoMap(renderer);
+	tList.loadTexturesIntoMap();
 
 	vector <C_Texture*> textureList;
 
 	C_TextureList& t=C_TextureList::Instances();
 	//C_Texture text;
-	t.extractTSXfile("data/levels/boat_01.tsx", renderer);
+	t.extractTSXfile("data/levels/boat_01.tsx");
 	//text.displayTexturesList(textureList);
 
 	//load first level
@@ -209,21 +208,21 @@ while(!quit)
 		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
 		SDL_RenderClear(renderer);
 		//display game content
-		grid.renderLayer (GROUND, renderer);
-		grid.renderLayer (DEAD, renderer);
-		grid.renderLayer (UNITS, renderer);
+		grid.renderLayer (GROUND);
+		grid.renderLayer (DEAD);
+		grid.renderLayer (UNITS);
 
 
 		//display menu
- 		t.renderTexture("CrossBow_01.png", renderer, 30,100);
+ 		t.renderTexture("CrossBow_01.png", 30,100);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
-			drawElipse(renderer,xCursor,yCursor,100);
- 			t.renderTexture("Tile_Highlight_Green.png", renderer, xCursor,yCursor -100);
- 			t.renderTexture("Tower_00_00.png", renderer, xCursor,yCursor -150);
+			drawElipse(xCursor,yCursor,100);
+ 			t.renderTexture("Tile_Highlight_Green.png", xCursor,yCursor -100);
+ 			t.renderTexture("Tower_00_00.png", xCursor,yCursor -150);
  			towerSelected = true;
  		}
- 		SDL_RenderPresent(renderer);
+ 		SDL_RenderPresent(win.getRenderer());
  		}
 
 		time.updateFrameNbr(frameStartTime, SDL_GetTicks());

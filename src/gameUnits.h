@@ -32,7 +32,7 @@ class C_GameUnits
 
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
-	virtual void render(int x_screen,int y_screen,SDL_Renderer *renderer);
+	virtual void render(int x_screen,int y_screen);
 	virtual void shoot(C_GameUnits &target) =0;
 	virtual void stopShooting() =0;
 	virtual void receiveDamage(int nbDamage);
@@ -55,7 +55,7 @@ class C_GameUnits
 
 
 	virtual int testFirerange(C_GameUnits &target) = 0;
-	virtual void renderMissile(SDL_Renderer *renderer) = 0;
+	virtual void renderMissile() = 0;
 
 	virtual void kill();
 

@@ -15,7 +15,7 @@ public:
 	static	C_Grid& Instances();
 
 	void loadLevel(int levelNbr);
-	void renderLayer(int layer, SDL_Renderer *renderer);
+	void renderLayer(int layer);
 
 	void addANewBoat(int x, int y, int rank);
 	void addANewTower(int x, int y, int rank);

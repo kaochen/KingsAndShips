@@ -48,7 +48,7 @@ void C_Grid::loadLevel(int levelNbr){
 		}
 }
 
-void C_Grid::renderLayer(int layer, SDL_Renderer *renderer){
+void C_Grid::renderLayer(int layer){
 	C_Set& settings=C_Set::Instances();
 	C_TextureList& t=C_TextureList::Instances();
 	int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
@@ -65,25 +65,25 @@ void C_Grid::renderLayer(int layer, SDL_Renderer *renderer){
 						int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
 						int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
 						if (m_grid[x][y].water)
-								t.renderTexture("SimpleWaterTile.png", renderer, x_s,y_s + 36);
+								t.renderTexture("SimpleWaterTile.png", x_s,y_s + 36);
 						if (m_grid[x][y].ground == GROUND_01 && m_grid[x][y].water == false)
-								t.renderTexture("Grass_01.png", renderer, x_s,y_s + 36);
+								t.renderTexture("Grass_01.png",  x_s,y_s + 36);
 						if (m_grid[x][y].ground == GROUND_02 && m_grid[x][y].water == false)
-								t.renderTexture("Grass_02.png", renderer, x_s,y_s + 36);
+								t.renderTexture("Grass_02.png", x_s,y_s + 36);
 						    }
 						//draw the deads
 				if (layer == DEAD){
 						if (m_grid[x][y].dead != nullptr){
 							int x_s = m_grid[x][y].dead->getXScreen();
 							int y_s = m_grid[x][y].dead->getYScreen();
-							t.renderTexture("boat_01_Dead.png", renderer, x_s,y_s + 36);
+							t.renderTexture("boat_01_Dead.png", x_s,y_s + 36);
 							}
 						}
 				if (layer == UNITS){
 						if (m_grid[x][y].main != nullptr){
 								int x_screen = m_grid[x][y].main->getXScreen();
 								int y_screen = m_grid[x][y].main->getYScreen();
-								m_grid[x][y].main->render(x_screen, y_screen, renderer);
+								m_grid[x][y].main->render(x_screen, y_screen);
 							}
 						}
 				x++;

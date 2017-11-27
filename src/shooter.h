@@ -18,10 +18,10 @@ class C_Shooter : public C_GameUnits
 	virtual void move(int direction);
 	virtual int testFirerange(C_GameUnits &target);
 
-	virtual void render(int x_screen, int y_screen, SDL_Renderer *renderer);
+	virtual void render(int x_screen, int y_screen);
 	virtual void shootTarget(C_GameUnits &target);
 	virtual void stopShooting(void);
-	virtual void renderMissile(SDL_Renderer *renderer);
+	virtual void renderMissile();
 	protected:
 	C_Weapon *m_weapon;
 	SDL_Texture* m_image;

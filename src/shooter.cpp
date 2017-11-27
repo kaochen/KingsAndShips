@@ -70,13 +70,13 @@ void C_Shooter::stopShooting(void){
 		}
 
 
-void C_Shooter::render(int x_screen, int y_screen, SDL_Renderer *renderer){
-	C_GameUnits::render(x_screen, y_screen,renderer);
+void C_Shooter::render(int x_screen, int y_screen){
+	C_GameUnits::render(x_screen, y_screen);
 	if (m_weapon->getShooting())
-		renderMissile(renderer);
+		renderMissile();
 }
 
-void C_Shooter::renderMissile(SDL_Renderer *renderer){
+void C_Shooter::renderMissile(){
 		int x_s = m_weapon->getXScreen();
 		int y_s = m_weapon->getYScreen();
 		int direction = m_weapon->getDirection();
@@ -112,5 +112,5 @@ void C_Shooter::renderMissile(SDL_Renderer *renderer){
 		}
 
 		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(name, renderer, x_s,y_s);
+		t.renderTexture(name, x_s,y_s);
 }

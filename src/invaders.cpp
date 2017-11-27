@@ -2,6 +2,8 @@
 #include "time.h"
 #include "grid.h"
 
+#include "window.h"
+
 using namespace std;
 
 
@@ -60,8 +62,10 @@ void C_invaders::move(int direction)
 }
 
 
-void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer)
+void C_invaders::renderLifeBar(int x_screen, int y_screen)
 	{
+		C_Window& win=C_Window::Instances();
+		SDL_Renderer* renderer = win.getRenderer();
 		//add a life status above the boat
 		int l = m_life / 2;
 		int red = 0, green = 200;
@@ -86,7 +90,7 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *rendere
 		    SDL_RenderFillRect( renderer, &r );
 	}
 
-void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
+void C_invaders::render(int x_screen, int y_screen){
 	string name = getName();
 	C_Time& time=C_Time::Instances();
 	C_TextureList& t=C_TextureList::Instances();
@@ -107,7 +111,7 @@ void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, renderer, x_screen,y_screen + m_y_center_offset);
-	renderLifeBar(x_screen, y_screen, renderer);
+	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
+	renderLifeBar(x_screen, y_screen);
 }
 

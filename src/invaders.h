@@ -15,9 +15,9 @@ class C_invaders: public C_Shooter
 
 	virtual void move(int direction);
 
-	virtual void renderLifeBar(int x_screen, int y_screen, SDL_Renderer *renderer);
+	virtual void renderLifeBar(int x_screen, int y_screen);
 
-	virtual void render(int x_screen, int y_screen, SDL_Renderer *renderer);
+	virtual void render(int x_screen, int y_screen);
 	protected:
 	//attibuts
 	bool m_moving;

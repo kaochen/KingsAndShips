@@ -14,7 +14,7 @@ C_Towers::C_Towers(int x_grid,
 }
 
 
-void C_Towers::renderSmoke(SDL_Renderer *renderer){
+void C_Towers::renderSmoke(){
 	C_Time& time=C_Time::Instances();
 	long delay = time.getFrameDuration()*4;
 	long current = SDL_GetTicks();
@@ -29,13 +29,13 @@ void C_Towers::renderSmoke(SDL_Renderer *renderer){
 	}
 	string fileName = "smoke_0" + to_string(m_smokeNbr) + ".png" ;
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, renderer, m_x_screen,m_y_screen + 36);
+	t.renderTexture(fileName, m_x_screen,m_y_screen + 36);
 }
 
-void C_Towers::render(int x_screen, int y_screen, SDL_Renderer *renderer){
-	C_Shooter::render(x_screen, y_screen,renderer);
+void C_Towers::render(int x_screen, int y_screen){
+	C_Shooter::render(x_screen, y_screen);
 	if (m_justAdded)
-		renderSmoke(renderer);
+		renderSmoke();
 }
 
 

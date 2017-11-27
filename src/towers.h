@@ -15,8 +15,8 @@ class C_Towers: public C_Shooter
 	C_Towers();
 	C_Towers(int x_grid, int y_grid, int rank);
 
-	virtual void render(int x_screen, int y_screen, SDL_Renderer *renderer);
-	void renderSmoke(SDL_Renderer *renderer);
+	virtual void render(int x_screen, int y_screen);
+	void renderSmoke();
 	protected:
 	long m_lastSmokeTime;
 	int m_smokeNbr;
