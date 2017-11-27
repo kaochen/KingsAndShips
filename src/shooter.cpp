@@ -22,7 +22,7 @@ void C_Shooter::shoot(C_GameUnits &target)
 	if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()){
 		m_weapon->setShooting(true);
 		shootTarget(target);
-		cout << target.getName() << " has been shot" << endl;
+		//cout << target.getName() << " has been shot" << endl;
 	}
 	else {
 		m_weapon->setShooting(false);

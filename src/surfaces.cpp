@@ -120,33 +120,7 @@ void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
 	map_textures["smoke_08.png"] = loadTexture("data/img/original/smoke_08.png", renderer);
 }
 
-//displayContent of the grid
-void displayGridContent(SDL_Renderer *renderer,
-			C_GameUnits::S_layer grid[][GRID_SIZE]){
-	C_Set& settings=C_Set::Instances();
-	int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
-	for (int l = 0; l < settings.getGridNbrOfLine(); l++){
-		int y = y_start;
-		int x = x_start;
-		//cout << "\nline: "<< l << " --";
-		for (int r = 0 ; r < settings.getGridNbrOfRow(); r++){
-				//cout << "|" << x << ":"<< y;
-				if (grid[x][y].main != nullptr){
-					int x_screen = grid[x][y].main->getXScreen();
-					int y_screen = grid[x][y].main->getYScreen();
-					grid[x][y].main->render(x_screen, y_screen, renderer);
-				}
-				y++;
-				x++;
-		}
-		if (l %2 == 0)
-			y_start--;
-		else
-			x_start++;
 
-	}
-	//cout << endl;
-}
 
 void drawElipse(SDL_Renderer *renderer,
 		int x,

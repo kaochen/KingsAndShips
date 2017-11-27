@@ -226,8 +226,10 @@ while(!quit)
 		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
 		SDL_RenderClear(renderer);
 		//display game content
-		grid.renderFloor(renderer);
-		grid.renderUnits(renderer);
+		grid.renderLayer (GROUND, renderer);
+		grid.renderLayer (DEAD, renderer);
+		grid.renderLayer (UNITS, renderer);
+
 
 		//display menu
  		renderTexture(C_Texture::getText("CrossBow_01.png"), renderer, 30,100);

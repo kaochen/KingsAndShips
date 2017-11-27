@@ -10,10 +10,10 @@ C_Set::C_Set()
 	m_gridSize = GRID_SIZE;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
-	m_gridNbrOfLine = 27;
-	m_gridNbrOfRow = 18;
-	m_first_tile_x = 0;
-	m_first_tile_y = 13;
+	m_gridNbrOfLine = 28;
+	m_gridNbrOfRow = 15;
+	m_first_tile_x = 13;
+	m_first_tile_y = 0;
 }
 
 C_Set::~C_Set()

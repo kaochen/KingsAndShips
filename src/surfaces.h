@@ -40,6 +40,5 @@ private:
 SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
 void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y);
 void drawElipse(SDL_Renderer *renderer,int x,int y, int width);
-void displayGridContent(SDL_Renderer *renderer,
-			C_GameUnits::S_layer grid[][GRID_SIZE]);
+
 #endif

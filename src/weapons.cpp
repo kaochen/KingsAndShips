@@ -128,7 +128,7 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			else{
 				m_direction = UNKNOWN;
 				}
-			cout << "Angle:"<< angle << " Direction: " << direction << endl;
+			//cout << "Angle:"<< angle << " Direction: " << direction << endl;
 
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;

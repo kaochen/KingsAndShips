@@ -6,6 +6,8 @@
 
 #include "gameUnits.h"
 
+enum layers{GROUND,DEAD,UNITS};
+
 //singleton
 class C_Grid
 {
@@ -13,8 +15,7 @@ public:
 	static	C_Grid& Instances();
 
 	void loadLevel(int levelNbr);
-	void renderFloor(SDL_Renderer *renderer);
-	void renderUnits(SDL_Renderer *renderer);
+	void renderLayer(int layer, SDL_Renderer *renderer);
 
 	void addANewBoat(int x, int y, int rank);
 	void addANewTower(int x, int y, int rank);

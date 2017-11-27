@@ -29,14 +29,14 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 		l.push_back(temp);
 		temp.x = 6;
 		temp.y = 14;
-		/*l.push_back(temp);
+		l.push_back(temp);
 		temp.x = 5;
-		temp.y = 14;
+		temp.y = 12;
 		l.push_back(temp);
 		temp.x = 7;
 		l.push_back(temp);
-		temp.x = 5;
-		l.push_back(temp);*/
+		temp.x = 3;
+		l.push_back(temp);
 
 		for (size_t i = 0; i < l.size();i++){
 		grid.addANewBoat(l[i].x,l[i].y,l[i].rank);

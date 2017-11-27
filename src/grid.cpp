@@ -48,64 +48,52 @@ void C_Grid::loadLevel(int levelNbr){
 		}
 }
 
-void C_Grid::renderFloor(SDL_Renderer *renderer){
+void C_Grid::renderLayer(int layer, SDL_Renderer *renderer){
 	C_Set& settings=C_Set::Instances();
 	int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
+	int length = 4;
+	int y = y_start;
 	for (int l = 0; l < settings.getGridNbrOfLine(); l++){
-		int y = y_start;
 		int x = x_start;
 		//cout << "\nline: "<< l << " --";
-		for (int r = 0 ; r < settings.getGridNbrOfRow(); r++){
+		for (int r = 0 ; r < length; r++){
 				//cout << "|" << x << ":"<< y;
-				int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
-				int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
-				if (m_grid[x][y].water)
-						renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
-				if (m_grid[x][y].ground == GROUND_01 && m_grid[x][y].water == false)
-						renderTexture(C_Texture::getText("Grass_01.png"), renderer, x_s,y_s + 36);
-				if (m_grid[x][y].ground == GROUND_02 && m_grid[x][y].water == false)
-						renderTexture(C_Texture::getText("Grass_02.png"), renderer, x_s,y_s + 36);
-				//draw the deads
-
-				if (m_grid[x][y].dead != nullptr){
-						int x_s = m_grid[x][y].dead->getXScreen();
-						int y_s = m_grid[x][y].dead->getYScreen();
-						renderTexture(C_Texture::getText("boat_01_Dead.png"), renderer, x_s,y_s + 36);
+				if (layer == GROUND){
+						int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
+						int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
+						if (m_grid[x][y].water)
+								renderTexture(C_Texture::getText("SimpleWaterTile.png"), renderer, x_s,y_s + 36);
+						if (m_grid[x][y].ground == GROUND_01 && m_grid[x][y].water == false)
+								renderTexture(C_Texture::getText("Grass_01.png"), renderer, x_s,y_s + 36);
+						if (m_grid[x][y].ground == GROUND_02 && m_grid[x][y].water == false)
+								renderTexture(C_Texture::getText("Grass_02.png"), renderer, x_s,y_s + 36);
+						    }
+						//draw the deads
+				if (layer == DEAD){
+						if (m_grid[x][y].dead != nullptr){
+							int x_s = m_grid[x][y].dead->getXScreen();
+							int y_s = m_grid[x][y].dead->getYScreen();
+							renderTexture(C_Texture::getText("boat_01_Dead.png"), renderer, x_s,y_s + 36);
+							}
 						}
-				y++;
+				if (layer == UNITS){
+						if (m_grid[x][y].main != nullptr){
+								int x_screen = m_grid[x][y].main->getXScreen();
+								int y_screen = m_grid[x][y].main->getYScreen();
+								m_grid[x][y].main->render(x_screen, y_screen, renderer);
+							}
+						}
 				x++;
-		}
-		if (l %2 == 0)
-			y_start--;
-		else
-			x_start++;
-	}
-}
-
-
-void C_Grid::renderUnits(SDL_Renderer *renderer){
-		C_Set& settings=C_Set::Instances();
-		int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
-		for (int l = 0; l < settings.getGridNbrOfLine(); l++){
-			int y = y_start;
-			int x = x_start;
-			//cout << "\nline: "<< l << " --";
-			for (int r = 0 ; r < settings.getGridNbrOfRow(); r++){
-					//cout << "|" << x << ":"<< y;
-					if (m_grid[x][y].main != nullptr){
-						int x_screen = m_grid[x][y].main->getXScreen();
-						int y_screen = m_grid[x][y].main->getYScreen();
-						m_grid[x][y].main->render(x_screen, y_screen, renderer);
-					}
-					y++;
-					x++;
+				}
+		y++;
+		if(l < 13){
+			length += 2;x_start--;
 			}
-			if (l %2 == 0)
-				y_start--;
-			else
-				x_start++;
-		}
-		//cout << endl;
+		else{
+		  	length -=2; x_start++;
+		  	}
+
+	}
 }
 
 
