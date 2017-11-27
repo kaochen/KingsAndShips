@@ -58,11 +58,7 @@ SDL_Texture* C_Texture::loadTexture(const string &path, SDL_Renderer *renderer)
 	return texture;
 }
 
-void C_Texture::displayTexturesList(vector <C_Texture*>& list){
-	for (size_t i = 0; i < list.size(); i++){
-		list[i]->displayStatus();
-	}
-}
+
 
 
 //#######################################Texture List##################################################
@@ -154,26 +150,27 @@ ostream & operator<<(ostream & o, indent const & in)
   return o;
 }
 
-void C_Texture::extractTSXfile(vector <C_Texture*>& list)
+void C_TextureList::extractTSXfile(string tsx_File_Path, SDL_Renderer *renderer)
 {
 
- xmlpp::TextReader reader("data/levels/boat_01.tsx");
+ xmlpp::TextReader reader(tsx_File_Path);
 	string filePath = "noFilePath";
 	string name = "noName", fullname = name;
 	int tilewidth= 0;
 	int tileheight= 0;
 	int id =0, previousID = 0;
+	C_Texture t;
     while(reader.read())
     {
     		string nodeName = reader.get_name();
-	      	cout << nodeName << "---namespace---\n";
+	      	//cout << nodeName << "---namespace---\n";
 
 	      	if (reader.has_attributes()){
 			reader.move_to_first_attribute();
 			do
 			{
 			  string attributes = reader.get_name();
-			  cout << attributes << "-----"<< endl;
+			  //cout << attributes << "-----"<< endl;
 			  //tileset node
 			  if (nodeName == "tileset" && attributes == "name")
 			  	name = reader.get_value();
@@ -183,8 +180,10 @@ void C_Texture::extractTSXfile(vector <C_Texture*>& list)
 		  		tileheight = stoi(reader.get_value());
 
 			  //image node
-			  if (nodeName == "image" && attributes == "source")
+			  if (nodeName == "image" && attributes == "source"){
 			  	filePath = reader.get_value();
+			  	filePath.replace(0,3,"data/");
+			  	}
 
 			  //tile node
 			   if (nodeName == "tile" && attributes == "id"){
@@ -205,11 +204,20 @@ void C_Texture::extractTSXfile(vector <C_Texture*>& list)
 	//create new texture
 	if(id != previousID){
 		previousID = id;
-		list.push_back(new C_Texture(id, fullname ,filePath, tilewidth, tileheight));
+		m_map_textures[fullname] = t.loadTexture(filePath, renderer);
 	}
 
 	reader.move_to_element();
     }
+}
+
+void C_TextureList::displayTexturesList(){
+
+        //map<string, SDL_Texture*>::iterator it;
+
+	//for (it = m_map_textures.begin(); it < m_map_textures.end(); it++){
+	//	m_map_textures[it]->displayStatus();
+	//}
 }
 
 

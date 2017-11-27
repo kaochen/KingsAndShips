@@ -72,9 +72,9 @@ int main()
 	vector <C_Texture*> textureList;
 
 	C_TextureList& t=C_TextureList::Instances();
-	C_Texture text;
-	text.extractTSXfile(textureList);
-	text.displayTexturesList(textureList);
+	//C_Texture text;
+	t.extractTSXfile("data/levels/boat_01.tsx", renderer);
+	//text.displayTexturesList(textureList);
 
 	//load first level
 	C_Level level;

@@ -21,8 +21,6 @@ public:
 
 
 	void displayStatus();
-	void extractTSXfile(std::vector <C_Texture*>& list);
-	void displayTexturesList(std::vector <C_Texture*>& list);
 	SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
 
 protected:
@@ -43,6 +41,8 @@ public:
 	void renderTexture(std::string name, SDL_Renderer *renderer, int x, int y);
 	std::map<std::string, SDL_Texture*>  getTextMap();
 	void loadTexturesIntoMap(SDL_Renderer *renderer);
+	void extractTSXfile(std::string tsx_File_Path, SDL_Renderer *renderer);
+	void displayTexturesList();
 
 private:
 	C_TextureList& operator= (const C_TextureList&){return *this;}
