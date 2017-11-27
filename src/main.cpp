@@ -24,9 +24,6 @@ using namespace std;
 
 int main()
 {
-	//init SDL
- 	initSDL();
-	SDL_ClearError();
 
 	//init settings
 	C_Set& settings=C_Set::Instances();

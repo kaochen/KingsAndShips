@@ -20,7 +20,7 @@ C_Window& C_Window::Instances()
 	return m_instance;
 }
 
-void initSDL()
+void C_Window::initSDL()
 {
 
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) == -1){
@@ -37,6 +37,7 @@ void initSDL()
 		logSDLerror("IMG_Init");
 		//SDL_Quit;
 		}
+	SDL_ClearError();
 }
 
 void C_Window::createWindow(){

@@ -17,6 +17,7 @@ class C_Window
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
 	protected:
+	void initSDL();
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
@@ -26,12 +27,13 @@ class C_Window
 	C_Window();
 	~C_Window();
 
+
+
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 
 };
 
-void initSDL();
 
 void quitProgram(SDL_Window* window, SDL_Renderer* renderer);
 void logSDLerror(const std::string &msg);
