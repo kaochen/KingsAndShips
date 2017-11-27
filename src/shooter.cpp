@@ -110,5 +110,7 @@ void C_Shooter::renderMissile(SDL_Renderer *renderer){
 			name = "Arrow01_North.png";
 			break;
 		}
-		renderTexture(C_Texture::getText(name), renderer, x_s,y_s);
+
+		C_TextureList& t=C_TextureList::Instances();
+		t.renderTexture(name, renderer, x_s,y_s);
 }

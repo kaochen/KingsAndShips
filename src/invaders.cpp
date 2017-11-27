@@ -89,6 +89,7 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen, SDL_Renderer *rendere
 void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
 	string name = getName();
 	C_Time& time=C_Time::Instances();
+	C_TextureList& t=C_TextureList::Instances();
 	long delay = time.getFrameDuration()*4;
 	long current = SDL_GetTicks();
 	if (current > m_lastAnimTime + delay){
@@ -105,7 +106,8 @@ void C_invaders::render(int x_screen, int y_screen, SDL_Renderer *renderer){
 		fileName = name + "Moving_0" + to_string(rank) +"_" + to_string(m_animNbr) + "0.png" ;
 
 	//cout << "image name is "<< fileName << endl;
-	renderTexture(C_Texture::getText(fileName), renderer, x_screen,y_screen + m_y_center_offset);
+
+	t.renderTexture(fileName, renderer, x_screen,y_screen + m_y_center_offset);
 	renderLifeBar(x_screen, y_screen, renderer);
 }
 

@@ -13,9 +13,9 @@ libxml_dep = dependency('libxml++-2.6')
 
 all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf_dep, sdl2_gfx_dep, libxml_dep ]
 
-src00 = ['src/settings.cpp','src/time.cpp','src/grid.cpp','src/level.cpp']
+src00 = ['src/settings.cpp','src/time.cpp','src/surfaces.cpp','src/grid.cpp','src/level.cpp']
 src01 = ['src/weapons.cpp','src/shooter.cpp','src/towers.cpp','src/invaders.cpp']
-src02 = ['src/surfaces.cpp','src/gameUnits.cpp', 'src/game.h', 'src/window.cpp','src/main.cpp']
+src02 = ['src/gameUnits.cpp', 'src/game.h', 'src/window.cpp','src/main.cpp']
 
 all_src = [src00, src01, src02]
 

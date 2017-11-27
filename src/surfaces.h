@@ -19,13 +19,12 @@ public:
 	C_Texture(int id, std::string name, std::string filePath , int tile_height, int tile_width);
 	~C_Texture();
 
-	static std::map<std::string, SDL_Texture*>  getTextMap();
-	static SDL_Texture* getText(std::string name);
 
 	void displayStatus();
 	void extractTSXfile(std::vector <C_Texture*>& list);
 	void displayTexturesList(std::vector <C_Texture*>& list);
-	static void loadTexturesIntoMap(SDL_Renderer *renderer);
+	SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
+
 protected:
 	int m_id;
 	std::string m_name;
@@ -37,8 +36,26 @@ private:
 };
 
 
-SDL_Texture* loadTexture(const std::string &path, SDL_Renderer *renderer);
-void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y);
+class C_TextureList
+{
+public:
+	static	C_TextureList& Instances();
+	void renderTexture(std::string name, SDL_Renderer *renderer, int x, int y);
+	std::map<std::string, SDL_Texture*>  getTextMap();
+	void loadTexturesIntoMap(SDL_Renderer *renderer);
+
+private:
+	C_TextureList& operator= (const C_TextureList&){return *this;}
+	C_TextureList (const C_Texture&){}
+
+	static C_TextureList m_instance;
+	C_TextureList();
+	~C_TextureList();
+
+	std::map<std::string, SDL_Texture*> m_map_textures;
+};
+
+
 void drawElipse(SDL_Renderer *renderer,int x,int y, int width);
 
 #endif

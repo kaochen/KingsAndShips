@@ -28,7 +28,8 @@ void C_Towers::renderSmoke(SDL_Renderer *renderer){
 		m_justAdded = false;
 	}
 	string fileName = "smoke_0" + to_string(m_smokeNbr) + ".png" ;
-	renderTexture(C_Texture::getText(fileName), renderer, m_x_screen,m_y_screen + 36);
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(fileName, renderer, m_x_screen,m_y_screen + 36);
 }
 
 void C_Towers::render(int x_screen, int y_screen, SDL_Renderer *renderer){

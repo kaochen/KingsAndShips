@@ -66,10 +66,15 @@ int main()
 	list<C_GameUnits*> lB; //listOfBoats
 	list<C_GameUnits*>::iterator itB;
 
+	C_TextureList& tList=C_TextureList::Instances();
+	tList.loadTexturesIntoMap(renderer);
+
 	vector <C_Texture*> textureList;
-	C_Texture t;
-	t.extractTSXfile(textureList);
-	t.displayTexturesList(textureList);
+
+	C_TextureList& t=C_TextureList::Instances();
+	C_Texture text;
+	text.extractTSXfile(textureList);
+	text.displayTexturesList(textureList);
 
 	//load first level
 	C_Level level;
@@ -79,7 +84,8 @@ int main()
 
 
 //-----------------------------------------------------------------------------
-C_Texture::loadTexturesIntoMap(renderer);
+
+
 bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
@@ -232,12 +238,12 @@ while(!quit)
 
 
 		//display menu
- 		renderTexture(C_Texture::getText("CrossBow_01.png"), renderer, 30,100);
+ 		t.renderTexture("CrossBow_01.png", renderer, 30,100);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
 			drawElipse(renderer,xCursor,yCursor,100);
- 			renderTexture(C_Texture::getText("Tile_Highlight_Green.png"), renderer, xCursor,yCursor -100);
- 			renderTexture(C_Texture::getText("Tower_00_00.png"), renderer, xCursor,yCursor -150);
+ 			t.renderTexture("Tile_Highlight_Green.png", renderer, xCursor,yCursor -100);
+ 			t.renderTexture("Tower_00_00.png", renderer, xCursor,yCursor -150);
  			towerSelected = true;
  		}
  		SDL_RenderPresent(renderer);

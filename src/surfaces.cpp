@@ -6,9 +6,9 @@
 
 using namespace std;
 
+C_TextureList C_TextureList::m_instance=C_TextureList();
 
-map<string, SDL_Texture*> C_Texture::map_textures;
-
+//Textures
 
 C_Texture::C_Texture():
 	m_id(0),
@@ -37,7 +37,7 @@ void C_Texture::displayStatus(){
 }
 
 
-SDL_Texture* loadTexture(const string &path, SDL_Renderer *renderer)
+SDL_Texture* C_Texture::loadTexture(const string &path, SDL_Renderer *renderer)
 {
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
@@ -58,9 +58,46 @@ SDL_Texture* loadTexture(const string &path, SDL_Renderer *renderer)
 	return texture;
 }
 
-void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
+void C_Texture::displayTexturesList(vector <C_Texture*>& list){
+	for (size_t i = 0; i < list.size(); i++){
+		list[i]->displayStatus();
+	}
+}
+
+
+//#######################################Texture List##################################################
+
+C_TextureList::C_TextureList()
 {
+}
+
+C_TextureList::~C_TextureList()
+{
+}
+
+
+C_TextureList& C_TextureList::Instances()
+{
+	return m_instance;
+}
+
+
+void C_TextureList::renderTexture(string name, SDL_Renderer *renderer, int x, int y)
+{
+
 	C_Set& settings=C_Set::Instances();
+	SDL_Texture *texture;
+
+        map<string, SDL_Texture*>::iterator search = m_map_textures.find(name);
+
+	if(search == m_map_textures.end()){
+		cout << name << " not available in the texture map" << endl;
+		texture = nullptr;
+	}
+	else{
+		texture = m_map_textures[name];
+	}
+
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
 		SDL_Rect pos;
 		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
@@ -70,56 +107,28 @@ void renderTexture(SDL_Texture *texture, SDL_Renderer *renderer, int x, int y)
 		}
 }
 
-map<string, SDL_Texture*>  C_Texture::getTextMap(){
-	return map_textures;
+
+map<string, SDL_Texture*>  C_TextureList::getTextMap(){
+	return m_map_textures;
 }
 
-SDL_Texture* C_Texture::getText(string name){
-	map<string, SDL_Texture*> t = C_Texture::getTextMap();
-	map<string, SDL_Texture*>::iterator search = t.find(name);
-	if(search == t.end()){
-		cout << name << " not available in the texture map" << endl;
-		return nullptr;
+
+
+void C_TextureList::loadTexturesIntoMap(SDL_Renderer *renderer){
+	int size = 28;
+	string file[size] = {"Tower_00_00.png","Tower_01_00.png","boat_01_00.png","boatMoving_01_00.png",
+	"boatMoving_01_10.png","boat_01_Dead.png","SimpleTile.png","Grass_01.png","Grass_02.png",
+	"SimpleWaterTile.png","Tile_Highlight_Green.png","CrossBow_01.png","Arrow01_South.png",
+	"Arrow01_East.png","Arrow01_North.png","Arrow01_West.png","Arrow01_NorthEast.png",
+	"Arrow01_NorthWest.png","Arrow01_SouthEast.png","Arrow01_SouthWest.png",
+	"smoke_01.png","smoke_02.png","smoke_03.png","smoke_04.png","smoke_05.png","smoke_06.png","smoke_07.png","smoke_08.png",};
+
+	C_Texture t;
+	for (int i = 0; i < size; i++){
+		string path = "data/img/original/" + file[i];
+		m_map_textures[file[i]] = t.loadTexture(path, renderer);
 	}
-	else{
-		return t[name];
-	}
 }
-
-void C_Texture::loadTexturesIntoMap(SDL_Renderer *renderer){
-	C_Texture::map_textures = C_Texture::getTextMap();
-	map_textures["SetupBackground.png"] = loadTexture("src/img/SetupBackground.png", renderer);
-	map_textures["Tower_00_00.png"] = loadTexture("data/img/original/Tower_00_00.png", renderer);
-	map_textures["Tower_01_00.png"] = loadTexture("data/img/original/Tower_01_00.png", renderer);
-	map_textures["boat_01_00.png"] = loadTexture("data/img/original/boat_01_00.png", renderer);
-	map_textures["boatMoving_01_00.png"] = loadTexture("data/img/original/boatMoving_01_00.png", renderer);
-	map_textures["boatMoving_01_10.png"] = loadTexture("data/img/original/boatMoving_01_10.png", renderer);
-	map_textures["boat_01_Dead.png"] = loadTexture("data/img/original/boat_01_Dead.png", renderer);
-	map_textures["SimpleTile.png"] = loadTexture("data/img/original/SimpleTile.png", renderer);
-	map_textures["Grass_01.png"] = loadTexture("data/img/original/Grass_01.png", renderer);
-	map_textures["Grass_02.png"] = loadTexture("data/img/original/Grass_02.png", renderer);
-	map_textures["SimpleWaterTile.png"] = loadTexture("data/img/original/SimpleWaterTile.png", renderer);
-	map_textures["Tile_Highlight_Green.png"] = loadTexture("data/img/original/Tile_Highlight_Green.png", renderer);
-	map_textures["CrossBow_01.png"] = loadTexture("data/img/original/CrossBow_01.png", renderer);
-	map_textures["Arrow01_South.png"] = loadTexture("data/img/original/Arrow01_South.png", renderer);
-	map_textures["Arrow01_East.png"] = loadTexture("data/img/original/Arrow01_East.png", renderer);
-	map_textures["Arrow01_North.png"] = loadTexture("data/img/original/Arrow01_North.png", renderer);
-	map_textures["Arrow01_West.png"] = loadTexture("data/img/original/Arrow01_West.png", renderer);
-	map_textures["Arrow01_NorthEast.png"] = loadTexture("data/img/original/Arrow01_NorthEast.png", renderer);
-	map_textures["Arrow01_NorthWest.png"] = loadTexture("data/img/original/Arrow01_NorthWest.png", renderer);
-	map_textures["Arrow01_SouthEast.png"] = loadTexture("data/img/original/Arrow01_SouthEast.png", renderer);
-	map_textures["Arrow01_SouthWest.png"] = loadTexture("data/img/original/Arrow01_SouthWest.png", renderer);
-	// smoke
-	map_textures["smoke_01.png"] = loadTexture("data/img/original/smoke_01.png", renderer);
-	map_textures["smoke_02.png"] = loadTexture("data/img/original/smoke_02.png", renderer);
-	map_textures["smoke_03.png"] = loadTexture("data/img/original/smoke_03.png", renderer);
-	map_textures["smoke_04.png"] = loadTexture("data/img/original/smoke_04.png", renderer);
-	map_textures["smoke_05.png"] = loadTexture("data/img/original/smoke_05.png", renderer);
-	map_textures["smoke_06.png"] = loadTexture("data/img/original/smoke_06.png", renderer);
-	map_textures["smoke_07.png"] = loadTexture("data/img/original/smoke_07.png", renderer);
-	map_textures["smoke_08.png"] = loadTexture("data/img/original/smoke_08.png", renderer);
-}
-
 
 
 void drawElipse(SDL_Renderer *renderer,
@@ -204,8 +213,4 @@ void C_Texture::extractTSXfile(vector <C_Texture*>& list)
 }
 
 
-void C_Texture::displayTexturesList(vector <C_Texture*>& list){
-	for (size_t i = 0; i < list.size(); i++){
-		list[i]->displayStatus();
-	}
-}
+

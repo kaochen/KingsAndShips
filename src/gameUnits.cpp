@@ -57,7 +57,9 @@ void C_GameUnits::render(int x_screen, int y_screen, SDL_Renderer *renderer){
 	int rank = getRank();
 	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
 	//cout << "image name is "<< fileName << endl;
-	renderTexture(C_Texture::getText(fileName), renderer, x_screen,y_screen + m_y_center_offset);
+
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(fileName, renderer, x_screen,y_screen + m_y_center_offset);
 }
 
 void C_GameUnits::receiveDamage(int nbDamage)
