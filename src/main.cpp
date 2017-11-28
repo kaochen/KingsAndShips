@@ -50,7 +50,7 @@ int main()
 	C_TextureList& t=C_TextureList::Instances();
 	//C_Texture text;
 	t.extractTSXfile("data/levels/boat_01.tsx");
-	//text.displayTexturesList(textureList);
+	t.displayTexturesList();
 
 	//load first level
 	C_Level level;

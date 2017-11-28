@@ -227,12 +227,17 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 }
 
 void C_TextureList::displayTexturesList(){
-
-        //map<string, SDL_Texture*>::iterator it;
-
-	//for (it = m_map_textures.begin(); it < m_map_textures.end(); it++){
-	//	m_map_textures[it]->displayStatus();
-	//}
+		cout << "Image names :" << endl;
+		int i = 0;
+		for (auto const& x : m_map_textures)
+		{
+		    i++;
+		    std::cout << x.first  // string (key)
+			      << " // ";
+		    if (i%4 == 0)
+			cout << endl ;
+		}
+		cout << endl ;
 }
 
 
