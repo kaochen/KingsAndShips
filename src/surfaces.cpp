@@ -56,6 +56,20 @@ SDL_Texture* C_Texture::loadTexture(const string &path)
 	{
 		logSDLerror("IMG_LOAD()");
 	}
+	//Clipping
+	SDL_Rect src;
+  	src.x = 0;
+  	src.y = 0;
+  	src.w = m_tile_width;
+  	src.h = m_tile_height;
+
+	SDL_Rect dest;
+	src.x = 0;
+  	src.y = 0;
+  	src.w = src.w;
+  	src.h = src.h;
+
+	SDL_RenderCopy(win.getRenderer(), texture, &src, &dest);
 	return texture;
 }
 
