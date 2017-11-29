@@ -89,9 +89,9 @@ int C_Weapon::getDirection() const
 
 bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			int x_s_target = target.getXScreen();
-			int y_s_target = target.getYScreen() + 100;
+			int y_s_target = target.getYScreen();
 			int x_s_shooter = shooter.getXScreen();
-			int y_s_shooter = shooter.getYScreen() + 100;
+			int y_s_shooter = shooter.getYScreen() + 30;
 			int ab = x_s_target - x_s_shooter;
 			int bc = y_s_target - y_s_shooter;
 			int hyp = sqrt((ab*ab + bc*bc));

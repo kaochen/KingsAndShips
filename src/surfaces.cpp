@@ -40,11 +40,29 @@ void C_Texture::displayStatus(){
 SDL_Texture* C_Texture::loadTexture(const string &path)
 {
 	C_Window& win=C_Window::Instances();
+	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
-	if (image != nullptr)
+	SDL_Rect src;
+	src.x = 0;
+	src.y = 0;
+	src.w = SPRITE_SIZE;
+	src.h = SPRITE_SIZE;
+
+	SDL_Rect dest;
+	dest.x = 0;
+	dest.y = 0;
+	dest.w = SPRITE_SIZE;
+	dest.h = SPRITE_SIZE;
+
+	//SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND); //usefull ?
+	//SDL_SetTextureAlphaMod(texture,0); //usefull ?
+
+	SDL_Texture* clip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,  src.w, src.h);
+
+	if (image != nullptr && clip != nullptr)
 		{
-		texture = SDL_CreateTextureFromSurface(win.getRenderer(),image);
+		texture = SDL_CreateTextureFromSurface(renderer,image);
 		SDL_FreeSurface(image); //Don't need anymore
 
 		if (texture == nullptr)
@@ -52,30 +70,23 @@ SDL_Texture* C_Texture::loadTexture(const string &path)
 			logSDLerror("SDL_CreateTextureFromSurface() failed");
 			}
 		else{
-		//Clipping
-			SDL_Rect src;
-		  	src.x = 00;
-		  	src.y = 00;
-		  	src.w = m_tile_width;
-		  	src.h = m_tile_height;
-
-			SDL_Rect dest;
-			src.x = 0;
-		  	src.y = 0;
-		  	src.w = 128;
-		  	src.h = 128;
-
-			SDL_RenderCopy(win.getRenderer(), texture, &src, &dest);
-			}
-
-
+		SDL_SetTextureBlendMode(clip,SDL_BLENDMODE_BLEND);
+		//SDL_SetTextureAlphaMod(clip,255);
+		//change target to clip
+		SDL_SetRenderTarget(renderer, clip);
+	  	SDL_RenderCopy(renderer, texture, &src, &dest);
+	  	// reset target to renderer
+	  	SDL_SetRenderTarget(renderer, NULL);
+		}
 	}
 	else
 	{
 		logSDLerror("IMG_LOAD()");
 	}
 
-	return texture;
+
+
+	return clip;
 }
 
 

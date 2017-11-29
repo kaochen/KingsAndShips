@@ -215,7 +215,7 @@ while(!quit)
 
 		//display menu
  		t.renderTexture("CrossBow_01.png", 30,100);
- 		t.renderTexture("boat_01_boatMoving_SS", 30,300);
+ 		t.renderTexture("boat_01_boatMoving_SS", 100,300);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
 			drawElipse(xCursor,yCursor,100);
