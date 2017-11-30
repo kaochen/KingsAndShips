@@ -21,7 +21,8 @@ public:
 
 
 	void displayStatus();
-	SDL_Texture* loadTexture(const std::string &path);
+	SDL_Texture* getTexture();
+	void loadTexture(const std::string &path);
 
 protected:
 	int m_id;
@@ -29,6 +30,7 @@ protected:
 	std::string m_filePath;
 	int m_tile_height;
 	int m_tile_width;
+	SDL_Texture * m_texture;
 private:
 	static std::map<std::string,SDL_Texture*> map_textures;
 };
@@ -39,7 +41,7 @@ class C_TextureList
 public:
 	static	C_TextureList& Instances();
 	void renderTexture(std::string name, int x, int y);
-	std::map<std::string, SDL_Texture*>  getTextMap();
+	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTexturesIntoMap();
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
@@ -52,7 +54,7 @@ private:
 	C_TextureList();
 	~C_TextureList();
 
-	std::map<std::string, SDL_Texture*> m_map_textures;
+	std::map<std::string, C_Texture*> m_map_textures;
 };
 
 

@@ -17,6 +17,7 @@ C_Texture::C_Texture():
 	m_tile_height(128),
 	m_tile_width(128)
 {
+	m_texture = nullptr;
 }
 
 C_Texture::C_Texture(int id, string name, string filePath, int tile_height, int tile_width):
@@ -26,6 +27,7 @@ C_Texture::C_Texture(int id, string name, string filePath, int tile_height, int 
 	m_tile_height(tile_height),
 	m_tile_width(tile_width)
 {
+	loadTexture (m_filePath);
 }
 
 C_Texture::~C_Texture(){
@@ -36,8 +38,11 @@ void C_Texture::displayStatus(){
 	cout << " " << m_tile_width << ":" << m_tile_height << endl;
 }
 
+SDL_Texture* C_Texture::getTexture(){
+	return m_texture;
+}
 
-SDL_Texture* C_Texture::loadTexture(const string &path)
+void C_Texture::loadTexture(const string &path)
 {
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer* renderer = win.getRenderer ();
@@ -86,7 +91,7 @@ SDL_Texture* C_Texture::loadTexture(const string &path)
 
 
 
-	return clip;
+	m_texture = clip;
 }
 
 
@@ -115,14 +120,14 @@ void C_TextureList::renderTexture(string name, int x, int y)
 	C_Set& settings=C_Set::Instances();
 	SDL_Texture *texture;
 
-        map<string, SDL_Texture*>::iterator search = m_map_textures.find(name);
+        map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 
 	if(search == m_map_textures.end()){
 		cout << name << " not available in the texture map" << endl;
 		texture = nullptr;
 	}
 	else{
-		texture = m_map_textures[name];
+		texture = m_map_textures[name]->getTexture();
 	}
 
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
@@ -135,7 +140,7 @@ void C_TextureList::renderTexture(string name, int x, int y)
 }
 
 
-map<string, SDL_Texture*>  C_TextureList::getTextMap(){
+map<string, C_Texture*>  C_TextureList::getTextMap(){
 	return m_map_textures;
 }
 
@@ -150,10 +155,10 @@ void C_TextureList::loadTexturesIntoMap(){
 	"Arrow01_NorthWest.png","Arrow01_SouthEast.png","Arrow01_SouthWest.png",
 	"smoke_01.png","smoke_02.png","smoke_03.png","smoke_04.png","smoke_05.png","smoke_06.png","smoke_07.png","smoke_08.png",};
 
-	C_Texture t;
+
 	for (int i = 0; i < size; i++){
-		string path = "data/img/original/" + file[i];
-		m_map_textures[file[i]] = t.loadTexture(path);
+		string filePath = "data/img/original/" + file[i];
+		m_map_textures[file[i]] = new C_Texture(i, file[i], filePath, 128, 128);
 	}
 }
 
@@ -187,10 +192,9 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
  xmlpp::TextReader reader(tsx_File_Path);
 	string filePath = "noFilePath";
 	string name = "noName", fullname = name;
-	int tilewidth= 0;
-	int tileheight= 0;
+	int tile_width= 0;
+	int tile_height= 0;
 	int id =0, previousID = 0;
-	C_Texture t;
     while(reader.read())
     {
     		string nodeName = reader.get_name();
@@ -206,9 +210,9 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			  if (nodeName == "tileset" && attributes == "name")
 			  	name = reader.get_value();
 			  if (nodeName == "tileset" && attributes == "tilewidth")
-		  		tilewidth = stoi(reader.get_value());
+		  		tile_width = stoi(reader.get_value());
 		  	  if (nodeName == "tileset" && attributes == "tileheight")
-		  		tileheight = stoi(reader.get_value());
+		  		tile_height = stoi(reader.get_value());
 
 			  //image node
 			  if (nodeName == "image" && attributes == "source"){
@@ -235,7 +239,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	//create new texture
 	if(id != previousID){
 		previousID = id;
-		m_map_textures[fullname] = t.loadTexture(filePath);
+		m_map_textures[fullname] = new C_Texture(id, fullname, filePath, tile_height, tile_width);
 	}
 
 	reader.move_to_element();
