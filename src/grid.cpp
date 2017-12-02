@@ -131,6 +131,18 @@ C_GameUnits* C_Grid::getUnits(int x, int y){
 	return m_grid[x][y].main;
 }
 
+bool C_Grid::isThisConstructible(int x, int y){
+	if ( m_grid[x][y].water == true){
+		return false;
+		}
+	else if(m_grid[x][y].main != nullptr){
+		return false;
+	}
+	else{
+		return true ;
+		}
+}
+
 void C_Grid::delUnit(int x_grid, int y_grid){
 	m_grid[x_grid][y_grid].main = nullptr;
 	}

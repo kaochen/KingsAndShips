@@ -1,5 +1,8 @@
 #include "towers.h"
 #include "time.h"
+#include "grid.h"
+
+#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
@@ -42,9 +45,34 @@ void C_Towers::drag(int x_screen, int y_screen)
 {
 	m_justAdded = false;
 	C_TextureList& t=C_TextureList::Instances();
-	drawElipse(x_screen,y_screen,100);
- 	t.renderTexture("Tile_Highlight_Green.png", x_screen,y_screen - 100);
+	C_Grid& grid=C_Grid::Instances();
+	int xGrid = xScreenToXGrid(x_screen,y_screen - 100);
+	int yGrid = yScreenToYGrid(x_screen,y_screen - 100);
+	if (grid.isThisConstructible(xGrid, yGrid)){
+		drawElipse(x_screen,y_screen,100, true);
+	 	t.renderTexture("Tile_Highlight_Green.png", x_screen,y_screen - 100);
+	 	}
+	else{
+		drawElipse(x_screen,y_screen,100, false);
+		}
+
+
+
 	C_Shooter::render(x_screen, y_screen - 200);
 }
 
+void C_Towers::drawElipse(int x,
+		int y,
+		int width,
+		bool ok){
+		C_Window& win=C_Window::Instances();
+		int height = width/2;
+		int R = 0, G = 200, B = 0, A = 128;
+			if(ok == false)
+				R = 120, G = 0, B = 0, A = 128;
+
+		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
+		A = 32;
+		filledEllipseRGBA(win.getRenderer(),x,y,100,50,R,G,B,A);
+}
 

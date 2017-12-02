@@ -120,11 +120,14 @@ while(!quit)
 
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
-					if(towerSelected == true && grid.getUnits(xClicTable,yClicTable) == nullptr) {
+					if(towerSelected == true && grid.isThisConstructible(xClicTable,yClicTable) == true) {
 						grid.addANewTower(xClicTable,yClicTable,0);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
 						towerSelected = false;
 						}
+					else{
+						towerSelected = false;
+					}
 
 				}
 			break;

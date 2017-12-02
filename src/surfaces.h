@@ -58,6 +58,5 @@ private:
 };
 
 
-void drawElipse(int x,int y, int width);
 
 #endif

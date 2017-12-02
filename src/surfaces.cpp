@@ -163,14 +163,7 @@ void C_TextureList::loadTexturesIntoMap(){
 }
 
 
-void drawElipse(int x,
-		int y,
-		int width){
-		C_Window& win=C_Window::Instances();
-		int height = width/2;
-		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,0,200,0,128);
-		filledEllipseRGBA(win.getRenderer(),x,y,100,50,0,200,0,32);
-}
+
 
 struct indent {
   int depth_;
