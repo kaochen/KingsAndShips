@@ -50,9 +50,16 @@ void C_Time::delayGameLoop()
 {
 	long delay = 0;
 	if (m_frameNbr != m_previousFrameNbr){
-		if (m_lastFrameDuration < m_frame_duration)
+		if (m_lastFrameDuration < m_frame_duration){
 			delay = m_frame_duration - m_lastFrameDuration;
 			}
+		}
+		else{
+			delay = 0;
+			int jump = m_lastFrameDuration/m_frame_duration;
+			m_frameNbr = jump;
+		}
+
 	//cout << "Delay: " << delay << endl;
 	SDL_Delay(delay);
 }
