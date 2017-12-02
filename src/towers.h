@@ -17,6 +17,8 @@ class C_Towers: public C_Shooter
 
 	virtual void render(int x_screen, int y_screen);
 	void renderSmoke();
+	void drag(int x_screen, int y_screen);
+
 	protected:
 	long m_lastSmokeTime;
 	int m_smokeNbr;

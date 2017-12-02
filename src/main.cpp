@@ -218,9 +218,8 @@ while(!quit)
  		t.renderTexture("boat_01_boatMoving_SS", 100,300);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
-			drawElipse(xCursor,yCursor,100);
- 			t.renderTexture("Tile_Highlight_Green.png", xCursor,yCursor -100);
- 			t.renderTexture("Tower_00_00.png", xCursor,yCursor -150);
+			C_Towers* selected = new C_Towers(0,0,0);
+			selected->drag(xCursor, yCursor);
  			towerSelected = true;
  		}
  		SDL_RenderPresent(win.getRenderer());

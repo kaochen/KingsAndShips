@@ -38,5 +38,13 @@ void C_Towers::render(int x_screen, int y_screen){
 		renderSmoke();
 }
 
+void C_Towers::drag(int x_screen, int y_screen)
+{
+	m_justAdded = false;
+	C_TextureList& t=C_TextureList::Instances();
+	drawElipse(x_screen,y_screen,100);
+ 	t.renderTexture("Tile_Highlight_Green.png", x_screen,y_screen - 100);
+	C_Shooter::render(x_screen, y_screen - 200);
+}
 
 
