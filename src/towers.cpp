@@ -44,20 +44,17 @@ void C_Towers::render(int x_screen, int y_screen){
 void C_Towers::drag(int x_screen, int y_screen)
 {
 	m_justAdded = false;
-	C_TextureList& t=C_TextureList::Instances();
 	C_Grid& grid=C_Grid::Instances();
 	int offset = 100;
 	int xGrid = xScreenToXGrid(x_screen,y_screen - offset);
 	int yGrid = yScreenToYGrid(x_screen,y_screen - offset);
 	int animNbr = getAnim2FrameNbr(30,1);
-	int width = 100;
-	if (grid.isThisConstructible(xGrid, yGrid)){
-		drawEllipse(x_screen,y_screen,width,animNbr, true);
-	 	t.renderTexture("Tile_Highlight_Green.png", x_screen,y_screen - offset);
-	 	}
-	else{
-		drawEllipse(x_screen,y_screen,width,animNbr,false);
-		}
+	int width = m_weapon->getFireRange();
+	int status = grid.isThisConstructible(xGrid, yGrid);
+
+	drawEllipse(x_screen,y_screen,width,animNbr, status);
+	drawRhombus(x_screen,y_screen,70,status);
+
 	C_Shooter::render(x_screen, y_screen - 170);
 }
 
@@ -68,16 +65,39 @@ void C_Towers::drawEllipse(int x,
 		bool ok){
 		C_Window& win=C_Window::Instances();
 		int height = width/2;
-		int R = 0, G = 200, B = 0, A = 128;
+		int R = 0, G = 200, B = 0, A = 100;
 			if(ok == false)
 				R = 120, G = 0, B = 0, A = 128;
 
 		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
-		A = 32;
-		filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A);
-		width = 100 + animNbr;
+		filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/4));
+		width += animNbr;
 		height = width /2;
 		//cout << width <<":" << height << endl;
-		ellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,64);
+		ellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/2));
+}
+
+void C_Towers::drawRhombus(int x, int y, int width, bool ok){
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer * renderer = win.getRenderer();
+	Sint16 w =  width/2;
+	Sint16 h =  w/2;
+	Sint16 x1 = x - w;
+	Sint16 y1 = y - h;
+	Sint16 x2 = x1 + w;
+	Sint16 y2 = y1 + h;
+	Sint16 x3 = x1 + (w*2);
+	Sint16 y3 = y1;
+	Sint16 x4 = x2;
+	Sint16 y4 = y1 - h;
+	Sint16 vx[] = {x1,x2,x3,x4};
+	Sint16 vy[] = {y1,y2,y3,y4};
+	int R = 0, G = 200, B = 0, A = 32;
+			if(ok == false)
+				R = 120, G = 0, B = 0;
+	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
+	A = 128;
+	polygonRGBA(renderer,vx,vy,4,R,G,B,A);
+
 }
 
