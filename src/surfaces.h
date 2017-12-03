@@ -16,7 +16,7 @@ class C_Texture
 {
 public:
 	C_Texture();
-	C_Texture(int id, std::string name, std::string filePath , int tile_height, int tile_width);
+	C_Texture(int id, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
 	~C_Texture();
 
 
@@ -27,9 +27,11 @@ public:
 protected:
 	int m_id;
 	std::string m_name;
-	std::string m_filePath;
+	std::string m_file_path;
 	int m_tile_height;
 	int m_tile_width;
+	int m_file_width;
+	int m_file_height;
 	SDL_Texture * m_texture;
 private:
 	static std::map<std::string,SDL_Texture*> map_textures;

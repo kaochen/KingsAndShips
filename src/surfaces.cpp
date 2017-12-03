@@ -13,29 +13,33 @@ C_TextureList C_TextureList::m_instance=C_TextureList();
 C_Texture::C_Texture():
 	m_id(0),
 	m_name("texture"),
-	m_filePath("default"),
+	m_file_path("default"),
 	m_tile_height(128),
-	m_tile_width(128)
+	m_tile_width(128),
+	m_file_width(1024),
+	m_file_height(1024)
 {
 	m_texture = nullptr;
 }
 
-C_Texture::C_Texture(int id, string name, string filePath, int tile_height, int tile_width):
+C_Texture::C_Texture(int id, string name, string file_path, int tile_width, int tile_height, int file_width, int file_height):
 	m_id(id),
 	m_name(name),
-	m_filePath(filePath),
+	m_file_path(file_path),
 	m_tile_height(tile_height),
-	m_tile_width(tile_width)
+	m_tile_width(tile_width),
+	m_file_width(file_width),
+	m_file_height(file_height)
 {
-	loadTexture (m_filePath);
+	loadTexture (m_file_path);
 }
 
 C_Texture::~C_Texture(){
 }
 
 void C_Texture::displayStatus(){
-	cout << "Id:" << m_id << ": "<< m_name << " " << m_filePath;
-	cout << " " << m_tile_width << ":" << m_tile_height << endl;
+	cout << "Id:" << m_id << ": "<< m_name << " " << m_tile_width << ":" << m_tile_height ;
+	cout << " " << m_file_path << " " << m_file_width << ":" << m_file_height  << endl;
 }
 
 SDL_Texture* C_Texture::getTexture(){
@@ -49,7 +53,8 @@ void C_Texture::loadTexture(const string &path)
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
 	SDL_Rect src;
-	src.x = 0;
+
+	src.x = 128 * m_id;
 	src.y = 0;
 	src.w = SPRITE_SIZE;
 	src.h = SPRITE_SIZE;
@@ -158,7 +163,7 @@ void C_TextureList::loadTexturesIntoMap(){
 
 	for (int i = 0; i < size; i++){
 		string filePath = "data/img/original/" + file[i];
-		m_map_textures[file[i]] = new C_Texture(i, file[i], filePath, 128, 128);
+		m_map_textures[file[i]] = new C_Texture(0, file[i], filePath, 128, 128, 128, 128);
 	}
 }
 
@@ -185,8 +190,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
  xmlpp::TextReader reader(tsx_File_Path);
 	string filePath = "noFilePath";
 	string name = "noName", fullname = name;
-	int tile_width= 0;
-	int tile_height= 0;
+	int tile_width = 128 , tile_height = 128, file_width = 1024, file_height = 1024;
 	int id =0, previousID = 0;
     while(reader.read())
     {
@@ -212,6 +216,12 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			  	filePath = reader.get_value();
 			  	filePath.replace(0,3,"data/");
 			  	}
+			 if (nodeName == "image" && attributes == "width"){
+			  	file_width = stoi(reader.get_value());
+			  	}
+			  if (nodeName == "image" && attributes == "height"){
+			  	file_height = stoi(reader.get_value());
+			  	}
 
 			  //tile node
 			   if (nodeName == "tile" && attributes == "id"){
@@ -232,7 +242,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	//create new texture
 	if(id != previousID){
 		previousID = id;
-		m_map_textures[fullname] = new C_Texture(id, fullname, filePath, tile_height, tile_width);
+		m_map_textures[fullname] = new C_Texture(id, fullname, filePath, tile_width, tile_height, file_width, file_height );
 	}
 
 	reader.move_to_element();
@@ -240,17 +250,21 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 }
 
 void C_TextureList::displayTexturesList(){
-		cout << "Image names :" << endl;
-		int i = 0;
+
 		for (auto const& x : m_map_textures)
 		{
-		    i++;
-		    std::cout << x.first  // string (key)
-			      << " // ";
-		    if (i%4 == 0)
-			cout << endl ;
+
+		    	string name = x.first;  // string (key)
+			map<string, C_Texture*>::iterator search = m_map_textures.find(name);
+			if(search == m_map_textures.end()){
+				cout << name << " not available in the texture map" << endl;
+			}
+			else{
+				m_map_textures[name]->displayStatus();
+			}
 		}
-		cout << endl ;
+
+
 }
 
 
