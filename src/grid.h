@@ -29,6 +29,9 @@ public:
 	void displayStatus();
 	void deleteGrid();
 
+	int xGridToXScreen(int xGrid, int yGrid);
+	int yGridToYScreen(int xGrid, int yGrid);
+
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}
 	C_Grid (const C_Grid&){}

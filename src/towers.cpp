@@ -50,10 +50,28 @@ void C_Towers::drag(int x_screen, int y_screen)
 	int yGrid = yScreenToYGrid(x_screen,y_screen - offset);
 	int animNbr = getAnim2FrameNbr(30,1);
 	int width = m_weapon->getFireRange();
-	int status = grid.isThisConstructible(xGrid, yGrid);
-
+	int x = xGrid - 1;
+	int y = yGrid - 1;
+	//draw ellipse
+	bool status = grid.isThisConstructible(xGrid,yGrid);
 	drawEllipse(x_screen,y_screen,width,animNbr, status);
-	drawRhombus(x_screen,y_screen,70,status);
+	//draw square
+	for(int i = 0; i < 3; i++){
+		y++;
+		for(int j = 0; j < 3; j++){
+			x++;
+			status = grid.isThisConstructible(x - 1,y -1);
+			int x_s = grid.xGridToXScreen(x,y);
+			int y_s = grid.yGridToYScreen(x,y);
+			drawRhombus(x_s,y_s,70,40,status);
+			if (i == 1 && j == 1){
+				drawRhombus(x_s,y_s,70,90,status);
+				}
+
+		}
+		x = xGrid - 1;
+	}
+
 
 	C_Shooter::render(x_screen, y_screen - 170);
 }
@@ -67,7 +85,7 @@ void C_Towers::drawEllipse(int x,
 		int height = width/2;
 		int R = 0, G = 200, B = 0, A = 100;
 			if(ok == false)
-				R = 120, G = 0, B = 0, A = 128;
+				R = 120, G = 0, B = 0;
 
 		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
 		filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/4));
@@ -77,13 +95,17 @@ void C_Towers::drawEllipse(int x,
 		ellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/2));
 }
 
-void C_Towers::drawRhombus(int x, int y, int width, bool ok){
+void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
 	Sint16 w =  width/2;
 	Sint16 h =  w/2;
 	Sint16 x1 = x - w;
-	Sint16 y1 = y - h;
+	Sint16 yOffset = TILE_HALF_HEIGHT - h;
+	if (yOffset > 1) //to avoid division by 0;
+		yOffset /= 2;
+
+	Sint16 y1 = y - h - yOffset; //center
 	Sint16 x2 = x1 + w;
 	Sint16 y2 = y1 + h;
 	Sint16 x3 = x1 + (w*2);
@@ -92,11 +114,14 @@ void C_Towers::drawRhombus(int x, int y, int width, bool ok){
 	Sint16 y4 = y1 - h;
 	Sint16 vx[] = {x1,x2,x3,x4};
 	Sint16 vy[] = {y1,y2,y3,y4};
-	int R = 0, G = 200, B = 0, A = 32;
+	int R = 0, G = 200, B = 0, A = alpha;
 			if(ok == false)
 				R = 120, G = 0, B = 0;
 	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-	A = 128;
+
+	A = alpha * 2;
+	if (alpha > 255)
+		alpha = 255;
 	polygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
 }

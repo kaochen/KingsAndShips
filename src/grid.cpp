@@ -180,3 +180,15 @@ void C_Grid::deleteGrid(){
 			}
 		}
 }
+
+
+int C_Grid::xGridToXScreen(int xGrid, int yGrid){
+			C_Set& settings=C_Set::Instances();
+			int x = settings.getWindowWidth()/2 + (xGrid - yGrid)* TILE_HALF_WIDTH;
+			return x;
+}
+int C_Grid::yGridToYScreen(int xGrid, int yGrid){
+			C_Set& settings=C_Set::Instances();
+			int y = (yGrid + xGrid) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
+			return y;
+}
