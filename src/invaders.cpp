@@ -12,15 +12,10 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 	m_moving = false;
-	m_animNbr = 0;
-	m_lastAnimTime = 0;
 }
 
 C_invaders::~C_invaders()
 {
-	m_moving = false;
-	m_animNbr = 0;
-	m_lastAnimTime = 0;
 }
 
 

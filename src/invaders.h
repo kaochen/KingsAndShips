@@ -21,8 +21,6 @@ class C_invaders: public C_Shooter
 	protected:
 	//attibuts
 	bool m_moving;
-	int m_animNbr;
-	long m_lastAnimTime;
 
 };
 

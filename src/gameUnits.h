@@ -69,6 +69,9 @@ class C_GameUnits
 	int m_x_screen;
 	int m_y_screen;
 	int m_y_center_offset;
+	//Store time for animation
+	int m_animNbr;
+	long m_lastAnimTime;
 };
 
 #endif

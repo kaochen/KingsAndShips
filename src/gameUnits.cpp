@@ -16,6 +16,8 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_y_grid(y_grid)
 {
 	m_y_center_offset = 0;
+	m_animNbr = 0;
+	m_lastAnimTime = 0;
 	xyGridToXYScreen();
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
