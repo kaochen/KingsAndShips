@@ -87,22 +87,12 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen)
 
 void C_invaders::render(int x_screen, int y_screen){
 	string name = getName();
-	C_Time& time=C_Time::Instances();
 	C_TextureList& t=C_TextureList::Instances();
-	long delay = time.getFrameDuration()*4;
-	long current = SDL_GetTicks();
-	if (current > m_lastAnimTime + delay){
-		m_animNbr++;
-		m_lastAnimTime = current;
-		}
-
-	if (m_animNbr > 1){
-		m_animNbr = 0;
-	}
+	int imageNbr = getAnimFrameNbr(1,4);
 	int rank = getRank();
 	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
 	if (m_moving == true)
-		fileName = name + "Moving_0" + to_string(rank) +"_" + to_string(m_animNbr) + "0.png" ;
+		fileName = name + "Moving_0" + to_string(rank) +"_" + to_string(imageNbr) + "0.png" ;
 
 	//cout << "image name is "<< fileName << endl;
 

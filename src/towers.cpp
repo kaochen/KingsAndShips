@@ -55,9 +55,6 @@ void C_Towers::drag(int x_screen, int y_screen)
 	else{
 		drawElipse(x_screen,y_screen,100, false);
 		}
-
-
-
 	C_Shooter::render(x_screen, y_screen - 200);
 }
 

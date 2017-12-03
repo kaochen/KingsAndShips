@@ -1,6 +1,7 @@
 #include "gameUnits.h"
 #include "surfaces.h"
 #include "grid.h"
+#include "time.h"
 #include <cmath>
 
 using namespace std;
@@ -18,6 +19,8 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_y_center_offset = 0;
 	m_animNbr = 0;
 	m_lastAnimTime = 0;
+	m_anim2Nbr = 0;
+	m_lastAnim2Time = 0;
 	xyGridToXYScreen();
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
@@ -158,5 +161,33 @@ void C_GameUnits::kill()
 }
 
 
+int C_GameUnits::getAnimFrameNbr(int lastFrameNbr, int frameRate){
+	C_Time& time=C_Time::Instances();
+	long delay = time.getFrameDuration()*frameRate;
+	long current = SDL_GetTicks();
+	if (current > m_lastAnimTime + delay){
+		m_animNbr++;
+		m_lastAnimTime = current;
+		}
 
+	if (m_animNbr > lastFrameNbr){
+		m_animNbr = 0;
+	}
+	return m_animNbr;
+}
+
+int C_GameUnits::getAnim2FrameNbr(int lastFrameNbr, int frameRate){
+	C_Time& time=C_Time::Instances();
+	long delay = time.getFrameDuration()*frameRate;
+	long current = SDL_GetTicks();
+	if (current > m_lastAnim2Time + delay){
+		m_anim2Nbr++;
+		m_lastAnim2Time = current;
+		}
+
+	if (m_anim2Nbr > lastFrameNbr){
+		m_anim2Nbr = 0;
+	}
+	return m_anim2Nbr;
+}
 

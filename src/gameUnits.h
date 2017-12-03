@@ -59,6 +59,9 @@ class C_GameUnits
 
 	virtual void kill();
 
+	int getAnimFrameNbr(int lastFrameNbr, int frameRate);
+	int getAnim2FrameNbr(int lastFrameNbr, int frameRate);
+
 	protected:
 	//attibuts
 	std::string m_name;
@@ -72,6 +75,8 @@ class C_GameUnits
 	//Store time for animation
 	int m_animNbr;
 	long m_lastAnimTime;
+	int m_anim2Nbr;
+	int m_lastAnim2Time;
 };
 
 #endif
