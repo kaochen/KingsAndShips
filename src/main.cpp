@@ -67,6 +67,7 @@ int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool towerSelected = false;
+C_Towers* selected = new C_Towers(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 while(!quit)
@@ -221,7 +222,6 @@ while(!quit)
  		t.renderTexture("boat_01_boatMoving_SS", 100,300);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
-			C_Towers* selected = new C_Towers(0,0,0);
 			selected->drag(xCursor, yCursor);
  			towerSelected = true;
  		}
