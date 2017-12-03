@@ -58,7 +58,7 @@ void C_invaders::move(int direction)
 
 	if(m_x_grid != new_x_grid || m_y_grid != new_y_grid){
 		grid.moveUnit(m_x_grid, m_y_grid, new_x_grid, new_y_grid);
-		cout << "Move from:" << m_x_grid << ":" << m_y_grid << " to:" << new_x_grid << ":" << new_y_grid << endl;
+		//cout << "Move from:" << m_x_grid << ":" << m_y_grid << " to:" << new_x_grid << ":" << new_y_grid << endl;
 		m_x_grid = new_x_grid;
 		m_y_grid = new_y_grid;
 		}
