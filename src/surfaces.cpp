@@ -53,9 +53,12 @@ void C_Texture::loadTexture(const string &path)
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
 	SDL_Rect src;
+	int rowCount = m_file_width / m_tile_width;
+	int rowNbr = m_id%rowCount;
+	int lineNbr = m_id/rowCount;
 
-	src.x = 128 * m_id;
-	src.y = 0;
+	src.x = m_tile_width * rowNbr;
+	src.y = m_tile_width * lineNbr;
 	src.w = SPRITE_SIZE;
 	src.h = SPRITE_SIZE;
 
