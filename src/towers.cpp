@@ -45,13 +45,12 @@ void C_Towers::drag(int x_screen, int y_screen)
 {
 	m_justAdded = false;
 	C_Grid& grid=C_Grid::Instances();
-	int offset = 100;
-	int xGrid = xScreenToXGrid(x_screen,y_screen - offset);
-	int yGrid = yScreenToYGrid(x_screen,y_screen - offset);
+	int xGrid = grid.xScreenToXGrid(x_screen,y_screen);
+	int yGrid = grid.yScreenToYGrid(x_screen,y_screen);
 	int animNbr = getAnim2FrameNbr(30,1);
 	int width = m_weapon->getFireRange();
-	int x = xGrid - 1;
-	int y = yGrid - 1;
+	int x = xGrid;
+	int y = yGrid;
 	//draw ellipse
 	bool status = grid.isThisConstructible(xGrid,yGrid);
 	drawEllipse(x_screen,y_screen,width,animNbr, status);
@@ -60,16 +59,16 @@ void C_Towers::drag(int x_screen, int y_screen)
 		y++;
 		for(int j = 0; j < 3; j++){
 			x++;
-			status = grid.isThisConstructible(x - 1,y -1);
+			status = grid.isThisConstructible(x-2,y-2);
 			int x_s = grid.xGridToXScreen(x,y);
-			int y_s = grid.yGridToYScreen(x,y);
+			int y_s = grid.yGridToYScreen(x,y) + 50;
 			drawRhombus(x_s,y_s,70,40,status);
 			if (i == 1 && j == 1){
 				drawRhombus(x_s,y_s,70,90,status);
 				}
 
 		}
-		x = xGrid - 1;
+		x = xGrid;
 	}
 
 

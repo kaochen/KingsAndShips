@@ -44,12 +44,21 @@ void C_invaders::move(int direction)
 		break;
 	}
 
-	int new_x_grid = xScreenToXGrid (m_x_screen, m_y_screen);
-	int new_y_grid = yScreenToYGrid (m_x_screen, m_y_screen);
+	int new_x_grid = grid.xScreenToXGrid (m_x_screen, m_y_screen) + 2;
+	int new_y_grid = grid.yScreenToYGrid (m_x_screen, m_y_screen) + 2;
+	if (new_x_grid < 0)
+		new_x_grid = 0;
+	if (new_y_grid < 0)
+		new_y_grid = 0;
+	if (new_x_grid > GRID_SIZE)
+		new_x_grid = GRID_SIZE;
+	if (new_y_grid > GRID_SIZE)
+		new_y_grid = GRID_SIZE;
+
 
 	if(m_x_grid != new_x_grid || m_y_grid != new_y_grid){
 		grid.moveUnit(m_x_grid, m_y_grid, new_x_grid, new_y_grid);
-		//cout << "Move from:" << m_x_grid << ":" << m_y_grid << " to:" << new_x_grid << ":" << new_y_grid << endl;
+		cout << "Move from:" << m_x_grid << ":" << m_y_grid << " to:" << new_x_grid << ":" << new_y_grid << endl;
 		m_x_grid = new_x_grid;
 		m_y_grid = new_y_grid;
 		}

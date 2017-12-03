@@ -21,7 +21,10 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_lastAnimTime = 0;
 	m_anim2Nbr = 0;
 	m_lastAnim2Time = 0;
-	xyGridToXYScreen();
+	C_Grid& grid=C_Grid::Instances();
+	m_x_screen = grid.xGridToXScreen(x_grid,y_grid);
+	m_y_screen = grid.yGridToYScreen(x_grid,y_grid);
+
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
@@ -102,11 +105,6 @@ void C_GameUnits::setGridXY(int x_grid, int y_grid){
 	m_y_grid = y_grid;
 }
 
-void C_GameUnits::xyGridToXYScreen(){
-			C_Set& settings=C_Set::Instances();
-			m_x_screen = settings.getWindowWidth()/2 + (m_x_grid - m_y_grid)* TILE_HALF_WIDTH;
-			m_y_screen = (m_y_grid + m_x_grid - 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
-}
 
 int C_GameUnits::getXScreen() const
 {
@@ -117,24 +115,6 @@ int C_GameUnits::getYScreen() const
 {
 	return m_y_screen;
 }
-
-int C_GameUnits::xScreenToXGrid(int x_screen, int y_screen){
-		C_Set& settings=C_Set::Instances();
-		float xOffset = (settings.getWindowWidth() /2);
-		float yOffset = (settings.getWindowHeight() /2);
-		float tempX = 0.0;
-		tempX = ( ((x_screen - xOffset ) / TILE_HALF_WIDTH + (y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
-		return tempX + 2;
-		}
-
-int C_GameUnits::yScreenToYGrid(int x_screen, int y_screen){
-		C_Set& settings=C_Set::Instances();
-		float xOffset = (settings.getWindowWidth() /2);
-		float yOffset = (settings.getWindowHeight() /2);
-		float tempY = 0.0;
-		tempY = ( (y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (x_screen - xOffset)/(TILE_HALF_WIDTH*2));
-		return tempY + 2;
-		}
 
 
 

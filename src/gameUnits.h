@@ -45,11 +45,9 @@ class C_GameUnits
 	virtual void move(int direction) = 0;
 
 
-	virtual void xyGridToXYScreen();
 	virtual int getXScreen() const;
 	virtual int getYScreen() const;
-	virtual int xScreenToXGrid(int x_screen, int y_screen);
-	virtual int yScreenToYGrid(int x_screen, int y_screen);
+
 	virtual int getYCenterOffset() const;
 	virtual int getDistance(int x, int y) const;
 

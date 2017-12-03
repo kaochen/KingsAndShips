@@ -110,14 +110,9 @@ while(!quit)
 					yClicLeft = event.button.y;
 					cout << "\tx_screen:" << xClicLeft << " y_screen:" << yClicLeft << endl;
 					//find the match point into the grid
-					float xOffset = (settings.getWindowWidth() /2);
-					float yOffset = (settings.getWindowHeight() /2);
-					//cout << "x:" << xClicLeft << " y:" << yClicLeft << "with offset\n";
-					float tempX = 0.0, tempY = 0.0;
-					tempY = ( (yClicLeft + yOffset )/(TILE_HALF_HEIGHT*2) - (xClicLeft - xOffset)/(TILE_HALF_WIDTH*2));
-					tempX = ( ((xClicLeft - xOffset ) / TILE_HALF_WIDTH + (yClicLeft + yOffset)/TILE_HALF_HEIGHT )/2);
-					yClicTable = tempY;
-					xClicTable = tempX;
+
+					xClicTable = grid.xScreenToXGrid(xClicLeft, yClicLeft);
+					yClicTable = grid.yScreenToYGrid(xClicLeft, yClicLeft);
 
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;

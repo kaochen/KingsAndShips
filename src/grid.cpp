@@ -189,6 +189,26 @@ int C_Grid::xGridToXScreen(int xGrid, int yGrid){
 }
 int C_Grid::yGridToYScreen(int xGrid, int yGrid){
 			C_Set& settings=C_Set::Instances();
-			int y = (yGrid + xGrid) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
+			int y = (yGrid + xGrid - 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
 			return y;
 }
+
+
+int C_Grid::xScreenToXGrid(int x_screen, int y_screen){
+		C_Set& settings=C_Set::Instances();
+		float xOffset = (settings.getWindowWidth() /2);
+		float yOffset = (settings.getWindowHeight() /2);
+		float tempX = 0.0;
+		tempX = ( ((x_screen - xOffset ) / TILE_HALF_WIDTH + (y_screen + yOffset)/TILE_HALF_HEIGHT )/2);
+		return tempX;
+		}
+
+int C_Grid::yScreenToYGrid(int x_screen, int y_screen){
+		C_Set& settings=C_Set::Instances();
+		float xOffset = (settings.getWindowWidth() /2);
+		float yOffset = (settings.getWindowHeight() /2);
+		float tempY = 0.0;
+		tempY = ( (y_screen + yOffset )/(TILE_HALF_HEIGHT*2) - (x_screen - xOffset)/(TILE_HALF_WIDTH*2));
+		return tempY;
+		}
+
