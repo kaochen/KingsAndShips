@@ -18,8 +18,8 @@ class C_Towers: public C_Shooter
 	virtual void render(int x_screen, int y_screen);
 	void renderSmoke();
 	void drag(int x_screen, int y_screen);
-	void drawElipse(int x,int y, int width, int animNbr, bool ok);
 	protected:
+	void drawEllipse(int x,int y, int width, int animNbr, bool ok);
 	long m_lastSmokeTime;
 	int m_smokeNbr;
 	bool m_justAdded;

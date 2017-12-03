@@ -52,16 +52,16 @@ void C_Towers::drag(int x_screen, int y_screen)
 	int animNbr = getAnim2FrameNbr(30,1);
 	int width = 100;
 	if (grid.isThisConstructible(xGrid, yGrid)){
-		drawElipse(x_screen,y_screen,width,animNbr, true);
+		drawEllipse(x_screen,y_screen,width,animNbr, true);
 	 	t.renderTexture("Tile_Highlight_Green.png", x_screen,y_screen - offset);
 	 	}
 	else{
-		drawElipse(x_screen,y_screen,width,animNbr,false);
+		drawEllipse(x_screen,y_screen,width,animNbr,false);
 		}
 	C_Shooter::render(x_screen, y_screen - 170);
 }
 
-void C_Towers::drawElipse(int x,
+void C_Towers::drawEllipse(int x,
 		int y,
 		int width,
 		int animNbr,
@@ -75,11 +75,9 @@ void C_Towers::drawElipse(int x,
 		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
 		A = 32;
 		filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A);
-		if (animNbr != 0){
-			width = 100 + animNbr;
-			height = width /2;
-			cout << width <<":" << height << endl;
-			ellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,64);
-		}
+		width = 100 + animNbr;
+		height = width /2;
+		//cout << width <<":" << height << endl;
+		ellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,64);
 }
 
