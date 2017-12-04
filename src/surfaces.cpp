@@ -107,7 +107,8 @@ void C_Texture::loadTexture(const string &path)
 
 //#######################################Texture List##################################################
 
-C_TextureList::C_TextureList()
+C_TextureList::C_TextureList():
+		m_count (0)
 {
 }
 
@@ -194,7 +195,11 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	string filePath = "noFilePath";
 	string name = "noName", fullname = name;
 	int tile_width = 128 , tile_height = 128, file_width = 1024, file_height = 1024;
-	int id =0, previousID = 0;
+	int id =0, previousID = -1;
+	bool firstID = false;
+	int startCount = m_count + 1;
+
+	cout << "Tile Count" << startCount << endl;
     while(reader.read())
     {
     		string nodeName = reader.get_name();
@@ -229,23 +234,25 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			  //tile node
 			   if (nodeName == "tile" && attributes == "id"){
 		  		id = stoi(reader.get_value());
+		  		firstID = true;
+		  		//cout << id << "<--" << endl;
 		  		}
 		  	   if (nodeName == "tile" && attributes == "type")
 				fullname = name +"_" + reader.get_value();
 			  //
-			  if (nodeName == "frame" && attributes == "tileid"){
-			  	int tmpId = stoi(reader.get_value());
-			  	if(tmpId != previousID){
-			  		id = tmpId;
-					fullname += "_a";
-					}
-				}
+
 		  	} while(reader.move_to_next_attribute());
 		}
 	//create new texture
-	if(id != previousID){
+	if(id != previousID && firstID == true){
 		previousID = id;
-		m_map_textures[fullname] = new C_Texture(id, fullname, filePath, tile_width, tile_height, file_width, file_height );
+		int newId = id + startCount;
+			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
+			if(search == m_map_textures.end()){
+				m_map_textures[fullname] = new C_Texture(newId, fullname, filePath, tile_width, tile_height, file_width, file_height );
+				m_count++;
+				cout << m_count << ": " << fullname << endl;
+			}
 	}
 
 	reader.move_to_element();

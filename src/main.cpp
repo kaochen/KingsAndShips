@@ -50,6 +50,7 @@ int main()
 	C_TextureList& t=C_TextureList::Instances();
 	//C_Texture text;
 	t.extractTSXfile("data/levels/boat_01.tsx");
+	t.extractTSXfile("data/levels/Ground_01.tsx");
 	t.displayTexturesList();
 
 	//load first level
@@ -215,8 +216,8 @@ while(!quit)
 		//display menu
  		t.renderTexture("CrossBow_01.png", 30,100);
  		t.renderTexture("boat_01_boatStill_NN", 100,300);
- 		t.renderTexture("boat_01_boatMoving_SE_a", 200,300);
- 		t.renderTexture("boat_01_boatMoving_SS_a", 300,300);
+ 		t.renderTexture("boat_01_boatMoving_SE_1", 200,300);
+ 		t.renderTexture("boat_01_boatMoving_SS_2", 300,300);
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
 			selected->drag(xCursor, yCursor);

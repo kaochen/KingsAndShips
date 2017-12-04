@@ -55,7 +55,7 @@ private:
 	static C_TextureList m_instance;
 	C_TextureList();
 	~C_TextureList();
-
+	int m_count;
 	std::map<std::string, C_Texture*> m_map_textures;
 };
 
