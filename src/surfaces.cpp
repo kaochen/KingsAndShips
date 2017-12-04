@@ -251,7 +251,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			if(search == m_map_textures.end()){
 				m_map_textures[fullname] = new C_Texture(newId, fullname, filePath, tile_width, tile_height, file_width, file_height );
 				m_count++;
-				cout << m_count << ": " << fullname << endl;
+				//cout << m_count << ": " << fullname << endl;
 			}
 	}
 
