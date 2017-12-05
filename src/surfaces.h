@@ -19,9 +19,9 @@ public:
 	C_Texture(int id, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
 	~C_Texture();
 
-
 	void displayStatus();
 	SDL_Texture* getTexture();
+	int getId();
 	void loadTexture(const std::string &path);
 
 protected:
@@ -47,6 +47,7 @@ public:
 	void loadTexturesIntoMap();
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
+	void getNameFromID(int id, std::string &name);
 
 private:
 	C_TextureList& operator= (const C_TextureList&){return *this;}

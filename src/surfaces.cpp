@@ -46,6 +46,10 @@ SDL_Texture* C_Texture::getTexture(){
 	return m_texture;
 }
 
+int C_Texture::getId(){
+	return m_id;
+}
+
 void C_Texture::loadTexture(const string &path)
 {
 	C_Window& win=C_Window::Instances();
@@ -277,5 +281,25 @@ void C_TextureList::displayTexturesList(){
 
 }
 
+
+void C_TextureList::getNameFromID(int id, string &name){
+
+	for (auto const& x : m_map_textures)
+		{
+			int idTmp = -1;
+		    	string n = x.first;  // string (key)
+			map<string, C_Texture*>::iterator search = m_map_textures.find(n);
+			if(search == m_map_textures.end()){
+				cout << n << " not available in the texture map" << endl;
+				name = "notFound";
+			}
+			else{
+				idTmp = m_map_textures[n]->getId();
+			}
+			if (idTmp == id){
+				name = n;
+				}
+		}
+}
 
 
