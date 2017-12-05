@@ -282,7 +282,7 @@ void C_TextureList::displayTexturesList(){
 }
 
 
-void C_TextureList::getNameFromID(int id, string &name){
+string C_TextureList::getNameFromID(int id){
 
 	for (auto const& x : m_map_textures)
 		{
@@ -291,13 +291,13 @@ void C_TextureList::getNameFromID(int id, string &name){
 			map<string, C_Texture*>::iterator search = m_map_textures.find(n);
 			if(search == m_map_textures.end()){
 				cout << n << " not available in the texture map" << endl;
-				name = "notFound";
+				return "notFound";
 			}
 			else{
 				idTmp = m_map_textures[n]->getId();
 			}
 			if (idTmp == id){
-				name = n;
+				return n;
 				}
 		}
 }

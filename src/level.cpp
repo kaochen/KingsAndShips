@@ -52,7 +52,9 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 void C_Level::extractTMXfile(string tmx_File_Path){
 
 	//C_Grid& grid=C_Grid::Instances();
-	int grid[GRID_SIZE][GRID_SIZE] = {};
+	C_TextureList& t=C_TextureList::Instances();
+
+	string grid[GRID_SIZE][GRID_SIZE] = {};
 	string layerName ="", data ="";
 	int width = 30, height = 30;
 	cout << "Reading: " << tmx_File_Path << endl;
@@ -109,8 +111,14 @@ void C_Level::extractTMXfile(string tmx_File_Path){
 				int mark = extract.find_first_of(',');
 				if (mark > 0)
 					extract.resize(mark,'C');
-
-				grid[x][y] = stoi(extract);
+				int nbr = stoi(extract);
+				//cout << nbr;
+				if (nbr != 0){
+					 grid[x][y] = t.getNameFromID(nbr);
+					}
+				else{
+					grid[x][y] = "empty";
+				}
 				//cout << extract <<":";
 				data = data.substr(mark + 1);
 		}

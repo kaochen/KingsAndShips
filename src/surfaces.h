@@ -47,7 +47,7 @@ public:
 	void loadTexturesIntoMap();
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
-	void getNameFromID(int id, std::string &name);
+	std::string getNameFromID(int id);
 
 private:
 	C_TextureList& operator= (const C_TextureList&){return *this;}

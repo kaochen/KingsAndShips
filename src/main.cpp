@@ -33,6 +33,16 @@ int main()
 	SDL_Window* window = win.getWindow ();
 	SDL_Renderer* renderer = win.getRenderer ();
 
+
+//-----------------------------------------------------------------------------
+
+	C_TextureList& t=C_TextureList::Instances();
+	//C_Texture text;
+	t.loadTexturesIntoMap();
+	t.extractTSXfile("data/levels/boat_01.tsx");
+	t.extractTSXfile("data/levels/Ground_01.tsx");
+	t.displayTexturesList();
+
 //-----------------------------------------------------------------------------
 	C_Grid& grid=C_Grid::Instances();
 	grid.loadLevel(1);
@@ -42,16 +52,10 @@ int main()
 	list<C_GameUnits*> lB; //listOfBoats
 	list<C_GameUnits*>::iterator itB;
 
-	C_TextureList& tList=C_TextureList::Instances();
-	tList.loadTexturesIntoMap();
-
 	vector <C_Texture*> textureList;
 
-	C_TextureList& t=C_TextureList::Instances();
-	//C_Texture text;
-	t.extractTSXfile("data/levels/boat_01.tsx");
-	t.extractTSXfile("data/levels/Ground_01.tsx");
-	t.displayTexturesList();
+
+
 
 	//load first level
 	C_Level level;
