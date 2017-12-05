@@ -24,6 +24,7 @@ public:
 	void moveToDead(int x_grid, int y_grid);
 
 	C_GameUnits* getUnits(int x, int y);
+	void setGround(int x, int y, int id);
 	bool isThisConstructible(int x, int y);
 
 	void displayStatus();

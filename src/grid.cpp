@@ -2,6 +2,7 @@
 #include "surfaces.h"
 #include "invaders.h"
 #include "towers.h"
+#include "level.h"
 
 using namespace std;
 
@@ -46,6 +47,8 @@ void C_Grid::loadLevel(int levelNbr){
 		m_grid[x][14].plot = false;
 		m_grid[x][14].water = true;
 		}
+	C_Level l;
+	l.extractTMXfile("data/levels/Level_00.tmx");
 }
 
 void C_Grid::renderLayer(int layer){
@@ -129,6 +132,10 @@ else{
 
 C_GameUnits* C_Grid::getUnits(int x, int y){
 	return m_grid[x][y].main;
+}
+
+void C_Grid::setGround(int x, int y, int id){
+	m_grid[x][y].ground = id;
 }
 
 bool C_Grid::isThisConstructible(int x, int y){

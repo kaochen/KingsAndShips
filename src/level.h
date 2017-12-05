@@ -26,6 +26,8 @@ class C_Level
 	void status();
 	void sendNextWave(std::list<C_GameUnits*>& lB);
 
+	void extractTMXfile(std::string tmx_File_Path);
+
 	protected:
 	//attibuts
 	std::string m_name;
