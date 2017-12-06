@@ -153,6 +153,12 @@ void C_TextureList::renderTexture(string name, int x, int y)
 }
 
 
+void C_TextureList::renderTextureFromId(int id, int x, int y){
+	string name = getNameFromID(id);
+	renderTexture(name, x, y);
+}
+
+
 map<string, C_Texture*>  C_TextureList::getTextMap(){
 	return m_map_textures;
 }

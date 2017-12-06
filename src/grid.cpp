@@ -20,7 +20,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].ground = GROUND_01;
 		}
 	}
-
 }
 
 C_Grid::~C_Grid()

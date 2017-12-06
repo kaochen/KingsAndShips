@@ -43,6 +43,7 @@ class C_TextureList
 public:
 	static	C_TextureList& Instances();
 	void renderTexture(std::string name, int x, int y);
+	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTexturesIntoMap();
 	void extractTSXfile(std::string tsx_File_Path);
