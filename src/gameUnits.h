@@ -57,8 +57,8 @@ class C_GameUnits
 
 	virtual void kill();
 
-	int getAnimTileNbr(int firstTileNbr, int lastTileNbr, int frameRate);
-	int getAnim2FrameNbr(int lastFrameNbr, int frameRate);
+	int getAnimTileNbr(int firstTileNbr, int lastTileNbr, long delay);
+	int getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay);
 
 	protected:
 	//attibuts

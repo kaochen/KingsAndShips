@@ -143,9 +143,7 @@ void C_GameUnits::kill()
 }
 
 
-int C_GameUnits::getAnimTileNbr(int firstTileNbr, int lastTileNbr, int frameRate){
-	C_Time& time=C_Time::Instances();
-	long delay = time.getFrameDuration()*frameRate;
+int C_GameUnits::getAnimTileNbr(int firstTileNbr, int lastTileNbr, long delay){
 	long current = SDL_GetTicks();
 	if (current > m_lastAnimTime + delay){
 		m_animNbr++;
@@ -157,19 +155,18 @@ int C_GameUnits::getAnimTileNbr(int firstTileNbr, int lastTileNbr, int frameRate
 	}
 	return m_animNbr;
 }
-
-int C_GameUnits::getAnim2FrameNbr(int lastFrameNbr, int frameRate){
-	C_Time& time=C_Time::Instances();
-	long delay = time.getFrameDuration()*frameRate;
+int C_GameUnits::getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay){
 	long current = SDL_GetTicks();
-	if (current > m_lastAnim2Time + delay){
+	if (current > m_lastAnimTime + delay){
 		m_anim2Nbr++;
 		m_lastAnim2Time = current;
 		}
 
-	if (m_anim2Nbr > lastFrameNbr){
-		m_anim2Nbr = 0;
+	if (m_anim2Nbr > lastTileNbr){
+		m_anim2Nbr = firstTileNbr;
 	}
 	return m_anim2Nbr;
 }
+
+
 

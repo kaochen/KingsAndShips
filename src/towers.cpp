@@ -18,21 +18,13 @@ C_Towers::C_Towers(int x_grid,
 
 
 void C_Towers::renderSmoke(){
-	C_Time& time=C_Time::Instances();
-	long delay = time.getFrameDuration()*4;
-	long current = SDL_GetTicks();
-	if (current > m_lastSmokeTime + delay){
-		m_smokeNbr++;
-		m_lastSmokeTime = current;
-		}
-
-	if (m_smokeNbr > 8){
-		m_smokeNbr = 1;
-		m_justAdded = false;
-	}
-	string fileName = "smoke_0" + to_string(m_smokeNbr) + ".png" ;
+	int imageNbr = getAnimTileNbr(0,7,100);
+	//smoke_01_smoke0
+	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t=C_TextureList::Instances();
 	t.renderTexture(fileName, m_x_screen,m_y_screen + 36);
+	if (imageNbr == 7)
+		m_justAdded = false;
 }
 
 void C_Towers::render(int x_screen, int y_screen){
@@ -47,7 +39,7 @@ void C_Towers::drag(int x_screen, int y_screen)
 	C_Grid& grid=C_Grid::Instances();
 	int xGrid = grid.xScreenToXGrid(x_screen,y_screen);
 	int yGrid = grid.yScreenToYGrid(x_screen,y_screen);
-	int animNbr = getAnim2FrameNbr(30,1);
+	int animNbr = getAnim2TileNbr(0,30,500);
 	int width = m_weapon->getFireRange();
 	int x = xGrid;
 	int y = yGrid;
