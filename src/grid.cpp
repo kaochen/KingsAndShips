@@ -54,9 +54,6 @@ void C_Grid::renderLayer(int layer){
 				if (layer == GROUND){
 						int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
 						int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
-						/*if (m_grid[x][y].water)
-								t.renderTexture("SimpleWaterTile.png", x_s,y_s + 36);
-						*/
 						t.renderTextureFromId(m_grid[x][y].ground,  x_s,y_s + 36);
 						}
 						//draw the deads
