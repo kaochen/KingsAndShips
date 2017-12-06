@@ -217,9 +217,7 @@ while(!quit)
 
 		//display menu
  		t.renderTexture("CrossBow_01.png", 30,100);
- 		t.renderTexture("boat_01_boatStill_NN", 100,300);
- 		t.renderTexture("boat_01_boatMoving_SE_1", 200,300);
- 		t.renderTexture("boat_01_boatMoving_SS_2", 300,300);
+
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
 			selected->drag(xCursor, yCursor);

@@ -45,7 +45,9 @@ C_GameUnits::C_GameUnits(C_GameUnits const& original):
 	m_x_screen (original.m_x_screen),
 	m_y_screen (original.m_y_screen),
 	m_y_center_offset (original.m_y_center_offset)
-{}
+{
+	m_direction = UNKNOWN;
+}
 
 //get attibuts
 string C_GameUnits::getName() const
@@ -141,7 +143,7 @@ void C_GameUnits::kill()
 }
 
 
-int C_GameUnits::getAnimFrameNbr(int lastFrameNbr, int frameRate){
+int C_GameUnits::getAnimTileNbr(int firstTileNbr, int lastTileNbr, int frameRate){
 	C_Time& time=C_Time::Instances();
 	long delay = time.getFrameDuration()*frameRate;
 	long current = SDL_GetTicks();
@@ -150,8 +152,8 @@ int C_GameUnits::getAnimFrameNbr(int lastFrameNbr, int frameRate){
 		m_lastAnimTime = current;
 		}
 
-	if (m_animNbr > lastFrameNbr){
-		m_animNbr = 0;
+	if (m_animNbr > lastTileNbr){
+		m_animNbr = firstTileNbr;
 	}
 	return m_animNbr;
 }

@@ -57,7 +57,7 @@ class C_GameUnits
 
 	virtual void kill();
 
-	int getAnimFrameNbr(int lastFrameNbr, int frameRate);
+	int getAnimTileNbr(int firstTileNbr, int lastTileNbr, int frameRate);
 	int getAnim2FrameNbr(int lastFrameNbr, int frameRate);
 
 	protected:
@@ -75,6 +75,7 @@ class C_GameUnits
 	long m_lastAnimTime;
 	int m_anim2Nbr;
 	int m_lastAnim2Time;
+	int m_direction;
 };
 
 #endif

@@ -24,6 +24,7 @@ void C_invaders::move(int direction)
 
 	C_Grid& grid=C_Grid::Instances();
 	m_moving = true;
+	m_direction = direction;
 	int speed = 2;
 	switch (direction){
 		case EAST:
@@ -97,11 +98,39 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen)
 void C_invaders::render(int x_screen, int y_screen){
 	string name = getName();
 	C_TextureList& t=C_TextureList::Instances();
-	int imageNbr = getAnimFrameNbr(1,4);
+	int imageNbr = 0;
+	if (m_moving)
+		imageNbr = getAnimTileNbr(1,2,4);
+	string direction = "_SS_";
+		switch(m_direction){
+			case SOUTH:
+				direction = "_SS_";
+			break;
+			case SOUTH_EAST:
+				direction = "_SE_";
+			break;
+			case EAST:
+				direction = "_EE_";
+			break;
+			case NORTH_EAST:
+				direction = "_NE_";
+			break;
+			case NORTH:
+				direction = "_NN_";
+			break;
+			case NORTH_WEST:
+				direction = "_NW_";
+			break;
+			case WEST:
+				direction = "_WW_";
+			break;
+			case SOUTH_WEST:
+				direction = "_SW_";
+			break;
+		}
 	int rank = getRank();
-	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
-	if (m_moving == true)
-		fileName = name + "Moving_0" + to_string(rank) +"_" + to_string(imageNbr) + "0.png" ;
+	//boat_01_SW_0
+	string fileName = name + "_0" + to_string(rank) + direction + to_string(imageNbr) ;
 
 	//cout << "image name is "<< fileName << endl;
 
