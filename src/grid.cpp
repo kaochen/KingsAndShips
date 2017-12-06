@@ -89,18 +89,18 @@ void C_Grid::renderLayer(int layer){
 
 
 void C_Grid::addANewBoat(int x, int y, int rank){
-	//if (m_grid[x][y].water){
+	if (m_grid[x][y].water){
 		m_grid[x][y].main = new C_invaders(x,y,rank);
-	/*}
+	}
 	else{
 		cout << "You should place the boat into the water" << endl;
-	}*/
+	}
 }
 
 void C_Grid::addANewTower(int x, int y, int rank){
-	if (m_grid[x][y].main == nullptr){
+	if (m_grid[x][y].main == nullptr && m_grid[x][y].water == false){
 		m_grid[x][y].main = new C_Towers(x,y,rank);
-		m_grid[x][y].ground = GROUND_01;
+		m_grid[x][y].ground = 25;
 	}
 }
 
@@ -121,6 +121,8 @@ C_GameUnits* C_Grid::getUnits(int x, int y){
 
 void C_Grid::setGround(int x, int y, int id){
 	m_grid[x][y].ground = id;
+	if (id >= 49 && id <= 57)
+		m_grid[x][y].water = true;
 }
 
 int C_Grid::getGround(int x, int y){
