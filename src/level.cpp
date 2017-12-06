@@ -28,13 +28,13 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 
 	C_Grid& grid=C_Grid::Instances();
 		vector <S_boat> l;
-		S_boat temp = {1,1,14};
+		S_boat temp = {1,1,16};
 		l.push_back(temp);
 		temp.x = 6;
-		temp.y = 14;
+		temp.y = 16;
 		l.push_back(temp);
 		temp.x = 5;
-		temp.y = 12;
+		temp.y = 14;
 		l.push_back(temp);
 		temp.x = 7;
 		l.push_back(temp);
@@ -51,10 +51,8 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 
 void C_Level::extractTMXfile(string tmx_File_Path){
 
-	//C_Grid& grid=C_Grid::Instances();
-	C_TextureList& t=C_TextureList::Instances();
+	C_Grid& grid=C_Grid::Instances();
 
-	string grid[GRID_SIZE][GRID_SIZE] = {};
 	string layerName ="", data ="";
 	int width = 30, height = 30;
 	cout << "Reading: " << tmx_File_Path << endl;
@@ -113,12 +111,8 @@ void C_Level::extractTMXfile(string tmx_File_Path){
 					extract.resize(mark,'C');
 				int nbr = stoi(extract);
 				//cout << nbr;
-				if (nbr != 0){
-					 grid[x][y] = t.getNameFromID(nbr);
-					}
-				else{
-					grid[x][y] = "empty";
-				}
+				grid.setGround(x,y,nbr);
+
 				//cout << extract <<":";
 				data = data.substr(mark + 1);
 		}
@@ -127,7 +121,7 @@ void C_Level::extractTMXfile(string tmx_File_Path){
 	//read grid
 	for (int y = 0; y < height; y++){
 		for (int x = 0; x < width; x++){
-			cout << grid[x][y]<<"-";
+			cout << grid.getGround(x,y)<<"-";
 		}
 		cout << endl;
 	}

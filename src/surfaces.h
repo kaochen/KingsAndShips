@@ -16,7 +16,7 @@ class C_Texture
 {
 public:
 	C_Texture();
-	C_Texture(int id, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
+	C_Texture(int id,int tileNbr, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
 	~C_Texture();
 
 	void displayStatus();
@@ -26,6 +26,7 @@ public:
 
 protected:
 	int m_id;
+	int m_tileNbr;
 	std::string m_name;
 	std::string m_file_path;
 	int m_tile_height;

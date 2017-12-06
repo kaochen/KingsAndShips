@@ -17,7 +17,7 @@ C_Grid::C_Grid()
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
-		m_grid[x][y].ground = GROUND_01;
+		//m_grid[x][y].ground = GROUND_01;
 		}
 	}
 }
@@ -32,22 +32,10 @@ C_Grid& C_Grid::Instances()
 }
 
 void C_Grid::loadLevel(int levelNbr){
-		cout << "Level Number: " << levelNbr;
-	//setup a basic level for now
-		m_grid[16][17].ground = GROUND_02;
-		m_grid[20][21].ground = GROUND_02;
-		m_grid[10][15].ground = GROUND_02;
-		m_grid[9][6].ground = GROUND_02;
 
-	// add some water
-	for (size_t x = 0; x < GRID_SIZE; x++){
-		m_grid[x][12].plot = false;
-		m_grid[x][12].water = true;
-		m_grid[x][14].plot = false;
-		m_grid[x][14].water = true;
-		}
 	C_Level l;
 	l.extractTMXfile("data/levels/Level_00.tmx");
+	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 
 void C_Grid::renderLayer(int layer){
@@ -66,13 +54,11 @@ void C_Grid::renderLayer(int layer){
 				if (layer == GROUND){
 						int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
 						int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
-						if (m_grid[x][y].water)
+						/*if (m_grid[x][y].water)
 								t.renderTexture("SimpleWaterTile.png", x_s,y_s + 36);
-						if (m_grid[x][y].ground == GROUND_01 && m_grid[x][y].water == false)
-								t.renderTexture("Grass_01.png",  x_s,y_s + 36);
-						if (m_grid[x][y].ground == GROUND_02 && m_grid[x][y].water == false)
-								t.renderTexture("Grass_02.png", x_s,y_s + 36);
-						    }
+						*/
+						t.renderTextureFromId(m_grid[x][y].ground,  x_s,y_s + 36);
+						}
 						//draw the deads
 				if (layer == DEAD){
 						if (m_grid[x][y].dead != nullptr){
@@ -103,12 +89,12 @@ void C_Grid::renderLayer(int layer){
 
 
 void C_Grid::addANewBoat(int x, int y, int rank){
-	if (m_grid[x][y].water){
+	//if (m_grid[x][y].water){
 		m_grid[x][y].main = new C_invaders(x,y,rank);
-	}
+	/*}
 	else{
 		cout << "You should place the boat into the water" << endl;
-	}
+	}*/
 }
 
 void C_Grid::addANewTower(int x, int y, int rank){
@@ -135,6 +121,10 @@ C_GameUnits* C_Grid::getUnits(int x, int y){
 
 void C_Grid::setGround(int x, int y, int id){
 	m_grid[x][y].ground = id;
+}
+
+int C_Grid::getGround(int x, int y){
+	return m_grid[x][y].ground;
 }
 
 bool C_Grid::isThisConstructible(int x, int y){

@@ -52,10 +52,6 @@ int main()
 	list<C_GameUnits*> lB; //listOfBoats
 	list<C_GameUnits*>::iterator itB;
 
-	vector <C_Texture*> textureList;
-
-
-
 
 	//load first level
 	C_Level level;
@@ -75,6 +71,8 @@ bool towerSelected = false;
 C_Towers* selected = new C_Towers(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
+//Start SDL2 loop
+cout << "Loop Start" << endl;
 while(!quit)
 {
 

@@ -25,6 +25,7 @@ public:
 
 	C_GameUnits* getUnits(int x, int y);
 	void setGround(int x, int y, int id);
+	int getGround(int x, int y);
 	bool isThisConstructible(int x, int y);
 
 	void displayStatus();
