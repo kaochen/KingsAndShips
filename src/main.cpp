@@ -68,7 +68,7 @@ bool quit = false, forceRefresh = false;
 int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
-bool towerSelected = false;
+bool addingAnewTower = false, aTowerIsSelected = false;
 C_Towers* selected = new C_Towers(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
@@ -120,13 +120,20 @@ while(!quit)
 
 					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
-					if(towerSelected == true && grid.isThisConstructible(xClicTable,yClicTable) == true) {
+
+					//Select a Tower
+					if(aTowerIsSelected == false && addingAnewTower == false) {
+						grid.selectATower(xClicLeft, yClicLeft);
+						}
+
+					//Add a new Tower
+					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true) {
 						grid.addANewTower(xClicTable,yClicTable,0);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
-						towerSelected = false;
+						addingAnewTower = false;
 						}
 					else{
-						towerSelected = false;
+						addingAnewTower = false;
 					}
 
 				}
@@ -222,7 +229,7 @@ while(!quit)
 		//show cursor :
 		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
 			selected->drag(xCursor, yCursor);
- 			towerSelected = true;
+ 			addingAnewTower = true;
  		}
  		SDL_RenderPresent(win.getRenderer());
  		}

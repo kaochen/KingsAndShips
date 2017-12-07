@@ -207,3 +207,33 @@ int C_Grid::yScreenToYGrid(int x_screen, int y_screen){
 		return tempY;
 		}
 
+void C_Grid::selectATower(int x_screen, int y_screen){
+	int x_grid = xScreenToXGrid(x_screen, y_screen);
+	int y_grid = yScreenToYGrid(x_screen, y_screen);
+	string name ="";
+	if (m_grid[x_grid+1][y_grid+1].main != nullptr){
+		name = m_grid[x_grid+1][y_grid+1].main->getName();
+			if(name == "Tower"){
+				cout << "Found top " << name;
+			}
+			else{
+				cout << "Found " << name;
+			}
+	}
+	else{
+		if (m_grid[x_grid][y_grid].main != nullptr){
+			name = m_grid[x_grid][y_grid].main->getName();
+				if(name == "Tower"){
+					cout << "Found bottom" << name;
+				}
+				else{
+					cout << "Found " << name;
+				}
+		}
+		else{
+			cout << "Nothing";
+		}
+
+	}
+	cout << " at " << x_grid << ":" << y_grid << endl;
+}

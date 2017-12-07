@@ -57,8 +57,12 @@ class C_GameUnits
 
 	virtual void kill();
 
-	int getAnimTileNbr(int firstTileNbr, int lastTileNbr, long delay);
-	int getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay);
+	virtual int getAnimTileNbr(int firstTileNbr, int lastTileNbr, long delay);
+	virtual int getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay);
+
+	virtual bool getSelectedStatus() const;
+	virtual void setSelectedStatus(bool status);
+	virtual void reverseSelectedStatus();
 
 	protected:
 	//attibuts
@@ -76,6 +80,7 @@ class C_GameUnits
 	int m_anim2Nbr;
 	int m_lastAnim2Time;
 	int m_direction;
+	bool m_selected;
 };
 
 #endif

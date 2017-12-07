@@ -14,13 +14,15 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_life(MAX_LIFE),
 	m_rank(rank),
 	m_x_grid(x_grid),
-	m_y_grid(y_grid)
+	m_y_grid(y_grid),
+	m_y_center_offset(0),
+	m_animNbr(0),
+	m_lastAnimTime(0),
+	m_anim2Nbr(0),
+	m_lastAnim2Time(0),
+	m_selected(false)
 {
-	m_y_center_offset = 0;
-	m_animNbr = 0;
-	m_lastAnimTime = 0;
-	m_anim2Nbr = 0;
-	m_lastAnim2Time = 0;
+
 	C_Grid& grid=C_Grid::Instances();
 	m_x_screen = grid.xGridToXScreen(x_grid,y_grid);
 	m_y_screen = grid.yGridToYScreen(x_grid,y_grid);
@@ -44,7 +46,8 @@ C_GameUnits::C_GameUnits(C_GameUnits const& original):
 	m_y_grid(original.m_y_grid),
 	m_x_screen (original.m_x_screen),
 	m_y_screen (original.m_y_screen),
-	m_y_center_offset (original.m_y_center_offset)
+	m_y_center_offset (original.m_y_center_offset),
+	m_selected(false)
 {
 	m_direction = UNKNOWN;
 }
@@ -168,5 +171,21 @@ int C_GameUnits::getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay){
 	return m_anim2Nbr;
 }
 
+bool C_GameUnits::getSelectedStatus() const
+{
+	return m_selected;
+}
 
 
+void C_GameUnits::setSelectedStatus(bool status)
+{
+	m_selected = status;
+}
+
+void C_GameUnits::reverseSelectedStatus()
+{
+	if (m_selected == false)
+		m_selected =  true;
+	else
+		m_selected =  false;
+}
