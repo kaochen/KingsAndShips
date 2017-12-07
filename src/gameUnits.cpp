@@ -20,6 +20,7 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_lastAnimTime(0),
 	m_anim2Nbr(0),
 	m_lastAnim2Time(0),
+	m_direction(UNKNOWN),
 	m_selected(false)
 {
 
