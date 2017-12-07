@@ -40,7 +40,6 @@ class C_Time
 	int m_lastSec;
 
 	long m_currentTime;
-	long m_previousTime;
 	long m_lastFrameTime;
 	long m_lastFrameDuration;
 	long m_framerate;

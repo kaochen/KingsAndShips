@@ -11,7 +11,7 @@ C_Towers::C_Towers(int x_grid,
 		   int y_grid,
 		   int rank):C_Shooter("Tower", x_grid, y_grid, rank)
 {
-	m_lastSmokeTime = SDL_GetTicks();
+	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
 	m_justAdded = true;
 }

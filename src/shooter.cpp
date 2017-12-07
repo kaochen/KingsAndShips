@@ -8,7 +8,7 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 {
 	m_weapon = new C_Weapon;
 	m_y_center_offset = 36;
-	m_lastShootTime = SDL_GetTicks();
+	m_lastShootTime = 0;
 }
 
 C_Shooter::~C_Shooter()

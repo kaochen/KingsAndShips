@@ -9,14 +9,16 @@ C_Time C_Time::m_instance=C_Time();
 
 C_Time::C_Time():
 	m_frameNbr(0),
+	m_previousFrameNbr(-1),
 	m_sec(0),
-	m_lastSec(0),
+	m_lastSec(-1),
+	m_currentTime(0),
 	m_framerate(FRAMERATE),
 	m_delay(0)
 {
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
-	m_previousFrameNbr = -1;
+	m_lastFrameDuration = m_frame_duration;
 }
 
 C_Time::~C_Time(){
