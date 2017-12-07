@@ -212,9 +212,11 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 	int y_grid = yScreenToYGrid(x_screen, y_screen);
 	string name ="";
 	if (m_grid[x_grid+1][y_grid+1].main != nullptr){
+		unselectedAll(x_grid+1,y_grid+1);
 		name = m_grid[x_grid+1][y_grid+1].main->getName();
 			if(name == "Tower"){
 				cout << "Found top " << name;
+				m_grid[x_grid+1][y_grid+1].main->reverseSelectedStatus();
 			}
 			else{
 				cout << "Found " << name;
@@ -223,17 +225,41 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 	else{
 		if (m_grid[x_grid][y_grid].main != nullptr){
 			name = m_grid[x_grid][y_grid].main->getName();
+				unselectedAll(x_grid,y_grid);
 				if(name == "Tower"){
 					cout << "Found bottom" << name;
+					m_grid[x_grid][y_grid].main->reverseSelectedStatus();
 				}
 				else{
 					cout << "Found " << name;
 				}
 		}
 		else{
+			unselectedAll(x_grid,y_grid);
 			cout << "Nothing";
 		}
 
 	}
 	cout << " at " << x_grid << ":" << y_grid << endl;
+}
+
+void C_Grid::unselectedAll(int x_grid, int y_grid){
+	bool status = false;
+	//backup status
+	if ( m_grid[x_grid][y_grid].main != nullptr){
+		status = m_grid[x_grid][y_grid].main->getSelectedStatus();
+		}
+		//erase all
+		for (int y = 0; y < GRID_SIZE; y++){
+			for (int x = 0; x < GRID_SIZE; x++){
+				if ( m_grid[x][y].main != nullptr)
+					m_grid[x][y].main->setSelectedStatus(false);
+			}
+		}
+	//restore status
+	if ( m_grid[x_grid][y_grid].main != nullptr){
+		m_grid[x_grid][y_grid].main->setSelectedStatus(status);
+		}
+
+
 }

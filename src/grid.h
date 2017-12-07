@@ -36,6 +36,8 @@ public:
 	int xScreenToXGrid(int x_screen, int y_screen);
 	int yScreenToYGrid(int x_screen, int y_screen);
 	void selectATower(int x_grid, int y_grid);
+	void unselectedAll(int x_grid, int y_grid);
+
 
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}

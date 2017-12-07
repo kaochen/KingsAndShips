@@ -16,6 +16,7 @@ class C_Towers: public C_Shooter
 	C_Towers(int x_grid, int y_grid, int rank);
 
 	virtual void render(int x_screen, int y_screen);
+	void renderSelected();
 	void renderSmoke();
 	void drag(int x_screen, int y_screen);
 	protected:

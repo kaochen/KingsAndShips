@@ -28,9 +28,18 @@ void C_Towers::renderSmoke(){
 }
 
 void C_Towers::render(int x_screen, int y_screen){
+	renderSelected();
 	C_Shooter::render(x_screen, y_screen);
 	if (m_justAdded)
 		renderSmoke();
+}
+
+void C_Towers::renderSelected(){
+	if (m_selected == true){
+		int animNbr = getAnim2TileNbr(0,30,500);
+		int width = m_weapon->getFireRange();
+		drawEllipse(m_x_screen,m_y_screen + 128,width,animNbr, true);
+	}
 }
 
 void C_Towers::drag(int x_screen, int y_screen)

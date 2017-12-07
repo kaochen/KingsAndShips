@@ -184,8 +184,10 @@ void C_GameUnits::setSelectedStatus(bool status)
 
 void C_GameUnits::reverseSelectedStatus()
 {
-	if (m_selected == false)
+	if (m_selected == false){
 		m_selected =  true;
+	}
 	else
 		m_selected =  false;
 }
+
