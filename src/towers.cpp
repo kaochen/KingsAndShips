@@ -87,12 +87,12 @@ void C_Towers::drawEllipse(int x,
 			if(ok == false)
 				R = 120, G = 0, B = 0;
 
-		ellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
+		aaellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
 		filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/4));
 		width += animNbr;
 		height = width /2;
 		//cout << width <<":" << height << endl;
-		ellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/2));
+		aaellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/2));
 }
 
 void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){
@@ -122,7 +122,7 @@ void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){
 	A = alpha * 2;
 	if (alpha > 255)
 		alpha = 255;
-	polygonRGBA(renderer,vx,vy,4,R,G,B,A);
+	aapolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
 }
 
