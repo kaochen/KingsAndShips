@@ -3,6 +3,24 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <map>
+#include <string>
+
+
+class C_Button
+{
+	public:
+	C_Button(std::string name,int nbr);
+	~C_Button();
+
+	void render();
+	protected:
+	std::string m_name;
+	int m_x_screen;
+	int m_y_screen;
+	int m_width;
+	int m_height;
+};
 
 
 class C_Menu
@@ -10,9 +28,9 @@ class C_Menu
 	public:
 	static	C_Menu& Instances();
 	void render();
+	int getXScreen();
 
 	protected:
-
 	void drawBackground();
 
 	private:
@@ -27,8 +45,9 @@ class C_Menu
 	int m_y_screen;
 	int m_width;
 	int m_height;
+	int m_button_count;
 
+	std::map<int,C_Button*> m_map_buttons;
 };
-
 
 #endif

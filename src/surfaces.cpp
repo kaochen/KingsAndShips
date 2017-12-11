@@ -65,14 +65,14 @@ void C_Texture::loadTexture(const string &path)
 
 	src.x = m_tile_width * rowNbr;
 	src.y = m_tile_width * lineNbr;
-	src.w = SPRITE_SIZE;
-	src.h = SPRITE_SIZE;
+	src.w = m_tile_width;
+	src.h = m_tile_height;
 
 	SDL_Rect dest;
 	dest.x = 0;
 	dest.y = 0;
-	dest.w = SPRITE_SIZE;
-	dest.h = SPRITE_SIZE;
+	dest.w = m_tile_width;
+	dest.h = m_tile_height;
 
 	//SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND); //usefull ?
 	//SDL_SetTextureAlphaMod(texture,0); //usefull ?
