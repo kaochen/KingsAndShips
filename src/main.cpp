@@ -16,7 +16,7 @@
 #include "gameUnits.h"
 #include "surfaces.h"
 #include "level.h"
-
+#include "menu.h"
 
 
 using namespace std;
@@ -60,6 +60,7 @@ int main()
 	//displayStatus of the grid
 	grid.displayStatus();
 
+	C_Menu& menu=C_Menu::Instances();
 
 //-----------------------------------------------------------------------------
 
@@ -221,6 +222,8 @@ while(!quit)
 		grid.renderLayer (GROUND);
 		grid.renderLayer (DEAD);
 		grid.renderLayer (UNITS);
+
+		menu.render();
 
 
 		//display menu
