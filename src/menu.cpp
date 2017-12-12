@@ -9,8 +9,9 @@
 using namespace std;
 
 //constructor
-C_Button::C_Button(string name,int nbr):
+C_Button::C_Button(string name,string image_out,int nbr):
 	m_name(name),
+	m_image_out(image_out),
 	m_width(64),
 	m_height(64)
 {
@@ -27,7 +28,7 @@ C_Button::~C_Button()
 
 void C_Button::render(){
 		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture("Buttons_AddTowerOut", m_x_screen + m_width/2,m_y_screen);
+		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen);
 }
 int C_Button::getXScreen() const{
 	return m_x_screen;
@@ -53,7 +54,7 @@ C_Menu::C_Menu():
 		C_Set& settings=C_Set::Instances();
 		m_width = (settings.getWindowWidth()*50)/100;
 		m_x_screen = (settings.getWindowWidth() - m_width)/2;
-		m_map_buttons[ADDNEWTOWER] = new C_Button("addNewTower",0);
+		m_map_buttons[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",0);
 		m_button_count++;
 }
 

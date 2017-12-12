@@ -11,7 +11,7 @@ enum button{ADDNEWTOWER};
 class C_Button
 {
 	public:
-	C_Button(std::string name,int nbr);
+	C_Button(std::string name,std::string image_out,int nbr);
 	~C_Button();
 
 	void render();
@@ -22,6 +22,7 @@ class C_Button
 
 	protected:
 	std::string m_name;
+	std::string m_image_out;
 	int m_x_screen;
 	int m_y_screen;
 	int m_width;
