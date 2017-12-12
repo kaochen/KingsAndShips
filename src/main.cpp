@@ -226,7 +226,7 @@ while(!quit)
 
 
 		//Clic on the addNewTower Button:
-		C_Button* tmp = menu.getButton(ADDNEWTOWER);
+		C_MenuItem* tmp = menu.getMenuItem(ADDNEWTOWER);
 		int xl = tmp->getXScreen();
 		int xr = xl + tmp->getWidth();
 		int yt= tmp->getYScreen();

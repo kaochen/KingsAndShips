@@ -7,19 +7,39 @@
 #include <SDL2_gfxPrimitives.h>
 
 using namespace std;
-
-//constructor
-C_Button::C_Button(string name,string image_out,int nbr):
+C_MenuItem::C_MenuItem(string name, int displayOrder):
 	m_name(name),
-	m_image_out(image_out),
 	m_width(64),
 	m_height(64)
 {
-
 	C_Menu& menu=C_Menu::Instances();
 
-	m_x_screen = menu.getXScreen() + m_width*nbr + 10;
+	m_x_screen = menu.getXScreen() + m_width*displayOrder + 10;
 	m_y_screen = 2;
+}
+C_MenuItem::~C_MenuItem()
+{
+}
+
+int C_MenuItem::getXScreen() const{
+	return m_x_screen;
+}
+int C_MenuItem::getYScreen() const{
+	return m_y_screen;
+}
+int C_MenuItem::getWidth() const{
+	return m_width;
+}
+int C_MenuItem::getHeight() const{
+	return m_height;
+}
+
+//-------------------------------------------------------------
+
+C_Button::C_Button(string name,string image_out,int displayOrder)
+	:C_MenuItem(name,displayOrder),
+	m_image_out(image_out)
+{
 }
 
 C_Button::~C_Button()
@@ -30,18 +50,7 @@ void C_Button::render(){
 		C_TextureList& t=C_TextureList::Instances();
 		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen);
 }
-int C_Button::getXScreen() const{
-	return m_x_screen;
-}
-int C_Button::getYScreen() const{
-	return m_y_screen;
-}
-int C_Button::getWidth() const{
-	return m_width;
-}
-int C_Button::getHeight() const{
-	return m_height;
-}
+
 
 //-------------------------------------------------------------
 
@@ -54,7 +63,7 @@ C_Menu::C_Menu():
 		C_Set& settings=C_Set::Instances();
 		m_width = (settings.getWindowWidth()*50)/100;
 		m_x_screen = (settings.getWindowWidth() - m_width)/2;
-		m_map_buttons[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",0);
+		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",0);
 		m_button_count++;
 }
 
@@ -69,11 +78,11 @@ C_Menu& C_Menu::Instances()
 void C_Menu::render(){
 	drawBackground();
 	for (int i = 0; i < m_button_count; i++){
-		m_map_buttons[ADDNEWTOWER]->render();
+		m_map_menuItems[ADDNEWTOWER]->render();
 	}
 }
-C_Button * C_Menu::getButton(int button){
-	return m_map_buttons[button];
+C_MenuItem * C_Menu::getMenuItem(int menuItem){
+	return m_map_menuItems[menuItem];
 }
 
 int C_Menu::getXScreen(){
