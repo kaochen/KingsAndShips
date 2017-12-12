@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 
+enum button{ADDNEWTOWER};
 
 class C_Button
 {
@@ -14,6 +15,11 @@ class C_Button
 	~C_Button();
 
 	void render();
+	int getXScreen() const;
+	int getYScreen() const;
+	int getWidth() const;
+	int getHeight() const;
+
 	protected:
 	std::string m_name;
 	int m_x_screen;
@@ -28,6 +34,7 @@ class C_Menu
 	public:
 	static	C_Menu& Instances();
 	void render();
+	C_Button * getButton(int button);
 	int getXScreen();
 
 	protected:

@@ -224,17 +224,22 @@ while(!quit)
 		grid.renderLayer (DEAD);
 		grid.renderLayer (UNITS);
 
-		menu.render();
 
-
-		//display menu
- 		t.renderTexture("CrossBow_01.png", 30,100);
-
-		//show cursor :
-		if (xClicLeft > 0 && xClicLeft < 64 && yClicLeft > 100 && yClicLeft < 164){
+		//Clic on the addNewTower Button:
+		C_Button* tmp = menu.getButton(ADDNEWTOWER);
+		int xl = tmp->getXScreen();
+		int xr = xl + tmp->getWidth();
+		int yt= tmp->getYScreen();
+		int yb = yt + tmp->getHeight();
+		if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
 			selected->drag(xCursor, yCursor);
  			addingAnewTower = true;
  		}
+
+		//display menu
+		menu.render();
+
+		//print the result
  		SDL_RenderPresent(win.getRenderer());
  		}
 
