@@ -42,6 +42,7 @@ int main()
 	t.extractTSXfile("data/levels/boat_01.tsx");
 	t.extractTSXfile("data/levels/Ground_01.tsx");
 	t.extractTSXfile("data/levels/smoke_01.tsx");
+	t.extractTSXfile("data/levels/mill_01.tsx");
 	t.extractTSXfile("data/levels/buttons.tsx");
 	t.displayTexturesList();
 
