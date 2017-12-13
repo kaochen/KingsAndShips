@@ -12,6 +12,8 @@ valgrind.log
 
 # Build directory
 build/
+data/img/original/renderFolder/
+
 
 # Precompiled Headers
 *.gch
