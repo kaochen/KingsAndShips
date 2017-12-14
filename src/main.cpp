@@ -42,6 +42,7 @@ int main()
 	t.extractTSXfile("data/levels/boat_01.tsx");
 	t.extractTSXfile("data/levels/Ground_01.tsx");
 	t.extractTSXfile("data/levels/smoke_01.tsx");
+	t.extractTSXfile("data/levels/mill_00.tsx");
 	t.extractTSXfile("data/levels/mill_01.tsx");
 	t.extractTSXfile("data/levels/archerTower_00.tsx");
 	t.extractTSXfile("data/levels/archerTower_01.tsx");
@@ -74,7 +75,10 @@ int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
-C_Towers* selected = new C_ArcherTower(0,0,0);
+int buttonType = NONE;
+
+C_Towers* archerTower = new C_ArcherTower(0,0,0);
+C_Towers* millTower = new C_Mill(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
@@ -133,7 +137,7 @@ while(!quit)
 
 					//Add a new Tower
 					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true) {
-						grid.addANewArcherTower(xClicTable,yClicTable,0);
+						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
 						addingAnewTower = false;
 						}
@@ -229,14 +233,26 @@ while(!quit)
 
 
 		//Clic on the addNewTower Button:
-		C_MenuItem* tmp = menu.getMenuItem(ADDNEWTOWER);
-		int xl = tmp->getXScreen();
-		int xr = xl + tmp->getWidth();
-		int yt= tmp->getYScreen();
-		int yb = yt + tmp->getHeight();
-		if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
-			selected->drag(xCursor, yCursor);
- 			addingAnewTower = true;
+		C_MenuItem* menuButton;
+
+		for (int i = 0; i < 2; i++){
+			menuButton = menu.getMenuItem(i);
+			int xl = menuButton->getXScreen();
+			int xr = xl + menuButton->getWidth();
+			int yt= menuButton->getYScreen();
+			int yb = yt + menuButton->getHeight();
+			if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
+					if(menuButton->getName() == "addNewTower"){
+						archerTower->drag(xCursor, yCursor);
+						addingAnewTower = true;
+						buttonType = ADDNEWTOWER;
+						}
+					if(menuButton->getName() == "addNewMill"){
+						millTower->drag(xCursor, yCursor);
+						addingAnewTower = true;
+						buttonType = ADDNEWMILL;
+						}
+	 		}
  		}
 
 		//display menu

@@ -3,6 +3,7 @@
 #include "invaders.h"
 #include "towers.h"
 #include "level.h"
+#include "menu.h"
 
 using namespace std;
 
@@ -94,10 +95,20 @@ void C_Grid::addANewBoat(int x, int y, int rank){
 	}
 }
 
-void C_Grid::addANewArcherTower(int x, int y, int rank){
+void C_Grid::addANewTower(int type, int x, int y, int rank){
 	if (m_grid[x][y].main == nullptr && m_grid[x][y].water == false){
-		m_grid[x][y].main = new C_ArcherTower(x,y,rank);
-		m_grid[x][y].ground = 25;
+		switch(type){
+		 case ADDNEWTOWER :
+			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
+			m_grid[x][y].ground = 25;
+		 break;
+		 case ADDNEWMILL :
+			m_grid[x][y].main = new C_Mill(x,y,rank);
+			m_grid[x][y].ground = 25;
+		 break;
+		 case  NONE:
+		 break;
+		 }
 	}
 }
 

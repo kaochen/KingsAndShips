@@ -31,8 +31,15 @@ class C_Towers: public C_Shooter
 class C_ArcherTower: public C_Towers
 {
 	public:
-		C_ArcherTower();
 		C_ArcherTower(int x_grid, int y_grid, int rank);
+	protected:
+
+};
+
+class C_Mill: public C_Towers
+{
+	public:
+		C_Mill(int x_grid, int y_grid, int rank);
 	protected:
 
 };

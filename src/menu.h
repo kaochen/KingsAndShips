@@ -15,6 +15,7 @@ class C_MenuItem
 	virtual int getYScreen() const;
 	virtual int getWidth() const;
 	virtual int getHeight() const;
+	virtual	std::string getName();
 
 	virtual	void render() = 0;
 	protected:
@@ -26,7 +27,7 @@ class C_MenuItem
 };
 
 
-enum button{ADDNEWTOWER};
+enum button{ADDNEWTOWER,ADDNEWMILL,NONE};
 
 class C_Button: public C_MenuItem
 {

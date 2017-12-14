@@ -33,6 +33,9 @@ int C_MenuItem::getWidth() const{
 int C_MenuItem::getHeight() const{
 	return m_height;
 }
+string C_MenuItem::getName(){
+	return m_name;
+	}
 
 //-------------------------------------------------------------
 
@@ -64,7 +67,8 @@ C_Menu::C_Menu():
 		m_width = (settings.getWindowWidth()*50)/100;
 		m_x_screen = (settings.getWindowWidth() - m_width)/2;
 		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",0);
-		m_button_count++;
+		m_map_menuItems[ADDNEWMILL] = new C_Button("addNewMill","Buttons_AddTowerOut",1);
+		m_button_count += 2;
 }
 
 C_Menu::~C_Menu(){
@@ -78,7 +82,7 @@ C_Menu& C_Menu::Instances()
 void C_Menu::render(){
 	drawBackground();
 	for (int i = 0; i < m_button_count; i++){
-		m_map_menuItems[ADDNEWTOWER]->render();
+		m_map_menuItems[i]->render();
 	}
 }
 C_MenuItem * C_Menu::getMenuItem(int menuItem){

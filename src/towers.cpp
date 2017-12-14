@@ -133,3 +133,9 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 		   int rank):C_Towers("ArcherTower", x_grid, y_grid, rank)
 {
 }
+
+C_Mill::C_Mill(int x_grid,
+		   int y_grid,
+		   int rank):C_Towers("Mill", x_grid, y_grid, rank)
+{
+}
