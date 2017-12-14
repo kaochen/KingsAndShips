@@ -7,9 +7,10 @@
 using namespace std;
 
 
-C_Towers::C_Towers(int x_grid,
+C_Towers::C_Towers(string name,
+		   int x_grid,
 		   int y_grid,
-		   int rank):C_Shooter("Tower", x_grid, y_grid, rank)
+		   int rank):C_Shooter(name, x_grid, y_grid, rank)
 {
 	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
@@ -125,4 +126,10 @@ void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){
 	aapolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
 }
+//---------------------------------------------------
 
+C_ArcherTower::C_ArcherTower(int x_grid,
+		   int y_grid,
+		   int rank):C_Towers("ArcherTower", x_grid, y_grid, rank)
+{
+}

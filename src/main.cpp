@@ -72,7 +72,7 @@ int xCursor = 0, yCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
-C_Towers* selected = new C_Towers(0,0,0);
+C_Towers* selected = new C_ArcherTower(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
@@ -131,7 +131,7 @@ while(!quit)
 
 					//Add a new Tower
 					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true) {
-						grid.addANewTower(xClicTable,yClicTable,0);
+						grid.addANewArcherTower(xClicTable,yClicTable,0);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
 						addingAnewTower = false;
 						}
