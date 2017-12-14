@@ -225,7 +225,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 	if (m_grid[x_grid+1][y_grid+1].main != nullptr){
 		unselectedAll(x_grid+1,y_grid+1);
 		name = m_grid[x_grid+1][y_grid+1].main->getName();
-			if(name == "ArcherTower"){
+			if(name == "ArcherTower" || name == "Mill"){
 				cout << "Found top " << name;
 				m_grid[x_grid+1][y_grid+1].main->reverseSelectedStatus();
 			}
@@ -237,7 +237,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 		if (m_grid[x_grid][y_grid].main != nullptr){
 			name = m_grid[x_grid][y_grid].main->getName();
 				unselectedAll(x_grid,y_grid);
-				if(name == "ArcherTower"){
+				if(name == "ArcherTower"|| name == "Mill"){
 					cout << "Found bottom" << name;
 					m_grid[x_grid][y_grid].main->reverseSelectedStatus();
 				}
