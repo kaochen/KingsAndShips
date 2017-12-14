@@ -69,7 +69,7 @@ void C_GameUnits::displayStatus() const
 void C_GameUnits::render(int x_screen, int y_screen){
 	string name = getName();
 	int rank = getRank();
-	string fileName = name + "_0" + to_string(rank) + "_00.png" ;
+	string fileName = name + "_0" + to_string(rank) + "_STILL_EE" ;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();

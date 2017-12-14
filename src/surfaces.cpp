@@ -172,8 +172,8 @@ map<string, C_Texture*>  C_TextureList::getTextMap(){
 
 
 void C_TextureList::loadTexturesIntoMap(){
-	int size = 12;
-	string file[size] = {"ArcherTower_00_00.png","ArcherTower_01_00.png","boat_01_Dead.png",
+	int size = 11;
+	string file[size] = {"boat_01_Dead.png",
 	"CrossBow_01.png","Arrow01_South.png","Arrow01_East.png","Arrow01_North.png",
 	"Arrow01_West.png","Arrow01_NorthEast.png","Arrow01_NorthWest.png",
 	"Arrow01_SouthEast.png","Arrow01_SouthWest.png"};
