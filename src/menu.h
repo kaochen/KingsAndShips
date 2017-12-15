@@ -27,7 +27,7 @@ class C_MenuItem
 };
 
 
-enum button{ADDNEWTOWER,ADDNEWMILL,NONE};
+enum button{ADDNEWTOWER,ADDNEWTURBINE,NONE};
 
 class C_Button: public C_MenuItem
 {

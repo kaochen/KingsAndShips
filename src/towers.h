@@ -36,10 +36,10 @@ class C_ArcherTower: public C_Towers
 
 };
 
-class C_Mill: public C_Towers
+class C_Turbine: public C_Towers
 {
 	public:
-		C_Mill(int x_grid, int y_grid, int rank);
+		C_Turbine(int x_grid, int y_grid, int rank);
 	protected:
 
 };

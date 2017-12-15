@@ -102,8 +102,8 @@ void C_Grid::addANewTower(int type, int x, int y, int rank){
 			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
 			m_grid[x][y].ground = 25;
 		 break;
-		 case ADDNEWMILL :
-			m_grid[x][y].main = new C_Mill(x,y,rank);
+		 case ADDNEWTURBINE :
+			m_grid[x][y].main = new C_Turbine(x,y,rank);
 			m_grid[x][y].ground = 25;
 		 break;
 		 case  NONE:
@@ -225,7 +225,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 	if (m_grid[x_grid+1][y_grid+1].main != nullptr){
 		unselectedAll(x_grid+1,y_grid+1);
 		name = m_grid[x_grid+1][y_grid+1].main->getName();
-			if(name == "ArcherTower" || name == "Mill"){
+			if(name == "ArcherTower" || name == "Turbine"){
 				cout << "Found top " << name;
 				m_grid[x_grid+1][y_grid+1].main->reverseSelectedStatus();
 			}
@@ -237,7 +237,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 		if (m_grid[x_grid][y_grid].main != nullptr){
 			name = m_grid[x_grid][y_grid].main->getName();
 				unselectedAll(x_grid,y_grid);
-				if(name == "ArcherTower"|| name == "Mill"){
+				if(name == "ArcherTower"|| name == "Turbine"){
 					cout << "Found bottom" << name;
 					m_grid[x_grid][y_grid].main->reverseSelectedStatus();
 				}

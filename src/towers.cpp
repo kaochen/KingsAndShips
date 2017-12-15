@@ -136,9 +136,9 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 	m_weapon = new C_Weapon("ARCHER",10,500,200);
 }
 
-C_Mill::C_Mill(int x_grid,
+C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
-		   int rank):C_Towers("Mill", x_grid, y_grid, rank)
+		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
 {
 	m_weapon = new C_Weapon("WIND",15,700,300);
 }

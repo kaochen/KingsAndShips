@@ -42,8 +42,7 @@ int main()
 	t.extractTSXfile("data/levels/boat_01.tsx");
 	t.extractTSXfile("data/levels/Ground_01.tsx");
 	t.extractTSXfile("data/levels/smoke_01.tsx");
-	t.extractTSXfile("data/levels/mill_00.tsx");
-	t.extractTSXfile("data/levels/mill_01.tsx");
+	t.extractTSXfile("data/levels/turbine_00.tsx");
 	t.extractTSXfile("data/levels/archerTower_00.tsx");
 	t.extractTSXfile("data/levels/archerTower_01.tsx");
 	t.extractTSXfile("data/levels/buttons.tsx");
@@ -78,7 +77,7 @@ bool addingAnewTower = false, aTowerIsSelected = false;
 int buttonType = NONE;
 
 C_Towers* archerTower = new C_ArcherTower(0,0,0);
-C_Towers* millTower = new C_Mill(0,0,0);
+C_Towers* turbineTower = new C_Turbine(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
@@ -247,10 +246,10 @@ while(!quit)
 						addingAnewTower = true;
 						buttonType = ADDNEWTOWER;
 						}
-					if(menuButton->getName() == "addNewMill"){
-						millTower->drag(xCursor, yCursor);
+					if(menuButton->getName() == "addNewTurbine"){
+						turbineTower->drag(xCursor, yCursor);
 						addingAnewTower = true;
-						buttonType = ADDNEWMILL;
+						buttonType = ADDNEWTURBINE;
 						}
 	 		}
  		}

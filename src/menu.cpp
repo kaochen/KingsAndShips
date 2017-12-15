@@ -67,7 +67,7 @@ C_Menu::C_Menu():
 		m_width = (settings.getWindowWidth()*50)/100;
 		m_x_screen = (settings.getWindowWidth() - m_width)/2;
 		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",0);
-		m_map_menuItems[ADDNEWMILL] = new C_Button("addNewMill","Buttons_AddMillOut",1);
+		m_map_menuItems[ADDNEWTURBINE] = new C_Button("addNewTurbine","Buttons_AddTurbineOut",1);
 		m_button_count += 2;
 }
 
