@@ -9,13 +9,14 @@ using namespace std;
 
 //constructor
 
-C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
+C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, string strDirection):
 	m_name(name),
 	m_life(MAX_LIFE),
 	m_rank(rank),
 	m_x_grid(x_grid),
 	m_y_grid(y_grid),
 	m_y_center_offset(0),
+	m_strDirection(strDirection),
 	m_animNbr(0),
 	m_lastAnimTime(0),
 	m_anim2Nbr(0),
@@ -67,7 +68,7 @@ void C_GameUnits::displayStatus() const
 }
 
 void C_GameUnits::render(int x_screen, int y_screen){
-	string fileName = m_name + "_0" + to_string(m_rank) + "_EE_0" ;
+	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_strDirection + "_0" ;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();
@@ -190,3 +191,44 @@ void C_GameUnits::reverseSelectedStatus()
 		m_selected =  false;
 }
 
+void C_GameUnits::setDirection(string strDirection)
+{
+	m_strDirection =  strDirection;
+}
+
+string C_GameUnits::intDirectionToStr(int direction){
+	string strDirection = "EE";
+	switch (direction){
+		case 0:
+			strDirection = "SS";
+		break;
+		case 1:
+			strDirection = "SE";
+		break;
+		case 2:
+			strDirection = "EE";
+		break;
+		case 3:
+			strDirection = "NE";
+		break;
+		case 4:
+			strDirection = "NN";
+		break;
+		case 5:
+			strDirection = "NW";
+		break;
+		case 6:
+			strDirection = "WW";
+		break;
+		case 7:
+			strDirection = "SW";
+		break;
+		default:
+			strDirection = "EE";
+		break;
+	}
+	m_strDirection = strDirection;
+	cout << "Convert " << direction << " to " << strDirection << endl;
+	return strDirection;
+
+}

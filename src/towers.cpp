@@ -10,7 +10,8 @@ using namespace std;
 C_Towers::C_Towers(string name,
 		   int x_grid,
 		   int y_grid,
-		   int rank):C_Shooter(name, x_grid, y_grid, rank)
+		   int rank,
+		   string strDirection):C_Shooter(name, x_grid, y_grid, rank, strDirection)
 {
 	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
@@ -130,15 +131,17 @@ void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){
 
 C_ArcherTower::C_ArcherTower(int x_grid,
 		   int y_grid,
-		   int rank):C_Towers("ArcherTower", x_grid, y_grid, rank)
+		   int rank,
+		   string strDirection):C_Towers("ArcherTower", x_grid, y_grid, rank,"EE")
 {
-
+	cout << strDirection << endl;
 	m_weapon = new C_Weapon("ARCHER",10,500,200);
 }
 
 C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
-		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
+		   int rank,
+		   string strDirection):C_Towers("Turbine", x_grid, y_grid, rank,strDirection)
 {
 	m_weapon = new C_Weapon("WIND",15,700,300);
 }
@@ -149,7 +152,7 @@ void C_Turbine::render(int x_screen, int y_screen){
 	if (m_weapon->getShooting())
 		rotationSpeed = 50;
 	int imageNbr = getAnimTileNbr(0,7,rotationSpeed);
-	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_weapon->getStrDirection() + "_" + to_string(imageNbr) ;
+	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_strDirection + "_" + to_string(imageNbr) ;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();

@@ -26,7 +26,8 @@ class C_GameUnits
 	C_GameUnits(std::string name,
 		     int x_grid,
 		     int y_grid,
-		     int rank);
+		     int rank,
+		     std::string strDirection);
 	C_GameUnits(C_GameUnits const& original);
 	virtual ~C_GameUnits();
 
@@ -64,6 +65,9 @@ class C_GameUnits
 	virtual void setSelectedStatus(bool status);
 	virtual void reverseSelectedStatus();
 
+	virtual void setDirection(std::string strDirection);
+	virtual std::string intDirectionToStr(int direction);
+
 	protected:
 	//attibuts
 	std::string m_name;
@@ -74,6 +78,7 @@ class C_GameUnits
 	int m_x_screen;
 	int m_y_screen;
 	int m_y_center_offset;
+	std::string m_strDirection;
 	//Store time for animation
 	int m_animNbr;
 	long m_lastAnimTime;

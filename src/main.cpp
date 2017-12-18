@@ -70,14 +70,17 @@ int main()
 
 
 bool quit = false, forceRefresh = false;
-int xCursor = 0, yCursor = 0;
+int xCursor = 1, yCursor = 1;
+int oldXCursor = 0, oldYCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
+bool mouseButtonDown = false;
+int direction = 4; string strDirection = "EE";
 int buttonType = NONE;
 
-C_Towers* archerTower = new C_ArcherTower(0,0,0);
-C_Towers* turbineTower = new C_Turbine(0,0,0);
+C_Towers* archerTower = new C_ArcherTower(0,0,0,strDirection);
+C_Towers* turbineTower = new C_Turbine(0,0,0,strDirection);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
@@ -114,6 +117,40 @@ while(!quit)
 				yCursor = settings.getWindowHeight();
 			else
 				yCursor = event.button.y;
+
+			if (mouseButtonDown){
+				if (oldXCursor !=xCursor || oldYCursor != yCursor){
+					if (oldXCursor > xCursor){
+						cout << "down" << endl;
+						direction++;
+					}
+					else{
+						cout << "Up" << endl;
+						direction--;
+					}
+					if (direction < 0)
+						direction = 8;
+					if (direction > 8)
+						direction = 0;
+
+					cout << "move " << direction << endl;
+
+					strDirection = turbineTower->intDirectionToStr(direction);
+					oldXCursor = xCursor;
+					oldYCursor = yCursor;
+					}
+
+			}
+
+
+			break;
+
+
+		case SDL_MOUSEBUTTONDOWN:
+			if (addingAnewTower){
+				mouseButtonDown = true;
+				}
+
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button ==  SDL_BUTTON_LEFT)
@@ -135,9 +172,11 @@ while(!quit)
 						}
 
 					//Add a new Tower
-					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true) {
-						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
+					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true)
+						 {
+						grid.addANewTower(buttonType,xClicTable,yClicTable,0,strDirection);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
+						turbineTower->setDirection("EE");
 						addingAnewTower = false;
 						}
 					else{
@@ -145,6 +184,7 @@ while(!quit)
 					}
 
 				}
+				mouseButtonDown = false;
 			break;
 		case SDL_KEYDOWN:
 

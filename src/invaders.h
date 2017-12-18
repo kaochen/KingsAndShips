@@ -10,7 +10,7 @@ class C_invaders: public C_Shooter
 	public:
 	//methods
 	C_invaders();
-	C_invaders(int x_grid, int y_grid,int rank);
+	C_invaders(int x_grid, int y_grid,int rank, std::string strDirection);
 	~C_invaders();
 
 	virtual void move(int direction);

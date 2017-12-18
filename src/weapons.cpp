@@ -26,8 +26,7 @@ C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
 	m_shooting(false),
 	m_lastShootTime(0),
 	m_dist(80),
-	m_direction(UNKNOWN),
-	m_strDirection("EE")
+	m_direction(UNKNOWN)
 {
 }
 
@@ -92,10 +91,6 @@ int C_Weapon::getDirection() const
 {
 	return m_direction;
 }
-string C_Weapon::getStrDirection() const
-{
-	return m_strDirection;
-}
 
 bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			int x_s_target = target.getXScreen();
@@ -113,39 +108,30 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			string direction;
 			if (angle > -22.5 && angle <= 22.5){
 				m_direction = SOUTH;
-				m_strDirection = "SS";
 				}
 			else if (angle > 22.5 && angle <= 67.5){
 				m_direction = SOUTH_EAST;
-				m_strDirection = "SE";
 			}
 			else if(angle > 67.5 && angle <=112.5){
 				m_direction = EAST;
-				m_strDirection = "EE";
 				}
 			else if(angle > 112.5 && angle <=157.5){
 				m_direction = NORTH_EAST;
-				m_strDirection = "NE";
 				}
 			else if((angle > 157.5 && angle <=180) && (angle > -180 && angle <= -157.5)){
 				m_direction = NORTH;
-				m_strDirection = "NN";
 				}
 			else if(angle > -157.5 && angle <= -112.5){
 				m_direction = NORTH_WEST;
-				m_strDirection = "NW";
 				}
 			else if(angle > -112.5 && angle <=-67.5){
 				m_direction = WEST;
-				m_strDirection = "WW";
 				}
 			else if(angle > -67.5 && angle <=-22.5){
 				m_direction = SOUTH_WEST;
-				m_strDirection = "SW";
 				}
 			else{
 				m_direction = UNKNOWN;
-				//m_strDirection = "EE";
 				}
 			//cout << "Angle:"<< angle << " Direction: " << direction << endl;
 
