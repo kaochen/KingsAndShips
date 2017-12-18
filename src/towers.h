@@ -40,6 +40,7 @@ class C_Turbine: public C_Towers
 {
 	public:
 		C_Turbine(int x_grid, int y_grid, int rank);
+		virtual void render(int x_screen, int y_screen);
 	protected:
 
 };

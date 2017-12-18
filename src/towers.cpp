@@ -142,3 +142,19 @@ C_Turbine::C_Turbine(int x_grid,
 {
 	m_weapon = new C_Weapon("WIND",15,700,300);
 }
+
+void C_Turbine::render(int x_screen, int y_screen){
+	renderSelected();
+	int rotationSpeed = 200;
+	if (m_weapon->getShooting())
+		rotationSpeed = 50;
+	int imageNbr = getAnimTileNbr(0,7,rotationSpeed);
+	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_weapon->getStrDirection() + "_" + to_string(imageNbr) ;
+	//cout << "image name is "<< fileName << endl;
+
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
+
+	if (m_justAdded)
+		renderSmoke();
+}
