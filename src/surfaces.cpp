@@ -103,9 +103,10 @@ void C_Texture::loadTexture(const string &path)
 		logSDLerror("IMG_LOAD()");
 	}
 
-
-
 	m_texture = clip;
+	if (texture != nullptr){
+		SDL_DestroyTexture(texture);
+		}
 }
 
 
