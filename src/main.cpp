@@ -176,15 +176,16 @@ while(!quit)
 						 {
 						grid.addANewTower(buttonType,xClicTable,yClicTable,0,strDirection);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
-						turbineTower->setDirection("EE");
 						addingAnewTower = false;
 						}
 					else{
 						addingAnewTower = false;
 					}
 
-				}
 				mouseButtonDown = false;
+				turbineTower->setDirection("EE");
+				strDirection = "EE";
+				}
 			break;
 		case SDL_KEYDOWN:
 
