@@ -16,11 +16,11 @@ class C_Towers: public C_Shooter
 	C_Towers(std::string name, int x_grid, int y_grid, int rank, std::string strDirection);
 
 	virtual void render(int x_screen, int y_screen);
-	void renderSelected();
+	virtual void renderSelected();
 	void renderSmoke();
 	void drag(int x_screen, int y_screen);
 	protected:
-	void drawEllipse(int x,int y, int width, int animNbr, bool ok);
+	virtual void drawEllipse(int x,int y, int width, int animNbr, bool ok);
 	void drawRhombus(int x, int y,int width, int alpha, bool ok);
 	long m_lastSmokeTime;
 	int m_smokeNbr;
@@ -41,6 +41,8 @@ class C_Turbine: public C_Towers
 	public:
 		C_Turbine(int x_grid, int y_grid, int rank, std::string strDirection);
 		virtual void render(int x_screen, int y_screen);
+		void drawCurve(int x_screen, int y_screen, int width, int alpha, bool ok);
+		virtual void drawEllipse(int x,int y,int width,	int animNbr,bool ok);
 	protected:
 
 };
