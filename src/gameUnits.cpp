@@ -205,3 +205,8 @@ string C_GameUnits::intDirectionToStr(int direction){
 	return strDirection;
 
 }
+
+
+C_GameUnits * C_GameUnits::getUnit(){
+	return this;
+}

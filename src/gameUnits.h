@@ -66,6 +66,8 @@ class C_GameUnits
 	virtual void setDirection(std::string strDirection);
 	virtual std::string intDirectionToStr(int direction);
 
+	virtual C_GameUnits * getUnit();
+
 	protected:
 	//attibuts
 	std::string m_name;

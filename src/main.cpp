@@ -120,23 +120,30 @@ while(!quit)
 
 			if (mouseButtonDown){
 				if (oldXCursor !=xCursor || oldYCursor != yCursor){
-					if ((oldXCursor + 5) > xCursor){
+					if ((oldXCursor + 10) > xCursor){
 						cout << "down" << endl;
 						direction++;
 					}
-					else if((oldXCursor - 5) < xCursor){
+					else if((oldXCursor - 10) < xCursor){
 						cout << "Up" << endl;
 						direction--;
 					}
 
 					if (direction < 0)
-						direction = 8;
-					if (direction > 8)
+						direction = 7;
+					if (direction > 7)
 						direction = 0;
 
 					cout << "move " << direction << endl;
 
 					strDirection = turbineTower->intDirectionToStr(direction);
+					if(aTowerIsSelected){
+						cout << "test" << endl;
+						C_GameUnits* current = grid.getSelectedUnit();
+						if (current != nullptr){
+							current->setDirection(strDirection);
+							}
+					}
 					oldXCursor = xCursor;
 					oldYCursor = yCursor;
 					}
@@ -148,10 +155,12 @@ while(!quit)
 
 
 		case SDL_MOUSEBUTTONDOWN:
-			if (addingAnewTower){
-				mouseButtonDown = true;
+			if (event.button.button ==  SDL_BUTTON_LEFT)
+				{
+				if (addingAnewTower || aTowerIsSelected){
+					mouseButtonDown = true;
+					}
 				}
-
 			break;
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button ==  SDL_BUTTON_LEFT)
@@ -168,9 +177,9 @@ while(!quit)
 					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
 
 					//Select a Tower
-					if(aTowerIsSelected == false && addingAnewTower == false) {
-						grid.selectATower(xClicLeft, yClicLeft);
-						}
+					if(addingAnewTower == false) {
+						aTowerIsSelected = grid.selectATower(xClicLeft, yClicLeft);
+					}
 
 					//Add a new Tower
 					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true)

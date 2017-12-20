@@ -218,9 +218,10 @@ int C_Grid::yScreenToYGrid(int x_screen, int y_screen){
 		return tempY;
 		}
 
-void C_Grid::selectATower(int x_screen, int y_screen){
+bool C_Grid::selectATower(int x_screen, int y_screen){
 	int x_grid = xScreenToXGrid(x_screen, y_screen);
 	int y_grid = yScreenToYGrid(x_screen, y_screen);
+	bool selected = false;
 	string name ="";
 	if (m_grid[x_grid+1][y_grid+1].main != nullptr){
 		unselectedAll(x_grid+1,y_grid+1);
@@ -228,6 +229,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 			if(name == "ArcherTower" || name == "Turbine"){
 				cout << "Found top " << name;
 				m_grid[x_grid+1][y_grid+1].main->reverseSelectedStatus();
+				selected = true;
 			}
 			else{
 				cout << "Found " << name;
@@ -240,6 +242,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 				if(name == "ArcherTower"|| name == "Turbine"){
 					cout << "Found bottom" << name;
 					m_grid[x_grid][y_grid].main->reverseSelectedStatus();
+					selected = true;
 				}
 				else{
 					cout << "Found " << name;
@@ -252,6 +255,7 @@ void C_Grid::selectATower(int x_screen, int y_screen){
 
 	}
 	cout << " at " << x_grid << ":" << y_grid << endl;
+	return selected;
 }
 
 void C_Grid::unselectedAll(int x_grid, int y_grid){
@@ -274,3 +278,17 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 
 
 }
+
+
+C_GameUnits* C_Grid::getSelectedUnit(){
+		C_GameUnits* current = nullptr;
+		for (int y = 0; y < GRID_SIZE; y++){
+			for (int x = 0; x < GRID_SIZE; x++){
+				if ( m_grid[x][y].main != nullptr)
+					if (m_grid[x][y].main->getSelectedStatus())
+						current = m_grid[x][y].main->getUnit();
+			}
+		}
+		return current;
+}
+
