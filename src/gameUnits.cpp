@@ -17,10 +17,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, string s
 	m_y_grid(y_grid),
 	m_y_center_offset(0),
 	m_strDirection(strDirection),
-	m_animNbr(0),
-	m_lastAnimTime(0),
-	m_anim2Nbr(0),
-	m_lastAnim2Time(0),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
@@ -28,7 +24,9 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, string s
 	C_Grid& grid=C_Grid::Instances();
 	m_x_screen = grid.xGridToXScreen(x_grid,y_grid);
 	m_y_screen = grid.yGridToYScreen(x_grid,y_grid);
-
+	for (int i = 0; i < MAX_ANIM; i++){
+		m_animation[i]= new C_AnimTime();
+	}
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
@@ -145,31 +143,6 @@ void C_GameUnits::kill()
  	grid.moveToDead(m_x_grid, m_y_grid);
 }
 
-
-int C_GameUnits::getAnimTileNbr(int firstTileNbr, int lastTileNbr, long delay){
-	long current = SDL_GetTicks();
-	if (current > m_lastAnimTime + delay){
-		m_animNbr++;
-		m_lastAnimTime = current;
-		}
-
-	if (m_animNbr > lastTileNbr){
-		m_animNbr = firstTileNbr;
-	}
-	return m_animNbr;
-}
-int C_GameUnits::getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay){
-	long current = SDL_GetTicks();
-	if (current > m_lastAnimTime + delay){
-		m_anim2Nbr++;
-		m_lastAnim2Time = current;
-		}
-
-	if (m_anim2Nbr > lastTileNbr){
-		m_anim2Nbr = firstTileNbr;
-	}
-	return m_anim2Nbr;
-}
 
 bool C_GameUnits::getSelectedStatus() const
 {

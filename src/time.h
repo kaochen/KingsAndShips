@@ -47,5 +47,21 @@ class C_Time
 	long m_delay;
 };
 
+#define MAX_ANIM  4
+enum AnimTime{JUSTADDED,MAIN_ANIM,SELECTED,DRAG};
+
+class C_AnimTime
+{
+	public:
+	C_AnimTime();
+	~C_AnimTime();
+
+	int getAnimNbr(int startNbr, int endNbr, long delay);
+
+	protected:
+	private:
+	long m_animNbr;
+	long m_lastAnimTime;
+};
 
 #endif

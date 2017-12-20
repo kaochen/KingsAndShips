@@ -6,6 +6,7 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 #include "game.h"
+#include "time.h"
 #include "settings.h"
 
 
@@ -58,9 +59,6 @@ class C_GameUnits
 
 	virtual void kill();
 
-	virtual int getAnimTileNbr(int firstTileNbr, int lastTileNbr, long delay);
-	virtual int getAnim2TileNbr(int firstTileNbr, int lastTileNbr, long delay);
-
 	virtual bool getSelectedStatus() const;
 	virtual void setSelectedStatus(bool status);
 	virtual void reverseSelectedStatus();
@@ -80,10 +78,8 @@ class C_GameUnits
 	int m_y_center_offset;
 	std::string m_strDirection;
 	//Store time for animation
-	int m_animNbr;
-	long m_lastAnimTime;
-	int m_anim2Nbr;
-	int m_lastAnim2Time;
+	C_AnimTime* m_animation[5];
+
 	int m_direction;
 	bool m_selected;
 };

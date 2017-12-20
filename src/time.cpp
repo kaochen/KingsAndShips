@@ -106,3 +106,27 @@ bool C_Time::testNewFrame(){
 	else
 		return false;
 }
+
+//-------------------------------
+C_AnimTime::C_AnimTime():
+	m_animNbr(0),
+	m_lastAnimTime(0)
+{
+}
+
+C_AnimTime::~C_AnimTime()
+{
+}
+
+int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
+	long current = SDL_GetTicks();
+	if (current > m_lastAnimTime + delay){
+		m_animNbr++;
+		m_lastAnimTime = current;
+		}
+	//loop
+	if (m_animNbr > endNbr){
+		m_animNbr = startNbr;
+	}
+	return m_animNbr;
+}

@@ -101,7 +101,7 @@ void C_invaders::render(int x_screen, int y_screen){
 	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
 	if (m_moving)
-		imageNbr = getAnimTileNbr(1,2,300);
+		imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(1,2,300);
 	string direction = "_SS_";
 		switch(m_direction){
 			case SOUTH:

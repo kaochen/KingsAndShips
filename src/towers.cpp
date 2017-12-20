@@ -20,7 +20,7 @@ C_Towers::C_Towers(string name,
 
 
 void C_Towers::renderSmoke(){
-	int imageNbr = getAnimTileNbr(0,7,100);
+	int imageNbr = m_animation[JUSTADDED]->getAnimNbr(0,7,100);
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t=C_TextureList::Instances();
@@ -38,7 +38,7 @@ void C_Towers::render(int x_screen, int y_screen){
 
 void C_Towers::renderSelected(){
 	if (m_selected == true){
-		int animNbr = getAnim2TileNbr(0,30,500);
+		int animNbr = m_animation[SELECTED]->getAnimNbr(0,30,500);
 		int width = m_weapon->getFireRange();
 		drawEllipse(m_x_screen,m_y_screen + 128,width,animNbr, true);
 	}
@@ -50,7 +50,7 @@ void C_Towers::drag(int x_screen, int y_screen)
 	C_Grid& grid=C_Grid::Instances();
 	int xGrid = grid.xScreenToXGrid(x_screen,y_screen);
 	int yGrid = grid.yScreenToYGrid(x_screen,y_screen);
-	int animNbr = getAnim2TileNbr(0,30,500);
+	int animNbr = m_animation[DRAG]->getAnimNbr(0,30,500);
 	int width = m_weapon->getFireRange();
 	int x = xGrid;
 	int y = yGrid;
@@ -151,7 +151,7 @@ void C_Turbine::render(int x_screen, int y_screen){
 	int rotationSpeed = 200;
 	if (m_weapon->getShooting())
 		rotationSpeed = 50;
-	int imageNbr = getAnimTileNbr(0,7,rotationSpeed);
+	int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
 	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_strDirection + "_" + to_string(imageNbr) ;
 	//cout << "image name is "<< fileName << endl;
 
