@@ -120,14 +120,15 @@ while(!quit)
 
 			if (mouseButtonDown){
 				if (oldXCursor !=xCursor || oldYCursor != yCursor){
-					if (oldXCursor > xCursor){
+					if ((oldXCursor + 5) > xCursor){
 						cout << "down" << endl;
 						direction++;
 					}
-					else{
+					else if((oldXCursor - 5) < xCursor){
 						cout << "Up" << endl;
 						direction--;
 					}
+
 					if (direction < 0)
 						direction = 8;
 					if (direction > 8)
