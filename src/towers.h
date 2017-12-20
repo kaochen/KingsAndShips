@@ -13,7 +13,7 @@ class C_Towers: public C_Shooter
 	public:
 	//methods
 	C_Towers();
-	C_Towers(std::string name, int x_grid, int y_grid, int rank, std::string strDirection);
+	C_Towers(std::string name, int x_grid, int y_grid, int rank);
 
 	virtual void render(int x_screen, int y_screen);
 	virtual void renderSelected();
@@ -31,7 +31,7 @@ class C_Towers: public C_Shooter
 class C_ArcherTower: public C_Towers
 {
 	public:
-		C_ArcherTower(int x_grid, int y_grid, int rank, std::string strDirection);
+		C_ArcherTower(int x_grid, int y_grid, int rank);
 	protected:
 
 };
@@ -39,7 +39,7 @@ class C_ArcherTower: public C_Towers
 class C_Turbine: public C_Towers
 {
 	public:
-		C_Turbine(int x_grid, int y_grid, int rank, std::string strDirection);
+		C_Turbine(int x_grid, int y_grid, int rank);
 		virtual void render(int x_screen, int y_screen);
 		virtual void drawEllipse(int x_screen,int y_screen,int width,int animNbr,bool ok);
 	protected:

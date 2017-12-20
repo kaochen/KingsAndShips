@@ -75,11 +75,10 @@ float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
 bool mouseButtonDown = false;
-string strDirection = "EE";
 int buttonType = NONE;
 
-C_Towers* archerTower = new C_ArcherTower(0,0,0,strDirection);
-C_Towers* turbineTower = new C_Turbine(0,0,0,strDirection);
+C_Towers* archerTower = new C_ArcherTower(0,0,0);
+C_Towers* turbineTower = new C_Turbine(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
@@ -161,7 +160,7 @@ while(!quit)
 					//Add a new Tower
 					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true)
 						 {
-						grid.addANewTower(buttonType,xClicTable,yClicTable,0,strDirection);
+						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
 						aTowerIsSelected = grid.selectATower(xClicLeft, yClicLeft);
 						addingAnewTower = false;
@@ -171,8 +170,6 @@ while(!quit)
 					}
 
 				mouseButtonDown = false;
-				turbineTower->setDirection("EE");
-				strDirection = "EE";
 				}
 			break;
 		case SDL_KEYDOWN:

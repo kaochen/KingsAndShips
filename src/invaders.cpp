@@ -9,8 +9,7 @@ using namespace std;
 
 C_invaders::C_invaders(int x_grid,
 			 int y_grid,
-			 int rank,
-			 string strDirection):C_Shooter("boat", x_grid, y_grid ,rank,strDirection)
+			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 	m_moving = false;
 }

@@ -9,14 +9,14 @@ using namespace std;
 
 //constructor
 
-C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank, string strDirection):
+C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_life(MAX_LIFE),
 	m_rank(rank),
 	m_x_grid(x_grid),
 	m_y_grid(y_grid),
 	m_y_center_offset(0),
-	m_strDirection(strDirection),
+	m_strDirection("EE"),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {

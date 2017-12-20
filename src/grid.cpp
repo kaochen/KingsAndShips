@@ -88,22 +88,22 @@ void C_Grid::renderLayer(int layer){
 
 void C_Grid::addANewBoat(int x, int y, int rank){
 	if (m_grid[x][y].water){
-		m_grid[x][y].main = new C_invaders(x,y,rank,"EE");
+		m_grid[x][y].main = new C_invaders(x,y,rank);
 	}
 	else{
 		cout << "You should place the boat into the water" << endl;
 	}
 }
 
-void C_Grid::addANewTower(int type, int x, int y, int rank, string strDirection){
+void C_Grid::addANewTower(int type, int x, int y, int rank){
 	if (m_grid[x][y].main == nullptr && m_grid[x][y].water == false){
 		switch(type){
 		 case ADDNEWTOWER :
-			m_grid[x][y].main = new C_ArcherTower(x,y,rank,strDirection);
+			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
 			m_grid[x][y].ground = 25;
 		 break;
 		 case ADDNEWTURBINE :
-			m_grid[x][y].main = new C_Turbine(x,y,rank,strDirection);
+			m_grid[x][y].main = new C_Turbine(x,y,rank);
 			m_grid[x][y].ground = 25;
 		 break;
 		 case  NONE:

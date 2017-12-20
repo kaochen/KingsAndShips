@@ -27,8 +27,7 @@ class C_GameUnits
 	C_GameUnits(std::string name,
 		     int x_grid,
 		     int y_grid,
-		     int rank,
-		     std::string strDirection);
+		     int rank);
 	C_GameUnits(C_GameUnits const& original);
 	virtual ~C_GameUnits();
 
