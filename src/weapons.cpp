@@ -118,7 +118,7 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			else if(angle > 112.5 && angle <=157.5){
 				m_direction = NORTH_EAST;
 				}
-			else if((angle > 157.5 && angle <=180) && (angle > -180 && angle <= -157.5)){
+			else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
 				m_direction = NORTH;
 				}
 			else if(angle > -157.5 && angle <= -112.5){
