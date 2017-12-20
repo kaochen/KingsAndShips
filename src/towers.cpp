@@ -162,49 +162,63 @@ void C_Turbine::render(int x_screen, int y_screen){
 		renderSmoke();
 }
 
-
-void C_Turbine::drawCurve(int x_screen, int y_screen, int width, int alpha, bool ok){
-	C_Window& win=C_Window::Instances();
-	SDL_Renderer * renderer = win.getRenderer();
-	Sint16 w =  width + 30, h = 60;
-	Sint16 x1 = 0, x2 = 0, x3 = 0, x4 = 0;
-	Sint16 y1 = 0, y2 = 0, y3 = 0, y4 = 0;
-	if (m_strDirection == "NE" ){
-		x1 = x_screen + h/2;
-		y1 = y_screen - h/2; //center
-		x2 = x1 + w;
-		y2 = y1 - w/2;
-		x3 = x2;
-		y3 = y1 + h*3;
-		x4 = x1;
-		y4 = y1 + h;
-		}
-	if (m_strDirection == "SW" ){
-		x1 = x_screen - h/2;
-		y1 = y_screen - h/2; //center
-		x2 = x1 - w;
-		y2 = y1 - w/2;
-		x3 = x2;
-		y3 = y1 + h*3;
-		x4 = x1;
-		y4 = y1 + h;
-		}
-
-
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	int R = 0, G = 200, B = 0, A = alpha;
-			if(ok == false)
-				R = 120, G = 0, B = 0;
-	bezierRGBA(renderer,vx,vy,4,6,R,G,B,A);
-
-}
-
-void C_Turbine::drawEllipse(int x,
-		int y,
+void C_Turbine::drawEllipse(int x_screen,
+		int y_screen,
 		int width,
 		int animNbr,
 		bool ok){
-	C_Towers::drawEllipse(x,y,width,animNbr, ok);
-	drawCurve(x,y, width, 150, ok);
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer * renderer = win.getRenderer();
+
+	int R = 0, G = 200, B = 0, A = 100;
+			if(ok == false)
+				R = 120, G = 0, B = 0;
+
+		Sint16 w = width/2;
+		Sint16 h = w/2;
+		Sint16 x = x_screen;
+		Sint16 y = y_screen;
+		if  (m_strDirection == "NE"){
+			x = x_screen + w;
+			}
+		else if(m_strDirection == "SW"){
+			x = x_screen - w;
+			}
+		else if(m_strDirection == "NW"){
+			y = y_screen - h;
+			}
+		else if(m_strDirection == "SE"){
+			y = y_screen + h;
+			}
+		else if(m_strDirection == "EE"){
+			x = x_screen + 2*w/3;
+			y = y_screen + 2*h/3;
+			}
+		else if(m_strDirection == "SS"){
+			x = x_screen - 2*w/3;
+			y = y_screen + 2*h/3;
+			}
+		else if(m_strDirection == "WW"){
+			x = x_screen - 2*w/3;
+			y = y_screen - 2*h/3;
+			}
+		else if(m_strDirection == "NN"){
+			x = x_screen + 2*w/3;
+			y = y_screen - 2*h/3;
+			}
+		else{
+			cout <<"\""<<m_strDirection << "\" unknow m_strDirection";
+		}
+
+		filledEllipseRGBA(renderer,x,y,w,h,R,G,B,A/4);
+
+		A = A * 2;
+		if (A > 255)
+			A = 255;
+		aaellipseRGBA(renderer,x,y,w+1,h+1,R,G,B,A);
+
+		w += animNbr;
+		h = w/2;
+		//cout << width <<":" << height << endl;
+		aaellipseRGBA(win.getRenderer(),x,y,w,h,R,G,B,(A/2));
 }

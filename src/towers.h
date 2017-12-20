@@ -41,8 +41,7 @@ class C_Turbine: public C_Towers
 	public:
 		C_Turbine(int x_grid, int y_grid, int rank, std::string strDirection);
 		virtual void render(int x_screen, int y_screen);
-		void drawCurve(int x_screen, int y_screen, int width, int alpha, bool ok);
-		virtual void drawEllipse(int x,int y,int width,	int animNbr,bool ok);
+		virtual void drawEllipse(int x_screen,int y_screen,int width,int animNbr,bool ok);
 	protected:
 
 };
