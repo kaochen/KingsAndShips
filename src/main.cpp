@@ -71,12 +71,11 @@ int main()
 
 bool quit = false, forceRefresh = false;
 int xCursor = 1, yCursor = 1;
-int oldXCursor = 0, oldYCursor = 0;
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
 bool mouseButtonDown = false;
-int direction = 4; string strDirection = "EE";
+string strDirection = "EE";
 int buttonType = NONE;
 
 C_Towers* archerTower = new C_ArcherTower(0,0,0,strDirection);
@@ -119,35 +118,13 @@ while(!quit)
 				yCursor = event.button.y;
 
 			if (mouseButtonDown){
-				if (oldXCursor !=xCursor || oldYCursor != yCursor){
-					if ((oldXCursor + 10) > xCursor){
-						cout << "down" << endl;
-						direction++;
-					}
-					else if((oldXCursor - 10) < xCursor){
-						cout << "Up" << endl;
-						direction--;
-					}
-
-					if (direction < 0)
-						direction = 7;
-					if (direction > 7)
-						direction = 0;
-
-					cout << "move " << direction << endl;
-
-					strDirection = turbineTower->intDirectionToStr(direction);
 					if(aTowerIsSelected){
-						cout << "test" << endl;
 						C_GameUnits* current = grid.getSelectedUnit();
 						if (current != nullptr){
-							current->setDirection(strDirection);
+							if (current->getName() == "Turbine")
+								current->changeDirection(xCursor,yCursor);
 							}
 					}
-					oldXCursor = xCursor;
-					oldYCursor = yCursor;
-					}
-
 			}
 
 
@@ -186,6 +163,7 @@ while(!quit)
 						 {
 						grid.addANewTower(buttonType,xClicTable,yClicTable,0,strDirection);
 						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
+						aTowerIsSelected = grid.selectATower(xClicLeft, yClicLeft);
 						addingAnewTower = false;
 						}
 					else{

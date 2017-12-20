@@ -66,6 +66,7 @@ class C_GameUnits
 	virtual void setDirection(std::string strDirection);
 	virtual std::string intDirectionToStr(int direction);
 
+	virtual void changeDirection(int x_cursor, int y_cursor);
 	virtual C_GameUnits * getUnit();
 
 	protected:
