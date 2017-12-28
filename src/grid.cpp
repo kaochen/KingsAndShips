@@ -130,8 +130,10 @@ C_GameUnits* C_Grid::getUnits(int x, int y){
 
 void C_Grid::setGround(int x, int y, int id){
 	m_grid[x][y].ground = id;
-	if (id >= 49 && id <= 57)
+	if (id >= 49 && id <= 57){
 		m_grid[x][y].water = true;
+		m_grid[x][y].node->setBlock(false);
+		}
 }
 
 int C_Grid::getGround(int x, int y){
@@ -164,9 +166,10 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
 void C_Grid::displayStatus(){
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
-			if (m_grid[x][y].node != nullptr){
+			if (m_grid[x][y].node != nullptr && m_grid[x][y].node->getBlock() == false){
 				m_grid[x][y].node->displayStatus();
-				if (m_grid[x][y].main != nullptr)
+				}
+			if (m_grid[x][y].main != nullptr){
 					m_grid[x][y].main->displayStatus();
 				}
 			}

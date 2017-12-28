@@ -11,10 +11,13 @@ public:
 
 	void setTown(bool town);
 	void displayStatus();
+	void setBlock(bool block);
+	bool getBlock();
 
 private:
 	int m_x_grid;
 	int m_y_grid;
+	bool m_block;
 	int m_G; // G cost (distance from the starting node)
 	int m_H; //H cost heuristic (distance from end to end)
 	int m_F; //G cost + H Cost
