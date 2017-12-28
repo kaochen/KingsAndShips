@@ -9,6 +9,7 @@
 #include "time.h"
 #include "settings.h"
 
+#include "pathfinding.h"
 
 
 class C_GameUnits
@@ -21,6 +22,7 @@ class C_GameUnits
 		int ground;
 		bool plot;
 		bool water;
+		C_Node * node;
 
 	};
 	//methods

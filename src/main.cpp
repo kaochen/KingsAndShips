@@ -52,7 +52,6 @@ int main()
 	C_Grid& grid=C_Grid::Instances();
 	grid.loadLevel(1);
 
-
 	vector<C_GameUnits*> towerVector;
 	list<C_GameUnits*> lB; //listOfBoats
 	list<C_GameUnits*>::iterator itB;

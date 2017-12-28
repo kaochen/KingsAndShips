@@ -18,9 +18,10 @@ C_Grid::C_Grid()
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
-		//m_grid[x][y].ground = GROUND_01;
+		m_grid[x][y].node = new C_Node(x,y);
 		}
 	}
+	m_grid[27][15].node->setTown(true); //force for testing
 }
 
 C_Grid::~C_Grid()
@@ -163,9 +164,10 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
 void C_Grid::displayStatus(){
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
-			if (m_grid[x][y].main != nullptr){
-				cout <<"Case: " << x <<":" << y << endl;
-				m_grid[x][y].main->displayStatus();
+			if (m_grid[x][y].node != nullptr){
+				m_grid[x][y].node->displayStatus();
+				if (m_grid[x][y].main != nullptr)
+					m_grid[x][y].main->displayStatus();
 				}
 			}
 		}
