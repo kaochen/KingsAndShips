@@ -109,3 +109,31 @@ void C_Node::setG(int value){
 	m_G = value;
 	m_F = m_H + m_G;
 }
+
+
+//---------------------------------------------------------
+
+C_Path::C_Path()
+{
+	m_start = nullptr;
+	m_destination = nullptr;
+}
+C_Path::~C_Path()
+{
+}
+
+
+void C_Path::CalcPath(C_Node* start, C_Node* destination){
+	if (start != nullptr && destination != nullptr){
+		m_start = start;
+		v_openNodes.push_back(start);
+		m_destination = destination;
+		}
+}
+
+void C_Path::displayOpenList(){
+	for (size_t i = 0; i < v_openNodes.size(); i++){
+		v_openNodes[i]->displayStatus();
+	}
+
+}

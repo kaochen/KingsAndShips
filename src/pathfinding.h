@@ -1,5 +1,6 @@
 #ifndef PATHFINDING_H
 #define PATHFINDING_H
+#include <vector>
 #include "settings.h"
 
 #define G_HV 10
@@ -36,6 +37,22 @@ protected:
 	bool m_Town;
 	bool m_open;
 	C_Node* m_Parent;
+};
+
+
+class C_Path
+{
+public:
+	C_Path();
+	~C_Path();
+
+	void CalcPath(C_Node* start, C_Node* destination);
+	void displayOpenList();
+
+private:
+	std::vector<C_Node*> v_openNodes;
+	C_Node* m_destination;
+	C_Node* m_start;
 };
 
 
