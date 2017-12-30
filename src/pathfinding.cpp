@@ -1,4 +1,5 @@
 #include "pathfinding.h"
+#include "grid.h"
 
 using namespace std;
 
@@ -59,7 +60,37 @@ void C_Node::calcH(const C_Node* target){
 		int moveOnY =  target->getYGrid() - m_y_grid;
 			if (moveOnY < 0)
 				moveOnY *= -1;
-		m_H = moveOnX + moveOnY;
+		m_H = (moveOnX + moveOnY) *10;
 	}
 }
 
+void C_Node::calcG(){
+	C_Grid& grid=C_Grid::Instances();
+	int x = m_x_grid +1;
+	int y = m_y_grid +1;
+	C_Node *current = grid.getNode(x,y);
+	if (current != nullptr){
+		cout << "Testing : " << x << ":" << y << endl;
+		if (current->getBlock() == false){
+			cout << "Testing2 : " << x << ":" << y << endl;
+			int tmpG = current->getG();
+			int tmpF = current->getH();
+			if (tmpG == 0 || tmpF > (tmpG + G_HV)){
+				current->setG(tmpG + G_HV);
+			}
+		}
+	}
+}
+
+int C_Node::getG() const{
+	return m_G;
+}
+
+int C_Node::getH() const{
+	return m_H;
+}
+
+void C_Node::setG(int value){
+	m_G = value;
+	m_F = m_H + m_G;
+}

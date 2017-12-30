@@ -2,6 +2,9 @@
 #define PATHFINDING_H
 #include "settings.h"
 
+#define G_HV 10
+#define G_DIAG 14
+
 
 class C_Node
 {
@@ -18,8 +21,12 @@ public:
 	void displayStatus();
 
 	void calcH(const C_Node* target);
+	void calcG();
+	int getG() const;
+	int getH() const;
+	void setG(int value);
 
-private:
+protected:
 	int m_x_grid;
 	int m_y_grid;
 	bool m_block;

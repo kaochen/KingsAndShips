@@ -42,6 +42,8 @@ void C_Grid::loadLevel(int levelNbr){
 		m_grid[x][y].node->calcH(m_grid[27][15].node);
 		}
 	}
+
+	m_grid[0][14].node->calcG();
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 
@@ -302,3 +304,7 @@ C_GameUnits* C_Grid::getSelectedUnit(){
 		return current;
 }
 
+
+C_Node* C_Grid::getNode(int x_grid, int y_grid){
+	return m_grid[x_grid][y_grid].node;
+};

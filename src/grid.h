@@ -37,6 +37,7 @@ public:
 	int yScreenToYGrid(int x_screen, int y_screen);
 	bool selectATower(int x_grid, int y_grid);
 	void unselectedAll(int x_grid, int y_grid);
+	C_Node* getNode(int x_grid, int y_grid);
 
 	C_GameUnits* getSelectedUnit();
 
