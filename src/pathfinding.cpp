@@ -12,6 +12,7 @@ C_Node::C_Node(const int x_grid,const int y_grid){
 	m_F = m_G + m_H;
 	m_Town = false;
 	m_Parent = nullptr;
+	m_open = true;
 };
 
 C_Node::~C_Node()
@@ -28,6 +29,10 @@ bool C_Node::getTown() const{
 
 void C_Node::setBlock(bool block){
 	m_block = block;
+	if (m_block)
+		m_open = false;
+	else
+		m_open = true;
 }
 
 bool C_Node::getBlock() const{
@@ -66,20 +71,25 @@ void C_Node::calcH(const C_Node* target){
 
 void C_Node::calcG(){
 	C_Grid& grid=C_Grid::Instances();
-	int x = m_x_grid +1;
-	int y = m_y_grid +1;
-	C_Node *current = grid.getNode(x,y);
-	if (current != nullptr){
-		cout << "Testing : " << x << ":" << y << endl;
-		if (current->getBlock() == false){
-			cout << "Testing2 : " << x << ":" << y << endl;
-			int tmpG = current->getG();
-			int tmpF = current->getH();
-			if (tmpG == 0 || tmpF > (tmpG + G_HV)){
-				current->setG(tmpG + G_HV);
+	m_open = false; //close the current node
+
+for (int y = m_y_grid - 1; y < (m_y_grid + 2); y++){
+	for (int x = m_x_grid - 1; x < (m_x_grid + 2); x++){
+		if (x != m_x_grid || y != m_y_grid){
+		C_Node *current = grid.getNode(x,y);
+			if (current != nullptr){
+				if (current->getBlock() == false){
+					cout << "Testing : " << x << ":" << y << endl;
+					int tmpG = current->getG();
+					int tmpF = current->getH();
+					if (tmpG == 0 || tmpF > (tmpG + G_HV)){
+						current->setG(tmpG + G_HV);
+					}
+				}
 			}
 		}
 	}
+}
 }
 
 int C_Node::getG() const{

@@ -43,7 +43,7 @@ void C_Grid::loadLevel(int levelNbr){
 		}
 	}
 
-	m_grid[0][14].node->calcG();
+	m_grid[3][15].node->calcG();
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 

@@ -34,6 +34,7 @@ protected:
 	int m_H; //H cost heuristic (distance from end to end)
 	int m_F; //G cost + H Cost
 	bool m_Town;
+	bool m_open;
 	C_Node* m_Parent;
 };
 
