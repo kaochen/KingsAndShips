@@ -27,6 +27,7 @@ public:
 	int getH() const;
 	int getF() const;
 	bool getOpen() const;
+	void setOpen(bool open);
 	void setG(int value);
 
 protected:

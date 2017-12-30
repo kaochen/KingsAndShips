@@ -43,6 +43,10 @@ bool C_Node::getOpen() const{
 	return m_open;
 }
 
+void C_Node::setOpen(bool open){
+	m_open = open;
+}
+
 int C_Node::getXGrid() const{
 	return m_x_grid;
 }
@@ -96,8 +100,10 @@ void C_Node::calcG(multimap <int,C_Node*>* m_openNodes){
 								int tmpF = current->getH();
 								if (tmpG == 0 || tmpF > (tmpG + G_offset)){
 									current->setG(tmpG + G_offset);
-
-									m_openNodes->insert(pair<int, C_Node*>(current->getF(),current));
+									if(current->getOpen() == true){
+										m_openNodes->insert(pair<int, C_Node*>(current->getF(),current));
+										current->setOpen(false);
+										}
 								}
 							}
 						}
