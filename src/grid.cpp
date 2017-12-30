@@ -42,8 +42,11 @@ void C_Grid::loadLevel(int levelNbr){
 		m_grid[x][y].node->calcH(m_grid[27][15].node);
 		}
 	}
+	//calcultate Path from 3:15 to 27:15
+	C_Path p;
+	p.calcPath(m_grid[3][15].node, m_grid[27][15].node);
+	p.displayOpenList();
 
-	m_grid[3][15].node->calcG();
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 

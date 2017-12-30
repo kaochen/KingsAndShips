@@ -1,6 +1,6 @@
 #ifndef PATHFINDING_H
 #define PATHFINDING_H
-#include <vector>
+#include <map>
 #include "settings.h"
 
 #define G_HV 10
@@ -22,9 +22,11 @@ public:
 	void displayStatus();
 
 	void calcH(const C_Node* target);
-	void calcG();
+	void calcG(std::multimap <int,C_Node*>* m_openNodes);
 	int getG() const;
 	int getH() const;
+	int getF() const;
+	bool getOpen() const;
 	void setG(int value);
 
 protected:
@@ -46,11 +48,12 @@ public:
 	C_Path();
 	~C_Path();
 
-	void CalcPath(C_Node* start, C_Node* destination);
+	void calcPath(C_Node* start, C_Node* destination);
 	void displayOpenList();
 
+	C_Node* searchOpenList(int F);
 private:
-	std::vector<C_Node*> v_openNodes;
+	std::multimap<int, C_Node*> m_openNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
 };
