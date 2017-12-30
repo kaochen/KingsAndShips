@@ -72,21 +72,26 @@ void C_Node::calcH(const C_Node* target){
 void C_Node::calcG(){
 	C_Grid& grid=C_Grid::Instances();
 	m_open = false; //close the current node
-
+	int c = 0;
 for (int y = m_y_grid - 1; y < (m_y_grid + 2); y++){
 	for (int x = m_x_grid - 1; x < (m_x_grid + 2); x++){
-		if (x != m_x_grid || y != m_y_grid){
-		C_Node *current = grid.getNode(x,y);
-			if (current != nullptr){
-				if (current->getBlock() == false){
-					cout << "Testing : " << x << ":" << y << endl;
-					int tmpG = current->getG();
-					int tmpF = current->getH();
-					if (tmpG == 0 || tmpF > (tmpG + G_HV)){
-						current->setG(tmpG + G_HV);
+		c++;
+		if (c != 5){
+			int G_offset = G_HV;
+			if ( (x+y) % 2 == 0)
+				G_offset = G_DIAG;
+
+			C_Node *current = grid.getNode(x,y);
+				if (current != nullptr){
+					if (current->getBlock() == false){
+						cout << "Testing : " << x << ":" << y << endl;
+						int tmpG = current->getG();
+						int tmpF = current->getH();
+						if (tmpG == 0 || tmpF > (tmpG + G_offset)){
+							current->setG(tmpG + G_offset);
+						}
 					}
 				}
-			}
 		}
 	}
 }
