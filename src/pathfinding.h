@@ -10,9 +10,14 @@ public:
 	~C_Node();
 
 	void setTown(bool town);
-	void displayStatus();
+	bool getTown() const;
 	void setBlock(bool block);
-	bool getBlock();
+	bool getBlock() const;
+	int getXGrid() const;
+	int getYGrid() const;
+	void displayStatus();
+
+	void calcH(const C_Node* target);
 
 private:
 	int m_x_grid;

@@ -21,7 +21,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].node = new C_Node(x,y);
 		}
 	}
-	m_grid[27][15].node->setTown(true); //force for testing
 }
 
 C_Grid::~C_Grid()
@@ -37,6 +36,12 @@ void C_Grid::loadLevel(int levelNbr){
 
 	C_Level l;
 	l.extractTMXfile("data/levels/Level_00.tmx");
+	m_grid[27][15].node->setTown(true); //force for testing
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+		m_grid[x][y].node->calcH(m_grid[27][15].node);
+		}
+	}
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 

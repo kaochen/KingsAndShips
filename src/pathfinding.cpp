@@ -21,12 +21,24 @@ void C_Node::setTown(bool town){
 	m_Town = town;
 }
 
+bool C_Node::getTown() const{
+	return m_Town;
+}
+
 void C_Node::setBlock(bool block){
 	m_block = block;
 }
 
-bool C_Node::getBlock(){
+bool C_Node::getBlock() const{
 	return m_block;
+}
+
+int C_Node::getXGrid() const{
+	return m_x_grid;
+}
+
+int C_Node::getYGrid() const{
+	return m_y_grid;
 }
 
 void C_Node::displayStatus(){
@@ -38,4 +50,16 @@ void C_Node::displayStatus(){
 		cout << " Town: false";
 	cout << endl;
 };
+
+void C_Node::calcH(const C_Node* target){
+	if (m_Town == false && m_block == false){
+		int moveOnX =  target->getXGrid() - m_x_grid;
+			if (moveOnX < 0)
+				moveOnX *= -1;
+		int moveOnY =  target->getYGrid() - m_y_grid;
+			if (moveOnY < 0)
+				moveOnY *= -1;
+		m_H = moveOnX + moveOnY;
+	}
+}
 
