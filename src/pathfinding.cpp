@@ -11,7 +11,7 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	m_H = 0;
 	m_F = m_G + m_H;
 	m_Town = false;
-	m_Parent = nullptr;
+	m_parent = nullptr;
 	m_open = true;
 };
 
@@ -45,6 +45,14 @@ bool C_Node::getOpen() const{
 
 void C_Node::setOpen(bool open){
 	m_open = open;
+}
+
+void C_Node::setParent(C_Node * parent){
+	m_parent = parent;
+}
+
+C_Node* C_Node::getParent(){
+	return m_parent;
 }
 
 int C_Node::getXGrid() const{
@@ -104,6 +112,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 									if(current->getOpen() == true){
 										m_openNodes->insert(pair<int, C_Node*>(current->getF(),current));
 										current->setOpen(false);
+										current->setParent(this);
 										}
 								}
 							}
@@ -174,6 +183,7 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 		m_openNodes.erase(it);
 		cout << "---------" << endl;
 	}
+	loadPath();
 }
 
 void C_Path::displayOpenList(){
@@ -210,4 +220,22 @@ void C_Path::setTown(int x_grid,int y_grid){
 	//set
 	m_gridNode[x_grid][y_grid]->setTown(true);
 }
+
+void C_Path::loadPath(){
+	C_Node* current = m_destination;
+	while(current->getParent() != nullptr){
+		 m_path.push(current);
+		 current = current->getParent();
+	}
+	cout << endl;
+}
+
+void C_Path::showPath(){
+	stack<C_Node*> tmp = m_path;
+	while(tmp.empty() == false){
+		cout << tmp.top()->getXGrid() << ":" << tmp.top()->getYGrid() << " >> ";
+		tmp.pop();
+	}
+}
+
 

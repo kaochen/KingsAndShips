@@ -39,8 +39,7 @@ void C_Grid::loadLevel(int levelNbr){
 	//calcultate Path from 3:15 to 27:15
 	C_Path p(27,15);
 	p.calcPath(3,15,27,15);
-	p.displayOpenList();
-
+	p.showPath();
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 

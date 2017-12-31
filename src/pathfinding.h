@@ -1,6 +1,7 @@
 #ifndef PATHFINDING_H
 #define PATHFINDING_H
 #include <map>
+#include <stack>
 #include "settings.h"
 
 #define G_HV 10
@@ -19,6 +20,8 @@ public:
 	bool getBlock() const;
 	int getXGrid() const;
 	int getYGrid() const;
+	void setParent(C_Node * parent);
+	C_Node* getParent();
 	void displayStatus();
 
 	void calcH(const C_Node* target);
@@ -40,7 +43,7 @@ protected:
 	int m_F; //G cost + H Cost
 	bool m_Town;
 	bool m_open;
-	C_Node* m_Parent;
+	C_Node* m_parent;
 };
 
 
@@ -56,11 +59,16 @@ public:
 	C_Node* searchOpenList(int F);
 	void setTown(int x_grid,int y_grid);
 
+	void showPath();
+
 private:
+
+	void loadPath();
 	std::multimap<int, C_Node*> m_openNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
 	C_Node* m_gridNode[GRID_SIZE][GRID_SIZE];
+	std::stack<C_Node*> m_path;
 };
 
 
