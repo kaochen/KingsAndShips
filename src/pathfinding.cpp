@@ -3,6 +3,7 @@
 #include "grid.h"
 
 #include <SDL2_gfxPrimitives.h>
+#include <queue>
 
 using namespace std;
 
@@ -94,7 +95,9 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 	m_open = false; //close the current node
 	int c = 0;
 
-	cout << "For : " << m_x_grid << ":" << m_y_grid << endl;
+	cout << "For : " << m_x_grid << ":" << m_y_grid << " F: " << m_F << endl;
+
+	cout << "	Testing : ";
 	for (int y = m_y_grid - 1; y < (m_y_grid + 2); y++){
 		for (int x = m_x_grid - 1; x < (m_x_grid + 2); x++){
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
@@ -107,7 +110,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 					C_Node *current = gridNode[x][y];
 						if (current != nullptr){
 							if (current->getBlock() == false){
-								cout << "	Testing : " << x << ":" << y << endl;
+								cout << x << ":" << y << " ";
 								int tmpG = current->getG();
 								int tmpF = current->getH();
 								if (tmpG == 0 || tmpF > (tmpG + G_offset)){
@@ -115,7 +118,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 									if(current->getOpen() == true){
 										m_openNodes->insert(pair<int, C_Node*>(current->getF(),current));
 										current->setOpen(false);
-										current->setParent(this);
+										current->setParent(gridNode[m_x_grid][m_y_grid]);
 										}
 								}
 							}
@@ -124,6 +127,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 			}
 		}
 	}
+	cout << endl;
 }
 
 
@@ -182,8 +186,8 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 
 	std::multimap<int, C_Node*>::iterator it;
 	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-		(*it).second->calcG(m_gridNode,&m_openNodes);
-		m_openNodes.erase(it);
+			(*it).second->calcG(m_gridNode,&m_openNodes);
+			m_openNodes.erase(it);
 		cout << "---------" << endl;
 	}
 	loadPath();
@@ -226,20 +230,25 @@ void C_Path::setTown(int x_grid,int y_grid){
 
 void C_Path::loadPath(){
 	C_Node* current = m_destination;
+
 	while(current->getParent() != nullptr){
 		 m_path.push(current);
 		 current = current->getParent();
-	}
+		 //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
+		 }
+
 	m_path.push(m_start); //do not forget the start
-	cout << endl;
 }
 
 void C_Path::showPath(){
 	stack<C_Node*> tmp = m_path;
+	int c =0;
 	while(tmp.empty() == false){
 		cout << tmp.top()->getXGrid() << ":" << tmp.top()->getYGrid() << " >> ";
 		tmp.pop();
+		c++;
 	}
+	cout << "steps:" << c << endl;
 }
 
 void C_Path::displayPath(){
