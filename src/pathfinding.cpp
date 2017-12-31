@@ -1,5 +1,8 @@
 #include "pathfinding.h"
+#include "window.h"
 #include "grid.h"
+
+#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
@@ -227,6 +230,7 @@ void C_Path::loadPath(){
 		 m_path.push(current);
 		 current = current->getParent();
 	}
+	m_path.push(m_start); //do not forget the start
 	cout << endl;
 }
 
@@ -236,6 +240,25 @@ void C_Path::showPath(){
 		cout << tmp.top()->getXGrid() << ":" << tmp.top()->getYGrid() << " >> ";
 		tmp.pop();
 	}
+}
+
+void C_Path::displayPath(){
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer * renderer = win.getRenderer();
+	int R = 0, G = 0, B = 220, A = 100;
+	C_Grid& grid=C_Grid::Instances();
+	stack<C_Node*> tmp = m_path;
+	while(tmp.empty() == false){
+		int x_grid = tmp.top()->getXGrid() + 2;
+		int y_grid = tmp.top()->getYGrid() + 2;
+		int x_screen = grid.xGridToXScreen(x_grid,y_grid);
+		int y_screen = grid.yGridToYScreen(x_grid,y_grid) + TILE_HALF_HEIGHT;
+		filledEllipseRGBA(renderer,x_screen,y_screen,10,5,R,G,B,A);
+		tmp.pop();
+	}
+
+
+
 }
 
 

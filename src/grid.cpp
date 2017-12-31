@@ -37,9 +37,9 @@ void C_Grid::loadLevel(int levelNbr){
 	l.extractTMXfile("data/levels/Level_00.tmx");
 
 	//calcultate Path from 3:15 to 27:15
-	C_Path p(27,15);
-	p.calcPath(3,15,27,15);
-	p.showPath();
+	//C_Path p(27,15);
+	//p.calcPath(3,15,27,15);
+	//p.showPath();
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
 }
 

@@ -60,7 +60,7 @@ public:
 	void setTown(int x_grid,int y_grid);
 
 	void showPath();
-
+	void displayPath();
 private:
 
 	void loadPath();

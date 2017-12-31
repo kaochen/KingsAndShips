@@ -28,18 +28,18 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 
 	C_Grid& grid=C_Grid::Instances();
 		vector <S_boat> l;
-		S_boat temp = {1,1,16};
+		S_boat temp = {1,10,16};
 		l.push_back(temp);
 		temp.x = 6;
-		temp.y = 16;
-		l.push_back(temp);
-		temp.x = 5;
 		temp.y = 14;
+		l.push_back(temp);
+		/*temp.x = 5;
+		temp.y = 15;
 		l.push_back(temp);
 		temp.x = 7;
 		l.push_back(temp);
 		temp.x = 3;
-		l.push_back(temp);
+		l.push_back(temp);*/
 
 		for (size_t i = 0; i < l.size();i++){
 		grid.addANewBoat(l[i].x,l[i].y,l[i].rank);
