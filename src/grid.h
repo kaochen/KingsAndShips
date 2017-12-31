@@ -25,6 +25,7 @@ public:
 
 	C_GameUnits* getUnits(int x, int y);
 	void setGround(int x, int y, int id);
+	bool waterway(int x_grid, int y_grid);
 	int getGround(int x, int y);
 	bool isThisConstructible(int x, int y);
 
@@ -37,7 +38,6 @@ public:
 	int yScreenToYGrid(int x_screen, int y_screen);
 	bool selectATower(int x_grid, int y_grid);
 	void unselectedAll(int x_grid, int y_grid);
-	C_Node* getNode(int x_grid, int y_grid);
 
 	C_GameUnits* getSelectedUnit();
 

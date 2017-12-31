@@ -18,7 +18,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
-		m_grid[x][y].node = new C_Node(x,y);
 		}
 	}
 }
@@ -36,15 +35,10 @@ void C_Grid::loadLevel(int levelNbr){
 
 	C_Level l;
 	l.extractTMXfile("data/levels/Level_00.tmx");
-	m_grid[27][15].node->setTown(true); //force for testing
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-		m_grid[x][y].node->calcH(m_grid[27][15].node);
-		}
-	}
+
 	//calcultate Path from 3:15 to 27:15
-	C_Path p;
-	p.calcPath(m_grid[3][15].node, m_grid[27][15].node);
+	C_Path p(27,15);
+	p.calcPath(3,15,27,15);
 	p.displayOpenList();
 
 	cout << "Level "<< levelNbr <<" Loaded" << endl;
@@ -142,8 +136,11 @@ void C_Grid::setGround(int x, int y, int id){
 	m_grid[x][y].ground = id;
 	if (id >= 49 && id <= 57){
 		m_grid[x][y].water = true;
-		m_grid[x][y].node->setBlock(false);
 		}
+}
+
+bool C_Grid::waterway(int x_grid, int y_grid){
+	return m_grid[x_grid][y_grid].water;
 }
 
 int C_Grid::getGround(int x, int y){
@@ -176,9 +173,6 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
 void C_Grid::displayStatus(){
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
-			if (m_grid[x][y].node != nullptr && m_grid[x][y].node->getBlock() == false){
-				m_grid[x][y].node->displayStatus();
-				}
 			if (m_grid[x][y].main != nullptr){
 					m_grid[x][y].main->displayStatus();
 				}
@@ -308,6 +302,3 @@ C_GameUnits* C_Grid::getSelectedUnit(){
 }
 
 
-C_Node* C_Grid::getNode(int x_grid, int y_grid){
-	return m_grid[x_grid][y_grid].node;
-};

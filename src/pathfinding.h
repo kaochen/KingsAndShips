@@ -10,7 +10,7 @@
 class C_Node
 {
 public:
-	C_Node(const int x_grid,const int y_grid);
+	C_Node(const int x_grid,const int y_grid, const bool block);
 	~C_Node();
 
 	void setTown(bool town);
@@ -22,7 +22,8 @@ public:
 	void displayStatus();
 
 	void calcH(const C_Node* target);
-	void calcG(std::multimap <int,C_Node*>* m_openNodes);
+	void calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
+		    std::multimap <int,C_Node*>* m_openNodes);
 	int getG() const;
 	int getH() const;
 	int getF() const;
@@ -46,17 +47,20 @@ protected:
 class C_Path
 {
 public:
-	C_Path();
+	C_Path(int x_dest, int y_dest);
 	~C_Path();
 
-	void calcPath(C_Node* start, C_Node* destination);
+	void calcPath(int x_start,int y_start, int x_dest, int y_dest);
 	void displayOpenList();
 
 	C_Node* searchOpenList(int F);
+	void setTown(int x_grid,int y_grid);
+
 private:
 	std::multimap<int, C_Node*> m_openNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
+	C_Node* m_gridNode[GRID_SIZE][GRID_SIZE];
 };
 
 

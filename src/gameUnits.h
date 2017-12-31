@@ -22,7 +22,6 @@ class C_GameUnits
 		int ground;
 		bool plot;
 		bool water;
-		C_Node * node;
 
 	};
 	//methods

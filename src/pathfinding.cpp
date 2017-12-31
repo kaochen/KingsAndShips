@@ -3,10 +3,10 @@
 
 using namespace std;
 
-C_Node::C_Node(const int x_grid,const int y_grid){
+C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	m_x_grid = x_grid;
 	m_y_grid = y_grid;
-	m_block = true;
+	m_block = block;
 	m_G = 0;
 	m_H = 0;
 	m_F = m_G + m_H;
@@ -77,8 +77,9 @@ void C_Node::calcH(const C_Node* target){
 	}
 }
 
-void C_Node::calcG(multimap <int,C_Node*>* m_openNodes){
-	C_Grid& grid=C_Grid::Instances();
+void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
+		    multimap <int,C_Node*>* m_openNodes){
+
 	m_open = false; //close the current node
 	int c = 0;
 
@@ -92,7 +93,7 @@ void C_Node::calcG(multimap <int,C_Node*>* m_openNodes){
 					if ( (x+y) % 2 == 0)
 						G_offset = G_DIAG;
 
-					C_Node *current = grid.getNode(x,y);
+					C_Node *current = gridNode[x][y];
 						if (current != nullptr){
 							if (current->getBlock() == false){
 								cout << "	Testing : " << x << ":" << y << endl;
@@ -134,26 +135,42 @@ void C_Node::setG(int value){
 
 //---------------------------------------------------------
 
-C_Path::C_Path()
+C_Path::C_Path(int x_dest, int y_dest)
 {
+
+	C_Grid& grid=C_Grid::Instances();
 	m_start = nullptr;
 	m_destination = nullptr;
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+			bool block = true;
+			if (grid.waterway(x,y)){
+				block = false;
+			}
+		m_gridNode[x][y] = new C_Node(x,y,block);
+		}
+	}
+	setTown(x_dest,y_dest);
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+		m_gridNode[x][y]->calcH(m_gridNode[x_dest][y_dest]);
+		}
+	}
+	cout << "Construct C_Path done" << endl;
 }
 C_Path::~C_Path()
 {
 }
 
 
-void C_Path::calcPath(C_Node* start, C_Node* destination){
-	if (start != nullptr && destination != nullptr){
-		m_start = start;
-		m_openNodes.insert(pair<int, C_Node*>(0,start));
-		m_destination = destination;
-		}
+void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
+	m_start = m_gridNode[x_start][y_start];
+	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
+	m_destination = m_gridNode[x_dest][y_dest];
 
 	std::multimap<int, C_Node*>::iterator it;
 	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-		(*it).second->calcG(&m_openNodes);
+		(*it).second->calcG(m_gridNode,&m_openNodes);
 		m_openNodes.erase(it);
 		cout << "---------" << endl;
 	}
@@ -181,5 +198,16 @@ C_Node* C_Path::searchOpenList(int F){
 		}
 	}
 	return current;
+}
+
+void C_Path::setTown(int x_grid,int y_grid){
+	//reset
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+		m_gridNode[x][y]->setTown(false);
+		}
+	}
+	//set
+	m_gridNode[x_grid][y_grid]->setTown(true);
 }
 
