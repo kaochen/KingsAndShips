@@ -97,6 +97,4 @@ S_Coord C_Coord::gridToScreen(S_Coord grid){
 void C_Coord::displayStatus(){
  	cout << "\tx_grid:"<< m_this.grid.x << " y_grid:"<< m_this.grid.y;
  	cout << "\tx_screen:"<< m_this.screen.x << " y_screen:"<< m_this.screen.y << endl;
- 	cout << "\tx_grid:"<< m_this.grid.x << " y_grid:"<< m_this.grid.y;
- 	cout << "\tx_screen:"<< m_this.screen.x << " y_screen:"<< m_this.screen.y << endl;
 }
