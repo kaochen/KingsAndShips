@@ -27,7 +27,79 @@ void C_invaders::move()
 	C_Grid& grid=C_Grid::Instances();
 	m_moving = true;
 	updateDirection();
+	int speed = 2;
+	string d="";
+	int new_x_grid = m_x_grid;
+	int new_y_grid = m_y_grid;
+	switch (m_direction){
+		case EAST:
+			m_x_screen += speed;
+			m_y_screen += speed/2;
+			new_x_grid++;
+			new_y_grid++;
+			d="EAST";
+		break;
+		case WEST:
+			m_x_screen -= speed;
+			m_y_screen -= speed/2;
+			d="WEST";
+			new_x_grid--;
+			new_y_grid--;
+		break;
+		case NORTH:
+			m_x_screen += speed;
+			m_y_screen -= speed/2;
+			d="NORTH";
+			new_x_grid++;
+			new_y_grid--;
+		break;
+		case SOUTH:
+			m_x_screen -= speed;
+			m_y_screen += speed/2;
+			d="SOUTH";
+			new_x_grid--;
+			new_y_grid++;
+		break;
+		case NORTH_EAST:
+			m_x_screen += speed;
+			d="NORTH_EAST";
+			new_x_grid++;
+		break;
+		case NORTH_WEST:
+			m_y_screen -= speed;
+			d="NORTH_WEST";
+			new_y_grid--;
+		break;
+		case SOUTH_EAST:
+			m_y_screen += speed;
+			d="SOUTH_EAST";
+			new_y_grid++;
+		break;
+		case SOUTH_WEST:
+			m_x_screen -= speed;
+			d="SOUTH_WEST";
+			new_x_grid--;
+		break;
+		case UNKNOWN:
+			d="UNKNOWN";
+		break;
+	}
 
+	cout << "Move " << d << endl;
+
+	if (new_x_grid < 0)
+		new_x_grid = 0;
+	if (new_y_grid < 0)
+		new_y_grid = 0;
+	if (new_x_grid > GRID_SIZE)
+		new_x_grid = GRID_SIZE;
+	if (new_y_grid > GRID_SIZE)
+		new_y_grid = GRID_SIZE;
+
+	if(m_lastDirection != m_direction){
+		m_lastDirection = m_direction;
+		grid.moveUnit(m_x_grid, m_y_grid, new_x_grid, new_y_grid);
+		}
 }
 
 void C_invaders::updateDirection(){
