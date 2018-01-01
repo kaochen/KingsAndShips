@@ -42,9 +42,8 @@ SDL_Texture* C_Shooter::getImage() const
 }
 
 
-void C_Shooter::move(int direction)
+void C_Shooter::move()
 {
-	cout << direction; //I use input to calm gcc -Wextra
 }
 
 int C_Shooter::testFirerange(C_GameUnits &target)

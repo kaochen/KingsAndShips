@@ -22,52 +22,44 @@ C_invaders::~C_invaders()
 }
 
 
-void C_invaders::move(int direction)
+void C_invaders::move()
 {
-
 	C_Grid& grid=C_Grid::Instances();
 	m_moving = true;
-	m_direction = direction;
-	int speed = 2;
-	switch (direction){
-		case EAST:
-			m_x_screen += speed;
-			m_y_screen += speed/2;
-		break;
-		case WEST:
-			m_x_screen -= speed;
-			m_y_screen -= speed/2;
-		break;
-		case NORTH:
-			m_x_screen += speed;
-			m_y_screen -= speed/2;
-		break;
-		case SOUTH:
-			m_x_screen -= speed;
-			m_y_screen += speed/2;
-		break;
-	}
-
-	int new_x_grid = grid.xScreenToXGrid (m_x_screen, m_y_screen) + 2;
-	int new_y_grid = grid.yScreenToYGrid (m_x_screen, m_y_screen) + 2;
-	if (new_x_grid < 0)
-		new_x_grid = 0;
-	if (new_y_grid < 0)
-		new_y_grid = 0;
-	if (new_x_grid > GRID_SIZE)
-		new_x_grid = GRID_SIZE;
-	if (new_y_grid > GRID_SIZE)
-		new_y_grid = GRID_SIZE;
-
-
-	if(m_x_grid != new_x_grid || m_y_grid != new_y_grid){
-		grid.moveUnit(m_x_grid, m_y_grid, new_x_grid, new_y_grid);
-		//cout << "Move from:" << m_x_grid << ":" << m_y_grid << " to:" << new_x_grid << ":" << new_y_grid << endl;
-		m_x_grid = new_x_grid;
-		m_y_grid = new_y_grid;
-		}
+	updateDirection();
 
 }
+
+void C_invaders::updateDirection(){
+	std::stack<C_Node*> path;
+	path = m_C_Path->getPath();
+	int nextX = path.top()->getXGrid();
+	int nextY = path.top()->getYGrid();
+	cout << m_x_grid << ":" << m_y_grid << "->" << nextX << ":" << nextY << endl;
+//enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
+	if(nextX == m_x_grid && nextY == m_y_grid){
+		m_C_Path->goNextStep();
+		}
+	else if(nextX > m_x_grid && nextY == m_y_grid)
+		m_direction = EAST;
+	else if(nextX > m_x_grid && nextY > m_y_grid)
+		m_direction = SOUTH_EAST;
+	else if(nextX == m_x_grid && nextY > m_y_grid)
+		m_direction = SOUTH;
+	else if(nextX > m_x_grid && nextY < m_y_grid)
+		m_direction = NORTH_EAST;
+	else if(nextX < m_x_grid && nextY == m_y_grid)
+		m_direction = WEST;
+	else if(nextX < m_x_grid && nextY < m_y_grid)
+		m_direction = NORTH_WEST;
+	else if(nextX == m_x_grid && nextY < m_y_grid)
+		m_direction = NORTH;
+	else if(nextX < m_x_grid && nextY > m_y_grid)
+		m_direction = SOUTH_WEST;
+	else
+		m_direction = UNKNOWN;
+
+};
 
 
 void C_invaders::renderLifeBar(int x_screen, int y_screen)

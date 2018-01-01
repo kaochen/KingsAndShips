@@ -44,7 +44,7 @@ class C_GameUnits
 	virtual int getXGrid() const;
 	virtual int getYGrid() const;
 	virtual void setGridXY(int x, int y);
-	virtual void move(int direction) = 0;
+	virtual void move() = 0;
 
 
 	virtual int getXScreen() const;
@@ -84,6 +84,7 @@ class C_GameUnits
 	C_AnimTime* m_animation[5];
 
 	int m_direction;
+	int m_lastDirection;
 	bool m_selected;
 };
 

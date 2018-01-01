@@ -50,6 +50,7 @@ C_GameUnits::C_GameUnits(C_GameUnits const& original):
 	m_selected(false)
 {
 	m_direction = UNKNOWN;
+	m_lastDirection = m_direction;
 }
 
 //get attibuts
