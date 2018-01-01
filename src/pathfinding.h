@@ -61,6 +61,8 @@ public:
 
 	void showPath();
 	void displayPath();
+	std::stack<C_Node*> getPath();
+	void goNextStep();
 private:
 
 	void loadPath();

@@ -239,7 +239,7 @@ void C_Path::loadPath(){
 		 //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		 }
 
-	m_path.push(m_start); //do not forget the start
+	//m_path.push(m_start); //do not forget the start
 }
 
 void C_Path::showPath(){
@@ -267,9 +267,15 @@ void C_Path::displayPath(){
 		filledEllipseRGBA(renderer,x_screen,y_screen,10,5,R,G,B,A);
 		tmp.pop();
 	}
+}
 
+stack<C_Node*> C_Path::getPath(){
+	return m_path;
+}
 
-
+void C_Path::goNextStep(){
+	if(!m_path.empty())
+		m_path.pop();
 }
 
 
