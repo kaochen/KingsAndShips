@@ -184,12 +184,14 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
 	m_destination = m_gridNode[x_dest][y_dest];
 
-	std::multimap<int, C_Node*>::iterator it;
-	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-			(*it).second->calcG(m_gridNode,&m_openNodes);
-			m_openNodes.erase(it);
-		cout << "---------" << endl;
+	cout << "---------" << endl;
+	std::multimap<int, C_Node*>::reverse_iterator rit;
+	for (rit=m_openNodes.rbegin(); rit!=m_openNodes.rend(); rit--){
+			cout << (*rit).first << " : ";
+			(*rit).second->calcG(m_gridNode,&m_openNodes);
+			m_openNodes.erase(--(rit.base()));
 	}
+	cout << "---------" << endl;
 	loadPath();
 }
 
