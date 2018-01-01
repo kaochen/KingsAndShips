@@ -28,8 +28,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 		m_animation[i]= new C_AnimTime();
 	}
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
- 	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
- 	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
 
 	m_coord = new C_Coord(x_grid,y_grid);
 	m_coord->displayStatus();
@@ -40,21 +38,7 @@ C_GameUnits::~C_GameUnits()
 {
 }
 
-//copy
-C_GameUnits::C_GameUnits(C_GameUnits const& original):
-	m_name(original.m_name),
-	m_life(original.m_life),
-	m_rank(original.m_rank),
-	m_x_grid(original.m_x_grid),
-	m_y_grid(original.m_y_grid),
-	m_x_screen (original.m_x_screen),
-	m_y_screen (original.m_y_screen),
-	m_y_center_offset (original.m_y_center_offset),
-	m_selected(false)
-{
-	m_direction = UNKNOWN;
-	m_lastDirection = m_direction;
-}
+
 
 //get attibuts
 string C_GameUnits::getName() const
@@ -66,7 +50,7 @@ string C_GameUnits::getName() const
 void C_GameUnits::displayStatus() const
 {
  	cout << "Name: " << m_name << " Life: " << m_life  << " Rank : " << m_rank<< endl;
- 	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid << endl;
+ 	m_coord->displayStatus();
 }
 
 void C_GameUnits::render(int x_screen, int y_screen){

@@ -28,7 +28,7 @@ class C_GameUnits
 		     int x_grid,
 		     int y_grid,
 		     int rank);
-	C_GameUnits(C_GameUnits const& original);
+
 	virtual ~C_GameUnits();
 
 	virtual std::string getName() const;
