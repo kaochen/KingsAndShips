@@ -199,8 +199,7 @@ while(!quit)
 				forceRefresh = true;
 				//move
 				for (itB = lB.begin(); itB != lB.end(); itB++){
-						C_GameUnits* tmp = *itB;
-						tmp->move(EAST);
+						(*itB)->move();
 				}
 
 				for (size_t i = 0; i < towerVector.size(); i++){
