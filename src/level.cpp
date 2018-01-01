@@ -28,12 +28,12 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 
 	C_Grid& grid=C_Grid::Instances();
 		vector <S_boat> l;
-		S_boat temp = {1,10,16};
+		S_boat temp = {1,6,15};
 		l.push_back(temp);
-		temp.x = 6;
+		/*temp.x = 6;
 		temp.y = 15;
 		l.push_back(temp);
-		/*temp.x = 5;
+		temp.x = 5;
 		temp.y = 15;
 		l.push_back(temp);
 		temp.x = 7;
