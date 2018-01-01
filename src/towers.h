@@ -15,7 +15,7 @@ class C_Towers: public C_Shooter
 	C_Towers();
 	C_Towers(std::string name, int x_grid, int y_grid, int rank);
 
-	virtual void render(int x_screen, int y_screen);
+	virtual void render(S_Coord screen);
 	virtual void renderSelected();
 	void renderSmoke();
 	void drag(int x_screen, int y_screen);
@@ -40,7 +40,7 @@ class C_Turbine: public C_Towers
 {
 	public:
 		C_Turbine(int x_grid, int y_grid, int rank);
-		virtual void render(int x_screen, int y_screen);
+		virtual void render(S_Coord screen);
 		virtual void drawEllipse(int x_screen,int y_screen,int width,int animNbr,bool ok);
 	protected:
 

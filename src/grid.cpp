@@ -71,9 +71,10 @@ void C_Grid::renderLayer(int layer){
 						}
 				if (layer == UNITS){
 						if (m_grid[x][y].main != nullptr){
-								int x_screen = m_grid[x][y].main->getXScreen();
-								int y_screen = m_grid[x][y].main->getYScreen();
-								m_grid[x][y].main->render(x_screen, y_screen);
+								S_Coord screen;
+								screen.x = m_grid[x][y].main->getXScreen();
+								screen.y = m_grid[x][y].main->getYScreen();
+								m_grid[x][y].main->render(screen);
 							}
 						}
 				x++;

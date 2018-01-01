@@ -28,9 +28,9 @@ void C_Towers::renderSmoke(){
 		m_justAdded = false;
 }
 
-void C_Towers::render(int x_screen, int y_screen){
+void C_Towers::render(S_Coord screen){
 	renderSelected();
-	C_Shooter::render(x_screen, y_screen);
+	C_Shooter::render(screen);
 	if (m_justAdded)
 		renderSmoke();
 }
@@ -73,8 +73,10 @@ void C_Towers::drag(int x_screen, int y_screen)
 		x = xGrid;
 	}
 
-
-	C_Shooter::render(x_screen, y_screen - 170);
+	S_Coord screen;
+	screen.x = x_screen;
+	screen.y = y_screen - 170;
+	C_Shooter::render(screen);
 }
 
 void C_Towers::drawEllipse(int x,
@@ -142,7 +144,7 @@ C_Turbine::C_Turbine(int x_grid,
 	m_weapon = new C_Weapon("WIND",15,700,300);
 }
 
-void C_Turbine::render(int x_screen, int y_screen){
+void C_Turbine::render(S_Coord screen){
 	renderSelected();
 	int rotationSpeed = 200;
 	if (m_weapon->getShooting())
@@ -152,7 +154,7 @@ void C_Turbine::render(int x_screen, int y_screen){
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 
 	if (m_justAdded)
 		renderSmoke();

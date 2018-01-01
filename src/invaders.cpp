@@ -162,7 +162,7 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen)
 		    SDL_RenderFillRect( renderer, &r );
 	}
 
-void C_invaders::render(int x_screen, int y_screen){
+void C_invaders::render(S_Coord screen){
 	string name = getName();
 	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
@@ -201,8 +201,8 @@ void C_invaders::render(int x_screen, int y_screen){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
-	renderLifeBar(x_screen, y_screen);
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	renderLifeBar(screen.x, screen.y);
 	m_C_Path->displayPath();
 }
 

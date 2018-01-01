@@ -18,7 +18,7 @@ class C_Shooter : public C_GameUnits
 	virtual void move();
 	virtual int testFirerange(C_GameUnits &target);
 
-	virtual void render(int x_screen, int y_screen);
+	virtual void render(S_Coord screen);
 	virtual void shootTarget(C_GameUnits &target);
 	virtual void stopShooting(void);
 	virtual void renderMissile();

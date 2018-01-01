@@ -53,12 +53,12 @@ void C_GameUnits::displayStatus() const
  	m_coord->displayStatus();
 }
 
-void C_GameUnits::render(int x_screen, int y_screen){
+void C_GameUnits::render(S_Coord screen){
 	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_strDirection + "_0" ;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 }
 
 void C_GameUnits::receiveDamage(int nbDamage)

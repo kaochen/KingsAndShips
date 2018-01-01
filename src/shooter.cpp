@@ -69,8 +69,8 @@ void C_Shooter::stopShooting(void){
 		}
 
 
-void C_Shooter::render(int x_screen, int y_screen){
-	C_GameUnits::render(x_screen, y_screen);
+void C_Shooter::render(S_Coord screen){
+	C_GameUnits::render(screen);
 	if (m_weapon->getShooting())
 		renderMissile();
 }
