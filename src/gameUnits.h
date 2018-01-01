@@ -11,7 +11,6 @@
 
 #include "pathfinding.h"
 
-
 class C_GameUnits
 {
 	public:
@@ -78,6 +77,7 @@ class C_GameUnits
 	int m_y_grid;
 	int m_x_screen;
 	int m_y_screen;
+	C_Coord* m_coord;
 	int m_y_center_offset;
 	std::string m_strDirection;
 	//Store time for animation

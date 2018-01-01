@@ -16,6 +16,15 @@
 #define LAYER 2
 #define SPRITE_SIZE 128
 
+struct S_Coord{
+	int x;
+	int y;
+};
+struct S_NodeCoord{
+	S_Coord screen;
+	S_Coord grid;
+};
+
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
 enum GroundType {GROUND_01,GROUND_02};
 
@@ -51,4 +60,16 @@ private:
 	int m_first_tile_y;
 };
 
+
+class C_Coord
+{
+public:
+	C_Coord(int x_grid, int y_grid);
+	~C_Coord();
+	void displayStatus();
+private:
+	S_Coord screenToGrid(S_Coord screen);
+	S_Coord gridToScreen(S_Coord grid);
+	S_NodeCoord m_this;
+};
 #endif

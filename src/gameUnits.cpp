@@ -30,6 +30,9 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
  	cout << "\tx_grid:"<< m_x_grid << " y_grid:"<< m_y_grid;
  	cout << "\tx_screen:"<< m_x_screen << " y_screen:"<< m_y_screen << endl;
+
+	m_coord = new C_Coord(x_grid,y_grid);
+	m_coord->displayStatus();
 }
 
 //delete
