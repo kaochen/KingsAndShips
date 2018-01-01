@@ -21,7 +21,7 @@ class C_invaders: public C_Shooter
 	protected:
 	//attibuts
 	bool m_moving;
-	C_Path* m_path;
+	C_Path* m_C_Path;
 };
 
 #endif

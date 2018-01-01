@@ -12,9 +12,9 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 	m_moving = false;
-	m_path = new C_Path(27,15);
-	m_path->calcPath(x_grid,y_grid,27,15);
-	m_path->showPath();
+	m_C_Path = new C_Path(27,15);
+	m_C_Path->calcPath(x_grid,y_grid,27,15);
+	m_C_Path->showPath();
 }
 
 C_invaders::~C_invaders()
@@ -139,6 +139,6 @@ void C_invaders::render(int x_screen, int y_screen){
 
 	t.renderTexture(fileName, x_screen,y_screen + m_y_center_offset);
 	renderLifeBar(x_screen, y_screen);
-	m_path->displayPath();
+	m_C_Path->displayPath();
 }
 
