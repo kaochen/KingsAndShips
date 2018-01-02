@@ -156,7 +156,7 @@ while(!quit)
 
 					//Select a Tower
 					if(addingAnewTower == false) {
-						aTowerIsSelected = grid.selectATower(xClicLeft, yClicLeft);
+						aTowerIsSelected = grid.selectATower(clicleft);
 					}
 
 					//Add a new Tower
@@ -166,7 +166,7 @@ while(!quit)
 						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
 
 						towerVector.push_back(grid.getUnits(clicleft.getGrid()));
-						aTowerIsSelected = grid.selectATower(xClicLeft, yClicLeft);
+						aTowerIsSelected = grid.selectATower(clicleft);
 						addingAnewTower = false;
 						}
 					else{
