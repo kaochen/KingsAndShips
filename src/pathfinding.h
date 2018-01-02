@@ -35,8 +35,7 @@ public:
 	void setG(int value);
 
 protected:
-	int m_x_grid;
-	int m_y_grid;
+	C_Coord * m_coord;
 	bool m_block;
 	int m_G; // G cost (distance from the starting node)
 	int m_H; //H cost heuristic (distance from end to end)

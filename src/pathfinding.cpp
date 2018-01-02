@@ -8,8 +8,10 @@
 using namespace std;
 
 C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
-	m_x_grid = x_grid;
-	m_y_grid = y_grid;
+	S_Coord coo;
+	coo.x = x_grid;
+	coo.y = y_grid;
+	m_coord = new C_CoordGrid(coo);
 	m_block = block;
 	m_G = 0;
 	m_H = 0;
@@ -60,15 +62,16 @@ C_Node* C_Node::getParent(){
 }
 
 int C_Node::getXGrid() const{
-	return m_x_grid;
+
+	return m_coord->getGrid().x;
 }
 
 int C_Node::getYGrid() const{
-	return m_y_grid;
+	return m_coord->getGrid().y;
 }
 
 void C_Node::displayStatus(){
-	cout << "Node :" << m_x_grid << ":" << m_y_grid;
+	cout << "Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y;
 	cout << " F:" << m_F << " G:" << m_G << " H:" << m_H;
 	if (m_Town)
 		cout << " Town: true <---";
@@ -79,10 +82,10 @@ void C_Node::displayStatus(){
 
 void C_Node::calcH(const C_Node* target){
 	if (m_Town == false && m_block == false){
-		int moveOnX =  target->getXGrid() - m_x_grid;
+		int moveOnX =  target->getXGrid() - m_coord->getGrid().x;
 			if (moveOnX < 0)
 				moveOnX *= -1;
-		int moveOnY =  target->getYGrid() - m_y_grid;
+		int moveOnY =  target->getYGrid() - m_coord->getGrid().y;
 			if (moveOnY < 0)
 				moveOnY *= -1;
 		m_H = (moveOnX + moveOnY) *10;
@@ -94,12 +97,13 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 
 	m_open = false; //close the current node
 	int c = 0;
-
-	cout << "For : " << m_x_grid << ":" << m_y_grid << " F: " << m_F << endl;
+	int x_grid = m_coord->getGrid().x;
+	int y_grid = m_coord->getGrid().y;
+	cout << "For : " << x_grid << ":" << y_grid << " F: " << m_F << endl;
 
 	cout << "	Testing : ";
-	for (int y = m_y_grid - 1; y < (m_y_grid + 2); y++){
-		for (int x = m_x_grid - 1; x < (m_x_grid + 2); x++){
+	for (int y = y_grid - 1; y < (y_grid + 2); y++){
+		for (int x = x_grid - 1; x < (x_grid + 2); x++){
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
 				c++;
 				if (c != 5){
@@ -118,7 +122,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 									if(current->getOpen() == true){
 										m_openNodes->insert(pair<int, C_Node*>(current->getF(),current));
 										current->setOpen(false);
-										current->setParent(gridNode[m_x_grid][m_y_grid]);
+										current->setParent(gridNode[x_grid][y_grid]);
 										}
 								}
 							}
