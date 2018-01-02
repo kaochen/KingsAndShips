@@ -70,6 +70,11 @@ C_Coord::C_Coord(int x_grid, int y_grid){
 	m_this.screen = gridToScreen(m_this.grid);
 }
 
+C_Coord::C_Coord(S_Coord coord){
+	if (coord.x < 0) //to quite gcc
+		cout << "";
+}
+
 C_Coord::~C_Coord(){
 };
 
@@ -79,8 +84,8 @@ S_Coord C_Coord::screenToGrid(S_Coord screen){
 		float yOffset = (settings.getWindowHeight() /2);
 		float tempX = 0.0, tempY = 0.0;
 		S_Coord coord;
-		tempX = ( ((screen.x - xOffset ) / TILE_HALF_WIDTH + (screen.x + yOffset)/TILE_HALF_HEIGHT )/2);
-		tempY = ( (screen.y + yOffset )/(TILE_HALF_HEIGHT*2) - (screen.y - xOffset)/(TILE_HALF_WIDTH*2));
+		tempX = ( ((screen.x - xOffset ) / TILE_HALF_WIDTH + (screen.y + yOffset)/TILE_HALF_HEIGHT )/2);
+		tempY = ( (screen.y + yOffset )/(TILE_HALF_HEIGHT*2) - (screen.x - xOffset)/(TILE_HALF_WIDTH*2));
 		coord.x = tempX;
 		coord.y = tempY;
 		return coord;
@@ -98,3 +103,37 @@ void C_Coord::displayStatus(){
  	cout << "\tx_grid:"<< m_this.grid.x << " y_grid:"<< m_this.grid.y;
  	cout << "\tx_screen:"<< m_this.screen.x << " y_screen:"<< m_this.screen.y << endl;
 }
+
+S_Coord C_Coord::getGrid(){
+	return m_this.grid;
+}
+
+S_Coord C_Coord::getScreen(){
+	return m_this.screen;
+}
+
+
+
+
+C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
+		m_this.grid.x = coord.x;
+		m_this.grid.y = coord.y;
+		m_this.screen = gridToScreen(m_this.grid);
+		cout << "grid to screen" << endl;
+}
+
+C_CoordGrid::~C_CoordGrid()
+{
+};
+
+C_CoordScreen::C_CoordScreen(S_Coord coord): C_Coord(coord){
+		m_this.screen.x = coord.x;
+		m_this.screen.y = coord.y;
+		m_this.grid = screenToGrid(m_this.screen);
+		cout << "screen to grid" << endl;
+}
+
+C_CoordScreen::~C_CoordScreen()
+{
+};
+

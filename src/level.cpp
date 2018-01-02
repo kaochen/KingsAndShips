@@ -43,7 +43,10 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 
 		for (size_t i = 0; i < l.size();i++){
 		grid.addANewBoat(l[i].x,l[i].y,l[i].rank);
-		lB.push_back(grid.getUnits (l[i].x,l[i].y));
+		S_Coord coord;
+		coord.x = l[i].x;
+		coord.y = l[i].y;
+		lB.push_back(grid.getUnits (coord));
 	}
 	cout << "Next wave" << endl;
 }

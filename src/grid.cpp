@@ -128,8 +128,8 @@ else{
     }
 }
 
-C_GameUnits* C_Grid::getUnits(int x, int y){
-	return m_grid[x][y].main;
+C_GameUnits* C_Grid::getUnits(S_Coord grid){
+	return m_grid[grid.x][grid.y].main;
 }
 
 void C_Grid::setGround(int x, int y, int id){

@@ -23,7 +23,7 @@ public:
 	void delUnit(int x_grid, int y_grid);
 	void moveToDead(int x_grid, int y_grid);
 
-	C_GameUnits* getUnits(int x, int y);
+	C_GameUnits* getUnits(S_Coord grid);
 	void setGround(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
 	int getGround(int x, int y);

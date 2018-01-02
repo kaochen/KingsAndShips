@@ -28,8 +28,10 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 		m_animation[i]= new C_AnimTime();
 	}
 	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
-
-	m_coord = new C_Coord(x_grid,y_grid);
+	S_Coord coord;
+	coord.x = x_grid;
+	coord.y = y_grid;
+	m_coord = new C_CoordGrid(coord);
 	m_coord->displayStatus();
 }
 

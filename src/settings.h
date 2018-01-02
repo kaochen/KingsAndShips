@@ -60,16 +60,36 @@ private:
 	int m_first_tile_y;
 };
 
+enum coordinates{SCREEN,GRID};
 
 class C_Coord
 {
 public:
 	C_Coord(int x_grid, int y_grid);
-	~C_Coord();
-	void displayStatus();
-private:
+	C_Coord(S_Coord coord);
+	virtual ~C_Coord();
+	virtual void displayStatus();
+	virtual S_Coord getGrid();
+	virtual S_Coord getScreen();
+
+protected:
 	S_Coord screenToGrid(S_Coord screen);
 	S_Coord gridToScreen(S_Coord grid);
 	S_NodeCoord m_this;
+};
+
+
+class C_CoordGrid: public C_Coord
+{
+public:
+	C_CoordGrid(S_Coord coord);
+	virtual ~C_CoordGrid();
+};
+
+class C_CoordScreen: public C_Coord
+{
+public:
+	C_CoordScreen(S_Coord coord);
+	virtual ~C_CoordScreen();
 };
 #endif

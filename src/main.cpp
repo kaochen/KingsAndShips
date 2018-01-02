@@ -140,16 +140,19 @@ while(!quit)
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button ==  SDL_BUTTON_LEFT)
 				{
+					S_Coord clic;
+					clic.x = event.button.x;
+					clic.y = event.button.y;
+					C_CoordScreen clicleft(clic);
+					clicleft.displayStatus();
+
+					//need to be remove
 					xClicLeft = event.button.x;
 					yClicLeft = event.button.y;
-					cout << "\tx_screen:" << xClicLeft << " y_screen:" << yClicLeft << endl;
-					//find the match point into the grid
-
 					xClicTable = grid.xScreenToXGrid(xClicLeft, yClicLeft);
 					yClicTable = grid.yScreenToYGrid(xClicLeft, yClicLeft);
 
-					//cout << "\tfloat x:" << tempX << " y:" << tempY << endl;
-					cout << "\tx_grid:" << xClicTable << " y_grid:" << yClicTable << endl;
+
 
 					//Select a Tower
 					if(addingAnewTower == false) {
@@ -159,8 +162,10 @@ while(!quit)
 					//Add a new Tower
 					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true)
 						 {
+
 						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
-						towerVector.push_back(grid.getUnits(xClicTable,yClicTable));
+
+						towerVector.push_back(grid.getUnits(clicleft.getGrid()));
 						aTowerIsSelected = grid.selectATower(xClicLeft, yClicLeft);
 						addingAnewTower = false;
 						}
