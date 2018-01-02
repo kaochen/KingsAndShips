@@ -227,17 +227,16 @@ int C_Grid::yScreenToYGrid(int x_screen, int y_screen){
 		return tempY;
 		}
 
-bool C_Grid::selectATower(int x_screen, int y_screen){
-	int x_grid = xScreenToXGrid(x_screen, y_screen);
-	int y_grid = yScreenToYGrid(x_screen, y_screen);
+bool C_Grid::selectATower(C_Coord clic){
+	S_Coord grid = clic.getGrid();
 	bool selected = false;
 	string name ="";
-	if (m_grid[x_grid+1][y_grid+1].main != nullptr){
-		unselectedAll(x_grid+1,y_grid+1);
-		name = m_grid[x_grid+1][y_grid+1].main->getName();
+	if (m_grid[grid.x+1][grid.y+1].main != nullptr){
+		unselectedAll(grid.x+1,grid.x+1);
+		name = m_grid[grid.x+1][grid.y+1].main->getName();
 			if(name == "ArcherTower" || name == "Turbine"){
 				cout << "Found top " << name;
-				m_grid[x_grid+1][y_grid+1].main->reverseSelectedStatus();
+				m_grid[grid.x+1][grid.y+1].main->reverseSelectedStatus();
 				selected = true;
 			}
 			else{
@@ -245,12 +244,12 @@ bool C_Grid::selectATower(int x_screen, int y_screen){
 			}
 	}
 	else{
-		if (m_grid[x_grid][y_grid].main != nullptr){
-			name = m_grid[x_grid][y_grid].main->getName();
-				unselectedAll(x_grid,y_grid);
+		if (m_grid[grid.x][grid.y].main != nullptr){
+			name = m_grid[grid.x][grid.y].main->getName();
+				unselectedAll(grid.x,grid.y);
 				if(name == "ArcherTower"|| name == "Turbine"){
 					cout << "Found bottom" << name;
-					m_grid[x_grid][y_grid].main->reverseSelectedStatus();
+					m_grid[grid.x][grid.y].main->reverseSelectedStatus();
 					selected = true;
 				}
 				else{
@@ -258,12 +257,12 @@ bool C_Grid::selectATower(int x_screen, int y_screen){
 				}
 		}
 		else{
-			unselectedAll(x_grid,y_grid);
+			unselectedAll(grid.x,grid.y);
 			cout << "Nothing";
 		}
 
 	}
-	cout << " at " << x_grid << ":" << y_grid << endl;
+	cout << " at " << grid.x << ":" << grid.y << endl;
 	return selected;
 }
 
