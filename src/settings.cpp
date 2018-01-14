@@ -136,6 +136,15 @@ C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 		//cout << "grid to screen" << endl;
 }
 
+C_CoordGrid::C_CoordGrid(int x_grid, int y_grid ): C_Coord(x_grid, y_grid){
+		S_Coord coord;
+		coord.x = x_grid;
+		coord.y = y_grid;
+		C_CoordGrid tmp(coord);
+		m_this.screen = tmp.getScreen ();
+		m_this.grid = tmp.getGrid ();
+}
+
 C_CoordGrid::~C_CoordGrid()
 {
 };
@@ -145,6 +154,15 @@ C_CoordScreen::C_CoordScreen(S_Coord coord): C_Coord(coord){
 		m_this.screen.y = coord.y;
 		m_this.grid = screenToGrid(m_this.screen);
 		//cout << "screen to grid" << endl;
+}
+
+C_CoordScreen::C_CoordScreen(int x_screen, int y_screen ): C_Coord(x_screen, y_screen){
+		S_Coord coord;
+		coord.x = x_screen;
+		coord.y = y_screen;
+		C_CoordScreen tmp(coord);
+		m_this.screen = tmp.getScreen ();
+		m_this.grid = tmp.getGrid ();
 }
 
 C_CoordScreen::~C_CoordScreen()

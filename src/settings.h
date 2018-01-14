@@ -87,6 +87,7 @@ class C_CoordGrid: public C_Coord
 {
 public:
 	C_CoordGrid(S_Coord coord);
+	C_CoordGrid(int x_grid, int y_grid);
 	virtual ~C_CoordGrid();
 };
 
@@ -94,6 +95,7 @@ class C_CoordScreen: public C_Coord
 {
 public:
 	C_CoordScreen(S_Coord coord);
+	C_CoordScreen(int x_screen, int y_screen);
 	virtual ~C_CoordScreen();
 };
 #endif
