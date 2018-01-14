@@ -18,7 +18,7 @@ class C_Towers: public C_Shooter
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
 	void renderSmoke();
-	void drag(int x_screen, int y_screen);
+	void drag(S_Coord screen);
 	protected:
 	virtual void drawEllipse(int x,int y, int width, int animNbr, bool ok);
 	void drawRhombus(int x, int y,int width, int alpha, bool ok);

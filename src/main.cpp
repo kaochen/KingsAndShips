@@ -275,12 +275,12 @@ while(!quit)
 
 			if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
 					if(menuButton->getName() == "addNewTower"){
-						archerTower->drag(cursor.x, cursor.y);
+						archerTower->drag(cursor);
 						addingAnewTower = true;
 						buttonType = ADDNEWTOWER;
 						}
 					if(menuButton->getName() == "addNewTurbine"){
-						turbineTower->drag(cursor.x, cursor.y);
+						turbineTower->drag(cursor);
 						addingAnewTower = true;
 						buttonType = ADDNEWTURBINE;
 						}

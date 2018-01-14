@@ -43,13 +43,11 @@ void C_Towers::renderSelected(){
 	}
 }
 
-void C_Towers::drag(int x_screen, int y_screen)
+void C_Towers::drag(S_Coord screen)
 {
 	m_justAdded = false;
 	C_Grid& grid=C_Grid::Instances();
-	S_Coord screen;
-	screen.x = x_screen;
-	screen.y = y_screen;
+
 	C_CoordScreen coord(screen);
 
 	int animNbr = m_animation[DRAG]->getAnimNbr(0,30,500);
@@ -79,7 +77,7 @@ void C_Towers::drag(int x_screen, int y_screen)
 		x = coord.getXGrid ();
 	}
 
-	screen.y = y_screen - 170;
+	screen.y -= 170;
 	C_Shooter::render(screen);
 }
 
