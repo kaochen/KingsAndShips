@@ -32,8 +32,6 @@ public:
 	void displayStatus();
 	void deleteGrid();
 
-	int xGridToXScreen(int xGrid, int yGrid);
-	int yGridToYScreen(int xGrid, int yGrid);
 	int xScreenToXGrid(int x_screen, int y_screen);
 	int yScreenToYGrid(int x_screen, int y_screen);
 	bool selectATower(C_Coord clic);

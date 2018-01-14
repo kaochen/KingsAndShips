@@ -21,9 +21,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_selected(false)
 {
 
-	C_Grid& grid=C_Grid::Instances();
-	m_x_screen = grid.xGridToXScreen(x_grid,y_grid);
-	m_y_screen = grid.yGridToYScreen(x_grid,y_grid);
 	for (int i = 0; i < MAX_ANIM; i++){
 		m_animation[i]= new C_AnimTime();
 	}
@@ -32,6 +29,10 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	coord.x = x_grid;
 	coord.y = y_grid;
 	m_coord = new C_CoordGrid(coord);
+	//m_x_screen should be removed
+	m_x_screen = m_coord->getXScreen ();
+	m_y_screen = m_coord->getYScreen ();
+
 	m_coord->displayStatus();
 }
 
