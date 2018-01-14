@@ -69,7 +69,10 @@ int main()
 
 
 bool quit = false, forceRefresh = false;
-int xCursor = 1, yCursor = 1;
+S_Coord cursor;
+cursor.x = cursor.y = 1;
+
+
 float xClicLeft = 0, yClicLeft = 0;
 int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
@@ -101,26 +104,26 @@ while(!quit)
 		case SDL_MOUSEMOTION:
 		// get x cursor position
 			if(event.button.x < 0)
-				xCursor = 0;
+				cursor.x = 0;
 			else if(event.button.x > settings.getWindowWidth())
-				xCursor = settings.getWindowWidth();
+				cursor.x = settings.getWindowWidth();
 			else
-				xCursor = event.button.x;
+				cursor.x = event.button.x;
 
 		// get y cursor position
 			if(event.button.y < 0)
-				yCursor = 0;
+				cursor.y = 0;
 			else if(event.button.y > settings.getWindowHeight())
-				yCursor = settings.getWindowHeight();
+				cursor.y = settings.getWindowHeight();
 			else
-				yCursor = event.button.y;
+				cursor.y = event.button.y;
 
 			if (mouseButtonDown){
 					if(aTowerIsSelected){
 						C_GameUnits* current = grid.getSelectedUnit();
 						if (current != nullptr){
 							if (current->getName() == "Turbine")
-								current->changeDirection(xCursor,yCursor);
+								current->changeDirection(cursor.x,cursor.y);
 							}
 					}
 			}
@@ -272,12 +275,12 @@ while(!quit)
 
 			if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
 					if(menuButton->getName() == "addNewTower"){
-						archerTower->drag(xCursor, yCursor);
+						archerTower->drag(cursor.x, cursor.y);
 						addingAnewTower = true;
 						buttonType = ADDNEWTOWER;
 						}
 					if(menuButton->getName() == "addNewTurbine"){
-						turbineTower->drag(xCursor, yCursor);
+						turbineTower->drag(cursor.x, cursor.y);
 						addingAnewTower = true;
 						buttonType = ADDNEWTURBINE;
 						}
