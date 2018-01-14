@@ -74,7 +74,6 @@ cursor.x = cursor.y = 1;
 
 
 float xClicLeft = 0, yClicLeft = 0;
-int xClicTable = 0, yClicTable = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
 bool mouseButtonDown = false;
 int buttonType = NONE;
@@ -152,9 +151,6 @@ while(!quit)
 					//need to be remove
 					xClicLeft = event.button.x;
 					yClicLeft = event.button.y;
-					xClicTable = grid.xScreenToXGrid(xClicLeft, yClicLeft);
-					yClicTable = grid.yScreenToYGrid(xClicLeft, yClicLeft);
-
 
 
 					//Select a Tower
@@ -166,7 +162,7 @@ while(!quit)
 					if(addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
 						 {
 
-						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
+						grid.addANewTower(buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
 
 						towerVector.push_back(grid.getUnits(clicleft.getGrid()));
 						aTowerIsSelected = grid.selectATower(clicleft);
