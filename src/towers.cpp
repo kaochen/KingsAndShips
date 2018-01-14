@@ -62,12 +62,10 @@ void C_Towers::drag(S_Coord screen)
 		y++;
 		for(int j = 0; j < 3; j++){
 			x++;
-			S_Coord tmp;
-			tmp.x = x-2;
-			tmp.y = y-2;
-			status = grid.isThisConstructible(tmp);
-			int x_s = grid.xGridToXScreen(x,y);
-			int y_s = grid.yGridToYScreen(x,y) + 50;
+			C_CoordGrid tmp(x,y);
+			status = grid.isThisConstructible(tmp.getGrid ());
+			int x_s = tmp.getXScreen ();
+			int y_s = tmp.getYScreen () + 50;
 			drawRhombus(x_s,y_s,70,40,status);
 			if (i == 1 && j == 1){
 				drawRhombus(x_s,y_s,70,90,status);
