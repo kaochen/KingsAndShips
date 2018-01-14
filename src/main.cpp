@@ -160,7 +160,7 @@ while(!quit)
 					}
 
 					//Add a new Tower
-					if(addingAnewTower == true && grid.isThisConstructible(xClicTable,yClicTable) == true)
+					if(addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
 						 {
 
 						grid.addANewTower(buttonType,xClicTable,yClicTable,0);
@@ -269,6 +269,7 @@ while(!quit)
 			int xr = xl + menuButton->getWidth();
 			int yt= menuButton->getYScreen();
 			int yb = yt + menuButton->getHeight();
+
 			if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
 					if(menuButton->getName() == "addNewTower"){
 						archerTower->drag(xCursor, yCursor);

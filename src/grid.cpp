@@ -147,11 +147,11 @@ int C_Grid::getGround(int x, int y){
 	return m_grid[x][y].ground;
 }
 
-bool C_Grid::isThisConstructible(int x, int y){
-	if ( m_grid[x][y].water == true){
+bool C_Grid::isThisConstructible(S_Coord grid){
+	if ( m_grid[grid.x][grid.y].water == true){
 		return false;
 		}
-	else if(m_grid[x][y].main != nullptr){
+	else if(m_grid[grid.x][grid.y].main != nullptr){
 		return false;
 	}
 	else{

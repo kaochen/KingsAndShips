@@ -70,7 +70,11 @@ public:
 	virtual ~C_Coord();
 	virtual void displayStatus();
 	virtual S_Coord getGrid();
+	virtual int getXGrid();
+	virtual int getYGrid();
 	virtual S_Coord getScreen();
+	virtual int getXScreen();
+	virtual int getYScreen();
 
 protected:
 	S_Coord screenToGrid(S_Coord screen);

@@ -108,8 +108,22 @@ S_Coord C_Coord::getGrid(){
 	return m_this.grid;
 }
 
+int C_Coord::getXGrid(){
+	return m_this.grid.x;
+}
+
+int C_Coord::getYGrid(){
+	return m_this.grid.y;
+}
+
 S_Coord C_Coord::getScreen(){
 	return m_this.screen;
+}
+int C_Coord::getXScreen(){
+	return m_this.screen.x;
+}
+int C_Coord::getYScreen(){
+	return m_this.screen.y;
 }
 
 
@@ -119,7 +133,7 @@ C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 		m_this.grid.x = coord.x;
 		m_this.grid.y = coord.y;
 		m_this.screen = gridToScreen(m_this.grid);
-		cout << "grid to screen" << endl;
+		//cout << "grid to screen" << endl;
 }
 
 C_CoordGrid::~C_CoordGrid()
@@ -130,7 +144,7 @@ C_CoordScreen::C_CoordScreen(S_Coord coord): C_Coord(coord){
 		m_this.screen.x = coord.x;
 		m_this.screen.y = coord.y;
 		m_this.grid = screenToGrid(m_this.screen);
-		cout << "screen to grid" << endl;
+		//cout << "screen to grid" << endl;
 }
 
 C_CoordScreen::~C_CoordScreen()

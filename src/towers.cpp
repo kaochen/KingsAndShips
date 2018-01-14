@@ -47,21 +47,27 @@ void C_Towers::drag(int x_screen, int y_screen)
 {
 	m_justAdded = false;
 	C_Grid& grid=C_Grid::Instances();
-	int xGrid = grid.xScreenToXGrid(x_screen,y_screen);
-	int yGrid = grid.yScreenToYGrid(x_screen,y_screen);
+	S_Coord screen;
+	screen.x = x_screen;
+	screen.y = y_screen;
+	C_CoordScreen coord(screen);
+
 	int animNbr = m_animation[DRAG]->getAnimNbr(0,30,500);
 	int width = m_weapon->getFireRange();
-	int x = xGrid;
-	int y = yGrid;
+	int x = coord.getXGrid ();
+	int y = coord.getYGrid ();
 	//draw ellipse
-	bool status = grid.isThisConstructible(xGrid,yGrid);
-	drawEllipse(x_screen,y_screen,width,animNbr, status);
+	bool status = grid.isThisConstructible(coord.getGrid ());
+	drawEllipse(screen.x,screen.y,width,animNbr, status);
 	//draw square
 	for(int i = 0; i < 3; i++){
 		y++;
 		for(int j = 0; j < 3; j++){
 			x++;
-			status = grid.isThisConstructible(x-2,y-2);
+			S_Coord tmp;
+			tmp.x = x-2;
+			tmp.y = y-2;
+			status = grid.isThisConstructible(tmp);
 			int x_s = grid.xGridToXScreen(x,y);
 			int y_s = grid.yGridToYScreen(x,y) + 50;
 			drawRhombus(x_s,y_s,70,40,status);
@@ -70,11 +76,9 @@ void C_Towers::drag(int x_screen, int y_screen)
 				}
 
 		}
-		x = xGrid;
+		x = coord.getXGrid ();
 	}
 
-	S_Coord screen;
-	screen.x = x_screen;
 	screen.y = y_screen - 170;
 	C_Shooter::render(screen);
 }
