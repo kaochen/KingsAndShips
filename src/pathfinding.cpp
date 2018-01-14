@@ -261,14 +261,10 @@ void C_Path::displayPath(){
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
 	int R = 0, G = 0, B = 220, A = 100;
-	C_Grid& grid=C_Grid::Instances();
 	stack<C_Node*> tmp = m_path;
 	while(tmp.empty() == false){
-		int x_grid = tmp.top()->getXGrid() + 2;
-		int y_grid = tmp.top()->getYGrid() + 2;
-		int x_screen = grid.xGridToXScreen(x_grid,y_grid);
-		int y_screen = grid.yGridToYScreen(x_grid,y_grid) + TILE_HALF_HEIGHT;
-		filledEllipseRGBA(renderer,x_screen,y_screen,10,5,R,G,B,A);
+		C_CoordGrid coord(tmp.top()->getXGrid() + 2,tmp.top()->getYGrid() + 2);
+		filledEllipseRGBA(renderer,coord.getXScreen (),coord.getYScreen ()+ TILE_HALF_HEIGHT,10,5,R,G,B,A);
 		tmp.pop();
 	}
 }
