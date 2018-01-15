@@ -46,19 +46,19 @@ void C_Grid::loadLevel(int levelNbr){
 void C_Grid::renderLayer(int layer){
 	C_Set& settings=C_Set::Instances();
 	C_TextureList& t=C_TextureList::Instances();
-	int x_start = settings.getGridFirstTileX(), y_start = settings.getGridFirstTileY();
-	int length = 4;
-	int y = y_start;
 
-	for (int l = 0; l < settings.getGridNbrOfLine(); l++){
+	int x_start = 1, x_end = x_start + settings.getGridWidth() + 6;
+	int y_start = 13, y_end = y_start + settings.getGridHeight() + 6;
+
+	//cout << "Line ";
+	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
 		int x = x_start;
-		//cout << "\nline: "<< l << " --";
-		for (int r = 0 ; r < length; r++){
-
+		int y = y_start;
+	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
 				//cout << "|" << x << ":"<< y;
 				if (layer == GROUND){
 						C_CoordGrid coord(x,y);
-						t.renderTextureFromId(m_grid[x][y].ground,coord.getXScreen(),coord.getYScreen() - 64);
+						t.renderTextureFromId(m_grid[x][y].ground,coord.getXScreen(),coord.getYScreen()-64);
 						}
 						//draw the deads
 				if (layer == DEAD){
@@ -77,15 +77,14 @@ void C_Grid::renderLayer(int layer){
 							}
 						}
 				x++;
+				y--;
 				}
-		y++;
-		if(l < 13){
-			length += 2;x_start--;
-			}
-		else{
-		  	length -=2; x_start++;
-		  	}
+		if (lineNbr%2 == 0)
+			x_start++;
+		else
+			y_start++;
 
+		//cout << endl;
 	}
 }
 
