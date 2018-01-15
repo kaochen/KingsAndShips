@@ -149,7 +149,7 @@ void C_TextureList::renderTexture(string name, int x, int y)
 		SDL_Rect pos;
 		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
 		pos.x = x - pos.w/2;
-		pos.y = y;
+		pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
 		SDL_RenderCopy(win.getRenderer(), texture, NULL, &pos);
 		}
 }

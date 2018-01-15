@@ -39,7 +39,7 @@ void C_Towers::renderSelected(){
 	if (m_selected == true){
 		int animNbr = m_animation[SELECTED]->getAnimNbr(0,30,500);
 		int width = m_weapon->getFireRange();
-		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen () + 128,width,animNbr, true);
+		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width,animNbr, true);
 	}
 }
 
@@ -55,7 +55,7 @@ void C_Towers::drag(S_Coord screen)
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 	//draw ellipse
-	bool status = grid.isThisConstructible(coord.getGrid ());
+	bool status = grid.isThisConstructible(x+2,y+2);
 	drawEllipse(screen.x,screen.y,width,animNbr, status);
 	//draw square
 	for(int i = 0; i < 3; i++){
@@ -65,7 +65,7 @@ void C_Towers::drag(S_Coord screen)
 			C_CoordGrid tmp(x,y);
 			status = grid.isThisConstructible(tmp.getGrid ());
 			int x_s = tmp.getXScreen ();
-			int y_s = tmp.getYScreen () + 50;
+			int y_s = tmp.getYScreen () - 75;
 			drawRhombus(x_s,y_s,70,40,status);
 			if (i == 1 && j == 1){
 				drawRhombus(x_s,y_s,70,90,status);
@@ -75,7 +75,7 @@ void C_Towers::drag(S_Coord screen)
 		x = coord.getXGrid ();
 	}
 
-	screen.y -= 170;
+	screen.y -= (2*TILE_HALF_HEIGHT);
 	C_Shooter::render(screen);
 }
 

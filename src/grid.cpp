@@ -57,9 +57,8 @@ void C_Grid::renderLayer(int layer){
 
 				//cout << "|" << x << ":"<< y;
 				if (layer == GROUND){
-						int x_s = settings.getWindowWidth()/2 + (x - y)* TILE_HALF_WIDTH;
-						int y_s = (y + x- 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
-						t.renderTextureFromId(m_grid[x][y].ground,  x_s,y_s + 36);
+						C_CoordGrid coord(x,y);
+						t.renderTextureFromId(m_grid[x][y].ground,coord.getXScreen(),coord.getYScreen() - 64);
 						}
 						//draw the deads
 				if (layer == DEAD){
@@ -157,6 +156,13 @@ bool C_Grid::isThisConstructible(S_Coord grid){
 	else{
 		return true ;
 		}
+}
+
+bool C_Grid::isThisConstructible(int x_grid,int y_grid){
+	S_Coord tmp;
+	tmp.x = x_grid;
+	tmp.y = y_grid;
+	return isThisConstructible(tmp);
 }
 
 void C_Grid::delUnit(int x_grid, int y_grid){

@@ -51,7 +51,7 @@ C_Button::~C_Button()
 
 void C_Button::render(){
 		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen);
+		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen + m_height + 20);
 }
 
 

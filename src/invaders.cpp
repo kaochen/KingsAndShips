@@ -78,13 +78,13 @@ void C_invaders::move()
 			d="UNKNOWN";
 		break;
 	}
-	cout << "old -coord : " << endl;
-	m_coord->displayStatus ();
+	//cout << "old -coord : " << endl;
+	//m_coord->displayStatus ();
 
 	delete m_coord;
 	m_coord = new C_CoordScreen (new_x_screen,new_y_screen);
-	cout << "new -coord : " << endl;
-	m_coord->displayStatus ();
+	//cout << "new -coord : " << endl;
+	//m_coord->displayStatus ();
 
 	cout << "Move " << d << endl;
 
@@ -137,7 +137,7 @@ void C_invaders::renderLifeBar(int x_screen, int y_screen)
 		int red = 0, green = 200;
 		SDL_Rect r, b;
 		    r.x = x_screen - TILE_HALF_WIDTH/2;
-		    r.y = y_screen + 64;
+		    r.y = y_screen - 85;
 		    r.w = l;
 		    r.h = 4;
 		    if (m_life < MAX_LIFE/2){
@@ -195,7 +195,7 @@ void C_invaders::render(S_Coord screen){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y);
 	renderLifeBar(screen.x, screen.y);
 	m_C_Path->displayPath();
 }

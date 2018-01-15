@@ -105,7 +105,7 @@ S_Coord C_Coord::gridToScreen(S_Coord grid){
 			C_Set& settings=C_Set::Instances();
 			S_Coord screen;
 			screen.x = settings.getWindowWidth()/2 + (grid.x - grid.y)* TILE_HALF_WIDTH;
-			screen.y = (grid.y + grid.x - 4) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
+			screen.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
 			return screen;
 }
 
