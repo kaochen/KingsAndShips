@@ -73,10 +73,7 @@ class C_GameUnits
 	std::string m_name;
 	int m_life;
 	int m_rank;
-	int m_x_grid;
-	int m_y_grid;
-	int m_x_screen;
-	int m_y_screen;
+
 	C_Coord* m_coord;
 	int m_y_center_offset;
 	std::string m_strDirection;

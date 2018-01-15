@@ -13,8 +13,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_life(MAX_LIFE),
 	m_rank(rank),
-	m_x_grid(x_grid),
-	m_y_grid(y_grid),
 	m_y_center_offset(0),
 	m_strDirection("EE"),
 	m_direction(UNKNOWN),
@@ -29,10 +27,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	coord.x = x_grid;
 	coord.y = y_grid;
 	m_coord = new C_CoordGrid(coord);
-	//m_x_screen should be removed
-	m_x_screen = m_coord->getXScreen ();
-	m_y_screen = m_coord->getYScreen ();
-
 	m_coord->displayStatus();
 }
 
@@ -86,28 +80,29 @@ int C_GameUnits::getRank() const
 
 int C_GameUnits::getXGrid() const
 {
-	return m_x_grid;
+	return m_coord->getXGrid ();
 }
 
 int C_GameUnits::getYGrid() const
 {
-	return m_y_grid;
+	return m_coord->getYGrid ();
 }
 
 void C_GameUnits::setGridXY(int x_grid, int y_grid){
-	m_x_grid = x_grid;
-	m_y_grid = y_grid;
+	delete m_coord;
+	m_coord = new C_CoordGrid (x_grid,y_grid);
+
 }
 
 
 int C_GameUnits::getXScreen() const
 {
-	return m_x_screen;
+	return m_coord->getXScreen ();
 }
 
 int C_GameUnits::getYScreen() const
 {
-	return m_y_screen;
+	return m_coord->getYScreen ();
 }
 
 
@@ -121,8 +116,8 @@ int C_GameUnits::getYCenterOffset() const
 
 int C_GameUnits::getDistance(int x, int y) const
 {
-	int sideX = m_x_screen - x;
-	int sideY = m_y_screen - y;
+	int sideX = m_coord->getXScreen () - x;
+	int sideY = m_coord->getYScreen () - y;
 	int dist = sqrt(sideX*sideX + sideY*sideY);
 	return dist;
 }
@@ -130,8 +125,8 @@ int C_GameUnits::getDistance(int x, int y) const
 void C_GameUnits::kill()
 {
 	C_Grid& grid=C_Grid::Instances();
-	cout << "kill boat from:" << m_x_grid << ":" << m_y_grid << endl;
- 	grid.moveToDead(m_x_grid, m_y_grid);
+	cout << "kill boat from:" << m_coord->getXGrid () << ":" << m_coord->getYGrid () << endl;
+ 	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
 }
 
 
@@ -199,8 +194,8 @@ string C_GameUnits::intDirectionToStr(int direction){
 
 void C_GameUnits::changeDirection(int x_cursor, int y_cursor){
 
-			int ab = x_cursor - m_x_screen;
-			int bc = y_cursor - m_y_screen;
+			int ab = x_cursor - m_coord->getXScreen ();
+			int bc = y_cursor - m_coord->getYScreen ();
 			double angle = atan2(ab,bc);
 			angle = angle *180/3.14159265359;
 			if (angle > -22.5 && angle <= 22.5){

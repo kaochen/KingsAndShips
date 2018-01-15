@@ -263,7 +263,7 @@ void C_Path::displayPath(){
 	int R = 0, G = 0, B = 220, A = 100;
 	stack<C_Node*> tmp = m_path;
 	while(tmp.empty() == false){
-		C_CoordGrid coord(tmp.top()->getXGrid() + 2,tmp.top()->getYGrid() + 2);
+		C_CoordGrid coord(tmp.top()->getXGrid() ,tmp.top()->getYGrid());
 		filledEllipseRGBA(renderer,coord.getXScreen (),coord.getYScreen ()+ TILE_HALF_HEIGHT,10,5,R,G,B,A);
 		tmp.pop();
 	}

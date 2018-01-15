@@ -29,104 +29,98 @@ void C_invaders::move()
 	updateDirection();
 	int speed = 2;
 	string d="";
-	int new_x_grid = m_x_grid;
-	int new_y_grid = m_y_grid;
+	int old_x_grid = m_coord->getXGrid ();
+	int old_y_grid = m_coord->getYGrid ();
+	int old_x_screen = m_coord->getXScreen ();
+	int old_y_screen = m_coord->getYScreen ();
+	int new_x_screen = old_x_screen;
+	int new_y_screen = old_y_screen;
 	switch (m_direction){
 		case EAST:
-			m_x_screen += speed;
-			m_y_screen += speed/2;
-			new_x_grid++;
-			new_y_grid++;
+			new_x_screen += speed;
+			new_y_screen += speed/2;
+
 			d="EAST";
 		break;
 		case WEST:
-			m_x_screen -= speed;
-			m_y_screen -= speed/2;
+			new_x_screen -= speed;
+			new_y_screen -= speed/2;
 			d="WEST";
-			new_x_grid--;
-			new_y_grid--;
 		break;
 		case NORTH:
-			m_x_screen += speed;
-			m_y_screen -= speed/2;
+			new_x_screen += speed;
+			new_y_screen -= speed/2;
 			d="NORTH";
-			new_x_grid++;
-			new_y_grid--;
 		break;
 		case SOUTH:
-			m_x_screen -= speed;
-			m_y_screen += speed/2;
+			new_x_screen -= speed;
+			new_y_screen += speed/2;
 			d="SOUTH";
-			new_x_grid--;
-			new_y_grid++;
 		break;
 		case NORTH_EAST:
-			m_x_screen += speed;
+			new_x_screen += speed;
 			d="NORTH_EAST";
-			new_x_grid++;
 		break;
 		case NORTH_WEST:
-			m_y_screen -= speed;
+			new_y_screen -= speed;
 			d="NORTH_WEST";
-			new_y_grid--;
+
 		break;
 		case SOUTH_EAST:
-			m_y_screen += speed;
+			new_y_screen += speed;
 			d="SOUTH_EAST";
-			new_y_grid++;
 		break;
 		case SOUTH_WEST:
-			m_x_screen -= speed;
+			new_x_screen -= speed;
 			d="SOUTH_WEST";
-			new_x_grid--;
 		break;
 		case UNKNOWN:
 			d="UNKNOWN";
 		break;
 	}
+	cout << "old -coord : " << endl;
+	m_coord->displayStatus ();
+
+	delete m_coord;
+	m_coord = new C_CoordScreen (new_x_screen,new_y_screen);
+	cout << "new -coord : " << endl;
+	m_coord->displayStatus ();
 
 	cout << "Move " << d << endl;
 
-	if (new_x_grid < 0)
-		new_x_grid = 0;
-	if (new_y_grid < 0)
-		new_y_grid = 0;
-	if (new_x_grid > GRID_SIZE)
-		new_x_grid = GRID_SIZE;
-	if (new_y_grid > GRID_SIZE)
-		new_y_grid = GRID_SIZE;
-
 	if(m_lastDirection != m_direction){
 		m_lastDirection = m_direction;
-		grid.moveUnit(m_x_grid, m_y_grid, new_x_grid, new_y_grid);
+		grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
 		}
 }
 
 void C_invaders::updateDirection(){
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
-	int nextX = path.top()->getXGrid();
-	int nextY = path.top()->getYGrid();
-	cout << m_x_grid << ":" << m_y_grid << "->" << nextX << ":" << nextY << endl;
+	int x_grid = m_coord->getXGrid ();
+	int y_grid = m_coord->getYGrid ();
+	int next_x_grid = path.top()->getXGrid();
+	int next_y_grid = path.top()->getYGrid();
+	cout << x_grid << ":" << y_grid << "->" << next_x_grid << ":" << next_y_grid << endl;
 //enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
-	if(nextX == m_x_grid && nextY == m_y_grid){
+	if(next_x_grid == x_grid && next_y_grid == y_grid){
 		m_C_Path->goNextStep();
 		}
-	else if(nextX > m_x_grid && nextY == m_y_grid)
+	else if(next_x_grid > x_grid && next_y_grid == y_grid)
 		m_direction = EAST;
-	else if(nextX > m_x_grid && nextY > m_y_grid)
+	else if(next_x_grid > x_grid && next_y_grid > y_grid)
 		m_direction = SOUTH_EAST;
-	else if(nextX == m_x_grid && nextY > m_y_grid)
+	else if(next_x_grid == x_grid && next_y_grid > y_grid)
 		m_direction = SOUTH;
-	else if(nextX > m_x_grid && nextY < m_y_grid)
+	else if(next_x_grid > x_grid && next_y_grid < y_grid)
 		m_direction = NORTH_EAST;
-	else if(nextX < m_x_grid && nextY == m_y_grid)
+	else if(next_x_grid < x_grid && next_y_grid == y_grid)
 		m_direction = WEST;
-	else if(nextX < m_x_grid && nextY < m_y_grid)
+	else if(next_x_grid < x_grid && next_y_grid < y_grid)
 		m_direction = NORTH_WEST;
-	else if(nextX == m_x_grid && nextY < m_y_grid)
+	else if(next_x_grid == x_grid && next_y_grid < y_grid)
 		m_direction = NORTH;
-	else if(nextX < m_x_grid && nextY > m_y_grid)
+	else if(next_x_grid < x_grid && next_y_grid > y_grid)
 		m_direction = SOUTH_WEST;
 	else
 		m_direction = UNKNOWN;
