@@ -69,11 +69,13 @@ int main()
 
 
 bool quit = false, forceRefresh = false;
+
+//Setup mouse clic
 S_Coord cursor;
 cursor.x = cursor.y = 1;
+S_Coord clic;
+clic.x = clic.y = 0;
 
-
-float xClicLeft = 0, yClicLeft = 0;
 bool addingAnewTower = false, aTowerIsSelected = false;
 bool mouseButtonDown = false;
 int buttonType = NONE;
@@ -142,16 +144,10 @@ while(!quit)
 		case SDL_MOUSEBUTTONUP:
 			if (event.button.button ==  SDL_BUTTON_LEFT)
 				{
-					S_Coord clic;
 					clic.x = event.button.x;
 					clic.y = event.button.y;
 					C_CoordScreen clicleft(clic);
 					clicleft.displayStatus();
-
-					//need to be remove
-					xClicLeft = event.button.x;
-					yClicLeft = event.button.y;
-
 
 					//Select a Tower
 					if(addingAnewTower == false) {
@@ -269,7 +265,7 @@ while(!quit)
 			int yt= menuButton->getYScreen();
 			int yb = yt + menuButton->getHeight();
 
-			if (xClicLeft > xl && xClicLeft < xr && yClicLeft > yt && yClicLeft < yb){
+			if (clic.x > xl && clic.x < xr && clic.y > yt && clic.y < yb){
 					if(menuButton->getName() == "addNewTower"){
 						archerTower->drag(cursor);
 						addingAnewTower = true;
