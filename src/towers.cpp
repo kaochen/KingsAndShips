@@ -39,7 +39,7 @@ void C_Towers::renderSelected(){
 	if (m_selected == true){
 		int animNbr = m_animation[SELECTED]->getAnimNbr(0,30,500);
 		int width = m_weapon->getFireRange();
-		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width,animNbr, true);
+		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen () + TILE_HALF_HEIGHT,width,animNbr, true);
 	}
 }
 
@@ -55,9 +55,11 @@ void C_Towers::drag(S_Coord screen)
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 	//draw ellipse
-	bool status = grid.isThisConstructible(x+2,y+2);
+	bool status = grid.isThisConstructible(x,y);
 	drawEllipse(screen.x,screen.y,width,animNbr, status);
 	//draw square
+	x -=2;
+	y -=2;
 	for(int i = 0; i < 3; i++){
 		y++;
 		for(int j = 0; j < 3; j++){
@@ -65,14 +67,14 @@ void C_Towers::drag(S_Coord screen)
 			C_CoordGrid tmp(x,y);
 			status = grid.isThisConstructible(tmp.getGrid ());
 			int x_s = tmp.getXScreen ();
-			int y_s = tmp.getYScreen () - 75;
+			int y_s = tmp.getYScreen ();
 			drawRhombus(x_s,y_s,70,40,status);
 			if (i == 1 && j == 1){
 				drawRhombus(x_s,y_s,70,90,status);
 				}
 
 		}
-		x = coord.getXGrid ();
+		x = coord.getXGrid () - 2;
 	}
 
 	screen.y -= (2*TILE_HALF_HEIGHT);
@@ -104,11 +106,8 @@ void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){
 	Sint16 w =  width/2;
 	Sint16 h =  w/2;
 	Sint16 x1 = x - w;
-	Sint16 yOffset = TILE_HALF_HEIGHT - h;
-	if (yOffset > 1) //to avoid division by 0;
-		yOffset /= 2;
 
-	Sint16 y1 = y - h - yOffset; //center
+	Sint16 y1 = y - h + TILE_HALF_HEIGHT; //center
 	Sint16 x2 = x1 + w;
 	Sint16 y2 = y1 + h;
 	Sint16 x3 = x1 + (w*2);

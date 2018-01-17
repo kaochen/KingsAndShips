@@ -58,7 +58,7 @@ void C_Grid::renderLayer(int layer){
 				//cout << "|" << x << ":"<< y;
 				if (layer == GROUND){
 						C_CoordGrid coord(x,y);
-						t.renderTextureFromId(m_grid[x][y].ground,coord.getXScreen(),coord.getYScreen()-64);
+						t.renderTextureFromId(m_grid[x][y].ground,coord.getXScreen(),coord.getYScreen() + 36);
 						}
 						//draw the deads
 				if (layer == DEAD){

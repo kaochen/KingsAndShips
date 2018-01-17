@@ -195,7 +195,7 @@ void C_invaders::render(S_Coord screen){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, screen.x,screen.y);
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 	renderLifeBar(screen.x, screen.y);
 	m_C_Path->displayPath();
 }
