@@ -147,6 +147,10 @@ int C_Node::getF() const{
 	return m_F;
 }
 
+C_Coord* C_Node::getCoord() const{
+	return m_coord;
+}
+
 void C_Node::setG(int value){
 	m_G = value;
 	m_F = m_H + m_G;
@@ -273,8 +277,9 @@ stack<C_Node*> C_Path::getPath(){
 	return m_path;
 }
 
+
 void C_Path::goNextStep(){
-	if(!m_path.empty())
+	if(m_path.size() > 1 ||!m_path.empty())
 		m_path.pop();
 }
 

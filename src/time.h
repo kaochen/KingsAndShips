@@ -47,8 +47,8 @@ class C_Time
 	long m_delay;
 };
 
-#define MAX_ANIM  4
-enum AnimTime{JUSTADDED,MAIN_ANIM,SELECTED,DRAG};
+#define MAX_ANIM  5
+enum AnimTime{JUSTADDED,MAIN_ANIM,SELECTED,DRAG,MOVE};
 
 class C_AnimTime
 {

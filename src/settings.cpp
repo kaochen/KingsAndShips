@@ -129,6 +129,11 @@ int C_Coord::getYGrid(){
 S_Coord C_Coord::getScreen(){
 	return m_this.screen;
 }
+
+void C_Coord::updateScreen(S_Coord new_screen){
+	m_this.screen = new_screen;
+}
+
 int C_Coord::getXScreen(){
 	return m_this.screen.x;
 }

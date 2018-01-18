@@ -30,6 +30,7 @@ public:
 	int getG() const;
 	int getH() const;
 	int getF() const;
+	C_Coord* getCoord() const;
 	bool getOpen() const;
 	void setOpen(bool open);
 	void setG(int value);

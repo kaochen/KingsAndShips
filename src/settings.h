@@ -73,6 +73,7 @@ public:
 	virtual int getXGrid();
 	virtual int getYGrid();
 	virtual S_Coord getScreen();
+	virtual void updateScreen(S_Coord new_screen);
 	virtual int getXScreen();
 	virtual int getYScreen();
 	virtual void centerOnTile();

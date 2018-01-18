@@ -25,74 +25,47 @@ C_invaders::~C_invaders()
 
 void C_invaders::move()
 {
-	C_Grid& grid=C_Grid::Instances();
 	m_moving = true;
-	updateDirection();
-	int speed = 2;
-	string d="";
-	int old_x_grid = m_coord->getXGrid ();
-	int old_y_grid = m_coord->getYGrid ();
-	int old_x_screen = m_coord->getXScreen ();
-	int old_y_screen = m_coord->getYScreen ();
-	int new_x_screen = old_x_screen;
-	int new_y_screen = old_y_screen;
-	switch (m_direction){
-		case EAST:
-			new_x_screen += speed;
-			new_y_screen += speed/2;
+	std::stack<C_Node*> path;
+	path = m_C_Path->getPath();
+	if(path.size() > 1){
+		m_coord->displayStatus();
+		int old_x_grid = m_coord->getXGrid ();
+		int old_y_grid = m_coord->getYGrid ();
+		int per = m_animation[MOVE]->getAnimNbr(1,10,30);
+		per *=10;
+		C_Coord destCoord = *path.top()->getCoord();
+		S_Coord start = m_coord->getScreen();
+		S_Coord dest = destCoord.getScreen();
 
-			d="EAST";
-		break;
-		case WEST:
-			new_x_screen -= speed;
-			new_y_screen -= speed/2;
-			d="WEST";
-		break;
-		case NORTH:
-			new_x_screen += speed;
-			new_y_screen -= speed/2;
-			d="NORTH";
-		break;
-		case SOUTH:
-			new_x_screen -= speed;
-			new_y_screen += speed/2;
-			d="SOUTH";
-		break;
-		case NORTH_EAST:
-			new_x_screen += speed;
-			d="NORTH_EAST";
-		break;
-		case NORTH_WEST:
-			new_y_screen -= speed;
-			d="NORTH_WEST";
+		int ab = dest.x - start.x;
+		int bc = dest.y - start.y;
+		int hyp = sqrt((ab*ab + bc*bc));
+		hyp -= hyp*per/100;
+		double angle = atan2(ab,bc);
+		int newA = hyp*sin(angle);
+		int newB = hyp*cos(angle);
 
-		break;
-		case SOUTH_EAST:
-			new_y_screen += speed;
-			d="SOUTH_EAST";
-		break;
-		case SOUTH_WEST:
-			new_x_screen -= speed;
-			d="SOUTH_WEST";
-		break;
-		case UNKNOWN:
-			d="UNKNOWN";
-		break;
+		S_Coord new_pos;
+		new_pos.x = start.x + newA;
+		new_pos.y = start.y + newB;
+
+		m_coord->updateScreen(new_pos);
+
+		C_Grid& grid=C_Grid::Instances();
+		if(hyp < 10){
+			delete m_coord;
+			m_coord = new C_CoordScreen (new_pos);
+			cout << "got next" << endl;
+			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
+			m_C_Path->goNextStep();
+			cout << "Move to : " << endl;
+			m_coord->displayStatus();
+			cout << "-------------------- " << endl;
+			}
+
 	}
-	//cout << "old -coord : " << endl;
-	//m_coord->displayStatus ();
 
-	delete m_coord;
-	m_coord = new C_CoordScreen (new_x_screen,new_y_screen);
-	//cout << "new -coord : " << endl;
-	//m_coord->displayStatus ();
-
-	cout << "Move " << d << endl;
-
-	if(m_lastDirection != m_direction){
-		m_lastDirection = m_direction;
-		grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
-		}
 }
 
 void C_invaders::updateDirection(){
