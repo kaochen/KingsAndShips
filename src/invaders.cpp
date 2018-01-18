@@ -12,6 +12,7 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 	m_moving = false;
+	m_coord->centerOnTile();
 	m_C_Path = new C_Path(27,15);
 	m_C_Path->calcPath(x_grid,y_grid,27,15);
 	m_C_Path->showPath();
@@ -195,7 +196,7 @@ void C_invaders::render(S_Coord screen){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y);
 	renderLifeBar(screen.x, screen.y);
 	m_C_Path->displayPath();
 }

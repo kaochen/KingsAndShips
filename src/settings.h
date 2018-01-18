@@ -75,6 +75,7 @@ public:
 	virtual S_Coord getScreen();
 	virtual int getXScreen();
 	virtual int getYScreen();
+	virtual void centerOnTile();
 
 protected:
 	S_Coord screenToGrid(S_Coord screen);
