@@ -35,6 +35,7 @@ void C_invaders::move()
 		int per = m_animation[MOVE]->getAnimNbr(1,10,30);
 		per *=10;
 		C_Coord destCoord = *path.top()->getCoord();
+		destCoord.centerOnTile();
 		S_Coord start = m_coord->getScreen();
 		S_Coord dest = destCoord.getScreen();
 
@@ -51,6 +52,9 @@ void C_invaders::move()
 		new_pos.y = start.y + newB;
 
 		m_coord->updateScreen(new_pos);
+
+		angle = angle *180/3.14159265359  + 45;
+		m_direction = destCoord.angleToDirection(angle);
 
 		C_Grid& grid=C_Grid::Instances();
 		if(hyp < 10){

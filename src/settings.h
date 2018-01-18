@@ -77,6 +77,7 @@ public:
 	virtual int getXScreen();
 	virtual int getYScreen();
 	virtual void centerOnTile();
+	virtual int angleToDirection(double angle);
 
 protected:
 	S_Coord screenToGrid(S_Coord screen);
