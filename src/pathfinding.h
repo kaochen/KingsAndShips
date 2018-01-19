@@ -22,6 +22,8 @@ public:
 	int getYGrid() const;
 	void setParent(C_Node * parent);
 	C_Node* getParent();
+	void setChild(C_Node * child);
+	C_Node* getChild();
 	void displayStatus();
 
 	void calcH(const C_Node* target);
@@ -34,6 +36,9 @@ public:
 	bool getOpen() const;
 	void setOpen(bool open);
 	void setG(int value);
+	void setDist(int dist, double angle);
+	int getDist() const;
+	double getAngle() const;
 
 protected:
 	C_Coord * m_coord;
@@ -44,6 +49,8 @@ protected:
 	bool m_Town;
 	bool m_open;
 	C_Node* m_parent;
+	double m_angle;
+	int m_dist;
 };
 
 

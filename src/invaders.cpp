@@ -12,6 +12,7 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 	m_moving = false;
+	m_speed = 4;
 	m_coord->centerOnTile();
 	m_C_Path = new C_Path(27,15);
 	m_C_Path->calcPath(x_grid,y_grid,27,15);
@@ -32,21 +33,29 @@ void C_invaders::move()
 		m_coord->displayStatus();
 		int old_x_grid = m_coord->getXGrid ();
 		int old_y_grid = m_coord->getYGrid ();
-		int per = m_animation[MOVE]->getAnimNbr(1,100,1);
-		per *=1;
+
+		int hyp = path.top()->getDist();
+
+		//cout << "old hyp" << hyp << endl;
+		double angle = path.top()->getAngle();
 		C_Coord destCoord = *path.top()->getCoord();
 		destCoord.centerOnTile();
 		S_Coord start = m_coord->getScreen();
 		S_Coord dest = destCoord.getScreen();
 
-		int ab = dest.x - start.x;
-		int bc = dest.y - start.y;
-		int hyp = sqrt((ab*ab + bc*bc));
-		cout << "hyp: " << hyp;
-		hyp = hyp*per/100;
-		double angle = atan2(ab,bc);
-		int newA = hyp*sin(angle);
-		int newB = hyp*cos(angle);
+		if(hyp == 0){
+			int ab = dest.x - start.x;
+			int bc = dest.y - start.y;
+			hyp = sqrt((ab*ab + bc*bc));
+			//cout << "hyp: " << hyp << endl;
+			angle = atan2(ab,bc);
+			}
+
+		path.top()->setDist(hyp - m_speed, angle);
+		//path.top()->displayStatus();
+
+		int newA = m_speed*sin(angle);
+		int newB = m_speed*cos(angle);
 
 		S_Coord new_pos;
 		new_pos.x = start.x + newA;
@@ -56,12 +65,11 @@ void C_invaders::move()
 
 		angle = angle *180/3.14159265359  + 45;
 		m_direction = destCoord.angleToDirection(angle);
-		cout << " Percent " << per << "/100 -> " << hyp << endl;
 		C_Grid& grid=C_Grid::Instances();
-		if(hyp < 10){
+		if((hyp - m_speed) <= 0){
 			delete m_coord;
 			m_coord = new C_CoordScreen (new_pos);
-			cout << "got next" << endl;
+			//cout << "got next" << endl;
 			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
 			m_C_Path->goNextStep();
 			cout << "Move to : " << endl;

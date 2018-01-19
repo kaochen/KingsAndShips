@@ -18,6 +18,8 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	m_F = m_G + m_H;
 	m_Town = false;
 	m_parent = nullptr;
+	m_angle = 0;
+	m_dist = 0;
 	m_open = true;
 };
 
@@ -73,6 +75,7 @@ int C_Node::getYGrid() const{
 void C_Node::displayStatus(){
 	cout << "Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y;
 	cout << " F:" << m_F << " G:" << m_G << " H:" << m_H;
+	cout << " dist:" << m_dist << " angle" << m_angle;
 	if (m_Town)
 		cout << " Town: true <---";
 	else
@@ -156,6 +159,18 @@ void C_Node::setG(int value){
 	m_F = m_H + m_G;
 }
 
+void C_Node::setDist(int dist, double angle){
+	m_dist = dist;
+	m_angle = angle;
+}
+
+int C_Node::getDist()const{
+	return m_dist;
+}
+
+double C_Node::getAngle() const{
+	return m_angle;
+}
 
 //---------------------------------------------------------
 
@@ -240,13 +255,11 @@ void C_Path::setTown(int x_grid,int y_grid){
 
 void C_Path::loadPath(){
 	C_Node* current = m_destination;
-
 	while(current->getParent() != nullptr){
 		 m_path.push(current);
 		 current = current->getParent();
 		 //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		 }
-
 	//m_path.push(m_start); //do not forget the start
 }
 

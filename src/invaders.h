@@ -22,6 +22,7 @@ class C_invaders: public C_Shooter
 	//attibuts
 	bool m_moving;
 	C_Path* m_C_Path;
+	int m_speed;
 	virtual void updateDirection();
 };
 
