@@ -32,8 +32,8 @@ void C_invaders::move()
 		m_coord->displayStatus();
 		int old_x_grid = m_coord->getXGrid ();
 		int old_y_grid = m_coord->getYGrid ();
-		int per = m_animation[MOVE]->getAnimNbr(1,10,30);
-		per *=10;
+		int per = m_animation[MOVE]->getAnimNbr(1,100,1);
+		per *=1;
 		C_Coord destCoord = *path.top()->getCoord();
 		destCoord.centerOnTile();
 		S_Coord start = m_coord->getScreen();
@@ -42,7 +42,8 @@ void C_invaders::move()
 		int ab = dest.x - start.x;
 		int bc = dest.y - start.y;
 		int hyp = sqrt((ab*ab + bc*bc));
-		hyp -= hyp*per/100;
+		cout << "hyp: " << hyp;
+		hyp = hyp*per/100;
 		double angle = atan2(ab,bc);
 		int newA = hyp*sin(angle);
 		int newB = hyp*cos(angle);
@@ -55,7 +56,7 @@ void C_invaders::move()
 
 		angle = angle *180/3.14159265359  + 45;
 		m_direction = destCoord.angleToDirection(angle);
-
+		cout << " Percent " << per << "/100 -> " << hyp << endl;
 		C_Grid& grid=C_Grid::Instances();
 		if(hyp < 10){
 			delete m_coord;
