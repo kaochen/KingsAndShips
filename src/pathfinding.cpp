@@ -277,7 +277,7 @@ void C_Path::showPath(){
 void C_Path::displayPath(){
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
-	int R = 0, G = 0, B = 220, A = 100;
+	int R = 200, G = 200, B = 200, A = 100;
 	stack<C_Node*> tmp = m_path;
 	while(tmp.empty() == false){
 		C_CoordGrid coord(tmp.top()->getXGrid() ,tmp.top()->getYGrid());
