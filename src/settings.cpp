@@ -180,6 +180,42 @@ int C_Coord::angleToDirection(double angle){
 			return direction;
 }
 
+void C_Coord::move(int direction, int speed){
+	switch(direction){
+		case SOUTH_EAST:
+			m_this.screen.y +=speed;
+			break;
+		case SOUTH_WEST:
+			m_this.screen.x -=speed;
+			break;
+		case NORTH_WEST:
+			m_this.screen.y -=speed;
+			break;
+		case NORTH_EAST:
+			m_this.screen.x +=speed;
+			break;
+		case EAST:
+			m_this.screen.x +=speed;
+			m_this.screen.y +=speed/2;
+			break;
+		case WEST:
+			m_this.screen.x -=speed;
+			m_this.screen.y -=speed/2;
+			break;
+		case NORTH:
+			m_this.screen.x +=speed;
+			m_this.screen.y -=speed/2;
+			break;
+		case SOUTH:
+			m_this.screen.x -=speed;
+			m_this.screen.y +=speed/2;
+			break;
+	}
+}
+
+void C_Coord::regenGridCoord(){
+		m_this.grid = screenToGrid(m_this.screen);
+}
 
 C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 		m_this.grid.x = coord.x;

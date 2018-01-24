@@ -54,21 +54,15 @@ void C_invaders::move()
 		path.top()->setDist(hyp - m_speed, angle);
 		//path.top()->displayStatus();
 
-		int newA = m_speed*sin(angle);
-		int newB = m_speed*cos(angle);
 
-		S_Coord new_pos;
-		new_pos.x = start.x + newA;
-		new_pos.y = start.y + newB;
 
-		m_coord->updateScreen(new_pos);
 
 		angle = angle *180/3.14159265359  + 45;
 		m_direction = destCoord.angleToDirection(angle);
+		m_coord->move(m_direction,m_speed);
 		C_Grid& grid=C_Grid::Instances();
 		if((hyp - m_speed) <= 0){
-			delete m_coord;
-			m_coord = new C_CoordScreen (new_pos);
+			m_coord->regenGridCoord();
 			//cout << "got next" << endl;
 			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
 			m_C_Path->goNextStep();
@@ -80,6 +74,8 @@ void C_invaders::move()
 	}
 
 }
+
+
 
 void C_invaders::updateDirection(){
 	std::stack<C_Node*> path;
