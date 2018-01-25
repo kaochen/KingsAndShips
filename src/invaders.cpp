@@ -52,27 +52,35 @@ void C_invaders::move()
 			}
 
 		path.top()->setDist(hyp - m_speed, angle);
+
+		angle = angle *180/3.14159265359  + 45;
+		if(hyp > m_speed){
+			m_direction = destCoord.angleToDirection(angle);
+			}
 		//path.top()->displayStatus();
 
 
-
-
-		angle = angle *180/3.14159265359  + 45;
-		m_direction = destCoord.angleToDirection(angle);
 		m_coord->move(m_direction,m_speed);
+		double limit = m_speed;
+		if (m_direction == EAST || m_direction == WEST || m_direction == SOUTH || m_direction == NORTH)
+			limit = m_speed/14*10;
 		C_Grid& grid=C_Grid::Instances();
-		if((hyp - m_speed) <= 0){
+		if((hyp - limit) <= 0 || m_coord->closeToCenter()){
 			m_coord->regenGridCoord();
-			//cout << "got next" << endl;
-			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
-			m_C_Path->goNextStep();
-			cout << "Move to : " << endl;
-			m_coord->displayStatus();
-			cout << "-------------------- " << endl;
+			if(m_coord->getXGrid () == path.top()->getXGrid()
+				&& m_coord->getXGrid () == path.top()->getXGrid()){
+				//cout << "got next" << endl;
+				grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
+				m_C_Path->goNextStep();
+				cout << "Move to : " << endl;
+				m_coord->displayStatus();
+				cout << "-------------------- " << endl;
 			}
-
+			else{
+				path.top()->setDist(0, angle);
+			}
+		}
 	}
-
 }
 
 

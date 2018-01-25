@@ -229,6 +229,31 @@ void C_Coord::regenGridCoord(){
 		m_this.grid = screenToGrid(m_this.screen);
 }
 
+
+bool C_Coord::closeToCenter(){
+		C_CoordGrid tmp(m_this.grid);
+		tmp.centerOnTile();
+		S_Coord center = tmp.getScreen();
+		int l = m_this.screen.x - center.x;
+		int h = m_this.screen.y - center.y;
+		if (l < 0)
+			l *=-1;
+		if (h < 0)
+			h *=-1;
+		if(l < TILE_HALF_WIDTH/2 && h < TILE_HALF_HEIGHT/2){
+			cout << "center true" << endl;
+			return true;
+			}
+		else{
+			cout << "center false" << endl;
+			return false;
+			}
+
+
+
+}
+
+
 C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 		m_this.grid.x = coord.x;
 		m_this.grid.y = coord.y;
