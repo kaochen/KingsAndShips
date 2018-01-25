@@ -181,34 +181,46 @@ int C_Coord::angleToDirection(double angle){
 }
 
 void C_Coord::move(int direction, int speed){
+	if(speed%2!=0) //to avoid half pixel on y
+		speed--;
+	if(speed > 4 && speed < 8)
+		speed = 8;
+	if (speed < 4)
+		speed = 4;
+
+	int x_diag = speed*75/100;
+	int y_diag = x_diag/2;
+	if(speed <=4) //
+		y_diag = speed/2;
+
 	switch(direction){
 		case SOUTH_EAST:
-			m_this.screen.y +=speed;
+			m_this.screen.y +=speed/2;
 			break;
 		case SOUTH_WEST:
 			m_this.screen.x -=speed;
 			break;
 		case NORTH_WEST:
-			m_this.screen.y -=speed;
+			m_this.screen.y -=speed/2;
 			break;
 		case NORTH_EAST:
 			m_this.screen.x +=speed;
 			break;
 		case EAST:
-			m_this.screen.x +=speed;
-			m_this.screen.y +=speed/2;
+			m_this.screen.x +=x_diag;
+			m_this.screen.y +=y_diag;
 			break;
 		case WEST:
-			m_this.screen.x -=speed;
-			m_this.screen.y -=speed/2;
+			m_this.screen.x -=x_diag;
+			m_this.screen.y -=y_diag;
 			break;
 		case NORTH:
-			m_this.screen.x +=speed;
-			m_this.screen.y -=speed/2;
+			m_this.screen.x +=x_diag;
+			m_this.screen.y -=y_diag;
 			break;
 		case SOUTH:
-			m_this.screen.x -=speed;
-			m_this.screen.y +=speed/2;
+			m_this.screen.x -=x_diag;
+			m_this.screen.y +=y_diag;
 			break;
 	}
 }
