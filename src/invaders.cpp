@@ -43,43 +43,34 @@ void C_invaders::move()
 		S_Coord start = m_coord->getScreen();
 		S_Coord dest = destCoord.getScreen();
 
-		if(hyp == 0){
-			int ab = dest.x - start.x;
-			int bc = dest.y - start.y;
-			hyp = sqrt((ab*ab + bc*bc));
-			//cout << "hyp: " << hyp << endl;
-			angle = atan2(ab,bc);
-			}
+
+		int ab = dest.x - start.x;
+		int bc = dest.y - start.y;
+		hyp = sqrt((ab*ab + bc*bc));
+		//cout << "hyp: " << hyp << endl;
+		angle = atan2(ab,bc);
+
 
 		path.top()->setDist(hyp - m_speed, angle);
 
 		m_coord->move(angle,m_speed);
 		angle = angle *180/3.14159265359  + 45;
-		if(hyp > m_speed){
-			m_direction = destCoord.angleToDirection(angle);
-			}
-		//path.top()->displayStatus();
+		m_direction = destCoord.angleToDirection(angle);
 
-		double limit = m_speed;
-		if (m_direction == EAST || m_direction == WEST || m_direction == SOUTH || m_direction == NORTH)
-			limit = m_speed/14*10;
 		C_Grid& grid=C_Grid::Instances();
-		if((hyp - limit) <= 0 || m_coord->closeToCenter()){
-			m_coord->regenGridCoord();
-			if(m_coord->getXGrid () == path.top()->getXGrid()
-				&& m_coord->getXGrid () == path.top()->getXGrid()){
-				//cout << "got next" << endl;
-				grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
-				m_C_Path->goNextStep();
-				cout << "Move to : " << endl;
-				m_coord->displayStatus();
-				cout << "-------------------- " << endl;
+
+
+		if(hyp < 8){
+			//cout << "got next" << endl;
+			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
+			m_C_Path->goNextStep();
+			cout << "Move to : " << endl;
+			m_coord->displayStatus();
+			cout << "-------------------- " << endl;
 			}
-			else{
-				path.top()->setDist(0, angle);
-			}
+
 		}
-	}
+
 }
 
 

@@ -182,85 +182,46 @@ int C_Coord::angleToDirection(double angle){
 
 void C_Coord::move(double angle, int speed){
 
-	double rot = 22.5;
-	angle = angle *180/3.14159265359 + 2*rot + rot/2;
+	angle = angle *180/3.14159265359 + 45;
 	cout << "Angle : " << angle << endl;
-	int x_45 = speed*75/100;
+	int x_45 = speed/2;
 	int y_45 = x_45/2;
 
-	if (angle > 0 && angle <= rot){
+	if (angle > -22.5 && angle <= 22.5){
 			cout << "SOUTH" << endl;
 			m_this.screen.x -= x_45;
 			m_this.screen.y += y_45;
 			}
-	else if (angle > rot && angle <= 2*rot){
-	   		cout << "SOUTH_SOUTH_EAST" << endl;
-	   		m_this.screen.x -= speed*38/100 ;
-			m_this.screen.y += speed/2;
-			}
-	else if (angle > 2*rot && angle <= 3*rot){
+	else if (angle > 22.5 && angle <= 67.5){
 			cout << "SOUTH_EAST" << endl;
 			m_this.screen.y +=speed/2;
 			}
-	else if(angle > 3*rot && angle <= 4*rot){
-			cout << "EAST_SOUTH_EAST" << endl;
-	   		m_this.screen.x -= speed*38/100 ;
-			m_this.screen.y += speed/2;
-				}
-	else if(angle > 4*rot && angle <= 5*rot){
+	else if(angle > 67.5 && angle <=112.5){
 			cout << "EAST" << endl;
 			m_this.screen.x += x_45;
 			m_this.screen.y += y_45;
 				}
-	else if(angle > 5*rot && angle <= 6*rot){
-			cout << "EAST_NORTH_EAST" << endl;
-			m_this.screen.x += speed*90/100;
-			m_this.screen.y += speed*25/100;
-				}
-	else if(angle > 6*rot && angle <= 7*rot){
+	else if(angle > 112.5 && angle <=157.5){
 			cout << "NORTH_EAST" << endl;
 			m_this.screen.x +=speed;
 				}
-	else if(angle > 7*rot && angle <= 8*rot){
-			cout << "NORTH_NORTH_EAST" << endl;
-			m_this.screen.x += speed*90/100;
-			m_this.screen.y -= speed*12/100;
-				}
-	else if(angle > 8*rot && angle <= 9*rot){
+	else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
 			cout << "NORTH" << endl;
 			m_this.screen.x += x_45;
 			m_this.screen.y -= y_45;
 				}
-	else if(angle > 9*rot && angle <= 10*rot){
-			cout << "NORTH_NORTH_WEST" << endl;
-	   		m_this.screen.x += speed*38/100 ;
-			m_this.screen.y -= speed/2;
-				}
-	else if(angle > 10*rot && angle <= 11*rot){
+	else if(angle > -157.5 && angle <= -112.5){
 			cout << "NORTH_WEST" << endl;
 			m_this.screen.y -=speed/2;
 				}
-	else if(angle > 11*rot && angle <= 12*rot){
-			cout << "WEST_NORTH_WEST" << endl;
-	   		m_this.screen.x -= speed*38/100 ;
-			m_this.screen.y += speed/2;
-				}
-	else if(angle > 12*rot && angle <= 13*rot){
+	else if(angle > -112.5 && angle <=-67.5){
 			cout << "WEST" << endl;
 			m_this.screen.x -= x_45;
 			m_this.screen.y -= y_45;
 				}
-	else if(angle > 13*rot && angle <= 14*rot){
-			cout << "WEST_SOUTH_WEST" << endl;
-			m_this.screen.x -= speed*90/100;
-			m_this.screen.y += speed*25/100;
-				}
-	else if(angle > 14*rot && angle <= 15*rot){
+	else if(angle > -67.5 && angle <=-22.5){
 			cout << "SOUTH_WEST" << endl;
 				m_this.screen.x -=speed;
-				}
-	else if(angle > 15*rot && angle <= 16*rot){
-			cout << "SOUTH_SOUTH_WEST" << endl;
 				}
 	else{
 		cout << "Angle is not between 0 and 360 : " << angle << endl;
@@ -273,8 +234,8 @@ void C_Coord::regenGridCoord(){
 }
 
 
-bool C_Coord::closeToCenter(){
-		C_CoordGrid tmp(m_this.grid);
+bool C_Coord::closeToCenter(S_Coord grid){
+		C_CoordGrid tmp(grid);
 		tmp.centerOnTile();
 		S_Coord center = tmp.getScreen();
 		int l = m_this.screen.x - center.x;
@@ -283,7 +244,7 @@ bool C_Coord::closeToCenter(){
 			l *=-1;
 		if (h < 0)
 			h *=-1;
-		if(l < TILE_HALF_WIDTH/2 && h < TILE_HALF_HEIGHT/2){
+		if(l < TILE_HALF_WIDTH/4 && h < TILE_HALF_HEIGHT/4){
 			cout << "center true" << endl;
 			return true;
 			}

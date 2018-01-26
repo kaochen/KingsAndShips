@@ -80,7 +80,7 @@ public:
 	virtual int angleToDirection(double angle);
 	virtual void move(double angle, int speed);
 	virtual void regenGridCoord();
-	virtual bool closeToCenter();
+	virtual bool closeToCenter(S_Coord grid);
 
 protected:
 	S_Coord screenToGrid(S_Coord screen);
