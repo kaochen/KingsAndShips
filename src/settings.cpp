@@ -180,49 +180,92 @@ int C_Coord::angleToDirection(double angle){
 			return direction;
 }
 
-void C_Coord::move(int direction, int speed){
-	if(speed%2!=0) //to avoid half pixel on y
-		speed--;
-	if(speed > 4 && speed < 8)
-		speed = 8;
-	if (speed < 4)
-		speed = 4;
+void C_Coord::move(double angle, int speed){
 
-	int x_diag = speed*75/100;
-	int y_diag = x_diag/2;
-	if(speed <=4) //
-		y_diag = speed/2;
+	double rot = 22.5;
+	angle = angle *180/3.14159265359 + 2*rot + rot/2;
+	cout << "Angle : " << angle << endl;
+	int x_45 = speed*75/100;
+	int y_45 = x_45/2;
 
-	switch(direction){
-		case SOUTH_EAST:
+	if (angle > 0 && angle <= rot){
+			cout << "SOUTH" << endl;
+			m_this.screen.x -= x_45;
+			m_this.screen.y += y_45;
+			}
+	else if (angle > rot && angle <= 2*rot){
+	   		cout << "SOUTH_SOUTH_EAST" << endl;
+	   		m_this.screen.x -= speed*38/100 ;
+			m_this.screen.y += speed/2;
+			}
+	else if (angle > 2*rot && angle <= 3*rot){
+			cout << "SOUTH_EAST" << endl;
 			m_this.screen.y +=speed/2;
-			break;
-		case SOUTH_WEST:
-			m_this.screen.x -=speed;
-			break;
-		case NORTH_WEST:
-			m_this.screen.y -=speed/2;
-			break;
-		case NORTH_EAST:
+			}
+	else if(angle > 3*rot && angle <= 4*rot){
+			cout << "EAST_SOUTH_EAST" << endl;
+	   		m_this.screen.x -= speed*38/100 ;
+			m_this.screen.y += speed/2;
+				}
+	else if(angle > 4*rot && angle <= 5*rot){
+			cout << "EAST" << endl;
+			m_this.screen.x += x_45;
+			m_this.screen.y += y_45;
+				}
+	else if(angle > 5*rot && angle <= 6*rot){
+			cout << "EAST_NORTH_EAST" << endl;
+			m_this.screen.x += speed*90/100;
+			m_this.screen.y += speed*25/100;
+				}
+	else if(angle > 6*rot && angle <= 7*rot){
+			cout << "NORTH_EAST" << endl;
 			m_this.screen.x +=speed;
-			break;
-		case EAST:
-			m_this.screen.x +=x_diag;
-			m_this.screen.y +=y_diag;
-			break;
-		case WEST:
-			m_this.screen.x -=x_diag;
-			m_this.screen.y -=y_diag;
-			break;
-		case NORTH:
-			m_this.screen.x +=x_diag;
-			m_this.screen.y -=y_diag;
-			break;
-		case SOUTH:
-			m_this.screen.x -=x_diag;
-			m_this.screen.y +=y_diag;
-			break;
+				}
+	else if(angle > 7*rot && angle <= 8*rot){
+			cout << "NORTH_NORTH_EAST" << endl;
+			m_this.screen.x += speed*90/100;
+			m_this.screen.y -= speed*12/100;
+				}
+	else if(angle > 8*rot && angle <= 9*rot){
+			cout << "NORTH" << endl;
+			m_this.screen.x += x_45;
+			m_this.screen.y -= y_45;
+				}
+	else if(angle > 9*rot && angle <= 10*rot){
+			cout << "NORTH_NORTH_WEST" << endl;
+	   		m_this.screen.x += speed*38/100 ;
+			m_this.screen.y -= speed/2;
+				}
+	else if(angle > 10*rot && angle <= 11*rot){
+			cout << "NORTH_WEST" << endl;
+			m_this.screen.y -=speed/2;
+				}
+	else if(angle > 11*rot && angle <= 12*rot){
+			cout << "WEST_NORTH_WEST" << endl;
+	   		m_this.screen.x -= speed*38/100 ;
+			m_this.screen.y += speed/2;
+				}
+	else if(angle > 12*rot && angle <= 13*rot){
+			cout << "WEST" << endl;
+			m_this.screen.x -= x_45;
+			m_this.screen.y -= y_45;
+				}
+	else if(angle > 13*rot && angle <= 14*rot){
+			cout << "WEST_SOUTH_WEST" << endl;
+			m_this.screen.x -= speed*90/100;
+			m_this.screen.y += speed*25/100;
+				}
+	else if(angle > 14*rot && angle <= 15*rot){
+			cout << "SOUTH_WEST" << endl;
+				m_this.screen.x -=speed;
+				}
+	else if(angle > 15*rot && angle <= 16*rot){
+			cout << "SOUTH_SOUTH_WEST" << endl;
+				}
+	else{
+		cout << "Angle is not between 0 and 360 : " << angle << endl;
 	}
+
 }
 
 void C_Coord::regenGridCoord(){
