@@ -59,7 +59,7 @@ void C_Window::createWindow(){
 	else
 		{
 			// Create a renderer from the window
-			m_renderer = SDL_CreateRenderer(m_window, -1,SDL_RENDERER_SOFTWARE);
+			m_renderer = SDL_CreateRenderer(m_window, -1,SDL_RENDERER_ACCELERATED);
 			if (m_renderer == nullptr)
 				{
 					SDL_DestroyWindow(m_window);
