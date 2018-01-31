@@ -158,6 +158,7 @@ void C_TextureList::renderTexture(string name, int x, int y)
 void C_TextureList::renderTextureFromId(int id, int x, int y){
 
 	string	name = "notFound";
+	//cout << "ID: " << id << endl;
 	if (id > 0)
 	  name = getNameFromID(id);
 
