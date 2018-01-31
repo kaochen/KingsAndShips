@@ -18,11 +18,13 @@ class C_invaders: public C_Shooter
 	virtual void renderLifeBar(int x_screen, int y_screen);
 
 	virtual void render(S_Coord screen);
+	virtual void receiveDamage(S_Weapon weapon);
 	protected:
 	//attibuts
 	bool m_moving;
 	C_Path* m_C_Path;
 	int m_speed;
+	int m_speedImpact;
 	virtual void updateDirection();
 };
 

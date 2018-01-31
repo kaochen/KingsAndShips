@@ -60,7 +60,7 @@ void C_Shooter::shootTarget(C_GameUnits &target){
 	if(m_weapon->getShooting()){
 		bool test = m_weapon->shoot(*this, target);
 		if (test){
-			target.receiveDamage(m_weapon->getDamage());
+			target.receiveDamage(m_weapon->getWeaponInfo());
 		}
 	}
 }

@@ -11,12 +11,13 @@ class C_Weapon
 {
 public:
 	C_Weapon();
-	C_Weapon(std::string name, int damage, int fireRate, int fireRange);
+	C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange);
 	~C_Weapon();
 
 	void change(std::string name, int damage, int fireRate, int fireRange);
 	void displayStatus() const;
 	int getDamage() const;
+	int getSpeedImpact() const;
 	int getFireRate() const;
 	int getFireRange() const;
 
@@ -27,12 +28,11 @@ public:
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 	int getDirection() const;
+	S_Weapon getWeaponInfo() const;
 
 	private:
 	std::string m_name;
-	int m_damage;
-	int m_fireRate;
-	int m_fireRange;
+	S_Weapon m_weapon;
 	int m_x_screen;
 	int m_y_screen;
 	bool m_shooting;

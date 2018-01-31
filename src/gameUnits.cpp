@@ -58,9 +58,9 @@ void C_GameUnits::render(S_Coord screen){
 	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 }
 
-void C_GameUnits::receiveDamage(int nbDamage)
+void C_GameUnits::receiveDamage(S_Weapon weapon)
 {
-	m_life -=nbDamage;
+	m_life -=weapon.damage;
 	if (m_life < 0)
 	{
 		m_life = 0;

@@ -4,9 +4,6 @@
 using namespace std;
 
 C_Weapon::C_Weapon():m_name("CANON"),
-		m_damage(10),
-		m_fireRate(500),
-		m_fireRange(200),
 		m_x_screen(0),
 		m_y_screen(0),
 		m_shooting(false),
@@ -14,13 +11,15 @@ C_Weapon::C_Weapon():m_name("CANON"),
 		m_dist(80),
 		m_direction(UNKNOWN)
 {
+	m_weapon.damage = 10;
+	m_weapon.speedImpact = 0;
+	m_weapon.fireRate = 500;
+	m_weapon.fireRange = 200;
+
 }
 
-C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
+C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange):
 	m_name(name),
-	m_damage(damage),
-	m_fireRate(fireRate),
-	m_fireRange(fireRange),
 	m_x_screen(0),
 	m_y_screen(0),
 	m_shooting(false),
@@ -28,6 +27,10 @@ C_Weapon::C_Weapon(std::string name, int damage, int fireRate, int fireRange):
 	m_dist(80),
 	m_direction(UNKNOWN)
 {
+	m_weapon.damage = damage;
+	m_weapon.speedImpact = speedImpact;
+	m_weapon.fireRate = fireRate;
+	m_weapon.fireRange = fireRange;
 }
 
 C_Weapon::~C_Weapon()
@@ -37,29 +40,35 @@ C_Weapon::~C_Weapon()
 void C_Weapon::change(string name, int damage, int fireRate, int fireRange)
 {
  	m_name = name;
- 	m_damage = damage;
- 	m_fireRate = fireRate;
- 	m_fireRange = fireRange;
+	m_weapon.damage = damage;
+	m_weapon.speedImpact = 0;
+	m_weapon.fireRate = fireRate;
+	m_weapon.fireRange = fireRange;
 }
 
 void C_Weapon::displayStatus() const
 {
- 	cout << "\tWeapon: " << m_name << " (Damage: "<< m_damage << ", firerate: " << m_fireRate << ")" << endl;
+ 	cout << "\tWeapon: " << m_name << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
 }
 
 int C_Weapon::getDamage() const
 {
-	return m_damage;
+	return m_weapon.damage;
+}
+
+int C_Weapon::getSpeedImpact() const
+{
+	return m_weapon.speedImpact;
 }
 
 int C_Weapon::getFireRate() const
 {
-	return m_fireRate;
+	return m_weapon.fireRate;
 }
 
 int C_Weapon::getFireRange() const
 {
-	return m_fireRange;
+	return m_weapon.fireRange;
 }
 
 int C_Weapon::getXScreen() const
@@ -90,6 +99,10 @@ void C_Weapon::setShooting(bool status)
 int C_Weapon::getDirection() const
 {
 	return m_direction;
+}
+S_Weapon C_Weapon::getWeaponInfo() const
+{
+	return m_weapon;
 }
 
 bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){

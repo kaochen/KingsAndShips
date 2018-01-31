@@ -133,14 +133,14 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 		   int y_grid,
 		   int rank):C_Towers("ArcherTower", x_grid, y_grid, rank)
 {
-	m_weapon = new C_Weapon("ARCHER",10,500,200);
+	m_weapon = new C_Weapon("ARCHER",10,0,500,200);
 }
 
 C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
 		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
 {
-	m_weapon = new C_Weapon("WIND",15,700,300);
+	m_weapon = new C_Weapon("WIND",0,4,700,300);
 }
 
 void C_Turbine::render(S_Coord screen){

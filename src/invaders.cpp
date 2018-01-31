@@ -12,7 +12,8 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 	m_moving = false;
-	m_speed = 4;
+	m_speed = 8;
+	m_speedImpact = 0;
 	m_coord->centerOnTile();
 	m_C_Path = new C_Path(27,15);
 	m_C_Path->calcPath(x_grid,y_grid,27,15);
@@ -29,6 +30,7 @@ void C_invaders::move()
 	m_moving = true;
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
+	int speed = m_speed - m_speedImpact;
 	if(path.size() > 1){
 		m_coord->displayStatus();
 		int old_x_grid = m_coord->getXGrid ();
@@ -51,19 +53,20 @@ void C_invaders::move()
 		angle = atan2(ab,bc);
 
 
-		path.top()->setDist(hyp - m_speed, angle);
+		path.top()->setDist(hyp - speed, angle);
 
-		m_coord->move(angle,m_speed);
+		m_coord->move(angle,speed);
 		angle = angle *180/3.14159265359  + 45;
 		m_direction = destCoord.angleToDirection(angle);
 
 		C_Grid& grid=C_Grid::Instances();
 
 
-		if(hyp < 8){
+		if(hyp < speed){
 			//cout << "got next" << endl;
 			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
 			m_C_Path->goNextStep();
+			m_speedImpact = 0;
 			cout << "Move to : " << endl;
 			m_coord->displayStatus();
 			cout << "-------------------- " << endl;
@@ -181,3 +184,13 @@ void C_invaders::render(S_Coord screen){
 	m_C_Path->displayPath();
 }
 
+
+void C_invaders::receiveDamage(S_Weapon weapon)
+{
+	m_life -=weapon.damage;
+	m_speedImpact = weapon.speedImpact;
+	if (m_life < 0)
+	{
+		m_life = 0;
+	}
+}

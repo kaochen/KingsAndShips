@@ -36,7 +36,7 @@ class C_GameUnits
 	virtual void render(S_Coord screen);
 	virtual void shoot(C_GameUnits &target) =0;
 	virtual void stopShooting() =0;
-	virtual void receiveDamage(int nbDamage);
+	virtual void receiveDamage(S_Weapon weapon);
 	virtual bool alive() const;
 	virtual int getRank() const;
 
