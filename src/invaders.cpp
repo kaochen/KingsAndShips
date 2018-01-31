@@ -32,7 +32,7 @@ void C_invaders::move()
 	path = m_C_Path->getPath();
 	int speed = m_speed - m_speedImpact;
 	if(path.size() > 1){
-		m_coord->displayStatus();
+		//m_coord->displayStatus();
 		int old_x_grid = m_coord->getXGrid ();
 		int old_y_grid = m_coord->getYGrid ();
 
@@ -67,9 +67,9 @@ void C_invaders::move()
 			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
 			m_C_Path->goNextStep();
 			m_speedImpact = 0;
-			cout << "Move to : " << endl;
-			m_coord->displayStatus();
-			cout << "-------------------- " << endl;
+			//cout << "Move to : " << endl;
+			//m_coord->displayStatus();
+			//cout << "-------------------- " << endl;
 			}
 
 		}
