@@ -181,47 +181,44 @@ int C_Coord::angleToDirection(double angle){
 }
 
 void C_Coord::move(double angle, int speed){
-
-	angle = angle *180/3.14159265359 + 45;
+	angle = angle *180/3.14159265359;
 	//cout << "Angle : " << angle << endl;
-	int x_45 = speed/2;
-	int y_45 = x_45/2;
-
 	if (angle > -22.5 && angle <= 22.5){
-			//cout << "SOUTH" << endl;
-			m_this.screen.x -= x_45;
-			m_this.screen.y += y_45;
-			}
-	else if (angle > 22.5 && angle <= 67.5){
 			//cout << "SOUTH_EAST" << endl;
 			m_this.screen.y +=speed/2;
 			}
-	else if(angle > 67.5 && angle <=112.5){
+	else if (angle > 22.5 && angle <= 67.5){
 			//cout << "EAST" << endl;
-			m_this.screen.x += x_45;
-			m_this.screen.y += y_45;
-				}
-	else if(angle > 112.5 && angle <=157.5){
+			m_this.screen.x += speed/2;
+			m_this.screen.y += speed/4;
+			}
+	else if(angle > 67.5 && angle <=112.5){
 			//cout << "NORTH_EAST" << endl;
 			m_this.screen.x +=speed;
 				}
-	else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
+	else if(angle > 112.5 && angle <=157.5){
 			//cout << "NORTH" << endl;
-			m_this.screen.x += x_45;
-			m_this.screen.y -= y_45;
+			m_this.screen.x += speed/2;
+			m_this.screen.y -= speed/4;
 				}
-	else if(angle > -157.5 && angle <= -112.5){
+	else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
 			//cout << "NORTH_WEST" << endl;
 			m_this.screen.y -=speed/2;
 				}
-	else if(angle > -112.5 && angle <=-67.5){
+	else if(angle > -157.5 && angle <= -112.5){
 			//cout << "WEST" << endl;
-			m_this.screen.x -= x_45;
-			m_this.screen.y -= y_45;
+			m_this.screen.x -= speed/2;
+			m_this.screen.y -= speed/4;
 				}
-	else if(angle > -67.5 && angle <=-22.5){
+	else if(angle > -112.5 && angle <=-67.5){
 			//cout << "SOUTH_WEST" << endl;
 				m_this.screen.x -=speed;
+				}
+	else if(angle > -67.5 && angle <=-22.5){
+
+			//cout << "SOUTH" << endl;
+			m_this.screen.x -= speed/2;
+			m_this.screen.y += speed/4;
 				}
 	else{
 		cout << "Angle is not between 0 and 360 : " << angle << endl;
