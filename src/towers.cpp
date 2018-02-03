@@ -54,7 +54,7 @@ void C_Towers::drag(S_Coord screen)
 	C_CoordScreen coord(screen);
 
 	int animNbr = m_animation[DRAG]->getAnimNbr(0,30,500);
-	int width = m_weapon->getFireRange();
+	int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 	//draw ellipse
@@ -179,32 +179,33 @@ void C_Turbine::drawEllipse(int x_screen,
 		Sint16 x = x_screen;
 		Sint16 y = y_screen;
 		if  (m_strDirection == "NE"){
-			x = x_screen + w;
+			x += w + TILE_HALF_WIDTH;
 			}
 		else if(m_strDirection == "SW"){
-			x = x_screen - w;
+			x -= w + TILE_HALF_WIDTH;
+			y -= TILE_HALF_HEIGHT;
 			}
 		else if(m_strDirection == "NW"){
-			y = y_screen - h;
+			y -= h + 2*TILE_HALF_HEIGHT;
 			}
 		else if(m_strDirection == "SE"){
-			y = y_screen + h;
+			y += h + TILE_HALF_HEIGHT;
 			}
 		else if(m_strDirection == "EE"){
-			x = x_screen + 2*w/3;
-			y = y_screen + 2*h/3;
+			x += 2*w/3 + TILE_HALF_WIDTH;
+			y += 2*h/3;
 			}
 		else if(m_strDirection == "SS"){
-			x = x_screen - 2*w/3;
-			y = y_screen + 2*h/3;
+			x -= 2*w/3 + TILE_HALF_WIDTH;
+			y += 2*h/3;
 			}
 		else if(m_strDirection == "WW"){
-			x = x_screen - 2*w/3;
-			y = y_screen - 2*h/3;
+			x -= 2*w/3 + TILE_HALF_WIDTH;
+			y -= 2*h/3 + TILE_HALF_HEIGHT;
 			}
 		else if(m_strDirection == "NN"){
-			x = x_screen + 2*w/3;
-			y = y_screen - 2*h/3;
+			x += 2*w/3 + TILE_HALF_WIDTH;
+			y -= 2*h/3 + TILE_HALF_HEIGHT;
 			}
 		else{
 			cout <<"\""<<m_strDirection << "\" unknow m_strDirection";
