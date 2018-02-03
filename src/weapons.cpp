@@ -14,7 +14,7 @@ C_Weapon::C_Weapon():m_name("CANON"),
 	m_weapon.damage = 10;
 	m_weapon.speedImpact = 0;
 	m_weapon.fireRate = 500;
-	m_weapon.fireRange = 200;
+	m_weapon.fireRange = 2;
 
 }
 

@@ -40,7 +40,7 @@ void C_Towers::render(S_Coord screen){
 void C_Towers::renderSelected(){
 	if (m_selected == true){
 		int animNbr = m_animation[SELECTED]->getAnimNbr(0,30,500);
-		int width = m_weapon->getFireRange();
+		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
 		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen () + TILE_HALF_HEIGHT,width,animNbr, true);
 	}
 }
