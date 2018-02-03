@@ -34,7 +34,7 @@ class C_GameUnits
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
-	virtual void shoot(C_GameUnits &target) =0;
+	virtual void shoot() =0;
 	virtual void stopShooting() =0;
 	virtual void receiveDamage(S_Weapon weapon);
 	virtual bool alive() const;

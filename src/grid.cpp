@@ -130,6 +130,10 @@ C_GameUnits* C_Grid::getUnits(S_Coord grid){
 	return m_grid[grid.x][grid.y].main;
 }
 
+C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid){
+	return m_grid[x_grid][y_grid].main;
+}
+
 void C_Grid::setGround(int x, int y, int id){
 	m_grid[x][y].ground = id;
 	if (id >= 49 && id <= 57){

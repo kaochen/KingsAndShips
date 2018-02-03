@@ -13,7 +13,7 @@ class C_Shooter : public C_GameUnits
 	C_Shooter(std::string name, int x_grid, int y_grid, int rank);
 	virtual ~C_Shooter();
 	virtual	void displayStatus() const;
-	virtual void shoot(C_GameUnits &target);
+	virtual void shoot();
 	virtual SDL_Texture* getImage() const;
 	virtual void move();
 	virtual int testFirerange(C_GameUnits &target);
@@ -23,6 +23,7 @@ class C_Shooter : public C_GameUnits
 	virtual void stopShooting(void);
 	virtual void renderMissile();
 	protected:
+	virtual	C_GameUnits* searchNextTarget(std::string type);
 	C_Weapon *m_weapon;
 	SDL_Texture* m_image;
 	long m_lastShootTime;

@@ -26,6 +26,9 @@ C_invaders::~C_invaders()
 
 void C_invaders::play(){
 	this->move();
+
+	if(!this->alive())
+		this->kill();
 };
 
 
