@@ -52,9 +52,6 @@ int main()
 	C_Grid& grid=C_Grid::Instances();
 	grid.loadLevel(1);
 
-	vector<C_GameUnits*> towerVector;
-	list<C_GameUnits*> lB; //listOfBoats
-	list<C_GameUnits*>::iterator itB;
 
 
 	//load first level
@@ -160,7 +157,6 @@ while(!quit)
 
 						grid.addANewTower(buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
 
-						towerVector.push_back(grid.getUnits(clicleft.getGrid()));
 						aTowerIsSelected = grid.selectATower(clicleft);
 						addingAnewTower = false;
 						}
@@ -181,7 +177,7 @@ while(!quit)
 				cout << "The quit command (q) has been pressed." << endl;
 				break;
 			case SDLK_n:
-				level.sendNextWave(lB);
+				level.sendNextWave();
 				break;
 			}
 
@@ -197,48 +193,10 @@ while(!quit)
 				long frameStartTime = SDL_GetTicks();
 				//cout << "Time: " << frameStartTime << endl <<"update status" << endl;
 				forceRefresh = true;
-				//move
-				for (itB = lB.begin(); itB != lB.end(); itB++){
-						(*itB)->move();
-				}
 
-				for (size_t i = 0; i < towerVector.size(); i++){
-					size_t nbrOfBoats = 0;
-					map<int, C_GameUnits*> boatDistanceList;
-					priority_queue<int> closestList;
-					for (itB = lB.begin(); itB != lB.end(); itB++){
-						C_GameUnits* boat = *itB;
-						if(boat != nullptr){
-							int dist = towerVector[i]->testFirerange(*boat);
-							if (dist >= 0){
-								boatDistanceList[dist] = boat;
-								closestList.push(dist*(-1));
-								nbrOfBoats++;
-							} // -1 to reverse the list
-						}
-					}
-					if (nbrOfBoats > 0){
-						int closest = closestList.top()*(-1);
-						towerVector[i]->shoot(*boatDistanceList[closest]);
-						}
-					else {
-						towerVector[i]->stopShooting();
-						}
-				}
+				//play all units
+				grid.playAllUnits();
 
-
-		// drop dead boats
-				itB = lB.begin();
-				while (itB != lB.end()){
-					C_GameUnits* boat = *itB;
-					if (boat->alive() == false){
-						lB.erase(itB++);
-						boat->kill();
-					}
-					else{
-						itB++;
-					}
-				}
 
 //render image
 

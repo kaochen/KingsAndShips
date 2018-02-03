@@ -185,6 +185,16 @@ void C_Grid::displayStatus(){
 		}
 }
 
+void C_Grid::playAllUnits(){
+	for (size_t y = 0; y < GRID_SIZE; y++){
+			for (size_t x = 0; x < GRID_SIZE; x++){
+				if (m_grid[x][y].main != nullptr){
+					m_grid[x][y].main->play();
+					}
+			}
+		}
+}
+
 
 void C_Grid::deleteGrid(){
 	for (size_t y = 0; y < GRID_SIZE; y++){

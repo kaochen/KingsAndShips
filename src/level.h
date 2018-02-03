@@ -24,7 +24,7 @@ class C_Level
 	C_Level();
 	~C_Level();
 	void status();
-	void sendNextWave(std::list<C_GameUnits*>& lB);
+	void sendNextWave();
 
 	void extractTMXfile(std::string tmx_File_Path);
 

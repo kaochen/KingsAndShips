@@ -13,6 +13,7 @@ class C_invaders: public C_Shooter
 	C_invaders(int x_grid, int y_grid,int rank);
 	~C_invaders();
 
+	virtual void play();
 	virtual void move();
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

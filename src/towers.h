@@ -15,6 +15,7 @@ class C_Towers: public C_Shooter
 	C_Towers();
 	C_Towers(std::string name, int x_grid, int y_grid, int rank);
 
+	virtual void play();
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
 	void renderSmoke();

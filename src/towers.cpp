@@ -17,6 +17,8 @@ C_Towers::C_Towers(string name,
 	m_justAdded = true;
 }
 
+void C_Towers::play(){
+}
 
 void C_Towers::renderSmoke(){
 	int imageNbr = m_animation[JUSTADDED]->getAnimNbr(0,7,100);

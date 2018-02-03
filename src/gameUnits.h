@@ -30,7 +30,7 @@ class C_GameUnits
 		     int rank);
 
 	virtual ~C_GameUnits();
-
+	virtual void play() = 0;
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);

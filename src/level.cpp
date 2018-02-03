@@ -24,7 +24,7 @@ void C_Level::status(){
 	cout << m_name << " " << m_id << endl;
 }
 
-void C_Level::sendNextWave(list<C_GameUnits*>& lB){
+void C_Level::sendNextWave(){
 
 	C_Grid& grid=C_Grid::Instances();
 		vector <S_boat> l;
@@ -43,10 +43,6 @@ void C_Level::sendNextWave(list<C_GameUnits*>& lB){
 
 		for (size_t i = 0; i < l.size();i++){
 		grid.addANewBoat(l[i].x,l[i].y,l[i].rank);
-		S_Coord coord;
-		coord.x = l[i].x;
-		coord.y = l[i].y;
-		lB.push_back(grid.getUnits (coord));
 	}
 	cout << "Next wave" << endl;
 }

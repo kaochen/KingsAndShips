@@ -31,6 +31,7 @@ public:
 	bool isThisConstructible(int x_grid,int y_grid);
 
 	void displayStatus();
+	void playAllUnits();
 	void deleteGrid();
 
 	bool selectATower(C_Coord clic);

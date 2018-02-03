@@ -24,6 +24,10 @@ C_invaders::~C_invaders()
 {
 }
 
+void C_invaders::play(){
+	this->move();
+};
+
 
 void C_invaders::move()
 {
