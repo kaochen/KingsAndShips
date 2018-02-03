@@ -223,3 +223,75 @@ void C_Turbine::drawEllipse(int x_screen,
 		//cout << width <<":" << height << endl;
 		aaellipseRGBA(win.getRenderer(),x,y,w,h,R,G,B,(A/2));
 }
+
+
+C_GameUnits*  C_Turbine::searchNextTarget(string type){
+	int fireRange = m_weapon->getFireRange();
+	//cout << "fireRange :" << fireRange << endl;
+	C_Grid& grid=C_Grid::Instances();
+	int x_grid = m_coord->getXGrid();
+	int y_grid = m_coord->getYGrid();
+	int x_start = x_grid;
+	int y_start = y_grid;
+	C_GameUnits* target = nullptr;
+
+	if  (m_strDirection == "NE"){
+			x_start = x_grid + 1;
+			y_start = y_grid - fireRange - 1;
+			}
+		else if(m_strDirection == "SW"){
+			x_start = x_grid - fireRange - 1;
+			y_start = y_grid + 1;
+			}
+		else if(m_strDirection == "NW"){
+			x_start = x_grid - fireRange - 1;
+			y_start = y_grid - fireRange - 1;
+			}
+		else if(m_strDirection == "SE"){
+			x_start = x_grid + 1;
+			y_start = y_grid + 1;;
+			}
+		else if(m_strDirection == "EE"){
+			x_start = x_grid + 1;
+			y_start = y_grid - 1;
+			}
+		else if(m_strDirection == "SS"){
+			x_start = x_grid - 1;
+			y_start = y_grid + 1;
+			}
+		else if(m_strDirection == "WW"){
+			x_start = x_grid - fireRange - 1;
+			y_start = y_grid - 1;
+			}
+		else if(m_strDirection == "NN"){
+			x_start = x_grid - 1;
+			y_start = y_grid - fireRange - 1;
+			}
+		else{
+			cout <<"\""<<m_strDirection << "\" unknow m_strDirection";
+		}
+	//cout << m_strDirection << ":" << m_direction << " ";
+
+	map<int, C_GameUnits*> list;
+	for(int y = y_start; y <= (y_start + fireRange); y++){
+		for(int x = x_start; x <= (x_start + fireRange); x++){
+			//cout << " - " << x << ":" << y;
+			if((x != x_grid || y != y_grid)){
+				C_GameUnits* tmp = grid.getUnits(x,y);
+				if(tmp != nullptr){
+					if(tmp->getName() == type){
+					 	int dist = getDistance(x,y);
+						//cout << "found - " << x << ":" << y;
+					 	list[dist] = tmp;
+				 	}
+				}
+			}
+		}
+	}
+	//cout << endl;
+	if(!list.empty()){
+		target = list.begin()->second;
+	}
+
+	return target;
+}

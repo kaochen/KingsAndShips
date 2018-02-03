@@ -44,6 +44,7 @@ class C_Turbine: public C_Towers
 		virtual void render(S_Coord screen);
 		virtual void drawEllipse(int x_screen,int y_screen,int width,int animNbr,bool ok);
 	protected:
+		virtual	C_GameUnits* searchNextTarget(std::string type);
 
 };
 
