@@ -14,7 +14,7 @@ C_invaders::C_invaders(int x_grid,
 
 	m_weapon = new C_Weapon("BOAT",10,0,500,2);
 	m_moving = false;
-	m_speed = 8;
+	m_speed = 4;
 	m_speedImpact = 0;
 	m_coord->centerOnTile();
 	m_C_Path = new C_Path(27,15);
