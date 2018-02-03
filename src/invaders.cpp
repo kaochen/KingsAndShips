@@ -68,6 +68,7 @@ void C_invaders::move()
 
 		if(hyp < speed){
 			//cout << "got next" << endl;
+			m_coord->regenGridCoord();
 			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
 			m_C_Path->goNextStep();
 			m_speedImpact = 0;
