@@ -5,7 +5,6 @@
 #include <string>
 #include <list>
 #include <vector>
-#include "game.h"
 #include "gameUnits.h"
 #include "invaders.h"
 
