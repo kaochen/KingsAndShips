@@ -91,7 +91,7 @@ C_Coord::~C_Coord(){
 S_Coord C_Coord::screenToGrid(S_Coord screen){
 		C_Set& settings=C_Set::Instances();
 		float xOffset = (settings.getWindowWidth() /2);
-		float yOffset = (settings.getWindowHeight() /2);
+		float yOffset = (settings.getWindowHeight() + TILE_HALF_HEIGHT)/2;
 		float tempX = 0.0, tempY = 0.0;
 		S_Coord coord;
 		tempX = ( ((screen.x - xOffset ) / TILE_HALF_WIDTH + (screen.y + yOffset)/TILE_HALF_HEIGHT )/2);
