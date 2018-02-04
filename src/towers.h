@@ -16,13 +16,15 @@ class C_Towers: public C_Shooter
 	C_Towers(std::string name, int x_grid, int y_grid, int rank);
 
 	virtual void play();
+	void drag(S_Coord screen);
+
+	protected:
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
 	void renderSmoke();
-	void drag(S_Coord screen);
-	protected:
 	virtual void drawEllipse(int x,int y, int width, int animNbr, bool ok);
 	void drawRhombus(int x, int y,int width, int alpha, bool ok);
+
 	long m_lastSmokeTime;
 	int m_smokeNbr;
 	bool m_justAdded;

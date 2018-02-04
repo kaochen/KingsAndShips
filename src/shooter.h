@@ -17,10 +17,10 @@ class C_Shooter : public C_GameUnits
 	virtual void shoot();
 	virtual void move();
 
-	virtual void render(S_Coord screen);
 
 	protected:
 
+	virtual void render(S_Coord screen);
 	virtual	C_GameUnits* searchNextTarget(std::string type);
 	virtual void shootTarget(C_GameUnits &target);
 	virtual void renderMissile();
