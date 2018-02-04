@@ -16,17 +16,17 @@ class C_invaders: public C_Shooter
 	virtual void play();
 	virtual void move();
 
-	virtual void renderLifeBar(int x_screen, int y_screen);
-
 	virtual void render(S_Coord screen);
 	virtual void receiveDamage(S_Weapon weapon);
+
 	protected:
+	virtual void updateDirection();
+	virtual void renderLifeBar(int x_screen, int y_screen);
 	//attibuts
 	bool m_moving;
 	C_Path* m_C_Path;
 	int m_speed;
 	int m_speedImpact;
-	virtual void updateDirection();
 };
 
 #endif

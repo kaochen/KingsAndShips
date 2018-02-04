@@ -70,25 +70,10 @@ void C_Shooter::displayStatus() const
 }
 
 
-SDL_Texture* C_Shooter::getImage() const
-{
-	return m_image;
-}
-
-
 void C_Shooter::move()
 {
 }
 
-int C_Shooter::testFirerange(C_GameUnits &target)
-{
-	int dist = getDistance(target.getXScreen(),target.getYScreen());
-	if (dist > m_weapon->getFireRange())
-		return -1;
-	else{
-		return dist;
-	    }
-}
 
 void C_Shooter::shootTarget(C_GameUnits &target){
 	if(m_weapon->getShooting()){
@@ -98,10 +83,6 @@ void C_Shooter::shootTarget(C_GameUnits &target){
 		}
 	}
 }
-void C_Shooter::stopShooting(void){
-		m_weapon->setShooting(false);
-		}
-
 
 void C_Shooter::render(S_Coord screen){
 	C_GameUnits::render(screen);

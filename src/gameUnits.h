@@ -35,7 +35,6 @@ class C_GameUnits
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
 	virtual void shoot() =0;
-	virtual void stopShooting() =0;
 	virtual void receiveDamage(S_Weapon weapon);
 	virtual bool alive() const;
 	virtual int getRank() const;
@@ -52,8 +51,6 @@ class C_GameUnits
 	virtual int getYCenterOffset() const;
 	virtual int getDistance(int x, int y) const;
 
-
-	virtual int testFirerange(C_GameUnits &target) = 0;
 	virtual void renderMissile() = 0;
 
 	virtual void kill();
