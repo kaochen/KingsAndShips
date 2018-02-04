@@ -73,10 +73,6 @@ bool C_GameUnits::alive() const
 }
 
 
-int C_GameUnits::getRank() const
-{
-	return m_rank;
-}
 
 int C_GameUnits::getXGrid() const
 {
@@ -86,12 +82,6 @@ int C_GameUnits::getXGrid() const
 int C_GameUnits::getYGrid() const
 {
 	return m_coord->getYGrid ();
-}
-
-void C_GameUnits::setGridXY(int x_grid, int y_grid){
-	delete m_coord;
-	m_coord = new C_CoordGrid (x_grid,y_grid);
-
 }
 
 
@@ -105,12 +95,6 @@ int C_GameUnits::getYScreen() const
 	return m_coord->getYScreen ();
 }
 
-
-
-int C_GameUnits::getYCenterOffset() const
-{
-	return m_y_center_offset;
-}
 
 
 
@@ -150,47 +134,6 @@ void C_GameUnits::reverseSelectedStatus()
 		m_selected =  false;
 }
 
-void C_GameUnits::setDirection(string strDirection)
-{
-	m_strDirection =  strDirection;
-}
-
-string C_GameUnits::intDirectionToStr(int direction){
-	string strDirection = "EE";
-	switch (direction){
-		case 0:
-			strDirection = "SS";
-		break;
-		case 1:
-			strDirection = "SE";
-		break;
-		case 2:
-			strDirection = "EE";
-		break;
-		case 3:
-			strDirection = "NE";
-		break;
-		case 4:
-			strDirection = "NN";
-		break;
-		case 5:
-			strDirection = "NW";
-		break;
-		case 6:
-			strDirection = "WW";
-		break;
-		case 7:
-			strDirection = "SW";
-		break;
-		default:
-			strDirection = "EE";
-		break;
-	}
-	m_strDirection = strDirection;
-	cout << "Convert " << direction << " to " << strDirection << endl;
-	return strDirection;
-
-}
 
 void C_GameUnits::changeDirection(int x_cursor, int y_cursor){
 

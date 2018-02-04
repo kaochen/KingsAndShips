@@ -31,41 +31,32 @@ class C_GameUnits
 
 	virtual ~C_GameUnits();
 	virtual void play() = 0;
+	virtual void move() = 0;
+
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
 	virtual void shoot() =0;
 	virtual void receiveDamage(S_Weapon weapon);
-	virtual bool alive() const;
-	virtual int getRank() const;
 
 	virtual int getXGrid() const;
 	virtual int getYGrid() const;
-	virtual void setGridXY(int x, int y);
-	virtual void move() = 0;
-
-
 	virtual int getXScreen() const;
 	virtual int getYScreen() const;
-
-	virtual int getYCenterOffset() const;
-	virtual int getDistance(int x, int y) const;
-
-	virtual void renderMissile() = 0;
-
-	virtual void kill();
 
 	virtual bool getSelectedStatus() const;
 	virtual void setSelectedStatus(bool status);
 	virtual void reverseSelectedStatus();
 
-	virtual void setDirection(std::string strDirection);
-	virtual std::string intDirectionToStr(int direction);
-
 	virtual void changeDirection(int x_cursor, int y_cursor);
 	virtual C_GameUnits * getUnit();
 
 	protected:
+	virtual bool alive() const;
+	virtual void kill();
+	virtual void renderMissile() = 0;
+	virtual int getDistance(int x, int y) const;
+
 	//attibuts
 	std::string m_name;
 	int m_life;

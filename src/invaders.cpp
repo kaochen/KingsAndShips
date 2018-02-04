@@ -183,9 +183,9 @@ void C_invaders::render(S_Coord screen){
 				direction = "_SW_";
 			break;
 		}
-	int rank = getRank();
+
 	//boat_01_SW_0
-	string fileName = name + "_0" + to_string(rank) + direction + to_string(imageNbr) ;
+	string fileName = name + "_0" + to_string(m_rank) + direction + to_string(imageNbr) ;
 
 	//cout << "image name is "<< fileName << endl;
 
