@@ -20,10 +20,8 @@ public:
 	void addANewBoat(int x, int y, int rank);
 	void addANewTower(int type, int x, int y, int rank);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
-	void delUnit(int x_grid, int y_grid);
 	void moveToDead(int x_grid, int y_grid);
 
-	C_GameUnits* getUnits(S_Coord grid);
 	C_GameUnits* getUnits(int x_grid,
 	                     int y_grid);
 	void setGround(int x, int y, int id);
@@ -37,10 +35,11 @@ public:
 	void deleteGrid();
 
 	bool selectATower(C_Coord clic);
-	void unselectedAll(int x_grid, int y_grid);
 
 	C_GameUnits* getSelectedUnit();
 
+protected:
+	void unselectedAll(int x_grid, int y_grid);
 
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}

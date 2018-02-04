@@ -126,10 +126,6 @@ else{
     }
 }
 
-C_GameUnits* C_Grid::getUnits(S_Coord grid){
-	return m_grid[grid.x][grid.y].main;
-}
-
 C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid){
 	return m_grid[x_grid][y_grid].main;
 }
@@ -168,9 +164,6 @@ bool C_Grid::isThisConstructible(int x_grid,int y_grid){
 	return isThisConstructible(tmp);
 }
 
-void C_Grid::delUnit(int x_grid, int y_grid){
-	m_grid[x_grid][y_grid].main = nullptr;
-	}
 
 void C_Grid::moveToDead(int x_grid, int y_grid){
 	m_grid[x_grid][y_grid].dead = m_grid[x_grid][y_grid].main;
