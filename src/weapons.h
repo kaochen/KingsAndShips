@@ -21,13 +21,10 @@ public:
 	int getFireRate() const;
 	int getFireRange() const;
 
-	int getXScreen() const;
-	int getYScreen() const;
 	bool getShooting() const;
 	long getLastShootTime() const;
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
-	int getDirection() const;
 	S_Weapon getWeaponInfo() const;
 	void render();
 
@@ -39,7 +36,6 @@ public:
 	bool m_shooting;
 	long m_lastShootTime;
 	int m_dist;
-	int m_direction;
 	double m_angle;
 };
 

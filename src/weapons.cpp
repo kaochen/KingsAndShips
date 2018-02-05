@@ -9,8 +9,7 @@ C_Weapon::C_Weapon():m_name("CANON"),
 		m_y_screen(0),
 		m_shooting(false),
 		m_lastShootTime(0),
-		m_dist(80),
-		m_direction(UNKNOWN)
+		m_dist(80)
 {
 	m_weapon.damage = 10;
 	m_weapon.speedImpact = 0;
@@ -26,7 +25,6 @@ C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, i
 	m_shooting(false),
 	m_lastShootTime(0),
 	m_dist(80),
-	m_direction(UNKNOWN),
 	m_angle(0.0)
 {
 	m_weapon.damage = damage;
@@ -74,15 +72,6 @@ int C_Weapon::getFireRange() const
 	return m_weapon.fireRange;
 }
 
-int C_Weapon::getXScreen() const
-{
-	return m_x_screen;
-}
-
-int C_Weapon::getYScreen() const
-{
-	return m_y_screen;
-}
 
 bool C_Weapon::getShooting() const
 {
@@ -99,10 +88,7 @@ void C_Weapon::setShooting(bool status)
 	m_shooting = status;
 }
 
-int C_Weapon::getDirection() const
-{
-	return m_direction;
-}
+
 S_Weapon C_Weapon::getWeaponInfo() const
 {
 	return m_weapon;
