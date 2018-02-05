@@ -53,7 +53,6 @@ class C_GameUnits
 	protected:
 	virtual bool alive() const;
 	virtual void kill();
-	virtual void renderMissile() = 0;
 	virtual int getDistance(int x, int y) const;
 
 	//attibuts

@@ -29,6 +29,7 @@ public:
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 	int getDirection() const;
 	S_Weapon getWeaponInfo() const;
+	void render();
 
 	private:
 	std::string m_name;
@@ -39,6 +40,7 @@ public:
 	long m_lastShootTime;
 	int m_dist;
 	int m_direction;
+	double m_angle;
 };
 
 

@@ -87,44 +87,5 @@ void C_Shooter::shootTarget(C_GameUnits &target){
 void C_Shooter::render(S_Coord screen){
 	C_GameUnits::render(screen);
 	if (m_weapon->getShooting())
-		renderMissile();
-}
-
-void C_Shooter::renderMissile(){
-		int x_s = m_weapon->getXScreen();
-		int y_s = m_weapon->getYScreen();
-		int direction = m_weapon->getDirection();
-		string name;
-		switch(direction){
-		case NORTH:
-			name = "Arrow01_North.png";
-			break;
-		case EAST:
-			name = "Arrow01_East.png";
-			break;
-		case SOUTH:
-			name = "Arrow01_South.png";
-			break;
-		case WEST:
-			name = "Arrow01_West.png";
-			break;
-		case NORTH_EAST:
-			name = "Arrow01_NorthEast.png";
-			break;
-		case NORTH_WEST:
-			name = "Arrow01_NorthWest.png";
-			break;
-		case SOUTH_EAST:
-			name = "Arrow01_SouthEast.png";
-			break;
-		case SOUTH_WEST:
-			name = "Arrow01_SouthWest.png";
-			break;
-		case UNKNOWN:
-			name = "Arrow01_North.png";
-			break;
-		}
-
-		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(name, x_s,y_s);
+		m_weapon->render();
 }

@@ -23,7 +23,6 @@ class C_Shooter : public C_GameUnits
 	virtual void render(S_Coord screen);
 	virtual	C_GameUnits* searchNextTarget(std::string type);
 	virtual void shootTarget(C_GameUnits &target);
-	virtual void renderMissile();
 
 
 	C_Weapon *m_weapon;

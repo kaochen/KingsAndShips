@@ -1,4 +1,5 @@
 #include "weapons.h"
+#include "surfaces.h"
 #include <cmath>
 
 using namespace std;
@@ -25,7 +26,8 @@ C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, i
 	m_shooting(false),
 	m_lastShootTime(0),
 	m_dist(80),
-	m_direction(UNKNOWN)
+	m_direction(UNKNOWN),
+	m_angle(0.0)
 {
 	m_weapon.damage = damage;
 	m_weapon.speedImpact = speedImpact;
@@ -44,6 +46,7 @@ void C_Weapon::change(string name, int damage, int fireRate, int fireRange)
 	m_weapon.speedImpact = 0;
 	m_weapon.fireRate = fireRate;
 	m_weapon.fireRange = fireRange;
+	m_angle = 0.0;
 }
 
 void C_Weapon::displayStatus() const
@@ -117,36 +120,10 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			double angle = atan2(ab,bc);
 			int newA = hyp*sin(angle);
 			int newB = hyp*cos(angle);
-			angle = angle *180/3.14159265359;
-			string direction;
-			if (angle > -22.5 && angle <= 22.5){
-				m_direction = SOUTH;
-				}
-			else if (angle > 22.5 && angle <= 67.5){
-				m_direction = SOUTH_EAST;
-			}
-			else if(angle > 67.5 && angle <=112.5){
-				m_direction = EAST;
-				}
-			else if(angle > 112.5 && angle <=157.5){
-				m_direction = NORTH_EAST;
-				}
-			else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
-				m_direction = NORTH;
-				}
-			else if(angle > -157.5 && angle <= -112.5){
-				m_direction = NORTH_WEST;
-				}
-			else if(angle > -112.5 && angle <=-67.5){
-				m_direction = WEST;
-				}
-			else if(angle > -67.5 && angle <=-22.5){
-				m_direction = SOUTH_WEST;
-				}
-			else{
-				m_direction = UNKNOWN;
-				}
-			//cout << "Angle:"<< angle << " Direction: " << direction << endl;
+			m_angle = 180 - (angle *180/3.14159265359);
+			if(m_angle < 0)
+				m_angle +=360;
+			cout << "angle: " << m_angle << endl;
 
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;
@@ -157,4 +134,10 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 				return true;
 				}
 			return false;
+}
+
+
+void C_Weapon::render(){
+		C_TextureList& t=C_TextureList::Instances();
+		t.renderTextureEx("Arrow01.png", m_x_screen,m_y_screen,m_angle);
 }

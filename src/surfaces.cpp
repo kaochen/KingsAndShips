@@ -130,7 +130,11 @@ C_TextureList& C_TextureList::Instances()
 }
 
 
-void C_TextureList::renderTexture(string name, int x, int y)
+void C_TextureList::renderTexture(string name, int x, int y){
+	renderTextureEx(name, x,y,0.0);
+}
+
+void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 {
 	C_Window& win=C_Window::Instances();
 	C_Set& settings=C_Set::Instances();
@@ -150,7 +154,7 @@ void C_TextureList::renderTexture(string name, int x, int y)
 		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
 		pos.x = x - pos.w/2;
 		pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
-		SDL_RenderCopy(win.getRenderer(), texture, NULL, &pos);
+		SDL_RenderCopyEx(win.getRenderer(), texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 		}
 }
 
@@ -174,11 +178,8 @@ map<string, C_Texture*>  C_TextureList::getTextMap(){
 
 
 void C_TextureList::loadTexturesIntoMap(){
-	int size = 9;
-	string file[size] = {"boat_01_Dead.png","Arrow01_South.png",
-	"Arrow01_East.png","Arrow01_North.png",	"Arrow01_West.png",
-	"Arrow01_NorthEast.png","Arrow01_NorthWest.png","Arrow01_SouthEast.png","Arrow01_SouthWest.png"};
-
+	int size = 2;
+	string file[size] = {"boat_01_Dead.png","Arrow01.png"};
 
 	for (int i = 0; i < size; i++){
 		string filePath = "data/img/original/" + file[i];
