@@ -26,7 +26,10 @@ public:
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 	S_Weapon getWeaponInfo() const;
+	S_Coord getMoveImpact() const;
 	void render();
+
+	void changeDirection(std::string direction);
 
 	private:
 	std::string m_name;

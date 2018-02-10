@@ -108,6 +108,11 @@ bool C_Coord::isEqual(C_Coord const &b) const{
 	return (m_this.grid.x == b.m_this.grid.x && m_this.grid.y == b.m_this.grid.y);
 }
 
+void C_Coord::applyOffset(S_Coord offset){
+	m_this.screen.x += offset.x;
+	m_this.screen.y += offset.y;
+}
+
 
 S_Coord C_Coord::screenToGrid(S_Coord screen){
 		C_Set& settings=C_Set::Instances();

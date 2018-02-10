@@ -30,6 +30,7 @@ struct S_Weapon{
 	int speedImpact;
 	int fireRate;
 	int fireRange;
+	S_Coord moveImpact;
 };
 
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
@@ -77,6 +78,7 @@ public:
 	C_Coord(const C_Coord &a);
 	virtual ~C_Coord();
 	virtual bool isEqual(C_Coord const &b) const;
+	virtual void applyOffset(S_Coord offset);
 	virtual void displayStatus();
 	virtual S_Coord getGrid();
 	virtual int getXGrid() const;

@@ -295,3 +295,8 @@ C_GameUnits*  C_Turbine::searchNextTarget(string type){
 
 	return target;
 }
+
+void C_Turbine::changeDirection(int x_cursor, int y_cursor){
+	C_GameUnits::changeDirection(x_cursor,y_cursor);
+	m_weapon->changeDirection(m_strDirection);
+}
