@@ -27,6 +27,7 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	coord.x = x_grid;
 	coord.y = y_grid;
 	m_coord = new C_CoordGrid(coord);
+	m_old_coord = new C_CoordGrid(coord);
 	m_coord->displayStatus();
 }
 

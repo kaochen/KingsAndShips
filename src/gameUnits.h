@@ -61,6 +61,7 @@ class C_GameUnits
 	int m_rank;
 
 	C_Coord* m_coord;
+	C_Coord* m_old_coord;
 	int m_y_center_offset;
 	std::string m_strDirection;
 	//Store time for animation

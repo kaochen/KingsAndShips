@@ -85,6 +85,14 @@ C_Coord::C_Coord(S_Coord coord){
 		cout << "";
 }
 
+
+C_Coord::C_Coord(const C_Coord &a){
+	m_this.grid.x = a.m_this.grid.x;
+	m_this.grid.y = a.m_this.grid.y;
+	m_this.screen.x = a.m_this.screen.x;
+	m_this.screen.y = a.m_this.screen.y;
+}
+
 C_Coord::~C_Coord(){
 };
 
@@ -95,6 +103,8 @@ bool operator==(C_Coord const &a, C_Coord const &b){
 }
 
 bool C_Coord::isEqual(C_Coord const &b) const{
+	//cout << "test equality " << m_this.grid.x << ":" << m_this.grid.y << " ";
+	//cout << b.m_this.grid.x << ":" << b.m_this.grid.y << endl;
 	return (m_this.grid.x == b.m_this.grid.x && m_this.grid.y == b.m_this.grid.y);
 }
 

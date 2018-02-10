@@ -37,53 +37,43 @@ void C_invaders::play(){
 void C_invaders::move()
 {
 	m_moving = true;
+
+	C_Grid& grid=C_Grid::Instances();
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
+
+	//get speed
 	int speed = m_speed - m_speedImpact;
 	if(path.size() > 1){
-		//m_coord->displayStatus();
-		int old_x_grid = m_coord->getXGrid ();
-		int old_y_grid = m_coord->getYGrid ();
-
-		int hyp = path.top()->getDist();
-
-		//cout << "old hyp" << hyp << endl;
-		double angle = path.top()->getAngle();
+		//determine an angle
+		*m_old_coord = *m_coord;
 		C_Coord destCoord = *path.top()->getCoord();
 		destCoord.centerOnTile();
 		S_Coord start = m_coord->getScreen();
 		S_Coord dest = destCoord.getScreen();
-
-
 		int ab = dest.x - start.x;
 		int bc = dest.y - start.y;
-		hyp = sqrt((ab*ab + bc*bc));
-		//cout << "hyp: " << hyp << endl;
-		angle = atan2(ab,bc);
+		double angle = atan2(ab,bc);
 
-
-		path.top()->setDist(hyp - speed, angle);
-
+		//move following angle and speed
 		m_coord->move(angle,speed);
 		angle = angle *180/3.14159265359  + 45;
 		m_direction = destCoord.angleToDirection(angle);
 
-		C_Grid& grid=C_Grid::Instances();
-
-
-		if(hyp < speed){
-			//cout << "got next" << endl;
-			m_coord->regenGridCoord();
-			grid.moveUnit(old_x_grid, old_y_grid, m_coord->getXGrid (), m_coord->getYGrid ());
-			m_C_Path->goNextStep();
-			m_speedImpact = 0;
-			//cout << "Move to : " << endl;
-			//m_coord->displayStatus();
-			//cout << "-------------------- " << endl;
-			}
-
+		//refresh grid position
+		m_coord->regenGridCoord();
+		if(*m_coord == *m_old_coord){
 		}
-
+		else
+		{
+			if(*m_coord == destCoord){
+				grid.moveUnit(m_old_coord->getXGrid(), m_old_coord->getYGrid(),
+					 m_coord->getXGrid (), m_coord->getYGrid ());
+				m_C_Path->goNextStep();
+				m_speedImpact = 0;
+			}
+		}
+	}
 }
 
 

@@ -74,6 +74,7 @@ class C_Coord
 public:
 	C_Coord(int x_grid, int y_grid);
 	C_Coord(S_Coord coord);
+	C_Coord(const C_Coord &a);
 	virtual ~C_Coord();
 	virtual bool isEqual(C_Coord const &b) const;
 	virtual void displayStatus();
