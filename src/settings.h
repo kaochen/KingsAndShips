@@ -75,10 +75,11 @@ public:
 	C_Coord(int x_grid, int y_grid);
 	C_Coord(S_Coord coord);
 	virtual ~C_Coord();
+	virtual bool isEqual(C_Coord const &b) const;
 	virtual void displayStatus();
 	virtual S_Coord getGrid();
-	virtual int getXGrid();
-	virtual int getYGrid();
+	virtual int getXGrid() const;
+	virtual int getYGrid() const;
 	virtual S_Coord getScreen();
 	virtual void updateScreen(S_Coord new_screen);
 	virtual int getXScreen();
@@ -95,6 +96,7 @@ protected:
 	S_NodeCoord m_this;
 };
 
+	bool operator==(C_Coord const &a,C_Coord const &b);
 
 class C_CoordGrid: public C_Coord
 {

@@ -88,6 +88,17 @@ C_Coord::C_Coord(S_Coord coord){
 C_Coord::~C_Coord(){
 };
 
+
+bool operator==(C_Coord const &a, C_Coord const &b){
+	return a.isEqual(b);
+
+}
+
+bool C_Coord::isEqual(C_Coord const &b) const{
+	return (m_this.grid.x == b.m_this.grid.x && m_this.grid.y == b.m_this.grid.y);
+}
+
+
 S_Coord C_Coord::screenToGrid(S_Coord screen){
 		C_Set& settings=C_Set::Instances();
 		float xOffset = (settings.getWindowWidth() /2);
@@ -118,11 +129,11 @@ S_Coord C_Coord::getGrid(){
 	return m_this.grid;
 }
 
-int C_Coord::getXGrid(){
+int C_Coord::getXGrid() const{
 	return m_this.grid.x;
 }
 
-int C_Coord::getYGrid(){
+int C_Coord::getYGrid() const{
 	return m_this.grid.y;
 }
 
