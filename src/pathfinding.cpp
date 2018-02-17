@@ -99,17 +99,16 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 		    multimap <int,C_Node*>* m_openNodes){
 
 	m_open = false; //close the current node
-	int c = 0;
+
 	int x_grid = m_coord->getGrid().x;
 	int y_grid = m_coord->getGrid().y;
 	cout << "For : " << x_grid << ":" << y_grid << " F: " << m_F << endl;
 
 	cout << "	Testing : ";
-	for (int y = y_grid - 1; y < (y_grid + 2); y++){
-		for (int x = x_grid - 1; x < (x_grid + 2); x++){
+	for (int y = y_grid - 1; y <= (y_grid + 1); y++){
+		for (int x = x_grid - 1; x <= (x_grid + 1); x++){
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
-				c++;
-				if (c != 5){
+				if ((x != x_grid || y != y_grid)){
 					int G_offset = G_HV;
 					if ( (x+y) % 2 == 0)
 						G_offset = G_DIAG;
