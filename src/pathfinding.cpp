@@ -103,39 +103,52 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 	int x_grid = m_coord->getGrid().x;
 	int y_grid = m_coord->getGrid().y;
 	cout << "For : " << x_grid << ":" << y_grid << " F: " << m_F << endl;
-
+	C_Node *tested = gridNode[x_grid][y_grid];
+	int currentG = tested->getG();
 	cout << "	Testing : ";
 	for (int y = y_grid - 1; y <= (y_grid + 1); y++){
 		for (int x = x_grid - 1; x <= (x_grid + 1); x++){
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
 				if ((x != x_grid || y != y_grid)){
-					int G_offset = G_HV;
-					if ( (x+y) % 2 == 0)
-						G_offset = G_DIAG;
-
-					C_Node *current = gridNode[x][y];
-						if (current != nullptr){
-							if (current->getBlock() == false){
+					//Calc G_offset
+					int G_offset = calcG_offset(x_grid, y_grid,x,y,gridNode);
+					//
+					C_Node *tested = gridNode[x][y];
+						if (tested != nullptr){
+							if (tested->getBlock() == false){
 								cout << x << ":" << y << " ";
-								int tmpG = current->getG();
-								int tmpF = current->getH();
-								if (tmpG == 0 || tmpF > (tmpG + G_offset)){
-									current->setG(tmpG + G_offset);
-									if(current->getOpen() == true){
-										m_openNodes->insert(pair<int, C_Node*>(current->getF(),current));
-										current->setOpen(false);
-										current->setParent(gridNode[x_grid][y_grid]);
+								int tmpG = tested->getG();
+								if (tmpG == 0 || (currentG + G_offset) < tmpG ){
+									tested->setG(currentG + G_offset);
+									if(tested->getOpen() == true){
+										m_openNodes->insert(pair<int, C_Node*>(tested->getF(),tested));
+										tested->setOpen(false);
+										tested->setParent(gridNode[x_grid][y_grid]);
 										}
+									}
 								}
+
+
 							}
 						}
 				}
 			}
 		}
-	}
-	cout << endl;
+		cout << endl;
 }
 
+
+int C_Node::calcG_offset(int x_from, int y_from,
+			 int x_dest, int y_dest,
+			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]){
+
+	if(x_from != x_dest && y_from != y_dest){
+		return G_DIAG;
+	}
+	else{
+		return G_HV;
+	}
+}
 
 int C_Node::getG() const{
 	return m_G;
@@ -254,6 +267,9 @@ void C_Path::setTown(int x_grid,int y_grid){
 
 void C_Path::loadPath(){
 	C_Node* current = m_destination;
+	if(current->getParent() == nullptr){
+		current = lowestF();
+	}
 	while(current->getParent() != nullptr){
 		 m_path.push(current);
 		 current = current->getParent();
@@ -263,6 +279,7 @@ void C_Path::loadPath(){
 }
 
 void C_Path::showPath(){
+	show_H_G_F();
 	stack<C_Node*> tmp = m_path;
 	int c =0;
 	while(tmp.empty() == false){
@@ -272,6 +289,33 @@ void C_Path::showPath(){
 	}
 	cout << "steps:" << c << endl;
 }
+
+void C_Path::show_H_G_F(){
+	for(int y= 0; y < GRID_SIZE; y++){
+		for(int x= 0; x < GRID_SIZE; x++){
+			C_Node* c = m_gridNode[x][y];
+			cout << "|" << c->getF();
+		}
+		cout << endl;
+	}
+}
+
+C_Node* C_Path::lowestF(){
+	C_Node *lowest = nullptr;
+	int lowestF;
+	for(int y= 0; y < GRID_SIZE; y++){
+		for(int x= 0; x < GRID_SIZE; x++){
+			int F = m_gridNode[x][y]->getF();
+			if (F > 0 && F < lowestF){
+				lowest = m_gridNode[x][y];
+				lowestF = F;
+			}
+		}
+	}
+	return lowest;
+}
+
+
 
 void C_Path::displayPath(){
 	C_Window& win=C_Window::Instances();

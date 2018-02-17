@@ -41,6 +41,9 @@ public:
 	double getAngle() const;
 
 protected:
+	int calcG_offset(int x_from, int y_from,
+			 int x_dest, int y_dest,
+			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]);
 	C_Coord * m_coord;
 	bool m_block;
 	int m_G; // G cost (distance from the starting node)
@@ -67,6 +70,8 @@ public:
 	void setTown(int x_grid,int y_grid);
 
 	void showPath();
+	void show_H_G_F();
+	C_Node* lowestF();
 	void displayPath();
 	std::stack<C_Node*> getPath();
 	void goNextStep();
