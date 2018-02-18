@@ -39,6 +39,8 @@ public:
 	void setDist(int dist, double angle);
 	int getDist() const;
 	double getAngle() const;
+	void highlight();
+	void render();
 
 protected:
 	int calcG_offset(int x_from, int y_from,

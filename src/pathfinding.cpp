@@ -1,7 +1,7 @@
 #include "pathfinding.h"
 #include "window.h"
 #include "grid.h"
-
+#include "surfaces.h"
 #include <SDL2_gfxPrimitives.h>
 #include <queue>
 
@@ -184,6 +184,44 @@ double C_Node::getAngle() const{
 	return m_angle;
 }
 
+void C_Node::highlight(){
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer * renderer = win.getRenderer();
+	int R = 200, G = 200, B = 200, A = 100;
+	int x_screen = m_coord->getXScreen ();
+	int y_screen = m_coord->getYScreen ();
+	filledEllipseRGBA(renderer,x_screen, y_screen+ 14 ,10,5,R,G,B,A);
+}
+
+void C_Node::render(){
+
+	int x_screen = m_coord->getXScreen ();
+	int y_screen = m_coord->getYScreen ();
+
+ 	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
+	C_TextureList& t=C_TextureList::Instances();
+
+	string name = "h_value";
+	string value = "H:"+to_string(m_H);
+	t.loadTextAsTexturesIntoMap(name, value, 10);
+	t.renderTexture(name,x_screen - 20,y_screen + 12);
+	t.freeTexture(name);
+
+	name = "g_value";
+	value = "G:"+to_string(m_G);
+	t.loadTextAsTexturesIntoMap(name, value, 10);
+	t.renderTexture(name,x_screen + 20,y_screen + 12);
+	t.freeTexture(name);
+
+	name = "f_value";
+	value = "F:"+to_string(m_F);
+	t.loadTextAsTexturesIntoMap(name, value, 15);
+	t.renderTexture(name,x_screen,y_screen + 25);
+	t.freeTexture(name);
+}
+
+
+
 //---------------------------------------------------------
 
 C_Path::C_Path(int x_dest, int y_dest)
@@ -318,14 +356,15 @@ C_Node* C_Path::lowestF(){
 
 
 void C_Path::displayPath(){
-	C_Window& win=C_Window::Instances();
-	SDL_Renderer * renderer = win.getRenderer();
-	int R = 200, G = 200, B = 200, A = 100;
 	stack<C_Node*> tmp = m_path;
 	while(tmp.empty() == false){
-		C_CoordGrid coord(tmp.top()->getXGrid() ,tmp.top()->getYGrid());
-		filledEllipseRGBA(renderer,coord.getXScreen (),coord.getYScreen ()+ 14 ,10,5,R,G,B,A);
+		tmp.top()->highlight();
 		tmp.pop();
+	}
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+		m_gridNode[x][y]->render();
+		}
 	}
 }
 

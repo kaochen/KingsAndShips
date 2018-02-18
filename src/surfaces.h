@@ -20,6 +20,7 @@ public:
 
 	virtual ~C_Texture();
 	virtual SDL_Texture* getTexture();
+	virtual void destroyTexture();
 	virtual void displayStatus();
 
 	virtual int getId() = 0;
@@ -85,6 +86,7 @@ public:
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
 	std::string getNameFromID(int id);
+	void freeTexture(std::string name);
 
 private:
 	C_TextureList& operator= (const C_TextureList&){return *this;}

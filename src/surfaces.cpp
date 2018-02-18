@@ -32,6 +32,10 @@ C_Texture::~C_Texture(){
 SDL_Texture* C_Texture::getTexture(){
 	return m_texture;
 }
+void C_Texture::destroyTexture(){
+	SDL_DestroyTexture(m_texture);
+	m_texture = nullptr;
+}
 
 void C_Texture::displayStatus(){
 	cout << "Texture Name: " << m_name << endl;
@@ -132,7 +136,6 @@ C_Text::C_Text(string name, string message):
 	C_Texture(name)
 {
 	m_message = message;
-	cout << message << endl;
 }
 
 
@@ -263,9 +266,15 @@ void C_TextureList::loadTexturesIntoMap(){
 
 void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int fontSize){
 		m_map_textures[name] = new C_Text(name,message);
-		SDL_Color color = {255,255,255,255};
+		SDL_Color color = {0,0,0,255};
 
 		m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
+}
+
+void C_TextureList::freeTexture(string name){
+
+		SDL_DestroyTexture(m_map_textures[name]->getTexture());
+		m_map_textures.erase(name);
 }
 
 
