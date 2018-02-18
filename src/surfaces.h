@@ -23,11 +23,14 @@ public:
 	virtual void displayStatus();
 
 	virtual int getId() = 0;
+	virtual void loadTexture(std::string &path) = 0;
+	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize) = 0;
 
 protected:
 	std::string m_name;
 	SDL_Texture * m_texture;
 };
+
 
 class C_Image: public C_Texture
 {
@@ -37,6 +40,8 @@ public:
 	virtual int getId();
 	virtual void loadTexture( std::string &path);
 	virtual void displayStatus();
+
+	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 
 protected:
 	int m_id;
@@ -52,10 +57,17 @@ protected:
 class C_Text: public C_Texture
 {
 public:
-	C_Text(std::string name);
-	virtual void loadTextAsTexture(std::string &message,SDL_Color color, int fontSize);
+	C_Text(std::string name, std::string message);
+
+	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
+
+	//why I need to declare this, no clue at all:
+	virtual int getId();
+	virtual void loadTexture( std::string &path);
+
 protected:
 	std::string findFont();
+	std::string m_message;
 };
 
 
@@ -69,6 +81,7 @@ public:
 	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTexturesIntoMap();
+	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize);
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
 	std::string getNameFromID(int id);

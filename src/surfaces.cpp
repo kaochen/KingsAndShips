@@ -121,14 +121,22 @@ void C_Image::loadTexture(string &path)
 		}
 }
 
-//C_Text
-
-C_Text::C_Text(string name):
-	C_Texture(name)
+void C_Image::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
 {
+	cout << "What for ?? " << message << fontSize << color.a << endl;
 }
 
-void C_Text::loadTextAsTexture(std::string &message,SDL_Color color, int fontSize)
+//C_Text
+
+C_Text::C_Text(string name, string message):
+	C_Texture(name)
+{
+	m_message = message;
+	cout << message << endl;
+}
+
+
+void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
 {
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer* renderer = win.getRenderer ();
@@ -169,6 +177,14 @@ string C_Text::findFont()
 		 	cout << "Roboto-Bold.ttf was not found. You should install the fonts-roboto package\n" << endl;
 			return "default";
 		 }
+}
+
+int C_Text::getId(){
+	return 01234567;
+}
+
+void C_Text::loadTexture(string &path){
+	cout << "empty declaration " << path << endl;
 }
 //#######################################Texture List##################################################
 
@@ -243,6 +259,13 @@ void C_TextureList::loadTexturesIntoMap(){
 		string filePath = "data/img/original/" + file[i];
 		m_map_textures[file[i]] = new C_Image((i+1000),0, file[i], filePath, 128, 128, 128, 128);
 	}
+}
+
+void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int fontSize){
+		m_map_textures[name] = new C_Text(name,message);
+		SDL_Color color = {255,255,255,255};
+
+		m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
 }
 
 
