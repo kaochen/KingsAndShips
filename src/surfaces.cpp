@@ -15,48 +15,56 @@ C_TextureList C_TextureList::m_instance=C_TextureList();
 //Textures
 
 C_Texture::C_Texture():
-	m_id(0),
-	m_tileNbr(0),
-	m_name("texture"),
-	m_file_path("default"),
-	m_tile_height(128),
-	m_tile_width(128),
-	m_file_width(1024),
-	m_file_height(1024)
+	m_name("texture")
 {
 	m_texture = nullptr;
 }
 
-C_Texture::C_Texture(int id, int tileNbr, string name, string file_path, int tile_width, int tile_height, int file_width, int file_height):
-	m_id(id),
-	m_tileNbr(tileNbr),
-	m_name(name),
-	m_file_path(file_path),
-	m_tile_height(tile_height),
-	m_tile_width(tile_width),
-	m_file_width(file_width),
-	m_file_height(file_height)
+C_Texture::C_Texture(string name):
+	m_name(name)
 {
-	loadTexture (m_file_path);
+	m_texture = nullptr;
 }
 
 C_Texture::~C_Texture(){
-}
-
-void C_Texture::displayStatus(){
-	cout << "Id:" << m_id << ": "<< m_name << " " << m_tile_width << ":" << m_tile_height ;
-	cout << " " << m_file_path << " " << m_file_width << ":" << m_file_height  << endl;
 }
 
 SDL_Texture* C_Texture::getTexture(){
 	return m_texture;
 }
 
-int C_Texture::getId(){
+void C_Texture::displayStatus(){
+	cout << "Texture Name: " << m_name << endl;
+}
+
+//C_Image
+
+C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_width, int tile_height, int file_width, int file_height):
+	C_Texture(name)
+{
+	m_id = id;
+	m_tileNbr = tileNbr;
+	m_file_path = file_path;
+	m_tile_height = tile_height;
+	m_tile_width = tile_width;
+	m_file_width = file_width;
+	m_file_height =file_height;
+	loadTexture (m_file_path);
+}
+
+
+void C_Image::displayStatus(){
+	cout << "Id:" << m_id << ": "<< m_name << " " << m_tile_width << ":" << m_tile_height ;
+	cout << " " << m_file_path << " " << m_file_width << ":" << m_file_height  << endl;
+}
+
+
+
+int C_Image::getId(){
 	return m_id;
 }
 
-void C_Texture::loadTexture(const string &path)
+void C_Image::loadTexture(string &path)
 {
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer* renderer = win.getRenderer ();
@@ -113,38 +121,45 @@ void C_Texture::loadTexture(const string &path)
 		}
 }
 
-SDL_Texture* renderText(const std::string &message,SDL_Color color, int fontSize)
+//C_Text
+
+C_Text::C_Text(string name):
+	C_Texture(name)
+{
+}
+
+void C_Text::loadTextAsTexture(std::string &message,SDL_Color color, int fontSize)
 {
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer* renderer = win.getRenderer ();
-	C_Texture f;
-	string str = f.findFont();
-	TTF_Font *font = TTF_OpenFont(str.c_str(), fontSize);
+	SDL_Surface *surf = nullptr;
+	TTF_Font *font = TTF_OpenFont(findFont().c_str(),fontSize);
 
 	if (font == nullptr){
 		logSDLerror("TTF_OpenFont");
-		return nullptr;
+		m_texture = nullptr;
+		}
+	else{
+		surf = TTF_RenderText_Blended(font, message.c_str(), color);
 	}
 
-	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
 	if (surf == nullptr){
 		TTF_CloseFont(font);
 		logSDLerror("TTF_RenderText");
-		return nullptr;
+		m_texture = nullptr;
+		}
+	else{
+		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
+		if (m_texture == nullptr){
+			logSDLerror("CreateTexture");
+		}
 	}
-	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
-	if (texture == nullptr){
-		logSDLerror("CreateTexture");
-	}
-
 	SDL_FreeSurface(surf);
 	TTF_CloseFont(font);
-	return texture;
 }
 
 
-
-string C_Texture::findFont()
+string C_Text::findFont()
 {
 	string font =   "/usr/share/fonts/truetype/roboto/hinted/Roboto-Bold.ttf";
 	struct stat buffer;
@@ -152,6 +167,7 @@ string C_Texture::findFont()
 			return font;
 		 else{
 		 	cout << "Roboto-Bold.ttf was not found. You should install the fonts-roboto package\n" << endl;
+			return "default";
 		 }
 }
 //#######################################Texture List##################################################
@@ -225,10 +241,9 @@ void C_TextureList::loadTexturesIntoMap(){
 
 	for (int i = 0; i < size; i++){
 		string filePath = "data/img/original/" + file[i];
-		m_map_textures[file[i]] = new C_Texture((i+1000),0, file[i], filePath, 128, 128, 128, 128);
+		m_map_textures[file[i]] = new C_Image((i+1000),0, file[i], filePath, 128, 128, 128, 128);
 	}
 }
-
 
 
 
@@ -308,7 +323,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 		int id = tileNbr + startCount;
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()){
-				m_map_textures[fullname] = new C_Texture(id,tileNbr,fullname, filePath, tile_width, tile_height, file_width, file_height );
+				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, filePath, tile_width, tile_height, file_width, file_height );
 				m_count++;
 				//cout << m_count << ": " << fullname << endl;
 			}

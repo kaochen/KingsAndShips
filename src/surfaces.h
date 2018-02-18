@@ -16,31 +16,50 @@ class C_Texture
 {
 public:
 	C_Texture();
-	C_Texture(int id,int tileNbr, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
-	~C_Texture();
+	C_Texture(std::string name);
 
-	void displayStatus();
-	SDL_Texture* getTexture();
-	int getId();
-	void loadTexture(const std::string &path);
+	virtual ~C_Texture();
+	virtual SDL_Texture* getTexture();
+	virtual void displayStatus();
 
-	SDL_Texture* renderText(const std::string &message,SDL_Color color, int fontSize);
-	std::string findFont();
+	virtual int getId() = 0;
+
+protected:
+	std::string m_name;
+	SDL_Texture * m_texture;
+};
+
+class C_Image: public C_Texture
+{
+public:
+	C_Image(int id,int tileNbr, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
+
+	virtual int getId();
+	virtual void loadTexture( std::string &path);
+	virtual void displayStatus();
+
 protected:
 	int m_id;
 	int m_tileNbr;
-	std::string m_name;
 	std::string m_file_path;
 	int m_tile_height;
 	int m_tile_width;
 	int m_file_width;
 	int m_file_height;
-	SDL_Texture * m_texture;
-private:
-	static std::map<std::string,SDL_Texture*> map_textures;
+};
+
+//C_Text
+class C_Text: public C_Texture
+{
+public:
+	C_Text(std::string name);
+	virtual void loadTextAsTexture(std::string &message,SDL_Color color, int fontSize);
+protected:
+	std::string findFont();
 };
 
 
+//C_TextureList
 class C_TextureList
 {
 public:
