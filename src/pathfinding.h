@@ -73,7 +73,7 @@ public:
 
 	void showPath();
 	void show_H_G_F();
-	C_Node* lowestF();
+	C_Node* closestNode();
 	void displayPath();
 	std::stack<C_Node*> getPath();
 	void goNextStep();

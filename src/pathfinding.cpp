@@ -340,7 +340,7 @@ void C_Path::setTown(int x_grid,int y_grid){
 void C_Path::loadPath(){
 	C_Node* current = m_destination;
 	if(current->getParent() == nullptr){
-		current = lowestF();
+		current = closestNode();
 	}
 	while(current->getParent() != nullptr){
 		 m_path.push(current);
@@ -372,19 +372,35 @@ void C_Path::show_H_G_F(){
 	}
 }
 
-C_Node* C_Path::lowestF(){
-	C_Node *lowest = nullptr;
-	int lowestF;
+C_Node* C_Path::closestNode(){
+	C_Node *closest = nullptr;
+	int lowestF = 10000;
 	for(int y= 0; y < GRID_SIZE; y++){
 		for(int x= 0; x < GRID_SIZE; x++){
 			int F = m_gridNode[x][y]->getF();
 			if (F > 0 && F < lowestF){
-				lowest = m_gridNode[x][y];
+				closest = m_gridNode[x][y];
 				lowestF = F;
 			}
 		}
 	}
-	return lowest;
+	int lowestH = 10000;
+	for(int y= 0; y < GRID_SIZE; y++){
+		for(int x= 0; x < GRID_SIZE; x++){
+			int H = m_gridNode[x][y]->getH();
+			int F = m_gridNode[x][y]->getF();
+			if(F == lowestF){
+				if (H > 0 && H < lowestH){
+					if(closest != nullptr){
+						closest = m_gridNode[x][y];
+						lowestH = H;
+					}
+				}
+			}
+		}
+	}
+
+	return closest;
 }
 
 
