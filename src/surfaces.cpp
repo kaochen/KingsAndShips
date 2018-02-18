@@ -1,8 +1,12 @@
 #include "surfaces.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <SDL2_gfxPrimitives.h>
 
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
+#include <sys/stat.h>
 
 using namespace std;
 
@@ -109,9 +113,47 @@ void C_Texture::loadTexture(const string &path)
 		}
 }
 
+SDL_Texture* renderText(const std::string &message,SDL_Color color, int fontSize)
+{
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer* renderer = win.getRenderer ();
+	C_Texture f;
+	string str = f.findFont();
+	TTF_Font *font = TTF_OpenFont(str.c_str(), fontSize);
+
+	if (font == nullptr){
+		logSDLerror("TTF_OpenFont");
+		return nullptr;
+	}
+
+	SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
+	if (surf == nullptr){
+		TTF_CloseFont(font);
+		logSDLerror("TTF_RenderText");
+		return nullptr;
+	}
+	SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+	if (texture == nullptr){
+		logSDLerror("CreateTexture");
+	}
+
+	SDL_FreeSurface(surf);
+	TTF_CloseFont(font);
+	return texture;
+}
 
 
 
+string C_Texture::findFont()
+{
+	string font =   "/usr/share/fonts/truetype/roboto/hinted/Roboto-Bold.ttf";
+	struct stat buffer;
+ 		 if(stat (font.c_str(), &buffer) == 0)
+			return font;
+		 else{
+		 	cout << "Roboto-Bold.ttf was not found. You should install the fonts-roboto package\n" << endl;
+		 }
+}
 //#######################################Texture List##################################################
 
 C_TextureList::C_TextureList():

@@ -24,6 +24,8 @@ public:
 	int getId();
 	void loadTexture(const std::string &path);
 
+	SDL_Texture* renderText(const std::string &message,SDL_Color color, int fontSize);
+	std::string findFont();
 protected:
 	int m_id;
 	int m_tileNbr;
