@@ -78,7 +78,7 @@ public:
 	std::stack<C_Node*> getPath();
 	void goNextStep();
 private:
-
+	int findLowestF();
 	void loadPath();
 	std::multimap<int, C_Node*> m_openNodes;
 	C_Node* m_destination;

@@ -255,14 +255,38 @@ C_Path::~C_Path()
 void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_start = m_gridNode[x_start][y_start];
 	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
+
 	m_destination = m_gridNode[x_dest][y_dest];
 
-	cout << "---------" << endl;
-	std::multimap<int, C_Node*>::reverse_iterator rit;
-	for (rit=m_openNodes.rbegin(); rit!=m_openNodes.rend(); rit--){
-			cout << (*rit).first << " : ";
-			(*rit).second->calcG(m_gridNode,&m_openNodes);
-			m_openNodes.erase(--(rit.base()));
+       std::multimap<int, C_Node*>::reverse_iterator rit;
+
+     for (rit=m_openNodes.rbegin(); rit!=m_openNodes.rend(); rit++){
+              		displayOpenList();
+              		int lowestF = findLowestF();
+              		cout << "lowestF " << lowestF << endl;
+     			int c = 0;
+     		       std::multimap<int, C_Node*>::reverse_iterator rit2;
+		       for (rit2=m_openNodes.rbegin(); rit2!=m_openNodes.rend(); rit2++){
+		       			if((*rit2).first == lowestF && c < 1){
+		       				c++;
+				       		std::multimap<int, C_Node*> tmpList;
+				        	cout << (*rit2).first << " : ";
+					       	(*rit2).second->calcG(m_gridNode,&tmpList);
+					       	if(!m_openNodes.empty()){
+					       		m_openNodes.erase(--(rit2.base()));
+					       	}
+					       	else{
+					       	cout << "list is empty" << endl;
+					       	}
+
+
+						std::multimap<int, C_Node*>::iterator it2;
+						for (it2=tmpList.begin(); it2!=tmpList.end(); it2++){
+							m_openNodes.insert(pair<int, C_Node*>((*it2).first,(*it2).second));
+							}
+					}
+
+			}
 	}
 	cout << "---------" << endl;
 	loadPath();
@@ -270,11 +294,21 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 
 void C_Path::displayOpenList(){
 	std::multimap<int, C_Node*>::iterator it;
+	cout << "Open Nodes: " << endl;
 	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-		cout << "Open Nodes: " << endl;
 		(*it).second->displayStatus();
 	}
 
+}
+
+int C_Path::findLowestF(){
+	std::multimap<int, C_Node*>::iterator it;
+	int lowest = 10000;
+	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
+		if ((*it).first < lowest)
+			lowest = (*it).first;
+	}
+	return lowest;
 }
 
 
