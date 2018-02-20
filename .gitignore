@@ -38,3 +38,6 @@ data/img/original/renderFolder/
 *.exe
 *.out
 *.app
+
+
+perf.data

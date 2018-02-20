@@ -50,6 +50,13 @@ Build a tileset from images with imagemagick
 montage Src*.png -tile 8x8 -geometry +0+0 -background none tilset.png
 ```
 
+Search where improving the code is more usefull
+```
+apt install linux-perf
+sudo perf record -g ./build/demo -sleep 10
+perf report --sort comm,dso
+```
+
 ### Dev links :
 
  * https://www.kraxel.org/blog/tag/meson-ninja/
