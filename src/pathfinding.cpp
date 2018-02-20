@@ -25,6 +25,10 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 
 C_Node::~C_Node()
 {
+	C_TextureList& t=C_TextureList::Instances();
+	t.freeTexture(m_h_texture_name );
+	t.freeTexture(m_g_texture_name );
+	t.freeTexture(m_f_texture_name );
 };
 
 void C_Node::setTown(bool town){
@@ -193,6 +197,25 @@ void C_Node::highlight(){
 	filledEllipseRGBA(renderer,x_screen, y_screen+ 14 ,10,5,R,G,B,A);
 }
 
+void C_Node::prepareRender(){
+	int x_screen = m_coord->getXScreen ();
+	int y_screen = m_coord->getYScreen ();
+
+	C_TextureList& t=C_TextureList::Instances();
+
+	m_h_texture_name = to_string(x_screen)+to_string(y_screen)+"h_value";
+	string value = "H:"+to_string(m_H);
+	t.loadTextAsTexturesIntoMap(m_h_texture_name, value, 10);
+
+	m_g_texture_name = to_string(x_screen)+to_string(y_screen)+"g_value";
+	value = "G:"+to_string(m_G);
+	t.loadTextAsTexturesIntoMap(m_g_texture_name, value, 10);
+
+	m_f_texture_name = to_string(x_screen)+to_string(y_screen)+"f_value";
+	value = "F:"+to_string(m_F);
+	t.loadTextAsTexturesIntoMap(m_f_texture_name, value, 15);
+}
+
 void C_Node::render(){
 
 	int x_screen = m_coord->getXScreen ();
@@ -200,24 +223,10 @@ void C_Node::render(){
 
  	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
 	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(m_h_texture_name,x_screen - 20,y_screen + 12);
+	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);
+	t.renderTexture(m_f_texture_name,x_screen,y_screen + 25);
 
-	string name = "h_value";
-	string value = "H:"+to_string(m_H);
-	t.loadTextAsTexturesIntoMap(name, value, 10);
-	t.renderTexture(name,x_screen - 20,y_screen + 12);
-	t.freeTexture(name);
-
-	name = "g_value";
-	value = "G:"+to_string(m_G);
-	t.loadTextAsTexturesIntoMap(name, value, 10);
-	t.renderTexture(name,x_screen + 20,y_screen + 12);
-	t.freeTexture(name);
-
-	name = "f_value";
-	value = "F:"+to_string(m_F);
-	t.loadTextAsTexturesIntoMap(name, value, 15);
-	t.renderTexture(name,x_screen,y_screen + 25);
-	t.freeTexture(name);
 }
 
 
@@ -347,6 +356,13 @@ void C_Path::loadPath(){
 		 current = current->getParent();
 		 //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		 }
+	cout << "load Path" << endl;
+	//prepare render for debug
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+		m_gridNode[x][y]->prepareRender ();
+		}
+	}
 	//m_path.push(m_start); //do not forget the start
 }
 

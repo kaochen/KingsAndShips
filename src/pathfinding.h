@@ -40,6 +40,7 @@ public:
 	int getDist() const;
 	double getAngle() const;
 	void highlight();
+	void prepareRender();
 	void render();
 
 protected:
@@ -56,6 +57,10 @@ protected:
 	C_Node* m_parent;
 	double m_angle;
 	int m_dist;
+	//
+	std::string m_g_texture_name;
+	std::string m_h_texture_name;
+	std::string m_f_texture_name;
 };
 
 
