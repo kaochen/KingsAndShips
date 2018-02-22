@@ -180,6 +180,10 @@ while(!quit)
 			case SDLK_n:
 				level.sendNextWave();
 				break;
+
+			case SDLK_d:
+				settings.setDebugMode();
+				settings.displayDebugMode();
 			}
 
 		} // end of switch(event.type)

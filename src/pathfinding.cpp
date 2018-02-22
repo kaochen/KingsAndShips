@@ -436,9 +436,12 @@ void C_Path::displayPath(){
 		tmp.top()->highlight();
 		tmp.pop();
 	}
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-		m_gridNode[x][y]->render();
+	C_Set& settings=C_Set::Instances();
+	if(settings.getDebugModeStatus()){
+		for (size_t y = 0; y < GRID_SIZE; y++){
+			for (size_t x = 0; x < GRID_SIZE; x++){
+			m_gridNode[x][y]->render();
+			}
 		}
 	}
 }

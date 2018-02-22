@@ -51,6 +51,10 @@ public:
 	int getGridFirstTileX();
 	int getGridFirstTileY();
 
+	void setDebugMode();
+	bool getDebugModeStatus();
+	void displayDebugMode();
+
 private:
 	C_Set& operator= (const C_Set&){return *this;}
 	C_Set (const C_Set&){}
@@ -66,6 +70,7 @@ private:
 	int m_gridNbrOfRow; //nbr of tiles in a row
 	int m_first_tile_x; //first tile to display
 	int m_first_tile_y;
+	bool m_debugMode;
 };
 
 enum coordinates{SCREEN,GRID};

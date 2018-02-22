@@ -14,6 +14,7 @@ C_Set::C_Set()
 	m_gridNbrOfRow = 15;
 	m_first_tile_x = 13;
 	m_first_tile_y = 0;
+	m_debugMode = false;
 }
 
 C_Set::~C_Set()
@@ -61,6 +62,31 @@ int C_Set::getGridFirstTileX(){
 int C_Set::getGridFirstTileY(){
 	return m_first_tile_y;
 }
+
+void C_Set::setDebugMode(){
+	if(m_debugMode){
+		m_debugMode = false;
+		}
+	else{
+		m_debugMode = true;
+	}
+}
+
+bool C_Set::getDebugModeStatus(){
+	return m_debugMode;
+}
+
+void C_Set::displayDebugMode(){
+	cout << "Debug Mode ";
+		if(m_debugMode){
+			cout << "on" << endl;
+		}
+		else{
+			cout << "off" << endl;
+		}
+
+}
+
 
 //---------------------------------------------------------------
 
