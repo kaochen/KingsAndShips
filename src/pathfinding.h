@@ -45,7 +45,9 @@ public:
 
 protected:
 	int calcG_offset(int x_from, int y_from,
-			 int x_dest, int y_dest,
+			 int x_dest, int y_dest);
+	bool crossACorner(int x_from, int y_from,
+			  int x_dest, int y_dest,
 			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]);
 	C_Coord * m_coord;
 	bool m_block;

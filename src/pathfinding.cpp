@@ -115,11 +115,12 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
 				if ((x != x_grid || y != y_grid)){
 					//Calc G_offset
-					int G_offset = calcG_offset(x_grid, y_grid,x,y,gridNode);
+					int G_offset = calcG_offset(x_grid, y_grid,x,y);
+					bool corner = crossACorner(x_grid, y_grid,x,y, gridNode);
 					//
 					C_Node *tested = gridNode[x][y];
 						if (tested != nullptr){
-							if (tested->getBlock() == false){
+							if (tested->getBlock() == false && corner == false){
 								cout << x << ":" << y << " ";
 								int tmpG = tested->getG();
 								if (tmpG == 0 || (currentG + G_offset) < tmpG ){
@@ -143,8 +144,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 
 
 int C_Node::calcG_offset(int x_from, int y_from,
-			 int x_dest, int y_dest,
-			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]){
+			 int x_dest, int y_dest){
 
 	if(x_from != x_dest && y_from != y_dest){
 		return G_DIAG;
@@ -153,6 +153,17 @@ int C_Node::calcG_offset(int x_from, int y_from,
 		return G_HV;
 	}
 }
+
+bool C_Node::crossACorner(int x_from, int y_from,
+			  int x_dest, int y_dest,
+			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]){
+	if(gridNode[x_from][y_dest]->getBlock() || gridNode[x_dest][y_from]->getBlock()){
+		return true;
+	}
+	else{
+		return false;
+	}
+			  }
 
 int C_Node::getG() const{
 	return m_G;
