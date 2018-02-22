@@ -216,23 +216,24 @@ void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 	C_Window& win=C_Window::Instances();
 	C_Set& settings=C_Set::Instances();
 	SDL_Texture *texture;
-
-        map<string, C_Texture*>::iterator search = m_map_textures.find(name);
-	if(search == m_map_textures.end()){
-		cout << name << " not available in the texture map" << endl;
-		texture = nullptr;
-	}
-	else{
-		texture = m_map_textures[name]->getTexture();
-	}
-
-	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
-		SDL_Rect pos;
-		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
-		pos.x = x - pos.w/2;
-		pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
-		SDL_RenderCopyEx(win.getRenderer(), texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
+	if(name != ""){
+		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
+		if(search == m_map_textures.end()){
+			cout << name << " not available in the texture map (renderTextureEx)" << endl;
+			texture = nullptr;
 		}
+		else{
+			texture = m_map_textures[name]->getTexture();
+		}
+
+		if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
+			SDL_Rect pos;
+			SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
+			pos.x = x - pos.w/2;
+			pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
+			SDL_RenderCopyEx(win.getRenderer(), texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
+			}
+	}
 }
 
 
@@ -373,7 +374,7 @@ void C_TextureList::displayTexturesList(){
 		    	string name = x.first;  // string (key)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 			if(search == m_map_textures.end()){
-				cout << name << " not available in the texture map" << endl;
+				cout << name << " not available in the texture map  (displayTexturesList)"<< endl;
 			}
 			else{
 				m_map_textures[name]->displayStatus();
@@ -392,7 +393,7 @@ string C_TextureList::getNameFromID(int id){
 		    	string n = x.first;  // string (key)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(n);
 			if(search == m_map_textures.end()){
-				cout << n << " not available in the texture map" << endl;
+				cout << n << " not available in the texture map (getNameFromID)" << endl;
 				result = "notFound";
 			}
 			else{

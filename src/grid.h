@@ -27,6 +27,7 @@ public:
 	void setGround(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
 	int getGround(int x, int y);
+	std::string getStrGround(int x, int y);
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
 

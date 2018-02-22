@@ -83,6 +83,7 @@ SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
 cout << "Loop Start" << endl;
+
 while(!quit)
 {
 
@@ -185,15 +186,12 @@ while(!quit)
 
 	}//SDL_PollEvent(&event)
 
-	time.updateTime();
 	//update status
-	//move boats every two frames
+
 		if (time.testNewFrame()){
 				//cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
-				long frameStartTime = SDL_GetTicks();
-				//cout << "Time: " << frameStartTime << endl <<"update status" << endl;
 				forceRefresh = true;
-
+				time.updateFrameTime();
 				//play all units
 				grid.playAllUnits();
 
@@ -211,7 +209,6 @@ while(!quit)
 		grid.renderLayer (GROUND);
 		grid.renderLayer (DEAD);
 		grid.renderLayer (UNITS);
-
 
 		//Clic on the addNewTower Button:
 		C_MenuItem* menuButton;
@@ -244,14 +241,12 @@ while(!quit)
  		SDL_RenderPresent(win.getRenderer());
  		}
 
-		time.updateFrameNbr(frameStartTime, SDL_GetTicks());
  		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
 	}
 
 // pause the game loop according to the framerate setting
 
 //cout << "update time & delay" << endl;
-	//time.displayTime();
 	time.delayGameLoop();
 }//end of while(!quit)
 

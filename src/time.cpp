@@ -14,11 +14,11 @@ C_Time::C_Time():
 	m_lastSec(0),
 	m_currentTime(0),
 	m_framerate(FRAMERATE),
-	m_delay(0)
+	m_delay(0),
+	m_start_frame(0)
 {
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
-	m_lastFrameDuration = m_frame_duration;
 }
 
 C_Time::~C_Time(){
@@ -33,43 +33,37 @@ void C_Time::displayTime() const
 {
 	cout << "Time: "<< SDL_GetTicks() <<  " s:"<< m_sec;
 	cout << " - frame:" << m_frameNbr << "/" << m_framerate;
-	cout << " Last Frame duration: " << m_lastFrameDuration << endl;
 }
 
-void C_Time::updateFrameNbr(long startTime, long finishTime)
+void C_Time::updateFrameNbr()
 {
-	m_lastFrameDuration = finishTime - startTime;
+	long currentTime = SDL_GetTicks();
+
+	if ((currentTime - m_start_frame) > (1000/FRAMERATE)){
+		m_frameNbr++;
+		}
+
+	m_sec = m_currentTime/1000;
 	if (m_sec != m_lastSec){
 		m_frameNbr = 0;
 		m_lastSec = m_sec;
-		}
-	else{
-		m_frameNbr++;
 		}
 }
 
 void C_Time::delayGameLoop()
 {
 	long delay = 0;
-	if (m_frameNbr != m_previousFrameNbr){
-		if (m_lastFrameDuration < m_frame_duration){
-			delay = m_frame_duration - m_lastFrameDuration;
+	long frameDuration = SDL_GetTicks() - m_start_frame;
+		if (frameDuration < m_frame_duration){
+			delay = m_frame_duration - frameDuration;
 			}
-		}
-		else{
-			delay = 0;
-			int jump = m_lastFrameDuration/m_frame_duration;
-			m_frameNbr = jump;
-		}
-
-	//cout << "Delay: " << delay << endl;
 	SDL_Delay(delay);
+	updateFrameNbr();
 }
 
-void C_Time::updateTime()
+void C_Time::updateFrameTime()
 {
-	m_currentTime = SDL_GetTicks();
-	m_sec = m_currentTime/1000;
+	m_start_frame = SDL_GetTicks();
 }
 
 long C_Time::getSec()

@@ -58,7 +58,7 @@ void C_Grid::renderLayer(int layer){
 				//cout << "|" << x << ":"<< y << ":";
 				if (layer == GROUND){
 						C_CoordGrid coord(x,y);
-						t.renderTextureFromId(m_grid[x][y].ground,coord.getXScreen(),coord.getYScreen() + 36);
+						t.renderTexture(m_grid[x][y].str_ground,coord.getXScreen(),coord.getYScreen() + 36);
 						}
 						//draw the deads
 				if (layer == DEAD){
@@ -71,6 +71,7 @@ void C_Grid::renderLayer(int layer){
 				if (layer == UNITS){
 						if (m_grid[x][y].main != nullptr){
 								S_Coord screen;
+								//cout << "render units " << endl;
 								screen.x = m_grid[x][y].main->getXScreen();
 								screen.y = m_grid[x][y].main->getYScreen();
 								m_grid[x][y].main->render(screen);
@@ -132,6 +133,8 @@ C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid){
 
 void C_Grid::setGround(int x, int y, int id){
 	m_grid[x][y].ground = id;
+	C_TextureList& t=C_TextureList::Instances();
+	m_grid[x][y].str_ground = t.getNameFromID(id);
 	if (id >= 49 && id <= 57){
 		m_grid[x][y].water = true;
 		}
@@ -145,6 +148,9 @@ int C_Grid::getGround(int x, int y){
 	return m_grid[x][y].ground;
 }
 
+string C_Grid::getStrGround(int x, int y){
+	return m_grid[x][y].str_ground;
+}
 bool C_Grid::isThisConstructible(S_Coord grid){
 	if ( m_grid[grid.x][grid.y].water == true){
 		return false;

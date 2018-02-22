@@ -12,9 +12,8 @@ class C_Time
 	public:
 	static	C_Time& Instances();
 	void displayTime() const;
-	void updateFrameNbr(long startTime, long finishTime);
 
-	void updateTime();
+	void updateFrameTime();
 	void delayGameLoop();
 	long getSec();
 	long getFrameNbr();
@@ -23,8 +22,8 @@ class C_Time
 	long getDelay();
 	bool testNewFrame();
 
-
 	protected:
+	void updateFrameNbr();
 
 	private:
 	C_Time& operator= (const C_Time&){return *this;}
@@ -38,13 +37,12 @@ class C_Time
 	long m_previousFrameNbr;
 	int m_sec;
 	int m_lastSec;
-
 	long m_currentTime;
 	long m_lastFrameTime;
-	long m_lastFrameDuration;
 	long m_framerate;
 	long m_frame_duration;
 	long m_delay;
+	long m_start_frame;
 };
 
 #define MAX_ANIM  5

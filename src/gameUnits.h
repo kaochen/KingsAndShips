@@ -9,7 +9,7 @@
 #include "settings.h"
 
 #include "pathfinding.h"
-
+#include <string>
 class C_GameUnits
 {
 	public:
@@ -18,6 +18,7 @@ class C_GameUnits
 		C_GameUnits * dead;
 		bool path;
 		int ground;
+		std::string str_ground;
 		bool plot;
 		bool water;
 
