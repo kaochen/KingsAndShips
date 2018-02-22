@@ -268,11 +268,9 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_destination = m_gridNode[x_dest][y_dest];
 
        std::multimap<int, C_Node*>::reverse_iterator rit;
-
-     for (rit=m_openNodes.rbegin(); rit!=m_openNodes.rend(); rit++){
-              		displayOpenList();
+       for(int count = 1; count > 0; count--){
               		int lowestF = findLowestF();
-              		cout << "lowestF " << lowestF << endl;
+              		cout << "map size: " << m_openNodes.size() << " lowestF " << lowestF << endl;
      			int c = 0;
      		       std::multimap<int, C_Node*>::reverse_iterator rit2;
 		       for (rit2=m_openNodes.rbegin(); rit2!=m_openNodes.rend(); rit2++){
@@ -285,7 +283,7 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 					       		m_openNodes.erase(--(rit2.base()));
 					       	}
 					       	else{
-					       	cout << "list is empty" << endl;
+					       		cout << "list is empty" << endl;
 					       	}
 
 
@@ -294,7 +292,7 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 							m_openNodes.insert(pair<int, C_Node*>((*it2).first,(*it2).second));
 							}
 					}
-
+			count = m_openNodes.size();
 			}
 	}
 	cout << "---------" << endl;
