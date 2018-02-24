@@ -171,6 +171,6 @@ void C_Weapon::changeDirection(string direction){
 		else{
 			cout <<"\""<<direction << "\" unknow weapon direction";
 		}
-			cout <<"weapon offset "<< m_weapon.moveImpact.x  << ":" << m_weapon.moveImpact.y << endl;  ;
+			//cout <<"weapon offset "<< m_weapon.moveImpact.x  << ":" << m_weapon.moveImpact.y << endl;  ;
 }
 
