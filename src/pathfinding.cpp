@@ -367,9 +367,12 @@ void C_Path::loadPath(){
 		 }
 	cout << "load Path" << endl;
 	//prepare render for debug
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-		m_gridNode[x][y]->prepareRender ();
+	C_Set& settings=C_Set::Instances();
+	if(settings.getDebugModeStatus()){
+		for (size_t y = 0; y < GRID_SIZE; y++){
+			for (size_t x = 0; x < GRID_SIZE; x++){
+			m_gridNode[x][y]->prepareRender ();
+			}
 		}
 	}
 	//m_path.push(m_start); //do not forget the start
