@@ -17,7 +17,6 @@ class C_GameUnits
 		C_GameUnits * main;
 		C_GameUnits * dead;
 		bool path;
-		int ground;
 		std::string str_ground;
 		bool plot;
 		bool water;

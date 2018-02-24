@@ -16,6 +16,7 @@ C_Grid::C_Grid()
 		for (size_t x = 0; x < GRID_SIZE; x++){
 		m_grid[x][y].main = nullptr;
 		m_grid[x][y].dead = nullptr;
+		m_grid[x][y].str_ground = "";
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
 		}
@@ -104,11 +105,11 @@ void C_Grid::addANewTower(int type, int x, int y, int rank){
 		switch(type){
 		 case ADDNEWTOWER :
 			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
-			m_grid[x][y].ground = 25;
+			m_grid[x][y].str_ground = "Ground_01_Grass00";
 		 break;
 		 case ADDNEWTURBINE :
 			m_grid[x][y].main = new C_Turbine(x,y,rank);
-			m_grid[x][y].ground = 25;
+			m_grid[x][y].str_ground = "Ground_01_Grass00";
 		 break;
 		 case  NONE:
 		 break;
@@ -132,21 +133,21 @@ C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid){
 }
 
 void C_Grid::setGround(int x, int y, int id){
-	m_grid[x][y].ground = id;
 	C_TextureList& t=C_TextureList::Instances();
-	m_grid[x][y].str_ground = t.getNameFromID(id);
-	if (id >= 49 && id <= 57){
+	string str = t.getNameFromID(id);
+	m_grid[x][y].str_ground = str;
+	cout << str << endl;
+	string pattern = "Water";
+	size_t found = str.find(pattern);
+	if(found != string::npos){
 		m_grid[x][y].water = true;
-		}
+	}
 }
 
 bool C_Grid::waterway(int x_grid, int y_grid){
 	return m_grid[x_grid][y_grid].water;
 }
 
-int C_Grid::getGround(int x, int y){
-	return m_grid[x][y].ground;
-}
 
 string C_Grid::getStrGround(int x, int y){
 	return m_grid[x][y].str_ground;

@@ -116,14 +116,6 @@ void C_Level::extractTMXfile(string tmx_File_Path){
 				data = data.substr(mark + 1);
 		}
 	}
-	//cout << endl << endl;
-	//read grid
-	for (int y = 0; y < height; y++){
-		for (int x = 0; x < width; x++){
-			cout << grid.getGround(x,y)<<"-";
-		}
-		cout << endl;
-	}
 }
 
 
