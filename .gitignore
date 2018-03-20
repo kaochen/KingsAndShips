@@ -40,4 +40,4 @@ data/img/original/renderFolder/
 *.app
 
 
-perf.data
+perf.dat*
