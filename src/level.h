@@ -22,6 +22,7 @@ class C_Level
 	//methods
 	C_Level();
 	~C_Level();
+  void load(int levelNbr);
 	void status();
 	void sendNextWave();
 

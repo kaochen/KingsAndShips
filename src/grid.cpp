@@ -27,22 +27,30 @@ C_Grid::~C_Grid()
 {
 }
 
+void C_Grid::reset()
+{
+	for (size_t y = 0; y < GRID_SIZE; y++){
+		for (size_t x = 0; x < GRID_SIZE; x++){
+		if(m_grid[x][y].main != nullptr){
+		        delete m_grid[x][y].main;
+		        m_grid[x][y].main = nullptr;
+		}
+		if(m_grid[x][y].dead != nullptr){
+		        delete m_grid[x][y].dead;
+		        m_grid[x][y].dead = nullptr;
+		}
+		m_grid[x][y].str_ground = "";
+		m_grid[x][y].plot = true;
+		m_grid[x][y].water = false;
+		}
+	}
+}
+
 C_Grid& C_Grid::Instances()
 {
 	return m_instance;
 }
 
-void C_Grid::loadLevel(int levelNbr){
-
-	C_Level l;
-	l.extractTMXfile("data/levels/Level_00.tmx");
-
-	//calcultate Path from 3:15 to 27:15
-	//C_Path p(27,15);
-	//p.calcPath(3,15,27,15);
-	//p.showPath();
-	cout << "Level "<< levelNbr <<" Loaded" << endl;
-}
 
 void C_Grid::renderLayer(int layer){
 	C_Set& settings=C_Set::Instances();

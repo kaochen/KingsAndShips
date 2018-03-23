@@ -50,12 +50,11 @@ int main()
 
 //-----------------------------------------------------------------------------
 	C_Grid& grid=C_Grid::Instances();
-	grid.loadLevel(1);
-
-
 
 	//load first level
 	C_Level level;
+	int levelNbr = 0;
+	level.load(levelNbr);
 
 	//displayStatus of the grid
 	grid.displayStatus();
@@ -173,17 +172,20 @@ while(!quit)
 			//listen keyboard
 			switch(event.key.keysym.sym)
 			{
-			case SDLK_q:
-				quit = true;
-				cout << "The quit command (q) has been pressed." << endl;
+			case SDLK_d:
+				settings.setDebugMode();
+				settings.displayDebugMode();
 				break;
 			case SDLK_n:
 				level.sendNextWave();
 				break;
-
-			case SDLK_d:
-				settings.setDebugMode();
-				settings.displayDebugMode();
+			case SDLK_q:
+				quit = true;
+				cout << "The quit command (q) has been pressed." << endl;
+				break;
+			case SDLK_r:
+            	level.load(levelNbr);
+				break;
 			}
 
 		} // end of switch(event.type)

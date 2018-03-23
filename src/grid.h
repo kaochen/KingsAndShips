@@ -13,8 +13,8 @@ class C_Grid
 {
 public:
 	static	C_Grid& Instances();
+  void reset();
 
-	void loadLevel(int levelNbr);
 	void renderLayer(int layer);
 
 	void addANewBoat(int x, int y, int rank);

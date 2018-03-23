@@ -2,6 +2,7 @@
 #include "invaders.h"
 #include "grid.h"
 
+#include <sys/stat.h>
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
 
@@ -22,6 +23,26 @@ C_Level::~C_Level()
 
 void C_Level::status(){
 	cout << m_name << " " << m_id << endl;
+}
+
+void C_Level::load(int levelNbr){
+    //clean before loading
+	C_Grid& grid=C_Grid::Instances();
+	grid.reset();
+
+    string levelPath ="data/levels/Level_0";
+    string extension =".tmx";
+    string filename = levelPath + to_string(levelNbr) + extension;
+
+    struct stat buffer;
+    if (stat (filename.c_str(),  &buffer) == 0){
+	    extractTMXfile(filename.c_str());
+    	cout << "Level "<< levelNbr <<" Loaded" << endl;
+	}
+	else{
+    	cout << "Can not find " << filename << endl;
+    	cout << "Can not load level " << levelNbr << endl;
+	}
 }
 
 void C_Level::sendNextWave(){
