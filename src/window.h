@@ -16,8 +16,12 @@ class C_Window
 	void createWindow();
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
+  void loadGame();
+
 	protected:
 	void initSDL();
+  void loadingPage(int progress);
+  void renderProgressBar(int progress);
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}

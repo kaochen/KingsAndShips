@@ -14,7 +14,6 @@
 #include "towers.h"
 #include "invaders.h"
 #include "gameUnits.h"
-#include "surfaces.h"
 #include "level.h"
 #include "menu.h"
 
@@ -36,17 +35,7 @@ int main()
 
 //-----------------------------------------------------------------------------
 
-	C_TextureList& t=C_TextureList::Instances();
-	//C_Texture text;
-	t.loadTexturesIntoMap();
-	t.extractTSXfile("data/levels/boat_01.tsx");
-	t.extractTSXfile("data/levels/Ground_01.tsx");
-	t.extractTSXfile("data/levels/smoke_01.tsx");
-	t.extractTSXfile("data/levels/turbine_00.tsx");
-	t.extractTSXfile("data/levels/archerTower_00.tsx");
-	t.extractTSXfile("data/levels/archerTower_01.tsx");
-	t.extractTSXfile("data/levels/buttons.tsx");
-	t.displayTexturesList();
+    win.loadGame();
 
 //-----------------------------------------------------------------------------
 	C_Grid& grid=C_Grid::Instances();
