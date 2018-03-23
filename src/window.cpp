@@ -95,29 +95,34 @@ void C_Window::loadGame(){
 	tsxList[4] = "data/levels/archerTower_00.tsx";
 	tsxList[5] = "data/levels/archerTower_01.tsx";
 	tsxList[6] = "data/levels/buttons.tsx";
+	//create texture from the path
+	string firstImages = "First Images";
+	t.loadTextAsTexturesIntoMap(firstImages, firstImages, 20);
+    for(int i = 0; i < size; i++){
+        t.loadTextAsTexturesIntoMap(tsxList[i], tsxList[i], 20);
+        }
 
 	t.loadTexturesIntoMap();
     int progress = 100/(size+1);
-    loadingPage(progress);
+    loadingPage(progress, firstImages);
     for(int i = 0; i < size; i++){
 	    t.extractTSXfile(tsxList[i]);
 	    progress += 100/(size+1);
-        loadingPage(progress);
+        loadingPage(progress, tsxList[i]);
     }
 	t.displayTexturesList();
 }
 
-void C_Window::loadingPage(int progress){
-    SDL_SetRenderDrawColor(m_renderer, 64, 64, 64, 255);
-	SDL_RenderClear(m_renderer);
-
-	renderProgressBar(progress);
-	SDL_RenderPresent(m_renderer);
+void C_Window::loadingPage(int progress, string label){
+	    SDL_SetRenderDrawColor(m_renderer, 64, 64, 64, 255);
+	    SDL_RenderClear(m_renderer);
+        renderProgressBar(progress, label);
+	    SDL_RenderPresent(m_renderer);
 	}
 
 
 
-void C_Window::renderProgressBar(int progress)
+void C_Window::renderProgressBar(int progress, string label)
 	{
 		C_Set& settings=C_Set::Instances();
 		int height = 40, width = settings.getWindowWidth()/2;
@@ -140,8 +145,10 @@ void C_Window::renderProgressBar(int progress)
 		    SDL_RenderFillRect(m_renderer, &back);
 		    SDL_SetRenderDrawColor(m_renderer, 100, 100, 100, 255 );
 		    SDL_RenderFillRect(m_renderer, &fill);
-	}
 
+		    C_TextureList& t=C_TextureList::Instances();
+		    t.renderTexture(label,settings.getWindowWidth()/2, settings.getWindowHeight()/2 + 2*height);
+	}
 
 
 void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
