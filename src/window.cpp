@@ -106,9 +106,9 @@ void C_Window::loadGame(){
     int progress = 100/(size+1);
     loadingPage(progress, firstImages);
     for(int i = 0; i < size; i++){
-	    t.extractTSXfile(tsxList[i]);
 	    progress += 100/(size+1);
         loadingPage(progress, tsxList[i]);
+	    t.extractTSXfile(tsxList[i]);
     }
 	t.displayTexturesList();
 }
