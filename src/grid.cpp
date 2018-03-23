@@ -144,7 +144,7 @@ void C_Grid::setGround(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
 	string str = t.getNameFromID(id);
 	m_grid[x][y].str_ground = str;
-	cout << str << endl;
+	//cout << str << endl;
 	string pattern = "Water";
 	size_t found = str.find(pattern);
 	if(found != string::npos){
