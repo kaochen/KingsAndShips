@@ -5,6 +5,11 @@
 #include "level.h"
 #include "menu.h"
 
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2_gfxPrimitives.h>
+
 using namespace std;
 
 C_Grid C_Grid::m_instance=C_Grid();
@@ -68,6 +73,11 @@ void C_Grid::renderLayer(int layer){
 				if (layer == GROUND){
 						C_CoordGrid coord(x,y);
 						t.renderTexture(m_grid[x][y].str_ground,coord.getXScreen(),coord.getYScreen() + 36);
+						if(!waterway(x,y)){
+						    if ((x+y)%2 == 0){
+                                darkenGround(coord.getXScreen(), coord.getYScreen());
+						    }
+						}
 						}
 						//draw the deads
 				if (layer == DEAD){
@@ -298,4 +308,23 @@ C_GameUnits* C_Grid::getSelectedUnit(){
 		return current;
 }
 
+void C_Grid::darkenGround(int x_screen, int y_screen){
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer * renderer = win.getRenderer();
+	Sint16 w =  TILE_HALF_WIDTH;
+	Sint16 h =  w/2;
+	Sint16 x1 = x_screen - w;
 
+	Sint16 y1 = y_screen - h + 36; //center
+	Sint16 x2 = x1 + w;
+	Sint16 y2 = y1 + h;
+	Sint16 x3 = x1 + (w*2);
+	Sint16 y3 = y1;
+	Sint16 x4 = x2;
+	Sint16 y4 = y1 - h;
+	Sint16 vx[] = {x1,x2,x3,x4};
+	Sint16 vy[] = {y1,y2,y3,y4};
+	int R = 30, G = 30, B = 30, A = 50;
+
+	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
+}
