@@ -31,6 +31,7 @@ struct S_Weapon{
 	int fireRate;
 	int fireRange;
 	S_Coord moveImpact;
+  std::string direction;
 };
 
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};

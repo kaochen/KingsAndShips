@@ -136,43 +136,6 @@ void C_GameUnits::reverseSelectedStatus()
 }
 
 
-void C_GameUnits::changeDirection(int x_cursor, int y_cursor){
-
-			int ab = x_cursor - m_coord->getXScreen ();
-			int bc = y_cursor - m_coord->getYScreen ();
-			double angle = atan2(ab,bc);
-			angle = angle *180/3.14159265359;
-			if (angle > -22.5 && angle <= 22.5){
-				m_strDirection = "SS";
-				}
-			else if (angle > 22.5 && angle <= 67.5){
-				m_strDirection = "SE";
-			}
-			else if(angle > 67.5 && angle <=112.5){
-				m_strDirection = "EE";
-				}
-			else if(angle > 112.5 && angle <=157.5){
-				m_strDirection = "NE";
-				}
-			else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
-				m_strDirection = "NN";
-				}
-			else if(angle > -157.5 && angle <= -112.5){
-				m_strDirection = "NW";
-				}
-			else if(angle > -112.5 && angle <=-67.5){
-				m_strDirection = "WW";
-				}
-			else if(angle > -67.5 && angle <=-22.5){
-				m_strDirection = "SW";
-				}
-			else{
-				m_strDirection = "EE";
-				cout <<"Angle ??? " << angle << endl;
-				}
-
-}
-
 
 C_GameUnits * C_GameUnits::getUnit(){
 	return this;

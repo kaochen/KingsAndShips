@@ -47,7 +47,6 @@ class C_GameUnits
 	virtual void setSelectedStatus(bool status);
 	virtual void reverseSelectedStatus();
 
-	virtual void changeDirection(int x_cursor, int y_cursor);
 	virtual C_GameUnits * getUnit();
 
 	protected:

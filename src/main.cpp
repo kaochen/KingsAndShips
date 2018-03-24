@@ -107,11 +107,7 @@ while(!quit)
 
 			if (mouseButtonDown){
 					if(aTowerIsSelected){
-						C_GameUnits* current = grid.getSelectedUnit();
-						if (current != nullptr){
-							if (current->getName() == "Turbine")
-								current->changeDirection(cursor.x,cursor.y);
-							}
+						grid.getSelectedUnit();
 					}
 			}
 

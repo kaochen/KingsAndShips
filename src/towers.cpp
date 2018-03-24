@@ -148,11 +148,12 @@ C_Turbine::C_Turbine(int x_grid,
 
 void C_Turbine::render(S_Coord screen){
 	renderSelected();
+	S_Weapon current = m_weapon->getWeaponInfo();
 	int rotationSpeed = 200;
 	if (m_weapon->getShooting())
 		rotationSpeed = 50;
 	int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
-	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_strDirection + "_" + to_string(imageNbr) ;
+	string fileName = m_name + "_0" + to_string(m_rank) + "_" + current.direction + "_" + to_string(imageNbr) ;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();
@@ -162,141 +163,3 @@ void C_Turbine::render(S_Coord screen){
 		renderSmoke();
 }
 
-void C_Turbine::drawEllipse(int x_screen,
-		int y_screen,
-		int width,
-		int animNbr,
-		bool ok){
-	C_Window& win=C_Window::Instances();
-	SDL_Renderer * renderer = win.getRenderer();
-
-	int R = 0, G = 200, B = 0, A = 100;
-			if(ok == false)
-				R = 120, G = 0, B = 0;
-
-		Sint16 w = width/2;
-		Sint16 h = w/2;
-		Sint16 x = x_screen;
-		Sint16 y = y_screen;
-		if  (m_strDirection == "NE"){
-			x += w + TILE_HALF_WIDTH;
-			}
-		else if(m_strDirection == "SW"){
-			x -= w + TILE_HALF_WIDTH;
-			y -= TILE_HALF_HEIGHT;
-			}
-		else if(m_strDirection == "NW"){
-			y -= h + 2*TILE_HALF_HEIGHT;
-			}
-		else if(m_strDirection == "SE"){
-			y += h + TILE_HALF_HEIGHT;
-			}
-		else if(m_strDirection == "EE"){
-			x += 2*w/3 + TILE_HALF_WIDTH;
-			y += 2*h/3;
-			}
-		else if(m_strDirection == "SS"){
-			x -= 2*w/3 + TILE_HALF_WIDTH;
-			y += 2*h/3;
-			}
-		else if(m_strDirection == "WW"){
-			x -= 2*w/3 + TILE_HALF_WIDTH;
-			y -= 2*h/3 + TILE_HALF_HEIGHT;
-			}
-		else if(m_strDirection == "NN"){
-			x += 2*w/3 + TILE_HALF_WIDTH;
-			y -= 2*h/3 + TILE_HALF_HEIGHT;
-			}
-		else{
-			cout <<"\""<<m_strDirection << "\" unknow m_strDirection";
-		}
-
-		filledEllipseRGBA(renderer,x,y,w,h,R,G,B,A/4);
-
-		A = A * 2;
-		if (A > 255)
-			A = 255;
-		aaellipseRGBA(renderer,x,y,w+1,h+1,R,G,B,A);
-
-		w += animNbr;
-		h = w/2;
-		//cout << width <<":" << height << endl;
-		aaellipseRGBA(win.getRenderer(),x,y,w,h,R,G,B,(A/2));
-}
-
-
-C_GameUnits*  C_Turbine::searchNextTarget(string type){
-	int fireRange = m_weapon->getFireRange();
-	//cout << "fireRange :" << fireRange << endl;
-	C_Grid& grid=C_Grid::Instances();
-	int x_grid = m_coord->getXGrid();
-	int y_grid = m_coord->getYGrid();
-	int x_start = x_grid;
-	int y_start = y_grid;
-	C_GameUnits* target = nullptr;
-
-	if  (m_strDirection == "NE"){
-			x_start = x_grid + 1;
-			y_start = y_grid - fireRange - 1;
-			}
-		else if(m_strDirection == "SW"){
-			x_start = x_grid - fireRange - 1;
-			y_start = y_grid + 1;
-			}
-		else if(m_strDirection == "NW"){
-			x_start = x_grid - fireRange - 1;
-			y_start = y_grid - fireRange - 1;
-			}
-		else if(m_strDirection == "SE"){
-			x_start = x_grid + 1;
-			y_start = y_grid + 1;;
-			}
-		else if(m_strDirection == "EE"){
-			x_start = x_grid + 1;
-			y_start = y_grid - 1;
-			}
-		else if(m_strDirection == "SS"){
-			x_start = x_grid - 1;
-			y_start = y_grid + 1;
-			}
-		else if(m_strDirection == "WW"){
-			x_start = x_grid - fireRange - 1;
-			y_start = y_grid - 1;
-			}
-		else if(m_strDirection == "NN"){
-			x_start = x_grid - 1;
-			y_start = y_grid - fireRange - 1;
-			}
-		else{
-			cout <<"\""<<m_strDirection << "\" unknow m_strDirection";
-		}
-	//cout << m_strDirection << ":" << m_direction << " ";
-
-	map<int, C_GameUnits*> list;
-	for(int y = y_start; y <= (y_start + fireRange); y++){
-		for(int x = x_start; x <= (x_start + fireRange); x++){
-			//cout << " - " << x << ":" << y;
-			if((x != x_grid || y != y_grid)){
-				C_GameUnits* tmp = grid.getUnits(x,y);
-				if(tmp != nullptr){
-					if(tmp->getName() == type){
-					 	int dist = getDistance(x,y);
-						//cout << "found - " << x << ":" << y;
-					 	list[dist] = tmp;
-				 	}
-				}
-			}
-		}
-	}
-	//cout << endl;
-	if(!list.empty()){
-		target = list.begin()->second;
-	}
-
-	return target;
-}
-
-void C_Turbine::changeDirection(int x_cursor, int y_cursor){
-	C_GameUnits::changeDirection(x_cursor,y_cursor);
-	m_weapon->changeDirection(m_strDirection);
-}
