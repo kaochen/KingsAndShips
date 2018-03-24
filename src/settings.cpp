@@ -348,7 +348,7 @@ void C_Coord::move(double angle, int speed){
 			        }
 				}
 	else if(angle > -157.5 && angle <= -112.5){
-			cout << "WEST" << endl;
+			//cout << "WEST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
     			    m_this.screen.x -=2;
