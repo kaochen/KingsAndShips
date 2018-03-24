@@ -234,43 +234,190 @@ int C_Coord::angleToDirection(double angle){
 
 void C_Coord::move(double angle, int speed){
 	angle = angle *180/3.14159265359;
+
 	//cout << "Angle : " << angle << endl;
 	if (angle > -22.5 && angle <= 22.5){
 			//cout << "SOUTH_EAST" << endl;
-			m_this.screen.y +=speed/2;
+			switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.y +=1;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.y +=2;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.y +=3;
+			    break;
+			     	case FAST:
+    			    m_this.screen.y +=4;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.y +=5;
+			    break;
+			    }
 			}
 	else if (angle > 22.5 && angle <= 67.5){
 			//cout << "EAST" << endl;
-			m_this.screen.x += speed/2;
-			m_this.screen.y += speed/4;
+			switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.x +=2;
+    			    m_this.screen.y +=1;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.x +=2;
+    			    m_this.screen.y +=1;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.x +=4;
+    			    m_this.screen.y +=2;
+			    break;
+			     	case FAST:
+    			    m_this.screen.x +=6;
+    			    m_this.screen.y +=3;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.x +=7;
+    			    m_this.screen.y +=4;
+			    break;
+			    }
 			}
 	else if(angle > 67.5 && angle <=112.5){
 			//cout << "NORTH_EAST" << endl;
 			m_this.screen.x +=speed;
+			switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.x +=2;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.x +=4;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.x +=6;
+			    break;
+			     	case FAST:
+    			    m_this.screen.x +=8;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.x -=10;
+			    break;
+			    }
 				}
 	else if(angle > 112.5 && angle <=157.5){
 			//cout << "NORTH" << endl;
-			m_this.screen.x += speed/2;
-			m_this.screen.y -= speed/4;
+			switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.x +=2;
+    			    m_this.screen.y -=1;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.x +=2;
+    			    m_this.screen.y -=1;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.x +=4;
+    			    m_this.screen.y -=2;
+			    break;
+			     	case FAST:
+    			    m_this.screen.x +=6;
+    			    m_this.screen.y -=3;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.x +=7;
+    			    m_this.screen.y -=4;
+			    break;
+			    }
 				}
 	else if((angle > 157.5 && angle <=180) || (angle > -180 && angle <= -157.5)){
 			//cout << "NORTH_WEST" << endl;
-			m_this.screen.y -=speed/2;
+				    switch(speed){
+			        case VERY_SLOW:
+        			    m_this.screen.y -=1;
+			        break;
+			        	case SLOW:
+        			    m_this.screen.y -=2;
+			        break;
+			        	case NORMAL:
+        			    m_this.screen.y -=3;
+			        break;
+			         	case FAST:
+        			    m_this.screen.y -=4;
+			        break;
+			        	case VERY_FAST:
+        			    m_this.screen.y -=5;
+			        break;
+			        }
 				}
 	else if(angle > -157.5 && angle <= -112.5){
-			//cout << "WEST" << endl;
-			m_this.screen.x -= speed/2;
-			m_this.screen.y -= speed/4;
+			cout << "WEST" << endl;
+			switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.x -=2;
+    			    m_this.screen.y -=1;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.x -=2;
+    			    m_this.screen.y -=1;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.x -=4;
+    			    m_this.screen.y -=2;
+			    break;
+			     	case FAST:
+    			    m_this.screen.x -=6;
+    			    m_this.screen.y -=3;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.x -=7;
+    			    m_this.screen.y -=4;
+			    break;
+			    }
 				}
 	else if(angle > -112.5 && angle <=-67.5){
 			//cout << "SOUTH_WEST" << endl;
 				m_this.screen.x -=speed;
+				switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.x -=2;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.x -=4;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.x -=6;
+			    break;
+			     	case FAST:
+    			    m_this.screen.x -=8;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.x -=10;
+			    break;
+			    }
 				}
 	else if(angle > -67.5 && angle <=-22.5){
 
 			//cout << "SOUTH" << endl;
-			m_this.screen.x -= speed/2;
-			m_this.screen.y += speed/4;
+			switch(speed){
+			    case VERY_SLOW:
+    			    m_this.screen.x -=2;
+    			    m_this.screen.y +=1;
+			    break;
+			    	case SLOW:
+    			    m_this.screen.x -=2;
+    			    m_this.screen.y +=1;
+			    break;
+			    	case NORMAL:
+    			    m_this.screen.x -=4;
+    			    m_this.screen.y +=2;
+			    break;
+			     	case FAST:
+    			    m_this.screen.x -=6;
+    			    m_this.screen.y +=3;
+			    break;
+			    	case VERY_FAST:
+    			    m_this.screen.x -=7;
+    			    m_this.screen.y +=4;
+			    break;
+			    }
 				}
 	else{
 		cout << "Angle is not between 0 and 360 : " << angle << endl;

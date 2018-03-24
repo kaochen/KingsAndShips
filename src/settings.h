@@ -36,6 +36,7 @@ struct S_Weapon{
 
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
 enum GroundType {GROUND_01,GROUND_02};
+enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 
 //singleton
 class C_Set
