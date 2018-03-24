@@ -37,6 +37,12 @@ ninja -C build/
 ./build/demo
 ```
 
+Drag & drop Tower or Turbines on to the map.
+Push "n" to send next wave.
+Push "r" to reset level.
+Push "d" for debug mode.
+Push "q" to quit.
+
 ### Install
 
 ## Dev tips:
