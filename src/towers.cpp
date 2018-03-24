@@ -143,7 +143,7 @@ C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
 		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
 {
-	m_weapon = new C_Weapon("WIND",0,2,700,2);
+	m_weapon = new C_Weapon("WIND",0,1,0,2);
 }
 
 void C_Turbine::render(S_Coord screen){

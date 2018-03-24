@@ -14,7 +14,9 @@ C_invaders::C_invaders(int x_grid,
 
 	m_weapon = new C_Weapon("BOAT",10,0,500,2);
 	m_moving = false;
-	m_speed = SLOW;
+	m_speed = NORMAL;
+	m_speedImpact = 0;
+	m_speedImpactLoop = 10;
 	m_coord->centerOnTile();
 	m_C_Path = new C_Path(27,15);
 	m_C_Path->calcPath(x_grid,y_grid,27,15);
@@ -54,8 +56,20 @@ void C_invaders::move()
 		int bc = dest.y - start.y;
 		double angle = atan2(ab,bc);
 
+        int speed = m_speed - m_speedImpact;
+        if (speed < 0){
+                speed = VERY_SLOW;
+                }
+        //cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
+        if (m_speedImpactLoop > 0){
+            m_speedImpactLoop--;
+        }
+        else{
+            m_speedImpact = 0;
+            m_speedImpactLoop=10;
+            }
 		//move following angle and speed
-		m_coord->move(angle,m_speed);
+		m_coord->move(angle,speed);
 		angle = angle *180/3.14159265359  + 45;
 		m_direction = destCoord.angleToDirection(angle);
 
@@ -183,6 +197,7 @@ void C_invaders::render(S_Coord screen){
 void C_invaders::receiveDamage(S_Weapon weapon)
 {
 	m_life -=weapon.damage;
+	m_speedImpact = weapon.speedImpact;
 	if (m_life < 0)
 	{
 		m_life = 0;
