@@ -30,7 +30,6 @@ struct S_Weapon{
 	int speedImpact;
 	int fireRate;
 	int fireRange;
-	S_Coord moveImpact;
   std::string direction;
 };
 

@@ -27,7 +27,6 @@ class C_invaders: public C_Shooter
 	bool m_moving;
 	C_Path* m_C_Path;
 	int m_speed;
-	S_Coord m_moveImpact;
 };
 
 #endif

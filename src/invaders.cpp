@@ -15,8 +15,6 @@ C_invaders::C_invaders(int x_grid,
 	m_weapon = new C_Weapon("BOAT",10,0,500,2);
 	m_moving = false;
 	m_speed = SLOW;
-	m_moveImpact.x = 0;
-	m_moveImpact.y = 0;
 	m_coord->centerOnTile();
 	m_C_Path = new C_Path(27,15);
 	m_C_Path->calcPath(x_grid,y_grid,27,15);
@@ -62,21 +60,14 @@ void C_invaders::move()
 		m_direction = destCoord.angleToDirection(angle);
 
 		//apply offset + offset
-		m_coord->applyOffset(m_moveImpact);
-
 		//refresh grid position
 		m_coord->regenGridCoord();
-		if(*m_coord == *m_old_coord){
-		}
-		else
-		{
-		m_moveImpact.x = 0;
-		m_moveImpact.y = 0;
+
 		grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
 			if(*m_coord == destCoord){
 				m_C_Path->goNextStep();
 			}
-		}
+
 	}
 }
 
@@ -192,8 +183,6 @@ void C_invaders::render(S_Coord screen){
 void C_invaders::receiveDamage(S_Weapon weapon)
 {
 	m_life -=weapon.damage;
-	m_moveImpact = weapon.moveImpact;
-	//cout << m_moveImpact.x << ":" << m_moveImpact.y << endl;
 	if (m_life < 0)
 	{
 		m_life = 0;
