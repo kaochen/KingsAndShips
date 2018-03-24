@@ -69,18 +69,24 @@ void C_invaders::move()
             m_speedImpactLoop=10;
             }
 		//move following angle and speed
-		m_coord->move(angle,speed);
-		angle = angle *180/3.14159265359  + 45;
-		m_direction = destCoord.angleToDirection(angle);
+		C_Coord tmp = *m_coord;
+		tmp.move(angle,speed);
+		tmp.regenGridCoord();
+		bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
+        if(!nextEmpty){
+		    m_coord->move(angle,speed);
+		    angle = angle *180/3.14159265359  + 45;
+		    m_direction = destCoord.angleToDirection(angle);
 
-		//apply offset + offset
-		//refresh grid position
-		m_coord->regenGridCoord();
+		    //apply offset + offset
+		    //refresh grid position
+		    m_coord->regenGridCoord();
 
-		grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
-			if(*m_coord == destCoord){
-				m_C_Path->goNextStep();
-			}
+		    grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
+			    if(*m_coord == destCoord){
+				    m_C_Path->goNextStep();
+			    }
+		}
 
 	}
 }

@@ -308,6 +308,15 @@ C_GameUnits* C_Grid::getSelectedUnit(){
 		return current;
 }
 
+bool C_Grid::mainEmpty(int x_grid, int y_grid, C_GameUnits *current){
+    if(m_grid[x_grid][y_grid].main == nullptr || m_grid[x_grid][y_grid].main == current ){
+        return false;
+    }
+    else{
+        return true;
+    }
+};
+
 void C_Grid::darkenGround(int x_screen, int y_screen){
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();

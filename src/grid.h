@@ -37,6 +37,7 @@ public:
 	bool selectATower(C_Coord clic);
 
 	C_GameUnits* getSelectedUnit();
+  virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
 
 protected:
 	void unselectedAll(int x_grid, int y_grid);
