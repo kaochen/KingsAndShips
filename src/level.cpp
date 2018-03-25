@@ -51,13 +51,13 @@ void C_Level::sendNextWave(){
 		vector <S_boat> l;
 		S_boat temp = {1,6,15};
 		l.push_back(temp);
-		/*temp.x = 6;
-		temp.y = 15;
+		temp.x = 6;
+		temp.y = 14;
 		l.push_back(temp);
-		temp.x = 5;
-		temp.y = 15;
+		temp.x = 6;
+		temp.y = 16;
 		l.push_back(temp);
-		temp.x = 7;
+		/*temp.x = 7;
 		l.push_back(temp);
 		temp.x = 3;
 		l.push_back(temp);*/
