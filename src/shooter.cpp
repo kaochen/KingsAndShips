@@ -43,9 +43,9 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
 
 	return target;
 }
-void C_Shooter::shoot()
+void C_Shooter::shoot(string type)
 {
-	C_GameUnits* target = searchNextTarget("boat");
+	C_GameUnits* target = searchNextTarget(type);
 	if(target != nullptr){
 		long currentTime = SDL_GetTicks();
 		if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()){
@@ -84,8 +84,37 @@ void C_Shooter::shootTarget(C_GameUnits &target){
 	}
 }
 
+void C_Shooter::renderLifeBar(int x_screen, int y_screen)
+	{
+		C_Window& win=C_Window::Instances();
+		SDL_Renderer* renderer = win.getRenderer();
+		//add a life status above the boat
+		int l = m_life / 2;
+		int red = 0, green = 200;
+		SDL_Rect r, b;
+		    r.x = x_screen - TILE_HALF_WIDTH/2;
+		    r.y = y_screen - 85;
+		    r.w = l;
+		    r.h = 4;
+		    if (m_life < MAX_LIFE/2){
+		    	red = 200;
+		    	green = 0 ;
+		    	}
+		    b.x = r.x - 1;
+		    b.y = r.y - 1;
+		    b.w = MAX_LIFE/2 + 2;
+		    b.h = r.h + 2;
+
+		    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+		    SDL_RenderFillRect( renderer, &b );
+		    SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
+		    // Render rect
+		    SDL_RenderFillRect( renderer, &r );
+	}
+
 void C_Shooter::render(S_Coord screen){
 	C_GameUnits::render(screen);
 	if (m_weapon->getShooting())
 		m_weapon->render();
+	renderLifeBar(screen.x, screen.y);
 }

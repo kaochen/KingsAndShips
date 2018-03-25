@@ -84,7 +84,8 @@ void C_Grid::renderLayer(int layer){
 						if (m_grid[x][y].dead != nullptr){
 							int x_s = m_grid[x][y].dead->getXScreen();
 							int y_s = m_grid[x][y].dead->getYScreen();
-							t.renderTexture("boat_01_Dead.png", x_s,y_s);
+
+							t.renderTexture(m_grid[x][y].dead->getDeadImageName(), x_s,y_s  + 36);
 							}
 						}
 				if (layer == UNITS){

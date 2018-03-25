@@ -21,7 +21,6 @@ class C_invaders: public C_Shooter
 	protected:
 	virtual void updateDirection();
 	virtual void render(S_Coord screen);
-	virtual void renderLifeBar(int x_screen, int y_screen);
 
 	//attributs
 	bool m_moving;

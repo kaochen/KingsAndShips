@@ -16,7 +16,8 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_y_center_offset(0),
 	m_strDirection("EE"),
 	m_direction(UNKNOWN),
-	m_selected(false)
+	m_selected(false),
+	m_deadImageName("boat_01_Dead.png")
 {
 
 	for (int i = 0; i < MAX_ANIM; i++){
@@ -110,7 +111,7 @@ int C_GameUnits::getDistance(int x, int y) const
 void C_GameUnits::kill()
 {
 	C_Grid& grid=C_Grid::Instances();
-	cout << "kill boat from:" << m_coord->getXGrid () << ":" << m_coord->getYGrid () << endl;
+	cout << "kill "<< m_name <<" from:" << m_coord->getXGrid () << ":" << m_coord->getYGrid () << endl;
  	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
 }
 
@@ -139,4 +140,8 @@ void C_GameUnits::reverseSelectedStatus()
 
 C_GameUnits * C_GameUnits::getUnit(){
 	return this;
+}
+
+string C_GameUnits::getDeadImageName() const{
+	return m_deadImageName;
 }

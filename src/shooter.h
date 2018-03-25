@@ -14,12 +14,12 @@ class C_Shooter : public C_GameUnits
 	virtual ~C_Shooter();
 
 	virtual	void displayStatus() const;
-	virtual void shoot();
+	virtual void shoot(std::string type);
 	virtual void move();
-
 
 	protected:
 
+	virtual void renderLifeBar(int x_screen, int y_screen);
 	virtual void render(S_Coord screen);
 	virtual	C_GameUnits* searchNextTarget(std::string type);
 	virtual void shootTarget(C_GameUnits &target);

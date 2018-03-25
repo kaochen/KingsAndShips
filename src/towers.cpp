@@ -15,10 +15,13 @@ C_Towers::C_Towers(string name,
 	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
 	m_justAdded = true;
+	m_deadImageName = "smoke_01_smoke1";
 }
 
 void C_Towers::play(){
-	this->shoot();
+	this->shoot("boat");
+	if(!this->alive())
+		this->kill();
 }
 
 void C_Towers::renderSmoke(){
@@ -34,6 +37,7 @@ void C_Towers::renderSmoke(){
 void C_Towers::render(S_Coord screen){
 	renderSelected();
 	C_Shooter::render(screen);
+
 	if (m_justAdded)
 		renderSmoke();
 }
@@ -139,6 +143,13 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 	m_weapon = new C_Weapon("ARCHER",10,0,500,2);
 }
 
+void C_ArcherTower::render(S_Coord screen){
+	C_GameUnits::render(screen);
+	if (m_weapon->getShooting())
+		m_weapon->render();
+	    renderLifeBar(screen.x, screen.y);
+	}
+
 C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
 		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
@@ -148,6 +159,8 @@ C_Turbine::C_Turbine(int x_grid,
 
 void C_Turbine::render(S_Coord screen){
 	renderSelected();
+	renderLifeBar(screen.x, screen.y);
+
 	S_Weapon current = m_weapon->getWeaponInfo();
 	int rotationSpeed = 200;
 	if (m_weapon->getShooting())

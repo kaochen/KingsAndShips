@@ -12,7 +12,7 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 
-	m_weapon = new C_Weapon("BOAT",10,0,500,2);
+	m_weapon = new C_Weapon("BOAT",2,0,500,2);
 	m_moving = false;
 	m_speed = NORMAL;
 	m_speedImpact = 0;
@@ -29,6 +29,7 @@ C_invaders::~C_invaders()
 
 void C_invaders::play(){
 	this->move();
+	this->shoot("ArcherTower");
 
 	if(!this->alive())
 		this->kill();
@@ -154,35 +155,14 @@ void C_invaders::updateDirection(){
 };
 
 
-void C_invaders::renderLifeBar(int x_screen, int y_screen)
-	{
-		C_Window& win=C_Window::Instances();
-		SDL_Renderer* renderer = win.getRenderer();
-		//add a life status above the boat
-		int l = m_life / 2;
-		int red = 0, green = 200;
-		SDL_Rect r, b;
-		    r.x = x_screen - TILE_HALF_WIDTH/2;
-		    r.y = y_screen - 85;
-		    r.w = l;
-		    r.h = 4;
-		    if (m_life < MAX_LIFE/2){
-		    	red = 200;
-		    	green = 0 ;
-		    	}
-		    b.x = r.x - 1;
-		    b.y = r.y - 1;
-		    b.w = MAX_LIFE/2 + 2;
-		    b.h = r.h + 2;
 
-		    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-		    SDL_RenderFillRect( renderer, &b );
-		    SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
-		    // Render rect
-		    SDL_RenderFillRect( renderer, &r );
-	}
 
 void C_invaders::render(S_Coord screen){
+
+	if (m_weapon->getShooting())
+		m_weapon->render();
+	renderLifeBar(screen.x, screen.y+18);
+
 	string name = getName();
 	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
@@ -221,8 +201,7 @@ void C_invaders::render(S_Coord screen){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, screen.x,screen.y);
-	renderLifeBar(screen.x, screen.y);
+	t.renderTexture(fileName, screen.x,screen.y +18);
 	m_C_Path->displayPath();
 }
 

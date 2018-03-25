@@ -35,7 +35,7 @@ class C_GameUnits
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
-	virtual void shoot() =0;
+	virtual void shoot(std::string type) =0;
 	virtual void receiveDamage(S_Weapon weapon);
 
 	virtual int getXGrid() const;
@@ -48,6 +48,7 @@ class C_GameUnits
 	virtual void reverseSelectedStatus();
 
 	virtual C_GameUnits * getUnit();
+  std::string getDeadImageName() const;
 
 	protected:
 	virtual bool alive() const;
@@ -69,6 +70,7 @@ class C_GameUnits
 	int m_direction;
 	int m_lastDirection;
 	bool m_selected;
+  std::string m_deadImageName;
 };
 
 #endif
