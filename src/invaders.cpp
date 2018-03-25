@@ -77,7 +77,11 @@ void C_invaders::move()
             if(!nextEmpty){
 		        m_coord->move(angle,speed);
 		        m_countStop = 0;
-		        angle = angle *180/3.14159265359  + 45;
+
+		        angle = 180 - (angle *180/3.14159265359);
+			    if(angle < 0)
+				    angle +=360;
+
 		        m_direction = destCoord.angleToDirection(angle);
 
 		        //apply offset + offset
@@ -183,7 +187,7 @@ void C_invaders::render(S_Coord screen){
 	int imageNbr = 0;
 	if (m_moving)
 		imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(1,2,300);
-	string direction = "_SS_";
+	string direction = "_EE_";
 		switch(m_direction){
 			case SOUTH:
 				direction = "_SS_";

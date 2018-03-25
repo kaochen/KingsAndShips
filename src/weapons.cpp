@@ -155,7 +155,7 @@ string C_Weapon::angleToDirection(double angle){
 				direction = "WW";
 				}
 			else if(angle > 337.5 && angle <= 382.5){
-				direction = "NN";
+				direction = "NW";
 				}
 			else{
 				direction = "EE";
