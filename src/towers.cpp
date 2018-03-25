@@ -145,6 +145,7 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 
 void C_ArcherTower::render(S_Coord screen){
 	C_GameUnits::render(screen);
+	renderSelected();
 	if (m_weapon->getShooting())
 		m_weapon->render();
 	    renderLifeBar(screen.x, screen.y);
