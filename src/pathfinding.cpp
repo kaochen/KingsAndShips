@@ -48,7 +48,7 @@ void C_Node::setBlock(bool block){
 }
 
 bool C_Node::getBlock() const{
-	return m_block;
+	    return m_block;
 }
 
 bool C_Node::getOpen() const{
@@ -254,11 +254,14 @@ C_Path::C_Path(int x_dest, int y_dest)
 		for (size_t x = 0; x < GRID_SIZE; x++){
 			bool block = true;
 			if (grid.waterway(x,y)){
-				block = false;
+			    if(grid.mainEmpty(x,y)){
+				    block = false;
+				}
 			}
 		m_gridNode[x][y] = new C_Node(x,y,block);
 		}
 	}
+
 	setTown(x_dest,y_dest);
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
@@ -274,12 +277,15 @@ C_Path::~C_Path()
 
 void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_start = m_gridNode[x_start][y_start];
+	m_gridNode[x_start][y_start]->setBlock(false);
 	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
 
 	m_destination = m_gridNode[x_dest][y_dest];
 
        std::multimap<int, C_Node*>::reverse_iterator rit;
+
        for(int count = 1; count > 0; count--){
+                if(m_openNodes.size()>0){
               		int lowestF = findLowestF();
               		cout << "map size: " << m_openNodes.size() << " lowestF " << lowestF << endl;
      			int c = 0;
@@ -290,13 +296,13 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 				       		std::multimap<int, C_Node*> tmpList;
 				        	cout << (*rit2).first << " : ";
 					       	(*rit2).second->calcG(m_gridNode,&tmpList);
-					       	if(!m_openNodes.empty()){
+
+					       	if(m_openNodes.size()>1){
 					       		m_openNodes.erase(--(rit2.base()));
 					       	}
 					       	else{
 					       		cout << "list is empty" << endl;
 					       	}
-
 
 						std::multimap<int, C_Node*>::iterator it2;
 						for (it2=tmpList.begin(); it2!=tmpList.end(); it2++){
@@ -305,9 +311,16 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 					}
 			count = m_openNodes.size();
 			}
+			}
 	}
 	cout << "---------" << endl;
+	if(m_openNodes.size()>0){
 	loadPath();
+	}
+    else{
+        cout << "not path to load"<< endl;
+    }
+
 }
 
 void C_Path::displayOpenList(){
@@ -357,23 +370,29 @@ void C_Path::setTown(int x_grid,int y_grid){
 
 void C_Path::loadPath(){
 	C_Node* current = m_destination;
+	//clear path before
+
+	while(!m_path.empty()){
+	    m_path.pop();}
 	if(current->getParent() == nullptr){
 		current = closestNode();
 	}
-	while(current->getParent() != nullptr){
-		 m_path.push(current);
-		 current = current->getParent();
-		 //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
-		 }
-	cout << "load Path" << endl;
-	//prepare render for debug
-	C_Set& settings=C_Set::Instances();
-	if(settings.getDebugModeStatus()){
-		for (size_t y = 0; y < GRID_SIZE; y++){
-			for (size_t x = 0; x < GRID_SIZE; x++){
-			m_gridNode[x][y]->prepareRender ();
-			}
-		}
+	if(current != nullptr){
+	    while(current->getParent() != nullptr){
+		     m_path.push(current);
+		     current = current->getParent();
+		     //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
+		     }
+	    cout << "load Path" << endl;
+	    //prepare render for debug
+	    C_Set& settings=C_Set::Instances();
+	    if(settings.getDebugModeStatus()){
+		    for (size_t y = 0; y < GRID_SIZE; y++){
+			    for (size_t x = 0; x < GRID_SIZE; x++){
+			    m_gridNode[x][y]->prepareRender ();
+			    }
+		    }
+	    }
 	}
 	//m_path.push(m_start); //do not forget the start
 }
@@ -431,7 +450,15 @@ C_Node* C_Path::closestNode(){
 	return closest;
 }
 
+bool C_Path::closeToDestination(int x_grid, int y_grid){
+    int x_dist = m_destination->getXGrid() - x_grid;
+    int y_dist = m_destination->getYGrid() - y_grid;
 
+    if((x_dist >=-1 && x_dist <= 1)&&(y_dist >=-1 && y_dist <= 1))
+        return true;
+    else
+        return false;
+}
 
 void C_Path::displayPath(){
 	stack<C_Node*> tmp = m_path;

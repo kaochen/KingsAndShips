@@ -42,52 +42,64 @@ void C_invaders::move()
 	C_Grid& grid=C_Grid::Instances();
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
+	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid())){
+       if(path.size() > 0){
 
-	if(path.size() > 1){
-		//determine an angle
-		*m_old_coord = *m_coord;
-		int old_x_grid = m_coord->getXGrid();
-		int old_y_grid = m_coord->getYGrid();
-		C_Coord destCoord = *path.top()->getCoord();
-		destCoord.centerOnTile();
-		S_Coord start = m_coord->getScreen();
-		S_Coord dest = destCoord.getScreen();
-		int ab = dest.x - start.x;
-		int bc = dest.y - start.y;
-		double angle = atan2(ab,bc);
+		    //determine an angle
+		    *m_old_coord = *m_coord;
+		    int old_x_grid = m_coord->getXGrid();
+		    int old_y_grid = m_coord->getYGrid();
+		    C_Coord destCoord = *path.top()->getCoord();
+		    destCoord.centerOnTile();
+		    S_Coord start = m_coord->getScreen();
+		    S_Coord dest = destCoord.getScreen();
+		    int ab = dest.x - start.x;
+		    int bc = dest.y - start.y;
+		    double angle = atan2(ab,bc);
 
-        int speed = m_speed - m_speedImpact;
-        if (speed < 0){
-                speed = VERY_SLOW;
-                }
-        //cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
-        if (m_speedImpactLoop > 0){
-            m_speedImpactLoop--;
-        }
-        else{
-            m_speedImpact = 0;
-            m_speedImpactLoop=10;
+            int speed = m_speed - m_speedImpact;
+            if (speed < 0){
+                    speed = VERY_SLOW;
+                    }
+            //cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
+            if (m_speedImpactLoop > 0){
+                m_speedImpactLoop--;
             }
-		//move following angle and speed
-		C_Coord tmp = *m_coord;
-		tmp.move(angle,speed);
-		tmp.regenGridCoord();
-		bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
-        if(!nextEmpty){
-		    m_coord->move(angle,speed);
-		    angle = angle *180/3.14159265359  + 45;
-		    m_direction = destCoord.angleToDirection(angle);
+            else{
+                m_speedImpact = 0;
+                m_speedImpactLoop=10;
+                }
+		    //move following angle and speed
+		    C_Coord tmp = *m_coord;
+		    tmp.move(angle,speed);
+		    tmp.regenGridCoord();
+		    bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
+            if(!nextEmpty){
+		        m_coord->move(angle,speed);
+		        m_countStop = 0;
+		        angle = angle *180/3.14159265359  + 45;
+		        m_direction = destCoord.angleToDirection(angle);
 
-		    //apply offset + offset
-		    //refresh grid position
-		    m_coord->regenGridCoord();
+		        //apply offset + offset
+		        //refresh grid position
+		        m_coord->regenGridCoord();
 
-		    grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
-			    if(*m_coord == destCoord){
-				    m_C_Path->goNextStep();
-			    }
-		}
-
+		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
+			        if(*m_coord == destCoord){
+				        m_C_Path->goNextStep();
+			        }
+		    }
+		    else{
+		        m_countStop++;
+		        if (m_countStop > 10){
+		            cout << "OldCoord" << old_x_grid <<":"<< old_y_grid << endl;
+		            delete m_C_Path;
+		            m_C_Path = new C_Path(27,15);
+	                m_C_Path->calcPath(old_x_grid,old_y_grid,27,15);
+		        	m_C_Path->showPath();
+		        }
+		    }
+      }
 	}
 }
 

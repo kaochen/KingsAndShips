@@ -316,6 +316,14 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid, C_GameUnits *current){
         return true;
     }
 };
+bool C_Grid::mainEmpty(int x_grid, int y_grid){
+    if(m_grid[x_grid][y_grid].main == nullptr){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
 
 void C_Grid::darkenGround(int x_screen, int y_screen){
 	C_Window& win=C_Window::Instances();

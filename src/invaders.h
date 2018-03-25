@@ -29,6 +29,7 @@ class C_invaders: public C_Shooter
 	int m_speed;
   int m_speedImpact;
   int m_speedImpactLoop;
+  int m_countStop;
 };
 
 #endif

@@ -38,6 +38,7 @@ public:
 
 	C_GameUnits* getSelectedUnit();
   virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
+  virtual bool mainEmpty(int x_grid, int y_grid);
 
 protected:
 	void unselectedAll(int x_grid, int y_grid);
