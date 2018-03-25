@@ -101,6 +101,16 @@ void C_invaders::move()
 		    }
       }
 	}
+
+	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid())){
+       if(path.size() == 0){
+		            delete m_C_Path;
+		            m_C_Path = new C_Path(27,15);
+	                m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),27,15);
+		        	m_C_Path->showPath();
+       }
+	}
+
 }
 
 
