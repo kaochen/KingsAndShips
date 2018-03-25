@@ -64,7 +64,7 @@ class C_GameUnits
 	int m_y_center_offset;
 	std::string m_strDirection;
 	//Store time for animation
-	C_AnimTime* m_animation[5];
+	C_AnimTime* m_animation[MAX_ANIM];
 
 	int m_direction;
 	int m_lastDirection;
