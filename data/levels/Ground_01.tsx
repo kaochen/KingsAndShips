@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="Ground_01" tilewidth="128" tileheight="128" tilecount="40" columns="8">
+<tileset name="Ground_01" tilewidth="128" tileheight="128" tilecount="33" columns="8">
  <tileoffset x="-14" y="11"/>
  <grid orientation="orthogonal" width="8" height="1"/>
- <image source="../img/original/t_ground_01.png" width="1024" height="640"/>
+ <image source="../img/original/t_ground_01.png" width="1024" height="512"/>
  <tile id="0" type="Grass00"/>
  <tile id="1" type="Grass01"/>
  <tile id="2" type="Grass02"/>
@@ -24,9 +24,9 @@
  <tile id="18" type="Grass18"/>
  <tile id="19" type="Grass19"/>
  <tile id="20" type="Grass20"/>
- <tile id="21" type="Grass21"/>
- <tile id="22" type="Grass22"/>
- <tile id="23" type="Grass23"/>
+ <tile id="21" type="Water21"/>
+ <tile id="22" type="Water22"/>
+ <tile id="23" type="Water23"/>
  <tile id="24" type="Water24"/>
  <tile id="25" type="Water25"/>
  <tile id="26" type="Water26"/>
