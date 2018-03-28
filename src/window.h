@@ -20,8 +20,8 @@ class C_Window
 
 	protected:
 	void initSDL();
-  void loadingPage(int progress, std::string label);
-  void renderProgressBar(int progress, std::string label);
+  void loadingPage(int progress, std::string label, int stepsNbr);
+  void renderProgressBar(int progress, std::string label, int stepsNbr);
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}

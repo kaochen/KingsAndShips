@@ -104,25 +104,25 @@ void C_Window::loadGame(){
 
 	t.loadTexturesIntoMap();
     int progress = 100/(size+1);
-    loadingPage(progress, firstImages);
+    loadingPage(progress, firstImages, size+1);
     for(int i = 0; i < size; i++){
 	    progress += 100/(size+1);
-        loadingPage(progress, tsxList[i]);
+        loadingPage(progress, tsxList[i],size+1);
 	    t.extractTSXfile(tsxList[i]);
     }
 	t.displayTexturesList();
 }
 
-void C_Window::loadingPage(int progress, string label){
+void C_Window::loadingPage(int progress, string label, int stepsNbr){
 	    SDL_SetRenderDrawColor(m_renderer, 64, 64, 64, 255);
 	    SDL_RenderClear(m_renderer);
-        renderProgressBar(progress, label);
+        renderProgressBar(progress, label, stepsNbr);
 	    SDL_RenderPresent(m_renderer);
 	}
 
 
 
-void C_Window::renderProgressBar(int progress, string label)
+void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 	{
 		C_Set& settings=C_Set::Instances();
 		int height = 40, width = settings.getWindowWidth()/2;
@@ -145,6 +145,17 @@ void C_Window::renderProgressBar(int progress, string label)
 		    SDL_RenderFillRect(m_renderer, &back);
 		    SDL_SetRenderDrawColor(m_renderer, 100, 100, 100, 255 );
 		    SDL_RenderFillRect(m_renderer, &fill);
+
+		SDL_Rect stripes;
+		    stripes.w = 4;
+		    stripes.h = height;
+		    int step = width/stepsNbr;
+		    stripes.y= back.y;
+    		SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255 );
+		    for(int i = 1; i <= stepsNbr;i++){
+		        stripes.x = x_screen + i*step;
+		        SDL_RenderFillRect(m_renderer, &stripes);
+		    }
 
 		    C_TextureList& t=C_TextureList::Instances();
 		    t.renderTexture(label,settings.getWindowWidth()/2, settings.getWindowHeight()/2 + 2*height);
