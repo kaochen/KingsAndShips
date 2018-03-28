@@ -46,7 +46,7 @@ void C_Towers::renderSelected(){
 	if (m_selected == true){
 		int animNbr = m_animation[SELECTED]->getAnimNbr(0,30,500);
 		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
-		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen () + TILE_HALF_HEIGHT,width,animNbr, true);
+		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width,animNbr, true);
 	}
 }
 
@@ -94,6 +94,7 @@ void C_Towers::drawEllipse(int x,
 		int animNbr,
 		bool ok){
 		C_Window& win=C_Window::Instances();
+		width = width*90/100;
 		int height = width/2;
 		int R = 0, G = 200, B = 0, A = 100;
 			if(ok == false)
@@ -144,8 +145,8 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 }
 
 void C_ArcherTower::render(S_Coord screen){
-	C_GameUnits::render(screen);
 	renderSelected();
+	C_GameUnits::render(screen);
 	if (m_weapon->getShooting())
 		m_weapon->render();
 	    renderLifeBar(screen.x, screen.y);
