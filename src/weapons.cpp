@@ -31,7 +31,7 @@ C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, i
 	m_weapon.speedImpact = speedImpact;
 	m_weapon.fireRate = fireRate;
 	m_weapon.fireRange = fireRange;
-	m_weapon.direction = "NN";
+	m_weapon.direction = "EE";
 }
 
 C_Weapon::~C_Weapon()
