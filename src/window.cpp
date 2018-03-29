@@ -88,8 +88,8 @@ void C_Window::loadGame(){
 	//C_Texture text;
 	int size = 7;
 	string tsxList[size];
-	tsxList[0] = "data/levels/boat_01.tsx";
-	tsxList[1] = "data/levels/Ground_01.tsx";
+	tsxList[0] = "data/levels/Ground_01.tsx";
+	tsxList[1] = "data/levels/boat_01.tsx";
 	tsxList[2] = "data/levels/smoke_01.tsx";
 	tsxList[3] = "data/levels/turbine_00.tsx";
 	tsxList[4] = "data/levels/archerTower_00.tsx";
