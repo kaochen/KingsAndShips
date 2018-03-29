@@ -103,11 +103,9 @@ void C_Window::loadGame(){
         }
 
 	t.loadTexturesIntoMap();
-    int progress = 100/(size+1);
-    loadingPage(progress, firstImages, size+1);
+    loadingPage(1, firstImages, size+1);
     for(int i = 0; i < size; i++){
-	    progress += 100/(size+1);
-        loadingPage(progress, tsxList[i],size+1);
+        loadingPage(i+1, tsxList[i],size+1);
 	    t.extractTSXfile(tsxList[i]);
     }
 	t.displayTexturesList();
@@ -129,6 +127,7 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 		int x_screen = 	(settings.getWindowWidth()- width) /2;
 		int y_screen =  (settings.getWindowHeight() - height)/2;
 		//add a life status above the boat
+		int step = width/stepsNbr;
 
 		SDL_Rect back, fill;
 		    back.x = x_screen;
@@ -138,7 +137,7 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 
 		    fill.x = back.x + 1;
 		    fill.y = back.y + 1;
-		    fill.w = width*progress/100;
+		    fill.w = step*progress;
 		    fill.h = back.h - 2;
 
 		    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255 );
@@ -147,12 +146,12 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 		    SDL_RenderFillRect(m_renderer, &fill);
 
 		SDL_Rect stripes;
-		    stripes.w = 4;
+		    stripes.w = 1;
 		    stripes.h = height;
-		    int step = width/stepsNbr;
 		    stripes.y= back.y;
     		SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255 );
-		    for(int i = 1; i <= stepsNbr;i++){
+    		cout << step <<":"<< width << "/" << stepsNbr << " p:"<< progress<< endl;
+		    for(int i = 1; i < stepsNbr;i++){
 		        stripes.x = x_screen + i*step;
 		        SDL_RenderFillRect(m_renderer, &stripes);
 		    }
