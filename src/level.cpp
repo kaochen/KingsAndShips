@@ -43,6 +43,7 @@ void C_Level::load(int levelNbr){
 
 	    loadGroundLayerIntoTheGrid(filename.c_str());
     	cout << "Level "<< levelNbr <<" Loaded" << endl;
+    	loadWave(filename.c_str());
 	}
 	else{
     	cout << "Can not find " << filename << endl;
@@ -149,5 +150,32 @@ void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
 	}
 }
 
+void C_Level::loadWave(string tmx_File_Path){
+
+  C_TextureList& t=C_TextureList::Instances();
+	int nbr = 1;
+	string name = "Wave" + to_string(nbr);
+	S_tmxLayer layer = extractTMXfile(tmx_File_Path,name);
+    string data = layer.data;
+
+	for (int y = 0; y < layer.height; y++){
+		for (int x = 0; x < layer.width; x++){
+				string extract = data;
+				int mark = extract.find_first_of(',');
+				if (mark > 0)
+					extract.resize(mark,'C');
+				int nbr = stoi(extract);
+				if (nbr!=0){
+	                string str = t.getNameFromID(nbr);
+				    cout << x << ":" << y << "->" << str << " // " ;
+				    }
+				//grid.setGround(x,y,nbr);
+
+				//cout << extract <<":";
+				data = data.substr(mark + 1);
+		}
+	}
+	cout << endl;
+}
 
 
