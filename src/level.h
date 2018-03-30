@@ -14,6 +14,13 @@ struct S_boat{
 	int y;
 };
 
+struct S_tmxLayer{
+  std::string name;
+  int width;
+  int height;
+  std::string data;
+};
+
 class C_Level
 {
 
@@ -26,13 +33,15 @@ class C_Level
 	void status();
 	void sendNextWave();
 
-	void extractTMXfile(std::string tmx_File_Path);
-
 	protected:
+  //methods
+	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
+  void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
 	//attibuts
 	std::string m_name;
 	int m_count;
 	int m_id;
+  S_tmxLayer m_groundLayer;
 };
 
 

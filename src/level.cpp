@@ -14,6 +14,10 @@ C_Level::C_Level():
 	m_id(1)
 {
 	m_count = ++m_id;
+	m_groundLayer.name="noname";
+	m_groundLayer.width=30;
+	m_groundLayer.height=30;
+	m_groundLayer.data="";
 }
 
 
@@ -36,7 +40,8 @@ void C_Level::load(int levelNbr){
 
     struct stat buffer;
     if (stat (filename.c_str(),  &buffer) == 0){
-	    extractTMXfile(filename.c_str());
+
+	    loadGroundLayerIntoTheGrid(filename.c_str());
     	cout << "Level "<< levelNbr <<" Loaded" << endl;
 	}
 	else{
@@ -69,12 +74,12 @@ void C_Level::sendNextWave(){
 }
 
 
-void C_Level::extractTMXfile(string tmx_File_Path){
+S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 
-	C_Grid& grid=C_Grid::Instances();
+	S_tmxLayer layer;
+	layer.name = layerName;
+    string currentLayerName ="";
 
-	string layerName ="", data ="";
-	int width = 30, height = 30;
 	cout << "Reading: " << tmx_File_Path << endl;
  xmlpp::TextReader reader(tmx_File_Path);
  while(reader.read())
@@ -89,21 +94,20 @@ void C_Level::extractTMXfile(string tmx_File_Path){
 			  string attributes = reader.get_name();
 			  //cout << attributes << "-----"<< endl;
 
-			// <layer name="units" width="30" height="30" visible="0">
 			  if (nodeName == "layer" && attributes == "name"){
-			  	layerName = reader.get_value();
+			  	currentLayerName = reader.get_value();
 				}
 			  if (nodeName == "layer" && attributes == "width"){
-			  	width = stoi(reader.get_value());
+			  	layer.width = stoi(reader.get_value());
 				}
 			  if (nodeName == "layer" && attributes == "height"){
-			  	height = stoi(reader.get_value());
+			  	layer.height = stoi(reader.get_value());
 				}
 			  if (nodeName == "data" && attributes == "encoding"){
-				if (reader.get_value() == "csv" && layerName == "Ground"){
-					cout << "found data " << endl;
-					data = reader.read_inner_xml();
-				    	layerName ="";
+				if (reader.get_value() == "csv" && currentLayerName == layerName){
+					cout << "found a " << layerName << " layer in the tmx file " << tmx_File_Path << endl;
+					layer.data = reader.read_inner_xml();
+				    currentLayerName ="";
 						}
 					}
 
@@ -111,20 +115,26 @@ void C_Level::extractTMXfile(string tmx_File_Path){
 		}
 		reader.move_to_element();
     	}
-	//cout << "----" << data << "////" << endl;
 
 	//drop all \n
 	size_t start = 0;
 	string in = "\n", out = "";
-	while((start = data.find(in,start)) != std::string::npos){
-		data.replace(start,in.length(),out);
+	while((start = layer.data.find(in,start)) != std::string::npos){
+		layer.data.replace(start,in.length(),out);
 		start += out.length();
 	}
 
 	//cout  << data << "////" << endl;
+    return layer;
+}
 
-	for (int y = 0; y < height; y++){
-		for (int x = 0; x < width; x++){
+void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
+	C_Grid& grid=C_Grid::Instances();
+	m_groundLayer = extractTMXfile(tmx_File_Path,"Ground");
+    string data = m_groundLayer.data;
+
+	for (int y = 0; y < m_groundLayer.height; y++){
+		for (int x = 0; x < m_groundLayer.width; x++){
 				string extract = data;
 				int mark = extract.find_first_of(',');
 				if (mark > 0)
