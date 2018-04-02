@@ -1,4 +1,5 @@
 #include "settings.h"
+#include "time.h"
 
 using namespace std;
 
@@ -236,8 +237,9 @@ int C_Coord::angleToDirection(double angle){
 }
 
 void C_Coord::move(double angle, int speed){
+	C_Time& time=C_Time::Instances();
+	int frameNbr = time.getFrameNbr ();
 	angle = angle *180/3.14159265359;
-
 	//cout << "Angle : " << angle << endl;
 	if (angle > -22.5 && angle <= 22.5){
 			//cout << "SOUTH_EAST" << endl;
@@ -263,8 +265,10 @@ void C_Coord::move(double angle, int speed){
 			//cout << "EAST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.x +=2;
-    			    m_this.screen.y +=1;
+			    if(frameNbr%2 == 0){
+    			   	 m_this.screen.y +=1;
+    			   	 }
+    			    m_this.screen.x +=1;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x +=2;
@@ -309,8 +313,10 @@ void C_Coord::move(double angle, int speed){
 			//cout << "NORTH" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.x +=2;
-    			    m_this.screen.y -=1;
+			  if(frameNbr%2 == 0){
+    			   	 m_this.screen.y -=1;
+    			   	 }
+    			    m_this.screen.x +=1;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x +=2;
@@ -354,8 +360,10 @@ void C_Coord::move(double angle, int speed){
 			//cout << "WEST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.x -=2;
-    			    m_this.screen.y -=1;
+			  if(frameNbr%2 == 0){
+    			   	 m_this.screen.y -=1;
+    			   	 }
+    			    m_this.screen.x -=1;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x -=2;
@@ -401,8 +409,11 @@ void C_Coord::move(double angle, int speed){
 			//cout << "SOUTH" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.x -=2;
-    			    m_this.screen.y +=1;
+			if(frameNbr%2 == 0){
+    			   	 m_this.screen.y +=1;
+    			   	 }
+    			    m_this.screen.x -=1;
+
 			    break;
 			    	case SLOW:
     			    m_this.screen.x -=2;
