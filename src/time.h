@@ -12,6 +12,7 @@ class C_Time
 	public:
 	static	C_Time& Instances();
 	void displayTime() const;
+	void showFPS() const;
 
 	void updateFrameTime();
 	void delayGameLoop();

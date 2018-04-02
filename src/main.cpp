@@ -227,7 +227,7 @@ while(!quit)
 
 		//display menu
 		menu.render();
-
+		time.showFPS ();
 		//print the result
  		SDL_RenderPresent(win.getRenderer());
  		}

@@ -1,4 +1,5 @@
 #include "time.h"
+#include "window.h"
 #include <string>
 
 using namespace std;
@@ -11,7 +12,7 @@ C_Time::C_Time():
 	m_frameNbr(0),
 	m_previousFrameNbr(-1),
 	m_sec(0),
-	m_lastSec(0),
+	m_lastSec(-1),
 	m_currentTime(0),
 	m_framerate(FRAMERATE),
 	m_delay(0),
@@ -35,11 +36,37 @@ void C_Time::displayTime() const
 	cout << " - frame:" << m_frameNbr << "/" << m_framerate;
 }
 
+void C_Time::showFPS() const
+{
+		C_Window& win=C_Window::Instances();
+		SDL_Renderer* renderer = win.getRenderer();
+		C_Set& settings=C_Set::Instances();
+		//add a life status above the boat
+
+		int red = 0, green = 200;
+		SDL_Rect f, b;
+		    b.x = settings.getWindowWidth() -2*TILE_HALF_WIDTH;
+		    b.y = 3*TILE_HALF_HEIGHT;
+		    b.w = 10;
+		    b.h = m_framerate;
+
+		    f.x = b.x + 1;
+		    f.y = b.y + 1;
+		    f.w = b.w - 2;
+		    f.h = m_frameNbr;
+
+		    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+		    SDL_RenderFillRect( renderer, &b );
+		    SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
+		    // Render rect
+		    SDL_RenderFillRect( renderer, &f );
+}
+
 void C_Time::updateFrameNbr()
 {
-	long currentTime = SDL_GetTicks();
+	m_currentTime = SDL_GetTicks();
 
-	if ((currentTime - m_start_frame) > (1000/FRAMERATE)){
+	if ((m_currentTime - m_start_frame) > (1000/FRAMERATE)){
 		m_frameNbr++;
 		}
 
@@ -83,7 +110,7 @@ long C_Time::getFrameDuration()
 
 long C_Time::getFramerate()
 {
-	return m_frameNbr;
+	return m_framerate;
 }
 
 long C_Time::getDelay()
