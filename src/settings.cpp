@@ -238,26 +238,31 @@ int C_Coord::angleToDirection(double angle){
 
 void C_Coord::move(double angle, int speed){
 	C_Time& time=C_Time::Instances();
-	int frameNbr = time.getFrameNbr ();
+	//One pixel can't be split, on even frame number use an offset of 0 instead of 1.
+	int halfPixel = 1;
+	 if(time.getFrameNbr ()%2 == 0){
+    			   	 halfPixel =0;
+    			   	 }
+
 	angle = angle *180/3.14159265359;
 	//cout << "Angle : " << angle << endl;
 	if (angle > -22.5 && angle <= 22.5){
 			//cout << "SOUTH_EAST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.y +=1;
+    			    m_this.screen.y +=halfPixel;
 			    break;
 			    	case SLOW:
-    			    m_this.screen.y +=2;
+    			    m_this.screen.y +=1;
 			    break;
 			    	case NORMAL:
-    			    m_this.screen.y +=3;
+    			    m_this.screen.y +=(1 + halfPixel);
 			    break;
 			     	case FAST:
-    			    m_this.screen.y +=4;
+    			    m_this.screen.y +=2;
 			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.y +=5;
+    			    m_this.screen.y +=(2 + halfPixel);
 			    break;
 			    }
 			}
@@ -265,26 +270,24 @@ void C_Coord::move(double angle, int speed){
 			//cout << "EAST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-			    if(frameNbr%2 == 0){
-    			   	 m_this.screen.y +=1;
-    			   	 }
     			    m_this.screen.x +=1;
+    			   	m_this.screen.y +=halfPixel;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x +=2;
     			    m_this.screen.y +=1;
 			    break;
 			    	case NORMAL:
+    			    m_this.screen.x +=3;
+    			    m_this.screen.y +=(1 + halfPixel);
+			    break;
+			     	case FAST:
     			    m_this.screen.x +=4;
     			    m_this.screen.y +=2;
 			    break;
-			     	case FAST:
-    			    m_this.screen.x +=6;
-    			    m_this.screen.y +=3;
-			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.x +=7;
-    			    m_this.screen.y +=4;
+    			    m_this.screen.x +=5;
+    			    m_this.screen.y +=(2 + halfPixel);
 			    break;
 			    }
 			}
@@ -293,19 +296,19 @@ void C_Coord::move(double angle, int speed){
 			m_this.screen.x +=speed;
 			switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.x +=2;
+    			    m_this.screen.x +=1;
 			    break;
 			    	case SLOW:
-    			    m_this.screen.x +=4;
+    			    m_this.screen.x +=2;
 			    break;
 			    	case NORMAL:
-    			    m_this.screen.x +=6;
+    			    m_this.screen.x +=3;
 			    break;
 			     	case FAST:
-    			    m_this.screen.x +=8;
+    			    m_this.screen.x +=4;
 			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.x -=10;
+    			    m_this.screen.x -=5;
 			    break;
 			    }
 				}
@@ -313,26 +316,24 @@ void C_Coord::move(double angle, int speed){
 			//cout << "NORTH" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-			  if(frameNbr%2 == 0){
-    			   	 m_this.screen.y -=1;
-    			   	 }
     			    m_this.screen.x +=1;
+    			   	m_this.screen.y -=halfPixel;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x +=2;
     			    m_this.screen.y -=1;
 			    break;
 			    	case NORMAL:
+    			    m_this.screen.x +=3;
+    			    m_this.screen.y -=(1 + halfPixel);
+			    break;
+			     	case FAST:
     			    m_this.screen.x +=4;
     			    m_this.screen.y -=2;
 			    break;
-			     	case FAST:
-    			    m_this.screen.x +=6;
-    			    m_this.screen.y -=3;
-			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.x +=7;
-    			    m_this.screen.y -=4;
+    			    m_this.screen.x +=5;
+    			    m_this.screen.y -=(2 + halfPixel);
 			    break;
 			    }
 				}
@@ -340,19 +341,19 @@ void C_Coord::move(double angle, int speed){
 			//cout << "NORTH_WEST" << endl;
 				    switch(speed){
 			        case VERY_SLOW:
-        			    m_this.screen.y -=1;
+        			    m_this.screen.y -=halfPixel;
 			        break;
 			        	case SLOW:
-        			    m_this.screen.y -=2;
+        			    m_this.screen.y -=1;
 			        break;
 			        	case NORMAL:
-        			    m_this.screen.y -=3;
+        			    m_this.screen.y -=2;
 			        break;
 			         	case FAST:
-        			    m_this.screen.y -=4;
+        			    m_this.screen.y -=3;
 			        break;
 			        	case VERY_FAST:
-        			    m_this.screen.y -=5;
+        			    m_this.screen.y -=4;
 			        break;
 			        }
 				}
@@ -360,26 +361,24 @@ void C_Coord::move(double angle, int speed){
 			//cout << "WEST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-			  if(frameNbr%2 == 0){
-    			   	 m_this.screen.y -=1;
-    			   	 }
     			    m_this.screen.x -=1;
+    			   	m_this.screen.y -=halfPixel;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x -=2;
     			    m_this.screen.y -=1;
 			    break;
 			    	case NORMAL:
+    			    m_this.screen.x -=3;
+    			    m_this.screen.y -=(1 + halfPixel);
+			    break;
+			     	case FAST:
     			    m_this.screen.x -=4;
     			    m_this.screen.y -=2;
 			    break;
-			     	case FAST:
-    			    m_this.screen.x -=6;
-    			    m_this.screen.y -=3;
-			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.x -=7;
-    			    m_this.screen.y -=4;
+    			    m_this.screen.x -=5;
+    			    m_this.screen.y -=(2 + halfPixel);
 			    break;
 			    }
 				}
@@ -388,19 +387,19 @@ void C_Coord::move(double angle, int speed){
 				m_this.screen.x -=speed;
 				switch(speed){
 			    case VERY_SLOW:
-    			    m_this.screen.x -=2;
+    			    m_this.screen.x -=1;
 			    break;
 			    	case SLOW:
-    			    m_this.screen.x -=4;
+    			    m_this.screen.x -=2;
 			    break;
 			    	case NORMAL:
-    			    m_this.screen.x -=6;
+    			    m_this.screen.x -=3;
 			    break;
 			     	case FAST:
-    			    m_this.screen.x -=8;
+    			    m_this.screen.x -=4;
 			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.x -=10;
+    			    m_this.screen.x -=5;
 			    break;
 			    }
 				}
@@ -409,27 +408,24 @@ void C_Coord::move(double angle, int speed){
 			//cout << "SOUTH" << endl;
 			switch(speed){
 			    case VERY_SLOW:
-			if(frameNbr%2 == 0){
-    			   	 m_this.screen.y +=1;
-    			   	 }
     			    m_this.screen.x -=1;
-
+                    m_this.screen.y +=halfPixel;
 			    break;
 			    	case SLOW:
     			    m_this.screen.x -=2;
     			    m_this.screen.y +=1;
 			    break;
 			    	case NORMAL:
+    			    m_this.screen.x -=3;
+    			    m_this.screen.y +=(1 + halfPixel);
+			    break;
+			     	case FAST:
     			    m_this.screen.x -=4;
     			    m_this.screen.y +=2;
 			    break;
-			     	case FAST:
-    			    m_this.screen.x -=6;
-    			    m_this.screen.y +=3;
-			    break;
 			    	case VERY_FAST:
-    			    m_this.screen.x -=7;
-    			    m_this.screen.y +=4;
+    			    m_this.screen.x -=5;
+    			    m_this.screen.y +=(2 + halfPixel);
 			    break;
 			    }
 				}
