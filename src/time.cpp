@@ -44,8 +44,8 @@ void C_Time::showFPS() const
 		//add a life status above the boat
 
 		int red = 0, green = 200;
-		SDL_Rect f, b;
-		    b.x = settings.getWindowWidth() -2*TILE_HALF_WIDTH;
+		SDL_Rect f, b, m;
+		    b.x = settings.getWindowWidth() - TILE_HALF_WIDTH;
 		    b.y = 3*TILE_HALF_HEIGHT;
 		    b.w = 10;
 		    b.h = m_framerate;
@@ -55,10 +55,21 @@ void C_Time::showFPS() const
 		    f.w = b.w - 2;
 		    f.h = m_frameNbr;
 
+            m.x = b.x - 2;
+            m.y = b.y;
+            m.w = b.w + 4;
+            m.h = 2;
+
 		    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+		    //draw background
 		    SDL_RenderFillRect( renderer, &b );
+		    //draw 4 little lines
+		    for(int i = 0; i < 5; i++){
+		        m.y = b.y + i*(b.h/4);
+		        SDL_RenderFillRect( renderer, &m );
+		    }
+		    //fill with green
 		    SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
-		    // Render rect
 		    SDL_RenderFillRect( renderer, &f );
 }
 
