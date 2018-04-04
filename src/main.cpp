@@ -194,7 +194,7 @@ while(!quit)
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
 		//change background color before clear
-		SDL_SetRenderDrawColor(renderer, 64, 64, 64, 255);
+		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 		SDL_RenderClear(renderer);
 		//display game content
 		grid.renderLayer (GROUND);
