@@ -109,6 +109,10 @@ void C_Image::loadTexture(string &path)
 		//SDL_SetTextureAlphaMod(clip,255);
 		//change target to clip
 		SDL_SetRenderTarget(renderer, clip);
+		//clean new renderer before renderCopy. This is important to avoid image glitch.
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);	//fill with background color
+		SDL_RenderClear(renderer);
+
 	  	SDL_RenderCopy(renderer, texture, &src, &dest);
 	  	// reset target to renderer
 	  	SDL_SetRenderTarget(renderer, NULL);
