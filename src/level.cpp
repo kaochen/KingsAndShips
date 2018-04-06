@@ -55,7 +55,7 @@ void C_Level::sendNextWave(){
 
 	C_Grid& grid=C_Grid::Instances();
 		vector <S_boat> l;
-		S_boat temp = {1,6,15};
+		S_boat temp = {1,6,15,true};
 		l.push_back(temp);
 		temp.x = 6;
 		temp.y = 14;
@@ -154,6 +154,7 @@ void C_Level::loadWave(string tmx_File_Path){
 
   C_TextureList& t=C_TextureList::Instances();
 	int nbr = 1;
+    C_Wave wave;
 	string name = "Wave" + to_string(nbr);
 	S_tmxLayer layer = extractTMXfile(tmx_File_Path,name);
     string data = layer.data;
@@ -168,6 +169,7 @@ void C_Level::loadWave(string tmx_File_Path){
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
 				    cout << x << ":" << y << "->" << str << " // " ;
+                    wave.add(1,x,y);
 				    }
 				//grid.setGround(x,y,nbr);
 
@@ -176,6 +178,39 @@ void C_Level::loadWave(string tmx_File_Path){
 		}
 	}
 	cout << endl;
+	cout << "Boat List " << endl;
+    wave.display();
+}
+
+//______________________________Waves_____________________________//
+
+
+C_Wave::C_Wave()
+{
+}
+C_Wave::~C_Wave()
+{
 }
 
 
+void C_Wave::add(int rank, int x, int y){
+    S_boat tmp ={rank,x,y,true};
+    m_boatList.push_back(tmp);
+}
+
+void C_Wave::display(){
+    int c = 0;
+    for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
+    {
+        S_boat tmp = *i;
+        cout << "Rank " << tmp.rank << " at " << tmp.x << ":" << tmp.y;
+        if (tmp.alive)
+            cout << " Alive";
+        else
+            cout << "dead";
+
+        cout << endl;
+        c++;
+    }
+    cout << "Number of boats in this wave: " << c << endl;
+}

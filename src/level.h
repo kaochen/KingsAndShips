@@ -12,6 +12,7 @@ struct S_boat{
 	int rank;
 	int x;
 	int y;
+  bool alive;
 };
 
 struct S_tmxLayer{
@@ -38,7 +39,7 @@ class C_Level
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
   void loadWave(std::string tmx_File_Path);
-	//attibuts
+	//attibutes
 	std::string m_name;
 	int m_count;
 	int m_id;
@@ -46,7 +47,17 @@ class C_Level
 };
 
 
+class C_Wave{
+  public:
+  C_Wave();
+  ~C_Wave();
+  void add(int rank, int x, int y);
+  void display();
 
+  private:
+  //attibutes
+  std::vector <S_boat> m_boatList;
+};
 
 
 
