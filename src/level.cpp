@@ -52,7 +52,7 @@ void C_Level::load(int levelNbr){
 }
 
 void C_Level::sendNextWave(){
-
+    displayWave(0);
 	C_Grid& grid=C_Grid::Instances();
 		vector <S_boat> l;
 		S_boat temp = {1,6,15,true};
@@ -178,8 +178,19 @@ void C_Level::loadWave(string tmx_File_Path){
 		}
 	}
 	cout << endl;
-	cout << "Boat List " << endl;
-    wave.display();
+	m_waves.push_back(wave);
+}
+
+void C_Level::displayWave(int i){
+        int c = 0;
+        for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end();it++){
+            C_Wave wave = *it;
+            if(i == c){
+                wave.display();
+            }
+            c++;
+        }
+            cout << "Number of wave for this level: " << c << endl;
 }
 
 //______________________________Waves_____________________________//
