@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="left-up" width="30" height="30" tilewidth="100" tileheight="50" nextobjectid="1">
+<map version="1.0" tiledversion="1.0.3" orientation="isometric" renderorder="left-up" width="30" height="30" tilewidth="100" tileheight="50" backgroundcolor="#174c89" nextobjectid="1">
  <tileset firstgid="1" source="Ground_01.tsx"/>
  <tileset firstgid="34" source="boat_01.tsx"/>
  <layer name="Ground" width="30" height="30">
