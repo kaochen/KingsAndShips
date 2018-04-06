@@ -28,6 +28,7 @@ class C_Wave{
   ~C_Wave();
   void add(int rank, int x, int y);
   void display();
+  void loadIntoGrid();
 
   private:
   //attibutes
@@ -46,6 +47,7 @@ class C_Level
 	void status();
 	void sendNextWave();
   void displayWave(int i);
+  void loadWaveIntoGrid(int i);
 	protected:
   //methods
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);

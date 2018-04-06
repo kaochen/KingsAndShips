@@ -53,24 +53,7 @@ void C_Level::load(int levelNbr){
 
 void C_Level::sendNextWave(){
     displayWave(0);
-	C_Grid& grid=C_Grid::Instances();
-		vector <S_boat> l;
-		S_boat temp = {1,6,15,true};
-		l.push_back(temp);
-		temp.x = 6;
-		temp.y = 14;
-		l.push_back(temp);
-		temp.x = 6;
-		temp.y = 16;
-		l.push_back(temp);
-		/*temp.x = 7;
-		l.push_back(temp);
-		temp.x = 3;
-		l.push_back(temp);*/
-
-		for (size_t i = 0; i < l.size();i++){
-		grid.addANewBoat(l[i].x,l[i].y,l[i].rank);
-	}
+    loadWaveIntoGrid(0);
 	cout << "Next wave" << endl;
 }
 
@@ -193,6 +176,18 @@ void C_Level::displayWave(int i){
             cout << "Number of wave for this level: " << c << endl;
 }
 
+void C_Level::loadWaveIntoGrid(int i){
+        int c = 0;
+        for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end();it++){
+            C_Wave wave = *it;
+            if(i == c){
+                cout << "load wave: " << c << endl;
+                wave.loadIntoGrid();
+            }
+            c++;
+        }
+}
+
 //______________________________Waves_____________________________//
 
 
@@ -225,3 +220,16 @@ void C_Wave::display(){
     }
     cout << "Number of boats in this wave: " << c << endl;
 }
+
+void C_Wave::loadIntoGrid(){
+    C_Grid& grid=C_Grid::Instances();
+    for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
+    {
+        S_boat tmp = *i;
+        cout << "Rank " << tmp.rank << " at " << tmp.x << ":" << tmp.y;
+        if (tmp.alive)
+            grid.addANewBoat(tmp.x,tmp.y,tmp.rank);
+
+    }
+}
+
