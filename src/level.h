@@ -52,12 +52,14 @@ class C_Level
   //methods
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
-  void loadWave(std::string tmx_File_Path);
+  void loadWave(std::string tmx_File_Path, int waveNbr);
 	//attibutes
 	std::string m_name;
 	int m_count;
 	int m_id;
   S_tmxLayer m_groundLayer;
+  int m_nbrOfWaves;
+  int m_currentWaveNbr;
   std::vector <C_Wave> m_waves;
 };
 
