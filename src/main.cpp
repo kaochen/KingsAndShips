@@ -196,6 +196,18 @@ while(!quit)
 		//change background color before clear
 		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 		SDL_RenderClear(renderer);
+		C_TextureList& t=C_TextureList::Instances();
+		for(int j = 0; j < 17; j++){
+		    int h = 96;
+		    if (j%2 ==0)
+		        h = 0;
+
+		    int y = j*48;
+		    for(int i = 0; i < 8; i++){
+		        int x = i*192 + h;
+        	    t.renderTexture("Water_00_EE_0", x,y);
+        	}
+        }
 		//display game content
 		grid.renderLayer (GROUND);
 		grid.renderLayer (DEAD);
