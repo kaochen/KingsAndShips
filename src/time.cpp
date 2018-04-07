@@ -33,7 +33,7 @@ C_Time& C_Time::Instances()
 void C_Time::displayTime() const
 {
 	cout << "Time: "<< SDL_GetTicks() <<  " s:"<< m_sec;
-	cout << " - frame:" << m_frameNbr << "/" << m_framerate;
+	cout << " - frame:" << m_frameNbr << "/" << m_framerate << endl;
 }
 
 void C_Time::showFPS() const
