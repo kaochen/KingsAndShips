@@ -1,4 +1,10 @@
-project('towerdefense','cpp')
+project('towerdefense','cpp',
+	default_options: [
+        'c_std=gnu11',
+	'cpp_std=c++11',]
+	)
+
+
 
 add_global_arguments('-Wall',language:'cpp')
 add_global_arguments('-Wextra', language:'cpp')
