@@ -16,6 +16,7 @@
 #include "gameUnits.h"
 #include "level.h"
 #include "menu.h"
+#include "landscape.h"
 
 
 using namespace std;
@@ -47,6 +48,8 @@ int main()
 
 	//displayStatus of the grid
 	grid.displayStatus();
+	C_Landscape* landscape = new C_Landscape();
+
 
 	C_Menu& menu=C_Menu::Instances();
 
@@ -193,23 +196,10 @@ while(!quit)
 	if (forceRefresh){
 		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
 		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
-		//change background color before clear
-		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
-		SDL_RenderClear(renderer);
-		C_TextureList& t=C_TextureList::Instances();
-		for(int j = 0; j < 17; j++){
-		    int h = 96;
-		    if (j%2 ==0)
-		        h = 0;
 
-		    int y = j*48;
-		    for(int i = 0; i < 8; i++){
-		        int x = i*192 + h;
-        	    t.renderTexture("Water_00_EE_0", x,y);
-        	}
-        }
+
 		//display game content
-		grid.renderLayer (GROUND);
+        landscape->display();
 		grid.renderLayer (DEAD);
 		grid.renderLayer (UNITS);
 
