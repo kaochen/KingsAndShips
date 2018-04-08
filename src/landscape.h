@@ -16,7 +16,8 @@ class C_Landscape
 	protected:
 	private:
   void renderWater();
-
+  int m_waterDrift;
+  C_AnimTime* m_animWater;
 };
 
 #endif

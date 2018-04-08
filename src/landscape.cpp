@@ -6,6 +6,8 @@ using namespace std;
 
 C_Landscape::C_Landscape()
 {
+    m_waterDrift = 0;
+    m_animWater= new C_AnimTime();
 }
 
 C_Landscape::~C_Landscape()
@@ -28,15 +30,23 @@ void C_Landscape::renderWater(){
 		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 		SDL_RenderClear(renderer);
 
-		for(int j = 0; j < 17; j++){
+		for(int j = -1; j < 17; j++){
 		    int h = 96;
 		    if (j%2 ==0)
 		        h = 0;
 
 		    int y = j*48;
-		    for(int i = 0; i < 8; i++){
+		    for(int i = -1; i < 8; i++){
 		        int x = i*192 + h;
-        	    t.renderTexture("Water_00_EE_0", x,y);
+        	    t.renderTexture("Water_00_EE_0", x + 2*m_waterDrift,y + m_waterDrift);
         	}
         }
+		    int pause = m_animWater->getAnimNbr(1,2,FRAMERATE);
+
+		    if(pause == 2){
+                m_waterDrift++;
+                if(m_waterDrift > 47){
+                    m_waterDrift = 0;
+                    }
+            }
 }
