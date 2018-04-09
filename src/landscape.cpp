@@ -6,7 +6,8 @@ using namespace std;
 
 C_Landscape::C_Landscape()
 {
-    m_waterDrift = 0;
+    m_waterDrift.x = 0;
+    m_waterDrift.y = 0;
     m_animWater= new C_AnimTime();
 }
 
@@ -37,20 +38,26 @@ void C_Landscape::renderWater(int direction){
 		    int y = j*48;
 		    for(int i = -1; i < 9; i++){
 		        int x = i*192 + h;
-        	    t.renderTexture("Water_00_EE_0", x + 2*m_waterDrift,y + m_waterDrift);
+        	    t.renderTexture("Water_00_EE_0", x + m_waterDrift.x ,y + m_waterDrift.y);
         	}
         }
-		    int pause = m_animWater->getAnimNbr(1,2,FRAMERATE);
-
-		    if(pause == 2){
+		    int pause = m_animWater->getAnimNbr(1,4,FRAMERATE);
+            int halfPixel = 1;
+	        if(pause == 4){
+    			   	 halfPixel =0;
+    			   	 }
+		    if(pause%2 == 0){
 		        if(direction == WEST){
-                    m_waterDrift--;
+                    m_waterDrift.x -= 1;
+                    m_waterDrift.y -= halfPixel;
                     }
                 else if (direction == EAST){
-                    m_waterDrift++;
+                    m_waterDrift.x += 1;
+                    m_waterDrift.y += halfPixel;
                 }
-                if(m_waterDrift > 47 || m_waterDrift < -47){
-                    m_waterDrift = 0;
+                if(m_waterDrift.y > 47 || m_waterDrift.y < -47){
+                    m_waterDrift.x = 0;
+                    m_waterDrift.y = 0;
                     }
             }
 }
