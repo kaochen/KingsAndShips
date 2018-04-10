@@ -24,6 +24,7 @@ C_Grid::C_Grid()
 		m_grid[x][y].str_ground = "";
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
+		m_grid[x][y].town = false;
 		}
 	}
 }
@@ -345,4 +346,29 @@ void C_Grid::darkenGround(int x_screen, int y_screen){
 	int R = 30, G = 30, B = 30, A = 50;
 
 	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
+}
+
+
+void C_Grid::setTown(S_Coord grid){
+    //first reset
+    for (int y = 0; y < GRID_SIZE; y++){
+			for (int x = 0; x < GRID_SIZE; x++){
+				 m_grid[x][y].town = false;
+			}
+		}
+	//then set
+				 m_grid[grid.x][grid.y].town = true;
+}
+
+S_Coord C_Grid::foundTown(){
+        S_Coord town = {0,0};
+		for (int y = 0; y < GRID_SIZE; y++){
+			for (int x = 0; x < GRID_SIZE; x++){
+				if ( m_grid[x][y].town == true){
+				    town.x = x;
+				    town.y = y;
+				    }
+			}
+		}
+		return town;
 }

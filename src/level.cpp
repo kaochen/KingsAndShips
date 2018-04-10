@@ -35,6 +35,8 @@ void C_Level::load(int levelNbr){
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
 	grid.reset();
+	S_Coord town = {27,15};
+	grid.setTown(town);
 
     string levelPath ="data/levels/Level_0";
     string extension =".tmx";

@@ -18,8 +18,11 @@ C_invaders::C_invaders(int x_grid,
 	m_speedImpact = 0;
 	m_speedImpactLoop = 10;
 	m_coord->centerOnTile();
-	m_C_Path = new C_Path(27,15);
-	m_C_Path->calcPath(x_grid,y_grid,27,15);
+	//Find a way to town
+	C_Grid& grid=C_Grid::Instances();
+	S_Coord town = grid.foundTown();
+	m_C_Path = new C_Path(town.x,town.y);
+	m_C_Path->calcPath(x_grid,y_grid,town.x,town.y);
 	m_C_Path->showPath();
 }
 

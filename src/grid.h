@@ -40,6 +40,9 @@ public:
   virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
   virtual bool mainEmpty(int x_grid, int y_grid);
 
+  void setTown(S_Coord grid);
+  S_Coord foundTown();
+
 protected:
 	void unselectedAll(int x_grid, int y_grid);
 

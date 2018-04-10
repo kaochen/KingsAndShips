@@ -20,6 +20,7 @@ class C_GameUnits
 		std::string str_ground;
 		bool plot;
 		bool water;
+    bool town;
 
 	};
 	//methods
