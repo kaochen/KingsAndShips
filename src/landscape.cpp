@@ -40,7 +40,8 @@ void C_Landscape::renderWater(int direction){
 		    int y = j*TILE_HALF_WIDTH;
 		    for(int i = -1; i < 10; i++){
 		        int x = i*4*TILE_HALF_WIDTH + h;
-        	    t.renderTexture("Water_00_EE_0", x + m_waterDrift.x ,y + m_waterDrift.y);
+        	    t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x ,y + m_waterDrift.y);
+        	    //t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x -10 ,y + m_waterDrift.y -10);
         	}
         }
 		    int pause = m_animWater->getAnimNbr(1,4,FRAMERATE);
