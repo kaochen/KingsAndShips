@@ -33,6 +33,9 @@ C_Node::~C_Node()
 
 void C_Node::setTown(bool town){
 	m_Town = town;
+	if(town)
+	    m_block = false;
+
 }
 
 bool C_Node::getTown() const{
