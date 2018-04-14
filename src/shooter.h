@@ -16,7 +16,6 @@ class C_Shooter : public C_GameUnits
 	virtual	void displayStatus() const;
 	virtual void shoot(std::string type);
 	virtual void move();
-
 	protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

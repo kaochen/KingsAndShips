@@ -25,6 +25,7 @@ public:
 	C_GameUnits* getUnits(int x_grid,
 	                     int y_grid);
 	void setGround(int x, int y, int id);
+	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
 	std::string getStrGround(int x, int y);
 	bool isThisConstructible(S_Coord grid);

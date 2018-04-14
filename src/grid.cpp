@@ -2,6 +2,7 @@
 #include "surfaces.h"
 #include "invaders.h"
 #include "towers.h"
+#include "town.h"
 #include "level.h"
 #include "menu.h"
 
@@ -161,6 +162,16 @@ void C_Grid::setGround(int x, int y, int id){
 	size_t found = str.find(pattern);
 	if(found != string::npos){
 		m_grid[x][y].water = true;
+	}
+}
+
+void C_Grid::setDecors(int x, int y, int id){
+	C_TextureList& t=C_TextureList::Instances();
+	string str = t.getNameFromID(id);
+	if(str == "town_01_EE_0"){
+	    m_grid[x][y].main = new C_Town(x,y);
+	    m_grid[x][y].town = true;
+	    m_grid[x][y].str_ground = "Ground_01_Grass00";
 	}
 }
 

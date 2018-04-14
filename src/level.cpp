@@ -18,6 +18,10 @@ C_Level::C_Level():
 	m_groundLayer.width=30;
 	m_groundLayer.height=30;
 	m_groundLayer.data="";
+	m_decorLayer.name="noname";
+	m_decorLayer.width=30;
+	m_decorLayer.height=30;
+	m_decorLayer.data="";
 	m_nbrOfWaves = 3;
 	m_currentWaveNbr = -1;
 }
@@ -46,10 +50,11 @@ void C_Level::load(int levelNbr){
     if (stat (filename.c_str(),  &buffer) == 0){
 
 	    loadGroundLayerIntoTheGrid(filename.c_str());
-    	cout << "Level "<< levelNbr <<" Loaded" << endl;
+	    loadDecorLayerIntoTheGrid(filename.c_str());
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(filename.c_str(),i);
     	}
+    	cout << "Level "<< levelNbr <<" Loaded" << endl;
 	}
 	else{
     	cout << "Can not find " << filename << endl;
@@ -197,6 +202,28 @@ void C_Level::loadWaveIntoGrid(int i){
             }
             c++;
         }
+}
+
+
+void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
+	C_Grid& grid=C_Grid::Instances();
+	m_decorLayer = extractTMXfile(tmx_File_Path,"Decors");
+    string data = m_decorLayer.data;
+
+	for (int y = 0; y < m_decorLayer.height; y++){
+		for (int x = 0; x < m_decorLayer.width; x++){
+				string extract = data;
+				int mark = extract.find_first_of(',');
+				if (mark > 0)
+					extract.resize(mark,'C');
+				int nbr = stoi(extract);
+				if(nbr != 0){
+                	grid.setDecors(x,y,nbr);
+				    }
+				//cout << extract <<":";
+				data = data.substr(mark + 1);
+		}
+	}
 }
 
 //______________________________Waves_____________________________//
