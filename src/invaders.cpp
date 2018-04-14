@@ -44,6 +44,7 @@ void C_invaders::move()
 	m_moving = true;
 
 	C_Grid& grid=C_Grid::Instances();
+	S_Coord town =  grid.foundTown();
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
 	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid())){
@@ -102,8 +103,8 @@ void C_invaders::move()
 		        if (m_countStop > 10){
 		            cout << "OldCoord" << old_x_grid <<":"<< old_y_grid << endl;
 		            delete m_C_Path;
-		            m_C_Path = new C_Path(27,15);
-	                m_C_Path->calcPath(old_x_grid,old_y_grid,27,15);
+		            m_C_Path = new C_Path(town.x,town.y);
+	                m_C_Path->calcPath(old_x_grid,old_y_grid,town.x,town.y);
 		        	m_C_Path->showPath();
 		        }
 		    }
@@ -114,8 +115,8 @@ void C_invaders::move()
 	   int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
        if(path.size() == 0 && pauseNbr == 2){
 		            delete m_C_Path;
-		            m_C_Path = new C_Path(27,15);
-	                m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),27,15);
+		            m_C_Path = new C_Path(town.x,town.y);
+	                m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),town.x,town.y);
 		        	m_C_Path->showPath();
        }
 	}

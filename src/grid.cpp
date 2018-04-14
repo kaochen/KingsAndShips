@@ -169,9 +169,7 @@ void C_Grid::setDecors(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
 	string str = t.getNameFromID(id);
 	if(str == "town_01_EE_0"){
-	    m_grid[x][y].main = new C_Town(x,y);
-	    m_grid[x][y].town = true;
-	    m_grid[x][y].str_ground = "Ground_01_Grass00";
+	    setTown(x,y);
 	}
 }
 
@@ -360,15 +358,23 @@ void C_Grid::darkenGround(int x_screen, int y_screen){
 }
 
 
-void C_Grid::setTown(S_Coord grid){
+void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
     for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
 				 m_grid[x][y].town = false;
+				 if(m_grid[x][y].main != nullptr){
+				     if(m_grid[x][y].main->getName() == "town"){
+				        delete m_grid[x][y].main;
+				        m_grid[x][y].main = nullptr;
+				        }
+				    }
 			}
 		}
 	//then set
-				 m_grid[grid.x][grid.y].town = true;
+	            m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
+	            m_grid[x_grid][y_grid].str_ground = "Ground_01_Grass00";
+				m_grid[x_grid][y_grid].town = true;
 }
 
 S_Coord C_Grid::foundTown(){

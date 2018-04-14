@@ -41,7 +41,7 @@ public:
   virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
   virtual bool mainEmpty(int x_grid, int y_grid);
 
-  void setTown(S_Coord grid);
+  void setTown(int x_grid, int y_grid);
   S_Coord foundTown();
 
 protected:
