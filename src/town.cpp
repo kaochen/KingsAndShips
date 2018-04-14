@@ -15,5 +15,6 @@ void C_Town::play(){
 
 void C_Town::render(S_Coord screen){
 	C_GameUnits::render(screen);
+	renderLifeBar(screen.x, screen.y);
 
 }
