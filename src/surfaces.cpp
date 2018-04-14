@@ -223,7 +223,7 @@ void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 	if(name != ""){
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 		if(search == m_map_textures.end()){
-			cout << name << " not available in the texture map (renderTextureEx)" << endl;
+			cout << "\""<< name << "\" not available in the texture map (renderTextureEx)" << endl;
 			texture = nullptr;
 		}
 		else{
@@ -378,7 +378,7 @@ void C_TextureList::displayTexturesList(){
 		    	string name = x.first;  // string (key)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 			if(search == m_map_textures.end()){
-				cout << name << " not available in the texture map  (displayTexturesList)"<< endl;
+				cout << "\""<< name << "\" not available in the texture map  (displayTexturesList)"<< endl;
 			}
 			else{
 				m_map_textures[name]->displayStatus();
@@ -390,14 +390,14 @@ void C_TextureList::displayTexturesList(){
 
 
 string C_TextureList::getNameFromID(int id){
-	string result="error whit getNameFromID";
+	string result="error with getNameFromID: \"" + to_string(id) + "\"";
 	for (auto const& x : m_map_textures)
 		{
 			int idTmp = -1;
 		    	string n = x.first;  // string (key)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(n);
 			if(search == m_map_textures.end()){
-				cout << n << " not available in the texture map (getNameFromID)" << endl;
+				cout << "\""<< n << "\"  not available in the texture map (getNameFromID)" << endl;
 				result = "notFound";
 			}
 			else{
