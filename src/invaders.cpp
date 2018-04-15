@@ -32,7 +32,8 @@ C_invaders::~C_invaders()
 
 void C_invaders::play(){
 	this->move();
-	this->shoot("ArcherTower");
+	string list[2] = {"town","ArcherTower"};
+	this->shoot(list, 2);
 
 	if(!this->alive())
 		this->kill();

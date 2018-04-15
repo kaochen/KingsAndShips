@@ -36,7 +36,7 @@ class C_GameUnits
 	virtual std::string getName() const;
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
-	virtual void shoot(std::string type) =0;
+	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets) =0;
 	virtual void receiveDamage(S_Weapon weapon);
 
 	virtual int getXGrid() const;

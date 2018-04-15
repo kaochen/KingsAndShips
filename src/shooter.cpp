@@ -3,7 +3,6 @@
 
 using namespace std;
 
-
 C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 	C_GameUnits(name, x_grid, y_grid, rank)
 {
@@ -43,23 +42,26 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
 
 	return target;
 }
-void C_Shooter::shoot(string type)
+void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 {
-	C_GameUnits* target = searchNextTarget(type);
-	if(target != nullptr){
-		long currentTime = SDL_GetTicks();
-		if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()){
-			m_weapon->setShooting(true);
-			shootTarget(*target);
-			//cout << target.getName() << " has been shot" << endl;
-		}
-		else {
-			m_weapon->setShooting(false);
-			}
-		}
-	else {
-		m_weapon->setShooting(false);
-		}
+    for(int i = 0; i < nbrofTargets; i++){
+	    C_GameUnits* target = searchNextTarget(type[i]);
+	    if(target != nullptr){
+		    long currentTime = SDL_GetTicks();
+		    if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()){
+			    m_weapon->setShooting(true);
+			    shootTarget(*target);
+			    i = MAX_TARGETS + 1;
+			    //cout << target.getName() << " has been shot" << endl;
+		    }
+		    else {
+			    m_weapon->setShooting(false);
+			    }
+		    }
+	    else {
+		     m_weapon->setShooting(false);
+		    }
+	}
 }
 
 void C_Shooter::displayStatus() const

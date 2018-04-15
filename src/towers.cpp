@@ -19,7 +19,8 @@ C_Towers::C_Towers(string name,
 }
 
 void C_Towers::play(){
-	this->shoot("boat");
+	string list[1] = {"boat"};
+	this->shoot(list,1);
 	if(!this->alive())
 		this->kill();
 }

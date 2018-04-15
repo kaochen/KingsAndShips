@@ -15,6 +15,7 @@
 #define MAX_LIFE 100
 #define LAYER 2
 #define SPRITE_SIZE 128
+#define MAX_TARGETS 3
 
 struct S_Coord{
 	int x;

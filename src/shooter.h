@@ -14,7 +14,7 @@ class C_Shooter : public C_GameUnits
 	virtual ~C_Shooter();
 
 	virtual	void displayStatus() const;
-	virtual void shoot(std::string type);
+	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void move();
 	protected:
 

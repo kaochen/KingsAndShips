@@ -10,7 +10,8 @@ C_Town::C_Town( int x_grid,
 }
 
 void C_Town::play(){
-	this->shoot("boat");
+	string list[1] = {"boat"};
+	this->shoot(list,1);
 }
 
 void C_Town::render(S_Coord screen){
