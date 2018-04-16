@@ -131,6 +131,31 @@ int C_Landscape::waterDirection(){
 //---------------------------Decors-------------------------
 
 C_Decors::C_Decors(string name, int x_grid, int y_grid):
-	C_GameUnits(name, x_grid, y_grid, 1)
+	C_GameUnits(name, x_grid, y_grid, 0)
+{
+    m_y_center_offset= 36;
+}
+
+void C_Decors::render(S_Coord screen){
+
+	string fileName = m_name;
+	//cout << "image name is "<< fileName << endl;
+
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+}
+
+
+
+
+void C_Decors::play()
+{
+};
+void C_Decors::move()
 {
 }
+void C_Decors::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
+{
+    cout << type[1] << nbrofTargets << endl; //to quiet gcc
+}
+

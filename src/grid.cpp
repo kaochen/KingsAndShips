@@ -5,6 +5,7 @@
 #include "town.h"
 #include "level.h"
 #include "menu.h"
+#include "landscape.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -167,9 +168,15 @@ void C_Grid::setGround(int x, int y, int id){
 
 void C_Grid::setDecors(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
-	string str = t.getNameFromID(id);
-	if(str == "town_01_EE_0"){
-	    setTown(x,y);
+	if(id !=0){
+	    string str = t.getNameFromID(id);
+	    if(str == "town_01_EE_0"){
+	        setTown(x,y);
+	    }
+	    else if(str =="rocks_01"){
+	        cout << "test" << endl;
+	        m_grid[x][y].main = new C_Decors(str,x,y);
+	    }
 	}
 }
 

@@ -25,11 +25,14 @@ class C_Landscape
   C_AnimTime* m_animWater;
 };
 
-
-class C_Decors: public C_GameUnits
+class C_Decors : public C_GameUnits
 {
-  public:
-    C_Decors(std::string name, int x_grid, int y_grid);
+	public:
+	  C_Decors(std::string name, int x_grid, int y_grid);
+  	virtual void play();
+	  virtual void move();
+  	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
+    virtual void render(S_Coord screen);
   protected:
   private:
 };
