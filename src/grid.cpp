@@ -87,7 +87,7 @@ void C_Grid::renderLayer(int layer){
 							int x_s = m_grid[x][y].dead->getXScreen();
 							int y_s = m_grid[x][y].dead->getYScreen();
 
-							t.renderTexture(m_grid[x][y].dead->getDeadImageName(), x_s,y_s  + 36);
+							t.renderTexture(m_grid[x][y].dead->getDeadImageName(), x_s,y_s  + 18);
 							}
 						}
 				if (layer == UNITS){
