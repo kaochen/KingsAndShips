@@ -26,12 +26,15 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
 	for(int y = (y_grid - gridDiag); y <= (y_grid + gridDiag); y++){
 		for(int x = (x_grid - gridDiag); x <= (x_grid + gridDiag); x++){
 			if((x != x_grid || y != y_grid)){
-				C_GameUnits* tmp = grid.getUnits(x,y);
-				if(tmp != nullptr){
-					if(tmp->getName() == type){
-					 	int dist = getDistance(x,y);
-					 	list[dist] = tmp;
-				 	}
+			    if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
+                    //cout << "test: "<< x << ":" << y << endl;
+				    C_GameUnits* tmp = grid.getUnits(x,y);
+				    if(tmp != nullptr){
+					    if(tmp->getName() == type){
+					     	int dist = getDistance(x,y);
+					     	list[dist] = tmp;
+				     	}
+				    }
 				}
 			}
 		}
