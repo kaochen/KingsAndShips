@@ -24,6 +24,7 @@ C_invaders::C_invaders(int x_grid,
 	m_C_Path = new C_Path(town.x,town.y);
 	m_C_Path->calcPath(x_grid,y_grid,town.x,town.y);
 	m_C_Path->showPath();
+	m_y_center_offset = 18;
 }
 
 C_invaders::~C_invaders()
@@ -166,7 +167,7 @@ void C_invaders::render(S_Coord screen){
 
 	if (m_weapon->getShooting())
 		m_weapon->render();
-	renderLifeBar(screen.x, screen.y+18);
+	renderLifeBar(screen.x, screen.y + m_y_center_offset);
 
 	string name = getName();
 	C_TextureList& t=C_TextureList::Instances();
@@ -206,7 +207,7 @@ void C_invaders::render(S_Coord screen){
 
 	//cout << "image name is "<< fileName << endl;
 
-	t.renderTexture(fileName, screen.x,screen.y +18);
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 	m_C_Path->displayPath();
 }
 
