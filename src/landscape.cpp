@@ -127,3 +127,10 @@ int C_Landscape::waterDirection(){
 		    //cout << "angle" << angle;
 		    return direction;
 }
+
+//---------------------------Decors-------------------------
+
+C_Decors::C_Decors(string name, int x_grid, int y_grid):
+	C_GameUnits(name, x_grid, y_grid, 1)
+{
+}

@@ -25,4 +25,12 @@ class C_Landscape
   C_AnimTime* m_animWater;
 };
 
+
+class C_Decors: public C_GameUnits
+{
+  public:
+    C_Decors(std::string name, int x_grid, int y_grid);
+  protected:
+  private:
+};
 #endif
