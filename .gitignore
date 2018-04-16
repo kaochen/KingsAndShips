@@ -41,3 +41,4 @@ src/img/render/
 
 
 perf.dat*
+.buildconfig
