@@ -111,7 +111,7 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 
 			m_x_screen = x_s_shooter + newA;
 			m_y_screen = y_s_shooter + newB;
-			m_dist -= 10;
+			m_dist -= 4;
 			if (m_dist < 20){
 				m_dist = 80;
 				m_lastShootTime = SDL_GetTicks();

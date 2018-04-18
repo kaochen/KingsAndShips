@@ -6,7 +6,7 @@ using namespace std;
 C_Town::C_Town( int x_grid,
                  int y_grid):C_Shooter("town", x_grid, y_grid, 1)
 {
-	m_weapon = new C_Weapon("ARCHER",10,0,500,2);
+	m_weapon = new C_Weapon("ARCHER",10,0,2000,2);
 }
 
 void C_Town::play(){

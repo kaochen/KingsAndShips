@@ -12,7 +12,7 @@ C_invaders::C_invaders(int x_grid,
 			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 
-	m_weapon = new C_Weapon("BOAT",2,0,500,2);
+	m_weapon = new C_Weapon("BOAT",2,0,2000,2);
 	m_moving = false;
 	m_speed = SLOW;
 	m_speedImpact = 0;

@@ -142,7 +142,7 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 		   int y_grid,
 		   int rank):C_Towers("ArcherTower", x_grid, y_grid, rank)
 {
-	m_weapon = new C_Weapon("ARCHER",10,0,500,2);
+	m_weapon = new C_Weapon("ARCHER",10,0,2000,2);
 }
 
 void C_ArcherTower::render(S_Coord screen){
