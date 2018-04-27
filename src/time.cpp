@@ -162,3 +162,27 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
 	}
 	return m_animNbr;
 }
+
+
+
+//---------------C_Message -----------------
+
+    C_Message::C_Message()
+    {
+    }
+    C_Message::~C_Message()
+    {
+    }
+
+    void C_Message::printM(string message)
+
+    {
+        Sint32 current = SDL_GetTicks();
+        int milli  = current%1000;
+        int sec =  current/1000;
+        int min = current/(1000*60);
+        int hr = current/(1000*60*60);
+        cout << hr << ":" << min << ":" << sec << ":" << milli << " : ";
+        cout << message << endl;
+
+    }

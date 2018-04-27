@@ -70,7 +70,8 @@ void C_Window::createWindow(){
 					SDL_Quit();
 				}
 		}
-cout << "The main window has been created successfully" << endl;
+        C_Message *m = new C_Message;
+        m->printM("The main window has been created successfully");
 }
 
 

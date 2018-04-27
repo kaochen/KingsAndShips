@@ -23,7 +23,9 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	for (int i = 0; i < MAX_ANIM; i++){
 		m_animation[i]= new C_AnimTime();
 	}
-	cout << "Add new unit: "<< m_name <<" life: "<< m_life <<" rank: "<< m_rank << endl;
+	C_Message *m = new C_Message();
+    string message = "Add new unit: " + m_name +" life: "+ to_string(m_life) + " rank: "+ to_string(m_rank);
+	m->printM(message);
 	S_Coord coord;
 	coord.x = x_grid;
 	coord.y = y_grid;

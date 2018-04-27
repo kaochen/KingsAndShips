@@ -63,4 +63,14 @@ class C_AnimTime
 	long m_lastAnimTime;
 };
 
+
+
+class C_Message{
+  public:
+    C_Message();
+    ~C_Message();
+   void printM(std::string message);
+};
+
+
 #endif
