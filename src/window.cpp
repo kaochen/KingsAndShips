@@ -71,7 +71,7 @@ void C_Window::createWindow(){
 				}
 		}
         C_Message m;
-        m.printM("The main window has been created successfully");
+        m.printM("The main window has been created successfully\n");
 }
 
 

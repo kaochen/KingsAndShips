@@ -52,11 +52,11 @@ void C_Level::load(int levelNbr){
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(filename.c_str(),i);
     	}
-    	m.printM("Level " + to_string(levelNbr) +" Loaded");
+    	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
 	}
 	else{
-    	m.printM("Can not find " + filename);
-    	m.printM("Can not load level " + to_string(levelNbr));
+    	m.printM("Can not find " + filename+"\n");
+    	m.printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
 }
 
@@ -69,7 +69,7 @@ void C_Level::sendNextWave(){
 
     displayWave(m_currentWaveNbr);
     loadWaveIntoGrid(m_currentWaveNbr);
-    m.printM("Next wave: " + to_string(m_currentWaveNbr));
+    m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
 }
 
 
@@ -104,7 +104,7 @@ S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 				}
 			  if (nodeName == "data" && attributes == "encoding"){
 				if (reader.get_value() == "csv" && currentLayerName == layerName){
-				    m.printDebug("found a " + layerName +" layer in the tmx file " + tmx_File_Path);
+				    m.printDebug("found a " + layerName +" layer in the tmx file " + tmx_File_Path+"\n");
 					layer.data = reader.read_inner_xml();
 				    currentLayerName ="";
 						}

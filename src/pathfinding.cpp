@@ -395,7 +395,7 @@ void C_Path::loadPath(){
 		     current = current->getParent();
 		     //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		     }
-		m.printDebugPath("path is loaded");
+		m.printDebugPath("path is loaded\n");
 	    //prepare render for debug
 	    C_Set& settings=C_Set::Instances();
 	    if(settings.getDebugPathMode()){

@@ -176,7 +176,7 @@ while(!quit)
 				break;
 			case SDLK_q:
 				quit = true;
-                message.printM("The quit command (q) has been pressed.");
+                message.printM("The quit command (q) has been pressed.\n");
 				break;
 			case SDLK_r:
             	level.load(levelNbr);
@@ -260,7 +260,7 @@ while(!quit)
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	TTF_Quit();
+	message.printM("Bye\n");
 	SDL_Quit();
-	message.printM("Bye");
 	return 0;
 }

@@ -20,7 +20,7 @@ C_Grid::C_Grid()
 {
 
         C_Message m;
-        m.printM("Construct Grid " + to_string(GRID_SIZE) + "x" + to_string(GRID_SIZE));
+        m.printM("Construct Grid " + to_string(GRID_SIZE) + "x" + to_string(GRID_SIZE)+"\n");
 
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
