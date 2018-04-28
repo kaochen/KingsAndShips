@@ -167,6 +167,12 @@ while(!quit)
 			case SDLK_n:
 				level.sendNextWave();
 				break;
+			case SDLK_p:
+			    if(settings.getDebugMode() == true){
+				    settings.setDebugPathMode();
+				    settings.displayDebugMode();
+				}
+				break;
 			case SDLK_q:
 				quit = true;
 				cout << "The quit command (q) has been pressed." << endl;

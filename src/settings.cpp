@@ -16,6 +16,7 @@ C_Set::C_Set()
 	m_first_tile_x = 13;
 	m_first_tile_y = 0;
 	m_debugMode = false;
+	m_debugPath = false;
 }
 
 C_Set::~C_Set()
@@ -67,24 +68,42 @@ int C_Set::getGridFirstTileY(){
 void C_Set::setDebugMode(){
 	if(m_debugMode){
 		m_debugMode = false;
+		m_debugPath = false;
 		}
 	else{
 		m_debugMode = true;
 	}
 }
 
-bool C_Set::getDebugModeStatus(){
+bool C_Set::getDebugMode(){
 	return m_debugMode;
 }
 
+void C_Set::setDebugPathMode(){
+	if(m_debugPath){
+		m_debugPath = false;
+		}
+	else{
+		m_debugPath = true;
+	}
+}
+
+bool C_Set::getDebugPathMode(){
+	return m_debugPath;
+}
+
 void C_Set::displayDebugMode(){
-	cout << "Debug Mode ";
-		if(m_debugMode){
-			cout << "on" << endl;
-		}
-		else{
-			cout << "off" << endl;
-		}
+    C_Message *m = new C_Message;
+    string debug = "off";
+    string debugPath = "off";
+
+	if(m_debugMode)
+		debug = "on";
+
+	if(m_debugPath)
+		debugPath = "on";
+
+	m->printM("Debug mode: " + debug + ", debug path mode: " + debugPath);
 
 }
 

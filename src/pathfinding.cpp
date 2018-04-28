@@ -389,7 +389,7 @@ void C_Path::loadPath(){
 	    cout << "load Path" << endl;
 	    //prepare render for debug
 	    C_Set& settings=C_Set::Instances();
-	    if(settings.getDebugModeStatus()){
+	    if(settings.getDebugPathMode()){
 		    for (size_t y = 0; y < GRID_SIZE; y++){
 			    for (size_t x = 0; x < GRID_SIZE; x++){
 			    m_gridNode[x][y]->prepareRender ();
@@ -470,7 +470,7 @@ void C_Path::displayPath(){
 		tmp.pop();
 	}
 	C_Set& settings=C_Set::Instances();
-	if(settings.getDebugModeStatus()){
+	if(settings.getDebugPathMode()){
 		for (size_t y = 0; y < GRID_SIZE; y++){
 			for (size_t x = 0; x < GRID_SIZE; x++){
 			m_gridNode[x][y]->render();

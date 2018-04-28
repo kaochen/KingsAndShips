@@ -54,7 +54,10 @@ public:
 	int getGridFirstTileY();
 
 	void setDebugMode();
-	bool getDebugModeStatus();
+	bool getDebugMode();
+  void setDebugPathMode();
+  bool getDebugPathMode();
+
 	void displayDebugMode();
 
 private:
@@ -73,6 +76,7 @@ private:
 	int m_first_tile_x; //first tile to display
 	int m_first_tile_y;
 	bool m_debugMode;
+  bool m_debugPath;
 };
 
 enum coordinates{SCREEN,GRID};
