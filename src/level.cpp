@@ -39,7 +39,7 @@ void C_Level::load(int levelNbr){
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
 	grid.reset();
-
+	C_Message m;
     string levelPath ="data/levels/Level_0";
     string extension =".tmx";
     string filename = levelPath + to_string(levelNbr) + extension;
@@ -52,15 +52,16 @@ void C_Level::load(int levelNbr){
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(filename.c_str(),i);
     	}
-    	cout << "Level "<< levelNbr <<" Loaded" << endl;
+    	m.printM("Level " + to_string(levelNbr) +" Loaded");
 	}
 	else{
-    	cout << "Can not find " << filename << endl;
-    	cout << "Can not load level " << levelNbr << endl;
+    	m.printM("Can not find " + filename);
+    	m.printM("Can not load level " + to_string(levelNbr));
 	}
 }
 
 void C_Level::sendNextWave(){
+    C_Message m;
     m_currentWaveNbr++;
     if(m_currentWaveNbr >= m_nbrOfWaves){
         m_currentWaveNbr = 0;
@@ -68,7 +69,7 @@ void C_Level::sendNextWave(){
 
     displayWave(m_currentWaveNbr);
     loadWaveIntoGrid(m_currentWaveNbr);
-	cout << "Next wave: " << m_currentWaveNbr << endl;
+    m.printM("Next wave: " + to_string(m_currentWaveNbr));
 }
 
 
@@ -77,8 +78,8 @@ S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 	S_tmxLayer layer;
 	layer.name = layerName;
     string currentLayerName ="";
-
-	cout << "Reading: " << tmx_File_Path << endl;
+    C_Message m;
+	m.printM("Reading: " + tmx_File_Path);
  xmlpp::TextReader reader(tmx_File_Path);
  while(reader.read())
     {
@@ -103,7 +104,7 @@ S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 				}
 			  if (nodeName == "data" && attributes == "encoding"){
 				if (reader.get_value() == "csv" && currentLayerName == layerName){
-					cout << "found a " << layerName << " layer in the tmx file " << tmx_File_Path << endl;
+				    m.printDebug("found a " + layerName +" layer in the tmx file " + tmx_File_Path);
 					layer.data = reader.read_inner_xml();
 				    currentLayerName ="";
 						}
@@ -150,6 +151,7 @@ void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
 void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 
   C_TextureList& t=C_TextureList::Instances();
+  C_Set& settings=C_Set::Instances();
 
     C_Wave wave;
 	string name = "Wave" + to_string(waveNbr);
@@ -165,7 +167,9 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				int nbr = stoi(extract);
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
-				    cout << x << ":" << y << "->" << str << " // " ;
+	                if(settings.getDebugMode()){
+				        cout << x << ":" << y << "->" << str << " // " ;
+				    }
                     wave.add(1,x,y);
 				    }
 				//grid.setGround(x,y,nbr);
@@ -187,15 +191,17 @@ void C_Level::displayWave(int i){
             }
             c++;
         }
-            cout << "Number of wave for this level: " << c << endl;
+            C_Message m;
+            m.printM("Number of wave for this level: " + to_string(c));
 }
 
 void C_Level::loadWaveIntoGrid(int i){
         int c = 0;
+        C_Message m;
         for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end();it++){
             C_Wave wave = *it;
             if(i == c){
-                cout << "load wave: " << c << endl;
+                m.printM("load wave: " + to_string(c));
                 wave.loadIntoGrid();
             }
             c++;
@@ -242,27 +248,31 @@ void C_Wave::add(int rank, int x, int y){
 
 void C_Wave::display(){
     int c = 0;
+    C_Message m;
+    string message ="";
     for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
         S_boat tmp = *i;
-        cout << "Rank " << tmp.rank << " at " << tmp.x << ":" << tmp.y;
+        message = "Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y);
         if (tmp.alive)
-            cout << " Alive";
+            message += " Alive";
         else
-            cout << "dead";
+            message += "dead";
 
         cout << endl;
         c++;
     }
-    cout << "Number of boats in this wave: " << c << endl;
+    m.printM(message);
+    m.printM("Number of boats in this wave: " + to_string(c));
 }
 
 void C_Wave::loadIntoGrid(){
     C_Grid& grid=C_Grid::Instances();
+    C_Message m;
     for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
         S_boat tmp = *i;
-        cout << "Rank " << tmp.rank << " at " << tmp.x << ":" << tmp.y;
+        m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y));
         if (tmp.alive)
             grid.addANewBoat(tmp.x,tmp.y,tmp.rank);
 
