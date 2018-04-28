@@ -177,6 +177,37 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
     void C_Message::printM(string message)
 
     {
+        timestamp();
+        cout << message << endl;
+
+    }
+
+    void C_Message::printDebug(string message)
+
+    {
+       C_Set& settings=C_Set::Instances();
+        if(settings.getDebugMode()){
+            timestamp();
+            cout << " [DEBUG] " << message << endl;
+        }
+
+    }
+
+    void C_Message::printDebugPath(string message)
+
+    {
+       C_Set& settings=C_Set::Instances();
+        if(settings.getDebugPathMode()){
+            timestamp();
+            cout << " [PATH] " << message << endl;
+        }
+
+    }
+
+
+void C_Message::timestamp()
+
+    {
         Sint32 current = SDL_GetTicks();
         int size = 4;
         string time[size] = {""};
@@ -192,6 +223,4 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
         }
 
         cout << time[3] << ":" <<  time[2] << ":" << time[1] << ":" <<  time[0] << " : ";
-        cout << message << endl;
-
     }

@@ -18,7 +18,10 @@ C_Grid C_Grid::m_instance=C_Grid();
 
 C_Grid::C_Grid()
 {
-	cout << "Construct C_Grid" << endl;
+
+        C_Message m;
+        m.printM("Construct Grid " + to_string(GRID_SIZE) + "x" + to_string(GRID_SIZE));
+
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
 		m_grid[x][y].main = nullptr;
@@ -118,7 +121,8 @@ void C_Grid::addANewBoat(int x, int y, int rank){
 		m_grid[x][y].main = new C_invaders(x,y,rank);
 	}
 	else{
-		cout << "You should place the boat into the water" << endl;
+	    C_Message m;
+	    m.printM("You should place the boat into the water");
 	}
 }
 
@@ -257,17 +261,19 @@ void C_Grid::deleteGrid(){
 bool C_Grid::selectATower(C_Coord clic){
 	S_Coord grid = clic.getGrid();
 	bool selected = false;
+	C_Message m;
+	string message ="";
 	string name ="";
 	if (m_grid[grid.x+1][grid.y+1].main != nullptr){
 		unselectedAll(grid.x+1,grid.x+1);
 		name = m_grid[grid.x+1][grid.y+1].main->getName();
 			if(name == "ArcherTower" || name == "Turbine"){
-				cout << "Found top " << name;
+				message =  "Found top " + name;
 				m_grid[grid.x+1][grid.y+1].main->reverseSelectedStatus();
 				selected = true;
 			}
 			else{
-				cout << "Found " << name;
+			    message = "Found " + name;
 			}
 	}
 	else{
@@ -275,21 +281,21 @@ bool C_Grid::selectATower(C_Coord clic){
 			name = m_grid[grid.x][grid.y].main->getName();
 				unselectedAll(grid.x,grid.y);
 				if(name == "ArcherTower"|| name == "Turbine"){
-					cout << "Found bottom" << name;
+				    message =  "Found bottom" + name;
 					m_grid[grid.x][grid.y].main->reverseSelectedStatus();
 					selected = true;
 				}
 				else{
-					cout << "Found " << name;
+				    message = "Found " + name;
 				}
 		}
 		else{
 			unselectedAll(grid.x,grid.y);
-			cout << "Nothing";
+			message = "Nothing";
 		}
 
 	}
-	cout << " at " << grid.x << ":" << grid.y << endl;
+	m.printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
 	return selected;
 }
 

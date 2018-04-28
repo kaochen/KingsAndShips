@@ -50,7 +50,8 @@ string C_GameUnits::getName() const
 
 void C_GameUnits::displayStatus() const
 {
- 	cout << "Name: " << m_name << " Life: " << m_life  << " Rank : " << m_rank<< endl;
+    C_Message m;
+    m.printM( "Name: " + m_name + " Life: " + to_string(m_life)  + " Rank : " + to_string(m_rank));
  	m_coord->displayStatus();
 }
 
@@ -113,7 +114,8 @@ int C_GameUnits::getDistance(int x, int y) const
 void C_GameUnits::kill()
 {
 	C_Grid& grid=C_Grid::Instances();
-	cout << "kill "<< m_name <<" from:" << m_coord->getXGrid () << ":" << m_coord->getYGrid () << endl;
+	C_Message m;
+	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ()) + ":" + to_string(m_coord->getYGrid ()));
  	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
 }
 

@@ -26,6 +26,7 @@ int main()
 {
 	//init settings
 	C_Set& settings=C_Set::Instances();
+	C_Message message;
 	C_Time& time=C_Time::Instances();
 	C_Window& win=C_Window::Instances();
 	win.createWindow();
@@ -73,7 +74,7 @@ C_Towers* turbineTower = new C_Turbine(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
-cout << "Loop Start" << endl;
+message.printM("Loop Start");
 
 while(!quit)
 {
@@ -132,7 +133,9 @@ while(!quit)
 					clic.x = event.button.x;
 					clic.y = event.button.y;
 					C_CoordScreen clicleft(clic);
-					clicleft.displayStatus();
+					if(settings.getDebugMode()){
+					    clicleft.displayStatus();
+					}
 
 					//Select a Tower
 					if(addingAnewTower == false) {
@@ -175,7 +178,7 @@ while(!quit)
 				break;
 			case SDLK_q:
 				quit = true;
-				cout << "The quit command (q) has been pressed." << endl;
+                message.printM("The quit command (q) has been pressed.");
 				break;
 			case SDLK_r:
             	level.load(levelNbr);
@@ -260,6 +263,6 @@ while(!quit)
 	SDL_DestroyWindow(window);
 	TTF_Quit();
 	SDL_Quit();
-	cout << "Bye" << endl;
+	message.printM("Bye");
 	return 0;
 }
