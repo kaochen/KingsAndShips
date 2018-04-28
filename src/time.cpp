@@ -178,11 +178,20 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
 
     {
         Sint32 current = SDL_GetTicks();
-        int milli  = current%1000;
-        int sec =  current/1000;
-        int min = current/(1000*60);
-        int hr = current/(1000*60*60);
-        cout << hr << ":" << min << ":" << sec << ":" << milli << " : ";
+        int size = 4;
+        string time[size] = {""};
+        time[0] = to_string(current%1000); //milli
+        time[1] = to_string(current/1000); //sec
+        time[2] = to_string(current/(1000*60));//min
+        time[3] = to_string(current/(1000*60*60));//hour
+
+        for(int i = 0; i < size; i++){
+            if(time[i].length()==1){
+                        time[i] = "0" + time[i];
+            }
+        }
+
+        cout << time[3] << ":" <<  time[2] << ":" << time[1] << ":" <<  time[0] << " : ";
         cout << message << endl;
 
     }
