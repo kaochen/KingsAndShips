@@ -93,7 +93,7 @@ bool C_Set::getDebugPathMode(){
 }
 
 void C_Set::displayDebugMode(){
-    C_Message *m = new C_Message;
+    C_Message m;
     string debug = "off";
     string debugPath = "off";
 
@@ -103,7 +103,7 @@ void C_Set::displayDebugMode(){
 	if(m_debugPath)
 		debugPath = "on";
 
-	m->printM("Debug mode: " + debug + ", debug path mode: " + debugPath);
+	m.printM("Debug mode: " + debug + ", debug path mode: " + debugPath);
 
 }
 
