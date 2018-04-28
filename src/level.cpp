@@ -151,13 +151,12 @@ void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
 void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 
   C_TextureList& t=C_TextureList::Instances();
-  C_Set& settings=C_Set::Instances();
 
     C_Wave wave;
 	string name = "Wave" + to_string(waveNbr);
 	S_tmxLayer layer = extractTMXfile(tmx_File_Path,name);
     string data = layer.data;
-
+    C_Message m;
 	for (int y = 0; y < layer.height; y++){
 		for (int x = 0; x < layer.width; x++){
 				string extract = data;
@@ -167,9 +166,7 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				int nbr = stoi(extract);
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
-	                if(settings.getDebugMode()){
-				        cout << x << ":" << y << "->" << str << " // " ;
-				    }
+                    m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
                     wave.add(1,x,y);
 				    }
 				//grid.setGround(x,y,nbr);
@@ -192,7 +189,7 @@ void C_Level::displayWave(int i){
             c++;
         }
             C_Message m;
-            m.printM("Number of wave for this level: " + to_string(c));
+            m.printM("Number of wave for this level: " + to_string(c) +"\n");
 }
 
 void C_Level::loadWaveIntoGrid(int i){
@@ -201,7 +198,7 @@ void C_Level::loadWaveIntoGrid(int i){
         for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end();it++){
             C_Wave wave = *it;
             if(i == c){
-                m.printM("load wave: " + to_string(c));
+                m.printM("load wave: " + to_string(c) + "\n");
                 wave.loadIntoGrid();
             }
             c++;
@@ -259,11 +256,10 @@ void C_Wave::display(){
         else
             message += "dead";
 
-        cout << endl;
         c++;
     }
-    m.printM(message);
-    m.printM("Number of boats in this wave: " + to_string(c));
+    m.printM(message + "\n");
+    m.printM("Number of boats in this wave: " + to_string(c) + "\n");
 }
 
 void C_Wave::loadIntoGrid(){
@@ -272,7 +268,7 @@ void C_Wave::loadIntoGrid(){
     for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
         S_boat tmp = *i;
-        m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y));
+        m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y) +"\n");
         if (tmp.alive)
             grid.addANewBoat(tmp.x,tmp.y,tmp.rank);
 

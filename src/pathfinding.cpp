@@ -80,14 +80,15 @@ int C_Node::getYGrid() const{
 }
 
 void C_Node::displayStatus(){
-	cout << "Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y;
-	cout << " F:" << m_F << " G:" << m_G << " H:" << m_H;
-	cout << " dist:" << m_dist << " angle" << m_angle;
+    C_Message m;
+    string message = " Node :" + to_string(m_coord->getGrid().x) + ":" + to_string(m_coord->getGrid().y)
+    + " F:" + to_string(m_F) + " G:" + to_string(m_G) + " H:" + to_string(m_H)
+	+ " dist:" + to_string(m_dist) + " angle" + to_string(m_angle);
 	if (m_Town)
-		cout << " Town: true <---";
+		message += " Town: true <---\n";
 	else
-		cout << " Town: false";
-	cout << endl;
+		message += " Town: false\n";
+	m.printM(message);
 };
 
 void C_Node::calcH(const C_Node* target){
@@ -105,14 +106,16 @@ void C_Node::calcH(const C_Node* target){
 void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 		    multimap <int,C_Node*>* m_openNodes){
 
+    C_Set& settings=C_Set::Instances();
 	m_open = false; //close the current node
 
 	int x_grid = m_coord->getGrid().x;
 	int y_grid = m_coord->getGrid().y;
-	cout << "For : " << x_grid << ":" << y_grid << " F: " << m_F << endl;
+	C_Message m;
+	m.printDebugPath("For : " + to_string(x_grid) + ":" + to_string(y_grid) + " F: " + to_string(m_F) +"\n");
 	C_Node *tested = gridNode[x_grid][y_grid];
 	int currentG = tested->getG();
-	cout << "	Testing : ";
+	m.printDebugPath("	Testing : ");
 	for (int y = y_grid - 1; y <= (y_grid + 1); y++){
 		for (int x = x_grid - 1; x <= (x_grid + 1); x++){
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
@@ -124,7 +127,9 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 					C_Node *tested = gridNode[x][y];
 						if (tested != nullptr){
 							if (tested->getBlock() == false && corner == false){
-								cout << x << ":" << y << " ";
+                                if(settings.getDebugPathMode()){
+								    cout << x << ":" << y << " ";
+								}
 								int tmpG = tested->getG();
 								if (tmpG == 0 || (currentG + G_offset) < tmpG ){
 									tested->setG(currentG + G_offset);
@@ -142,7 +147,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 				}
 			}
 		}
-		cout << endl;
+		m.printDebugPath("\n");
 }
 
 

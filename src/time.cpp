@@ -178,7 +178,7 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
 
     {
         timestamp();
-        cout << message << endl;
+        cout << message;
 
     }
 
@@ -188,7 +188,7 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
        C_Set& settings=C_Set::Instances();
         if(settings.getDebugMode()){
             timestamp();
-            cout << " [DEBUG] " << message << endl;
+            cout << " [DEBUG] " << message;
         }
 
     }
@@ -199,7 +199,7 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
        C_Set& settings=C_Set::Instances();
         if(settings.getDebugPathMode()){
             timestamp();
-            cout << " [PATH] " << message << endl;
+            cout << " [PATH] " << message;
         }
 
     }

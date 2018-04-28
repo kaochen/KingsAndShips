@@ -74,7 +74,7 @@ C_Towers* turbineTower = new C_Turbine(0,0,0);
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(window);
 //Start SDL2 loop
-message.printM("Loop Start");
+message.printM("SDL main loop start \n");
 
 while(!quit)
 {
@@ -133,9 +133,7 @@ while(!quit)
 					clic.x = event.button.x;
 					clic.y = event.button.y;
 					C_CoordScreen clicleft(clic);
-					if(settings.getDebugMode()){
-					    clicleft.displayStatus();
-					}
+
 
 					//Select a Tower
 					if(addingAnewTower == false) {

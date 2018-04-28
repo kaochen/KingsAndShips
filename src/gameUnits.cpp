@@ -115,7 +115,8 @@ void C_GameUnits::kill()
 {
 	C_Grid& grid=C_Grid::Instances();
 	C_Message m;
-	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ()) + ":" + to_string(m_coord->getYGrid ()));
+	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ())
+	            + ":" + to_string(m_coord->getYGrid ()) + "\n");
  	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
 }
 

@@ -102,8 +102,8 @@ void C_Set::displayDebugMode(){
 
 	if(m_debugPath)
 		debugPath = "on";
-
-	m.printM("Debug mode: " + debug + ", debug path mode: " + debugPath);
+	string message = "Debug mode: " + debug + ", debug path mode: " + debugPath + "\n";
+	m.printM(message);
 
 }
 

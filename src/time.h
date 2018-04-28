@@ -73,7 +73,7 @@ class C_Message{
     void printDebug(std::string message);
     void printDebugPath(std::string message);
 
- private:
+  private:
     void timestamp();
 };
 

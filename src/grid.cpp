@@ -122,7 +122,7 @@ void C_Grid::addANewBoat(int x, int y, int rank){
 	}
 	else{
 	    C_Message m;
-	    m.printM("You should place the boat into the water");
+	    m.printM("You should place the boat into the water\n");
 	}
 }
 
@@ -261,6 +261,7 @@ void C_Grid::deleteGrid(){
 bool C_Grid::selectATower(C_Coord clic){
 	S_Coord grid = clic.getGrid();
 	bool selected = false;
+	C_Set& settings=C_Set::Instances();
 	C_Message m;
 	string message ="";
 	string name ="";
@@ -296,6 +297,8 @@ bool C_Grid::selectATower(C_Coord clic){
 
 	}
 	m.printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
+	if(settings.getDebugMode())
+		    clic.displayStatus();
 	return selected;
 }
 
