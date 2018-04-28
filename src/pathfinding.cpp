@@ -106,16 +106,15 @@ void C_Node::calcH(const C_Node* target){
 void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 		    multimap <int,C_Node*>* m_openNodes){
 
-    C_Set& settings=C_Set::Instances();
 	m_open = false; //close the current node
 
 	int x_grid = m_coord->getGrid().x;
 	int y_grid = m_coord->getGrid().y;
 	C_Message m;
-	m.printDebugPath("For : " + to_string(x_grid) + ":" + to_string(y_grid) + " F: " + to_string(m_F) +"\n");
+	string message ="";
+	message = "For: " + to_string(x_grid) + ":" + to_string(y_grid) + " F: " + to_string(m_F) + "-Testing : ";
 	C_Node *tested = gridNode[x_grid][y_grid];
 	int currentG = tested->getG();
-	m.printDebugPath("	Testing : ");
 	for (int y = y_grid - 1; y <= (y_grid + 1); y++){
 		for (int x = x_grid - 1; x <= (x_grid + 1); x++){
 			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
@@ -127,9 +126,8 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 					C_Node *tested = gridNode[x][y];
 						if (tested != nullptr){
 							if (tested->getBlock() == false && corner == false){
-                                if(settings.getDebugPathMode()){
-								    cout << x << ":" << y << " ";
-								}
+								message +=  to_string(x) + ":" + to_string(y) + " ";
+
 								int tmpG = tested->getG();
 								if (tmpG == 0 || (currentG + G_offset) < tmpG ){
 									tested->setG(currentG + G_offset);
@@ -147,7 +145,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 				}
 			}
 		}
-		m.printDebugPath("\n");
+		m.printDebugPath(message + "\n");
 }
 
 
@@ -276,7 +274,8 @@ C_Path::C_Path(int x_dest, int y_dest)
 		m_gridNode[x][y]->calcH(m_gridNode[x_dest][y_dest]);
 		}
 	}
-	cout << "Construct C_Path done" << endl;
+	C_Message m;
+	m.printDebugPath("Construct C_Path done\n");
 }
 C_Path::~C_Path()
 {
@@ -289,27 +288,29 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
 
 	m_destination = m_gridNode[x_dest][y_dest];
-
+    C_Message m;
+    string message ="";
        std::multimap<int, C_Node*>::reverse_iterator rit;
 
        for(int count = 1; count > 0; count--){
                 if(m_openNodes.size()>0){
               		int lowestF = findLowestF();
-              		cout << "map size: " << m_openNodes.size() << " lowestF " << lowestF << endl;
+              		message = "map size: " + to_string(m_openNodes.size())
+              		        + " lowestF " + to_string(lowestF);
      			int c = 0;
      		       std::multimap<int, C_Node*>::reverse_iterator rit2;
 		       for (rit2=m_openNodes.rbegin(); rit2!=m_openNodes.rend(); rit2++){
 		       			if((*rit2).first == lowestF && c < 1){
 		       				c++;
 				       		std::multimap<int, C_Node*> tmpList;
-				        	cout << (*rit2).first << " : ";
+				        	message += ": " + to_string((*rit2).first);
 					       	(*rit2).second->calcG(m_gridNode,&tmpList);
 
 					       	if(m_openNodes.size()>1){
 					       		m_openNodes.erase(--(rit2.base()));
 					       	}
 					       	else{
-					       		cout << "list is empty" << endl;
+					       		//cout << "list is empty" << endl;
 					       	}
 
 						std::multimap<int, C_Node*>::iterator it2;
@@ -321,19 +322,21 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 			}
 			}
 	}
-	cout << "---------" << endl;
+	m.printDebugPath(message +  "\n---------\n" );
+
 	if(m_openNodes.size()>0){
 	loadPath();
 	}
     else{
-        cout << "not path to load"<< endl;
+        m.printM("not path to load\n");
     }
 
 }
 
 void C_Path::displayOpenList(){
 	std::multimap<int, C_Node*>::iterator it;
-	cout << "Open Nodes: " << endl;
+	C_Message m;
+	m.printDebugPath("Open Nodes: \n");
 	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
 		(*it).second->displayStatus();
 	}
@@ -378,6 +381,7 @@ void C_Path::setTown(int x_grid,int y_grid){
 
 void C_Path::loadPath(){
 	C_Node* current = m_destination;
+	C_Message m;
 	//clear path before
 
 	while(!m_path.empty()){
@@ -391,7 +395,7 @@ void C_Path::loadPath(){
 		     current = current->getParent();
 		     //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		     }
-	    cout << "load Path" << endl;
+		m.printDebugPath("path is loaded");
 	    //prepare render for debug
 	    C_Set& settings=C_Set::Instances();
 	    if(settings.getDebugPathMode()){
@@ -406,24 +410,32 @@ void C_Path::loadPath(){
 }
 
 void C_Path::showPath(){
-	show_H_G_F();
-	stack<C_Node*> tmp = m_path;
-	int c =0;
-	while(tmp.empty() == false){
-		cout << tmp.top()->getXGrid() << ":" << tmp.top()->getYGrid() << " >> ";
-		tmp.pop();
-		c++;
+	C_Set& settings=C_Set::Instances();
+	if(settings.getDebugPathMode()){
+	    C_Message m;
+	    string message ="";
+	    show_H_G_F();
+	    stack<C_Node*> tmp = m_path;
+	    int c =0;
+	    while(tmp.empty() == false){
+		    message += to_string(tmp.top()->getXGrid()) + ":" + to_string(tmp.top()->getYGrid()) + " >> ";
+		    tmp.pop();
+		    c++;
+	    }
+	    m.printDebugPath(message + "steps: " + to_string(c) + "\n");
 	}
-	cout << "steps:" << c << endl;
 }
 
 void C_Path::show_H_G_F(){
+    C_Message m;
+    string message = "";
 	for(int y= 0; y < GRID_SIZE; y++){
 		for(int x= 0; x < GRID_SIZE; x++){
 			C_Node* c = m_gridNode[x][y];
-			cout << "|" << c->getF();
+			message += "|" + to_string(c->getF());
 		}
-		cout << endl;
+        m.printDebugPath(message + "\n");
+        message ="";
 	}
 }
 
