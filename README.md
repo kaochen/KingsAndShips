@@ -1,5 +1,6 @@
-# DefenseTowerGame
+# Kings & Ships
 A defense Tower game (Work In Progess) (C++/SDL2)
+The king is going back with his ships, but you have taken his throne during his journey. You don't want him to go back. Organize your defense to push him back away and enjoy your new lifestyle.
 
 
 The game is under the license: **GPLv3** , and all graphics are under Creative Commons : **CC BY-SA 4.0**
@@ -34,7 +35,7 @@ ninja -C build/
 
 ### Play
 ```
-./build/demo
+./build/kingsandships
 ```
 
 Drag & drop Tower or Turbines on to the map.

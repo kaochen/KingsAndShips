@@ -1,4 +1,4 @@
-project('towerdefense','cpp',
+project('KingsAndShips','cpp',
 	default_options: [
         'c_std=gnu11',
 	'cpp_std=c++11',]
@@ -31,7 +31,7 @@ all_src = ['src/settings.cpp',
 	 'src/menu.cpp',
 	 'src/main.cpp']
 
-exe = executable('demo',
+exe = executable('kingsandships',
 	install : true,
 	sources : all_src,
 	dependencies : all_dep)
