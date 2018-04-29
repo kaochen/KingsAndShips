@@ -233,10 +233,15 @@ void C_Message::timestamp()
         time[2] = to_string(current/(1000*60));//min
         time[3] = to_string(current/(1000*60*60));//hour
 
+        //0:1:2:3 -> 00:01:02:03
         for(int i = 0; i < size; i++){
             if(time[i].length()==1){
                         time[i] = "0" + time[i];
             }
+        }
+        //00:01:02:03 -> 00:01:02:003
+        if(time[0].length()==2){
+                time[0] = "0" + time[0];
         }
 
         cout << time[3] << ":" <<  time[2] << ":" << time[1] << ":" <<  time[0] << " ";
