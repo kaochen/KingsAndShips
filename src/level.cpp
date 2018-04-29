@@ -79,7 +79,7 @@ S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 	layer.name = layerName;
     string currentLayerName ="";
     C_Message m;
-	m.printM("Reading: " + tmx_File_Path);
+	m.printM("Reading: " + tmx_File_Path +"\n");
  xmlpp::TextReader reader(tmx_File_Path);
  while(reader.read())
     {
@@ -175,7 +175,7 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				data = data.substr(mark + 1);
 		}
 	}
-	cout << endl;
+	//cout << endl;
 	m_waves.push_back(wave);
 }
 

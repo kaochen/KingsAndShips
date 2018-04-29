@@ -7,7 +7,7 @@ C_Set C_Set::m_instance=C_Set();
 
 C_Set::C_Set()
 {
-	cout << "Construct C_Set" << endl;
+	//cout << "Construct C_Set" << endl;
 	m_gridSize = GRID_SIZE;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;

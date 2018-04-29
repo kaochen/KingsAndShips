@@ -38,7 +38,8 @@ void C_Texture::destroyTexture(){
 }
 
 void C_Texture::displayStatus(){
-	cout << "Texture Name: " << m_name << endl;
+    C_Message m;
+    m.printM("Tileset Name: " + m_name +  " " + "\n");
 }
 
 //C_Image
@@ -58,8 +59,10 @@ C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_wi
 
 
 void C_Image::displayStatus(){
-	cout << "Id:" << m_id << ": "<< m_name << " " << m_tile_width << ":" << m_tile_height ;
-	cout << " " << m_file_path << " " << m_file_width << ":" << m_file_height  << endl;
+    C_Message m;
+    m.printM("Image: " + to_string(m_id) + " "+ m_name + " " + to_string(m_tile_width)
+            + ":" + to_string(m_tile_height) + " from: " + m_file_path + " "
+             + to_string(m_file_width) + ":" + to_string(m_file_height)+"\n");
 }
 
 
@@ -310,7 +313,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	int startCount = m_count + 1;
 
 
-	cout << "Tile Count" << startCount << endl;
+    //	cout << "Tile Count" << startCount << endl;
     while(reader.read())
     {
     		string nodeName = reader.get_name();
@@ -378,7 +381,8 @@ void C_TextureList::displayTexturesList(){
 		    	string name = x.first;  // string (key)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 			if(search == m_map_textures.end()){
-				cout << "\""<< name << "\" not available in the texture map  (displayTexturesList)"<< endl;
+			    C_Message m;
+			    m.printM("\""+ name + "\" not available in the texture map  (displayTexturesList)\n");
 			}
 			else{
 				m_map_textures[name]->displayStatus();
@@ -397,7 +401,8 @@ string C_TextureList::getNameFromID(int id){
 		    	string n = x.first;  // string (key)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(n);
 			if(search == m_map_textures.end()){
-				cout << "\""<< n << "\"  not available in the texture map (getNameFromID)" << endl;
+			    C_Message m;
+			    m.printM("\""+ n + "\" not available in the texture map  (getNameFromID)\n");
 				result = "notFound";
 			}
 			else{

@@ -154,7 +154,7 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 		    stripes.h = height;
 		    stripes.y= back.y;
     		SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255 );
-    		cout << step <<":"<< width << "/" << stepsNbr << " p:"<< progress<< endl;
+    		//cout << step <<":"<< width << "/" << stepsNbr << " p:"<< progress<< endl;
 		    for(int i = 1; i < stepsNbr;i++){
 		        stripes.x = x_screen + i*step;
 		        SDL_RenderFillRect(m_renderer, &stripes);

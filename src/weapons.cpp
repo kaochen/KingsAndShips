@@ -49,7 +49,7 @@ void C_Weapon::change(string name, int damage, int fireRate, int fireRange)
 
 void C_Weapon::displayStatus() const
 {
- 	cout << "\tWeapon: " << m_name << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
+ 	cout << "\t\t\tWeapon: " << m_name << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
 }
 
 int C_Weapon::getDamage() const
