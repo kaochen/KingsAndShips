@@ -171,13 +171,21 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 
 int C_Node::calcG_offset(int x_from, int y_from,
 			 int x_dest, int y_dest){
-
+    int offset = 0;
 	if(x_from != x_dest && y_from != y_dest){
-		return G_DIAG;
+		offset += G_DIAG;
 	}
 	else{
-		return G_HV;
+		offset += G_HV;
 	}
+
+    //if boat add a malus
+	C_Grid& grid=C_Grid::Instances();
+	if(grid.boatInMain(x_dest,y_dest)){
+	    offset += 2*G_HV;
+	}
+
+	return offset;
 }
 
 bool C_Node::crossACorner(int x_from, int y_from,
