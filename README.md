@@ -65,6 +65,11 @@ sudo perf record -g ./build/demo -sleep 10
 perf report --sort comm,dso
 ```
 
+Git
+```
+git remote set-url origin git@github.com:kaochen/KingsAndShips.git
+```
+
 ### Dev links :
 
  * https://www.kraxel.org/blog/tag/meson-ninja/
