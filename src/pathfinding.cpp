@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "surfaces.h"
 #include <SDL2_gfxPrimitives.h>
 #include <queue>
+#include <sstream>
 
 using namespace std;
 
@@ -99,14 +100,14 @@ int C_Node::getYGrid() const{
 
 void C_Node::displayStatus(){
     C_Message m;
-    string message = " Node :" + to_string(m_coord->getGrid().x) + ":" + to_string(m_coord->getGrid().y)
-    + " F:" + to_string(m_F) + " G:" + to_string(m_G) + " H:" + to_string(m_H)
-	+ " dist:" + to_string(m_dist) + " angle" + to_string(m_angle);
+    ostringstream message;
+    message << " Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y
+    << " F:" << m_F << " G:" << m_G << " H:" << m_H << " dist:" << m_dist << " angle" << m_angle;
 	if (m_Town)
-		message += " Town: true <---\n";
+		message << " Town: true <---\n";
 	else
-		message += " Town: false\n";
-	m.printM(message);
+		message << " Town: false\n";
+	m.printM(message.str());
 };
 
 void C_Node::calcH(const C_Node* target){
@@ -129,8 +130,8 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 	int x_grid = m_coord->getGrid().x;
 	int y_grid = m_coord->getGrid().y;
 	C_Message m;
-	string message ="";
-	message = "For: " + to_string(x_grid) + ":" + to_string(y_grid) + " F: " + to_string(m_F) + "-Testing : ";
+	ostringstream  message;
+	message << "For: " << x_grid << ":"<< y_grid << " F: " << m_F << "-Testing : ";
 	C_Node *tested = gridNode[x_grid][y_grid];
 	int currentG = tested->getG();
 	for (int y = y_grid - 1; y <= (y_grid + 1); y++){
@@ -144,7 +145,7 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 					C_Node *tested = gridNode[x][y];
 						if (tested != nullptr){
 							if (tested->getBlock() == false && corner == false){
-								message +=  to_string(x) + ":" + to_string(y) + " ";
+								message <<  x << ":" << y << " ";
 
 								int tmpG = tested->getG();
 								if (tmpG == 0 || (currentG + G_offset) < tmpG ){
@@ -163,7 +164,8 @@ void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
 				}
 			}
 		}
-		m.printDebugPath(message + "\n");
+		message << endl;
+		m.printDebugPath(message.str());
 }
 
 
@@ -307,21 +309,21 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 
 	m_destination = m_gridNode[x_dest][y_dest];
     C_Message m;
-    string message ="";
+    ostringstream message;
+
        std::multimap<int, C_Node*>::reverse_iterator rit;
 
        for(int count = 1; count > 0; count--){
                 if(m_openNodes.size()>0){
               		int lowestF = findLowestF();
-              		message = "map size: " + to_string(m_openNodes.size())
-              		        + " lowestF " + to_string(lowestF);
+              		message << "map size: " << m_openNodes.size() << " lowestF " << lowestF;
      			int c = 0;
      		       std::multimap<int, C_Node*>::reverse_iterator rit2;
 		       for (rit2=m_openNodes.rbegin(); rit2!=m_openNodes.rend(); rit2++){
 		       			if((*rit2).first == lowestF && c < 1){
 		       				c++;
 				       		std::multimap<int, C_Node*> tmpList;
-				        	message += ": " + to_string((*rit2).first);
+				        	message << ": " << (*rit2).first;
 					       	(*rit2).second->calcG(m_gridNode,&tmpList);
 
 					       	if(m_openNodes.size()>1){
@@ -340,7 +342,8 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 			}
 			}
 	}
-	m.printDebugPath(message +  "\n---------\n" );
+	message << "\n---------\n";
+	m.printDebugPath(message.str());
 
 	if(m_openNodes.size()>0){
 	loadPath();

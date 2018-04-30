@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2_gfxPrimitives.h>
+#include <sstream>
 
 using namespace std;
 
@@ -38,7 +39,9 @@ C_Grid::C_Grid()
 {
 
         C_Message m;
-        m.printM("Construct Grid " + to_string(GRID_SIZE) + "x" + to_string(GRID_SIZE)+"\n");
+        ostringstream message;
+        message << "Construct Grid " << GRID_SIZE << "x" << GRID_SIZE << endl;
+        m.printM(message.str());
 
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
