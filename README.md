@@ -19,8 +19,8 @@ apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-ima
 
 ### Download
 ```
-git clone https://github.com/kaochen/DefenseTowerGame
-cd downloadfolder/DefenseTowerGame
+git clone https://github.com/kaochen/KingsAndShips
+cd KingsAndShips
 ```
 If you have already the project and you want to synchonize from the server :
 ```
