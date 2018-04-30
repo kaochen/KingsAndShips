@@ -280,7 +280,7 @@ C_Path::C_Path(int x_dest, int y_dest)
 		for (size_t x = 0; x < GRID_SIZE; x++){
 			bool block = true;
 			if (grid.waterway(x,y)){
-			    if(grid.mainEmpty(x,y)){
+			    if(grid.mainEmpty(x,y) || grid.boatInMain(x,y)){
 				    block = false;
 				}
 			}

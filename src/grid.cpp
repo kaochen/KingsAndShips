@@ -374,6 +374,21 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid){
     }
 };
 
+bool C_Grid::boatInMain(int x_grid, int y_grid){
+    if(m_grid[x_grid][y_grid].main != nullptr){
+        if(m_grid[x_grid][y_grid].main->getName() == "boat"){
+           // cout << "found boat on " << x_grid << ":"<< y_grid << endl;
+            return true;
+            }
+            else{
+            return false;
+            }
+    }
+    else{
+        return false;
+    }
+};
+
 void C_Grid::darkenGround(int x_screen, int y_screen){
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
