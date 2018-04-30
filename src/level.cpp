@@ -264,19 +264,17 @@ void C_Wave::add(int rank, int x, int y){
 void C_Wave::display(){
     int c = 0;
     C_Message m;
-    string message ="";
+    ostringstream message;
     for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
-        S_boat tmp = *i;
-        message = "Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y);
-        if (tmp.alive)
-            message += " Alive";
+        message << "Rank " + to_string((*i).rank) << " at " << (*i).x << ":" << (*i).y;
+        if ((*i).alive)
+            message << " Alive\n";
         else
-            message += "dead";
-
+            message << "dead\n";
+        m.printM(message.str());
         c++;
     }
-    m.printM(message + "\n");
     m.printM("Number of boats in this wave: " + to_string(c) + "\n");
 }
 
