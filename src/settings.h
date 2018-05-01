@@ -129,6 +129,7 @@ protected:
 };
 
 	bool operator==(C_Coord const &a,C_Coord const &b);
+	bool operator!=(C_Coord const &a,C_Coord const &b);
 
 class C_CoordGrid: public C_Coord
 {

@@ -166,6 +166,15 @@ bool operator==(C_Coord const &a, C_Coord const &b){
 
 }
 
+bool operator!=(C_Coord const &a, C_Coord const &b){
+    bool test = a.isEqual(b);
+    if(test)
+	    return false;
+	else
+	    return true;
+}
+
+
 bool C_Coord::isEqual(C_Coord const &b) const{
 	//cout << "test equality " << m_this.grid.x << ":" << m_this.grid.y << " ";
 	//cout << b.m_this.grid.x << ":" << b.m_this.grid.y << endl;
