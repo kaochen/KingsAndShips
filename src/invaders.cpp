@@ -121,11 +121,7 @@ void C_invaders::move()
 		    else{
 		        m_countStop++;
 		        if (m_countStop > 10){
-		            cout << "OldCoord" << old_x_grid <<":"<< old_y_grid << endl;
-		            delete m_C_Path;
-		            m_C_Path = new C_Path(town.x,town.y);
-	                m_C_Path->calcPath(old_x_grid,old_y_grid,town.x,town.y);
-		        	m_C_Path->showPath();
+		                recalcPath(town);
 		        }
 		    }
       }
@@ -134,10 +130,7 @@ void C_invaders::move()
 	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid())){
 	   int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
        if(path.size() == 0 && pauseNbr == 2){
-		            delete m_C_Path;
-		            m_C_Path = new C_Path(town.x,town.y);
-	                m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),town.x,town.y);
-		        	m_C_Path->showPath();
+		            recalcPath(town);
        }
 	}
 
@@ -238,4 +231,11 @@ void C_invaders::receiveDamage(S_Weapon weapon)
 	{
 		m_life = 0;
 	}
+}
+
+void C_invaders::recalcPath(S_Coord dest){
+		delete m_C_Path;
+		m_C_Path = new C_Path(dest.x,dest.y);
+	    m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),dest.x,dest.y);
+		m_C_Path->showPath();
 }
