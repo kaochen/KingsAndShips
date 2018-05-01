@@ -82,18 +82,8 @@ void C_invaders::move()
 		    int bc = dest.y - start.y;
 		    double angle = atan2(ab,bc);
 
-            int speed = m_speed - m_speedImpact;
-            if (speed < 0){
-                    speed = VERY_SLOW;
-                    }
-            //cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
-            if (m_speedImpactLoop > 0){
-                m_speedImpactLoop--;
-            }
-            else{
-                m_speedImpact = 0;
-                m_speedImpactLoop=10;
-                }
+            int speed = calcSpeed();
+
 		    //move following angle and speed
 		    C_Coord tmp = *m_coord;
 		    tmp.move(angle,speed);
@@ -238,4 +228,21 @@ void C_invaders::recalcPath(S_Coord dest){
 		m_C_Path = new C_Path(dest.x,dest.y);
 	    m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),dest.x,dest.y);
 		m_C_Path->showPath();
+}
+
+int C_invaders::calcSpeed(){
+            int speed = m_speed - m_speedImpact;
+            if (speed < 0){
+                    speed = VERY_SLOW;
+                    }
+            //reset malus on speed every x moves
+            //cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
+            if (m_speedImpactLoop > 0){
+                m_speedImpactLoop--;
+            }
+            else{
+                m_speedImpact = 0;
+                m_speedImpactLoop=10;
+                }
+           return speed;
 }

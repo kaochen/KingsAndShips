@@ -40,6 +40,7 @@ class C_invaders: public C_Shooter
 	virtual void updateDirection();
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);
+  virtual int calcSpeed();
 
 	//attributs
 	bool m_moving;
