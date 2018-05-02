@@ -282,6 +282,43 @@ int C_Coord::angleToDirection(double angle){
 			return direction;
 }
 
+double C_Coord::directionToAngle(int direction){
+			double  angle = 0;
+			switch (direction){
+			    case NORTH_WEST :
+			        angle = 0.0;
+			    break;
+			    case NORTH :
+			        angle = 45.0;
+			    break;
+			   	case NORTH_EAST :
+			        angle = 90.0;
+			    break;
+			    case EAST :
+			        angle = 135.0;
+			    break;
+
+			    case SOUTH_EAST:
+			        angle = 180.0;
+			    break;
+			    case SOUTH :
+			        angle = 225.0;
+			    break;
+			   	case SOUTH_WEST :
+			        angle = 270.0;
+			    break;
+			    case WEST :
+			        angle = 315.0;
+			    break;
+			    case UNKNOWN :
+			        angle = 135.0;
+			    break;
+
+			}
+			return angle;
+}
+
+
 void C_Coord::move(double angle, int speed){
 	C_Time& time=C_Time::Instances();
 	//One pixel can't be split, on even frame number use an offset of 0 instead of 1.

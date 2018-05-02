@@ -118,6 +118,7 @@ public:
 	virtual int getYScreen();
 	virtual void centerOnTile();
 	virtual int angleToDirection(double angle);
+  virtual double directionToAngle(int direction);
 	virtual void move(double angle, int speed);
 	virtual void regenGridCoord();
 	virtual bool closeToCenter(S_Coord grid);
