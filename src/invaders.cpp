@@ -124,40 +124,6 @@ void C_invaders::move()
 
 
 
-void C_invaders::updateDirection(){
-	std::stack<C_Node*> path;
-	path = m_C_Path->getPath();
-	int x_grid = m_coord->getXGrid ();
-	int y_grid = m_coord->getYGrid ();
-	int next_x_grid = path.top()->getXGrid();
-	int next_y_grid = path.top()->getYGrid();
-	cout << x_grid << ":" << y_grid << "->" << next_x_grid << ":" << next_y_grid << endl;
-//enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
-	if(next_x_grid == x_grid && next_y_grid == y_grid){
-		m_C_Path->goNextStep();
-		}
-	else if(next_x_grid > x_grid && next_y_grid == y_grid)
-		m_direction = EAST;
-	else if(next_x_grid > x_grid && next_y_grid > y_grid)
-		m_direction = SOUTH_EAST;
-	else if(next_x_grid == x_grid && next_y_grid > y_grid)
-		m_direction = SOUTH;
-	else if(next_x_grid > x_grid && next_y_grid < y_grid)
-		m_direction = NORTH_EAST;
-	else if(next_x_grid < x_grid && next_y_grid == y_grid)
-		m_direction = WEST;
-	else if(next_x_grid < x_grid && next_y_grid < y_grid)
-		m_direction = NORTH_WEST;
-	else if(next_x_grid == x_grid && next_y_grid < y_grid)
-		m_direction = NORTH;
-	else if(next_x_grid < x_grid && next_y_grid > y_grid)
-		m_direction = SOUTH_WEST;
-	else
-		m_direction = UNKNOWN;
-
-};
-
-
 
 
 void C_invaders::render(S_Coord screen){
