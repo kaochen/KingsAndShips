@@ -120,7 +120,6 @@ public:
 	virtual int angleToDirection(double angle);
   virtual double directionToAngle(int direction);
 	virtual void move(double angle, int speed);
-	virtual void move2(double angle, int speed);
 	virtual void regenGridCoord();
   virtual double atan2_360(int ab, int bc);
 	virtual bool closeToCenter(S_Coord grid);

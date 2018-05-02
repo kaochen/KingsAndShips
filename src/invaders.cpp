@@ -86,11 +86,11 @@ void C_invaders::move()
 
 		    //move following angle and speed
 		    C_Coord tmp = *m_coord;
-		    tmp.move2(angle,speed);
+		    tmp.move(angle,speed);
 		    tmp.regenGridCoord();
 		    bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
             if(!nextEmpty){
-		        m_coord->move2(angle,speed);
+		        m_coord->move(angle,speed);
 		        m_countStop = 0;
 
 		        m_direction = destCoord.angleToDirection(angle);
