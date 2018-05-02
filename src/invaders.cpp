@@ -80,22 +80,18 @@ void C_invaders::move()
 		    S_Coord dest = destCoord.getScreen();
 		    int ab = dest.x - start.x;
 		    int bc = dest.y - start.y;
-		    double angle = atan2(ab,bc);
+		    double angle = destCoord.atan2_360(ab,bc);
 
             int speed = calcSpeed();
 
 		    //move following angle and speed
 		    C_Coord tmp = *m_coord;
-		    tmp.move(angle,speed);
+		    tmp.move2(angle,speed);
 		    tmp.regenGridCoord();
 		    bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
             if(!nextEmpty){
-		        m_coord->move(angle,speed);
+		        m_coord->move2(angle,speed);
 		        m_countStop = 0;
-
-		        angle = 180 - (angle *180/3.14159265359);
-			    if(angle < 0)
-				    angle +=360;
 
 		        m_direction = destCoord.angleToDirection(angle);
 
