@@ -123,6 +123,7 @@ public:
 	virtual void regenGridCoord();
   virtual double atan2_360(int ab, int bc);
 	virtual bool closeToCenter(S_Coord grid);
+  virtual int guessADirection(S_Coord start,S_Coord end);
 
 protected:
 	S_Coord screenToGrid(S_Coord screen);

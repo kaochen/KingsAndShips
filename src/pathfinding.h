@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <map>
 #include <stack>
 #include "settings.h"
+#include "time.h"
 
 #define G_HV 10
 #define G_DIAG 14

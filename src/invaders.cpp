@@ -43,6 +43,9 @@ C_invaders::C_invaders(int x_grid,
 	m_C_Path->calcPath(x_grid,y_grid,town.x,town.y);
 	m_C_Path->showPath();
 	m_y_center_offset = 18;
+	m_direction = EAST;
+	m_animDirection = new C_AnimTime();
+	m_recalcDirection = true;
 }
 
 C_invaders::~C_invaders()
@@ -93,7 +96,16 @@ void C_invaders::move()
 		        m_coord->move(angle,speed);
 		        m_countStop = 0;
 
-		        m_direction = destCoord.angleToDirection(angle);
+		        //every 333 milli recalc the direction
+                int recalcDirection = m_animDirection->getAnimNbr(1,2,1000/3);
+                if(recalcDirection == 1){
+//                if(recalcDirection == 1 || m_recalcDirection){
+                    int direction = destCoord.angleToDirection(angle);
+                    m_recalcDirection = false;
+                    if (direction != UNKNOWN){
+		                m_direction = direction;
+		            }
+		        }
 
 		        //apply offset + offset
 		        //refresh grid position
@@ -102,6 +114,7 @@ void C_invaders::move()
 		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
 			        if(*m_coord == destCoord){
 				        m_C_Path->goNextStep();
+				        m_recalcDirection = true;
 			        }
 		    }
 		    else{

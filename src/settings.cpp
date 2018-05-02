@@ -562,6 +562,40 @@ bool C_Coord::closeToCenter(S_Coord grid){
 }
 
 
+int C_Coord::guessADirection(S_Coord start,S_Coord end){
+
+    //enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
+	int direction = UNKNOWN;
+
+	if(end.x == start.x && end.y == start.y){
+		direction = UNKNOWN;
+		}
+	else if(end.x > start.x && end.y == start.y)
+		direction = NORTH_EAST;
+	else if(end.x > start.x && end.y > start.y)
+		direction = EAST;
+	else if(end.x == start.x && end.y > start.y)
+		direction = SOUTH_EAST;
+	else if(end.x > start.x && end.y < start.y)
+		direction = NORTH;
+	else if(end.x < start.x && end.y == start.y)
+		direction = SOUTH_WEST;
+	else if(end.x < start.x && end.y < start.y)
+		direction = WEST;
+	else if(end.x == start.x && end.y < start.y)
+		direction = NORTH_WEST;
+	else if(end.x < start.x && end.y > start.y)
+		direction = SOUTH;
+	else
+		direction = UNKNOWN;
+
+ return direction;
+
+};
+
+
+
+
 C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 		m_this.grid.x = coord.x;
 		m_this.grid.y = coord.y;
