@@ -28,6 +28,7 @@ C_Time C_Time::m_instance=C_Time();
 
 C_Time::C_Time():
 	m_frameNbr(0),
+	m_frameNbrFromStart(0),
 	m_previousFrameNbr(-1),
 	m_sec(0),
 	m_lastSec(-1),
@@ -94,9 +95,10 @@ void C_Time::showFPS() const
 void C_Time::updateFrameNbr()
 {
 	m_currentTime = SDL_GetTicks();
-
 	if ((m_currentTime - m_start_frame) > (1000/FRAMERATE)){
 		m_frameNbr++;
+		m_frameNbrFromStart++;
+		//cout << m_frameNbr << "/" << m_frameNbrFromStart << endl;
 		}
 
 	m_sec = m_currentTime/1000;
@@ -132,6 +134,11 @@ long C_Time::getFrameNbr()
 	return m_frameNbr;
 }
 
+long C_Time::getFrameNbrFromStart()
+{
+	return m_frameNbrFromStart;
+}
+
 long C_Time::getFrameDuration()
 {
 	return m_frame_duration;
@@ -160,7 +167,8 @@ bool C_Time::testNewFrame(){
 //-------------------------------
 C_AnimTime::C_AnimTime():
 	m_animNbr(0),
-	m_lastAnimTime(0)
+	m_lastAnimTime(0),
+	m_lastFrameNbr(0)
 {
 }
 
@@ -179,6 +187,20 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
 		m_animNbr = startNbr;
 	}
 	return m_animNbr;
+}
+
+
+bool C_AnimTime::frameDelay(int delay){
+	C_Time& time=C_Time::Instances();
+    long current = time.getFrameNbrFromStart();
+    //cout << "current " << current << " lastFrameNbr " << m_lastFrameNbr << "+" << delay << endl;
+    if(current > (m_lastFrameNbr + delay)){
+        m_lastFrameNbr = current;
+        return true;
+    }
+    else{
+        return  false;
+    }
 }
 
 

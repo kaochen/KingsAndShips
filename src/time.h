@@ -36,6 +36,7 @@ class C_Time
 	void delayGameLoop();
 	long getSec();
 	long getFrameNbr();
+  long getFrameNbrFromStart();
 	long getFramerate();
 	long getFrameDuration();
 	long getDelay();
@@ -53,6 +54,7 @@ class C_Time
 	~C_Time();
 
 	long m_frameNbr;
+	long m_frameNbrFromStart;
 	long m_previousFrameNbr;
 	int m_sec;
 	int m_lastSec;
@@ -74,11 +76,13 @@ class C_AnimTime
 	~C_AnimTime();
 
 	int getAnimNbr(int startNbr, int endNbr, long delay);
+  bool frameDelay(int delay);
 
 	protected:
 	private:
 	long m_animNbr;
 	long m_lastAnimTime;
+	long m_lastFrameNbr;
 };
 
 
