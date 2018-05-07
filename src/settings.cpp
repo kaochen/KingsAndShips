@@ -548,7 +548,7 @@ bool C_Coord::closeToCenter(S_Coord grid){
 			l *=-1;
 		if (h < 0)
 			h *=-1;
-		if(l < TILE_HALF_WIDTH/4 && h < TILE_HALF_HEIGHT/4){
+		if(l < 4 && h < 2){
 			//cout << "center true" << endl;
 			return true;
 			}

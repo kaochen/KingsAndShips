@@ -100,7 +100,8 @@ void C_invaders::move()
 		        m_coord->regenGridCoord();
 
 		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
-			        if(*m_coord == destCoord){
+			        if(m_coord->closeToCenter(destCoord.getGrid())){
+			            m_coord->centerOnTile(); //to not deviate to much from the path
 				        m_C_Path->goNextStep();
 			        }
 		    }
