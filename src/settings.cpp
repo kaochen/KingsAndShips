@@ -249,31 +249,31 @@ void C_Coord::centerOnTile(){
 
 int C_Coord::angleToDirection(double angle){
 			int  direction = UNKNOWN;
-			if (angle > -22.5 && angle <= 22.5){
+			if (angle > -45.0 && angle <= 45.0){
 				direction = NORTH_WEST;
 				}
-			else if (angle > 22.5 && angle <= 67.5){
+			else if (angle > 45.0 && angle <= 76.7){
 				direction = NORTH;
 			}
-			else if(angle > 67.5 && angle <=112.5){
+			else if(angle > 76.7 && angle <=103.3){
 				direction = NORTH_EAST;
 				}
-			else if(angle > 112.5 && angle <=157.5){
+			else if(angle > 103.3 && angle <=135.0){
 				direction = EAST;
 				}
-			else if((angle > 157.5 && angle <= 202.5)){
+			else if((angle > 135.0 && angle <= 225.0)){
 				direction = SOUTH_EAST;
 				}
-			else if(angle > 202.5 && angle <= 247.5){
+			else if(angle > 225.0 && angle <= 256.7){
 				direction = SOUTH;
 				}
-			else if(angle > 247.5 && angle <= 292.5){
+			else if(angle > 256.7 && angle <= 283.3){
 				direction = SOUTH_WEST;
 				}
-			else if(angle > 292.5 && angle <= 337.5){
+			else if(angle > 283.3 && angle <= 315.0){
 				direction = WEST;
 				}
-			else if(angle > 337.5 && angle <= 382.5){
+			else if(angle > 315.0 && angle <= 405.0){
 				direction = NORTH_WEST;
 				}
 			else{
@@ -289,29 +289,29 @@ double C_Coord::directionToAngle(int direction){
 			        angle = 0.0;
 			    break;
 			    case NORTH :
-			        angle = 45.0;
+			        angle = 63.4;
 			    break;
 			   	case NORTH_EAST :
 			        angle = 90.0;
 			    break;
 			    case EAST :
-			        angle = 135.0;
+			        angle = 116.6;
 			    break;
 
 			    case SOUTH_EAST:
 			        angle = 180.0;
 			    break;
 			    case SOUTH :
-			        angle = 225.0;
+			        angle = 243.4;
 			    break;
 			   	case SOUTH_WEST :
 			        angle = 270.0;
 			    break;
 			    case WEST :
-			        angle = 315.0;
+			        angle = 283.3;
 			    break;
 			    case UNKNOWN :
-			        angle = 135.0;
+			        angle = 116.6;
 			    break;
 
 			}
@@ -329,7 +329,7 @@ void C_Coord::move(double angle, int speed){
 
 	//cout << "Angle : " << angle << endl;
 
-	if(angle > 22.5 && angle <= 67.5){
+	if(angle > 45.0 && angle <= 76.7){
 			//cout << "NORTH" << endl;
 			switch(speed){
 			    case VERY_SLOW:
@@ -354,7 +354,7 @@ void C_Coord::move(double angle, int speed){
 			    break;
 			    }
 			}
-	else if(angle > 67.5 && angle <=112.5){
+	else if(angle > 76.7 && angle <=103.3){
 			//cout << "NORTH_EAST" << endl;
 			m_this.screen.x +=speed;
 			switch(speed){
@@ -375,7 +375,7 @@ void C_Coord::move(double angle, int speed){
 			    break;
 			    }
 				}
-    else if (angle > 112.5 && angle <=157.5){
+    else if (angle > 103.3 && angle <=135.0){
 			//cout << "EAST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
@@ -401,7 +401,7 @@ void C_Coord::move(double angle, int speed){
 			    }
 			}
 
-	else if ((angle > 157.5 && angle <= 202.5)){
+	else if ((angle > 135.0 && angle <= 225.0)){
 			//cout << "SOUTH_EAST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
@@ -421,7 +421,7 @@ void C_Coord::move(double angle, int speed){
 			    break;
 			    }
 			}
-	else if(angle > 202.5 && angle <= 247.5){
+	else if(angle > 225.0 && angle <= 256.7){
 
 			//cout << "SOUTH" << endl;
 			switch(speed){
@@ -447,7 +447,7 @@ void C_Coord::move(double angle, int speed){
 			    break;
 			    }
 				}
-	else if(angle > 247.5 && angle <= 292.5){
+	else if(angle > 256.7 && angle <= 283.3){
 			//cout << "SOUTH_WEST" << endl;
 				m_this.screen.x -=speed;
 				switch(speed){
@@ -468,7 +468,7 @@ void C_Coord::move(double angle, int speed){
 			    break;
 			    }
 				}
-	else if(angle > 292.5 && angle <= 337.5){
+	else if(angle > 283.3 && angle <= 315.0){
 			//cout << "WEST" << endl;
 			switch(speed){
 			    case VERY_SLOW:
@@ -493,7 +493,7 @@ void C_Coord::move(double angle, int speed){
 			    break;
 			    }
 				}
-	else if((angle > 337.5 && angle <= 382.5) || (angle > -22.5 && angle <= 22.5)){
+	else if((angle > 315.0 && angle <= 405.0) || (angle > -45.0 && angle <= 45.0)){
 			//cout << "NORTH_WEST" << endl;
 				    switch(speed){
 			        case VERY_SLOW:
@@ -655,4 +655,6 @@ C_CoordScreen::C_CoordScreen(int x_screen, int y_screen ): C_Coord(x_screen, y_s
 C_CoordScreen::~C_CoordScreen()
 {
 };
+
+
 
