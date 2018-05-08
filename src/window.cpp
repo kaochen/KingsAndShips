@@ -105,18 +105,19 @@ SDL_Renderer* C_Window::getRenderer(){
 void C_Window::loadGame(){
 	C_TextureList& t=C_TextureList::Instances();
 	//C_Texture text;
-	int size = 10;
+	int size = 11;
 	string tsxList[size];
 	tsxList[0] = "data/levels/Ground_01.tsx";
 	tsxList[1] = "data/levels/boat_01.tsx";
 	tsxList[2] = "data/levels/town_01.tsx";
 	tsxList[3] = "data/levels/Rocks_00.tsx";
-	tsxList[4] = "data/levels/turbine_00.tsx";
-	tsxList[5] = "data/levels/archerTower_00.tsx";
-	tsxList[6] = "data/levels/archerTower_01.tsx";
-	tsxList[7] = "data/levels/buttons.tsx";
-	tsxList[8] = "data/levels/Water_00.tsx";
-	tsxList[9] = "data/levels/smoke_01.tsx";
+	tsxList[4] = "data/levels/Trees_00.tsx";
+	tsxList[5] = "data/levels/turbine_00.tsx";
+	tsxList[6] = "data/levels/archerTower_00.tsx";
+	tsxList[7] = "data/levels/archerTower_01.tsx";
+	tsxList[8] = "data/levels/buttons.tsx";
+	tsxList[9] = "data/levels/Water_00.tsx";
+	tsxList[10] = "data/levels/smoke_01.tsx";
 	//create texture from the path
 	string firstImages = "First Images";
 	t.loadTextAsTexturesIntoMap(firstImages, firstImages, 20);

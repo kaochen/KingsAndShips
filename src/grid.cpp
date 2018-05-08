@@ -194,6 +194,7 @@ void C_Grid::setGround(int x, int y, int id){
 void C_Grid::setDecors(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
 	string rocks = "rocks";
+	string trees = "trees";
 	string town = "town";
 	if(id !=0){
 	    string str = t.getNameFromID(id);
@@ -201,6 +202,9 @@ void C_Grid::setDecors(int x, int y, int id){
 	        setTown(x,y);
 	    }
 	    else if(str.find(rocks) != std::string::npos){
+	        m_grid[x][y].main = new C_Decors(str,x,y);
+	    }
+	    else if(str.find(trees) != std::string::npos){
 	        m_grid[x][y].main = new C_Decors(str,x,y);
 	    }
 	}
