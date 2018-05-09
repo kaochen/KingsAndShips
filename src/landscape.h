@@ -54,4 +54,13 @@ class C_Decors : public C_GameUnits
   protected:
   private:
 };
+
+
+class C_Trees : public C_Decors
+{
+  public:
+  C_Trees(std::string name, int x_grid, int y_grid);
+  virtual void render(S_Coord screen);
+};
+
 #endif

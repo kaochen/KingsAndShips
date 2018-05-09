@@ -205,7 +205,7 @@ void C_Grid::setDecors(int x, int y, int id){
 	        m_grid[x][y].main = new C_Decors(str,x,y);
 	    }
 	    else if(str.find(trees) != std::string::npos){
-	        m_grid[x][y].main = new C_Decors(str,x,y);
+	        m_grid[x][y].main = new C_Trees(str,x,y);
 	    }
 	}
 }

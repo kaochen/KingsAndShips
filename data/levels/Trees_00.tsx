@@ -13,9 +13,9 @@
    <frame tileid="5" duration="100"/>
   </animation>
  </tile>
- <tile id="1" type="01_02"/>
- <tile id="2" type="01_03"/>
- <tile id="3" type="01_04"/>
- <tile id="4" type="01_05"/>
- <tile id="5" type="01_06"/>
+ <tile id="1" type="01_01"/>
+ <tile id="2" type="01_02"/>
+ <tile id="3" type="01_03"/>
+ <tile id="4" type="01_04"/>
+ <tile id="5" type="01_05"/>
 </tileset>

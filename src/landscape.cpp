@@ -164,6 +164,24 @@ void C_Decors::render(S_Coord screen){
 }
 
 
+C_Trees::C_Trees(string name, int x_grid, int y_grid):
+	C_Decors(name, x_grid, y_grid)
+{
+}
+
+void C_Trees::render(S_Coord screen){
+
+	int	imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,5,200);
+	string fileName = "trees_01_0" + to_string(imageNbr);
+	//cout << "image name is "<< fileName << endl;
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+}
+
+
+
+
+
 
 
 void C_Decors::play()
