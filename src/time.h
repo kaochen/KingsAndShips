@@ -75,7 +75,8 @@ class C_AnimTime
 	C_AnimTime();
 	~C_AnimTime();
 
-	int getAnimNbr(int startNbr, int endNbr, long delay);
+	int getAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers restart to startNbr
+  int getLoopAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers goes back
   bool frameDelay(int delay);
 
 	protected:
@@ -83,6 +84,7 @@ class C_AnimTime
 	long m_animNbr;
 	long m_lastAnimTime;
 	long m_lastFrameNbr;
+  bool m_rewind;
 };
 
 

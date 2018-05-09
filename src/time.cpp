@@ -168,7 +168,8 @@ bool C_Time::testNewFrame(){
 C_AnimTime::C_AnimTime():
 	m_animNbr(0),
 	m_lastAnimTime(0),
-	m_lastFrameNbr(0)
+	m_lastFrameNbr(0),
+	m_rewind(false)
 {
 }
 
@@ -188,6 +189,34 @@ int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
 	}
 	return m_animNbr;
 }
+
+int C_AnimTime::getLoopAnimNbr(int startNbr, int endNbr, long delay){
+	long current = SDL_GetTicks();
+	if (current > m_lastAnimTime + delay){
+	    if(m_rewind){
+	        m_animNbr--;
+	        }
+	    else{
+	        m_animNbr++;
+	        }
+
+		m_lastAnimTime = current;
+		}
+	//loop
+	if (m_animNbr >= endNbr){
+		m_animNbr = endNbr;
+		m_rewind = true;
+	}
+	else if (m_animNbr <= startNbr){
+		m_animNbr = startNbr;
+		m_rewind = false;
+	}
+
+	return m_animNbr;
+}
+
+
+
 
 
 bool C_AnimTime::frameDelay(int delay){
