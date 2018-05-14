@@ -424,6 +424,7 @@ void C_Path::loadPath(){
 		     current = current->getParent();
 		     //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		     }
+		     m_path.push(current); //force the boat to recenter itself on its current tile.
 		m.printDebugPath("path is loaded\n");
 	    //prepare render for debug
 	    C_Set& settings=C_Set::Instances();
