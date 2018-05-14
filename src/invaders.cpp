@@ -95,19 +95,17 @@ void C_invaders::move()
 		        m_coord->move(angle,speed);
 		        m_countStop = 0;
                 m_direction = destCoord.angleToDirection(angle);
-		        //apply offset + offset
-		        //refresh grid position
 		        m_coord->regenGridCoord();
 
 		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
 			        if(m_coord->closeToCenter(destCoord.getGrid())){
-			            m_coord->centerOnTile(); //to not deviate to much from the path
+			            m_coord->centerOnTile(); //to not deviate too much from the path
 				        m_C_Path->goNextStep();
 			        }
 		    }
 		    else{
 		        m_countStop++;
-		        if (m_countStop > 10){
+		        if (m_countStop > FRAMERATE){
 		                recalcPath(town);
 		        }
 		    }
