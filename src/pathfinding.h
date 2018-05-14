@@ -100,7 +100,7 @@ public:
 	void showPath();
 	void show_H_G_F();
 	C_Node* closestNode();
-  bool closeToDestination(int x_grid, int y_grid);
+  bool closeToDestination(int x_grid, int y_grid, int steps);
 	void displayPath();
 	std::stack<C_Node*> getPath();
 	void goNextStep();

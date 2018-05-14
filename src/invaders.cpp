@@ -69,7 +69,7 @@ void C_invaders::move()
 	S_Coord town =  grid.foundTown();
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
-	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid())){
+	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)){
        if(path.size() > 0){
 
 		    //determine an angle
@@ -105,14 +105,18 @@ void C_invaders::move()
 		    }
 		    else{
 		        m_countStop++;
-		        if (m_countStop > FRAMERATE){
+		        int count = FRAMERATE;
+		        if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),3)){
+		            count *= 3;
+		            }
+		        if (m_countStop > count){
 		                recalcPath(town);
 		        }
 		    }
       }
 	}
 
-	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid())){
+	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)){
 	   int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
        if(path.size() == 0 && pauseNbr == 2){
 		            recalcPath(town);

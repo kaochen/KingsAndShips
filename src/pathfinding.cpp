@@ -500,11 +500,11 @@ C_Node* C_Path::closestNode(){
 	return closest;
 }
 
-bool C_Path::closeToDestination(int x_grid, int y_grid){
+bool C_Path::closeToDestination(int x_grid, int y_grid, int steps){
     int x_dist = m_destination->getXGrid() - x_grid;
     int y_dist = m_destination->getYGrid() - y_grid;
 
-    if((x_dist >=-1 && x_dist <= 1)&&(y_dist >=-1 && y_dist <= 1))
+    if((x_dist >=-steps && x_dist <= steps)&&(y_dist >=-steps && y_dist <= steps))
         return true;
     else
         return false;
