@@ -63,9 +63,8 @@ void C_Towers::render(S_Coord screen){
 
 void C_Towers::renderSelected(){
 	if (m_selected == true){
-		int animNbr = m_animation[SELECTED]->getAnimNbr(0,30,500);
 		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
-		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width,animNbr, true);
+		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width, true);
 	}
 }
 
@@ -76,13 +75,12 @@ void C_Towers::drag(S_Coord screen)
 
 	C_CoordScreen coord(screen);
 
-	int animNbr = m_animation[DRAG]->getAnimNbr(0,30,500);
 	int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 	//draw ellipse
 	bool status = grid.isThisConstructible(x,y);
-	drawEllipse(screen.x,screen.y,width,animNbr, status);
+	drawEllipse(screen.x,screen.y,width, status);
 	//draw square
 	x -=2;
 	y -=2;
@@ -110,21 +108,22 @@ void C_Towers::drag(S_Coord screen)
 void C_Towers::drawEllipse(int x,
 		int y,
 		int width,
-		int animNbr,
 		bool ok){
+		int animNbr = m_animation[SELECTED]->getAnimNbr(10,20,500);
 		C_Window& win=C_Window::Instances();
 		width = width*90/100;
 		int height = width/2;
-		int R = 0, G = 200, B = 0, A = 100;
+		int R = 0, G = 200, B = 0, A = 10;
 			if(ok == false)
 				R = 120, G = 0, B = 0;
 
-		aaellipseRGBA(win.getRenderer(),x,y,width+1,height+1,R,G,B,A);
-		filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/4));
-		width += animNbr;
-		height = width /2;
-		//cout << width <<":" << height << endl;
-		aaellipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,(A/2));
+        for(int i = animNbr; i >= 0; i--){
+        int w = width-i;
+		aaellipseRGBA(win.getRenderer(),x,y,w,w/2,R,G,B,A+4*(animNbr -i));
+		}
+        filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A*4);
+
+
 }
 
 void C_Towers::drawRhombus(int x, int y, int width, int alpha, bool ok){

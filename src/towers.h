@@ -40,7 +40,7 @@ class C_Towers: public C_Shooter
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
 	void renderSmoke();
-	virtual void drawEllipse(int x,int y, int width, int animNbr, bool ok);
+	virtual void drawEllipse(int x,int y, int width, bool ok);
 	void drawRhombus(int x, int y,int width, int alpha, bool ok);
 
 	long m_lastSmokeTime;
