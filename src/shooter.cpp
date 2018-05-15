@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "shooter.h"
 #include "grid.h"
 
+
+#include <SDL2_gfxPrimitives.h>
+
 using namespace std;
 
 C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
@@ -113,26 +116,38 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 		SDL_Renderer* renderer = win.getRenderer();
 		//add a life status above the boat
 		int l = m_life / 2;
-		int red = 0, green = 200;
-		SDL_Rect r, b;
-		    r.x = x_screen - TILE_HALF_WIDTH/2;
-		    r.y = y_screen - 85;
-		    r.w = l;
-		    r.h = 4;
-		    if (m_life < MAX_LIFE/2){
-		    	red = 200;
-		    	green = 0 ;
-		    	}
-		    b.x = r.x - 1;
-		    b.y = r.y - 1;
-		    b.w = MAX_LIFE/2 + 2;
-		    b.h = r.h + 2;
+		int h = 6;
+		//life
+        int x1_l = x_screen - TILE_HALF_WIDTH/2;
+        int y1_l = y_screen - 85;
+        int x2_l = x1_l + l;
+        int y2_l = y1_l + h;
 
-		    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-		    SDL_RenderFillRect( renderer, &b );
-		    SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
-		    // Render rect
-		    SDL_RenderFillRect( renderer, &r );
+		int R = 0, G = 200, B = 0;
+        if (m_life < MAX_LIFE/2){
+		    	R = 200;
+		    	G = 0 ;
+		    	}
+
+        //background
+		int x1_b = x1_l;
+		int y1_b = y1_l;
+		int x2_b = x1_b + MAX_LIFE/2;
+		int y2_b = y1_b + h;
+        int angle = h/2;
+
+        //highlight
+        int y2_h = y1_b + h/2 + 1;
+
+        //transparent background
+        roundedBoxRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,120);
+        //life
+        roundedBoxRGBA(renderer,x1_l,y1_l,x2_l,y2_l,angle,R,G,B,120);
+        //lightbar
+        roundedBoxRGBA(renderer,x1_l+2,y1_l+2,x2_l-2,y2_h,0,255,255,255,80);
+        //border
+        roundedRectangleRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,255);
+
 	}
 
 void C_Shooter::render(S_Coord screen){
