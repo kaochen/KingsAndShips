@@ -122,6 +122,11 @@ void C_Menu::drawBackground(){
 		roundedBoxRGBA(win.getRenderer(),x_tr,y_tr,x_bl,y_bl,5,R,G,B,A);
 		roundedRectangleRGBA(win.getRenderer(),x_tr,y_tr,x_bl,y_bl,5,R,G,B,255);
 
+
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture("Buttons_lys", m_x_screen + m_width/2, 80);
+
+
 }
 
 
