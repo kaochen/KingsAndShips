@@ -45,6 +45,8 @@ C_invaders::C_invaders(int x_grid,
 	m_y_center_offset = 18;
 	m_direction = EAST;
 	m_animDirection = new C_AnimTime();
+	m_countStop = 0;
+	m_countRegenPath = 0;
 }
 
 C_invaders::~C_invaders()
@@ -100,6 +102,7 @@ void C_invaders::move()
 		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
 			        if(m_coord->closeToCenter(destCoord.getGrid())){
 			            m_coord->centerOnTile(); //to not deviate too much from the path
+			            m_countRegenPath++;
 				        m_C_Path->goNextStep();
 			        }
 		    }
@@ -113,6 +116,10 @@ void C_invaders::move()
 		                recalcPath(town);
 		        }
 		    }
+      }
+      if(m_countRegenPath > 3){
+            recalcPath(town);
+            m_countRegenPath = 0;
       }
 	}
 

@@ -48,6 +48,7 @@ class C_invaders: public C_Shooter
   int m_speedImpact;
   int m_speedImpactLoop;
   int m_countStop;
+  int m_countRegenPath;
   C_AnimTime* m_animDirection;
 };
 
