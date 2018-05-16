@@ -63,6 +63,7 @@ public:
 
   void setTown(int x_grid, int y_grid);
   S_Coord foundTown();
+  int getAllTownsLifeLevel();
 
 protected:
 	void unselectedAll(int x_grid, int y_grid);

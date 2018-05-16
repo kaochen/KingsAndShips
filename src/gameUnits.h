@@ -62,6 +62,8 @@ class C_GameUnits
 	virtual int getXScreen() const;
 	virtual int getYScreen() const;
 
+	virtual int getLife() const {return m_life;}
+
 	virtual bool getSelectedStatus() const;
 	virtual void setSelectedStatus(bool status);
 	virtual void reverseSelectedStatus();

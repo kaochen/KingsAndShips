@@ -446,3 +446,18 @@ S_Coord C_Grid::foundTown(){
 		}
 		return town;
 }
+
+
+int C_Grid::getAllTownsLifeLevel(){
+        int life = 0;
+        int c = 0;
+        for (int y = 0; y < GRID_SIZE; y++){
+			for (int x = 0; x < GRID_SIZE; x++){
+				if ( m_grid[x][y].town == true){
+				    life +=  m_grid[x][y].main->getLife();
+				    c++;
+				    }
+			}
+		}
+		return life/c;
+}
