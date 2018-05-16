@@ -25,15 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2_gfxPrimitives.h>
 
 using namespace std;
-C_MenuItem::C_MenuItem(string name, int displayOrder):
+C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_name(name),
+	m_x_screen(x_screen),
+	m_y_screen(y_screen),
 	m_width(64),
 	m_height(64)
 {
-	C_Menu& menu=C_Menu::Instances();
-
-	m_x_screen = menu.getXScreen() + m_width*displayOrder + 10;
-	m_y_screen = 2;
 }
 C_MenuItem::~C_MenuItem()
 {
@@ -57,8 +55,8 @@ string C_MenuItem::getName(){
 
 //-------------------------------------------------------------
 
-C_Button::C_Button(string name,string image_out,int displayOrder)
-	:C_MenuItem(name,displayOrder),
+C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen),
 	m_image_out(image_out)
 {
 }
@@ -102,8 +100,12 @@ C_Menu::C_Menu():
 		C_Set& settings=C_Set::Instances();
 		m_width = (settings.getWindowWidth()*50)/100;
 		m_x_screen = (settings.getWindowWidth() - m_width)/2;
-		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",0);
-		m_map_menuItems[ADDNEWTURBINE] = new C_Button("addNewTurbine","Buttons_AddTurbineOut",1);
+		int size = 64 + 10;
+		int x_button = settings.getWindowWidth() - size;
+		int y_button = settings.getWindowHeight()/2 - size;
+		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",x_button,y_button);
+		y_button = settings.getWindowHeight()/2;
+		m_map_menuItems[ADDNEWTURBINE] = new C_Button("addNewTurbine","Buttons_AddTurbineOut",x_button,y_button);
 		m_button_count += 2;
 }
 

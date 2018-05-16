@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_MenuItem
 {
 	public:
-	C_MenuItem(std::string name,int nbr);
+  C_MenuItem(std::string name, int x_screen, int y_screen);
 	virtual ~C_MenuItem();
 	virtual int getXScreen() const;
 	virtual int getYScreen() const;
@@ -50,7 +50,7 @@ enum button{ADDNEWTOWER,ADDNEWTURBINE,NONE};
 class C_Button: public C_MenuItem
 {
 	public:
-	C_Button(std::string name,std::string image_out,int nbr);
+  C_Button(std::string name,std::string image_out,int x_screen, int y_screen);
 	~C_Button();
 
 	void render();
