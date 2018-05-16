@@ -68,8 +68,26 @@ C_Button::~C_Button()
 }
 
 void C_Button::render(){
+        drawBackground();
 		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen + m_height + 20);
+		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+}
+
+void C_Button::drawBackground(){
+
+		C_Window& win=C_Window::Instances();
+		int crop = 4;
+        Sint16 x_tr = m_x_screen + crop; //x top right
+		Sint16 y_tr = m_y_screen + crop;
+		Sint16 x_bl = x_tr + m_width - 2*crop; //x bottom left
+		Sint16 y_bl = y_tr + m_height - crop*2;
+		Uint8 R = 0, G = 0, B = 0, A = 100;
+		roundedBoxRGBA(win.getRenderer(),x_tr,y_tr,x_bl,y_bl,10,R,G,B,A);
+		roundedBoxRGBA(win.getRenderer(),x_tr+4,y_tr,x_bl-4,y_tr+4,2,255,255,255,10);
+		roundedBoxRGBA(win.getRenderer(),x_tr+2,y_bl-4,x_bl-2,y_bl,2,0,0,0,70);
+		//border
+		roundedRectangleRGBA(win.getRenderer(),x_tr+1,y_tr+1,x_bl-1,y_bl-1,8,R,G,B,255);
+		roundedRectangleRGBA(win.getRenderer(),x_tr,y_tr,x_bl,y_bl,10,R,G,B,255);
 }
 
 
@@ -98,7 +116,7 @@ C_Menu& C_Menu::Instances()
 }
 
 void C_Menu::render(){
-	drawBackground();
+	//drawBackground();
 	for (int i = 0; i < m_button_count; i++){
 		m_map_menuItems[i]->render();
 	}

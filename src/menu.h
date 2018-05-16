@@ -56,6 +56,7 @@ class C_Button: public C_MenuItem
 	void render();
 
 	protected:
+  void drawBackground();
 	std::string m_image_out;
 
 };
