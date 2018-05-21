@@ -61,6 +61,7 @@ public:
 	void highlight();
 	void prepareRender();
 	void render();
+  bool screenAtCenter();
 
 protected:
 	int calcG_offset(int x_from, int y_from,
@@ -104,6 +105,7 @@ public:
 	void displayPath();
 	std::stack<C_Node*> getPath();
 	void goNextStep();
+  void addANodeAtTheStartOfThePath(S_Coord grid);
 private:
 	int findLowestF();
 	void loadPath();

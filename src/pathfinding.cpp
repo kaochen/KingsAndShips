@@ -424,7 +424,8 @@ void C_Path::loadPath(){
 		     current = current->getParent();
 		     //cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
 		     }
-		     m_path.push(current); //force the boat to recenter itself on its current tile.
+		     //if the boat is not already in the center of the tile, add the current tile to the path.
+		     //m_path.push(current); //force the boat to recenter itself on its current tile.
 		m.printDebugPath("path is loaded\n");
 	    //prepare render for debug
 	    C_Set& settings=C_Set::Instances();
@@ -438,6 +439,11 @@ void C_Path::loadPath(){
 	}
 	//m_path.push(m_start); //do not forget the start
 }
+
+void C_Path::addANodeAtTheStartOfThePath(S_Coord grid){
+		     m_path.push(m_gridNode[grid.x][grid.y]);
+}
+
 
 void C_Path::showPath(){
 	C_Set& settings=C_Set::Instances();

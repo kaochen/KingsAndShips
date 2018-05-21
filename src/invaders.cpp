@@ -69,15 +69,17 @@ void C_invaders::move()
 
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town =  grid.foundTown();
+	*m_old_coord = *m_coord;
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
 	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)){
        if(path.size() > 0){
 
 		    //determine an angle
-		    *m_old_coord = *m_coord;
+
 		    int old_x_grid = m_coord->getXGrid();
 		    int old_y_grid = m_coord->getYGrid();
+
 		    C_Coord destCoord = *path.top()->getCoord();
 		    destCoord.centerOnTile();
 		    S_Coord start = m_coord->getScreen();
@@ -100,7 +102,7 @@ void C_invaders::move()
 		        m_coord->regenGridCoord();
 
 		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
-			        if(m_coord->closeToCenter(destCoord.getGrid())){
+			        if(m_coord->closeToCenter(destCoord.getGrid(),2)){
 			            m_coord->centerOnTile(); //to not deviate too much from the path
 			            m_countRegenPath++;
 				        m_C_Path->goNextStep();
@@ -119,6 +121,13 @@ void C_invaders::move()
       }
       if(m_countRegenPath > 3){
             recalcPath(town);
+            if(!m_coord->closeToCenter(m_coord->getGrid(),12)){
+                m_C_Path->addANodeAtTheStartOfThePath(m_coord->getGrid());
+             }
+             else{
+                m_coord->centerOnTile();
+             }
+             
             m_countRegenPath = 0;
       }
 	}

@@ -538,7 +538,7 @@ void C_Coord::regenGridCoord(){
 }
 
 
-bool C_Coord::closeToCenter(S_Coord grid){
+bool C_Coord::closeToCenter(S_Coord grid, int px_length){
 		C_CoordGrid tmp(grid);
 		tmp.centerOnTile();
 		S_Coord center = tmp.getScreen();
@@ -548,7 +548,7 @@ bool C_Coord::closeToCenter(S_Coord grid){
 			l *=-1;
 		if (h < 0)
 			h *=-1;
-		if(l < 4 && h < 2){
+		if(l < 2*px_length && h < px_length){
 			//cout << "center true" << endl;
 			return true;
 			}

@@ -122,7 +122,7 @@ public:
 	virtual void move(double angle, int speed);
 	virtual void regenGridCoord();
   virtual double atan2_360(int ab, int bc);
-	virtual bool closeToCenter(S_Coord grid);
+	virtual bool closeToCenter(S_Coord grid, int px_length);
   virtual int guessADirection(S_Coord start,S_Coord end);
 
 protected:
