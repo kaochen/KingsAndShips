@@ -51,6 +51,7 @@ C_invaders::C_invaders(int x_grid,
 
 C_invaders::~C_invaders()
 {
+    delete m_animDirection;
 }
 
 void C_invaders::play(){

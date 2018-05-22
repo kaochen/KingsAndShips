@@ -167,6 +167,9 @@ C_Menu::C_Menu():
 }
 
 C_Menu::~C_Menu(){
+    for (int i = 0; i < 3; i++){
+        delete m_map_menuItems[i];
+    }
 }
 
 C_Menu& C_Menu::Instances()

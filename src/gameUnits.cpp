@@ -56,6 +56,11 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 //delete
 C_GameUnits::~C_GameUnits()
 {
+    for (int i = 0; i < MAX_ANIM; i++){
+		delete m_animation[i];
+	}
+	delete m_coord;
+	delete m_old_coord;
 }
 
 

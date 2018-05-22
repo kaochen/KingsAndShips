@@ -271,7 +271,9 @@ while(!quit)
 //-----------------------------------------------------------------------------
 
 	//Cleanup before leaving
-
+    delete landscape;
+    delete archerTower;
+    delete turbineTower;
 	// delete main unit table
 	grid.deleteGrid();
 	//quitProgram(window, renderer);

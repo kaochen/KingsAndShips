@@ -33,6 +33,7 @@ C_Landscape::C_Landscape()
 
 C_Landscape::~C_Landscape()
 {
+    delete m_animWater;
 }
 
 

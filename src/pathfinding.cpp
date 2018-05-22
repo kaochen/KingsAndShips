@@ -40,14 +40,21 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	m_angle = 0;
 	m_dist = 0;
 	m_open = true;
+	m_h_texture_name = "";
+	m_g_texture_name = "";
+	m_f_texture_name = "";
 };
 
 C_Node::~C_Node()
 {
 	C_TextureList& t=C_TextureList::Instances();
-	t.freeTexture(m_h_texture_name );
-	t.freeTexture(m_g_texture_name );
-	t.freeTexture(m_f_texture_name );
+	if(m_h_texture_name != "")
+	    t.freeTexture(m_h_texture_name );
+	if(m_g_texture_name != "")
+	    t.freeTexture(m_g_texture_name );
+	if(m_f_texture_name != "")
+	    t.freeTexture(m_f_texture_name );
+	delete m_coord;
 };
 
 void C_Node::setTown(bool town){
@@ -307,6 +314,12 @@ C_Path::C_Path(int x_dest, int y_dest)
 }
 C_Path::~C_Path()
 {
+    for (size_t y = 0; y < GRID_SIZE; y++){
+		    for (size_t x = 0; x < GRID_SIZE; x++){
+		    	delete m_gridNode[x][y];
+		        m_gridNode[x][y] = nullptr;
+		    }
+	    }
 }
 
 
