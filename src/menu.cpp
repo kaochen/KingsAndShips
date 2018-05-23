@@ -116,8 +116,10 @@ void C_ProgressBar::render(){
 		Sint16 x2 = x1 + m_width; //x bottom left
 		Sint16 y2 = y1 + m_height;
 		Uint8 R = 0, G = 0, B = 0, A = 100;
+
+        int angle = 4;
 		//background
-		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,10,R,G,B,A);
+		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
         //life status
         Sint16 x_life = x1 + (m_percentage*m_width/100);
 
@@ -127,21 +129,23 @@ void C_ProgressBar::render(){
             G = 0;
             R = 255;
             }
-        int angle = 10;
+        int offset = 0;
+        int lifeAngle = angle;
+        if(m_percentage < (angle*2)){
+            lifeAngle = 2;
+            offset = 1;
+            }
 
-        if(m_percentage < 20)
-            angle = m_percentage/2;
-
-        if(m_percentage > 1)
-		        roundedBoxRGBA(win.getRenderer(),x1,y1,x_life,y2,angle,R,G,B,A);
+        if(m_percentage > 2)
+		        roundedBoxRGBA(win.getRenderer(),x1,y1+offset,x_life,y2-offset,lifeAngle,R,G,B,A);
 
         //reflect
-		roundedBoxRGBA(win.getRenderer(),x1+4,y1,x2-4,y1+4,2,255,255,255,10);
+		roundedBoxRGBA(win.getRenderer(),x1+4,y1,x2-4,y1+4,angle/2,255,255,255,30);
 		//shadow
-		roundedBoxRGBA(win.getRenderer(),x1+2,y2-4,x2-2,y2,2,0,0,0,70);
+		roundedBoxRGBA(win.getRenderer(),x1+2,y2-4,x2-2,y2,angle/2,0,0,0,70);
 		//double border
-		roundedRectangleRGBA(win.getRenderer(),x1+1,y1+1,x2-1,y2-1,8,0,0,0,255);
-		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,10,0,0,0,255);
+		roundedRectangleRGBA(win.getRenderer(),x1+1,y1+1,x2-1,y2-1,angle-1,0,0,0,255);
+		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,angle,0,0,0,255);
 }
 
 //-------------------------------------------------------------
