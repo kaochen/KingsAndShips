@@ -264,9 +264,9 @@ void C_Wave::add(int rank, int x, int y){
 void C_Wave::display(){
     int c = 0;
     C_Message m;
-    ostringstream message;
     for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
+        ostringstream message;
         message << "Rank " + to_string((*i).rank) << " at " << (*i).x << ":" << (*i).y;
         if ((*i).alive)
             message << " Alive\n";
