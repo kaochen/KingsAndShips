@@ -70,6 +70,7 @@ class C_ProgressBar: public C_MenuItem
 	void render();
   void setPercentage(int percentage);
   protected:
+  void littledots(int x_screen, int y_screen, int width, int height);
   int m_percentage;
 };
 

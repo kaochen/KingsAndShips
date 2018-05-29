@@ -146,6 +146,29 @@ void C_ProgressBar::render(){
 		//double border
 		roundedRectangleRGBA(win.getRenderer(),x1+1,y1+1,x2-1,y2-1,angle-1,0,0,0,255);
 		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,angle,0,0,0,255);
+
+		littledots(m_x_screen +2 , m_y_screen +6, m_width-4, m_height-4);
+}
+
+void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height){
+        C_Window& win=C_Window::Instances();
+        SDL_Rect dot;
+            int size = 1;
+            int steps = 3;
+		    dot.w = size;
+		    dot.h = size;
+		    dot.x = x_screen;
+		    dot.y = y_screen;
+    		SDL_SetRenderDrawColor(win.getRenderer(), 60, 60, 60, 20 );
+    		int w = width/(size*steps);
+    		int h = height/(size*steps);
+		    for(int j = 1; j < h;j++){
+		        for(int i = 1; i < w;i++){
+		            dot.x = x_screen + i*steps*size;
+		            SDL_RenderFillRect(win.getRenderer(), &dot);
+		        }
+		        dot.y = y_screen + j*steps*size;
+		    }
 }
 
 //-------------------------------------------------------------
