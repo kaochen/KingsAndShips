@@ -64,8 +64,8 @@ void C_Time::showFPS() const
 
 		int red = 0, green = 200;
 		SDL_Rect f, b, m;
-		    b.x = settings.getWindowWidth() - TILE_HALF_WIDTH;
-		    b.y = 3*TILE_HALF_HEIGHT;
+		    b.x = 20;
+		    b.y = settings.getWindowHeight() - 2*TILE_HALF_HEIGHT;
 		    b.w = 10;
 		    b.h = m_framerate;
 
