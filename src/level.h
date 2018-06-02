@@ -47,10 +47,13 @@ class C_Wave{
   void add(int rank, int x, int y);
   void display();
   void loadIntoGrid();
+  void addToDeadCounter(int nbr);
 
   private:
   //attibutes
   std::vector <S_boat> m_boatList;
+  int m_count;
+  int m_count_dead;
 };
 
 class C_Level

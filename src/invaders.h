@@ -21,21 +21,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
+#include "level.h"
 #include "shooter.h"
 
+class C_Wave; //needed here
 class C_invaders: public C_Shooter
 {
 	public:
 	//methods
 	C_invaders();
-	C_invaders(int x_grid, int y_grid,int rank);
+	C_invaders(int x_grid, int y_grid,int rank,C_Wave* parent);
 	~C_invaders();
 
 	virtual void play();
 	virtual void move();
-
 	virtual void receiveDamage(S_Weapon weapon);
-
 	protected:
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);
@@ -50,6 +50,7 @@ class C_invaders: public C_Shooter
   int m_countStop;
   int m_countRegenPath;
   C_AnimTime* m_animDirection;
+  C_Wave* m_wave;
 };
 
 #endif

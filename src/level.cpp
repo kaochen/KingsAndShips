@@ -253,12 +253,15 @@ C_Wave::C_Wave()
 }
 C_Wave::~C_Wave()
 {
+    m_count = 0;
+    m_count_dead = 0;
 }
 
 
 void C_Wave::add(int rank, int x, int y){
     S_boat tmp ={rank,x,y,true};
     m_boatList.push_back(tmp);
+    m_count++;
 }
 
 void C_Wave::display(){
@@ -286,8 +289,11 @@ void C_Wave::loadIntoGrid(){
         S_boat tmp = *i;
         m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y) +"\n");
         if (tmp.alive)
-            grid.addANewBoat(tmp.x,tmp.y,tmp.rank);
+            grid.addANewBoat(tmp.x,tmp.y,tmp.rank,this);
 
     }
 }
 
+void C_Wave::addToDeadCounter(int nbr){
+    m_count_dead += nbr;
+}

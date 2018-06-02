@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "invaders.h"
 #include "towers.h"
 #include "town.h"
-#include "level.h"
+
 #include "menu.h"
 #include "landscape.h"
 
@@ -144,9 +144,9 @@ void C_Grid::renderLayer(int layer){
 }
 
 
-void C_Grid::addANewBoat(int x, int y, int rank){
+void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 	if (m_grid[x][y].water){
-		m_grid[x][y].main = new C_invaders(x,y,rank);
+		m_grid[x][y].main = new C_invaders(x,y,rank,parent);
 	}
 	else{
 	    C_Message m;

@@ -27,7 +27,8 @@ using namespace std;
 
 C_invaders::C_invaders(int x_grid,
 			 int y_grid,
-			 int rank):C_Shooter("boat", x_grid, y_grid ,rank)
+			 int rank,
+			 C_Wave* parent):C_Shooter("boat", x_grid, y_grid ,rank)
 {
 
 	m_weapon = new C_Weapon("BOAT",2,0,2000,2);
@@ -47,6 +48,7 @@ C_invaders::C_invaders(int x_grid,
 	m_animDirection = new C_AnimTime();
 	m_countStop = 0;
 	m_countRegenPath = 0;
+	m_wave = parent;
 }
 
 C_invaders::~C_invaders()
@@ -142,7 +144,6 @@ void C_invaders::move()
 	}
 
 }
-
 
 
 

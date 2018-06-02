@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 
 #include "gameUnits.h"
+#include "level.h"
 
 enum layers{GROUND,DEAD,UNITS};
 
@@ -35,7 +36,7 @@ public:
 
 	void renderLayer(int layer);
 
-	void addANewBoat(int x, int y, int rank);
+	void addANewBoat(int x, int y, int rank,C_Wave* parent);
 	void addANewTower(int type, int x, int y, int rank);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
