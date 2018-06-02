@@ -54,6 +54,11 @@ string C_MenuItem::getName(){
 	return m_name;
 	}
 
+ void C_MenuItem::render(){
+        C_TextureList& t=C_TextureList::Instances();
+		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+  }
+
 //-------------------------------------------------------------
 
 C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
@@ -189,8 +194,9 @@ C_Menu::C_Menu():
 		y_button = settings.getWindowHeight()/2;
 		m_map_menuItems[ADDNEWTURBINE] = new C_Button("addNewTurbine","Buttons_AddTurbineOut",x_button,y_button);
 
-		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size,20);
-		m_button_count += 3;
+		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);
+		m_map_menuItems[FOX_ICON] = new C_MenuItem("fox_sneaky",x_button-10,20);
+		m_button_count += 4;
 }
 
 C_Menu::~C_Menu(){

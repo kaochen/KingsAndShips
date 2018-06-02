@@ -35,8 +35,8 @@ class C_MenuItem
 	virtual int getHeight() const;
 	virtual	std::string getName();
 
-  virtual void setPercentage(int percentage) = 0;
-	virtual	void render() = 0;
+  virtual void setPercentage(int percentage){std::cout << percentage;};
+	virtual	void render();
 	protected:
 	std::string m_name;
 	int m_x_screen;
@@ -46,7 +46,7 @@ class C_MenuItem
 };
 
 
-enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,NONE};
+enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,NONE};
 
 class C_Button: public C_MenuItem
 {
@@ -55,7 +55,7 @@ class C_Button: public C_MenuItem
 	~C_Button();
 
   virtual void setPercentage(int percentage);
-	void render();
+	virtual void render();
 	protected:
   void drawBackground();
 	std::string m_image_out;
@@ -67,8 +67,8 @@ class C_ProgressBar: public C_MenuItem
 {
 	public:
   C_ProgressBar(std::string name,int x_screen, int y_screen);
-	void render();
-  void setPercentage(int percentage);
+	virtual void render();
+  virtual void setPercentage(int percentage);
   protected:
   void littledots(int x_screen, int y_screen, int width, int height);
   int m_percentage;
