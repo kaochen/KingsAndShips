@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "level.h"
+#include "menu.h"
 #include "invaders.h"
 #include "grid.h"
 
@@ -221,6 +222,7 @@ void C_Level::loadWaveIntoGrid(int i){
             }
             c++;
         }
+        updateMenuInfo();
 }
 
 
@@ -243,6 +245,12 @@ void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
 				data = data.substr(mark + 1);
 		}
 	}
+}
+
+
+void C_Level::updateMenuInfo(){
+    C_Menu& menu=C_Menu::Instances();
+    menu.updateLevelInfos(m_nbrOfWaves - m_currentWaveNbr, m_nbrOfWaves);
 }
 
 //______________________________Waves_____________________________//

@@ -36,6 +36,7 @@ class C_MenuItem
 	virtual	std::string getName();
 
   virtual void setPercentage(int percentage){std::cout << percentage;};
+  virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
 	protected:
 	std::string m_name;
@@ -46,7 +47,7 @@ class C_MenuItem
 };
 
 
-enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,NONE};
+enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,INVADER_LIFE,NONE};
 
 class C_Button: public C_MenuItem
 {
@@ -55,6 +56,7 @@ class C_Button: public C_MenuItem
 	~C_Button();
 
   virtual void setPercentage(int percentage);
+  virtual void setPercentage(int a, int b);
 	virtual void render();
 	protected:
   void drawBackground();
@@ -69,6 +71,7 @@ class C_ProgressBar: public C_MenuItem
   C_ProgressBar(std::string name,int x_screen, int y_screen);
 	virtual void render();
   virtual void setPercentage(int percentage);
+  virtual void setPercentage(int a, int b);
   protected:
   void littledots(int x_screen, int y_screen, int width, int height);
   int m_percentage;
@@ -82,14 +85,14 @@ class C_Menu
 	void render();
 	C_MenuItem * getMenuItem(int button);
 	int getXScreen();
+  void updateLevelInfos(int current_wave, int total_waves);
 
-	protected:
+  	protected:
 	void drawBackground();
 
 	private:
 	C_Menu& operator= (const C_Menu&){return *this;}
 	C_Menu (const C_Menu&){}
-
 	static C_Menu m_instance;
 	C_Menu();
 	~C_Menu();
@@ -99,6 +102,10 @@ class C_Menu
 	int m_width;
 	int m_height;
 	int m_button_count;
+
+  //information to display
+  int m_current_wave;
+  int m_total_waves;
 
 	std::map<int,C_MenuItem*> m_map_menuItems;
 };

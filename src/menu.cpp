@@ -98,6 +98,10 @@ void C_Button::setPercentage(int percentage)
 {
     cout << percentage; //to calm down gcc
 }
+void C_Button::setPercentage(int a, int b)
+{
+    cout << a << b; //to calm down gcc
+}
 
 //-------------------------------------------------------------
 
@@ -106,12 +110,19 @@ C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
 {
     m_width = 128;
     m_height = 24;
-    m_percentage = 70;
+    m_percentage = 100;
 }
 
 void C_ProgressBar::setPercentage(int percentage)
 {
     m_percentage = percentage;
+}
+
+void C_ProgressBar::setPercentage(int a, int b){
+    if(a != 0 && b !=0)
+        m_percentage = ((100*a)/b);
+    else
+        m_percentage = 0;
 }
 
 void C_ProgressBar::render(){
@@ -182,7 +193,9 @@ C_Menu C_Menu::m_instance=C_Menu();
 
 C_Menu::C_Menu():
 	m_y_screen(0),
-	m_height(72)
+	m_height(72),
+	m_current_wave(1),
+    m_total_waves(1)
 {
 		C_Set& settings=C_Set::Instances();
 		m_width = (settings.getWindowWidth()*50)/100;
@@ -190,13 +203,18 @@ C_Menu::C_Menu():
 		int size = 64 + 10;
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
+		//left buttons
 		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",x_button,y_button);
 		y_button = settings.getWindowHeight()/2;
 		m_map_menuItems[ADDNEWTURBINE] = new C_Button("addNewTurbine","Buttons_AddTurbineOut",x_button,y_button);
 
+        //fox
 		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);
 		m_map_menuItems[FOX_ICON] = new C_MenuItem("fox_sneaky",x_button-10,20);
-		m_button_count += 4;
+		//Lion
+		m_map_menuItems[INVADER_LIFE] = new C_ProgressBar("invaderlife",50,40);
+
+        m_button_count += 5;
 }
 
 C_Menu::~C_Menu(){
@@ -214,6 +232,8 @@ void C_Menu::render(){
     C_Grid& grid=C_Grid::Instances();
     int playerLife = grid.getAllTownsLifeLevel();
     m_map_menuItems[PLAYERLIFE]->setPercentage(playerLife);
+    m_map_menuItems[INVADER_LIFE]->setPercentage(m_current_wave,m_total_waves);
+
 	//drawBackground();
 	for (int i = 0; i < m_button_count; i++){
 		m_map_menuItems[i]->render();
@@ -245,6 +265,10 @@ void C_Menu::drawBackground(){
 
 }
 
+void C_Menu::updateLevelInfos(int current_wave, int total_waves){
+    m_current_wave = current_wave;
+    m_total_waves = total_waves;
+}
 
 
 

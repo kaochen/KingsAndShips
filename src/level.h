@@ -69,6 +69,7 @@ class C_Level
 	void sendNextWave();
   void displayWave(int i);
   void loadWaveIntoGrid(int i);
+  void updateMenuInfo();
 	protected:
   //methods
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
