@@ -187,6 +187,23 @@ void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height
 		    }
 }
 
+
+C_MenuText::C_MenuText(string name, string text, int fontSize, int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen)
+{
+    m_name = name;
+    m_text = text;
+    m_fontSize = fontSize;
+    C_TextureList& t=C_TextureList::Instances();
+    t.loadTextAsTexturesIntoMap(name, text, fontSize);
+}
+
+void C_MenuText::render(){
+    C_TextureList& t=C_TextureList::Instances();
+    t.renderTexture(m_name, m_x_screen, m_y_screen);
+}
+
+
 //-------------------------------------------------------------
 
 C_Menu C_Menu::m_instance=C_Menu();
@@ -214,7 +231,8 @@ C_Menu::C_Menu():
 		//Lion
 		m_map_menuItems[INVADER_LIFE] = new C_ProgressBar("invaderlife",50,40);
 
-        m_button_count += 5;
+		m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,50,60);
+        m_button_count += 6;
 }
 
 C_Menu::~C_Menu(){
@@ -236,7 +254,8 @@ void C_Menu::render(){
 
 	//drawBackground();
 	for (int i = 0; i < m_button_count; i++){
-		m_map_menuItems[i]->render();
+	    if(m_map_menuItems[i]!= nullptr)
+		    m_map_menuItems[i]->render();
 	}
 }
 C_MenuItem * C_Menu::getMenuItem(int menuItem){
@@ -268,8 +287,9 @@ void C_Menu::drawBackground(){
 void C_Menu::updateLevelInfos(int current_wave, int total_waves){
     m_current_wave = current_wave;
     m_total_waves = total_waves;
+    string m = to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
+    delete m_map_menuItems[WAVES_STATUS];
+    m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus",m, 20,128,100);
 }
-
-
 
 

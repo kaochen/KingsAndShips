@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 #include <map>
 #include <string>
+#include "settings.h"
 
 class C_MenuItem
 {
@@ -47,7 +48,7 @@ class C_MenuItem
 };
 
 
-enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,INVADER_LIFE,NONE};
+enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,INVADER_LIFE,WAVES_STATUS,NONE};
 
 class C_Button: public C_MenuItem
 {
@@ -76,6 +77,18 @@ class C_ProgressBar: public C_MenuItem
   void littledots(int x_screen, int y_screen, int width, int height);
   int m_percentage;
 };
+
+
+class C_MenuText: public C_MenuItem
+{
+  public:
+  C_MenuText(std::string name, std::string text, int fontSize, int x_screen, int y_screen);
+  virtual void render();
+  private:
+  std::string m_text;
+  int m_fontSize;
+};
+
 
 
 class C_Menu
