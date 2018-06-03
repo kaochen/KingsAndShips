@@ -198,6 +198,7 @@ while(!quit)
 				break;
 			case SDLK_r:
             	level.load(levelNbr);
+            	menu.resetValues();
 				break;
 			}
 

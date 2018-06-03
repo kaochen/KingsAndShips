@@ -99,6 +99,7 @@ class C_Menu
 	C_MenuItem * getMenuItem(int button);
 	int getXScreen();
   void updateLevelInfos(int current_wave, int total_waves);
+  void resetValues();
 
   	protected:
 	void drawBackground();

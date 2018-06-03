@@ -231,7 +231,7 @@ C_Menu::C_Menu():
 		//Lion
 		m_map_menuItems[INVADER_LIFE] = new C_ProgressBar("invaderlife",50,40);
 
-		m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,50,60);
+		m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,128,100);
         m_button_count += 6;
 }
 
@@ -292,4 +292,8 @@ void C_Menu::updateLevelInfos(int current_wave, int total_waves){
     m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus",m, 20,128,100);
 }
 
-
+void C_Menu::resetValues(){
+    m_current_wave = 1;
+    m_total_waves = 1;
+	m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,128,100);
+}
