@@ -438,7 +438,8 @@ void C_Grid::setTown(int x_grid, int y_grid){
 	//then set
 	            m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
 	            m_grid[x_grid][y_grid].str_ground = "Ground_01_Grass00";
-				m_grid[x_grid][y_grid].town = true;
+			    m_grid[x_grid][y_grid].town = true;
+
 }
 
 S_Coord C_Grid::foundTown(){
