@@ -292,7 +292,7 @@ void C_TextureList::loadTexturesIntoMap(){
 
 void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int fontSize){
 		m_map_textures[name] = new C_Text(name,message);
-		SDL_Color color = {0,0,0,255};
+		SDL_Color color = {200,200,200,255};
 
 		m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
 }
