@@ -60,7 +60,6 @@ class C_Button: public C_MenuItem
   virtual void setPercentage(int a, int b);
 	virtual void render();
 	protected:
-  void drawBackground();
 	std::string m_image_out;
 
 };
