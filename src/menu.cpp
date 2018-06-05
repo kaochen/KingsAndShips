@@ -63,7 +63,8 @@ string C_MenuItem::getName(){
 
 C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen),
-	m_image_out(image_out)
+	m_image_out(image_out),
+	m_state(ACTIVE)
 {
 }
 
@@ -72,8 +73,25 @@ C_Button::~C_Button()
 }
 
 void C_Button::render(){
+        string name = "Buttons_"+m_name;
+        if(m_state == ACTIVE){
+            name +="_Active";
+            }
+        else if(m_state == DISABLED){
+            name +="_Disabled";
+            }
+        else if(m_state == HOVER){
+            name +="_Hover";
+            }
+        else{
+            name +="_Disabled";
+            }
 		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(m_image_out, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+}
+
+void C_Button::setState(int state){
+    m_state = state;
 }
 
 
@@ -204,9 +222,9 @@ C_Menu::C_Menu():
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_map_menuItems[ADDNEWTOWER] = new C_Button("addNewTower","Buttons_AddTowerOut",x_button,y_button);
+		m_map_menuItems[ADDNEWTOWER] = new C_Button("AddTower","Buttons_AddTower",x_button,y_button);
 		y_button = settings.getWindowHeight()/2;
-		m_map_menuItems[ADDNEWTURBINE] = new C_Button("addNewTurbine","Buttons_AddTurbineOut",x_button,y_button);
+		m_map_menuItems[ADDNEWTURBINE] = new C_Button("AddTurbine","Buttons_AddTurbine",x_button,y_button);
 
         //fox
 		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);

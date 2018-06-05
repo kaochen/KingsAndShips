@@ -238,17 +238,25 @@ while(!quit)
 			int xr = xl + menuButton->getWidth();
 			int yt= menuButton->getYScreen();
 			int yb = yt + menuButton->getHeight();
+            //reset state
+	 		menuButton->setState(ACTIVE);
 
 			if (clic.x > xl && clic.x < xr && clic.y > yt && clic.y < yb){
-					if(menuButton->getName() == "addNewTower"){
+					if(menuButton->getName() == "AddTower"){
 						archerTower->drag(cursor);
 						addingAnewTower = true;
 						buttonType = ADDNEWTOWER;
 						}
-					if(menuButton->getName() == "addNewTurbine"){
+					if(menuButton->getName() == "AddTurbine"){
 						turbineTower->drag(cursor);
 						addingAnewTower = true;
 						buttonType = ADDNEWTURBINE;
+						}
+	 		}
+	 		//mouse Over
+	 		if (cursor.x > xl && cursor.x < xr && cursor.y > yt && cursor.y < yb){
+                    if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine"){
+                        menuButton->setState(HOVER);
 						}
 	 		}
  		}

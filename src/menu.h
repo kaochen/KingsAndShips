@@ -39,6 +39,7 @@ class C_MenuItem
   virtual void setPercentage(int percentage){std::cout << percentage;};
   virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
+  virtual void setState(int state) {std::cout << state;};
 	protected:
 	std::string m_name;
 	int m_x_screen;
@@ -49,7 +50,7 @@ class C_MenuItem
 
 
 enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,INVADER_LIFE,WAVES_STATUS,NONE};
-
+enum buttonState{ACTIVE,HOVER,DISABLED};
 class C_Button: public C_MenuItem
 {
 	public:
@@ -59,8 +60,10 @@ class C_Button: public C_MenuItem
   virtual void setPercentage(int percentage);
   virtual void setPercentage(int a, int b);
 	virtual void render();
+  virtual void setState(int state);
 	protected:
 	std::string m_image_out;
+  int m_state;
 
 };
 
