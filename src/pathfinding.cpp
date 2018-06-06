@@ -252,20 +252,20 @@ void C_Node::highlight(){
 void C_Node::prepareRender(){
 	int x_screen = m_coord->getXScreen ();
 	int y_screen = m_coord->getYScreen ();
-
+	SDL_Color color = {0,0,0,255};
 	C_TextureList& t=C_TextureList::Instances();
 
 	m_h_texture_name = to_string(x_screen)+to_string(y_screen)+"h_value";
 	string value = "H:"+to_string(m_H);
-	t.loadTextAsTexturesIntoMap(m_h_texture_name, value, 10);
+	t.loadTextAsTexturesIntoMap(m_h_texture_name, value, 10, color);
 
 	m_g_texture_name = to_string(x_screen)+to_string(y_screen)+"g_value";
 	value = "G:"+to_string(m_G);
-	t.loadTextAsTexturesIntoMap(m_g_texture_name, value, 10);
+	t.loadTextAsTexturesIntoMap(m_g_texture_name, value, 10, color);
 
 	m_f_texture_name = to_string(x_screen)+to_string(y_screen)+"f_value";
 	value = "F:"+to_string(m_F);
-	t.loadTextAsTexturesIntoMap(m_f_texture_name, value, 15);
+	t.loadTextAsTexturesIntoMap(m_f_texture_name, value, 15, color);
 }
 
 void C_Node::render(){

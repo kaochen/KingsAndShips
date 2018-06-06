@@ -120,10 +120,11 @@ void C_Window::loadGame(){
 	tsxList[10] = "data/levels/smoke_01.tsx";
 	tsxList[11] = "data/levels/fox.tsx";
 	//create texture from the path
+	SDL_Color color = {0,0,0,255};
 	string firstImages = "First Images";
-	t.loadTextAsTexturesIntoMap(firstImages, firstImages, 20);
+	t.loadTextAsTexturesIntoMap(firstImages, firstImages, 20, color);
     for(int i = 0; i < size; i++){
-        t.loadTextAsTexturesIntoMap(tsxList[i], tsxList[i], 20);
+        t.loadTextAsTexturesIntoMap(tsxList[i], tsxList[i], 20, color);
         }
 
 	t.loadTexturesIntoMap();

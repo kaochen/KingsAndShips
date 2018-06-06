@@ -100,7 +100,7 @@ public:
 	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTexturesIntoMap();
-	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize);
+	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
 	std::string getNameFromID(int id);
