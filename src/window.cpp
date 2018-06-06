@@ -30,7 +30,6 @@ C_Window C_Window::m_instance=C_Window();
 
 C_Window::C_Window()
 {
-
 }
 
 C_Window::~C_Window(){
@@ -44,15 +43,16 @@ C_Window& C_Window::Instances()
 void C_Window::initSDL()
 {
     C_Message m;
-	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) == -1){
+	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0){
 		m.printSDLerror("SDL_Init() failed");
 			exit (EXIT_FAILURE);
 		}
 
-	if(TTF_Init() == -1){
+	if(TTF_Init() < 0){
 			m.printTTFerror("TTF_init() failed");
 			exit (EXIT_FAILURE);
 		}
+
 
 	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG){
 		m.printSDLerror("IMG_Init");
