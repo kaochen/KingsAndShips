@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "weapons.h"
 #include "shooter.h"
 #include "surfaces.h"
+#include "coord.h"
 
 
 class C_Towers: public C_Shooter

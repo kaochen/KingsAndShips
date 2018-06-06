@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "gameUnits.h"
 #include "level.h"
+#include "coord.h"
 
 enum layers{GROUND,DEAD,UNITS};
 

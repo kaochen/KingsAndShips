@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "time.h"
 #include "settings.h"
+#include "coord.h"
 
 #include "pathfinding.h"
 #include <string>

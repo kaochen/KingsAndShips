@@ -35,6 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "level.h"
 #include "menu.h"
 #include "landscape.h"
+#include "coord.h"
 
 
 using namespace std;

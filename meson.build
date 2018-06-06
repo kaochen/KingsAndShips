@@ -15,6 +15,7 @@ libxml_dep = dependency('libxml++-2.6')
 all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf_dep, sdl2_gfx_dep, libxml_dep ]
 
 all_src = ['src/settings.cpp',
+	'src/coord.cpp',
 	'src/time.cpp',
 	'src/surfaces.cpp',
 	'src/pathfinding.cpp',
