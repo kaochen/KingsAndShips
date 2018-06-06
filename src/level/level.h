@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//manage the level, read, load ...
 
 #ifndef LEVEL_H
 #define LEVEL_H
@@ -23,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <list>
 #include <vector>
-#include "gameUnits.h"
-#include "invaders.h"
+
+
 
 struct S_boat{
 	int rank;

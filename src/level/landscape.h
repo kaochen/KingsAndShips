@@ -15,15 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+//design the background of the level, grass, water...
 #ifndef LANDSCAPE_H
 #define LANDSCAPE_H
 
 #include <iostream>
 #include <string>
 #include "gameUnits.h"
-#include "surfaces.h"
-#include "grid.h"
 
 class C_Landscape
 {

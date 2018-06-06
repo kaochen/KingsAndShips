@@ -16,15 +16,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+#include <cmath>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "gameUnits.h"
-#include "surfaces.h"
 #include "grid.h"
-#include "time.h"
-#include <cmath>
+#include "../surfaces.h"
 
 using namespace std;
-
 
 //constructor
 

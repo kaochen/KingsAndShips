@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "window.h"
 #include "settings.h"
 #include "surfaces.h"
-#include "grid.h"
+#include "level/grid.h"
 #include <string>
 
 #include <SDL2_gfxPrimitives.h>

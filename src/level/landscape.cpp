@@ -17,7 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "landscape.h"
-#include "settings.h"
+#include "grid.h"
+#include "../settings.h"
+#include "../surfaces.h"
 
 using namespace std;
 

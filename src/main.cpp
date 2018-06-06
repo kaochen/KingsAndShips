@@ -26,16 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL_image.h>
 
 #include "settings.h"
-#include "time.h"
-#include "grid.h"
-#include "window.h"
-#include "towers.h"
-#include "invaders.h"
-#include "gameUnits.h"
-#include "level.h"
-#include "menu.h"
-#include "landscape.h"
 #include "coord.h"
+#include "time.h"
+#include "window.h"
+#include "menu.h"
+
+#include "level/grid.h"
+#include "level/towers.h"
+#include "level/invaders.h"
+#include "level/gameUnits.h"
+#include "level/level.h"
+#include "level/landscape.h"
 
 
 using namespace std;

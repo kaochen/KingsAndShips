@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//gameUnits that can shoot
 
 #ifndef SHOOTER_H
 #define SHOOTER_H
@@ -23,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "gameUnits.h"
 #include "weapons.h"
-#include "surfaces.h"
+#include "../time.h"
 
 class C_Shooter : public C_GameUnits
 {

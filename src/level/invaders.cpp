@@ -15,12 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 #include "invaders.h"
-#include "time.h"
 #include "grid.h"
 
-#include "window.h"
+#include "../window.h"
 
 using namespace std;
 
@@ -131,7 +129,7 @@ void C_invaders::move()
              else{
                 m_coord->centerOnTile();
              }
-             
+
             m_countRegenPath = 0;
       }
 	}

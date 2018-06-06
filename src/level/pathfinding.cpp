@@ -15,14 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include "pathfinding.h"
-#include "window.h"
-#include "grid.h"
-#include "surfaces.h"
 #include <SDL2_gfxPrimitives.h>
 #include <queue>
 #include <sstream>
+
+#include "pathfinding.h"
+#include "grid.h"
+
+#include "../settings.h"
+#include "../time.h"
+#include "../window.h"
+#include "../surfaces.h"
 
 using namespace std;
 

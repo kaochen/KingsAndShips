@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//invaders are boats for now in the game
 
 #ifndef INVADERS_H
 #define INVADERS_H
@@ -23,7 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "level.h"
 #include "shooter.h"
-#include "coord.h"
+
+#include "../coord.h"
+#include "../time.h"
+#include "../surfaces.h"
 
 class C_Wave; //needed here
 class C_invaders: public C_Shooter

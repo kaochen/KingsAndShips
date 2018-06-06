@@ -20,13 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PATHFINDING_H
 #include <map>
 #include <stack>
-#include "settings.h"
-#include "coord.h"
-#include "time.h"
+
+#include "../coord.h"
 
 #define G_HV 10
 #define G_DIAG 14
-
 
 class C_Node
 {

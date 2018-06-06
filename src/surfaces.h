@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "window.h"
 #include "settings.h"
-#include "gameUnits.h"
+#include "level/gameUnits.h"
 
 class C_Texture
 {

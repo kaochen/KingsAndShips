@@ -16,14 +16,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#include "level.h"
-#include "menu.h"
-#include "invaders.h"
-#include "grid.h"
-
 #include <sys/stat.h>
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
+
+#include "gameUnits.h"
+#include "invaders.h"
+#include "level.h"
+#include "invaders.h"
+#include "grid.h"
+
+#include "../menu.h"
 
 using namespace std;
 

@@ -15,21 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include "grid.h"
-#include "surfaces.h"
-#include "invaders.h"
-#include "towers.h"
-#include "town.h"
-
-#include "menu.h"
-#include "landscape.h"
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2_gfxPrimitives.h>
 #include <sstream>
+
+#include "grid.h"
+#include "invaders.h"
+#include "towers.h"
+#include "town.h"
+#include "landscape.h"
+#include "../surfaces.h"
+
+#include "../menu.h"
+
 
 using namespace std;
 

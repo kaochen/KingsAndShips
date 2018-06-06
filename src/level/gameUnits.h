@@ -15,20 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//Parent class for all game assets or units use in the game
 
 #ifndef GAMEUNITS_H
 #define GAMEUNITS_H
 
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <string>
-#include "time.h"
-#include "settings.h"
-#include "coord.h"
 
+#include "../settings.h"
+#include "../coord.h"
+#include "../time.h"
 #include "pathfinding.h"
-#include <string>
+
 class C_GameUnits
 {
 	public:
