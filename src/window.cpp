@@ -20,6 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 
 #include "surfaces.h"
+#include "menu.h"
+#include "level/grid.h"
+#include "level/towers.h"
+#include "level/invaders.h"
+#include "level/gameUnits.h"
+#include "level/level.h"
+#include "level/landscape.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -196,4 +203,238 @@ void C_Window::quitProgram()
 }
 
 
+void C_Window::gameLoop(){
 
+    C_Set& settings=C_Set::Instances();
+	C_Message message;
+	C_Time& time=C_Time::Instances();
+    C_Grid& grid=C_Grid::Instances();
+
+	//load first level
+	C_Level level;
+	int levelNbr = 0;
+	level.load(levelNbr);
+
+	//displayStatus of the grid
+	grid.displayStatus();
+	C_Landscape* landscape = new C_Landscape();
+
+
+	C_Menu& menu=C_Menu::Instances();
+
+//-----------------------------------------------------------------------------
+
+
+bool quit = false, forceRefresh = false;
+
+//Setup mouse clic
+S_Coord cursor;
+cursor.x = cursor.y = 1;
+S_Coord clic;
+clic.x = clic.y = 0;
+
+bool addingAnewTower = false, aTowerIsSelected = false;
+bool mouseButtonDown = false;
+int buttonType = NONE;
+
+C_Towers* archerTower = new C_ArcherTower(0,0,0);
+C_Towers* turbineTower = new C_Turbine(0,0,0);
+SDL_Event event;
+unsigned int windowID = SDL_GetWindowID(m_window);
+//Start SDL2 loop
+message.printM("SDL main loop start \n");
+
+while(!quit)
+{
+
+	while (SDL_PollEvent(&event))
+	{
+		switch (event.type)
+		{
+		 case SDL_QUIT:
+			quit = true;
+			break;
+		 case SDL_WINDOWEVENT:
+		 	if (event.window.windowID == windowID && event.window.event == SDL_WINDOWEVENT_EXPOSED)
+		 		{ forceRefresh = true;
+		 		break;
+		 		}
+		 	break;
+		case SDL_MOUSEMOTION:
+		// get x cursor position
+			if(event.button.x < 0)
+				cursor.x = 0;
+			else if(event.button.x > settings.getWindowWidth())
+				cursor.x = settings.getWindowWidth();
+			else
+				cursor.x = event.button.x;
+
+		// get y cursor position
+			if(event.button.y < 0)
+				cursor.y = 0;
+			else if(event.button.y > settings.getWindowHeight())
+				cursor.y = settings.getWindowHeight();
+			else
+				cursor.y = event.button.y;
+
+			if (mouseButtonDown){
+					if(aTowerIsSelected){
+						grid.getSelectedUnit();
+					}
+			}
+
+
+			break;
+
+
+		case SDL_MOUSEBUTTONDOWN:
+			if (event.button.button ==  SDL_BUTTON_LEFT)
+				{
+				if (addingAnewTower || aTowerIsSelected){
+					mouseButtonDown = true;
+					}
+				}
+			break;
+		case SDL_MOUSEBUTTONUP:
+			if (event.button.button ==  SDL_BUTTON_LEFT)
+				{
+					clic.x = event.button.x;
+					clic.y = event.button.y;
+					C_CoordScreen clicleft(clic);
+
+
+					//Select a Tower
+					if(addingAnewTower == false) {
+						aTowerIsSelected = grid.selectATower(clicleft);
+					}
+
+					//Add a new Tower
+					if(addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
+						 {
+
+						grid.addANewTower(buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
+
+						aTowerIsSelected = grid.selectATower(clicleft);
+						addingAnewTower = false;
+						}
+					else{
+						addingAnewTower = false;
+					}
+
+				mouseButtonDown = false;
+				}
+			break;
+		case SDL_KEYDOWN:
+
+			//listen keyboard
+			switch(event.key.keysym.sym)
+			{
+			case SDLK_d:
+				settings.setDebugMode();
+				settings.displayDebugMode();
+				break;
+			case SDLK_n:
+				level.sendNextWave();
+				break;
+			case SDLK_p:
+			    if(settings.getDebugMode() == true){
+				    settings.setDebugPathMode();
+				    settings.displayDebugMode();
+				}
+				break;
+			case SDLK_q:
+				quit = true;
+                message.printM("The quit command (q) has been pressed.\n");
+				break;
+			case SDLK_r:
+            	level.load(levelNbr);
+            	menu.resetValues();
+				break;
+			}
+
+		} // end of switch(event.type)
+
+	}//SDL_PollEvent(&event)
+
+	//update status
+
+		if (time.testNewFrame()){
+				//cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
+				forceRefresh = true;
+				time.updateFrameTime();
+				//play all units
+				grid.playAllUnits();
+
+
+//render image
+
+	//cout << "render image" << endl;
+	if (forceRefresh){
+		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
+		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
+
+
+		//display game content
+        landscape->display();
+		grid.renderLayer (DEAD);
+		grid.renderLayer (UNITS);
+
+		//Clic on the addNewTower Button:
+		C_MenuItem* menuButton;
+
+		for (int i = 0; i < 2; i++){
+			menuButton = menu.getMenuItem(i);
+			int xl = menuButton->getXScreen();
+			int xr = xl + menuButton->getWidth();
+			int yt= menuButton->getYScreen();
+			int yb = yt + menuButton->getHeight();
+            //reset state
+	 		menuButton->setState(ACTIVE);
+
+			if (clic.x > xl && clic.x < xr && clic.y > yt && clic.y < yb){
+					if(menuButton->getName() == "AddTower"){
+						archerTower->drag(cursor);
+						addingAnewTower = true;
+						buttonType = ADDNEWTOWER;
+						}
+					if(menuButton->getName() == "AddTurbine"){
+						turbineTower->drag(cursor);
+						addingAnewTower = true;
+						buttonType = ADDNEWTURBINE;
+						}
+	 		}
+	 		//mouse Over
+	 		if (cursor.x > xl && cursor.x < xr && cursor.y > yt && cursor.y < yb){
+                    if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine"){
+                        menuButton->setState(HOVER);
+						}
+	 		}
+ 		}
+
+		//display menu
+		menu.render();
+		time.showFPS ();
+		//print the result
+ 		SDL_RenderPresent(m_renderer);
+ 		}
+
+ 		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
+	}
+
+// pause the game loop according to the framerate setting
+
+//cout << "update time & delay" << endl;
+	time.delayGameLoop();
+}//end of while(!quit)
+
+//-----------------------------------------------------------------------------
+
+	//Cleanup before leaving
+    delete landscape;
+    delete archerTower;
+    delete turbineTower;
+	// delete main unit table
+	grid.deleteGrid();
+
+
+}

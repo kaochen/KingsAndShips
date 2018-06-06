@@ -35,6 +35,7 @@ class C_Window
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
   void loadGame();
+  void gameLoop();
   void quitProgram();
 
 	protected:
