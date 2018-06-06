@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
+#include "coord.h"
+#include "level/towers.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -37,6 +39,9 @@ class C_Window
   void loadGame();
   void gameLoop();
   void quitProgram();
+  void listenButtons(S_Coord clic, S_Coord cursor,
+                      int &buttonType, bool &addingAnewTower,
+                     C_Towers* archerTower, C_Towers* turbineTower);
 
 	protected:
 	void initSDL();

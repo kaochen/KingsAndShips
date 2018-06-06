@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "surfaces.h"
 #include "menu.h"
 #include "level/grid.h"
-#include "level/towers.h"
 #include "level/invaders.h"
 #include "level/gameUnits.h"
 #include "level/level.h"
@@ -241,6 +240,8 @@ int buttonType = NONE;
 
 C_Towers* archerTower = new C_ArcherTower(0,0,0);
 C_Towers* turbineTower = new C_Turbine(0,0,0);
+
+
 SDL_Event event;
 unsigned int windowID = SDL_GetWindowID(m_window);
 //Start SDL2 loop
@@ -382,6 +383,38 @@ while(!quit)
 		grid.renderLayer (UNITS);
 
 		//Clic on the addNewTower Button:
+        listenButtons(clic, cursor, buttonType, addingAnewTower, archerTower, turbineTower);
+
+		//display menu
+		menu.render();
+		time.showFPS ();
+		//print the result
+ 		SDL_RenderPresent(m_renderer);
+ 		}
+
+ 		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
+	}
+
+// pause the game loop according to the framerate setting
+
+//cout << "update time & delay" << endl;
+	time.delayGameLoop();
+}//end of while(!quit)
+
+//-----------------------------------------------------------------------------
+
+	//Cleanup before leaving
+    delete landscape;
+    delete archerTower;
+    delete turbineTower;
+	// delete main unit table
+}
+
+
+void C_Window::listenButtons(S_Coord clic, S_Coord cursor, int &buttonType, bool &addingAnewTower,
+        C_Towers* archerTower, C_Towers* turbineTower){
+    	C_Menu& menu=C_Menu::Instances();
+
 		C_MenuItem* menuButton;
 
 		for (int i = 0; i < 2; i++){
@@ -413,27 +446,4 @@ while(!quit)
 	 		}
  		}
 
-		//display menu
-		menu.render();
-		time.showFPS ();
-		//print the result
- 		SDL_RenderPresent(m_renderer);
- 		}
-
- 		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
-	}
-
-// pause the game loop according to the framerate setting
-
-//cout << "update time & delay" << endl;
-	time.delayGameLoop();
-}//end of while(!quit)
-
-//-----------------------------------------------------------------------------
-
-	//Cleanup before leaving
-    delete landscape;
-    delete archerTower;
-    delete turbineTower;
-	// delete main unit table
 }
