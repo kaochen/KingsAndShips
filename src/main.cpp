@@ -52,8 +52,6 @@ int main()
 	win.createWindow();
 	//create main window
 	SDL_Window* window = win.getWindow ();
-	SDL_Renderer* renderer = win.getRenderer ();
-
 
 //-----------------------------------------------------------------------------
 
@@ -287,11 +285,6 @@ while(!quit)
     delete turbineTower;
 	// delete main unit table
 	grid.deleteGrid();
-	//quitProgram(window, renderer);
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
-	TTF_Quit();
-	message.printM("Bye\n");
-	SDL_Quit();
+	win.quitProgram();
 	return 0;
 }

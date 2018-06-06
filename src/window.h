@@ -35,6 +35,7 @@ class C_Window
 	SDL_Window* getWindow();
 	SDL_Renderer* getRenderer();
   void loadGame();
+  void quitProgram();
 
 	protected:
 	void initSDL();
@@ -49,13 +50,7 @@ class C_Window
 	C_Window();
 	~C_Window();
 
-
-
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
-
 };
-
-
-void quitProgram(SDL_Window* window, SDL_Renderer* renderer);
 #endif

@@ -184,14 +184,15 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 	}
 
 
-void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
+void C_Window::quitProgram()
 {
+    C_Message m;
 	//Cleanup before leaving
-	SDL_DestroyRenderer(renderer);
-	SDL_DestroyWindow(window);
+	SDL_DestroyRenderer(m_renderer);
+	SDL_DestroyWindow(m_window);
 	TTF_Quit();
 	SDL_Quit();
-	cout << "Bye" << endl;
+	m.printM("Bye\n");
 }
 
 
