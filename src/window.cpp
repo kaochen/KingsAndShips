@@ -195,6 +195,8 @@ void C_Window::quitProgram()
 {
     C_Message m;
 	//Cleanup before leaving
+    C_Grid& grid=C_Grid::Instances();
+	grid.deleteGrid();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);
 	TTF_Quit();
@@ -434,7 +436,4 @@ while(!quit)
     delete archerTower;
     delete turbineTower;
 	// delete main unit table
-	grid.deleteGrid();
-
-
 }
