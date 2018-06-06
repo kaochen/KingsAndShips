@@ -96,7 +96,7 @@ class C_Message{
     void printM(std::string message);
     void printDebug(std::string message);
     void printDebugPath(std::string message);
-
+    void printSDLerror(std::string message);
   private:
     void timestamp();
 };

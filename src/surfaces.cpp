@@ -91,6 +91,7 @@ int C_Image::getId(){
 
 void C_Image::loadTexture(string &path)
 {
+	C_Message m;
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Texture *texture = nullptr;
@@ -123,7 +124,7 @@ void C_Image::loadTexture(string &path)
 
 		if (texture == nullptr)
 			{
-			logSDLerror("SDL_CreateTextureFromSurface() failed");
+			m.printSDLerror("SDL_CreateTextureFromSurface() failed");
 			}
 		else{
 		SDL_SetTextureBlendMode(clip,SDL_BLENDMODE_BLEND);
@@ -141,7 +142,7 @@ void C_Image::loadTexture(string &path)
 	}
 	else
 	{
-		logSDLerror("IMG_LOAD()");
+		m.printSDLerror("IMG_LOAD()");
 	}
 
 	m_texture = clip;
@@ -166,13 +167,14 @@ C_Text::C_Text(string name, string message):
 
 void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
 {
+    C_Message m;
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Surface *surf = nullptr;
 	TTF_Font *font = TTF_OpenFont(findFont().c_str(),fontSize);
 
 	if (font == nullptr){
-		logSDLerror("TTF_OpenFont");
+		m.printSDLerror("TTF_OpenFont");
 		m_texture = nullptr;
 		}
 	else{
@@ -181,13 +183,13 @@ void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSi
 
 	if (surf == nullptr){
 		TTF_CloseFont(font);
-		logSDLerror("TTF_RenderText");
+		m.printSDLerror("TTF_RenderText");
 		m_texture = nullptr;
 		}
 	else{
 		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
 		if (m_texture == nullptr){
-			logSDLerror("CreateTexture");
+    		m.printSDLerror("CreateTexture");
 		}
 	}
 	SDL_FreeSurface(surf);

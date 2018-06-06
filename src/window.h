@@ -58,5 +58,4 @@ class C_Window
 
 
 void quitProgram(SDL_Window* window, SDL_Renderer* renderer);
-void logSDLerror(const std::string &msg);
 #endif

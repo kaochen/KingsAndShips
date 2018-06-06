@@ -43,9 +43,9 @@ C_Window& C_Window::Instances()
 
 void C_Window::initSDL()
 {
-
+    C_Message m;
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) == -1){
-			logSDLerror("SDL_Init() failed");
+		m.printSDLerror("SDL_Init() failed");
 			exit (EXIT_FAILURE);
 		}
 
@@ -55,7 +55,7 @@ void C_Window::initSDL()
 		}
 
 	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG){
-		logSDLerror("IMG_Init");
+		m.printSDLerror("IMG_Init");
 		//SDL_Quit;
 		}
 	SDL_ClearError();
@@ -63,7 +63,7 @@ void C_Window::initSDL()
 
 void C_Window::createWindow(){
  	initSDL();
-
+    C_Message m;
 	C_Set& settings=C_Set::Instances();
  	m_window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
@@ -74,7 +74,7 @@ void C_Window::createWindow(){
 
 	if (m_window == nullptr)
 		{
-			logSDLerror("SDL_CreateWindow() failed");
+    		m.printSDLerror("SDL_CreateWindow() failed");
 			SDL_Quit();
 		}
 	else
@@ -84,11 +84,10 @@ void C_Window::createWindow(){
 			if (m_renderer == nullptr)
 				{
 					SDL_DestroyWindow(m_window);
-					logSDLerror("SDL_GetWindowSurface() failed");
+            		m.printSDLerror("SDL_GetWindowSurface() failed");
 					SDL_Quit();
 				}
 		}
-        C_Message m;
         m.printM("The main window has been created successfully\n");
 }
 
@@ -197,8 +196,4 @@ void quitProgram(SDL_Window* window, SDL_Renderer* renderer)
 }
 
 
-void logSDLerror(const string &msg)
-{
-	cout << msg << " error: " << SDL_GetError() << endl;
-}
 
