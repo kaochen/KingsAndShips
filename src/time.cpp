@@ -275,7 +275,15 @@ bool C_AnimTime::frameDelay(int delay){
     void C_Message::printSDLerror(string message)
     {
             timestamp();
-            cout << "[SDL2] " << message << " SDL : " << SDL_GetError() << endl;
+            cout << "[SDL_] " << message << " " << SDL_GetError() << endl;
+            SDL_ClearError();
+    }
+
+        void C_Message::printTTFerror(string message)
+    {
+            timestamp();
+            cout << "[TTF_] " << message  << " " << SDL_GetError() << endl;
+            SDL_ClearError();
     }
 
 

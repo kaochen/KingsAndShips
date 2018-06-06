@@ -50,7 +50,7 @@ void C_Window::initSDL()
 		}
 
 	if(TTF_Init() == -1){
-			cout << "TTF_init() failed: " << TTF_GetError() << endl;
+			m.printTTFerror("TTF_init() failed");
 			exit (EXIT_FAILURE);
 		}
 
@@ -58,7 +58,6 @@ void C_Window::initSDL()
 		m.printSDLerror("IMG_Init");
 		//SDL_Quit;
 		}
-	SDL_ClearError();
 }
 
 void C_Window::createWindow(){

@@ -97,6 +97,8 @@ class C_Message{
     void printDebug(std::string message);
     void printDebugPath(std::string message);
     void printSDLerror(std::string message);
+    void printTTFerror(std::string message);
+
   private:
     void timestamp();
 };

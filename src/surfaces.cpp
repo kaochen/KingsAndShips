@@ -174,7 +174,8 @@ void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSi
 	TTF_Font *font = TTF_OpenFont(findFont().c_str(),fontSize);
 
 	if (font == nullptr){
-		m.printSDLerror("TTF_OpenFont");
+	    string error= "TTF_OpenFont open " + findFont() + " failed";
+		m.printTTFerror(error);
 		m_texture = nullptr;
 		}
 	else{
