@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../coord.h"
 #include "../time.h"
-#include "../surfaces.h"
+#include "../texture.h"
 
 class C_Wave; //needed here
 class C_invaders: public C_Shooter

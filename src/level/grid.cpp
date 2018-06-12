@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "towers.h"
 #include "town.h"
 #include "landscape.h"
-#include "../surfaces.h"
+#include "../texture.h"
 
 #include "../menu.h"
 

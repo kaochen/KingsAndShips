@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../settings.h"
 #include "../time.h"
 #include "../window.h"
-#include "../surfaces.h"
+#include "../texture.h"
 
 using namespace std;
 

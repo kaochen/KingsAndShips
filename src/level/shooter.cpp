@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "shooter.h"
 #include "grid.h"
 
-#include "../surfaces.h"
+#include "../texture.h"
 
 using namespace std;
 

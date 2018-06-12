@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 #include "weapons.h"
 
-#include "../surfaces.h"
+#include "../texture.h"
 #include "../time.h"
 
 

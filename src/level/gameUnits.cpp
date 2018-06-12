@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "gameUnits.h"
 #include "grid.h"
-#include "../surfaces.h"
+#include "../texture.h"
 
 using namespace std;
 
