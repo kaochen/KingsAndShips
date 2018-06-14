@@ -35,6 +35,8 @@ C_Settings::C_Settings()
 	m_first_tile_y = 0;
 	m_debugMode = false;
 	m_debugPath = false;
+	m_imgFolder = "data/img/";
+	m_theme ="original";
 }
 
 C_Settings::~C_Settings()

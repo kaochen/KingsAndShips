@@ -354,8 +354,10 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 
 			  //image node
 			  if (nodeName == "image" && attributes == "source"){
-			  	filePath = reader.get_value();
-			  	filePath.replace(0,3,"data/");
+			  	C_Settings& settings=C_Settings::Instances();
+			    string tmp = reader.get_value();
+			    tmp.replace(0,8,""); //drop default theme "original"
+			  	filePath = settings.getThemePath() + tmp;
 			  	}
 			 if (nodeName == "image" && attributes == "width"){
 			  	file_width = stoi(reader.get_value());

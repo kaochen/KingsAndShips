@@ -75,7 +75,7 @@ public:
 	bool getDebugMode();
   void setDebugPathMode();
   bool getDebugPathMode();
-
+  std::string getThemePath(){return m_imgFolder + m_theme;};
 	void displayDebugMode();
 
 private:
@@ -95,6 +95,8 @@ private:
 	int m_first_tile_y;
 	bool m_debugMode;
   bool m_debugPath;
+  std::string m_imgFolder;
+  std::string m_theme;
 };
 
 #endif

@@ -2,7 +2,7 @@
 <tileset name="boat_01" tilewidth="128" tileheight="128" tilecount="24" columns="8">
  <tileoffset x="-14" y="11"/>
  <grid orientation="orthogonal" width="8" height="8"/>
- <image source="../img/original/t_boat_01.png" width="1024" height="384"/>
+ <image source="original/t_boat_01.png" width="1024" height="384"/>
  <tile id="0" type="EE_0"/>
  <tile id="1" type="NE_0"/>
  <tile id="2" type="NN_0"/>
