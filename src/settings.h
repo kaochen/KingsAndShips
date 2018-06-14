@@ -60,24 +60,27 @@ enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 class C_Settings
 {
 public:
-	static	C_Settings& Instances();
-	int getWindowWidth();
-	int getWindowHeight();
-	int getGridSize();
-	int getGridWidth();
-	int getGridHeight();
-	int getGridNbrOfLine();
-	int getGridNbrOfRow();
-	int getGridFirstTileX();
-	int getGridFirstTileY();
-
+	static	C_Settings& Instances() {return m_instance;};
+  //window
+	int getWindowWidth() {return m_windowWidth;};
+	int getWindowHeight() {return m_windowHeight;};
+  //grid
+	int getGridSize() {return m_gridSize;};
+	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
+	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
+	int getGridNbrOfLine() {return m_gridNbrOfLine;};
+	int getGridNbrOfRow() {return m_gridNbrOfRow;};
+	int getGridFirstTileX() {return m_first_tile_x;};
+	int getGridFirstTileY() {return m_first_tile_y;};
+  //debug
 	void setDebugMode();
-	bool getDebugMode();
+	bool getDebugMode() {return m_debugMode;};
   void setDebugPathMode();
-  bool getDebugPathMode();
+  bool getDebugPathMode() {return m_debugPath;};
+	void displayDebugMode();
+  //images
   std::string getImgFolder(){return m_imgFolder;};
   std::string getThemePath(){return m_imgFolder + m_theme;};
-	void displayDebugMode();
 
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
@@ -87,15 +90,19 @@ private:
 	C_Settings();
 	~C_Settings();
 
-	int m_gridSize;
+  //window
 	int m_windowWidth;
 	int m_windowHeight;
+  //grid
+	int m_gridSize;
 	int m_gridNbrOfLine; //nbr of tiles in a line
 	int m_gridNbrOfRow; //nbr of tiles in a row
 	int m_first_tile_x; //first tile to display
 	int m_first_tile_y;
+  //debug
 	bool m_debugMode;
   bool m_debugPath;
+  //images
   std::string m_imgFolder;
   std::string m_theme;
 };

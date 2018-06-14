@@ -43,47 +43,7 @@ C_Settings::~C_Settings()
 {
 }
 
-C_Settings& C_Settings::Instances()
-{
-	return m_instance;
-}
 
-int C_Settings::getGridSize(){
-	return m_gridSize;
-}
-
-int C_Settings::getWindowWidth(){
-	return m_windowWidth;
-}
-
-int C_Settings::getWindowHeight(){
-	return m_windowHeight;
-}
-
-
-int C_Settings::getGridWidth(){
-	return m_windowWidth / TILE_HALF_WIDTH;
-}
-
-int C_Settings::getGridHeight(){
-	return m_windowHeight / TILE_HALF_HEIGHT;
-}
-
-int C_Settings::getGridNbrOfLine(){
-	return m_gridNbrOfLine;
-}
-
-int C_Settings::getGridNbrOfRow(){
-	return m_gridNbrOfRow;
-}
-
-int C_Settings::getGridFirstTileX(){
-	return m_first_tile_x;
-}
-
-int C_Settings::getGridFirstTileY(){
-	return m_first_tile_y;
-}
 
 void C_Settings::setDebugMode(){
 	if(m_debugMode){
@@ -95,9 +55,6 @@ void C_Settings::setDebugMode(){
 	}
 }
 
-bool C_Settings::getDebugMode(){
-	return m_debugMode;
-}
 
 void C_Settings::setDebugPathMode(){
 	if(m_debugPath){
@@ -108,9 +65,6 @@ void C_Settings::setDebugPathMode(){
 	}
 }
 
-bool C_Settings::getDebugPathMode(){
-	return m_debugPath;
-}
 
 void C_Settings::displayDebugMode(){
     C_Message m;
