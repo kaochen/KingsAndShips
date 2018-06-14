@@ -231,7 +231,7 @@ C_Menu::C_Menu():
 		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);
 		m_map_menuItems[FOX_ICON] = new C_MenuItem("fox_sneaky",x_button-10,20);
 		//Lion
-		m_map_menuItems[INVADER_LIFE] = new C_ProgressBar("invaderlife",50,40);
+		m_map_menuItems[BOAT_LIFE] = new C_ProgressBar("boatLife",50,40);
 
 		m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,128,100);
         m_button_count += 6;
@@ -252,7 +252,7 @@ void C_Menu::render(){
     C_Grid& grid=C_Grid::Instances();
     int playerLife = grid.getAllTownsLifeLevel();
     m_map_menuItems[PLAYERLIFE]->setPercentage(playerLife);
-    m_map_menuItems[INVADER_LIFE]->setPercentage(m_current_wave,m_total_waves);
+    m_map_menuItems[BOAT_LIFE]->setPercentage(m_current_wave,m_total_waves);
 
 	//drawBackground();
 	for (int i = 0; i < m_button_count; i++){

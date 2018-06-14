@@ -15,10 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//invaders are boats for now in the game
+//describe boat class
 
-#ifndef INVADERS_H
-#define INVADERS_H
+#ifndef BOAT_H
+#define BOAT_H
 
 #include <iostream>
 #include <string>
@@ -30,13 +30,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../texture.h"
 
 class C_Wave; //needed here
-class C_invaders: public C_Shooter
+class C_Boat: public C_Shooter
 {
 	public:
 	//methods
-	C_invaders();
-	C_invaders(int x_grid, int y_grid,int rank,C_Wave* parent);
-	~C_invaders();
+	C_Boat();
+	C_Boat(int x_grid, int y_grid,int rank,C_Wave* parent);
+	~C_Boat();
 
 	virtual void play();
 	virtual void move();

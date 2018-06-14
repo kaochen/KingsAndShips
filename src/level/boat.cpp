@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "invaders.h"
+#include "boat.h"
 #include "grid.h"
 
 #include "../window.h"
@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_invaders::C_invaders(int x_grid,
+C_Boat::C_Boat(int x_grid,
 			 int y_grid,
 			 int rank,
 			 C_Wave* parent):C_Shooter("boat", x_grid, y_grid ,rank)
@@ -49,13 +49,13 @@ C_invaders::C_invaders(int x_grid,
 	m_wave = parent;
 }
 
-C_invaders::~C_invaders()
+C_Boat::~C_Boat()
 {
     delete m_animDirection;
     delete m_C_Path;
 }
 
-void C_invaders::play(){
+void C_Boat::play(){
 	this->move();
 	string list[3] = {"town","ArcherTower","Turbine"};
 	this->shoot(list, 3);
@@ -65,7 +65,7 @@ void C_invaders::play(){
 };
 
 
-void C_invaders::move()
+void C_Boat::move()
 {
 	m_moving = true;
 
@@ -146,7 +146,7 @@ void C_invaders::move()
 
 
 
-void C_invaders::render(S_Coord screen){
+void C_Boat::render(S_Coord screen){
 
 	if (m_weapon->getShooting())
 		m_weapon->render();
@@ -195,7 +195,7 @@ void C_invaders::render(S_Coord screen){
 }
 
 
-void C_invaders::receiveDamage(S_Weapon weapon)
+void C_Boat::receiveDamage(S_Weapon weapon)
 {
 	m_life -=weapon.damage;
 	m_speedImpact = weapon.speedImpact;
@@ -205,14 +205,14 @@ void C_invaders::receiveDamage(S_Weapon weapon)
 	}
 }
 
-void C_invaders::recalcPath(S_Coord dest){
+void C_Boat::recalcPath(S_Coord dest){
 		delete m_C_Path;
 		m_C_Path = new C_Path(dest.x,dest.y);
 	    m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),dest.x,dest.y);
 		m_C_Path->showPath();
 }
 
-int C_invaders::calcSpeed(){
+int C_Boat::calcSpeed(){
             int speed = m_speed - m_speedImpact;
             if (speed < 0){
                     speed = VERY_SLOW;

@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "texture.h"
 #include "menu.h"
 #include "level/grid.h"
-#include "level/invaders.h"
 #include "level/gameUnits.h"
 #include "level/level.h"
 #include "level/landscape.h"

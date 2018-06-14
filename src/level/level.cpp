@@ -21,9 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <libxml++/parsers/textreader.h>
 
 #include "gameUnits.h"
-#include "invaders.h"
+#include "boat.h"
 #include "level.h"
-#include "invaders.h"
 #include "grid.h"
 
 #include "../menu.h"
