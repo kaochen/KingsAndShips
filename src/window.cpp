@@ -106,37 +106,21 @@ SDL_Renderer* C_Window::getRenderer(){
 };
 
 void C_Window::loadGame(){
-	C_TextureList& t=C_TextureList::Instances();
 	C_Settings& settings=C_Settings::Instances();
-	string imgFolder = settings.getImgFolder();
-	//C_Texture text;
+	C_TextureList& t=C_TextureList::Instances();
+	t.loadTexturesIntoMap(); //load images without tsx files
+
 	int size = 12;
-	string tsxList[size];
-	tsxList[0] = "Ground_01.tsx";
-	tsxList[1] = "boat_01.tsx";
-	tsxList[2] = "town_01.tsx";
-	tsxList[3] = "Rocks_00.tsx";
-	tsxList[4] = "Trees_00.tsx";
-	tsxList[5] = "turbine_00.tsx";
-	tsxList[6] = "archerTower_00.tsx";
-	tsxList[7] = "archerTower_01.tsx";
-	tsxList[8] = "buttons.tsx";
-	tsxList[9] = "Water_00.tsx";
-	tsxList[10] = "smoke_01.tsx";
-	tsxList[11] = "fox.tsx";
+	string tsxList[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
+	                    "Rocks_00.tsx","Trees_00.tsx","turbine_00.tsx",
+	                    "archerTower_00.tsx","archerTower_01.tsx","buttons.tsx",
+	                    "Water_00.tsx","smoke_01.tsx","fox.tsx"};
 	//create texture from the path
 	SDL_Color color = {0,0,0,255};
-	string firstImages = "First Images";
-	t.loadTextAsTexturesIntoMap(firstImages, firstImages, 20, color);
-    for(int i = 0; i < size; i++){
-        string imgPath = imgFolder + tsxList[i];
-        t.loadTextAsTexturesIntoMap(imgPath, imgPath, 20, color);
-        }
 
-	t.loadTexturesIntoMap();
-    loadingPage(1, firstImages, size+1);
     for(int i = 0; i < size; i++){
-        string imgPath = imgFolder + tsxList[i];
+        string imgPath = settings.getImgFolder() + tsxList[i];
+        t.loadTextAsTexturesIntoMap(imgPath, imgPath, 20, color);
         loadingPage(i+1, imgPath,size+1);
 	    t.extractTSXfile(imgPath);
     }
