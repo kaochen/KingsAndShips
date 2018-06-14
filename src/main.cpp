@@ -15,27 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#include <iostream>
-#include <string.h>
-#include <vector>
-#include <map>
-#include <list>
-#include <queue>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-
-#include "settings.h"
-#include "coord.h"
-#include "time.h"
 #include "window.h"
-#include "menu.h"
-
-#include "level/grid.h"
-#include "level/towers.h"
-#include "level/gameUnits.h"
-#include "level/level.h"
-#include "level/landscape.h"
 
 
 using namespace std;
