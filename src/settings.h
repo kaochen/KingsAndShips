@@ -75,6 +75,7 @@ public:
 	bool getDebugMode();
   void setDebugPathMode();
   bool getDebugPathMode();
+  std::string getImgFolder(){return m_imgFolder;};
   std::string getThemePath(){return m_imgFolder + m_theme;};
 	void displayDebugMode();
 
