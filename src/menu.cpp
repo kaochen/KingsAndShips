@@ -216,7 +216,7 @@ C_Menu::C_Menu():
 	m_current_wave(1),
     m_total_waves(1)
 {
-		C_Set& settings=C_Set::Instances();
+		C_Settings& settings=C_Settings::Instances();
 		m_width = (settings.getWindowWidth()*50)/100;
 		m_x_screen = (settings.getWindowWidth() - m_width)/2;
 		int size = 64 + 10;

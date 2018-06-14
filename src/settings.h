@@ -57,10 +57,10 @@ enum GroundType {GROUND_01,GROUND_02};
 enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 
 //singleton
-class C_Set
+class C_Settings
 {
 public:
-	static	C_Set& Instances();
+	static	C_Settings& Instances();
 	int getWindowWidth();
 	int getWindowHeight();
 	int getGridSize();
@@ -79,12 +79,12 @@ public:
 	void displayDebugMode();
 
 private:
-	C_Set& operator= (const C_Set&){return *this;}
-	C_Set (const C_Set&){}
+	C_Settings& operator= (const C_Settings&){return *this;}
+	C_Settings (const C_Settings&){}
 
-	static C_Set m_instance;
-	C_Set();
-	~C_Set();
+	static C_Settings m_instance;
+	C_Settings();
+	~C_Settings();
 
 	int m_gridSize;
 	int m_windowWidth;

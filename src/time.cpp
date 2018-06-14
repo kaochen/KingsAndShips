@@ -59,7 +59,7 @@ void C_Time::showFPS() const
 {
 		C_Window& win=C_Window::Instances();
 		SDL_Renderer* renderer = win.getRenderer();
-		C_Set& settings=C_Set::Instances();
+		C_Settings& settings=C_Settings::Instances();
 		//add a life status above the boat
 
 		int red = 0, green = 200;
@@ -253,7 +253,7 @@ bool C_AnimTime::frameDelay(int delay){
     void C_Message::printDebug(string message)
 
     {
-       C_Set& settings=C_Set::Instances();
+       C_Settings& settings=C_Settings::Instances();
         if(settings.getDebugMode()){
             timestamp();
             cout << "[DEBUG] " << message;
@@ -264,7 +264,7 @@ bool C_AnimTime::frameDelay(int delay){
     void C_Message::printDebugPath(string message)
 
     {
-       C_Set& settings=C_Set::Instances();
+       C_Settings& settings=C_Settings::Instances();
         if(settings.getDebugPathMode()){
             timestamp();
             cout << "[PATH] " << message;

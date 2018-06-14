@@ -82,7 +82,7 @@ void C_Coord::applyOffset(S_Coord offset){
 
 
 S_Coord C_Coord::screenToGrid(S_Coord screen){
-		C_Set& settings=C_Set::Instances();
+		C_Settings& settings=C_Settings::Instances();
 		float xOffset = (settings.getWindowWidth() /2);
 		float yOffset = (settings.getWindowHeight() + TILE_HALF_HEIGHT)/2;
 		float tempX = 0.0, tempY = 0.0;
@@ -95,7 +95,7 @@ S_Coord C_Coord::screenToGrid(S_Coord screen){
 		}
 
 S_Coord C_Coord::gridToScreen(S_Coord grid){
-			C_Set& settings=C_Set::Instances();
+			C_Settings& settings=C_Settings::Instances();
 			S_Coord screen;
 			screen.x = settings.getWindowWidth()/2 + (grid.x - grid.y)* TILE_HALF_WIDTH;
 			screen.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
@@ -528,7 +528,7 @@ C_CoordScreen::C_CoordScreen(S_Coord coord): C_Coord(coord){
 
 C_CoordScreen::C_CoordScreen(int x_screen, int y_screen ): C_Coord(x_screen, y_screen){
 
-		C_Set& settings=C_Set::Instances();
+		C_Settings& settings=C_Settings::Instances();
 		if (x_screen < 0)
 			x_screen = 0;
 		if (y_screen < 0)

@@ -127,7 +127,7 @@ void C_Landscape::renderWater(int direction){
 
 int C_Landscape::waterDirection(){
 
-        	C_Set& settings=C_Set::Instances();
+        	C_Settings& settings=C_Settings::Instances();
         	C_Grid& grid=C_Grid::Instances();
 
             S_Coord center;

@@ -242,7 +242,7 @@ void C_TextureList::renderTexture(string name, int x, int y){
 void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 {
 	C_Window& win=C_Window::Instances();
-	C_Set& settings=C_Set::Instances();
+	C_Settings& settings=C_Settings::Instances();
 	SDL_Texture *texture;
 	if(name != ""){
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);

@@ -92,7 +92,7 @@ C_Grid& C_Grid::Instances()
 
 
 void C_Grid::renderLayer(int layer){
-	C_Set& settings=C_Set::Instances();
+	C_Settings& settings=C_Settings::Instances();
 	C_TextureList& t=C_TextureList::Instances();
 
 	int x_start = 0, x_end = x_start + settings.getGridWidth() + 4;
@@ -293,7 +293,7 @@ void C_Grid::deleteGrid(){
 bool C_Grid::selectATower(C_Coord clic){
 	S_Coord grid = clic.getGrid();
 	bool selected = false;
-	C_Set& settings=C_Set::Instances();
+	C_Settings& settings=C_Settings::Instances();
 	C_Message m;
 	string message ="";
 	string name ="";

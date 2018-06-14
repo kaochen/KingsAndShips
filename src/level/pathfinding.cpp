@@ -187,7 +187,7 @@ void C_Path::loadPath(){
 		     //m_path.push(current); //force the boat to recenter itself on its current tile.
 		m.printDebugPath("path is loaded\n");
 	    //prepare render for debug
-	    C_Set& settings=C_Set::Instances();
+	    C_Settings& settings=C_Settings::Instances();
 	    if(settings.getDebugPathMode()){
 		    for (size_t y = 0; y < GRID_SIZE; y++){
 			    for (size_t x = 0; x < GRID_SIZE; x++){
@@ -205,7 +205,7 @@ void C_Path::addANodeAtTheStartOfThePath(S_Coord grid){
 
 
 void C_Path::showPath(){
-	C_Set& settings=C_Set::Instances();
+	C_Settings& settings=C_Settings::Instances();
 	if(settings.getDebugPathMode()){
 	    C_Message m;
 	    string message ="";
@@ -281,7 +281,7 @@ void C_Path::displayPath(){
 		tmp.top()->highlight();
 		tmp.pop();
 	}
-	C_Set& settings=C_Set::Instances();
+	C_Settings& settings=C_Settings::Instances();
 	if(settings.getDebugPathMode()){
 		for (size_t y = 0; y < GRID_SIZE; y++){
 			for (size_t x = 0; x < GRID_SIZE; x++){

@@ -68,7 +68,7 @@ void C_Window::initSDL()
 void C_Window::createWindow(){
  	initSDL();
     C_Message m;
-	C_Set& settings=C_Set::Instances();
+	C_Settings& settings=C_Settings::Instances();
  	m_window = SDL_CreateWindow("TOWER",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
@@ -150,7 +150,7 @@ void C_Window::loadingPage(int progress, string label, int stepsNbr){
 
 void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 	{
-		C_Set& settings=C_Set::Instances();
+		C_Settings& settings=C_Settings::Instances();
 		int height = 40, width = settings.getWindowWidth()/2;
 		int x_screen = 	(settings.getWindowWidth()- width) /2;
 		int y_screen =  (settings.getWindowHeight() - height)/2;
@@ -205,7 +205,7 @@ void C_Window::quitProgram()
 
 void C_Window::gameLoop(){
 
-    C_Set& settings=C_Set::Instances();
+    C_Settings& settings=C_Settings::Instances();
 	C_Message message;
 	C_Time& time=C_Time::Instances();
     C_Grid& grid=C_Grid::Instances();

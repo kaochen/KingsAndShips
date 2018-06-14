@@ -21,11 +21,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Set C_Set::m_instance=C_Set();
+C_Settings C_Settings::m_instance=C_Settings();
 
-C_Set::C_Set()
+C_Settings::C_Settings()
 {
-	//cout << "Construct C_Set" << endl;
+	//cout << "Construct C_Settings" << endl;
 	m_gridSize = GRID_SIZE;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
@@ -37,53 +37,53 @@ C_Set::C_Set()
 	m_debugPath = false;
 }
 
-C_Set::~C_Set()
+C_Settings::~C_Settings()
 {
 }
 
-C_Set& C_Set::Instances()
+C_Settings& C_Settings::Instances()
 {
 	return m_instance;
 }
 
-int C_Set::getGridSize(){
+int C_Settings::getGridSize(){
 	return m_gridSize;
 }
 
-int C_Set::getWindowWidth(){
+int C_Settings::getWindowWidth(){
 	return m_windowWidth;
 }
 
-int C_Set::getWindowHeight(){
+int C_Settings::getWindowHeight(){
 	return m_windowHeight;
 }
 
 
-int C_Set::getGridWidth(){
+int C_Settings::getGridWidth(){
 	return m_windowWidth / TILE_HALF_WIDTH;
 }
 
-int C_Set::getGridHeight(){
+int C_Settings::getGridHeight(){
 	return m_windowHeight / TILE_HALF_HEIGHT;
 }
 
-int C_Set::getGridNbrOfLine(){
+int C_Settings::getGridNbrOfLine(){
 	return m_gridNbrOfLine;
 }
 
-int C_Set::getGridNbrOfRow(){
+int C_Settings::getGridNbrOfRow(){
 	return m_gridNbrOfRow;
 }
 
-int C_Set::getGridFirstTileX(){
+int C_Settings::getGridFirstTileX(){
 	return m_first_tile_x;
 }
 
-int C_Set::getGridFirstTileY(){
+int C_Settings::getGridFirstTileY(){
 	return m_first_tile_y;
 }
 
-void C_Set::setDebugMode(){
+void C_Settings::setDebugMode(){
 	if(m_debugMode){
 		m_debugMode = false;
 		m_debugPath = false;
@@ -93,11 +93,11 @@ void C_Set::setDebugMode(){
 	}
 }
 
-bool C_Set::getDebugMode(){
+bool C_Settings::getDebugMode(){
 	return m_debugMode;
 }
 
-void C_Set::setDebugPathMode(){
+void C_Settings::setDebugPathMode(){
 	if(m_debugPath){
 		m_debugPath = false;
 		}
@@ -106,11 +106,11 @@ void C_Set::setDebugPathMode(){
 	}
 }
 
-bool C_Set::getDebugPathMode(){
+bool C_Settings::getDebugPathMode(){
 	return m_debugPath;
 }
 
-void C_Set::displayDebugMode(){
+void C_Settings::displayDebugMode(){
     C_Message m;
     string debug = "off";
     string debugPath = "off";
