@@ -19,78 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef MENU_H
 #define MENU_H
 
-#include <iostream>
-#include <SDL2/SDL.h>
 #include <map>
 #include <string>
-#include "settings.h"
-
-class C_MenuItem
-{
-	public:
-  C_MenuItem(std::string name, int x_screen, int y_screen);
-	virtual ~C_MenuItem();
-	virtual int getXScreen() const;
-	virtual int getYScreen() const;
-	virtual int getWidth() const;
-	virtual int getHeight() const;
-	virtual	std::string getName();
-
-  virtual void setPercentage(int percentage){std::cout << percentage;};
-  virtual void setPercentage(int a, int b){std::cout << a << b;};
-	virtual	void render();
-  virtual void setState(int state) {std::cout << state;};
-	protected:
-	std::string m_name;
-	int m_x_screen;
-	int m_y_screen;
-	int m_width;
-	int m_height;
-};
-
-
-enum button{ADDNEWTOWER,ADDNEWTURBINE,PLAYERLIFE,FOX_ICON,BOAT_LIFE,WAVES_STATUS,NONE};
-enum buttonState{ACTIVE,HOVER,DISABLED};
-class C_Button: public C_MenuItem
-{
-	public:
-  C_Button(std::string name,std::string image_out,int x_screen, int y_screen);
-	~C_Button();
-
-  virtual void setPercentage(int percentage);
-  virtual void setPercentage(int a, int b);
-	virtual void render();
-  virtual void setState(int state);
-	protected:
-	std::string m_image_out;
-  int m_state;
-
-};
-
-
-class C_ProgressBar: public C_MenuItem
-{
-	public:
-  C_ProgressBar(std::string name,int x_screen, int y_screen);
-	virtual void render();
-  virtual void setPercentage(int percentage);
-  virtual void setPercentage(int a, int b);
-  protected:
-  void littledots(int x_screen, int y_screen, int width, int height);
-  int m_percentage;
-};
-
-
-class C_MenuText: public C_MenuItem
-{
-  public:
-  C_MenuText(std::string name, std::string text, int fontSize, int x_screen, int y_screen);
-  virtual void render();
-  private:
-  std::string m_text;
-  int m_fontSize;
-};
-
+#include "menuItems.h"
 
 
 class C_Menu
