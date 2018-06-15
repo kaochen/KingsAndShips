@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="left-up" width="30" height="30" tilewidth="100" tileheight="50" infinite="0" backgroundcolor="#174c89" nextobjectid="1">
- <tileset firstgid="1" source="Ground_01.tsx"/>
- <tileset firstgid="34" source="boat_01.tsx"/>
- <tileset firstgid="58" source="town_01.tsx"/>
- <tileset firstgid="59" source="Rocks_00.tsx"/>
- <tileset firstgid="62" source="Trees_00.tsx"/>
+ <tileset firstgid="1" source="../img/Ground_01.tsx"/>
+ <tileset firstgid="34" source="../img/boat_01.tsx"/>
+ <tileset firstgid="58" source="../img/town_01.tsx"/>
+ <tileset firstgid="59" source="../img/Rocks_00.tsx"/>
+ <tileset firstgid="62" source="../img/Trees_00.tsx"/>
  <layer name="Ground" width="30" height="30">
   <data encoding="csv">
 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
