@@ -75,6 +75,7 @@ void C_Level::load(int levelNbr){
     	    loadWave(filename.c_str(),i);
     	}
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
+        updateMenuInfo();
 	}
 	else{
     	m.printM("Can not find " + filename+"\n");
