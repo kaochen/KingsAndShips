@@ -70,7 +70,7 @@ void C_Level::load(int levelNbr){
 
 	    loadGroundLayerIntoTheGrid(filename.c_str());
 	    loadDecorLayerIntoTheGrid(filename.c_str());
-	    m_nbrOfWaves = getNbrOfWaves(filename.c_str());
+	    m_nbrOfWaves = countAttributes(filename.c_str(),"Wave");
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(filename.c_str(),i);
     	}
@@ -256,8 +256,7 @@ void C_Level::updateMenuInfo(){
     menu.updateLevelInfos(m_nbrOfWaves - m_currentWaveNbr, m_nbrOfWaves);
 }
 
-int C_Level::getNbrOfWaves(string tmx_File_Path){
-	string pattern = "Wave";
+int C_Level::countAttributes(string tmx_File_Path, string pattern){
 	string old = "";
     C_Message m;
     xmlpp::TextReader reader(tmx_File_Path);
@@ -274,7 +273,7 @@ int C_Level::getNbrOfWaves(string tmx_File_Path){
                 	//cout << "NodeName: " << nodeName << endl;
 			  	    //cout << "Attributes: " << attributes << endl;
 			  	    string value = reader.get_value();
-                    cout << value << endl;
+                    //cout << value << endl;
 			        if(value.compare(0,pattern.size(),pattern)==0 && old != value){
 			  	        c++;
     			  	    //cout << "Found " << reader.get_value() << " + " << c << endl;
