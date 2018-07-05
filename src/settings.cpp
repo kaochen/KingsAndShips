@@ -37,6 +37,7 @@ C_Settings::C_Settings()
 	m_debugPath = false;
 	m_imgFolder = "data/img/";
 	m_theme ="original";
+	m_currentLevel = 0;
 }
 
 C_Settings::~C_Settings()
@@ -79,6 +80,20 @@ void C_Settings::displayDebugMode(){
 	string message = "Debug mode: " + debug + ", debug path mode: " + debugPath + "\n";
 	m.printM(message);
 
+}
+
+
+int C_Settings::setCurrentLevelNbr(int nbr){
+    cout << nbr << "->" << m_currentLevel << endl;
+    m_currentLevel = nbr;
+    if (m_currentLevel > MAX_LEVELS){
+        m_currentLevel = 0;
+        }
+    if (m_currentLevel < 0){
+        m_currentLevel = MAX_LEVELS;
+        }
+
+    return m_currentLevel;
 }
 
 
