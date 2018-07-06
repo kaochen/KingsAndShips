@@ -38,39 +38,44 @@ ninja -C build/
 ./build/kingsandships
 ```
 
-Drag & drop Tower or Turbines on to the map.
-Push "n" to send next wave.
-Push "r" to reset level.
-Push "d" for debug mode.
-Push "d+p" to get access to the debug path mode.
-Push "q" to quit.
+ * Drag & drop Tower or Turbines on to the map.
+ * Push "n" to send next wave.
+ * Push "l" to load the next level.
+ * Push "r" to reset level.
+ * Push "d" for debug mode.
+ * Push "d+p" to get access to the debug path mode.
+ * Push "q" to quit.
 
-### Install
 
 ## Dev tips:
+### Graphic tools
+  * **Tiled** to edit or build levels (Minimum 1.1) http://www.mapeditor.org
+  * **Blender** for editing graphic elements
+  * **ImageMagick** to build tileset from Blender render 
+
 ```
 apt install tiled blender imagemagick
 ```
-http://www.mapeditor.org
 
 Build a tileset from images with imagemagick
 ```
 montage Src*.png -tile 8x8 -geometry +0+0 -background none tilset.png
 ```
-
+### Coding tools
 Search where improving the code is more usefull
+#### linux-perf
 ```
 apt install linux-perf
 sudo perf record -g ./build/demo -sleep 10
 perf report --sort comm,dso
 ```
 
-Git
+#### Git
 ```
 git remote set-url origin git@github.com:kaochen/KingsAndShips.git
 ```
 
-### Dev links :
+### Links :
 
  * https://www.kraxel.org/blog/tag/meson-ninja/
  * http://www.willusher.io/pages/sdl2/
