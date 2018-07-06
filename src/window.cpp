@@ -114,7 +114,7 @@ void C_Window::loadGame(){
 	string tsxList[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
 	                    "Rocks_00.tsx","Trees_00.tsx","turbine_00.tsx",
 	                    "archerTower_00.tsx","archerTower_01.tsx","buttons.tsx",
-	                    "Water_00.tsx","smoke_01.tsx","fox.tsx"};
+	                    "Water_00.tsx","smoke_01.tsx","charaters.tsx"};
 	//create texture from the path
 	SDL_Color color = {0,0,0,255};
 

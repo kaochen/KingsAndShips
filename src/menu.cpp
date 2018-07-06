@@ -49,12 +49,14 @@ C_Menu::C_Menu():
 
         //fox
 		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);
-		m_map_menuItems[FOX_ICON] = new C_MenuItem("fox_sneaky",x_button-10,20);
+		m_map_menuItems[FOX_ICON] = new C_MenuItem("Characters_fox",x_button-10,20);
 		//Lion
 		m_map_menuItems[BOAT_LIFE] = new C_ProgressBar("boatLife",50,40);
 
+		m_map_menuItems[LION_ICON] = new C_MenuItem("Characters_lion",20,30);
 		m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,128,100);
-        m_button_count += 6;
+
+        m_button_count += 7;
 }
 
 C_Menu::~C_Menu(){
