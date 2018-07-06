@@ -199,9 +199,9 @@ void C_Window::gameLoop(){
     C_Grid& grid=C_Grid::Instances();
 
 	//load first level
-	C_Level level;
-	int levelNbr = 0;
-	level.load(levelNbr);
+	C_Level* level = new C_Level;
+	int levelNbr = settings.getCurrentLevelNbr();
+	level->load(levelNbr);
 
 	//displayStatus of the grid
 	grid.displayStatus();
@@ -323,8 +323,15 @@ while(!quit)
 				settings.setDebugMode();
 				settings.displayDebugMode();
 				break;
+			case SDLK_l:
+			    levelNbr = settings.setCurrentLevelNbr(levelNbr +1);
+                delete level;
+                level = new C_Level;
+            	level->load(levelNbr);
+            	menu.resetValues();
+				break;
 			case SDLK_n:
-				level.sendNextWave();
+				level->sendNextWave();
 				break;
 			case SDLK_p:
 			    if(settings.getDebugMode() == true){
@@ -337,7 +344,7 @@ while(!quit)
                 message.printM("The quit command (q) has been pressed.\n");
 				break;
 			case SDLK_r:
-            	level.load(levelNbr);
+            	level->load(levelNbr);
             	menu.resetValues();
 				break;
 			}
@@ -394,6 +401,7 @@ while(!quit)
     delete landscape;
     delete archerTower;
     delete turbineTower;
+    delete level;
 	// delete main unit table
 }
 

@@ -43,7 +43,7 @@ C_Level::C_Level():
 	m_decorLayer.width=30;
 	m_decorLayer.height=30;
 	m_decorLayer.data="";
-	m_nbrOfWaves = 3;
+	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
 }
 
@@ -70,10 +70,12 @@ void C_Level::load(int levelNbr){
 
 	    loadGroundLayerIntoTheGrid(filename.c_str());
 	    loadDecorLayerIntoTheGrid(filename.c_str());
+	    m_nbrOfWaves = countAttributes(filename.c_str(),"Wave");
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(filename.c_str(),i);
     	}
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
+        updateMenuInfo();
 	}
 	else{
     	m.printM("Can not find " + filename+"\n");
@@ -254,6 +256,41 @@ void C_Level::updateMenuInfo(){
     C_Menu& menu=C_Menu::Instances();
     menu.updateLevelInfos(m_nbrOfWaves - m_currentWaveNbr, m_nbrOfWaves);
 }
+
+int C_Level::countAttributes(string tmx_File_Path, string pattern){
+	string old = "";
+    C_Message m;
+    xmlpp::TextReader reader(tmx_File_Path);
+    int c = 0;
+     while(reader.read())
+        {
+        	string nodeName = reader.get_name();
+        	if (reader.has_attributes()){
+			reader.move_to_first_attribute();
+			do
+			{
+			  string attributes = reader.get_name();
+			  if (nodeName == "layer" && attributes == "name"){
+                	//cout << "NodeName: " << nodeName << endl;
+			  	    //cout << "Attributes: " << attributes << endl;
+			  	    string value = reader.get_value();
+                    //cout << value << endl;
+			        if(value.compare(0,pattern.size(),pattern)==0 && old != value){
+			  	        c++;
+    			  	    //cout << "Found " << reader.get_value() << " + " << c << endl;
+    			  	    old = value;
+			  	    }
+				}
+				attributes = "";
+			} while(reader.move_to_next_attribute());
+		}
+	    reader.move_to_element();
+	    nodeName = "";
+	}
+	m.printM(c +" "+ pattern + " in " + tmx_File_Path +"\n");
+    return c;
+}
+
 
 //______________________________Waves_____________________________//
 

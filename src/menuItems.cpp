@@ -122,6 +122,11 @@ void C_ProgressBar::setPercentage(int a, int b){
         m_percentage = ((100*a)/b);
     else
         m_percentage = 0;
+
+    if (m_percentage > 100)
+        m_percentage = 100;
+    if (m_percentage < 0)
+        m_percentage = 0;
 }
 
 void C_ProgressBar::render(){

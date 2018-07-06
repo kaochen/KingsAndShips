@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYER 2
 #define SPRITE_SIZE 128
 #define MAX_TARGETS 3
+#define MAX_LEVELS 1
 
 struct S_Coord{
 	int x;
@@ -81,6 +82,9 @@ public:
   //images
   std::string getImgFolder(){return m_imgFolder;};
   std::string getThemePath(){return m_imgFolder + m_theme;};
+  //level
+  int setCurrentLevelNbr(int nbr);
+  int getCurrentLevelNbr(){return m_currentLevel;};
 
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
@@ -105,6 +109,8 @@ private:
   //images
   std::string m_imgFolder;
   std::string m_theme;
+  //levels
+  int m_currentLevel;
 };
 
 #endif
