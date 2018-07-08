@@ -23,7 +23,7 @@
  <tile id="17" type="Grass17"/>
  <tile id="18" type="Grass18"/>
  <tile id="19" type="Grass19"/>
- <tile id="20" type="Grass20"/>
+ <tile id="20" type="Water20"/>
  <tile id="21" type="Water21"/>
  <tile id="22" type="Water22"/>
  <tile id="23" type="Water23"/>
