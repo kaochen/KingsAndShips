@@ -53,41 +53,39 @@ void C_Landscape::renderWater(int direction){
         //cout << "direction: " << direction << endl;
 		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 		SDL_RenderClear(renderer);
-		for(int j = -1; j < 20; j++){
+		for(int j = -3; j < 21; j++){
 		    int h = 2*TILE_HALF_WIDTH;
 		    if (j%2 ==0)
 		        h = 0;
 
 		    int y = j*TILE_HALF_WIDTH;
-		    for(int i = -1; i < 10; i++){
+		    for(int i = -3; i < 11; i++){
 		        int x = i*4*TILE_HALF_WIDTH + h;
         	    t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x ,y + m_waterDrift.y);
-        	    //t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x -10 ,y + m_waterDrift.y -10);
+        	    t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1) ,y + m_waterDrift.y*(-1));
         	}
         }
 		    int pause = m_animWater->getAnimNbr(1,4,FRAMERATE);
-            int halfPixel = 1;
-            int limit = TILE_HALF_WIDTH -1;
-	        if(pause == 4){
-    			   	 halfPixel =0;
-    			   	 }
+
+            int limit = 4*TILE_HALF_WIDTH - 1;
+
 		    if(pause%2 == 0){
 		        switch (direction) {
 		            case WEST:
 		                 m_waterDrift.x += 1;
-                          m_waterDrift.y += halfPixel;
+                          m_waterDrift.y += 1;
 		            break;
 		            case EAST:
 		                 m_waterDrift.x -= 1;
-                         m_waterDrift.y -= halfPixel;
+                         m_waterDrift.y -= 1;
 		            break;
 		            case NORTH:
 		                 m_waterDrift.x -= 1;
-                          m_waterDrift.y += halfPixel;
+                          m_waterDrift.y += 1;
 		            break;
 		            case SOUTH:
 		                 m_waterDrift.x += 1;
-                         m_waterDrift.y -= halfPixel;
+                         m_waterDrift.y -= 1;
 		            break;
 		            case SOUTH_WEST:
 		                 m_waterDrift.x += 1;
