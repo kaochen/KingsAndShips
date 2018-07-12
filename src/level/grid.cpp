@@ -469,5 +469,8 @@ int C_Grid::getAllTownsLifeLevel(){
 				    }
 			}
 		}
-		return life/c;
+		if (life !=0)
+		    return life/c;
+		else
+		    return 0;
 }
