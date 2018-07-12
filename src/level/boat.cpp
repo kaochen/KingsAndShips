@@ -156,7 +156,7 @@ void C_Boat::render(S_Coord screen){
 	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
 	if (m_moving)
-		imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(1,2,300);
+		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
 	string direction = "_EE_";
 		switch(m_direction){
 			case SOUTH:
