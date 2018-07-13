@@ -85,11 +85,6 @@ void C_Grid::reset()
 	}
 }
 
-C_Grid& C_Grid::Instances()
-{
-	return m_instance;
-}
-
 
 void C_Grid::renderLayer(int layer){
 	C_Settings& settings=C_Settings::Instances();
@@ -178,9 +173,6 @@ else{
     }
 }
 
-C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid){
-	return m_grid[x_grid][y_grid].main;
-}
 
 void C_Grid::setGround(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
@@ -215,14 +207,7 @@ void C_Grid::setDecors(int x, int y, int id){
 	}
 }
 
-bool C_Grid::waterway(int x_grid, int y_grid){
-	return m_grid[x_grid][y_grid].water;
-}
 
-
-string C_Grid::getStrGround(int x, int y){
-	return m_grid[x][y].str_ground;
-}
 bool C_Grid::isThisConstructible(S_Coord grid){
 	if ( m_grid[grid.x][grid.y].water == true){
 		return false;

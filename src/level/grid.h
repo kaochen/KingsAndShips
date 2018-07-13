@@ -37,7 +37,7 @@ enum layers{GROUND,DEAD,UNITS};
 class C_Grid
 {
 public:
-	static	C_Grid& Instances();
+	static	C_Grid& Instances() {return m_instance;};
   void reset();
 
 	void renderLayer(int layer);
@@ -47,12 +47,11 @@ public:
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 
-	C_GameUnits* getUnits(int x_grid,
-	                     int y_grid);
+	C_GameUnits* getUnits(int x_grid, int y_grid) {	return m_grid[x_grid][y_grid].main;};
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
-	bool waterway(int x_grid, int y_grid);
-	std::string getStrGround(int x, int y);
+	bool waterway(int x_grid, int y_grid){return m_grid[x_grid][y_grid].water;};
+	std::string getStrGround(int x, int y){return m_grid[x][y].str_ground;};
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
 
