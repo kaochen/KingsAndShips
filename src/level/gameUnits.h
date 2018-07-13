@@ -61,6 +61,7 @@ class C_GameUnits
 	virtual int getYGrid() const;
 	virtual int getXScreen() const;
 	virtual int getYScreen() const;
+	virtual S_Coord getScreen() const {return m_coord->getScreen ();};
 
 	virtual int getLife() const {return m_life;}
 

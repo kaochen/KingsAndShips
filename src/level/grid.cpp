@@ -124,11 +124,7 @@ void C_Grid::renderLayer(int layer){
 						}
 				if (layer == UNITS){
 						if (m_grid[x][y].main != nullptr){
-								S_Coord screen;
-								//cout << "render units " << endl;
-								screen.x = m_grid[x][y].main->getXScreen();
-								screen.y = m_grid[x][y].main->getYScreen();
-								m_grid[x][y].main->render(screen);
+								m_grid[x][y].main->render(m_grid[x][y].main->getScreen());
 							}
 						}
 				x++;
