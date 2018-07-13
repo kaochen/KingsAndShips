@@ -51,48 +51,57 @@ class C_GameUnits
 	virtual void play() = 0;
 	virtual void move() = 0;
 
-	virtual std::string getName() const;
+	virtual C_GameUnits * getUnit() {return this;};
+	virtual std::string getName() const {return m_name;};
+
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
+
+  //shoot
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets) =0;
 	virtual void receiveDamage(S_Weapon weapon);
 
-	virtual int getXGrid() const;
-	virtual int getYGrid() const;
-	virtual int getXScreen() const;
-	virtual int getYScreen() const;
+  //Coord
+	virtual int getXGrid() const {return m_coord->getXGrid ();};
+	virtual int getYGrid() const {return m_coord->getYGrid ();};
+	virtual int getXScreen() const {return m_coord->getXScreen ();};
+	virtual int getYScreen() const {return m_coord->getYScreen ();};
 	virtual S_Coord getScreen() const {return m_coord->getScreen ();};
 
-	virtual int getLife() const {return m_life;}
-
-	virtual bool getSelectedStatus() const;
-	virtual void setSelectedStatus(bool status);
+  //selected or not
+	virtual bool getSelectedStatus() const {return m_selected;};
+	virtual void setSelectedStatus(bool status) {m_selected = status;};
 	virtual void reverseSelectedStatus();
 
-	virtual C_GameUnits * getUnit();
-  std::string getDeadImageName() const;
+  //alive or dead
+	virtual int getLife() const {return m_life;}
+  std::string getDeadImageName() const{return m_deadImageName;};
 
 	protected:
-	virtual bool alive() const;
+  //alive or dead
+	virtual bool alive() const {return m_life>0;};
 	virtual void kill();
+
 	virtual int getDistance(int x, int y) const;
 
 	//attibuts
 	std::string m_name;
-	int m_life;
 	int m_rank;
 
+	int m_life;
+  std::string m_deadImageName;
+
+  //Coord
 	C_Coord* m_coord;
 	C_Coord* m_old_coord;
 	int m_y_center_offset;
 	std::string m_strDirection;
+	int m_direction;
+
 	//Store time for animation
 	C_AnimTime* m_animation[MAX_ANIM];
 
-	int m_direction;
-	int m_lastDirection;
 	bool m_selected;
-  std::string m_deadImageName;
 };
 
 #endif

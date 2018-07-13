@@ -30,13 +30,13 @@ using namespace std;
 
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
-	m_life(MAX_LIFE),
 	m_rank(rank),
+	m_life(MAX_LIFE),
+	m_deadImageName("boat_01_Dead.png"),
 	m_y_center_offset(0),
 	m_strDirection("EE"),
 	m_direction(UNKNOWN),
-	m_selected(false),
-	m_deadImageName("boat_01_Dead.png")
+	m_selected(false)
 {
 
 	for (int i = 0; i < MAX_ANIM; i++){
@@ -64,14 +64,6 @@ C_GameUnits::~C_GameUnits()
 }
 
 
-
-//get attibuts
-string C_GameUnits::getName() const
-{
-	return m_name;
-}
-
-
 void C_GameUnits::displayStatus() const
 {
     C_Message m;
@@ -96,36 +88,6 @@ void C_GameUnits::receiveDamage(S_Weapon weapon)
 	}
 }
 
-bool C_GameUnits::alive() const
-{
-	return m_life>0;
-}
-
-
-
-int C_GameUnits::getXGrid() const
-{
-	return m_coord->getXGrid ();
-}
-
-int C_GameUnits::getYGrid() const
-{
-	return m_coord->getYGrid ();
-}
-
-
-int C_GameUnits::getXScreen() const
-{
-	return m_coord->getXScreen ();
-}
-
-int C_GameUnits::getYScreen() const
-{
-	return m_coord->getYScreen ();
-}
-
-
-
 
 int C_GameUnits::getDistance(int x, int y) const
 {
@@ -145,16 +107,6 @@ void C_GameUnits::kill()
 }
 
 
-bool C_GameUnits::getSelectedStatus() const
-{
-	return m_selected;
-}
-
-
-void C_GameUnits::setSelectedStatus(bool status)
-{
-	m_selected = status;
-}
 
 void C_GameUnits::reverseSelectedStatus()
 {
@@ -166,11 +118,3 @@ void C_GameUnits::reverseSelectedStatus()
 }
 
 
-
-C_GameUnits * C_GameUnits::getUnit(){
-	return this;
-}
-
-string C_GameUnits::getDeadImageName() const{
-	return m_deadImageName;
-}
