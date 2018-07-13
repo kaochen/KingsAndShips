@@ -66,7 +66,7 @@ Search where improving the code is more usefull
 #### linux-perf
 ```
 apt install linux-perf
-sudo perf record -g ./build/demo -sleep 10
+sudo perf record -g ./build/kingsandships -sleep 10
 perf report --sort comm,dso
 ```
 
