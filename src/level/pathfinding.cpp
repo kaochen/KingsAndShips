@@ -276,13 +276,17 @@ bool C_Path::closeToDestination(int x_grid, int y_grid, int steps){
 }
 
 void C_Path::displayPath(){
-	stack<C_Node*> tmp = m_path;
-	while(tmp.empty() == false){
-		tmp.top()->highlight();
-		tmp.pop();
-	}
 	C_Settings& settings=C_Settings::Instances();
+	if(settings.getDebugMode()){
+	    //highlight the path in front of the boats
+	    stack<C_Node*> tmp = m_path;
+	    while(tmp.empty() == false){
+		    tmp.top()->highlight();
+		    tmp.pop();
+	    }
+	}
 	if(settings.getDebugPathMode()){
+	    //display H G and F numbers for debugging Pathfinding A*
 		for (size_t y = 0; y < GRID_SIZE; y++){
 			for (size_t x = 0; x < GRID_SIZE; x++){
 			m_gridNode[x][y]->render();
