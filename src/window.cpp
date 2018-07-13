@@ -69,7 +69,7 @@ void C_Window::createWindow(){
  	initSDL();
     C_Message m;
 	C_Settings& settings=C_Settings::Instances();
- 	m_window = SDL_CreateWindow("TOWER",
+ 	m_window = SDL_CreateWindow("KingsAndShips",
 			      SDL_WINDOWPOS_UNDEFINED,
 			      SDL_WINDOWPOS_UNDEFINED,
 			      settings.getWindowWidth(),
