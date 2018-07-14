@@ -284,8 +284,8 @@ map<string, C_Texture*>  C_TextureList::getTextMap(){
 
 
 void C_TextureList::loadTexturesIntoMap(){
-	int size = 2;
-	string file[size] = {"boat_01_Dead.png","Arrow01.png"};
+	int size = 1;
+	string file[size] = {"Arrow01.png"};
 
 	for (int i = 0; i < size; i++){
 		string filePath = "data/img/original/" + file[i];
