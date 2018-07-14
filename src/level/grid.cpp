@@ -111,10 +111,7 @@ void C_Grid::renderLayer(int layer){
 						//draw the deads
 				if (layer == DEAD){
 						if (m_grid[x][y].dead != nullptr){
-							int x_s = m_grid[x][y].dead->getXScreen();
-							int y_s = m_grid[x][y].dead->getYScreen();
-
-							t.renderTexture(m_grid[x][y].dead->getDeadImageName(), x_s,y_s  + 18);
+							m_grid[x][y].dead->render(m_grid[x][y].dead->getScreen());
 							}
 						}
 				if (layer == UNITS){

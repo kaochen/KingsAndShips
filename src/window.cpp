@@ -110,11 +110,11 @@ void C_Window::loadGame(){
 	C_TextureList& t=C_TextureList::Instances();
 	t.loadTexturesIntoMap(); //load images without tsx files
 
-	int size = 12;
+	int size = 13;
 	string tsxList[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
 	                    "Rocks_00.tsx","Trees_00.tsx","turbine_00.tsx",
 	                    "archerTower_00.tsx","archerTower_01.tsx","buttons.tsx",
-	                    "Water_00.tsx","smoke_01.tsx","charaters.tsx"};
+	                    "Water_00.tsx","smoke_01.tsx","charaters.tsx","boat_dead_01.tsx"};
 	//create texture from the path
 	SDL_Color color = {0,0,0,255};
 
