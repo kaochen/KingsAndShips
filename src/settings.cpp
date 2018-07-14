@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "time.h"
 
+#include <fstream>
+
 using namespace std;
 
 C_Settings C_Settings::m_instance=C_Settings();
@@ -46,20 +48,20 @@ C_Settings::~C_Settings()
 }
 
 void C_Settings::initTSXfileList(){
-    m_tsxFileList.push("Ground_01.tsx");
-    m_tsxFileList.push("boat_01.tsx");
-    m_tsxFileList.push("town_01.tsx");
-	m_tsxFileList.push("Rocks_00.tsx");
-	m_tsxFileList.push("Trees_00.tsx");
-	m_tsxFileList.push("turbine_00.tsx");
-	m_tsxFileList.push("archerTower_00.tsx");
-	m_tsxFileList.push("archerTower_01.tsx");
-	m_tsxFileList.push("buttons.tsx");
-	m_tsxFileList.push("Water_00.tsx");
-	m_tsxFileList.push("smoke_01.tsx");
-	m_tsxFileList.push("charaters.tsx");
-	m_tsxFileList.push("boat_dead_01.tsx");
-	m_tsxFileList.push("Weapons.tsx");
+    C_Message m;
+    int size = 14;
+    string list[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
+    "Rocks_00.tsx","Trees_00.tsx","turbine_00.tsx","archerTower_00.tsx",
+	"archerTower_01.tsx","buttons.tsx","Water_00.tsx","smoke_01.tsx",
+	"charaters.tsx","boat_dead_01.tsx","Weapons.tsx"};
+
+	for(int i = 0; i < size; i++){
+    	string filePath = m_imgFolder + list[i];
+	    if(fileExit(filePath))
+	        m_tsxFileList.push(filePath);
+	    else
+	        m.printError(filePath + " is missing\n");
+	}
 }
 
 void C_Settings::setDebugMode(){
@@ -114,4 +116,7 @@ int C_Settings::setCurrentLevelNbr(int nbr){
 
 
 
-
+bool C_Settings::fileExit(const string &file){
+    ifstream tmp(file.c_str());
+    return !tmp.fail();
+}

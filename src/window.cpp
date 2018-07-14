@@ -107,16 +107,15 @@ SDL_Renderer* C_Window::getRenderer(){
 };
 
 void C_Window::loadGame(){
-	C_Settings& settings=C_Settings::Instances();
 	C_TextureList& t=C_TextureList::Instances();
+	C_Settings& settings=C_Settings::Instances();
     queue<string> *list = settings.getTSXfileList();
 
 	//create texture from the path
 	SDL_Color color = {0,0,0,255};
     int all = list->size();
     while(list->size()>0){
-        cout << all << ":" << list->size();
-        string imgPath = settings.getImgFolder() + list->front();
+        string imgPath = list->front();
         t.loadTextAsTexturesIntoMap(imgPath, imgPath, 20, color);
         loadingPage(all-list->size(), imgPath,all+1);
         list->pop();
