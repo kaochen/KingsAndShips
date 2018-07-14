@@ -94,6 +94,7 @@ class C_Message{
     C_Message();
     ~C_Message();
     void printM(std::string message);
+    void printError(std::string message);
     void printDebug(std::string message);
     void printDebugPath(std::string message);
     void printSDLerror(std::string message);

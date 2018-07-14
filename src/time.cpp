@@ -250,6 +250,12 @@ bool C_AnimTime::frameDelay(int delay){
         cout << "[LOG] " << message;
     }
 
+    void C_Message::printError(string message)
+    {
+        timestamp();
+        cout << "\033[1;31m[ERR] \033[0m" << message;
+    }
+
     void C_Message::printDebug(string message)
 
     {
