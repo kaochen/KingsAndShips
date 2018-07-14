@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <queue>
 
 using namespace std;
 C_Window C_Window::m_instance=C_Window();
@@ -108,19 +109,17 @@ SDL_Renderer* C_Window::getRenderer(){
 void C_Window::loadGame(){
 	C_Settings& settings=C_Settings::Instances();
 	C_TextureList& t=C_TextureList::Instances();
+    queue<string> *list = settings.getTSXfileList();
 
-	int size = 14;
-	string tsxList[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
-	                    "Rocks_00.tsx","Trees_00.tsx","turbine_00.tsx",
-	                    "archerTower_00.tsx","archerTower_01.tsx","buttons.tsx",
-	                    "Water_00.tsx","smoke_01.tsx","charaters.tsx","boat_dead_01.tsx","Weapons.tsx"};
 	//create texture from the path
 	SDL_Color color = {0,0,0,255};
-
-    for(int i = 0; i < size; i++){
-        string imgPath = settings.getImgFolder() + tsxList[i];
+    int all = list->size();
+    while(list->size()>0){
+        cout << all << ":" << list->size();
+        string imgPath = settings.getImgFolder() + list->front();
         t.loadTextAsTexturesIntoMap(imgPath, imgPath, 20, color);
-        loadingPage(i+1, imgPath,size+1);
+        loadingPage(all-list->size(), imgPath,all+1);
+        list->pop();
 	    t.extractTSXfile(imgPath);
     }
 	t.displayTexturesList();

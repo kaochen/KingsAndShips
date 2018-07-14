@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
+#include <queue>
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -80,6 +81,8 @@ public:
   bool getDebugPathMode() {return m_debugPath;};
 	void displayDebugMode();
   //images
+  void initTSXfileList();
+  std::queue<std::string>* getTSXfileList(){return &m_tsxFileList;};
   std::string getImgFolder(){return m_imgFolder;};
   std::string getThemePath(){return m_imgFolder + m_theme;};
   //level
@@ -109,6 +112,7 @@ private:
   //images
   std::string m_imgFolder;
   std::string m_theme;
+  std::queue<std::string> m_tsxFileList;
   //levels
   int m_currentLevel;
 };

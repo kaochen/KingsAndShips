@@ -37,6 +37,7 @@ C_Settings::C_Settings()
 	m_debugPath = false;
 	m_imgFolder = "data/img/";
 	m_theme ="original";
+	initTSXfileList();
 	m_currentLevel = 0;
 }
 
@@ -44,7 +45,22 @@ C_Settings::~C_Settings()
 {
 }
 
-
+void C_Settings::initTSXfileList(){
+    m_tsxFileList.push("Ground_01.tsx");
+    m_tsxFileList.push("boat_01.tsx");
+    m_tsxFileList.push("town_01.tsx");
+	m_tsxFileList.push("Rocks_00.tsx");
+	m_tsxFileList.push("Trees_00.tsx");
+	m_tsxFileList.push("turbine_00.tsx");
+	m_tsxFileList.push("archerTower_00.tsx");
+	m_tsxFileList.push("archerTower_01.tsx");
+	m_tsxFileList.push("buttons.tsx");
+	m_tsxFileList.push("Water_00.tsx");
+	m_tsxFileList.push("smoke_01.tsx");
+	m_tsxFileList.push("charaters.tsx");
+	m_tsxFileList.push("boat_dead_01.tsx");
+	m_tsxFileList.push("Weapons.tsx");
+}
 
 void C_Settings::setDebugMode(){
 	if(m_debugMode){
