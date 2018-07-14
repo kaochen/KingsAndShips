@@ -1,7 +1,8 @@
 project('KingsAndShips','cpp',
 	default_options: [
         'c_std=gnu11',
-	'cpp_std=c++11',]
+	'cpp_std=c++11',],
+	 meson_version: '>=0.37'
 	)
 ##gcc options:
 add_global_arguments('-Wall', '-Wextra','-Wno-deprecated-declarations','-g',language:'cpp')
