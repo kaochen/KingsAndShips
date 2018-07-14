@@ -283,16 +283,6 @@ map<string, C_Texture*>  C_TextureList::getTextMap(){
 
 
 
-void C_TextureList::loadTexturesIntoMap(){
-	int size = 1;
-	string file[size] = {"Arrow01.png"};
-
-	for (int i = 0; i < size; i++){
-		string filePath = "data/img/original/" + file[i];
-		m_map_textures[file[i]] = new C_Image((i+1000),0, file[i], filePath, 128, 128, 128, 128);
-	}
-}
-
 void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int fontSize, SDL_Color color){
 		m_map_textures[name] = new C_Text(name,message);
 		m_map_textures[name]->loadTextAsTextures(message, color, fontSize);

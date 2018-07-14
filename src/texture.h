@@ -99,7 +99,6 @@ public:
 	void renderTextureEx(std::string name, int x, int y, double angle);
 	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
-	void loadTexturesIntoMap();
 	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();

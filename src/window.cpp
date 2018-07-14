@@ -108,7 +108,6 @@ SDL_Renderer* C_Window::getRenderer(){
 void C_Window::loadGame(){
 	C_Settings& settings=C_Settings::Instances();
 	C_TextureList& t=C_TextureList::Instances();
-	t.loadTexturesIntoMap(); //load images without tsx files
 
 	int size = 14;
 	string tsxList[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
