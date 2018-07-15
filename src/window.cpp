@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "texture.h"
 #include "menu.h"
+#include "message.h"
 #include "level/grid.h"
 #include "level/gameUnits.h"
 #include "level/level.h"

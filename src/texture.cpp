@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <libxml++/parsers/textreader.h>
 #include <sys/stat.h>
 
+#include "message.h"
 using namespace std;
 
 C_TextureList C_TextureList::m_instance=C_TextureList();

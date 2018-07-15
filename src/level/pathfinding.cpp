@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 
 #include "../settings.h"
+#include "../message.h"
 
 using namespace std;
 

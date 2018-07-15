@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "level.h"
 #include "grid.h"
 
+#include "../message.h"
 #include "../menu.h"
 
 using namespace std;

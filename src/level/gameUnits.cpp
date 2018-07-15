@@ -22,7 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "gameUnits.h"
 #include "grid.h"
+
 #include "../texture.h"
+#include "../message.h"
 
 using namespace std;
 

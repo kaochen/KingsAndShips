@@ -87,22 +87,4 @@ class C_AnimTime
   bool m_rewind;
 };
 
-
-
-class C_Message{
-  public:
-    C_Message();
-    ~C_Message();
-    void printM(std::string message);
-    void printError(std::string message);
-    void printDebug(std::string message);
-    void printDebugPath(std::string message);
-    void printSDLerror(std::string message);
-    void printTTFerror(std::string message);
-
-  private:
-    void timestamp();
-};
-
-
 #endif
