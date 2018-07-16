@@ -44,10 +44,6 @@ C_Time::C_Time():
 C_Time::~C_Time(){
 }
 
-C_Time& C_Time::Instances()
-{
-	return m_instance;
-}
 
 void C_Time::displayTime() const
 {
@@ -117,41 +113,6 @@ void C_Time::delayGameLoop()
 			}
 	SDL_Delay(delay);
 	updateFrameNbr();
-}
-
-void C_Time::updateFrameTime()
-{
-	m_start_frame = SDL_GetTicks();
-}
-
-long C_Time::getSec()
-{
-	return m_sec;
-}
-
-long C_Time::getFrameNbr()
-{
-	return m_frameNbr;
-}
-
-long C_Time::getFrameNbrFromStart()
-{
-	return m_frameNbrFromStart;
-}
-
-long C_Time::getFrameDuration()
-{
-	return m_frame_duration;
-}
-
-long C_Time::getFramerate()
-{
-	return m_framerate;
-}
-
-long C_Time::getDelay()
-{
-	return m_delay;
 }
 
 

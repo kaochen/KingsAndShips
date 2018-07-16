@@ -28,18 +28,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Time
 {
 	public:
-	static	C_Time& Instances();
+	static	C_Time& Instances() {return m_instance;};
 	void displayTime() const;
 	void showFPS() const;
 
-	void updateFrameTime();
+	void updateFrameTime(){m_start_frame = SDL_GetTicks();};
 	void delayGameLoop();
-	long getSec();
-	long getFrameNbr();
-  long getFrameNbrFromStart();
-	long getFramerate();
-	long getFrameDuration();
-	long getDelay();
+	long getSec(){return m_sec;};
+	long getFrameNbr(){return m_frameNbr;};
+  long getFrameNbrFromStart(){return m_frameNbrFromStart;};
+	long getFramerate(){return m_framerate;};
+	long getFrameDuration(){return m_frame_duration;};
+	long getDelay(){return m_delay;};
 	bool testNewFrame();
 
 	protected:
