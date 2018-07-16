@@ -94,7 +94,7 @@ public:
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
 	C_Settings (const C_Settings&){}
-  bool fileExit(const std::string &file);
+  bool fileExist(const std::string &file);
 
 	static C_Settings m_instance;
 	C_Settings();

@@ -59,7 +59,7 @@ void C_Settings::initTSXfileList(){
 
 	for(int i = 0; i < size; i++){
     	string filePath = m_imgFolder + list[i];
-	    if(fileExit(filePath))
+	    if(fileExist(filePath))
 	        m_tsxFileList.push(filePath);
 	    else
 	        m.printError(filePath + " is missing\n");
@@ -123,7 +123,7 @@ int C_Settings::getNbrOfLevels(){
     C_Message m;
     string fileName = m_levelFolder + "Level_" + to_string(i) + ".tmx";
     cout << fileName << endl;
-    while(fileExit(fileName)){
+    while(fileExist(fileName)){
         i++;
         m.printM("Found level file: " + fileName + "\n");
         fileName = m_levelFolder + "Level_" + to_string(i) + ".tmx";
@@ -132,7 +132,7 @@ int C_Settings::getNbrOfLevels(){
 }
 
 
-bool C_Settings::fileExit(const string &file){
+bool C_Settings::fileExist(const string &file){
     ifstream tmp(file.c_str());
     return !tmp.fail();
 }
