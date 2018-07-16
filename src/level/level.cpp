@@ -60,11 +60,11 @@ void C_Level::status(){
 void C_Level::load(int levelNbr){
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
+	C_Settings& settings=C_Settings::Instances();
 	grid.reset();
 	C_Message m;
-    string levelPath ="data/levels/Level_0";
     string extension =".tmx";
-    string filename = levelPath + to_string(levelNbr) + extension;
+    string filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + extension;
 
     struct stat buffer;
     if (stat (filename.c_str(),  &buffer) == 0){

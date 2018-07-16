@@ -88,6 +88,8 @@ public:
   //level
   int setCurrentLevelNbr(int nbr);
   int getCurrentLevelNbr(){return m_currentLevel;};
+  int getNbrOfLevels();
+  std::string getLevelFolder(){return m_levelFolder;};
 
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
@@ -117,6 +119,7 @@ private:
   //levels
   int m_currentLevel;
   int m_nbrOfLevels;
+  std::string m_levelFolder;
 };
 
 #endif

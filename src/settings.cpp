@@ -40,8 +40,9 @@ C_Settings::C_Settings()
 	m_imgFolder = "data/img/";
 	m_theme ="original";
 	initTSXfileList();
-	m_currentLevel = 0;
-	m_nbrOfLevels = MAX_LEVELS;
+	m_currentLevel = 1;
+	m_levelFolder = "data/levels/";
+	m_nbrOfLevels = getNbrOfLevels();
 }
 
 C_Settings::~C_Settings()
@@ -105,16 +106,30 @@ void C_Settings::displayDebugMode(){
 int C_Settings::setCurrentLevelNbr(int nbr){
     cout << nbr << "->" << m_currentLevel << endl;
     m_currentLevel = nbr;
+
     if (m_currentLevel > m_nbrOfLevels){
-        m_currentLevel = 0;
+        m_currentLevel = 1;
         }
-    if (m_currentLevel < 0){
+    if (m_currentLevel < 1){
         m_currentLevel = m_nbrOfLevels;
         }
 
     return m_currentLevel;
 }
 
+
+int C_Settings::getNbrOfLevels(){
+    int i = 1;
+    C_Message m;
+    string fileName = m_levelFolder + "Level_" + to_string(i) + ".tmx";
+    cout << fileName << endl;
+    while(fileExit(fileName)){
+        i++;
+        m.printM("Found level file: " + fileName + "\n");
+        fileName = m_levelFolder + "Level_" + to_string(i) + ".tmx";
+    }
+    return i - 1;
+}
 
 
 bool C_Settings::fileExit(const string &file){
