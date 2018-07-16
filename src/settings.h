@@ -116,6 +116,7 @@ private:
   std::queue<std::string> m_tsxFileList;
   //levels
   int m_currentLevel;
+  int m_nbrOfLevels;
 };
 
 #endif

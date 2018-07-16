@@ -41,6 +41,7 @@ C_Settings::C_Settings()
 	m_theme ="original";
 	initTSXfileList();
 	m_currentLevel = 0;
+	m_nbrOfLevels = MAX_LEVELS;
 }
 
 C_Settings::~C_Settings()
@@ -104,11 +105,11 @@ void C_Settings::displayDebugMode(){
 int C_Settings::setCurrentLevelNbr(int nbr){
     cout << nbr << "->" << m_currentLevel << endl;
     m_currentLevel = nbr;
-    if (m_currentLevel > MAX_LEVELS){
+    if (m_currentLevel > m_nbrOfLevels){
         m_currentLevel = 0;
         }
     if (m_currentLevel < 0){
-        m_currentLevel = MAX_LEVELS;
+        m_currentLevel = m_nbrOfLevels;
         }
 
     return m_currentLevel;
