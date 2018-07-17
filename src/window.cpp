@@ -223,19 +223,15 @@ void C_Window::gameLoop(){
 
         listenSDL_Events();
 
-        // refresh status
 		if (time.testNewFrame()){
-				//cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
+
 				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
 				grid.playAllUnits();
 
-        //render image
-	        //cout << "render image" << endl;
+            //render image
 	        if (m_forceRefresh){
-		        //cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
-		        //cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
 
 		        //display game content from bottom to top
                 m_landscape->display();
@@ -249,11 +245,11 @@ void C_Window::gameLoop(){
 		        //print the final render
          		SDL_RenderPresent(m_renderer);
  		        }
- 		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
+
 	    }
         // pause the game loop in order to respect FPS settings
 	    time.delayGameLoop();
-    }//end of while(!quit)
+    }
 
 }
 
