@@ -237,17 +237,16 @@ void C_Window::gameLoop(){
 		        //cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
 		        //cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
 
-		        //display game content
+		        //display game content from bottom to top
                 m_landscape->display();
 		        grid.renderLayer (DEAD);
 		        grid.renderLayer (UNITS);
 
-                listenButtons(m_clic, m_cursor, m_buttonType, m_addingAnewTower, m_archerTower, m_turbineTower);
-
+                listenButtons();
         		menu.render();
         		time.showFPS ();
 
-		        //print the renderer
+		        //print the final render
          		SDL_RenderPresent(m_renderer);
  		        }
  		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
@@ -380,8 +379,7 @@ void C_Window::listenSDL_Events(){
     }
 }
 
-void C_Window::listenButtons(S_Coord clic, S_Coord cursor, int &buttonType, bool &addingAnewTower,
-        C_Towers* archerTower, C_Towers* turbineTower){
+void C_Window::listenButtons(){
     	C_Menu& menu=C_Menu::Instances();
 
 		C_MenuItem* menuButton;
@@ -395,20 +393,20 @@ void C_Window::listenButtons(S_Coord clic, S_Coord cursor, int &buttonType, bool
             //reset state
 	 		menuButton->setState(ACTIVE);
 
-			if (clic.x > xl && clic.x < xr && clic.y > yt && clic.y < yb){
+			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
 					if(menuButton->getName() == "AddTower"){
-						archerTower->drag(cursor);
-						addingAnewTower = true;
-						buttonType = ADDNEWTOWER;
+						m_archerTower->drag(m_cursor);
+						m_addingAnewTower = true;
+						m_buttonType = ADDNEWTOWER;
 						}
 					if(menuButton->getName() == "AddTurbine"){
-						turbineTower->drag(cursor);
-						addingAnewTower = true;
-						buttonType = ADDNEWTURBINE;
+						m_turbineTower->drag(m_cursor);
+						m_addingAnewTower = true;
+						m_buttonType = ADDNEWTURBINE;
 						}
 	 		}
 	 		//mouse Over
-	 		if (cursor.x > xl && cursor.x < xr && cursor.y > yt && cursor.y < yb){
+	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
                     if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine"){
                         menuButton->setState(HOVER);
 						}

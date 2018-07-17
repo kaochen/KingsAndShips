@@ -41,9 +41,7 @@ class C_Window
   void loadGame();
   void gameLoop();
   void quitProgram();
-  void listenButtons(S_Coord clic, S_Coord cursor,
-                      int &buttonType, bool &addingAnewTower,
-                     C_Towers* archerTower, C_Towers* turbineTower);
+  void listenButtons();
 
 	protected:
 	void initSDL();
