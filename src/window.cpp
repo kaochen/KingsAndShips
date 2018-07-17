@@ -241,7 +241,6 @@ void C_Window::gameLoop(){
 
 void C_Window::listenSDL_Events(){
     C_Settings& settings=C_Settings::Instances();
-	C_Menu& menu=C_Menu::Instances();
     C_Grid& grid=C_Grid::Instances();
 
     SDL_Event event;
@@ -324,39 +323,7 @@ void C_Window::listenSDL_Events(){
 				    }
 			    break;
 		    case SDL_KEYDOWN:
-
-			    //listen keyboard
-			    switch(event.key.keysym.sym)
-			    {
-			    case SDLK_d:
-				    settings.setDebugMode();
-				    settings.displayDebugMode();
-				    break;
-			    case SDLK_l:
-			        m_levelNbr = settings.setCurrentLevelNbr(m_levelNbr +1);
-                    delete m_level;
-                    m_level = new C_Level;
-                	m_level->load(m_levelNbr);
-                	menu.resetValues();
-				    break;
-			    case SDLK_n:
-				    m_level->sendNextWave();
-				    break;
-			    case SDLK_p:
-			        if(settings.getDebugMode() == true){
-				        settings.setDebugPathMode();
-				        settings.displayDebugMode();
-				    }
-				    break;
-			    case SDLK_q:
-				    m_quit = true;
-				    break;
-			    case SDLK_r:
-                	m_level->load(m_levelNbr);
-                	menu.resetValues();
-				    break;
-			    }
-
+		        listenKeyboard(event);
 		    }
     }
 }
@@ -395,4 +362,39 @@ void C_Window::listenButtons(){
 	 		}
  		}
 
+}
+
+void C_Window::listenKeyboard(SDL_Event &event){
+    C_Settings& settings=C_Settings::Instances();
+    C_Menu& menu=C_Menu::Instances();
+    switch(event.key.keysym.sym)
+			    {
+			    case SDLK_d:
+				    settings.setDebugMode();
+				    settings.displayDebugMode();
+				    break;
+			    case SDLK_l:
+			        m_levelNbr = settings.setCurrentLevelNbr(m_levelNbr +1);
+                    delete m_level;
+                    m_level = new C_Level;
+                	m_level->load(m_levelNbr);
+                	menu.resetValues();
+				    break;
+			    case SDLK_n:
+				    m_level->sendNextWave();
+				    break;
+			    case SDLK_p:
+			        if(settings.getDebugMode() == true){
+				        settings.setDebugPathMode();
+				        settings.displayDebugMode();
+				    }
+				    break;
+			    case SDLK_q:
+				    m_quit = true;
+				    break;
+			    case SDLK_r:
+                	m_level->load(m_levelNbr);
+                	menu.resetValues();
+				    break;
+			    }
 }

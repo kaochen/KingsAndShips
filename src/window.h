@@ -49,6 +49,7 @@ class C_Window
   void loadingPage(int progress, std::string label, int stepsNbr);
   void renderProgressBar(int progress, std::string label, int stepsNbr);
   void listenSDL_Events();
+  void listenKeyboard(SDL_Event &event);
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
