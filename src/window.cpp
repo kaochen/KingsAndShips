@@ -61,10 +61,6 @@ C_Window::~C_Window(){
     delete m_turbineTower;
 }
 
-C_Window& C_Window::Instances()
-{
-	return m_instance;
-}
 
 void C_Window::initSDL()
 {
@@ -115,16 +111,6 @@ void C_Window::createWindow(){
 		}
         m.printM("The main window has been created successfully\n");
 }
-
-
-
-SDL_Window* C_Window::getWindow(){
-	return m_window;
-};
-
-SDL_Renderer* C_Window::getRenderer(){
-	return m_renderer;
-};
 
 void C_Window::loadGame(){
 	C_TextureList& t=C_TextureList::Instances();

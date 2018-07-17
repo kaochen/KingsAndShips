@@ -33,11 +33,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Window
 {
 	public:
-	static	C_Window& Instances();
+	static	C_Window& Instances(){return m_instance;};
 
 	void createWindow();
-	SDL_Window* getWindow();
-	SDL_Renderer* getRenderer();
+	SDL_Window* getWindow() {return m_window;};
+	SDL_Renderer* getRenderer() {return m_renderer;};
+
   void loadGame();
   void gameLoop();
   void quitProgram();
