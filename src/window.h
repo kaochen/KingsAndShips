@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "coord.h"
 #include "level/towers.h"
+#include "level/level.h"
+#include "level/landscape.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -47,6 +49,7 @@ class C_Window
 	void initSDL();
   void loadingPage(int progress, std::string label, int stepsNbr);
   void renderProgressBar(int progress, std::string label, int stepsNbr);
+  void listenSDL_Events();
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
@@ -58,5 +61,22 @@ class C_Window
 
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
+
+  bool m_forceRefresh;
+  C_Level* m_level;
+  int m_levelNbr;
+  C_Landscape* m_landscape;
+
+  int m_buttonType;
+  S_Coord m_cursor;
+  S_Coord m_clic;
+
+  //towers are needed when drag & drop from the buttons:
+  C_Towers* m_archerTower;
+  C_Towers* m_turbineTower;
+  bool m_addingAnewTower;
+
+
+  bool m_quit;
 };
 #endif

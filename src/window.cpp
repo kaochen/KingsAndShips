@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "message.h"
 #include "level/grid.h"
 #include "level/gameUnits.h"
-#include "level/level.h"
-#include "level/landscape.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -37,9 +35,30 @@ C_Window C_Window::m_instance=C_Window();
 
 C_Window::C_Window()
 {
+	C_Settings& settings=C_Settings::Instances();
+    m_forceRefresh = false;
+
+    m_level = new C_Level;
+    m_levelNbr = settings.getCurrentLevelNbr();
+
+    m_landscape = new C_Landscape();
+
+    m_buttonType = NONE;
+    m_cursor.x = m_cursor.y = 1;
+    m_clic.x = m_clic.y = 0;
+
+    m_archerTower = new C_ArcherTower(0,0,0);
+    m_turbineTower = new C_Turbine(0,0,0);
+    m_addingAnewTower = false;
+
+    m_quit = false;
 }
 
 C_Window::~C_Window(){
+    delete m_level;
+    delete m_landscape;
+    delete m_archerTower;
+    delete m_turbineTower;
 }
 
 C_Window& C_Window::Instances()
@@ -191,218 +210,175 @@ void C_Window::quitProgram()
 
 void C_Window::gameLoop(){
 
-    C_Settings& settings=C_Settings::Instances();
-	C_Message message;
 	C_Time& time=C_Time::Instances();
     C_Grid& grid=C_Grid::Instances();
-
-	//load first level
-	C_Level* level = new C_Level;
-	int levelNbr = settings.getCurrentLevelNbr();
-	level->load(levelNbr);
-
-	//displayStatus of the grid
-	grid.displayStatus();
-	C_Landscape* landscape = new C_Landscape();
-
-
 	C_Menu& menu=C_Menu::Instances();
+	grid.displayStatus();
 
-//-----------------------------------------------------------------------------
+    //load the first level
+    m_level->load(m_levelNbr);
 
+    while(!m_quit)
+    {
 
-bool quit = false, forceRefresh = false;
+        listenSDL_Events();
 
-//Setup mouse clic
-S_Coord cursor;
-cursor.x = cursor.y = 1;
-S_Coord clic;
-clic.x = clic.y = 0;
-
-bool addingAnewTower = false, aTowerIsSelected = false;
-bool mouseButtonDown = false;
-int buttonType = NONE;
-
-C_Towers* archerTower = new C_ArcherTower(0,0,0);
-C_Towers* turbineTower = new C_Turbine(0,0,0);
-
-
-SDL_Event event;
-unsigned int windowID = SDL_GetWindowID(m_window);
-//Start SDL2 loop
-message.printM("SDL main loop start \n");
-
-while(!quit)
-{
-
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type)
-		{
-		 case SDL_QUIT:
-			quit = true;
-			break;
-		 case SDL_WINDOWEVENT:
-		 	if (event.window.windowID == windowID && event.window.event == SDL_WINDOWEVENT_EXPOSED)
-		 		{ forceRefresh = true;
-		 		break;
-		 		}
-		 	break;
-		case SDL_MOUSEMOTION:
-		// get x cursor position
-			if(event.button.x < 0)
-				cursor.x = 0;
-			else if(event.button.x > settings.getWindowWidth())
-				cursor.x = settings.getWindowWidth();
-			else
-				cursor.x = event.button.x;
-
-		// get y cursor position
-			if(event.button.y < 0)
-				cursor.y = 0;
-			else if(event.button.y > settings.getWindowHeight())
-				cursor.y = settings.getWindowHeight();
-			else
-				cursor.y = event.button.y;
-
-			if (mouseButtonDown){
-					if(aTowerIsSelected){
-						grid.getSelectedUnit();
-					}
-			}
-
-
-			break;
-
-
-		case SDL_MOUSEBUTTONDOWN:
-			if (event.button.button ==  SDL_BUTTON_LEFT)
-				{
-				if (addingAnewTower || aTowerIsSelected){
-					mouseButtonDown = true;
-					}
-				}
-			break;
-		case SDL_MOUSEBUTTONUP:
-			if (event.button.button ==  SDL_BUTTON_LEFT)
-				{
-					clic.x = event.button.x;
-					clic.y = event.button.y;
-					C_CoordScreen clicleft(clic);
-
-
-					//Select a Tower
-					if(addingAnewTower == false) {
-						aTowerIsSelected = grid.selectATower(clicleft);
-					}
-
-					//Add a new Tower
-					if(addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
-						 {
-
-						grid.addANewTower(buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
-
-						aTowerIsSelected = grid.selectATower(clicleft);
-						addingAnewTower = false;
-						}
-					else{
-						addingAnewTower = false;
-					}
-
-				mouseButtonDown = false;
-				}
-			break;
-		case SDL_KEYDOWN:
-
-			//listen keyboard
-			switch(event.key.keysym.sym)
-			{
-			case SDLK_d:
-				settings.setDebugMode();
-				settings.displayDebugMode();
-				break;
-			case SDLK_l:
-			    levelNbr = settings.setCurrentLevelNbr(levelNbr +1);
-                delete level;
-                level = new C_Level;
-            	level->load(levelNbr);
-            	menu.resetValues();
-				break;
-			case SDLK_n:
-				level->sendNextWave();
-				break;
-			case SDLK_p:
-			    if(settings.getDebugMode() == true){
-				    settings.setDebugPathMode();
-				    settings.displayDebugMode();
-				}
-				break;
-			case SDLK_q:
-				quit = true;
-                message.printM("The quit command (q) has been pressed.\n");
-				break;
-			case SDLK_r:
-            	level->load(levelNbr);
-            	menu.resetValues();
-				break;
-			}
-
-		} // end of switch(event.type)
-
-	}//SDL_PollEvent(&event)
-
-	//update status
-
+        // refresh status
 		if (time.testNewFrame()){
 				//cout << "########## Start New Frame " << time.getFrameNbr() << " ##########"<< endl;
-				forceRefresh = true;
+				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
 				grid.playAllUnits();
 
+        //render image
+	        //cout << "render image" << endl;
+	        if (m_forceRefresh){
+		        //cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
+		        //cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
 
-//render image
+		        //display game content
+                m_landscape->display();
+		        grid.renderLayer (DEAD);
+		        grid.renderLayer (UNITS);
 
-	//cout << "render image" << endl;
-	if (forceRefresh){
-		//cout << "Event Cursor " << event.button.x <<" x:" << xCursor <<"/" << settings.getWindowWidth() << endl;
-		//cout << "Event Cursor " << event.button.y <<" y:" << yCursor <<"/" << settings.getWindowHeight() << endl;
+                listenButtons(m_clic, m_cursor, m_buttonType, m_addingAnewTower, m_archerTower, m_turbineTower);
 
+        		menu.render();
+        		time.showFPS ();
 
-		//display game content
-        landscape->display();
-		grid.renderLayer (DEAD);
-		grid.renderLayer (UNITS);
-
-		//Clic on the addNewTower Button:
-        listenButtons(clic, cursor, buttonType, addingAnewTower, archerTower, turbineTower);
-
-		//display menu
-		menu.render();
-		time.showFPS ();
-		//print the result
- 		SDL_RenderPresent(m_renderer);
- 		}
-
+		        //print the renderer
+         		SDL_RenderPresent(m_renderer);
+ 		        }
  		//cout << "########## End Frame "  " Duration: "  " ##########"<< endl;
-	}
+	    }
+        // pause the game loop in order to respect FPS settings
+	    time.delayGameLoop();
+    }//end of while(!quit)
 
-// pause the game loop according to the framerate setting
-
-//cout << "update time & delay" << endl;
-	time.delayGameLoop();
-}//end of while(!quit)
-
-//-----------------------------------------------------------------------------
-
-	//Cleanup before leaving
-    delete landscape;
-    delete archerTower;
-    delete turbineTower;
-    delete level;
-	// delete main unit table
 }
 
+void C_Window::listenSDL_Events(){
+    C_Settings& settings=C_Settings::Instances();
+	C_Menu& menu=C_Menu::Instances();
+    C_Grid& grid=C_Grid::Instances();
+
+    SDL_Event event;
+    unsigned int windowID = SDL_GetWindowID(m_window);
+
+    bool aTowerIsSelected = false;
+    bool mouseButtonDown = false;
+
+	    while (SDL_PollEvent(&event))
+	    {
+		    switch (event.type)
+		    {
+		     case SDL_QUIT:
+			    m_quit = true;
+			    break;
+		     case SDL_WINDOWEVENT:
+		     	if (event.window.windowID == windowID && event.window.event == SDL_WINDOWEVENT_EXPOSED)
+		     		{ m_forceRefresh = true;
+		     		break;
+		     		}
+		     	break;
+		    case SDL_MOUSEMOTION:
+		    // get x cursor position
+			    if(event.button.x < 0)
+				    m_cursor.x = 0;
+			    else if(event.button.x > settings.getWindowWidth())
+				    m_cursor.x = settings.getWindowWidth();
+			    else
+				    m_cursor.x = event.button.x;
+
+		    // get y cursor position
+			    if(event.button.y < 0)
+				    m_cursor.y = 0;
+			    else if(event.button.y > settings.getWindowHeight())
+				    m_cursor.y = settings.getWindowHeight();
+			    else
+				    m_cursor.y = event.button.y;
+
+			    if (mouseButtonDown){
+					    if(aTowerIsSelected){
+						    grid.getSelectedUnit();
+					    }
+			    }
+			    break;
+
+		    case SDL_MOUSEBUTTONDOWN:
+			    if (event.button.button ==  SDL_BUTTON_LEFT)
+				    {
+				    if (m_addingAnewTower || aTowerIsSelected){
+					    mouseButtonDown = true;
+					    }
+				    }
+			    break;
+		    case SDL_MOUSEBUTTONUP:
+			    if (event.button.button ==  SDL_BUTTON_LEFT)
+				    {
+					    m_clic.x = event.button.x;
+					    m_clic.y = event.button.y;
+					    C_CoordScreen clicleft(m_clic);
+
+					    //Select a Tower
+					    if(m_addingAnewTower == false) {
+						    aTowerIsSelected = grid.selectATower(clicleft);
+					    }
+
+					    //Add a new Tower
+					    if(m_addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
+						     {
+
+						    grid.addANewTower(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
+
+						    aTowerIsSelected = grid.selectATower(clicleft);
+						    m_addingAnewTower = false;
+						    }
+					    else{
+						    m_addingAnewTower = false;
+					    }
+
+				    mouseButtonDown = false;
+				    }
+			    break;
+		    case SDL_KEYDOWN:
+
+			    //listen keyboard
+			    switch(event.key.keysym.sym)
+			    {
+			    case SDLK_d:
+				    settings.setDebugMode();
+				    settings.displayDebugMode();
+				    break;
+			    case SDLK_l:
+			        m_levelNbr = settings.setCurrentLevelNbr(m_levelNbr +1);
+                    delete m_level;
+                    m_level = new C_Level;
+                	m_level->load(m_levelNbr);
+                	menu.resetValues();
+				    break;
+			    case SDLK_n:
+				    m_level->sendNextWave();
+				    break;
+			    case SDLK_p:
+			        if(settings.getDebugMode() == true){
+				        settings.setDebugPathMode();
+				        settings.displayDebugMode();
+				    }
+				    break;
+			    case SDLK_q:
+				    m_quit = true;
+				    break;
+			    case SDLK_r:
+                	m_level->load(m_levelNbr);
+                	menu.resetValues();
+				    break;
+			    }
+
+		    }
+    }
+}
 
 void C_Window::listenButtons(S_Coord clic, S_Coord cursor, int &buttonType, bool &addingAnewTower,
         C_Towers* archerTower, C_Towers* turbineTower){
