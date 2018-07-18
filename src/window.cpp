@@ -46,10 +46,12 @@ C_Window::C_Window()
     m_buttonType = NONE;
     m_cursor.x = m_cursor.y = 1;
     m_clic.x = m_clic.y = 0;
+    m_mouseButtonDown = false;
 
     m_archerTower = new C_ArcherTower(0,0,0);
     m_turbineTower = new C_Turbine(0,0,0);
     m_addingAnewTower = false;
+    m_aTowerIsSelected = false;
 
     m_quit = false;
 }
@@ -246,9 +248,6 @@ void C_Window::listenSDL_Events(){
     SDL_Event event;
     unsigned int windowID = SDL_GetWindowID(m_window);
 
-    bool aTowerIsSelected = false;
-    bool mouseButtonDown = false;
-
 	    while (SDL_PollEvent(&event))
 	    {
 		    switch (event.type)
@@ -279,8 +278,8 @@ void C_Window::listenSDL_Events(){
 			    else
 				    m_cursor.y = event.button.y;
 
-			    if (mouseButtonDown){
-					    if(aTowerIsSelected){
+			    if (m_mouseButtonDown){
+					    if(m_aTowerIsSelected){
 						    grid.getSelectedUnit();
 					    }
 			    }
@@ -289,39 +288,14 @@ void C_Window::listenSDL_Events(){
 		    case SDL_MOUSEBUTTONDOWN:
 			    if (event.button.button ==  SDL_BUTTON_LEFT)
 				    {
-				    if (m_addingAnewTower || aTowerIsSelected){
-					    mouseButtonDown = true;
+				    if (m_addingAnewTower || m_aTowerIsSelected){
+					    m_mouseButtonDown = true;
 					    }
 				    }
 			    break;
 		    case SDL_MOUSEBUTTONUP:
-			    if (event.button.button ==  SDL_BUTTON_LEFT)
-				    {
-					    m_clic.x = event.button.x;
-					    m_clic.y = event.button.y;
-					    C_CoordScreen clicleft(m_clic);
-
-					    //Select a Tower
-					    if(m_addingAnewTower == false) {
-						    aTowerIsSelected = grid.selectATower(clicleft);
-					    }
-
-					    //Add a new Tower
-					    if(m_addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
-						     {
-
-						    grid.addANewTower(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
-
-						    aTowerIsSelected = grid.selectATower(clicleft);
-						    m_addingAnewTower = false;
-						    }
-					    else{
-						    m_addingAnewTower = false;
-					    }
-
-				    mouseButtonDown = false;
-				    }
-			    break;
+		        listenMouseButtonUP(event);
+                break;
 		    case SDL_KEYDOWN:
 		        listenKeyboard(event);
 		    }
@@ -397,4 +371,34 @@ void C_Window::listenKeyboard(SDL_Event &event){
                 	menu.resetValues();
 				    break;
 			    }
+}
+
+void C_Window::listenMouseButtonUP(SDL_Event &event){
+        C_Grid& grid=C_Grid::Instances();
+			    if (event.button.button ==  SDL_BUTTON_LEFT)
+				    {
+					    m_clic.x = event.button.x;
+					    m_clic.y = event.button.y;
+					    C_CoordScreen clicleft(m_clic);
+
+					    //Select a Tower
+					    if(m_addingAnewTower == false) {
+						    m_aTowerIsSelected = grid.selectATower(clicleft);
+					    }
+
+					    //Add a new Tower
+					    if(m_addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
+						     {
+
+						    grid.addANewTower(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
+
+						    m_aTowerIsSelected = grid.selectATower(clicleft);
+						    m_addingAnewTower = false;
+						    }
+					    else{
+						    m_addingAnewTower = false;
+					    }
+
+				    m_mouseButtonDown = false;
+				    }
 }

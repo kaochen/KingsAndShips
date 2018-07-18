@@ -50,6 +50,7 @@ class C_Window
   void renderProgressBar(int progress, std::string label, int stepsNbr);
   void listenSDL_Events();
   void listenKeyboard(SDL_Event &event);
+  void listenMouseButtonUP(SDL_Event &event);
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
@@ -70,12 +71,13 @@ class C_Window
   int m_buttonType;
   S_Coord m_cursor;
   S_Coord m_clic;
+  bool m_mouseButtonDown;
 
   //towers are needed when drag & drop from the buttons:
   C_Towers* m_archerTower;
   C_Towers* m_turbineTower;
   bool m_addingAnewTower;
-
+  bool m_aTowerIsSelected;
 
   bool m_quit;
 };
