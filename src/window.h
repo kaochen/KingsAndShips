@@ -50,6 +50,7 @@ class C_Window
   void renderProgressBar(int progress, std::string label, int stepsNbr);
   void listenSDL_Events();
   void listenKeyboard(SDL_Event &event);
+  void listenMouseMotion(SDL_Event &event);
   void listenMouseButtonUP(SDL_Event &event);
 
 	private:

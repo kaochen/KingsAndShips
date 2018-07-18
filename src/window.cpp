@@ -242,8 +242,6 @@ void C_Window::gameLoop(){
 }
 
 void C_Window::listenSDL_Events(){
-    C_Settings& settings=C_Settings::Instances();
-    C_Grid& grid=C_Grid::Instances();
 
     SDL_Event event;
     unsigned int windowID = SDL_GetWindowID(m_window);
@@ -262,27 +260,7 @@ void C_Window::listenSDL_Events(){
 		     		}
 		     	break;
 		    case SDL_MOUSEMOTION:
-		    // get x cursor position
-			    if(event.button.x < 0)
-				    m_cursor.x = 0;
-			    else if(event.button.x > settings.getWindowWidth())
-				    m_cursor.x = settings.getWindowWidth();
-			    else
-				    m_cursor.x = event.button.x;
-
-		    // get y cursor position
-			    if(event.button.y < 0)
-				    m_cursor.y = 0;
-			    else if(event.button.y > settings.getWindowHeight())
-				    m_cursor.y = settings.getWindowHeight();
-			    else
-				    m_cursor.y = event.button.y;
-
-			    if (m_mouseButtonDown){
-					    if(m_aTowerIsSelected){
-						    grid.getSelectedUnit();
-					    }
-			    }
+                listenMouseMotion(event);
 			    break;
 
 		    case SDL_MOUSEBUTTONDOWN:
@@ -372,6 +350,32 @@ void C_Window::listenKeyboard(SDL_Event &event){
 				    break;
 			    }
 }
+
+void C_Window::listenMouseMotion(SDL_Event &event){
+        C_Settings& settings=C_Settings::Instances();
+        C_Grid& grid=C_Grid::Instances();
+		    // get x cursor position
+			    if(event.button.x < 0)
+				    m_cursor.x = 0;
+			    else if(event.button.x > settings.getWindowWidth())
+				    m_cursor.x = settings.getWindowWidth();
+			    else
+				    m_cursor.x = event.button.x;
+
+		    // get y cursor position
+			    if(event.button.y < 0)
+				    m_cursor.y = 0;
+			    else if(event.button.y > settings.getWindowHeight())
+				    m_cursor.y = settings.getWindowHeight();
+			    else
+				    m_cursor.y = event.button.y;
+
+			    if (m_mouseButtonDown){
+					    if(m_aTowerIsSelected){
+						    grid.getSelectedUnit();
+					    }
+			    }
+        }
 
 void C_Window::listenMouseButtonUP(SDL_Event &event){
         C_Grid& grid=C_Grid::Instances();
