@@ -97,6 +97,7 @@ public:
 	static	C_TextureList& Instances();
 	void renderTexture(std::string name, int x, int y);
 	void renderTextureEx(std::string name, int x, int y, double angle);
+  C_Texture* searchTexture(std::string name);
 	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);

@@ -47,13 +47,20 @@ C_Boat::C_Boat(int x_grid,
 	m_countStop = 0;
 	m_countRegenPath = 0;
 	m_wave = parent;
+	initTextureTable();
 }
 
 void C_Boat::initTextureTable(){
+	C_TextureList& t=C_TextureList::Instances();
     for(int d = NORTH; d < UNKNOWN; d++){
-        for(int i=0; i < 8; i++)
-        m_texture[d][i] = nullptr;
+        for(int i=0; i < 8; i++){
+        string fileName = m_name + "_0" + to_string(m_rank)
+                          + directionToStr(d) + to_string(i) ;
+        m_texture[d][i] = t.searchTexture(fileName);
+        //m_texture[d][i]->displayStatus();
+        }
     }
+
 }
 
 C_Boat::~C_Boat()

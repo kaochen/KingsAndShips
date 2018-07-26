@@ -265,6 +265,22 @@ void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 	}
 }
 
+C_Texture* C_TextureList::searchTexture(string name)
+{
+    C_Texture * texture = nullptr;
+	if(name != ""){
+		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
+		if(search == m_map_textures.end()){
+			cout << "\""<< name << "\" not available in the texture map (renderTextureEx)" << endl;
+		}
+		else{
+			texture = m_map_textures[name];
+		}
+	}
+	return texture;
+}
+
+
 
 void C_TextureList::renderTextureFromId(int id, int x, int y){
 
