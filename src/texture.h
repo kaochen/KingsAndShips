@@ -40,6 +40,7 @@ public:
 	virtual SDL_Texture* getTexture();
 	virtual void destroyTexture();
 	virtual void displayStatus();
+  virtual void render(int x, int y, double angle);
 
 	virtual int getId() = 0;
 	virtual void loadTexture(std::string &path) = 0;
@@ -59,7 +60,6 @@ public:
 	virtual int getId();
 	virtual void loadTexture( std::string &path);
 	virtual void displayStatus();
-
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 
 protected:

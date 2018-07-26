@@ -61,6 +61,18 @@ void C_Texture::displayStatus(){
     m.printM("Tileset Name: " + m_name +  " " + "\n");
 }
 
+void C_Texture::render(int x, int y, double angle){
+    C_Window& win=C_Window::Instances();
+	C_Settings& settings=C_Settings::Instances();
+    if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
+			SDL_Rect pos;
+			SDL_QueryTexture(m_texture, NULL, NULL, &pos.w, &pos.h);
+			pos.x = x - pos.w/2;
+			pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
+			SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
+			}
+}
+
 //C_Image
 
 C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_width, int tile_height, int file_width, int file_height):
@@ -242,26 +254,14 @@ void C_TextureList::renderTexture(string name, int x, int y){
 
 void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 {
-	C_Window& win=C_Window::Instances();
-	C_Settings& settings=C_Settings::Instances();
-	SDL_Texture *texture;
 	if(name != ""){
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 		if(search == m_map_textures.end()){
 			cout << "\""<< name << "\" not available in the texture map (renderTextureEx)" << endl;
-			texture = nullptr;
 		}
 		else{
-			texture = m_map_textures[name]->getTexture();
+			m_map_textures[name]->render(x,y,angle);
 		}
-
-		if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
-			SDL_Rect pos;
-			SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
-			pos.x = x - pos.w/2;
-			pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
-			SDL_RenderCopyEx(win.getRenderer(), texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
-			}
 	}
 }
 
