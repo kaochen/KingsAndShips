@@ -54,7 +54,6 @@ void C_Boat::initTextureTable(){
         for(int i=0; i < 8; i++)
         m_texture[d][i] = nullptr;
     }
-
 }
 
 C_Boat::~C_Boat()
@@ -156,40 +155,12 @@ void C_Boat::move()
 
 void C_Boat::render(S_Coord screen){
 
-
-
 	string name = getName();
 	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
 	if (m_moving)
 		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
-	string direction = "_EE_";
-		switch(m_direction){
-			case SOUTH:
-				direction = "_SS_";
-			break;
-			case SOUTH_EAST:
-				direction = "_SE_";
-			break;
-			case EAST:
-				direction = "_EE_";
-			break;
-			case NORTH_EAST:
-				direction = "_NE_";
-			break;
-			case NORTH:
-				direction = "_NN_";
-			break;
-			case NORTH_WEST:
-				direction = "_NW_";
-			break;
-			case WEST:
-				direction = "_WW_";
-			break;
-			case SOUTH_WEST:
-				direction = "_SW_";
-			break;
-		}
+	string direction = directionToStr(m_direction);
 
 	string fileName;
 	if (this->alive()){ 	//boat_01_SW_0
@@ -242,4 +213,35 @@ int C_Boat::calcSpeed(){
                 m_speedImpactLoop=10;
                 }
            return speed;
+}
+
+string C_Boat::directionToStr(int intDirection){
+string direction = "_EE_";
+		switch(intDirection){
+			case SOUTH:
+				direction = "_SS_";
+			break;
+			case SOUTH_EAST:
+				direction = "_SE_";
+			break;
+			case EAST:
+				direction = "_EE_";
+			break;
+			case NORTH_EAST:
+				direction = "_NE_";
+			break;
+			case NORTH:
+				direction = "_NN_";
+			break;
+			case NORTH_WEST:
+				direction = "_NW_";
+			break;
+			case WEST:
+				direction = "_WW_";
+			break;
+			case SOUTH_WEST:
+				direction = "_SW_";
+			break;
+		}
+		return direction;
 }

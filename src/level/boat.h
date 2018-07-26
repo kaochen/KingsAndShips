@@ -46,6 +46,7 @@ class C_Boat: public C_Shooter
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);
   virtual int calcSpeed();
+  std::string directionToStr(int intDirection);
 
 	//attributs
 	bool m_moving;
