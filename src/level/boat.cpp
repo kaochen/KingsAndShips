@@ -162,28 +162,23 @@ void C_Boat::move()
 
 void C_Boat::render(S_Coord screen){
 
-	string name = getName();
 	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
 	if (m_moving)
 		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
-	string direction = directionToStr(m_direction);
 
-	string fileName;
 	if (this->alive()){ 	//boat_01_SW_0
 	     if (m_weapon->getShooting())
 		    m_weapon->render();
-	     renderLifeBar(screen.x, screen.y + m_y_center_offset);
-	     fileName = name + "_0" + to_string(m_rank) + direction + to_string(imageNbr) ;
-	     t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
-         m_C_Path->displayPath();
+	        renderLifeBar(screen.x, screen.y + m_y_center_offset);
+	        m_texture[m_direction][imageNbr]->render(screen.x,screen.y + m_y_center_offset,0.0);
+            m_C_Path->displayPath();
 	     }
 	else { //boat_dead_01_EE_0
-	     fileName = name + "_dead_0" + to_string(m_rank) + direction + "0" ;
+    	string direction = directionToStr(m_direction);
+	    string fileName = m_name + "_dead_0" + to_string(m_rank) + direction + "0" ;
 	     t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 	     }
-
-	//cout << "image name is "<< fileName << endl;
 
 }
 
