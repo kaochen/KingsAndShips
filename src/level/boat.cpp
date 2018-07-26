@@ -49,6 +49,14 @@ C_Boat::C_Boat(int x_grid,
 	m_wave = parent;
 }
 
+void C_Boat::initTextureTable(){
+    for(int d = NORTH; d < UNKNOWN; d++){
+        for(int i=0; i < 8; i++)
+        m_texture[d][i] = nullptr;
+    }
+
+}
+
 C_Boat::~C_Boat()
 {
     delete m_animDirection;
