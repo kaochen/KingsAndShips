@@ -52,14 +52,20 @@ C_Boat::C_Boat(int x_grid,
 
 void C_Boat::initTextureTable(){
 	C_TextureList& t=C_TextureList::Instances();
-    for(int d = NORTH; d < UNKNOWN; d++){
-        for(int i=0; i < 8; i++){
-        string fileName = imageName(ALIVE,d,i);
-        m_textures[ALIVE][d][i] = t.searchTexture(fileName);
-        //m_textures[ALIVE][d][i]->displayStatus();
+	//alive
+        for(int d = NORTH; d < UNKNOWN; d++){
+            for(int i=0; i < 8; i++){
+            string fileName = imageName(ALIVE,d,i);
+            m_textures[ALIVE][d][i] = t.searchTexture(fileName);
+            //m_textures[ALIVE][d][i]->displayStatus();
+            }
         }
-    }
-
+        //dead
+        for(int d = NORTH; d < UNKNOWN; d++){
+            string fileName = imageName(DEAD,d,0);
+            m_textures[DEAD][d][0] = t.searchTexture(fileName);
+            //m_textures[DEAD][d][0]->displayStatus();
+            }
 }
 
 C_Boat::~C_Boat()
@@ -160,22 +166,19 @@ void C_Boat::move()
 
 
 void C_Boat::render(S_Coord screen){
-
-	C_TextureList& t=C_TextureList::Instances();
 	int imageNbr = 0;
 	if (m_moving)
 		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
 
-	if (this->alive()){ 	//boat_01_SW_0
+	if (this->alive()){
 	     if (m_weapon->getShooting())
 		    m_weapon->render();
 	        renderLifeBar(screen.x, screen.y + m_y_center_offset);
 	        m_textures[ALIVE][m_direction][imageNbr]->render(screen.x,screen.y + m_y_center_offset,0.0);
             m_C_Path->displayPath();
 	     }
-	else { //boat_dead_01_EE_0
-    	string fileName = imageName(DEAD,m_direction,0);
-	     t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	else {
+    	    m_textures[DEAD][m_direction][0]->render(screen.x,screen.y + m_y_center_offset,0.0);
 	     }
 
 }
