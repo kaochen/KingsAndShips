@@ -74,10 +74,8 @@ void C_GameUnits::displayStatus() const
 }
 
 void C_GameUnits::render(S_Coord screen){
-	string fileName = m_name + "_0" + to_string(m_rank) + "_" + m_strDirection + "_0" ;
-	//cout << "image name is "<< fileName << endl;
-
 	C_TextureList& t=C_TextureList::Instances();
+    string fileName = imageName(ALIVE,m_direction,0);
 	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 }
 
@@ -119,4 +117,48 @@ void C_GameUnits::reverseSelectedStatus()
 		m_selected =  false;
 }
 
+string C_GameUnits::imageName(int status,int direction,int imageNbr){
+    string statusStr = "A";
+    switch (status){
+        case ALIVE:
+            statusStr = "A";
+            break;
+        case DEAD:
+            statusStr = "D";
+            break;
+    }
+    return m_name + "_" + to_string(m_rank) + "_"+ statusStr + "_"
+            + directionToStr(direction) + "_" + to_string(imageNbr) ;
+}
 
+
+string C_GameUnits::directionToStr(int intDirection){
+string direction = "EE";
+		switch(intDirection){
+			case SOUTH:
+				direction = "SS";
+			break;
+			case SOUTH_EAST:
+				direction = "SE";
+			break;
+			case EAST:
+				direction = "EE";
+			break;
+			case NORTH_EAST:
+				direction = "NE";
+			break;
+			case NORTH:
+				direction = "NN";
+			break;
+			case NORTH_WEST:
+				direction = "NW";
+			break;
+			case WEST:
+				direction = "WW";
+			break;
+			case SOUTH_WEST:
+				direction = "SW";
+			break;
+		}
+		return direction;
+}

@@ -189,9 +189,7 @@ void C_Turbine::render(S_Coord screen){
 	if (m_weapon->getShooting())
 		rotationSpeed = 50;
 	int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
-	string fileName = m_name + "_0" + to_string(m_rank) + "_" + current.direction + "_" + to_string(imageNbr) ;
-	//cout << "image name is "<< fileName << endl;
-
+	string fileName = imageName(ALIVE,current.direction,imageNbr);
 	C_TextureList& t=C_TextureList::Instances();
 	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 

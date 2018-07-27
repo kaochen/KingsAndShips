@@ -54,8 +54,7 @@ void C_Boat::initTextureTable(){
 	C_TextureList& t=C_TextureList::Instances();
     for(int d = NORTH; d < UNKNOWN; d++){
         for(int i=0; i < 8; i++){
-        string fileName = m_name + "_0" + to_string(m_rank)
-                          + directionToStr(d) + to_string(i) ;
+        string fileName = imageName(ALIVE,d,i);
         m_textures[ALIVE][d][i] = t.searchTexture(fileName);
         //m_textures[ALIVE][d][i]->displayStatus();
         }
@@ -175,8 +174,7 @@ void C_Boat::render(S_Coord screen){
             m_C_Path->displayPath();
 	     }
 	else { //boat_dead_01_EE_0
-    	string direction = directionToStr(m_direction);
-	    string fileName = m_name + "_dead_0" + to_string(m_rank) + direction + "0" ;
+    	string fileName = imageName(DEAD,m_direction,0);
 	     t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
 	     }
 
@@ -217,33 +215,4 @@ int C_Boat::calcSpeed(){
            return speed;
 }
 
-string C_Boat::directionToStr(int intDirection){
-string direction = "_EE_";
-		switch(intDirection){
-			case SOUTH:
-				direction = "_SS_";
-			break;
-			case SOUTH_EAST:
-				direction = "_SE_";
-			break;
-			case EAST:
-				direction = "_EE_";
-			break;
-			case NORTH_EAST:
-				direction = "_NE_";
-			break;
-			case NORTH:
-				direction = "_NN_";
-			break;
-			case NORTH_WEST:
-				direction = "_NW_";
-			break;
-			case WEST:
-				direction = "_WW_";
-			break;
-			case SOUTH_WEST:
-				direction = "_SW_";
-			break;
-		}
-		return direction;
-}
+

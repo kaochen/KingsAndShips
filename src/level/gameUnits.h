@@ -83,6 +83,8 @@ class C_GameUnits
 	virtual void kill();
 
 	virtual int getDistance(int x, int y) const;
+  virtual std::string imageName(int status,int direction,int imageNbr);
+  virtual std::string directionToStr(int intDirection);
 
 	//attibuts
 	std::string m_name;

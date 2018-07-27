@@ -49,7 +49,7 @@ C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, i
 	m_weapon.speedImpact = speedImpact;
 	m_weapon.fireRate = fireRate;
 	m_weapon.fireRange = fireRange;
-	m_weapon.direction = "EE";
+	m_weapon.direction = EAST;
 }
 
 C_Weapon::~C_Weapon()
@@ -124,7 +124,9 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
 			m_angle = 180 - (angle *180/3.14159265359);
 			if(m_angle < 0)
 				m_angle +=360;
-			m_weapon.direction = angleToDirection(m_angle);
+
+			C_Coord coord(1,1); //need a random one
+			m_weapon.direction = coord.angleToDirection(m_angle);
 			//cout << "angle: " << m_angle << ":" << m_weapon.direction << endl;
 
 			m_x_screen = x_s_shooter + newA;
@@ -145,38 +147,3 @@ void C_Weapon::render(){
 }
 
 
-
-string C_Weapon::angleToDirection(double angle){
-			string  direction = "EE";
-			if (angle > -22.5 && angle <= 22.5){
-				direction = "NW";
-				}
-			else if (angle > 22.5 && angle <= 67.5){
-				direction = "NN";
-			}
-			else if(angle > 67.5 && angle <=112.5){
-				direction = "NE";
-				}
-			else if(angle > 112.5 && angle <=157.5){
-				direction = "EE";
-				}
-			else if((angle > 157.5 && angle <= 202.5)){
-				direction = "SE";
-				}
-			else if(angle > 202.5 && angle <= 247.5){
-				direction = "SS";
-				}
-			else if(angle > 247.5 && angle <= 292.5){
-				direction = "SW";
-				}
-			else if(angle > 292.5 && angle <= 337.5){
-				direction = "WW";
-				}
-			else if(angle > 337.5 && angle <= 382.5){
-				direction = "NW";
-				}
-			else{
-				direction = "EE";
-				}
-			return direction;
-}

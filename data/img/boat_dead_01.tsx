@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="boat_dead_01" tilewidth="128" tileheight="128" tilecount="8" columns="8">
+<tileset name="boat_1_D" tilewidth="128" tileheight="128" tilecount="8" columns="8">
  <image source="original/t_boat_dead_01.png" width="1024" height="128"/>
  <tile id="0" type="EE_0"/>
  <tile id="1" type="NE_0"/>

@@ -55,7 +55,6 @@ public:
 	long m_lastShootTime;
 	int m_dist;
 	double m_angle;
-  std::string angleToDirection(double angle);
 };
 
 
