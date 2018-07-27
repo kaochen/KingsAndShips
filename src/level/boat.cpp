@@ -52,6 +52,7 @@ C_Boat::C_Boat(int x_grid,
 
 void C_Boat::initTextureTable(){
 	C_TextureList& t=C_TextureList::Instances();
+	m_textures[2][8][8] = {nullptr};
 	//alive
         for(int d = NORTH; d < UNKNOWN; d++){
             for(int i=0; i < 8; i++){
