@@ -58,7 +58,7 @@ class C_Boat: public C_Shooter
   int m_countRegenPath;
   C_AnimTime* m_animDirection;
   C_Wave* m_wave;
-  C_Texture* m_texture[8][8];
+  C_Texture* m_textures[2][8][8];
 };
 
 #endif

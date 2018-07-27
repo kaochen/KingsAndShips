@@ -31,7 +31,7 @@ You can use x+1 to find a unit close to another one m_grid[x+1][y]*/
 #include "level.h"
 #include "../coord.h"
 
-enum layers{GROUND,DEAD,UNITS};
+enum layers{GROUND,GRAVEYARD,UNITS};
 
 //singleton
 class C_Grid

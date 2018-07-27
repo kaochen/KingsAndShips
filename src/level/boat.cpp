@@ -56,8 +56,8 @@ void C_Boat::initTextureTable(){
         for(int i=0; i < 8; i++){
         string fileName = m_name + "_0" + to_string(m_rank)
                           + directionToStr(d) + to_string(i) ;
-        m_texture[d][i] = t.searchTexture(fileName);
-        //m_texture[d][i]->displayStatus();
+        m_textures[ALIVE][d][i] = t.searchTexture(fileName);
+        //m_textures[ALIVE][d][i]->displayStatus();
         }
     }
 
@@ -171,7 +171,7 @@ void C_Boat::render(S_Coord screen){
 	     if (m_weapon->getShooting())
 		    m_weapon->render();
 	        renderLifeBar(screen.x, screen.y + m_y_center_offset);
-	        m_texture[m_direction][imageNbr]->render(screen.x,screen.y + m_y_center_offset,0.0);
+	        m_textures[ALIVE][m_direction][imageNbr]->render(screen.x,screen.y + m_y_center_offset,0.0);
             m_C_Path->displayPath();
 	     }
 	else { //boat_dead_01_EE_0

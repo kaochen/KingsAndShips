@@ -110,7 +110,7 @@ void C_Grid::renderLayer(int layer){
 						}
 						}
 						//draw the deads
-				if (layer == DEAD){
+				if (layer == GRAVEYARD){
 						if (m_grid[x][y].dead != nullptr){
 							m_grid[x][y].dead->render(m_grid[x][y].dead->getScreen());
 							}
