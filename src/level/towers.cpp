@@ -170,7 +170,10 @@ void C_ArcherTower::render(S_Coord screen){
 	renderLifeBar(screen.x, screen.y);
 	if (m_weapon->getShooting())
 		m_weapon->render();
-	}
+
+	if (m_justAdded)
+		renderSmoke();
+}
 
 C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
