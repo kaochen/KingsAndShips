@@ -43,7 +43,6 @@ C_Landscape::~C_Landscape()
 void C_Landscape::display(){
 	    C_Grid& grid=C_Grid::Instances();
         renderWater(waterDirection());
-		grid.renderLayer (GROUND);
 };
 
 void C_Landscape::renderWater(int direction){

@@ -224,6 +224,7 @@ void C_Window::gameLoop(){
 		        //display game content from bottom to top
                 m_landscape->display();
 		        grid.renderLayer (GRAVEYARD);
+		        grid.renderLayer (GROUND);
 		        grid.renderLayer (UNITS);
 
                 listenButtons();
