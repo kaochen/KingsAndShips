@@ -46,10 +46,20 @@ class C_Decors : public C_GameUnits
 	public:
 	  C_Decors(std::string name, int x_grid, int y_grid);
     virtual void render(S_Coord screen);
+    virtual void render(){std::cout << ":D";};
   protected:
   private:
 };
 
+class C_Ground : public C_GameUnits
+{
+  public:
+    C_Ground(std::string name, int x_grid, int y_grid);
+    virtual void render();
+
+  private:
+    void darkenGround(int x_screen, int y_screen);
+};
 
 class C_Trees : public C_Decors
 {

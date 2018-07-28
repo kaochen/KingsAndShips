@@ -34,6 +34,7 @@ class C_GameUnits
 	struct S_layer{
 		C_GameUnits * main;
 		C_GameUnits * dead;
+    C_GameUnits * ground;
 		bool path;
 		std::string str_ground;
 		bool plot;
@@ -56,6 +57,7 @@ class C_GameUnits
 
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
+  virtual void render(){std::cout << ";)";};
 
   //shoot
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);

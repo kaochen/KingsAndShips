@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 
 #include "../texture.h"
+#include "../message.h"
 
 using namespace std;
 
@@ -30,6 +31,10 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 	m_weapon = nullptr;
 	m_y_center_offset = 36;
 	m_lastShootTime = 0;
+	C_Message m;
+    string message = "Add new shooter: " + m_name +" life: "+ to_string(m_life) + " rank: "+ to_string(m_rank);
+	m.printM(message);
+	m_coord->displayStatus();
 }
 
 C_Shooter::~C_Shooter()

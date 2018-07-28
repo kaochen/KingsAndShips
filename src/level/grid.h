@@ -74,7 +74,6 @@ public:
 protected:
 	void unselectedAll(int x_grid, int y_grid);
 
-  void darkenGround(int x_screen, int y_screen);
 
 private:
 	C_Grid& operator= (const C_Grid&){return *this;}

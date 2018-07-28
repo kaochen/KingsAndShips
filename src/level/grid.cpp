@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2_gfxPrimitives.h>
+
 #include <sstream>
 
 #include "grid.h"
@@ -48,6 +45,7 @@ C_Grid::C_Grid()
 		for (size_t x = 0; x < GRID_SIZE; x++){
 		m_grid[x][y].main = nullptr;
 		m_grid[x][y].dead = nullptr;
+		m_grid[x][y].ground = nullptr;
 		m_grid[x][y].str_ground = "";
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
@@ -89,7 +87,6 @@ void C_Grid::reset()
 
 void C_Grid::renderLayer(int layer){
 	C_Settings& settings=C_Settings::Instances();
-	C_TextureList& t=C_TextureList::Instances();
 
 	int x_start = 0, x_end = x_start + settings.getGridWidth() + 4;
 	int y_start = 13, y_end = y_start + settings.getGridHeight() + 3;
@@ -101,13 +98,9 @@ void C_Grid::renderLayer(int layer){
 	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
 				//cout << "|" << x << ":"<< y << ":";
 				if (layer == GROUND){
-						C_CoordGrid coord(x,y);
-						t.renderTexture(m_grid[x][y].str_ground,coord.getXScreen(),coord.getYScreen() + 36);
-						if(!waterway(x,y)){
-						    if ((x+y)%2 == 0){
-                                darkenGround(coord.getXScreen(), coord.getYScreen());
-						    }
-						}
+				        if (m_grid[x][y].ground != nullptr){
+							        m_grid[x][y].ground->render();
+							        }
 						}
 						//draw the deads
 				if (layer == GRAVEYARD){
@@ -177,6 +170,7 @@ void C_Grid::setGround(int x, int y, int id){
 	if(id !=0){
 	    string str = t.getNameFromID(id);
 	    m_grid[x][y].str_ground = str;
+	    m_grid[x][y].ground = new C_Ground(t.getNameFromID(id),x,y);
 	    //cout << str << endl;
 	    string pattern = "Water";
 	    size_t found = str.find(pattern);
@@ -381,26 +375,6 @@ bool C_Grid::boatInMain(int x_grid, int y_grid){
     }
 };
 
-void C_Grid::darkenGround(int x_screen, int y_screen){
-	C_Window& win=C_Window::Instances();
-	SDL_Renderer * renderer = win.getRenderer();
-	Sint16 w =  TILE_HALF_WIDTH;
-	Sint16 h =  w/2;
-	Sint16 x1 = x_screen - w;
-
-	Sint16 y1 = y_screen - h + 36; //center
-	Sint16 x2 = x1 + w;
-	Sint16 y2 = y1 + h;
-	Sint16 x3 = x1 + (w*2);
-	Sint16 y3 = y1;
-	Sint16 x4 = x2;
-	Sint16 y4 = y1 - h;
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	int R = 30, G = 30, B = 30, A = 50;
-
-	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-}
 
 
 void C_Grid::setTown(int x_grid, int y_grid){
