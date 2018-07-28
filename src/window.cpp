@@ -222,7 +222,7 @@ void C_Window::gameLoop(){
 	        if (m_forceRefresh){
 
 		        //display game content from bottom to top
-                m_landscape->display();
+                m_landscape->render();
 		        grid.renderLayer (GRAVEYARD);
 		        grid.renderLayer (GROUND);
 		        grid.renderLayer (UNITS);

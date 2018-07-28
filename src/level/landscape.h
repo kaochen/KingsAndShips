@@ -28,7 +28,7 @@ class C_Landscape
 	public:
     C_Landscape();
     ~C_Landscape();
-    void display();
+    void render();
 	protected:
 	private:
   //methods

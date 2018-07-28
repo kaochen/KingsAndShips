@@ -40,8 +40,7 @@ C_Landscape::~C_Landscape()
 }
 
 
-void C_Landscape::display(){
-	    C_Grid& grid=C_Grid::Instances();
+void C_Landscape::render(){
         renderWater(waterDirection());
 };
 
