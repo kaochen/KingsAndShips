@@ -75,7 +75,6 @@ class C_GameUnits
 
   //alive or dead
 	virtual int getLife() const {return m_life;}
-  std::string getDeadImageName() const{return m_deadImageName;};
 
 	protected:
   //alive or dead
@@ -91,7 +90,6 @@ class C_GameUnits
 	int m_rank;
 
 	int m_life;
-  std::string m_deadImageName;
 
   //Coord
 	C_Coord* m_coord;

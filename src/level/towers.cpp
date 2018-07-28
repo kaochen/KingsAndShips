@@ -36,7 +36,6 @@ C_Towers::C_Towers(string name,
 	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
 	m_justAdded = true;
-	m_deadImageName = "smoke_01_smoke1";
 }
 
 void C_Towers::play(){

@@ -34,7 +34,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_rank(rank),
 	m_life(MAX_LIFE),
-	m_deadImageName("boat_01_Dead.png"),
 	m_y_center_offset(0),
 	m_strDirection("EE"),
 	m_direction(UNKNOWN),
