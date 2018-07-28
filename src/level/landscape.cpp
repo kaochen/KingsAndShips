@@ -180,19 +180,3 @@ void C_Trees::render(S_Coord screen){
 }
 
 
-
-
-
-
-
-void C_Decors::play()
-{
-};
-void C_Decors::move()
-{
-}
-void C_Decors::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
-{
-    cout << type[1] << nbrofTargets << endl; //to quiet gcc
-}
-

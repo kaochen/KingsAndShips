@@ -48,8 +48,8 @@ class C_GameUnits
 		     int rank);
 
 	virtual ~C_GameUnits();
-	virtual void play() = 0;
-	virtual void move() = 0;
+	virtual void play(){};
+	virtual void move(){};
 
 	virtual C_GameUnits * getUnit() {return this;};
 	virtual std::string getName() const {return m_name;};
@@ -58,7 +58,7 @@ class C_GameUnits
 	virtual void render(S_Coord screen);
 
   //shoot
-	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets) =0;
+	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void receiveDamage(S_Weapon weapon);
 
   //Coord
