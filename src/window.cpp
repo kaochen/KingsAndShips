@@ -229,14 +229,16 @@ void C_Window::gameLoop(){
                 listenButtons();
         		menu.render();
         		time.showFPS ();
-
-		        //print the final render
-         		SDL_RenderPresent(m_renderer);
  		        }
 
 	    }
         // pause the game loop in order to respect FPS settings
 	    time.delayGameLoop();
+
+	    //print the final render
+	    if (m_forceRefresh){
+         	SDL_RenderPresent(m_renderer);
+         	}
     }
 
 }
