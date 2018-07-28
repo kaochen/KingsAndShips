@@ -163,6 +163,7 @@ void C_Boat::render(S_Coord screen){
 	    }
 	else {
 	        status = DEAD;
+	        imageNbr = 0;
 	     }
     string fileName = imageName(status,m_direction,imageNbr);
     t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
