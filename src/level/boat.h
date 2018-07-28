@@ -41,8 +41,8 @@ class C_Boat: public C_Shooter
 	virtual void play();
 	virtual void move();
 	virtual void receiveDamage(S_Weapon weapon);
+
 	protected:
-  virtual void initTextureTable();
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);
   virtual int calcSpeed();
@@ -58,7 +58,6 @@ class C_Boat: public C_Shooter
   int m_countRegenPath;
   C_AnimTime* m_animDirection;
   C_Wave* m_wave;
-  C_Texture* m_textures[2][8][8];
 };
 
 #endif
