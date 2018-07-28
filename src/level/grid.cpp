@@ -46,7 +46,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].main = nullptr;
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].ground = nullptr;
-		m_grid[x][y].str_ground = "";
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
 		m_grid[x][y].town = false;
@@ -60,6 +59,7 @@ C_Grid::~C_Grid()
 		for (size_t x = 0; x < GRID_SIZE; x++){
 	            delete m_grid[x][y].main;
 		        delete m_grid[x][y].dead;
+		        delete m_grid[x][y].ground;
 		}
 	}
 
@@ -77,7 +77,10 @@ void C_Grid::reset()
 		        delete m_grid[x][y].dead;
 		        m_grid[x][y].dead = nullptr;
 		}
-		m_grid[x][y].str_ground = "";
+		if(m_grid[x][y].ground != nullptr){
+		        delete m_grid[x][y].ground;
+		        m_grid[x][y].ground = nullptr;
+		}
 		m_grid[x][y].plot = true;
 		m_grid[x][y].water = false;
 		}
@@ -141,11 +144,9 @@ void C_Grid::addANewTower(int type, int x, int y, int rank){
 		switch(type){
 		 case ADDNEWTOWER :
 			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
-			m_grid[x][y].str_ground = "Ground_01_Grass00";
 		 break;
 		 case ADDNEWTURBINE :
 			m_grid[x][y].main = new C_Turbine(x,y,rank);
-			m_grid[x][y].str_ground = "Ground_01_Grass00";
 		 break;
 		 case  NONE:
 		 break;
@@ -169,11 +170,9 @@ void C_Grid::setGround(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
 	if(id !=0){
 	    string str = t.getNameFromID(id);
-	    m_grid[x][y].str_ground = str;
-	    m_grid[x][y].ground = new C_Ground(t.getNameFromID(id),x,y);
-	    //cout << str << endl;
-	    string pattern = "Water";
-	    size_t found = str.find(pattern);
+	    m_grid[x][y].ground = new C_Ground(str,x,y);
+
+	    size_t found = str.find("Water");
 	    if(found != string::npos){
 		    m_grid[x][y].water = true;
 	    }
@@ -392,7 +391,6 @@ void C_Grid::setTown(int x_grid, int y_grid){
 		}
 	//then set
 	            m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
-	            m_grid[x_grid][y_grid].str_ground = "Ground_01_Grass00";
 			    m_grid[x_grid][y_grid].town = true;
 
 }

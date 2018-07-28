@@ -51,7 +51,6 @@ public:
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid){return m_grid[x_grid][y_grid].water;};
-	std::string getStrGround(int x, int y){return m_grid[x][y].str_ground;};
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
 
