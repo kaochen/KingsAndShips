@@ -36,8 +36,6 @@ class C_GameUnits
 		C_GameUnits * dead;
     C_GameUnits * ground;
 		bool path;
-    bool town;
-
 	};
 	//methods
 	C_GameUnits(std::string name,

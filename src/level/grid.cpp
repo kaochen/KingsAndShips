@@ -46,7 +46,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].main = nullptr;
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].ground = nullptr;
-		m_grid[x][y].town = false;
 		}
 	}
 }
@@ -383,7 +382,6 @@ void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
     for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-				 m_grid[x][y].town = false;
 				 if(m_grid[x][y].main != nullptr){
 				     if(m_grid[x][y].main->getName() == "town"){
 				        delete m_grid[x][y].main;
@@ -393,22 +391,24 @@ void C_Grid::setTown(int x_grid, int y_grid){
 			}
 		}
 	//then set
-	            m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
-			    m_grid[x_grid][y_grid].town = true;
-
+	 m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
 }
 
 S_Coord C_Grid::foundTown(){
-        S_Coord town = {0,0};
+        //FIXME found only one town, the closest one would be better
+        S_Coord coord = {0,0};
 		for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-				if ( m_grid[x][y].town == true){
-				    town.x = x;
-				    town.y = y;
-				    }
+			    if(m_grid[x][y].main != nullptr){
+                    string str = m_grid[x][y].main->getName();
+                    if(str.find("town") != std::string::npos){
+				        coord.x = x;
+				        coord.y = y;
+				        }
+			    }
 			}
 		}
-		return town;
+		return coord;
 }
 
 
@@ -417,10 +417,13 @@ int C_Grid::getAllTownsLifeLevel(){
         int c = 0;
         for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-				if ( m_grid[x][y].town == true){
-				    life +=  m_grid[x][y].main->getLife();
-				    c++;
+		        if(m_grid[x][y].main != nullptr){
+                    string str = m_grid[x][y].main->getName();
+                    if(str.find("town") != std::string::npos){
+				        life +=  m_grid[x][y].main->getLife();
+				        c++;
 				    }
+				}
 			}
 		}
 		if (life !=0)
