@@ -37,7 +37,6 @@ class C_GameUnits
     C_GameUnits * ground;
 		bool path;
 		bool plot;
-		bool water;
     bool town;
 
 	};

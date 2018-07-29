@@ -47,7 +47,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].ground = nullptr;
 		m_grid[x][y].plot = true;
-		m_grid[x][y].water = false;
 		m_grid[x][y].town = false;
 		}
 	}
@@ -82,7 +81,6 @@ void C_Grid::reset()
 		        m_grid[x][y].ground = nullptr;
 		}
 		m_grid[x][y].plot = true;
-		m_grid[x][y].water = false;
 		}
 	}
 }
@@ -130,7 +128,7 @@ void C_Grid::renderLayer(int layer){
 
 
 void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
-	if (m_grid[x][y].water){
+	if (waterway(x,y)){
 		m_grid[x][y].main = new C_Boat(x,y,rank,parent);
 	}
 	else{
@@ -140,7 +138,7 @@ void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 }
 
 void C_Grid::addANewTower(int type, int x, int y, int rank){
-	if (m_grid[x][y].main == nullptr && m_grid[x][y].water == false){
+	if (m_grid[x][y].main == nullptr && !waterway(x,y)){
 		switch(type){
 		 case ADDNEWTOWER :
 			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
@@ -171,11 +169,6 @@ void C_Grid::setGround(int x, int y, int id){
 	if(id !=0){
 	    string str = t.getNameFromID(id);
 	    m_grid[x][y].ground = new C_Ground(str,x,y);
-
-	    size_t found = str.find("Water");
-	    if(found != string::npos){
-		    m_grid[x][y].water = true;
-	    }
 	}
 }
 
@@ -198,9 +191,21 @@ void C_Grid::setDecors(int x, int y, int id){
 	}
 }
 
+bool C_Grid::waterway(int x_grid, int y_grid)
+{
+    bool waterway = false;
+    if(m_grid[x_grid][y_grid].ground != nullptr){
+        string str = m_grid[x_grid][y_grid].ground->getName();
+        if(str.find("Water") != std::string::npos)
+	        waterway = true;
+	    else
+	        waterway = false;
+	}
+	return waterway;
+}
 
 bool C_Grid::isThisConstructible(S_Coord grid){
-	if ( m_grid[grid.x][grid.y].water == true){
+	if ( waterway(grid.x, grid.y)){
 		return false;
 		}
 	else if(m_grid[grid.x][grid.y].main != nullptr){
