@@ -46,7 +46,6 @@ C_Grid::C_Grid()
 		m_grid[x][y].main = nullptr;
 		m_grid[x][y].dead = nullptr;
 		m_grid[x][y].ground = nullptr;
-		m_grid[x][y].plot = true;
 		m_grid[x][y].town = false;
 		}
 	}
@@ -68,19 +67,18 @@ void C_Grid::reset()
 {
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
-		if(m_grid[x][y].main != nullptr){
-		        delete m_grid[x][y].main;
-		        m_grid[x][y].main = nullptr;
-		}
-		if(m_grid[x][y].dead != nullptr){
-		        delete m_grid[x][y].dead;
-		        m_grid[x][y].dead = nullptr;
-		}
-		if(m_grid[x][y].ground != nullptr){
-		        delete m_grid[x][y].ground;
-		        m_grid[x][y].ground = nullptr;
-		}
-		m_grid[x][y].plot = true;
+		    if(m_grid[x][y].main != nullptr){
+		            delete m_grid[x][y].main;
+		            m_grid[x][y].main = nullptr;
+		    }
+		    if(m_grid[x][y].dead != nullptr){
+		            delete m_grid[x][y].dead;
+		            m_grid[x][y].dead = nullptr;
+		    }
+		    if(m_grid[x][y].ground != nullptr){
+		            delete m_grid[x][y].ground;
+		            m_grid[x][y].ground = nullptr;
+		    }
 		}
 	}
 }

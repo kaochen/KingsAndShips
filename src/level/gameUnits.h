@@ -36,7 +36,6 @@ class C_GameUnits
 		C_GameUnits * dead;
     C_GameUnits * ground;
 		bool path;
-		bool plot;
     bool town;
 
 	};
