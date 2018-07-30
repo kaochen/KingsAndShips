@@ -48,10 +48,11 @@ C_Grid::C_Grid()
 		m_grid[x][y].ground = nullptr;
 		}
 	}
+	C_Settings& settings=C_Settings::Instances();
 
-	for (int y = 0; y < GRID_SIZE; y++){
+	for (int y = 0; y < settings.getYGridSize(); y++){
 	    vector <C_ZLayer> line;
-		for (int x = 0; x < GRID_SIZE; x++){
+		for (int x = 0; x < settings.getXGridSize(); x++){
 		    C_ZLayer z(x,y);
             line.push_back(z);
 		}
