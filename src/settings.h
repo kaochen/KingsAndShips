@@ -68,7 +68,8 @@ public:
 	int getWindowWidth() {return m_windowWidth;};
 	int getWindowHeight() {return m_windowHeight;};
   //grid
-	int getGridSize() {return m_gridSize;};
+	int getXGridSize() {return m_x_gridSize;};
+	int getYGridYSize() {return m_y_gridSize;};
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
 	int getGridNbrOfLine() {return m_gridNbrOfLine;};
@@ -105,7 +106,8 @@ private:
 	int m_windowWidth;
 	int m_windowHeight;
   //grid
-	int m_gridSize;
+	int m_x_gridSize;
+	int m_y_gridSize;
 	int m_gridNbrOfLine; //nbr of tiles in a line
 	int m_gridNbrOfRow; //nbr of tiles in a row
 	int m_first_tile_x; //first tile to display

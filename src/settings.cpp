@@ -28,7 +28,8 @@ C_Settings C_Settings::m_instance=C_Settings();
 C_Settings::C_Settings()
 {
 	//cout << "Construct C_Settings" << endl;
-	m_gridSize = GRID_SIZE;
+	m_x_gridSize = GRID_SIZE;
+	m_y_gridSize = GRID_SIZE;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
 	m_gridNbrOfLine = 28;
