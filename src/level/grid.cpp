@@ -60,8 +60,8 @@ C_Grid::~C_Grid()
 
 void C_Grid::reset()
 {
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-		for (size_t x = 0; x < m_vgrid[y].size(); x++){
+	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+		for (size_t x = 0; x < m_vgrid.size(); x++){
 		    m_vgrid[x][y].delAll();
 		    }
 	    }
@@ -212,8 +212,8 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
 
 
 void C_Grid::displayStatus(){
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-		for (size_t x = 0; x < m_vgrid[y].size(); x++){
+	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+		for (size_t x = 0; x < m_vgrid.size(); x++){
 			if (m_vgrid[x][y].get(FIELD) != nullptr){
 					m_vgrid[x][y].get(FIELD)->displayStatus();
 				}
@@ -222,8 +222,8 @@ void C_Grid::displayStatus(){
 }
 
 void C_Grid::playAllUnits(){
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid[y].size(); x++){
+	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+			for (size_t x = 0; x < m_vgrid.size(); x++){
 				if (m_vgrid[x][y].get(FIELD) != nullptr){
 					m_vgrid[x][y].get(FIELD)->play();
 					}
@@ -233,8 +233,8 @@ void C_Grid::playAllUnits(){
 
 
 void C_Grid::deleteGrid(){
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid[y].size(); x++){
+	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+			for (size_t x = 0; x < m_vgrid.size(); x++){
 			    m_vgrid[x][y].delAll();
 			}
 		}
@@ -292,8 +292,8 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 		status = m_vgrid[x_grid][y_grid].get(FIELD)->getSelectedStatus();
 		}
 		//erase all
-		for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid[y].size(); x++){
+		for (size_t y = 0; y < m_vgrid[0].size(); y++){
+			for (size_t x = 0; x < m_vgrid.size(); x++){
 				if ( m_vgrid[x][y].get(FIELD) != nullptr)
 					m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
 			}
@@ -308,8 +308,8 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 
 C_GameUnits* C_Grid::getSelectedUnit(){
 		C_GameUnits* current = nullptr;
-		for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid[y].size(); x++){
+		for (size_t y = 0; y < m_vgrid[0].size(); y++){
+			for (size_t x = 0; x < m_vgrid.size(); x++){
 				if ( m_vgrid[x][y].get(FIELD) != nullptr)
 					if (m_vgrid[x][y].get(FIELD)->getSelectedStatus())
 						current = m_vgrid[x][y].get(FIELD)->getUnit();
@@ -354,8 +354,8 @@ bool C_Grid::boatInMain(int x_grid, int y_grid){
 
 void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-           for (size_t x = 0; x < m_vgrid[y].size(); x++){
+	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+           for (size_t x = 0; x < m_vgrid.size(); x++){
 				 if(m_vgrid[x][y].get(FIELD) != nullptr){
 				     if(m_vgrid[x][y].get(FIELD)->getName() == "town"){
 				        m_vgrid[x][y].del(FIELD);
@@ -388,8 +388,8 @@ S_Coord C_Grid::foundTown(){
 int C_Grid::getAllTownsLifeLevel(){
         int life = 0;
         int c = 0;
-        for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid[y].size(); x++){
+        for (size_t y = 0; y < m_vgrid[0].size(); y++){
+			for (size_t x = 0; x < m_vgrid.size(); x++){
 		        if(m_vgrid[x][y].get(FIELD) != nullptr){
                     string str = m_vgrid[x][y].get(FIELD)->getName();
                     if(str.find("town") != std::string::npos){
