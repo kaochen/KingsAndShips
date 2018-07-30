@@ -69,7 +69,7 @@ public:
 	int getWindowHeight() {return m_windowHeight;};
   //grid
 	int getXGridSize() {return m_x_gridSize;};
-	int getYGridYSize() {return m_y_gridSize;};
+	int getYGridSize() {return m_y_gridSize;};
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
 	int getGridNbrOfLine() {return m_gridNbrOfLine;};
