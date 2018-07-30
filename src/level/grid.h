@@ -27,6 +27,7 @@ You can use x+1 to find a unit close to another one m_grid[x+1][y]*/
 #include <iostream>
 #include <string>
 
+#include "zlayer.h"
 #include "gameUnits.h"
 #include "level.h"
 #include "../coord.h"
@@ -83,6 +84,7 @@ private:
 	~C_Grid();
 
 	C_GameUnits::S_layer m_grid[GRID_SIZE][GRID_SIZE];
+  std::vector < std::vector <C_ZLayer> > m_vgrid;
 };
 
 #endif
