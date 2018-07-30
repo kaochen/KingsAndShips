@@ -35,6 +35,7 @@ class C_ZLayer
 public:
   C_ZLayer(int x_grid, int y_grid);
   ~C_ZLayer();
+  void addUnit(int layer, C_GameUnits * unit);
 
 private:
   void cliStatus(); //print basic status in the CLI

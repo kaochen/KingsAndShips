@@ -41,6 +41,26 @@ C_ZLayer::~C_ZLayer()
     delete m_ground;
 }
 
+void C_ZLayer::addUnit(int layer, C_GameUnits * unit){
+
+switch(layer){
+	case GROUND :
+        m_ground = unit;
+	 break;
+	 case GRAVEYARD :
+        m_grave = unit;
+	 break;
+	 case  FIELD:
+	    m_field = unit;
+	 break;
+	}
+}
+
+
+
 void C_ZLayer::cliStatus(){
     cout << m_x_grid << ":"<< m_y_grid << " ";
 }
+
+
+

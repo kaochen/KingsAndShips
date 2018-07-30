@@ -138,6 +138,7 @@ void C_Grid::renderLayer(int layer){
 void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 	if (waterway(x,y)){
 		m_grid[x][y].main = new C_Boat(x,y,rank,parent);
+		m_vgrid[x][y].addUnit(FIELD,new C_Boat(x,y,rank,parent));
 	}
 	else{
 	    C_Message m;
@@ -150,9 +151,11 @@ void C_Grid::addANewTower(int type, int x, int y, int rank){
 		switch(type){
 		 case ADDNEWTOWER :
 			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
+		    m_vgrid[x][y].addUnit(FIELD,new C_ArcherTower(x,y,rank));
 		 break;
 		 case ADDNEWTURBINE :
 			m_grid[x][y].main = new C_Turbine(x,y,rank);
+		    m_vgrid[x][y].addUnit(FIELD,new C_Turbine(x,y,rank));
 		 break;
 		 case  NONE:
 		 break;
@@ -177,6 +180,7 @@ void C_Grid::setGround(int x, int y, int id){
 	if(id !=0){
 	    string str = t.getNameFromID(id);
 	    m_grid[x][y].ground = new C_Ground(str,x,y);
+		m_vgrid[x][y].addUnit(GROUND,new C_Ground(str,x,y));
 	}
 }
 
@@ -192,9 +196,11 @@ void C_Grid::setDecors(int x, int y, int id){
 	    }
 	    else if(str.find(rocks) != std::string::npos){
 	        m_grid[x][y].main = new C_Decors(str,x,y);
+		    m_vgrid[x][y].addUnit(FIELD,new C_Decors(str,x,y));
 	    }
 	    else if(str.find(trees) != std::string::npos){
 	        m_grid[x][y].main = new C_Trees(str,x,y);
+		    m_vgrid[x][y].addUnit(FIELD,new C_Trees(str,x,y));
 	    }
 	}
 }
@@ -403,6 +409,7 @@ void C_Grid::setTown(int x_grid, int y_grid){
 		}
 	//then set
 	 m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
+	 m_vgrid[x_grid][y_grid].addUnit(GROUND,new C_Town(x_grid,y_grid));
 }
 
 S_Coord C_Grid::foundTown(){
