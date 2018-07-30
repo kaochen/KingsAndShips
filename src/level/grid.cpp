@@ -35,12 +35,6 @@ C_Grid C_Grid::m_instance=C_Grid();
 
 C_Grid::C_Grid()
 {
-
-        C_Message m;
-        ostringstream message;
-        message << "Construct Grid " << GRID_SIZE << "x" << GRID_SIZE << endl;
-        m.printM(message.str());
-
 	C_Settings& settings=C_Settings::Instances();
 
 	for (int y = 0; y < settings.getYGridSize(); y++){
@@ -52,6 +46,11 @@ C_Grid::C_Grid()
 		m_vgrid.push_back(line);
 		cout << endl;
 	}
+
+	C_Message m;
+    ostringstream message;
+    message << "Construct Grid " << m_vgrid[0].size() << "x" << m_vgrid.size() << endl;
+    m.printM(message.str());
 }
 
 C_Grid::~C_Grid()
@@ -61,8 +60,8 @@ C_Grid::~C_Grid()
 
 void C_Grid::reset()
 {
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
+		for (size_t x = 0; x < m_vgrid[y].size(); x++){
 		    m_vgrid[x][y].delAll();
 		    }
 	    }
@@ -171,8 +170,7 @@ void C_Grid::setDecors(int x, int y, int id){
 	}
 }
 
-bool C_Grid::waterway(int x_grid, int y_grid)
-{
+bool C_Grid::waterway(int x_grid, int y_grid){
     bool waterway = false;
 
     if(m_vgrid[x_grid][y_grid].get(GROUND) != nullptr){
@@ -214,8 +212,8 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
 
 
 void C_Grid::displayStatus(){
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
+		for (size_t x = 0; x < m_vgrid[y].size(); x++){
 			if (m_vgrid[x][y].get(FIELD) != nullptr){
 					m_vgrid[x][y].get(FIELD)->displayStatus();
 				}
@@ -224,8 +222,8 @@ void C_Grid::displayStatus(){
 }
 
 void C_Grid::playAllUnits(){
-	for (size_t y = 0; y < GRID_SIZE; y++){
-			for (size_t x = 0; x < GRID_SIZE; x++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
+			for (size_t x = 0; x < m_vgrid[y].size(); x++){
 				if (m_vgrid[x][y].get(FIELD) != nullptr){
 					m_vgrid[x][y].get(FIELD)->play();
 					}
@@ -235,8 +233,8 @@ void C_Grid::playAllUnits(){
 
 
 void C_Grid::deleteGrid(){
-	for (size_t y = 0; y < GRID_SIZE; y++){
-			for (size_t x = 0; x < GRID_SIZE; x++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
+			for (size_t x = 0; x < m_vgrid[y].size(); x++){
 			    m_vgrid[x][y].delAll();
 			}
 		}
@@ -294,8 +292,8 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 		status = m_vgrid[x_grid][y_grid].get(FIELD)->getSelectedStatus();
 		}
 		//erase all
-		for (int y = 0; y < GRID_SIZE; y++){
-			for (int x = 0; x < GRID_SIZE; x++){
+		for (size_t y = 0; y < m_vgrid.size(); y++){
+			for (size_t x = 0; x < m_vgrid[y].size(); x++){
 				if ( m_vgrid[x][y].get(FIELD) != nullptr)
 					m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
 			}
@@ -310,8 +308,8 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 
 C_GameUnits* C_Grid::getSelectedUnit(){
 		C_GameUnits* current = nullptr;
-		for (int y = 0; y < GRID_SIZE; y++){
-			for (int x = 0; x < GRID_SIZE; x++){
+		for (size_t y = 0; y < m_vgrid.size(); y++){
+			for (size_t x = 0; x < m_vgrid[y].size(); x++){
 				if ( m_vgrid[x][y].get(FIELD) != nullptr)
 					if (m_vgrid[x][y].get(FIELD)->getSelectedStatus())
 						current = m_vgrid[x][y].get(FIELD)->getUnit();
@@ -356,8 +354,8 @@ bool C_Grid::boatInMain(int x_grid, int y_grid){
 
 void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
-	for (size_t x = 0; x < m_vgrid.size(); x++){
-           for (size_t y = 0; y < m_vgrid[x].size(); y++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
+           for (size_t x = 0; x < m_vgrid[y].size(); x++){
 				 if(m_vgrid[x][y].get(FIELD) != nullptr){
 				     if(m_vgrid[x][y].get(FIELD)->getName() == "town"){
 				        m_vgrid[x][y].del(FIELD);
@@ -372,8 +370,8 @@ void C_Grid::setTown(int x_grid, int y_grid){
 S_Coord C_Grid::foundTown(){
         //FIXME found only one town, the closest one would be better
         S_Coord coord = {0,0};
-		for (int y = 0; y < GRID_SIZE; y++){
-			for (int x = 0; x < GRID_SIZE; x++){
+	for (size_t x = 0; x < m_vgrid[0].size(); x++){
+		for (size_t y = 0; y < m_vgrid[0].size(); y++){
 			    if(m_vgrid[x][y].get(FIELD) != nullptr){
                     string str = m_vgrid[x][y].get(FIELD)->getName();
                     if(str.find("town") != std::string::npos){
@@ -390,8 +388,8 @@ S_Coord C_Grid::foundTown(){
 int C_Grid::getAllTownsLifeLevel(){
         int life = 0;
         int c = 0;
-        for (int y = 0; y < GRID_SIZE; y++){
-			for (int x = 0; x < GRID_SIZE; x++){
+        for (size_t y = 0; y < m_vgrid.size(); y++){
+			for (size_t x = 0; x < m_vgrid[y].size(); x++){
 		        if(m_vgrid[x][y].get(FIELD) != nullptr){
                     string str = m_vgrid[x][y].get(FIELD)->getName();
                     if(str.find("town") != std::string::npos){
