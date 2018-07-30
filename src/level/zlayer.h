@@ -28,6 +28,8 @@ You can use x+1 to find a unit close to another one m_grid[x+1][y]*/
 
 #include "gameUnits.h"
 
+enum zlayers{GROUND,GRAVEYARD,FIELD};
+
 class C_ZLayer
 {
 public:

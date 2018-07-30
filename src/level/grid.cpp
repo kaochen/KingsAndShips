@@ -117,7 +117,7 @@ void C_Grid::renderLayer(int layer){
 							m_grid[x][y].dead->render(m_grid[x][y].dead->getScreen());
 							}
 						}
-				if (layer == UNITS){
+				if (layer == FIELD){
 						if (m_grid[x][y].main != nullptr){
 								m_grid[x][y].main->render(m_grid[x][y].main->getScreen());
 							}

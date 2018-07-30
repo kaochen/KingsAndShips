@@ -225,7 +225,7 @@ void C_Window::gameLoop(){
                 m_landscape->render();
 		        grid.renderLayer (GRAVEYARD);
 		        grid.renderLayer (GROUND);
-		        grid.renderLayer (UNITS);
+		        grid.renderLayer (FIELD);
 
                 listenButtons();
         		menu.render();
