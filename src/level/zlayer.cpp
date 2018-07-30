@@ -24,11 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_ZLayer::C_ZLayer()
+C_ZLayer::C_ZLayer(int x_grid, int y_grid):
+    m_x_grid(x_grid),
+    m_y_grid(y_grid),
+    m_field(nullptr),
+    m_grave(nullptr),
+    m_ground(nullptr)
 {
-    m_field = nullptr;
-    m_grave = nullptr;
-    m_ground = nullptr;
+    cliStatus();
 }
 
 C_ZLayer::~C_ZLayer()
@@ -38,3 +41,6 @@ C_ZLayer::~C_ZLayer()
     delete m_ground;
 }
 
+void C_ZLayer::cliStatus(){
+    cout << m_x_grid << ":"<< m_y_grid << " ";
+}

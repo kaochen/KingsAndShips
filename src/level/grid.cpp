@@ -52,10 +52,11 @@ C_Grid::C_Grid()
 	for (int y = 0; y < GRID_SIZE; y++){
 	    vector <C_ZLayer> line;
 		for (int x = 0; x < GRID_SIZE; x++){
-		    C_ZLayer z;
+		    C_ZLayer z(x,y);
             line.push_back(z);
 		}
 		m_vgrid.push_back(line);
+		cout << endl;
 	}
 }
 

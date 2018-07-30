@@ -31,12 +31,19 @@ You can use x+1 to find a unit close to another one m_grid[x+1][y]*/
 class C_ZLayer
 {
 public:
-  C_ZLayer();
+  C_ZLayer(int x_grid, int y_grid);
   ~C_ZLayer();
+
 private:
+  void cliStatus(); //print basic status in the CLI
+
+  //attributs
+  int m_x_grid;
+  int m_y_grid;
   C_GameUnits * m_field; //main arena.
   C_GameUnits * m_grave; //when unit is dead
   C_GameUnits * m_ground; //land and water
+
 };
 
 #endif
