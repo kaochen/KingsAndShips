@@ -367,7 +367,7 @@ void C_Grid::setTown(int x_grid, int y_grid){
 			}
 		}
 	//then set
-	 m_vgrid[x_grid][y_grid].set(GROUND,new C_Town(x_grid,y_grid));
+	 m_vgrid[x_grid][y_grid].set(FIELD,new C_Town(x_grid,y_grid));
 }
 
 S_Coord C_Grid::foundTown(){
