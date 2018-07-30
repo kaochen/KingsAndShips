@@ -41,13 +41,6 @@ C_Grid::C_Grid()
         message << "Construct Grid " << GRID_SIZE << "x" << GRID_SIZE << endl;
         m.printM(message.str());
 
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-		m_grid[x][y].main = nullptr;
-		m_grid[x][y].dead = nullptr;
-		m_grid[x][y].ground = nullptr;
-		}
-	}
 	C_Settings& settings=C_Settings::Instances();
 
 	for (int y = 0; y < settings.getYGridSize(); y++){
@@ -63,34 +56,16 @@ C_Grid::C_Grid()
 
 C_Grid::~C_Grid()
 {
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-	            delete m_grid[x][y].main;
-		        delete m_grid[x][y].dead;
-		        delete m_grid[x][y].ground;
-		}
-	}
-
+	reset();
 }
 
 void C_Grid::reset()
 {
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
-		    if(m_grid[x][y].main != nullptr){
-		            delete m_grid[x][y].main;
-		            m_grid[x][y].main = nullptr;
+		    m_vgrid[x][y].delAll();
 		    }
-		    if(m_grid[x][y].dead != nullptr){
-		            delete m_grid[x][y].dead;
-		            m_grid[x][y].dead = nullptr;
-		    }
-		    if(m_grid[x][y].ground != nullptr){
-		            delete m_grid[x][y].ground;
-		            m_grid[x][y].ground = nullptr;
-		    }
-		}
-	}
+	    }
 }
 
 
@@ -99,46 +74,44 @@ void C_Grid::renderLayer(int layer){
 
 	int x_start = 0, x_end = x_start + settings.getGridWidth() + 4;
 	int y_start = 13, y_end = y_start + settings.getGridHeight() + 3;
-
-	//cout << "Line ";
+    cout << "render 1" << endl;
+	cout << "Line ";
 	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
 		int x = x_start;
 		int y = y_start;
+		    cout << "render 2" << x << ":" << y << endl;
 	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
-				//cout << "|" << x << ":"<< y << ":";
+				cout << "|" << x << ":"<< y << ":";
 				if (layer == GROUND){
-				        if (m_grid[x][y].ground != nullptr){
-							        m_grid[x][y].ground->render();
+				        if (m_vgrid[x][y].get(GROUND) != nullptr){
+							        m_vgrid[x][y].get(GROUND)->render();
 							        }
 						}
 						//draw the deads
-				if (layer == GRAVEYARD){
-						if (m_grid[x][y].dead != nullptr){
-							m_grid[x][y].dead->render(m_grid[x][y].dead->getScreen());
-							}
-						}
-				if (layer == FIELD){
-						if (m_grid[x][y].main != nullptr){
-								m_grid[x][y].main->render(m_grid[x][y].main->getScreen());
+				if (layer == GRAVEYARD || layer == FIELD){
+						if (m_vgrid[x][y].get(layer) != nullptr){
+						        m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
 							}
 						}
 				x++;
 				y--;
+				if(y<0)
+				    y=0;
+
 				}
 		if (lineNbr%2 == 0)
 			x_start++;
 		else
 			y_start++;
 
-		//cout << endl;
+		cout << endl;
 	}
 }
 
 
 void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 	if (waterway(x,y)){
-		m_grid[x][y].main = new C_Boat(x,y,rank,parent);
-		m_vgrid[x][y].addUnit(FIELD,new C_Boat(x,y,rank,parent));
+		m_vgrid[x][y].set(FIELD,new C_Boat(x,y,rank,parent));
 	}
 	else{
 	    C_Message m;
@@ -147,15 +120,13 @@ void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 }
 
 void C_Grid::addANewTower(int type, int x, int y, int rank){
-	if (m_grid[x][y].main == nullptr && !waterway(x,y)){
+	if (m_vgrid[x][y].get(FIELD) == nullptr && !waterway(x,y)){
 		switch(type){
 		 case ADDNEWTOWER :
-			m_grid[x][y].main = new C_ArcherTower(x,y,rank);
-		    m_vgrid[x][y].addUnit(FIELD,new C_ArcherTower(x,y,rank));
+		    m_vgrid[x][y].set(FIELD,new C_ArcherTower(x,y,rank));
 		 break;
 		 case ADDNEWTURBINE :
-			m_grid[x][y].main = new C_Turbine(x,y,rank);
-		    m_vgrid[x][y].addUnit(FIELD,new C_Turbine(x,y,rank));
+		    m_vgrid[x][y].set(FIELD,new C_Turbine(x,y,rank));
 		 break;
 		 case  NONE:
 		 break;
@@ -167,10 +138,10 @@ void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest){
 if(x_from == x_dest && y_from == y_dest){
 	}
 else{
-	if (m_grid[x_from][y_from].main != nullptr){
-		m_grid[x_dest][y_dest].main = m_grid[x_from][y_from].main;
-		m_grid[x_from][y_from].main = nullptr;
-	}
+    if(m_vgrid[x_from][y_from].get(FIELD) != nullptr){
+        m_vgrid[x_dest][y_dest].set(FIELD,m_vgrid[x_from][y_from].get(FIELD));
+        m_vgrid[x_from][y_from].set(FIELD,nullptr);
+        }
     }
 }
 
@@ -179,8 +150,7 @@ void C_Grid::setGround(int x, int y, int id){
 	C_TextureList& t=C_TextureList::Instances();
 	if(id !=0){
 	    string str = t.getNameFromID(id);
-	    m_grid[x][y].ground = new C_Ground(str,x,y);
-		m_vgrid[x][y].addUnit(GROUND,new C_Ground(str,x,y));
+		m_vgrid[x][y].set(GROUND,new C_Ground(str,x,y));
 	}
 }
 
@@ -195,12 +165,10 @@ void C_Grid::setDecors(int x, int y, int id){
 	        setTown(x,y);
 	    }
 	    else if(str.find(rocks) != std::string::npos){
-	        m_grid[x][y].main = new C_Decors(str,x,y);
-		    m_vgrid[x][y].addUnit(FIELD,new C_Decors(str,x,y));
+		    m_vgrid[x][y].set(FIELD,new C_Decors(str,x,y));
 	    }
 	    else if(str.find(trees) != std::string::npos){
-	        m_grid[x][y].main = new C_Trees(str,x,y);
-		    m_vgrid[x][y].addUnit(FIELD,new C_Trees(str,x,y));
+		    m_vgrid[x][y].set(FIELD,new C_Trees(str,x,y));
 	    }
 	}
 }
@@ -208,8 +176,9 @@ void C_Grid::setDecors(int x, int y, int id){
 bool C_Grid::waterway(int x_grid, int y_grid)
 {
     bool waterway = false;
-    if(m_grid[x_grid][y_grid].ground != nullptr){
-        string str = m_grid[x_grid][y_grid].ground->getName();
+
+    if(m_vgrid[x_grid][y_grid].get(GROUND) != nullptr){
+        string str = m_vgrid[x_grid][y_grid].get(GROUND)->getName();
         if(str.find("Water") != std::string::npos)
 	        waterway = true;
 	    else
@@ -222,7 +191,7 @@ bool C_Grid::isThisConstructible(S_Coord grid){
 	if ( waterway(grid.x, grid.y)){
 		return false;
 		}
-	else if(m_grid[grid.x][grid.y].main != nullptr){
+	else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr){
 		return false;
 	}
 	else{
@@ -239,17 +208,18 @@ bool C_Grid::isThisConstructible(int x_grid,int y_grid){
 
 
 void C_Grid::moveToDead(int x_grid, int y_grid){
-	m_grid[x_grid][y_grid].dead = m_grid[x_grid][y_grid].main;
-	m_grid[x_grid][y_grid].main = nullptr;
-	}
+    m_vgrid[x_grid][y_grid].set(DEAD,m_vgrid[x_grid][y_grid].get(FIELD));
+    m_vgrid[x_grid][y_grid].set(FIELD,nullptr);
+}
+
 
 
 
 void C_Grid::displayStatus(){
 	for (size_t y = 0; y < GRID_SIZE; y++){
 		for (size_t x = 0; x < GRID_SIZE; x++){
-			if (m_grid[x][y].main != nullptr){
-					m_grid[x][y].main->displayStatus();
+			if (m_vgrid[x][y].get(FIELD) != nullptr){
+					m_vgrid[x][y].get(FIELD)->displayStatus();
 				}
 			}
 		}
@@ -258,8 +228,8 @@ void C_Grid::displayStatus(){
 void C_Grid::playAllUnits(){
 	for (size_t y = 0; y < GRID_SIZE; y++){
 			for (size_t x = 0; x < GRID_SIZE; x++){
-				if (m_grid[x][y].main != nullptr){
-					m_grid[x][y].main->play();
+				if (m_vgrid[x][y].get(FIELD) != nullptr){
+					m_vgrid[x][y].get(FIELD)->play();
 					}
 			}
 		}
@@ -269,18 +239,10 @@ void C_Grid::playAllUnits(){
 void C_Grid::deleteGrid(){
 	for (size_t y = 0; y < GRID_SIZE; y++){
 			for (size_t x = 0; x < GRID_SIZE; x++){
-				if (m_grid[x][y].main != nullptr){
-					delete m_grid[x][y].main;
-					m_grid[x][y].main = nullptr;
-					}
-				 if (m_grid[x][y].dead != nullptr){
-					delete m_grid[x][y].dead;
-					m_grid[x][y].dead = nullptr;
-					}
+			    m_vgrid[x][y].delAll();
 			}
 		}
 }
-
 
 
 bool C_Grid::selectATower(C_Coord clic){
@@ -290,12 +252,12 @@ bool C_Grid::selectATower(C_Coord clic){
 	C_Message m;
 	string message ="";
 	string name ="";
-	if (m_grid[grid.x+1][grid.y+1].main != nullptr){
+	if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
 		unselectedAll(grid.x+1,grid.x+1);
-		name = m_grid[grid.x+1][grid.y+1].main->getName();
+		name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
 			if(name == "ArcherTower" || name == "Turbine"){
 				message =  "Found top " + name;
-				m_grid[grid.x+1][grid.y+1].main->reverseSelectedStatus();
+				m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
 				selected = true;
 			}
 			else{
@@ -303,12 +265,12 @@ bool C_Grid::selectATower(C_Coord clic){
 			}
 	}
 	else{
-		if (m_grid[grid.x][grid.y].main != nullptr){
-			name = m_grid[grid.x][grid.y].main->getName();
+		if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr){
+			name = m_vgrid[grid.x][grid.y].get(FIELD)->getName();
 				unselectedAll(grid.x,grid.y);
 				if(name == "ArcherTower"|| name == "Turbine"){
 				    message =  "Found bottom" + name;
-					m_grid[grid.x][grid.y].main->reverseSelectedStatus();
+					m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
 					selected = true;
 				}
 				else{
@@ -330,21 +292,20 @@ bool C_Grid::selectATower(C_Coord clic){
 void C_Grid::unselectedAll(int x_grid, int y_grid){
 	bool status = false;
 	//backup status
-	if ( m_grid[x_grid][y_grid].main != nullptr){
-		status = m_grid[x_grid][y_grid].main->getSelectedStatus();
+	if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+		status = m_vgrid[x_grid][y_grid].get(FIELD)->getSelectedStatus();
 		}
 		//erase all
 		for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-				if ( m_grid[x][y].main != nullptr)
-					m_grid[x][y].main->setSelectedStatus(false);
+				if ( m_vgrid[x][y].get(FIELD) != nullptr)
+					m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
 			}
 		}
 	//restore status
-	if ( m_grid[x_grid][y_grid].main != nullptr){
-		m_grid[x_grid][y_grid].main->setSelectedStatus(status);
+	if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+		m_vgrid[x_grid][y_grid].get(FIELD)->setSelectedStatus(status);
 		}
-
 
 }
 
@@ -353,16 +314,16 @@ C_GameUnits* C_Grid::getSelectedUnit(){
 		C_GameUnits* current = nullptr;
 		for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-				if ( m_grid[x][y].main != nullptr)
-					if (m_grid[x][y].main->getSelectedStatus())
-						current = m_grid[x][y].main->getUnit();
+				if ( m_vgrid[x][y].get(FIELD) != nullptr)
+					if (m_vgrid[x][y].get(FIELD)->getSelectedStatus())
+						current = m_vgrid[x][y].get(FIELD)->getUnit();
 			}
 		}
 		return current;
 }
 
 bool C_Grid::mainEmpty(int x_grid, int y_grid, C_GameUnits *current){
-    if(m_grid[x_grid][y_grid].main == nullptr || m_grid[x_grid][y_grid].main == current ){
+    if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr || m_vgrid[x_grid][y_grid].get(FIELD) == current ){
         return false;
     }
     else{
@@ -370,7 +331,7 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid, C_GameUnits *current){
     }
 };
 bool C_Grid::mainEmpty(int x_grid, int y_grid){
-    if(m_grid[x_grid][y_grid].main == nullptr){
+    if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
         return true;
     }
     else{
@@ -379,8 +340,8 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid){
 };
 
 bool C_Grid::boatInMain(int x_grid, int y_grid){
-    if(m_grid[x_grid][y_grid].main != nullptr){
-        if(m_grid[x_grid][y_grid].main->getName() == "boat"){
+    if(m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+        if(m_vgrid[x_grid][y_grid].get(FIELD)->getName() == "boat"){
            // cout << "found boat on " << x_grid << ":"<< y_grid << endl;
             return true;
             }
@@ -399,17 +360,15 @@ void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
     for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-				 if(m_grid[x][y].main != nullptr){
-				     if(m_grid[x][y].main->getName() == "town"){
-				        delete m_grid[x][y].main;
-				        m_grid[x][y].main = nullptr;
+				 if(m_vgrid[x][y].get(FIELD) != nullptr){
+				     if(m_vgrid[x][y].get(FIELD)->getName() == "town"){
+				        m_vgrid[x][y].del(FIELD);
 				        }
 				    }
 			}
 		}
 	//then set
-	 m_grid[x_grid][y_grid].main = new C_Town(x_grid,y_grid);
-	 m_vgrid[x_grid][y_grid].addUnit(GROUND,new C_Town(x_grid,y_grid));
+	 m_vgrid[x_grid][y_grid].set(GROUND,new C_Town(x_grid,y_grid));
 }
 
 S_Coord C_Grid::foundTown(){
@@ -417,8 +376,8 @@ S_Coord C_Grid::foundTown(){
         S_Coord coord = {0,0};
 		for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-			    if(m_grid[x][y].main != nullptr){
-                    string str = m_grid[x][y].main->getName();
+			    if(m_vgrid[x][y].get(FIELD) != nullptr){
+                    string str = m_vgrid[x][y].get(FIELD)->getName();
                     if(str.find("town") != std::string::npos){
 				        coord.x = x;
 				        coord.y = y;
@@ -435,10 +394,10 @@ int C_Grid::getAllTownsLifeLevel(){
         int c = 0;
         for (int y = 0; y < GRID_SIZE; y++){
 			for (int x = 0; x < GRID_SIZE; x++){
-		        if(m_grid[x][y].main != nullptr){
-                    string str = m_grid[x][y].main->getName();
+		        if(m_vgrid[x][y].get(FIELD) != nullptr){
+                    string str = m_vgrid[x][y].get(FIELD)->getName();
                     if(str.find("town") != std::string::npos){
-				        life +=  m_grid[x][y].main->getLife();
+				        life +=  m_vgrid[x][y].get(FIELD)->getLife();
 				        c++;
 				    }
 				}

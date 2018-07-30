@@ -41,7 +41,7 @@ C_ZLayer::~C_ZLayer()
     delete m_ground;
 }
 
-void C_ZLayer::addUnit(int layer, C_GameUnits * unit){
+void C_ZLayer::set(int layer, C_GameUnits * unit){
 
 switch(layer){
 	case GROUND :
@@ -54,6 +54,43 @@ switch(layer){
 	    m_field = unit;
 	 break;
 	}
+}
+
+
+C_GameUnits* C_ZLayer::get(int layer){
+    C_GameUnits * unit = nullptr;
+    switch(layer){
+	    case GROUND :
+            unit = m_ground;
+	     break;
+	     case GRAVEYARD :
+            unit = m_grave;
+	     break;
+	     case  FIELD:
+	        unit = m_field;
+	     break;
+	}
+	return unit;
+ }
+
+  void C_ZLayer::del(int layer){
+    switch(layer){
+	    case GROUND :
+            delete m_ground;
+	     break;
+	     case GRAVEYARD :
+            delete m_grave;
+	     break;
+	     case  FIELD:
+	        delete m_field;
+	     break;
+	}
+  }
+
+void C_ZLayer::delAll(){
+        delete m_ground;
+        delete m_grave;
+        delete m_field;
 }
 
 

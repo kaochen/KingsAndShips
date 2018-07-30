@@ -47,7 +47,7 @@ public:
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 
-	C_GameUnits* getUnits(int x_grid, int y_grid) {	return m_grid[x_grid][y_grid].main;};
+	C_GameUnits* getUnits(int x_grid, int y_grid) {	return m_vgrid[x_grid][y_grid].get(FIELD);};
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
@@ -82,7 +82,6 @@ private:
 	C_Grid();
 	~C_Grid();
 
-	C_GameUnits::S_layer m_grid[GRID_SIZE][GRID_SIZE];
   std::vector < std::vector <C_ZLayer> > m_vgrid;
 };
 

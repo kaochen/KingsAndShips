@@ -205,7 +205,7 @@ void C_Window::gameLoop(){
 
     //load the first level
     m_level->load(m_levelNbr);
-
+	cout << "marker 1" << endl;
     while(!m_quit)
     {
 
@@ -222,10 +222,15 @@ void C_Window::gameLoop(){
 	        if (m_forceRefresh){
 
 		        //display game content from bottom to top
+	            cout << "marker 1" << endl;
                 m_landscape->render();
+            	cout << "marker 2" << endl;
 		        grid.renderLayer (GRAVEYARD);
+		        cout << "marker 3" << endl;
 		        grid.renderLayer (GROUND);
+		        cout << "marker 4" << endl;
 		        grid.renderLayer (FIELD);
+		        cout << "marker 5" << endl;
 
                 listenButtons();
         		menu.render();
