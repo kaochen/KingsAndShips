@@ -76,21 +76,28 @@ C_GameUnits* C_ZLayer::get(int layer){
   void C_ZLayer::del(int layer){
     switch(layer){
 	    case GROUND :
-            delete m_ground;
+	    if(m_ground != nullptr){delete m_ground;}
+	        m_ground = nullptr;
 	     break;
 	     case GRAVEYARD :
-            delete m_grave;
+	    if(m_grave != nullptr){delete m_grave;}
+	        m_grave = nullptr;
 	     break;
 	     case  FIELD:
-	        delete m_field;
+	    if(m_grave != nullptr){ delete m_field;}
+	        m_field = nullptr;
 	     break;
 	}
   }
 
 void C_ZLayer::delAll(){
-        delete m_ground;
-        delete m_grave;
-        delete m_field;
+	    if(m_ground != nullptr){ delete m_ground;}
+	    	m_ground = nullptr;
+	    if(m_grave != nullptr){ delete m_grave;}
+	    	m_grave = nullptr;
+	    if(m_field != nullptr){ delete m_field;}
+	        m_field = nullptr;
+
 }
 
 

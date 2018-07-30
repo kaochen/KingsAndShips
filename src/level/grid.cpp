@@ -80,23 +80,22 @@ void C_Grid::renderLayer(int layer){
 		int x = x_start;
 		int y = y_start;
 	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
-				//cout << "|" << x << ":"<< y << ":";
-				if (layer == GROUND){
-				        if (m_vgrid[x][y].get(GROUND) != nullptr){
-							        m_vgrid[x][y].get(GROUND)->render();
-							        }
-						}
-						//draw the deads
-				if (layer == GRAVEYARD || layer == FIELD){
-						if (m_vgrid[x][y].get(layer) != nullptr){
-						        m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
-							}
-						}
+				if(x >= 0 && x < x_end && y >= 0 && y < y_end){
+					//cout << "|" << x << ":"<< y;
+				    if (layer == GROUND){
+				            if (m_vgrid[x][y].get(GROUND) != nullptr){
+							            m_vgrid[x][y].get(GROUND)->render();
+							            }
+						    }
+						    //draw the deads
+				    if (layer == GRAVEYARD || layer == FIELD){
+						    if (m_vgrid[x][y].get(layer) != nullptr){
+						            m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
+							    }
+						    }
+				}
 				x++;
 				y--;
-				if(y<0)
-				    y=0;
-
 				}
 		if (lineNbr%2 == 0)
 			x_start++;
@@ -357,8 +356,8 @@ bool C_Grid::boatInMain(int x_grid, int y_grid){
 
 void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
-    for (int y = 0; y < GRID_SIZE; y++){
-			for (int x = 0; x < GRID_SIZE; x++){
+	for (size_t x = 0; x < m_vgrid.size(); x++){
+           for (size_t y = 0; y < m_vgrid[x].size(); y++){
 				 if(m_vgrid[x][y].get(FIELD) != nullptr){
 				     if(m_vgrid[x][y].get(FIELD)->getName() == "town"){
 				        m_vgrid[x][y].del(FIELD);
