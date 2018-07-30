@@ -74,14 +74,13 @@ void C_Grid::renderLayer(int layer){
 
 	int x_start = 0, x_end = x_start + settings.getGridWidth() + 4;
 	int y_start = 13, y_end = y_start + settings.getGridHeight() + 3;
-    cout << "render 1" << endl;
-	cout << "Line ";
+
+	//cout << "Line ";
 	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
 		int x = x_start;
 		int y = y_start;
-		    cout << "render 2" << x << ":" << y << endl;
 	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
-				cout << "|" << x << ":"<< y << ":";
+				//cout << "|" << x << ":"<< y << ":";
 				if (layer == GROUND){
 				        if (m_vgrid[x][y].get(GROUND) != nullptr){
 							        m_vgrid[x][y].get(GROUND)->render();
@@ -104,7 +103,7 @@ void C_Grid::renderLayer(int layer){
 		else
 			y_start++;
 
-		cout << endl;
+		//cout << endl;
 	}
 }
 

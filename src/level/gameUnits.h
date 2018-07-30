@@ -31,11 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_GameUnits
 {
 	public:
-	struct S_layer{
-		C_GameUnits * main;
-		C_GameUnits * dead;
-    C_GameUnits * ground;
-	};
 	//methods
 	C_GameUnits(std::string name,
 		     int x_grid,

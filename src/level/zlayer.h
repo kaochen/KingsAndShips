@@ -15,11 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*The grid is a 2D array to store and retreive easely each game unit.
-The grid store S_Layer structure where you can found C_GameUnits in it.
-The grid size is fixed by GRID_SIZE m_grid[GRID_SIZE][GRID_SIZE]
-You can use x+1 to find a unit close to another one m_grid[x+1][y]*/
-
 
 #ifndef ZLAYER_H
 #define ZLAYER_H
