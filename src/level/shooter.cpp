@@ -42,6 +42,9 @@ C_Shooter::~C_Shooter()
 	delete m_weapon;
 }
 C_GameUnits*  C_Shooter::searchNextTarget(string type){
+    C_Settings& settings=C_Settings::Instances();
+    int gridSize = settings.getGridSize();
+
 	int gridDiag = m_weapon->getFireRange();
 	C_Grid& grid=C_Grid::Instances();
 	int x_grid = m_coord->getXGrid();
@@ -52,7 +55,7 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
 	for(int y = (y_grid - gridDiag); y <= (y_grid + gridDiag); y++){
 		for(int x = (x_grid - gridDiag); x <= (x_grid + gridDiag); x++){
 			if((x != x_grid || y != y_grid)){
-			    if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
+			    if(x >= 0 && x <= gridSize && y >= 0 && y <= gridSize){
                     //cout << "test: "<< x << ":" << y << endl;
 				    C_GameUnits* tmp = grid.getUnits(x,y);
 				    if(tmp != nullptr){
