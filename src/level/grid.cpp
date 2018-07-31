@@ -37,9 +37,9 @@ C_Grid::C_Grid()
 {
 	C_Settings& settings=C_Settings::Instances();
 
-	for (int y = 0; y < settings.getYGridSize(); y++){
+	for (int y = 0; y < settings.getGridSize(); y++){
 	    vector <C_ZLayer> line;
-		for (int x = 0; x < settings.getXGridSize(); x++){
+		for (int x = 0; x < settings.getGridSize(); x++){
 		    C_ZLayer z(x,y);
             line.push_back(z);
 		}
@@ -49,7 +49,7 @@ C_Grid::C_Grid()
 
 	C_Message m;
     ostringstream message;
-    message << "Construct Grid " << m_vgrid[0].size() << "x" << m_vgrid.size() << endl;
+    message << "Construct Grid " << m_vgrid.size() << "x" << m_vgrid.size() << endl;
     m.printM(message.str());
 }
 
@@ -60,7 +60,7 @@ C_Grid::~C_Grid()
 
 void C_Grid::reset()
 {
-	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
 		for (size_t x = 0; x < m_vgrid.size(); x++){
 		    m_vgrid[x][y].delAll();
 		    }
@@ -212,7 +212,7 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
 
 
 void C_Grid::displayStatus(){
-	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
 		for (size_t x = 0; x < m_vgrid.size(); x++){
 			if (m_vgrid[x][y].get(FIELD) != nullptr){
 					m_vgrid[x][y].get(FIELD)->displayStatus();
@@ -222,7 +222,7 @@ void C_Grid::displayStatus(){
 }
 
 void C_Grid::playAllUnits(){
-	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
 			for (size_t x = 0; x < m_vgrid.size(); x++){
 				if (m_vgrid[x][y].get(FIELD) != nullptr){
 					m_vgrid[x][y].get(FIELD)->play();
@@ -308,7 +308,7 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 
 C_GameUnits* C_Grid::getSelectedUnit(){
 		C_GameUnits* current = nullptr;
-		for (size_t y = 0; y < m_vgrid[0].size(); y++){
+		for (size_t y = 0; y < m_vgrid.size(); y++){
 			for (size_t x = 0; x < m_vgrid.size(); x++){
 				if ( m_vgrid[x][y].get(FIELD) != nullptr)
 					if (m_vgrid[x][y].get(FIELD)->getSelectedStatus())
@@ -354,7 +354,7 @@ bool C_Grid::boatInMain(int x_grid, int y_grid){
 
 void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
-	for (size_t y = 0; y < m_vgrid[0].size(); y++){
+	for (size_t y = 0; y < m_vgrid.size(); y++){
            for (size_t x = 0; x < m_vgrid.size(); x++){
 				 if(m_vgrid[x][y].get(FIELD) != nullptr){
 				     if(m_vgrid[x][y].get(FIELD)->getName() == "town"){
@@ -370,7 +370,7 @@ void C_Grid::setTown(int x_grid, int y_grid){
 S_Coord C_Grid::foundTown(){
         //FIXME found only one town, the closest one would be better
         S_Coord coord = {0,0};
-	for (size_t x = 0; x < m_vgrid[0].size(); x++){
+	for (size_t x = 0; x < m_vgrid.size(); x++){
 		for (size_t y = 0; y < m_vgrid[0].size(); y++){
 			    if(m_vgrid[x][y].get(FIELD) != nullptr){
                     string str = m_vgrid[x][y].get(FIELD)->getName();
@@ -388,7 +388,7 @@ S_Coord C_Grid::foundTown(){
 int C_Grid::getAllTownsLifeLevel(){
         int life = 0;
         int c = 0;
-        for (size_t y = 0; y < m_vgrid[0].size(); y++){
+        for (size_t y = 0; y < m_vgrid.size(); y++){
 			for (size_t x = 0; x < m_vgrid.size(); x++){
 		        if(m_vgrid[x][y].get(FIELD) != nullptr){
                     string str = m_vgrid[x][y].get(FIELD)->getName();

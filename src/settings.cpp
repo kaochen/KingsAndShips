@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "settings.h"
 #include "message.h"
+#include <cmath>
 
 #include <fstream>
 
@@ -28,10 +29,9 @@ C_Settings C_Settings::m_instance=C_Settings();
 C_Settings::C_Settings()
 {
 	//cout << "Construct C_Settings" << endl;
-	m_x_gridSize = GRID_SIZE;
-	m_y_gridSize = GRID_SIZE;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
+    calcGridSize();
 	m_gridNbrOfLine = 28;
 	m_gridNbrOfRow = 15;
 	m_first_tile_x = 13;
@@ -48,6 +48,10 @@ C_Settings::C_Settings()
 
 C_Settings::~C_Settings()
 {
+}
+
+void C_Settings::calcGridSize(){
+    m_gridSize = sqrt(m_windowHeight*m_windowHeight + m_windowWidth*m_windowWidth)/TILE_HALF_WIDTH + 2;
 }
 
 void C_Settings::initTSXfileList(){
