@@ -24,14 +24,16 @@ using namespace std;
 
 C_Coord::C_Coord(int x_grid, int y_grid){
 
+    C_Settings& settings=C_Settings::Instances();
+    int gridSize = settings.getGridSize();
 	if (x_grid < 0)
 		x_grid = 0;
 	if (y_grid < 0)
 		y_grid = 0;
-	if (x_grid > GRID_SIZE)
-		x_grid = GRID_SIZE;
-	if (y_grid > GRID_SIZE)
-		y_grid = GRID_SIZE;
+	if (x_grid > gridSize)
+		x_grid = gridSize;
+	if (y_grid > gridSize)
+		y_grid = gridSize;
 
 	m_this.grid.x = x_grid;
 	m_this.grid.y = y_grid;
