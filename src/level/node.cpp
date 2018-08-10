@@ -49,6 +49,9 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 
 C_Node::~C_Node()
 {
+	m_parent = nullptr;
+	m_coord = nullptr; //FIXME
+
 	C_TextureList& t=C_TextureList::Instances();
 	if(m_h_texture_name != "")
 	    t.freeTexture(m_h_texture_name );
@@ -131,52 +134,6 @@ void C_Node::calcH(const C_Node* target){
 	}
 }
 
-void C_Node::calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
-		    multimap <int,C_Node*>* m_openNodes){
-
-	m_open = false; //close the current node
-
-	int x_grid = m_coord->getGrid().x;
-	int y_grid = m_coord->getGrid().y;
-	C_Message m;
-	ostringstream  message;
-	message << "For: " << x_grid << ":"<< y_grid << " F: " << m_F << "-Testing : ";
-	C_Node *tested = gridNode[x_grid][y_grid];
-	int currentG = tested->getG();
-	for (int y = y_grid - 1; y <= (y_grid + 1); y++){
-		for (int x = x_grid - 1; x <= (x_grid + 1); x++){
-			if(x >= 0 && x <= GRID_SIZE && y >= 0 && y <= GRID_SIZE){
-				if ((x != x_grid || y != y_grid)){
-					//Calc G_offset
-					int G_offset = calcG_offset(x_grid, y_grid,x,y);
-					bool corner = crossACorner(x_grid, y_grid,x,y, gridNode);
-					//
-					C_Node *tested = gridNode[x][y];
-						if (tested != nullptr){
-							if (tested->getBlock() == false && corner == false){
-								message <<  x << ":" << y << " ";
-
-								int tmpG = tested->getG();
-								if (tmpG == 0 || (currentG + G_offset) < tmpG ){
-									tested->setG(currentG + G_offset);
-									if(tested->getOpen() == true){
-										m_openNodes->insert(pair<int, C_Node*>(tested->getF(),tested));
-										tested->setOpen(false);
-										tested->setParent(gridNode[x_grid][y_grid]);
-										}
-									}
-								}
-
-
-							}
-						}
-				}
-			}
-		}
-		message << endl;
-		m.printDebugPath(message.str());
-}
-
 
 int C_Node::calcG_offset(int x_from, int y_from,
 			 int x_dest, int y_dest){
@@ -197,16 +154,6 @@ int C_Node::calcG_offset(int x_from, int y_from,
 	return offset;
 }
 
-bool C_Node::crossACorner(int x_from, int y_from,
-			  int x_dest, int y_dest,
-			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]){
-	if(gridNode[x_from][y_dest]->getBlock() || gridNode[x_dest][y_from]->getBlock()){
-		return true;
-	}
-	else{
-		return false;
-	}
-			  }
 
 int C_Node::getG() const{
 	return m_G;

@@ -37,9 +37,9 @@ C_Grid::C_Grid()
 {
 	C_Settings& settings=C_Settings::Instances();
 
-	for (int y = 0; y < settings.getGridSize(); y++){
+	for (size_t y = 0; y < settings.getGridSize(); y++){
 	    vector <C_ZLayer> line;
-		for (int x = 0; x < settings.getGridSize(); x++){
+		for (size_t x = 0; x < settings.getGridSize(); x++){
 		    C_ZLayer z(x,y);
             line.push_back(z);
 		}

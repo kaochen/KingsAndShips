@@ -45,8 +45,6 @@ public:
 	void displayStatus();
 
 	void calcH(const C_Node* target);
-	void calcG(C_Node* gridNode[GRID_SIZE][GRID_SIZE],
-		    std::multimap <int,C_Node*>* m_openNodes);
 	int getG() const;
 	int getH() const;
 	int getF() const;
@@ -65,9 +63,6 @@ public:
 protected:
 	int calcG_offset(int x_from, int y_from,
 			 int x_dest, int y_dest);
-	bool crossACorner(int x_from, int y_from,
-			  int x_dest, int y_dest,
-			  C_Node* gridNode[GRID_SIZE][GRID_SIZE]);
 	C_Coord * m_coord;
 	bool m_block;
 	int m_G; // G cost (distance from the starting node)

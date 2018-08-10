@@ -35,7 +35,7 @@ public:
 
 	C_Node* searchOpenList(int F);
 	void setTown(int x_grid,int y_grid);
-
+  C_Node* getNode(size_t x_grid, size_t y_grid){return &m_vgridNode[x_grid][y_grid];};
 	void showPath();
 	void show_H_G_F();
 	C_Node* closestNode();
@@ -50,7 +50,7 @@ private:
 	std::multimap<int, C_Node*> m_openNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
-	C_Node* m_gridNode[GRID_SIZE][GRID_SIZE];
+  std::vector < std::vector <C_Node> > m_vgridNode;
 	std::stack<C_Node*> m_path;
 };
 

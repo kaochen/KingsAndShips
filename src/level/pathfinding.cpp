@@ -27,26 +27,31 @@ using namespace std;
 
 C_Path::C_Path(int x_dest, int y_dest)
 {
-
 	C_Grid& grid=C_Grid::Instances();
-	m_start = nullptr;
-	m_destination = nullptr;
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-			bool block = true;
-			if (grid.waterway(x,y)){
-			    if(grid.mainEmpty(x,y) || grid.boatInMain(x,y)){
-				    block = false;
-				}
-			}
-		m_gridNode[x][y] = new C_Node(x,y,block);
-		}
+	C_Settings& settings=C_Settings::Instances();
+    for (size_t y = 0; y < settings.getGridSize(); y++){
+	    vector <C_Node> line;
+		for (size_t x = 0; x < settings.getGridSize(); x++){
+		    bool block = true;
+		    if (grid.waterway(x,y)){
+		        if(grid.mainEmpty(x,y) || grid.boatInMain(x,y)){
+			        block = false;
+			    }
+		    }
+	        C_Node z(x,y,block);
+            line.push_back(z);
+	    }
+	    m_vgridNode.push_back(line);
 	}
 
+	m_start = nullptr;
+	m_destination = nullptr;
+
+
 	setTown(x_dest,y_dest);
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-		m_gridNode[x][y]->calcH(m_gridNode[x_dest][y_dest]);
+	for (size_t y = 0; y < m_vgridNode.size(); y++){
+		for (size_t x = 0; x < m_vgridNode.size(); x++){
+		m_vgridNode[x][y].calcH(&m_vgridNode[x_dest][y_dest]);
 		}
 	}
 	C_Message m;
@@ -54,21 +59,15 @@ C_Path::C_Path(int x_dest, int y_dest)
 }
 C_Path::~C_Path()
 {
-    for (size_t y = 0; y < GRID_SIZE; y++){
-		    for (size_t x = 0; x < GRID_SIZE; x++){
-		    	delete m_gridNode[x][y];
-		        m_gridNode[x][y] = nullptr;
-		    }
-	    }
 }
 
 
 void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
-	m_start = m_gridNode[x_start][y_start];
-	m_gridNode[x_start][y_start]->setBlock(false);
+	m_start = &m_vgridNode[x_start][y_start];
+	m_vgridNode[x_start][y_start].setBlock(false);
 	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
 
-	m_destination = m_gridNode[x_dest][y_dest];
+	m_destination = &m_vgridNode[x_dest][y_dest];
     C_Message m;
     ostringstream message;
 
@@ -85,7 +84,6 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 		       				c++;
 				       		std::multimap<int, C_Node*> tmpList;
 				        	message << ": " << (*rit2).first;
-					       	(*rit2).second->calcG(m_gridNode,&tmpList);
 
 					       	if(m_openNodes.size()>1){
 					       		m_openNodes.erase(--(rit2.base()));
@@ -152,17 +150,17 @@ C_Node* C_Path::searchOpenList(int F){
 
 void C_Path::setTown(int x_grid,int y_grid){
 	//reset
-	for (size_t y = 0; y < GRID_SIZE; y++){
-		for (size_t x = 0; x < GRID_SIZE; x++){
-		m_gridNode[x][y]->setTown(false);
+	for (size_t y = 0; y < m_vgridNode.size(); y++){
+		for (size_t x = 0; x < m_vgridNode.size(); x++){
+		m_vgridNode[x][y].setTown(false);
 		}
 	}
 	//set
-	m_gridNode[x_grid][y_grid]->setTown(true);
+	m_vgridNode[x_grid][y_grid].setTown(true);
 	for(int j = -1; j <= 1; j++){
     	for(int i = -1; i <= 1; i++){
-        	if(x_grid+i >= 0 && x_grid+i <= GRID_SIZE && y_grid+j >= 0 && y_grid+j <= GRID_SIZE){
-        		    m_gridNode[x_grid+i][y_grid+j]->setBlock(false);
+        	if(x_grid+i >= 0 && x_grid+i <= m_vgridNode.size() && y_grid+j >= 0 && y_grid+j <= m_vgridNode.size()){
+        		    m_vgridNode[x_grid+i][y_grid+j].setBlock(false);
         		}
     		}
     	}
@@ -190,9 +188,9 @@ void C_Path::loadPath(){
 	    //prepare render for debug
 	    C_Settings& settings=C_Settings::Instances();
 	    if(settings.getDebugPathMode()){
-		    for (size_t y = 0; y < GRID_SIZE; y++){
-			    for (size_t x = 0; x < GRID_SIZE; x++){
-			    m_gridNode[x][y]->prepareRender ();
+		    for (size_t y = 0; y < m_vgridNode.size(); y++){
+			    for (size_t x = 0; x < m_vgridNode.size(); x++){
+			    m_vgridNode[x][y].prepareRender ();
 			    }
 		    }
 	    }
@@ -201,7 +199,7 @@ void C_Path::loadPath(){
 }
 
 void C_Path::addANodeAtTheStartOfThePath(S_Coord grid){
-		     m_path.push(m_gridNode[grid.x][grid.y]);
+		     m_path.push(&m_vgridNode[grid.x][grid.y]);
 }
 
 
@@ -225,9 +223,9 @@ void C_Path::showPath(){
 void C_Path::show_H_G_F(){
     C_Message m;
     string message = "";
-	for(int y= 0; y < GRID_SIZE; y++){
-		for(int x= 0; x < GRID_SIZE; x++){
-			C_Node* c = m_gridNode[x][y];
+	for(size_t y= 0; y < m_vgridNode.size(); y++){
+		for(size_t x= 0; x < m_vgridNode.size(); x++){
+			C_Node* c = &m_vgridNode[x][y];
 			message += "|" + to_string(c->getF());
 		}
         m.printDebugPath(message + "\n");
@@ -237,25 +235,25 @@ void C_Path::show_H_G_F(){
 
 C_Node* C_Path::closestNode(){
 	C_Node *closest = nullptr;
-	int lowestF = 10000;
-	for(int y= 0; y < GRID_SIZE; y++){
-		for(int x= 0; x < GRID_SIZE; x++){
-			int F = m_gridNode[x][y]->getF();
+	size_t lowestF = 10000;
+	for(size_t y= 0; y < m_vgridNode.size(); y++){
+		for(size_t x= 0; x < m_vgridNode.size(); x++){
+			size_t F = m_vgridNode[x][y].getF();
 			if (F > 0 && F < lowestF){
-				closest = m_gridNode[x][y];
+				closest = &m_vgridNode[x][y];
 				lowestF = F;
 			}
 		}
 	}
-	int lowestH = 10000;
-	for(int y= 0; y < GRID_SIZE; y++){
-		for(int x= 0; x < GRID_SIZE; x++){
-			int H = m_gridNode[x][y]->getH();
-			int F = m_gridNode[x][y]->getF();
+	size_t lowestH = 10000;
+	for(size_t y= 0; y < m_vgridNode.size(); y++){
+		for(size_t x= 0; x < m_vgridNode.size(); x++){
+			size_t H = m_vgridNode[x][y].getH();
+			size_t F = m_vgridNode[x][y].getF();
 			if(F == lowestF){
 				if (H > 0 && H < lowestH){
 					if(closest != nullptr){
-						closest = m_gridNode[x][y];
+						closest = &m_vgridNode[x][y];
 						lowestH = H;
 					}
 				}
@@ -288,9 +286,9 @@ void C_Path::displayPath(){
 	}
 	if(settings.getDebugPathMode()){
 	    //display H G and F numbers for debugging Pathfinding A*
-		for (size_t y = 0; y < GRID_SIZE; y++){
-			for (size_t x = 0; x < GRID_SIZE; x++){
-			m_gridNode[x][y]->render();
+		for (size_t y = 0; y < m_vgridNode.size(); y++){
+			for (size_t x = 0; x < m_vgridNode.size(); x++){
+			m_vgridNode[x][y].render();
 			}
 		}
 	}
@@ -305,5 +303,4 @@ void C_Path::goNextStep(){
 	if(m_path.size() > 1 ||!m_path.empty())
 		m_path.pop();
 }
-
 
