@@ -46,10 +46,11 @@ public:
   void addANodeAtTheStartOfThePath(S_Coord grid);
 
 private:
-	int findLowestF();
+	size_t findLowestF();
 	void loadPath();
   void calcG(size_t x_grid, size_t y_grid);
 	std::multimap<int, C_Node*> m_openNodes;
+  std::vector <C_Node*> m_vopenNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
   std::vector < std::vector <C_Node> > m_vgridNode;

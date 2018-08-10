@@ -64,48 +64,32 @@ C_Path::~C_Path()
 
 void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_start = &m_vgridNode[x_start][y_start];
-	m_vgridNode[x_start][y_start].setBlock(false);
-	m_openNodes.insert(pair<int, C_Node*>(0,m_start));
-
 	m_destination = &m_vgridNode[x_dest][y_dest];
+	m_vgridNode[x_start][y_start].setBlock(false);
+    m_vopenNodes.push_back(m_start);
+
     C_Message m;
     ostringstream message;
 
-       std::multimap<int, C_Node*>::reverse_iterator rit;
+    int lowestF = findLowestF();
+    //tant que la liste des C_Node ouvert n'est pas vide
+    //prendre celui qui le F le plus faible
+    //et calculer la valeur de G et mettre à jour le F pour les éléments situé autours
 
-       for(int count = 1; count > 0; count--){
-                if(m_openNodes.size()>0){
-              		int lowestF = findLowestF();
-              		message << "map size: " << m_openNodes.size() << " lowestF " << lowestF;
-     			int c = 0;
-     		       std::multimap<int, C_Node*>::reverse_iterator rit2;
-		       for (rit2=m_openNodes.rbegin(); rit2!=m_openNodes.rend(); rit2++){
-		       			if((*rit2).first == lowestF && c < 1){
-		       				c++;
-				       		std::multimap<int, C_Node*> tmpList;
-				        	message << ": " << (*rit2).first;
+    for(size_t i = 0; i < m_vopenNodes.size(); i++ ){
+            if(m_vopenNodes[i] != nullptr){
+                 C_Coord coord = *m_vopenNodes[i]->getCoord();
+                 calcG(coord.getXGrid(),coord.getYGrid());
+            }
+    }
 
-					       	if(m_openNodes.size()>1){
-					       		m_openNodes.erase(--(rit2.base()));
-					       	}
-					       	else{
-					       		//cout << "list is empty" << endl;
-					       	}
 
-						std::multimap<int, C_Node*>::iterator it2;
-						for (it2=tmpList.begin(); it2!=tmpList.end(); it2++){
-							m_openNodes.insert(pair<int, C_Node*>((*it2).first,(*it2).second));
-							}
-					}
-			count = m_openNodes.size();
-			}
-			}
-	}
+
 	message << "\n---------\n";
 	m.printDebugPath(message.str());
 
-	if(m_openNodes.size()>0){
-	loadPath();
+	if(m_vopenNodes.size()>0){
+	    loadPath();
 	}
     else{
         m.printM("not path to load\n");
@@ -123,12 +107,12 @@ void C_Path::displayOpenList(){
 
 }
 
-int C_Path::findLowestF(){
-	std::multimap<int, C_Node*>::iterator it;
+size_t C_Path::findLowestF(){
 	int lowest = 10000;
-	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-		if ((*it).first < lowest)
-			lowest = (*it).first;
+	for(size_t i = 0; i < m_vopenNodes.size();i++){
+	    if(m_vopenNodes[i]->getF()<lowest){
+	        lowest = m_vopenNodes[i]->getF();
+	    }
 	}
 	return lowest;
 }
@@ -321,7 +305,7 @@ void C_Path::calcG(size_t x_grid, size_t y_grid){
                                     if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
                                         tested->setG(currentG + G_offset);
                                         if(tested->getOpen()){
-                                            m_openNodes.insert(pair<int,C_Node*>(tested->getF(),tested));
+                                            m_vopenNodes.push_back(tested);
                                             tested->setOpen(false);
                                             tested->setParent(current);
                                         }
