@@ -60,9 +60,8 @@ public:
 	void render();
   bool screenAtCenter();
 
+	int calcG_offset(int x_from, int y_from,int x_dest, int y_dest);
 protected:
-	int calcG_offset(int x_from, int y_from,
-			 int x_dest, int y_dest);
 	C_Coord * m_coord;
 	bool m_block;
 	int m_G; // G cost (distance from the starting node)

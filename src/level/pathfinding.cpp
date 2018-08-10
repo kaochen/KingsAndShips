@@ -304,3 +304,39 @@ void C_Path::goNextStep(){
 		m_path.pop();
 }
 
+
+void C_Path::calcG(size_t x_grid, size_t y_grid){
+    C_Node * current = &m_vgridNode[x_grid][y_grid];
+    current->setOpen(false);
+    int currentG = current->getG();
+    for(int y = y_grid - 1; y <= y_grid + 1; y++){ //test around current
+        for(int x = x_grid - 1; x <= x_grid + 1; x++){
+            if(x >=0 && x <= m_vgridNode.size() && y >=0 && y <= m_vgridNode.size()){//do not test outside the gridNode
+                if((x != x_grid || y != y_grid)){ //do not cacl the current
+                    C_Node *tested = &m_vgridNode[x][y];
+                        if(tested != nullptr){
+                            if(tested->getBlock() == false){
+                                int G_offset = tested->calcG_offset(x_grid,y_grid,x,y);
+                                int tmp_G = tested->getG();
+                                    if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
+                                        tested->setG(currentG + G_offset);
+                                        if(tested->getOpen()){
+                                            m_openNodes.insert(pair<int,C_Node*>(tested->getF(),tested));
+                                            tested->setOpen(false);
+                                            tested->setParent(current);
+                                        }
+
+                                    }
+
+
+                            }
+                        }
+                }
+            }
+        }
+    }
+
+
+
+
+}

@@ -44,9 +44,11 @@ public:
 	std::stack<C_Node*> getPath();
 	void goNextStep();
   void addANodeAtTheStartOfThePath(S_Coord grid);
+
 private:
 	int findLowestF();
 	void loadPath();
+  void calcG(size_t x_grid, size_t y_grid);
 	std::multimap<int, C_Node*> m_openNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
