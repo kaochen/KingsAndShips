@@ -129,8 +129,9 @@ size_t C_Path::findLowestF(){
 
 void C_Path::setTown(int x_grid,int y_grid){
 	//reset
-	for (size_t x = 0; x < m_vgridNode.size(); x++){
-	    for (size_t y = 0; y < m_vgridNode.size(); y++){
+	int size = m_vgridNode.size();
+	for (int x = 0; x < size; x++){
+	    for (int y = 0; y < size; y++){
 	    	m_vgridNode[x][y].setTown(false);
 		}
 	}
@@ -138,7 +139,7 @@ void C_Path::setTown(int x_grid,int y_grid){
 	m_vgridNode[x_grid][y_grid].setTown(true);
 	for(int j = -1; j <= 1; j++){
     	for(int i = -1; i <= 1; i++){
-        	if(x_grid+i >= 0 && x_grid+i <= m_vgridNode.size() && y_grid+j >= 0 && y_grid+j <= m_vgridNode.size()){
+        	if(x_grid+i >= 0 && x_grid+i <= size && y_grid+j >= 0 && y_grid+j <= size){
         		    m_vgridNode[x_grid+i][y_grid+j].setBlock(false);
         		}
     		}
@@ -286,15 +287,17 @@ void C_Path::goNextStep(){
 
 
 void C_Path::calcG(C_Node *current){
-    size_t  x_grid = current->getXGrid();
-    size_t  y_grid = current->getYGrid();
+	int size = m_vgridNode.size();
+    int  x_grid = current->getXGrid();
+    int  y_grid = current->getYGrid();
+
     //cout << "calcG for :" << x_grid << ":" << y_grid << endl;
     current->setOpen(false);
     int currentG = current->getG();
 
     for(int y = y_grid - 1; y <= y_grid + 1; y++){ //test around current
         for(int x = x_grid - 1; x <= x_grid + 1; x++){
-            if(x >=0 && x <= m_vgridNode.size() && y >=0 && y <= m_vgridNode.size()){//do not test outside the gridNode
+            if(x >=0 && x <= size && y >=0 && y <= size) {//do not test outside the gridNode
                     C_Node *tested = &m_vgridNode[x][y];
                         if(tested != nullptr && tested != current){
                             bool corner = crossACorner(x_grid,y_grid,x,y);
