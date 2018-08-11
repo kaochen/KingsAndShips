@@ -72,15 +72,15 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
     ostringstream message;
 
     int lowestF = findLowestF();
-    //tant que la liste des C_Node ouvert n'est pas vide
-    //prendre celui qui le F le plus faible
-    //et calculer la valeur de G et mettre à jour le F pour les éléments situé autours
 
-    for(size_t i = 0; i < m_vopenNodes.size(); i++ ){
-            if(m_vopenNodes[i] != nullptr){
-                 C_Coord coord = *m_vopenNodes[i]->getCoord();
-                 calcG(coord.getXGrid(),coord.getYGrid());
-            }
+    cout << "New Path\n";
+    while (m_vopenNodes.size()>0){
+            cout << "size "<< m_vopenNodes.size() << " ";
+                if(m_vopenNodes[0] != nullptr){
+                     C_Coord coord = *m_vopenNodes[0]->getCoord();
+                     calcG(coord.getXGrid(),coord.getYGrid());
+                     m_vopenNodes.erase(m_vopenNodes.begin() + 0);
+                }
     }
 
 
@@ -88,21 +88,22 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	message << "\n---------\n";
 	m.printDebugPath(message.str());
 
-	if(m_vopenNodes.size()>0){
+	//if(m_vopenNodes.size()>0){
 	    loadPath();
-	}
-    else{
-        m.printM("not path to load\n");
-    }
+	//}
+    //else{
+    //    m.printM("not path to load\n");
+    //}
 
 }
 
 void C_Path::displayOpenList(){
-	std::multimap<int, C_Node*>::iterator it;
 	C_Message m;
 	m.printDebugPath("Open Nodes: \n");
-	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-		(*it).second->displayStatus();
+
+	for (size_t i = 0; i < m_vopenNodes.size(); i++){
+	    if(m_vopenNodes[i])
+		    m_vopenNodes[i]->displayStatus();
 	}
 
 }
@@ -118,19 +119,6 @@ size_t C_Path::findLowestF(){
 }
 
 
-C_Node* C_Path::searchOpenList(int F){
-	std::multimap<int, C_Node*>::iterator it;
-	C_Node * current = nullptr;
-	for (it=m_openNodes.begin(); it!=m_openNodes.end(); it++){
-		if ((*it).first == F){
-			current = (*it).second;
-		}
-		else{
-			current = nullptr;
-		}
-	}
-	return current;
-}
 
 void C_Path::setTown(int x_grid,int y_grid){
 	//reset
@@ -291,6 +279,7 @@ void C_Path::goNextStep(){
 
 void C_Path::calcG(size_t x_grid, size_t y_grid){
     C_Node * current = &m_vgridNode[x_grid][y_grid];
+    cout << "calcG for :" << x_grid << ":" << y_grid << endl;
     current->setOpen(false);
     int currentG = current->getG();
     for(int y = y_grid - 1; y <= y_grid + 1; y++){ //test around current
@@ -305,6 +294,7 @@ void C_Path::calcG(size_t x_grid, size_t y_grid){
                                     if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
                                         tested->setG(currentG + G_offset);
                                         if(tested->getOpen()){
+                                            cout << x <<":"<< y << endl;
                                             m_vopenNodes.push_back(tested);
                                             tested->setOpen(false);
                                             tested->setParent(current);
@@ -318,9 +308,7 @@ void C_Path::calcG(size_t x_grid, size_t y_grid){
                 }
             }
         }
+
     }
-
-
-
-
+        cout << endl;
 }

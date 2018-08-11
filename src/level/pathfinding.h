@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PATHFINDING_H
 #include <map>
 #include <stack>
+#include <vector>
 
 #include "../coord.h"
 #include "node.h"
@@ -33,7 +34,6 @@ public:
 	void calcPath(int x_start,int y_start, int x_dest, int y_dest);
 	void displayOpenList();
 
-	C_Node* searchOpenList(int F);
 	void setTown(int x_grid,int y_grid);
   C_Node* getNode(size_t x_grid, size_t y_grid){return &m_vgridNode[x_grid][y_grid];};
 	void showPath();
@@ -49,7 +49,6 @@ private:
 	size_t findLowestF();
 	void loadPath();
   void calcG(size_t x_grid, size_t y_grid);
-	std::multimap<int, C_Node*> m_openNodes;
   std::vector <C_Node*> m_vopenNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
