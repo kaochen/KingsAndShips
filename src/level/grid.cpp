@@ -354,8 +354,8 @@ bool C_Grid::boatInMain(int x_grid, int y_grid){
 
 void C_Grid::setTown(int x_grid, int y_grid){
     //first reset
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-           for (size_t x = 0; x < m_vgrid.size(); x++){
+    for (size_t x = 0; x < m_vgrid.size(); x++){
+	    for(size_t y = 0; y < m_vgrid.size(); y++){
 				 if(m_vgrid[x][y].get(FIELD) != nullptr){
 				     if(m_vgrid[x][y].get(FIELD)->getName() == "town"){
 				        m_vgrid[x][y].del(FIELD);

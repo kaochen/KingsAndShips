@@ -33,7 +33,7 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	coo.x = x_grid;
 	coo.y = y_grid;
 	m_coord = new C_CoordGrid(coo);
-	m_block = block;
+	setBlock(block);
 	m_G = 0;
 	m_H = 0;
 	m_F = m_G + m_H;
@@ -41,7 +41,6 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	m_parent = nullptr;
 	m_angle = 0;
 	m_dist = 0;
-	m_open = true;
 	m_h_texture_name = "";
 	m_g_texture_name = "";
 	m_f_texture_name = "";
@@ -123,6 +122,7 @@ void C_Node::displayStatus(){
 };
 
 void C_Node::calcH(const C_Node* target){
+    //cout << "town " << target->getXGrid() << ":"<< target->getYGrid() << endl;
 	if (m_Town == false && m_block == false){
 		int moveOnX =  target->getXGrid() - m_coord->getGrid().x;
 			if (moveOnX < 0)

@@ -29,9 +29,9 @@ C_Path::C_Path(int x_dest, int y_dest)
 {
 	C_Grid& grid=C_Grid::Instances();
 	C_Settings& settings=C_Settings::Instances();
-    for (size_t y = 0; y < settings.getGridSize(); y++){
+    for (size_t x = 0; x < settings.getGridSize(); x++){
 	    vector <C_Node> line;
-		for (size_t x = 0; x < settings.getGridSize(); x++){
+		for (size_t y = 0; y < settings.getGridSize(); y++){
 		    bool block = true;
 		    if (grid.waterway(x,y)){
 		        if(grid.mainEmpty(x,y) || grid.boatInMain(x,y)){
@@ -49,9 +49,9 @@ C_Path::C_Path(int x_dest, int y_dest)
 
 
 	setTown(x_dest,y_dest);
-	for (size_t y = 0; y < m_vgridNode.size(); y++){
 		for (size_t x = 0; x < m_vgridNode.size(); x++){
-		m_vgridNode[x][y].calcH(&m_vgridNode[x_dest][y_dest]);
+			for (size_t y = 0; y < m_vgridNode.size(); y++){
+        		m_vgridNode[x][y].calcH(&m_vgridNode[x_dest][y_dest]);
 		}
 	}
 	C_Message m;
@@ -73,17 +73,18 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 
     int lowestF = findLowestF();
 
-    cout << "New Path\n";
+    //cout << "New Path from " << x_start << ":"<< y_start << "to" << x_dest << ":"<< y_dest << endl;
     while (m_vopenNodes.size()>0){
-            cout << "size "<< m_vopenNodes.size() << " ";
+            //cout << "size "<< m_vopenNodes.size() << " ";
                 if(m_vopenNodes[lowestF] != nullptr){
-                     C_Coord coord = *m_vopenNodes[lowestF]->getCoord();
-                     calcG(coord.getXGrid(),coord.getYGrid());
-                    if(m_vopenNodes[lowestF]->getTown())
+                    //erase current form openList, do no need anymore, clean y reach town
+                    if(m_vopenNodes[lowestF]->getTown()){
                         m_vopenNodes.clear();
-                    else
+                        }
+                    else{
                         m_vopenNodes.erase(m_vopenNodes.begin() + lowestF);
-
+                        }
+                    calcG(m_vopenNodes[lowestF]);
                 }
     }
 
@@ -128,9 +129,9 @@ size_t C_Path::findLowestF(){
 
 void C_Path::setTown(int x_grid,int y_grid){
 	//reset
-	for (size_t y = 0; y < m_vgridNode.size(); y++){
-		for (size_t x = 0; x < m_vgridNode.size(); x++){
-		m_vgridNode[x][y].setTown(false);
+	for (size_t x = 0; x < m_vgridNode.size(); x++){
+	    for (size_t y = 0; y < m_vgridNode.size(); y++){
+	    	m_vgridNode[x][y].setTown(false);
 		}
 	}
 	//set
@@ -166,9 +167,9 @@ void C_Path::loadPath(){
 	    //prepare render for debug
 	    C_Settings& settings=C_Settings::Instances();
 	    if(settings.getDebugPathMode()){
-		    for (size_t y = 0; y < m_vgridNode.size(); y++){
-			    for (size_t x = 0; x < m_vgridNode.size(); x++){
-			    m_vgridNode[x][y].prepareRender ();
+		    for (size_t x = 0; x < m_vgridNode.size(); x++){
+    		    for (size_t y = 0; y < m_vgridNode.size(); y++){
+    			    m_vgridNode[x][y].prepareRender ();
 			    }
 		    }
 	    }
@@ -201,8 +202,8 @@ void C_Path::showPath(){
 void C_Path::show_H_G_F(){
     C_Message m;
     string message = "";
-	for(size_t y= 0; y < m_vgridNode.size(); y++){
-		for(size_t x= 0; x < m_vgridNode.size(); x++){
+	for(size_t x= 0; x < m_vgridNode.size(); x++){
+		for(size_t y= 0; y < m_vgridNode.size(); y++){
 			C_Node* c = &m_vgridNode[x][y];
 			message += "|" + to_string(c->getF());
 		}
@@ -214,8 +215,8 @@ void C_Path::show_H_G_F(){
 C_Node* C_Path::closestNode(){
 	C_Node *closest = nullptr;
 	size_t lowestF = 10000;
-	for(size_t y= 0; y < m_vgridNode.size(); y++){
-		for(size_t x= 0; x < m_vgridNode.size(); x++){
+	for(size_t x= 0; x < m_vgridNode.size(); x++){
+		for(size_t y= 0; y < m_vgridNode.size(); y++){
 			size_t F = m_vgridNode[x][y].getF();
 			if (F > 0 && F < lowestF){
 				closest = &m_vgridNode[x][y];
@@ -224,8 +225,8 @@ C_Node* C_Path::closestNode(){
 		}
 	}
 	size_t lowestH = 10000;
-	for(size_t y= 0; y < m_vgridNode.size(); y++){
-		for(size_t x= 0; x < m_vgridNode.size(); x++){
+	for(size_t x= 0; x < m_vgridNode.size(); x++){
+		for(size_t y= 0; y < m_vgridNode.size(); y++){
 			size_t H = m_vgridNode[x][y].getH();
 			size_t F = m_vgridNode[x][y].getF();
 			if(F == lowestF){
@@ -264,9 +265,10 @@ void C_Path::displayPath(){
 	}
 	if(settings.getDebugPathMode()){
 	    //display H G and F numbers for debugging Pathfinding A*
-		for (size_t y = 0; y < m_vgridNode.size(); y++){
+
 			for (size_t x = 0; x < m_vgridNode.size(); x++){
-			m_vgridNode[x][y].render();
+				for (size_t y = 0; y < m_vgridNode.size(); y++){
+			    m_vgridNode[x][y].render();
 			}
 		}
 	}
@@ -283,38 +285,38 @@ void C_Path::goNextStep(){
 }
 
 
-void C_Path::calcG(size_t x_grid, size_t y_grid){
-    C_Node * current = &m_vgridNode[x_grid][y_grid];
-    cout << "calcG for :" << x_grid << ":" << y_grid << endl;
+void C_Path::calcG(C_Node *current){
+    size_t  x_grid = current->getXGrid();
+    size_t  y_grid = current->getYGrid();
+    //cout << "calcG for :" << x_grid << ":" << y_grid << endl;
     current->setOpen(false);
     int currentG = current->getG();
+
     for(int y = y_grid - 1; y <= y_grid + 1; y++){ //test around current
         for(int x = x_grid - 1; x <= x_grid + 1; x++){
             if(x >=0 && x <= m_vgridNode.size() && y >=0 && y <= m_vgridNode.size()){//do not test outside the gridNode
-                if((x != x_grid || y != y_grid)){ //do not cacl the current
                     C_Node *tested = &m_vgridNode[x][y];
-                        if(tested != nullptr){
-                            if(tested->getBlock() == false){
+                        if(tested != nullptr && tested != current){
+                            if(!tested->getBlock()){
                                 int G_offset = tested->calcG_offset(x_grid,y_grid,x,y);
                                 int tmp_G = tested->getG();
                                     if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
-                                        tested->setG(currentG + G_offset);
                                         if(tested->getOpen()){
-                                            cout << x <<":"<< y << endl;
-                                            m_vopenNodes.push_back(tested);
+                                            //cout << x <<":"<< y << endl;
+                                            tested->setG(currentG + G_offset);
                                             tested->setOpen(false);
                                             tested->setParent(current);
+                                            m_vopenNodes.push_back(tested);
                                         }
-
                                     }
 
 
                             }
                         }
-                }
             }
         }
 
     }
-        cout << endl;
+    //displayOpenList();
+    //cout << endl;
 }

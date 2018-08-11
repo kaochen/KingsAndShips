@@ -48,7 +48,7 @@ public:
 private:
 	size_t findLowestF();
 	void loadPath();
-  void calcG(size_t x_grid, size_t y_grid);
+  void calcG(C_Node *current);
   std::vector <C_Node*> m_vopenNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
