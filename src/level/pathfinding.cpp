@@ -290,8 +290,10 @@ void C_Path::calcG(C_Node *current){
 	int size = m_vgridNode.size();
     int  x_grid = current->getXGrid();
     int  y_grid = current->getYGrid();
+    C_Message m;
+    ostringstream message;
+    message << "calcG for " << x_grid << ":" << y_grid << " F: "<< current->getG() << " -Testing : ";
 
-    //cout << "calcG for :" << x_grid << ":" << y_grid << endl;
     current->setOpen(false);
     int currentG = current->getG();
 
@@ -300,15 +302,15 @@ void C_Path::calcG(C_Node *current){
             if(x >=0 && x <= size && y >=0 && y <= size) {//do not test outside the gridNode
                     C_Node *tested = &m_vgridNode[x][y];
                         if(tested != nullptr && tested != current){
+                            int G_offset = tested->calcG_offset(x_grid,y_grid,x,y);
                             bool corner = crossACorner(x_grid,y_grid,x,y);
                             if(!tested->getBlock() && !corner){
-                                int G_offset = tested->calcG_offset(x_grid,y_grid,x,y);
 
                                 int tmp_G = tested->getG();
                                     if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
+                                        tested->setG(currentG + G_offset);
                                         if(tested->getOpen()){
-                                            //cout << x <<":"<< y << endl;
-                                            tested->setG(currentG + G_offset);
+                                            message << x <<":"<< y << " ";
                                             tested->setOpen(false);
                                             tested->setParent(current);
                                             m_vopenNodes.push_back(tested);
@@ -323,7 +325,8 @@ void C_Path::calcG(C_Node *current){
 
     }
     //displayOpenList();
-    //cout << endl;
+    message << endl;
+    m.printDebugPath(message.str());
 }
 
 //Help to turn around a corner
