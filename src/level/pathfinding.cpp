@@ -76,13 +76,16 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
     cout << "New Path\n";
     while (m_vopenNodes.size()>0){
             cout << "size "<< m_vopenNodes.size() << " ";
-                if(m_vopenNodes[0] != nullptr){
-                     C_Coord coord = *m_vopenNodes[0]->getCoord();
+                if(m_vopenNodes[lowestF] != nullptr){
+                     C_Coord coord = *m_vopenNodes[lowestF]->getCoord();
                      calcG(coord.getXGrid(),coord.getYGrid());
-                     m_vopenNodes.erase(m_vopenNodes.begin() + 0);
+                    if(m_vopenNodes[lowestF]->getTown())
+                        m_vopenNodes.clear();
+                    else
+                        m_vopenNodes.erase(m_vopenNodes.begin() + lowestF);
+
                 }
     }
-
 
 
 	message << "\n---------\n";
@@ -110,12 +113,15 @@ void C_Path::displayOpenList(){
 
 size_t C_Path::findLowestF(){
 	int lowest = 10000;
+	int c = 0;
 	for(size_t i = 0; i < m_vopenNodes.size();i++){
 	    if(m_vopenNodes[i]->getF()<lowest){
 	        lowest = m_vopenNodes[i]->getF();
+	        c = i;
 	    }
 	}
-	return lowest;
+
+	return c;
 }
 
 
