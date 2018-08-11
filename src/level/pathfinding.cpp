@@ -297,8 +297,10 @@ void C_Path::calcG(C_Node *current){
             if(x >=0 && x <= m_vgridNode.size() && y >=0 && y <= m_vgridNode.size()){//do not test outside the gridNode
                     C_Node *tested = &m_vgridNode[x][y];
                         if(tested != nullptr && tested != current){
-                            if(!tested->getBlock()){
+                            bool corner = crossACorner(x_grid,y_grid,x,y);
+                            if(!tested->getBlock() && !corner){
                                 int G_offset = tested->calcG_offset(x_grid,y_grid,x,y);
+
                                 int tmp_G = tested->getG();
                                     if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
                                         if(tested->getOpen()){
@@ -319,4 +321,12 @@ void C_Path::calcG(C_Node *current){
     }
     //displayOpenList();
     //cout << endl;
+}
+
+//Help to turn around a corner
+bool C_Path::crossACorner(int x_from, int y_from, int x_dest, int y_dest){
+    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock())
+        return true;
+    else
+        return false;
 }
