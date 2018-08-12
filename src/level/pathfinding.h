@@ -48,7 +48,7 @@ public:
 private:
 	size_t findLowestF();
 	void loadPath();
-  void calcG(C_Node *current);
+  void calcG_Around(C_Node *current);
   bool crossACorner(int x_from, int y_from, int x_dest, int y_dest);
   std::vector <C_Node*> m_vopenNodes;
 	C_Node* m_destination;

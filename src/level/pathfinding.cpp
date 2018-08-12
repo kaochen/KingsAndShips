@@ -67,25 +67,31 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest){
 	m_destination = &m_vgridNode[x_dest][y_dest];
 	m_vgridNode[x_start][y_start].setBlock(false);
     m_vopenNodes.push_back(m_start);
+    m_start->setF(0);
 
     C_Message m;
     ostringstream message;
 
-    int lowestF = findLowestF();
-
     //cout << "New Path from " << x_start << ":"<< y_start << "to" << x_dest << ":"<< y_dest << endl;
     while (m_vopenNodes.size()>0){
-            //cout << "size "<< m_vopenNodes.size() << " ";
-                if(m_vopenNodes[lowestF] != nullptr){
-                    //erase current form openList, do no need anymore, clean y reach town
-                    if(m_vopenNodes[lowestF]->getTown()){
+        int lowestF = findLowestF();
+        //cout << "size "<< m_vopenNodes.size() << " ";
+        //displayOpenList();
+        if(m_vopenNodes[lowestF] != nullptr){
+            //erase current form openList, do no need anymore, clean if town
+            calcG_Around(m_vopenNodes[lowestF]);
+            m_vopenNodes[lowestF]->setOpen(false);
+            m_vopenNodes.erase(m_vopenNodes.begin() + lowestF);
+            for(size_t i = 0; i < m_vopenNodes.size();i++){
+                if(m_vopenNodes[i]!= nullptr){
+                    if(m_vopenNodes[i]->getTown()){
+                        //cout << "found Town" << endl;
                         m_vopenNodes.clear();
-                        }
-                    else{
-                        m_vopenNodes.erase(m_vopenNodes.begin() + lowestF);
-                        }
-                    calcG(m_vopenNodes[lowestF]);
+                        break;
+                    }
                 }
+            }
+        }
     }
 
 
@@ -285,47 +291,40 @@ void C_Path::goNextStep(){
 		m_path.pop();
 }
 
-
-void C_Path::calcG(C_Node *current){
-	int size = m_vgridNode.size();
+void C_Path::calcG_Around(C_Node *current){
     int  x_grid = current->getXGrid();
     int  y_grid = current->getYGrid();
-    C_Message m;
     ostringstream message;
-    message << "calcG for " << x_grid << ":" << y_grid << " F: "<< current->getG() << " -Testing : ";
+    message << "calcG for " << x_grid << ":" << y_grid << " F: "<< current->getF() << " -Testing : ";
+	int size = m_vgridNode.size();
 
     current->setOpen(false);
-    int currentG = current->getG();
-
     for(int y = y_grid - 1; y <= y_grid + 1; y++){ //test around current
         for(int x = x_grid - 1; x <= x_grid + 1; x++){
             if(x >=0 && x <= size && y >=0 && y <= size) {//do not test outside the gridNode
-                    C_Node *tested = &m_vgridNode[x][y];
-                        if(tested != nullptr && tested != current){
+                C_Node *tested = &m_vgridNode[x][y];
+                if(tested != nullptr){
+                    bool corner = crossACorner(x_grid,y_grid,x,y);
+                    if(!tested->getBlock() && !corner){
+                        if(tested->getOpen()){
                             int G_offset = tested->calcG_offset(x_grid,y_grid,x,y);
-                            bool corner = crossACorner(x_grid,y_grid,x,y);
-                            if(!tested->getBlock() && !corner){
-
-                                int tmp_G = tested->getG();
-                                    if(tmp_G == 0 || (currentG + G_offset) < tmp_G){
-                                        tested->setG(currentG + G_offset);
-                                        if(tested->getOpen()){
-                                            message << x <<":"<< y << " ";
-                                            tested->setOpen(false);
-                                            tested->setParent(current);
-                                            m_vopenNodes.push_back(tested);
-                                        }
-                                    }
-
-
+                            int tested_G = tested->getG();
+                            int currentG = current->getG();
+                            if(tested_G == 0 || (currentG + G_offset) < tested_G){
+                                tested->setF(currentG + G_offset);
+                                tested->setParent(current);
+                                m_vopenNodes.push_back(tested);
                             }
+                            message << x <<":"<< y << " F:" << tested->getF() <<" | ";
+
                         }
+                    }
+                }
             }
         }
-
     }
-    //displayOpenList();
     message << endl;
+    C_Message m;
     m.printDebugPath(message.str());
 }
 

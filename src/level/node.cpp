@@ -171,8 +171,8 @@ C_Coord* C_Node::getCoord() const{
 	return m_coord;
 }
 
-void C_Node::setG(int value){
-	m_G = value;
+void C_Node::setF(int G){
+	m_G = G;
 	m_F = m_H + m_G;
 }
 

@@ -51,7 +51,7 @@ public:
 	C_Coord* getCoord() const;
 	bool getOpen() const;
 	void setOpen(bool open);
-	void setG(int value);
+	void setF(int G);
 	void setDist(int dist, double angle);
 	int getDist() const;
 	double getAngle() const;
