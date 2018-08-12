@@ -100,6 +100,7 @@ void C_GameUnits::kill()
 	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ())
 	            + ":" + to_string(m_coord->getYGrid ()) + "\n");
  	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
+ 	m_selected = false;
 }
 
 
