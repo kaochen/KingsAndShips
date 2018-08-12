@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FRAMERATE 30
 #define TILE_HALF_HEIGHT 24
 #define TILE_HALF_WIDTH 48
-#define GRID_SIZE 32
 #define BOAT_LIST_SIZE 4
 #define MAX_LIFE 100
 #define LAYER 2

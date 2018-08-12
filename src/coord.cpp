@@ -500,14 +500,16 @@ C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 }
 
 C_CoordGrid::C_CoordGrid(int x_grid, int y_grid ): C_Coord(x_grid, y_grid){
+		C_Settings& settings=C_Settings::Instances();
+		int size = settings.getGridSize();
 		if (x_grid < 0)
 			x_grid = 0;
 		if (y_grid < 0)
 			y_grid = 0;
-		if (x_grid > GRID_SIZE)
-			x_grid = GRID_SIZE;
-		if (y_grid > GRID_SIZE)
-			y_grid = GRID_SIZE;
+		if (x_grid > size)
+			x_grid = size;
+		if (y_grid > size)
+			y_grid = size;
 
 		S_Coord coord;
 		coord.x = x_grid;
