@@ -33,7 +33,7 @@ C_Boat::C_Boat(int x_grid,
 	m_moving = false;
 	m_speed = SLOW;
 	m_speedImpact = 0;
-	m_speedImpactLoop = 10;
+	m_speedImpactLoop = 60;
 	m_coord->centerOnTile();
 	//Find a way to town
 	C_Grid& grid=C_Grid::Instances();
