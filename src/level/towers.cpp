@@ -15,14 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <SDL2_gfxPrimitives.h>
-
 #include "towers.h"
-#include "grid.h"
 #include "weapons.h"
 
 #include "../texture.h"
-#include "../time.h"
 
 
 using namespace std;
