@@ -117,16 +117,20 @@ void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 }
 
 void C_Grid::addANewTower(int type, int x, int y, int rank){
-	if (m_vgrid[x][y].get(FIELD) == nullptr && !waterway(x,y)){
+	if (m_vgrid[x][y].get(FIELD) == nullptr){
 		switch(type){
 		 case ADDNEWTOWER :
-		    m_vgrid[x][y].set(FIELD,new C_ArcherTower(x,y,rank));
+		    if (!waterway(x,y))
+		        m_vgrid[x][y].set(FIELD,new C_ArcherTower(x,y,rank));
 		 break;
 		 case ADDNEWTURBINE :
-		    m_vgrid[x][y].set(FIELD,new C_Turbine(x,y,rank));
+		 	if (!waterway(x,y))
+		        m_vgrid[x][y].set(FIELD,new C_Turbine(x,y,rank));
 		 break;
 		 case ADDNEWBARRICADE :
-		    m_vgrid[x][y].set(FIELD,new C_Barricade(x,y,1));
+		 	if (waterway(x,y))
+		        m_vgrid[x][y].set(FIELD,new C_Barricade(x,y,1));
+
 		 break;
 		 case  NONE:
 		 break;

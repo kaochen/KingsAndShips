@@ -400,14 +400,11 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 					    }
 
 					    //Add a new Tower
-					    if(m_addingAnewTower == true && grid.isThisConstructible(clicleft.getGrid ()) == true)
-						     {
-
+					    if(m_addingAnewTower == true){
 						    grid.addANewTower(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
-
 						    m_aTowerIsSelected = grid.selectATower(clicleft);
 						    m_addingAnewTower = false;
-						    }
+						}
 					    else{
 						    m_addingAnewTower = false;
 					    }
