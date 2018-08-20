@@ -57,8 +57,8 @@ C_Boat::~C_Boat()
 
 void C_Boat::play(){
 	this->move();
-	string list[3] = {"town","ArcherTower","Turbine"};
-	this->shoot(list, 3);
+	string list[4] = {"town","barricade","ArcherTower","Turbine"};
+	this->shoot(list, 4);
 
 	if(!this->alive())
 		this->kill();
