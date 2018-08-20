@@ -35,7 +35,7 @@ class C_Shooter : public C_GameUnits
 	virtual	void displayStatus() const;
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void move();
-	virtual void drag(S_Coord screen);
+	virtual void drag(S_Coord screen, bool water);
 	protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

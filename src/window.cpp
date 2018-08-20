@@ -300,17 +300,17 @@ void C_Window::listenButtons(){
 
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
 					if(menuButton->getName() == "AddTower"){
-						m_archerTower->drag(m_cursor);
+						m_archerTower->drag(m_cursor,false);
 						m_addingAnewTower = true;
 						m_buttonType = ADDNEWTOWER;
 						}
 					if(menuButton->getName() == "AddTurbine"){
-						m_turbineTower->drag(m_cursor);
+						m_turbineTower->drag(m_cursor,false);
 						m_addingAnewTower = true;
 						m_buttonType = ADDNEWTURBINE;
 						}
 					if(menuButton->getName() == "AddBarricade"){
-						m_barricade->drag(m_cursor);
+						m_barricade->drag(m_cursor,true);
 						m_addingAnewTower = true;
 						m_buttonType = ADDNEWBARRICADE;
 						}

@@ -165,7 +165,7 @@ void C_Shooter::render(S_Coord screen){
 	renderLifeBar(screen.x, screen.y);
 }
 
-void C_Shooter::drag(S_Coord screen)
+void C_Shooter::drag(S_Coord screen, bool water)
 {
 	m_justAdded = false;
 	C_Grid& grid=C_Grid::Instances();
@@ -186,7 +186,12 @@ void C_Shooter::drag(S_Coord screen)
 		for(int j = 0; j < 3; j++){
 			x++;
 			C_CoordGrid tmp(x,y);
-			status = grid.isThisConstructible(tmp.getGrid ());
+			if(water){
+		    status = grid.waterway(x,y);
+			}
+			else{
+			    status = grid.isThisConstructible(tmp.getGrid ());
+			}
 			int x_s = tmp.getXScreen ();
 			int y_s = tmp.getYScreen ();
 			drawRhombus(x_s,y_s,70,40,status);
