@@ -16,53 +16,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef TOWERS_H
-#define TOWERS_H
+#ifndef BARRICADE_H
+#define BARRICADE_H
 
 #include <iostream>
 #include <string>
 #include "shooter.h"
-#include "../coord.h"
 
-
-class C_Towers: public C_Shooter
+class C_Barricade: public C_Shooter
 {
-	public:
-	//methods
-	C_Towers();
-	C_Towers(std::string name, int x_grid, int y_grid, int rank);
-
-	virtual void play();
-
-	protected:
-	virtual void render(S_Coord screen);
-	virtual void renderSelected();
-	void renderSmoke();
-
-	long m_lastSmokeTime;
-	int m_smokeNbr;
+  public:
+    C_Barricade(int x_grid, int y_grid, int rank);
+  protected:
+  	virtual void play();
+  	virtual void render(S_Coord screen);
+  private:
 };
-
-
-class C_ArcherTower: public C_Towers
-{
-	public:
-		C_ArcherTower(int x_grid, int y_grid, int rank);
-		virtual void render(S_Coord screen);
-	protected:
-
-};
-
-class C_Turbine: public C_Towers
-{
-	public:
-		C_Turbine(int x_grid, int y_grid, int rank);
-		virtual void render(S_Coord screen);
-	protected:
-
-};
-
-
-
 
 #endif

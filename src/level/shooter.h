@@ -35,16 +35,20 @@ class C_Shooter : public C_GameUnits
 	virtual	void displayStatus() const;
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void move();
+	virtual void drag(S_Coord screen);
 	protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);
 	virtual void render(S_Coord screen);
 	virtual	C_GameUnits* searchNextTarget(std::string type);
 	virtual void shootTarget(C_GameUnits &target);
-
+  virtual void drawEllipse(int x,int y, int width, bool ok);
+	virtual void drawRhombus(int x, int y,int width, int alpha, bool ok);
 
 	C_Weapon *m_weapon;
 	long m_lastShootTime;
+  bool m_justAdded;
+
 };
 
 #endif

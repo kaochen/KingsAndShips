@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "message.h"
 #include "level/grid.h"
 #include "level/gameUnits.h"
+#include "level/barricade.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -50,6 +51,7 @@ C_Window::C_Window()
 
     m_archerTower = new C_ArcherTower(0,0,0);
     m_turbineTower = new C_Turbine(0,0,0);
+    m_barricade = new C_Barricade(0,0,0);
     m_addingAnewTower = false;
     m_aTowerIsSelected = false;
 
@@ -61,6 +63,7 @@ C_Window::~C_Window(){
     delete m_landscape;
     delete m_archerTower;
     delete m_turbineTower;
+    delete m_barricade;
 }
 
 
@@ -286,7 +289,7 @@ void C_Window::listenButtons(){
 
 		C_MenuItem* menuButton;
 
-		for (int i = 0; i < 2; i++){
+		for (int i = 0; i < 3; i++){
 			menuButton = menu.getMenuItem(i);
 			int xl = menuButton->getXScreen();
 			int xr = xl + menuButton->getWidth();
@@ -306,10 +309,15 @@ void C_Window::listenButtons(){
 						m_addingAnewTower = true;
 						m_buttonType = ADDNEWTURBINE;
 						}
+					if(menuButton->getName() == "AddBarricade"){
+						m_barricade->drag(m_cursor);
+						m_addingAnewTower = true;
+						m_buttonType = ADDNEWBARRICADE;
+						}
 	 		}
 	 		//mouse Over
 	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
-                    if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine"){
+                    if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine" || menuButton->getName() == "AddBarricade"){
                         menuButton->setState(HOVER);
 						}
 	 		}

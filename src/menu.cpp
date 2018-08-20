@@ -44,9 +44,10 @@ C_Menu::C_Menu():
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
 		m_map_menuItems[ADDNEWTOWER] = new C_Button("AddTower","Buttons_AddTower",x_button,y_button);
-		y_button = settings.getWindowHeight()/2;
+		y_button +=size;
 		m_map_menuItems[ADDNEWTURBINE] = new C_Button("AddTurbine","Buttons_AddTurbine",x_button,y_button);
-
+		y_button +=size;
+		m_map_menuItems[ADDNEWBARRICADE] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
         //fox
 		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);
 		m_map_menuItems[FOX_ICON] = new C_MenuItem("Characters_fox",x_button-10,20);

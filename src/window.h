@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "coord.h"
 #include "level/towers.h"
+#include "level/barricade.h"
 #include "level/level.h"
 #include "level/landscape.h"
 
@@ -77,6 +78,7 @@ class C_Window
   //towers are needed when drag & drop from the buttons:
   C_Towers* m_archerTower;
   C_Towers* m_turbineTower;
+  C_Barricade* m_barricade;
   bool m_addingAnewTower;
   bool m_aTowerIsSelected;
 
