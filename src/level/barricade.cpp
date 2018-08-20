@@ -40,6 +40,6 @@ void C_Barricade::render(S_Coord screen){
 	    //cout << "image name is "<< fileName << endl;
 	    C_TextureList& t=C_TextureList::Instances();
 	    t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
-	    renderLifeBar(screen.x, screen.y);
+	    renderLifeBar(screen.x, screen.y+36);
 	}
 }
