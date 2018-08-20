@@ -34,9 +34,7 @@ C_Path::C_Path(int x_dest, int y_dest)
 		for (size_t y = 0; y < settings.getGridSize(); y++){
 		    bool block = true;
 		    if (grid.waterway(x,y)){
-		        if(grid.mainEmpty(x,y) || grid.boatInMain(x,y)){
 			        block = false;
-			    }
 		    }
 	        C_Node z(x,y,block);
             line.push_back(z);

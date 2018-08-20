@@ -340,22 +340,14 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid){
     else{
         return false;
     }
-};
+}
 
-bool C_Grid::boatInMain(int x_grid, int y_grid){
-    if(m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
-        if(m_vgrid[x_grid][y_grid].get(FIELD)->getName() == "boat"){
-           // cout << "found boat on " << x_grid << ":"<< y_grid << endl;
-            return true;
-            }
-            else{
-            return false;
-            }
-    }
-    else{
-        return false;
-    }
-};
+string C_Grid::getName(int layer, int x_grid, int y_grid){
+    if(m_vgrid[x_grid][y_grid].get(layer) != nullptr)
+        return m_vgrid[x_grid][y_grid].get(FIELD)->getName();
+    else
+        return "nothing";
+}
 
 
 

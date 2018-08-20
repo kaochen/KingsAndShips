@@ -145,9 +145,10 @@ int C_Node::calcG_offset(int x_from, int y_from,
 		offset += G_HV;
 	}
 
-    //if boat add a malus
+    //if boat or barricade add a malus
 	C_Grid& grid=C_Grid::Instances();
-	if(grid.boatInMain(x_dest,y_dest)){
+	string name = grid.getName(FIELD,x_dest,y_dest);
+	if(name == "boat" || name == "barricade"){
 	    offset += 2*G_HV;
 	}
 
