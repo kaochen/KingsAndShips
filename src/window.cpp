@@ -51,7 +51,7 @@ C_Window::C_Window()
 
     m_archerTower = new C_ArcherTower(0,0,0);
     m_turbineTower = new C_Turbine(0,0,0);
-    m_barricade = new C_Barricade(0,0,0);
+    m_barricade = new C_Barricade(0,0,1);
     m_addingAnewTower = false;
     m_aTowerIsSelected = false;
 

@@ -34,7 +34,7 @@ void C_Barricade::play(){
 void C_Barricade::render(S_Coord screen){
 
 	int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,100);
-	string fileName = m_name+"_1_A_" + to_string(imageNbr);
+	string fileName = m_name+"_"+to_string(m_rank)+"_A_" + to_string(imageNbr);
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t=C_TextureList::Instances();
 	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);

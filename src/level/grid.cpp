@@ -126,7 +126,7 @@ void C_Grid::addANewTower(int type, int x, int y, int rank){
 		    m_vgrid[x][y].set(FIELD,new C_Turbine(x,y,rank));
 		 break;
 		 case ADDNEWBARRICADE :
-		    m_vgrid[x][y].set(FIELD,new C_Barricade(x,y,rank));
+		    m_vgrid[x][y].set(FIELD,new C_Barricade(x,y,1));
 		 break;
 		 case  NONE:
 		 break;
