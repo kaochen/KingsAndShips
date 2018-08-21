@@ -288,9 +288,9 @@ void C_Window::listenButtons(){
     	C_Menu& menu=C_Menu::Instances();
 
 		C_MenuItem* menuButton;
-
+        string list[3] = {"AddTower","AddTurbine","AddBarricade"};
 		for (int i = 0; i < 3; i++){
-			menuButton = menu.getMenuItem(i);
+			menuButton = menu.getMenuItem(list[i]);
 			int xl = menuButton->getXScreen();
 			int xr = xl + menuButton->getWidth();
 			int yt= menuButton->getYScreen();

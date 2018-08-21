@@ -29,7 +29,7 @@ class C_Menu
 	public:
 	static	C_Menu& Instances();
 	void render();
-	C_MenuItem * getMenuItem(int button);
+	C_MenuItem * getMenuItem(std::string name);
 	int getXScreen();
   void updateLevelInfos(int current_wave, int total_waves);
   void resetValues();
@@ -48,13 +48,11 @@ class C_Menu
 	int m_y_screen;
 	int m_width;
 	int m_height;
-	int m_button_count;
-
   //information to display
   int m_current_wave;
   int m_total_waves;
 
-	std::map<int,C_MenuItem*> m_map_menuItems;
+  std::map<std::string, C_MenuItem*> m_menuItemsList;
 };
 
 #endif

@@ -29,7 +29,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_x_screen(x_screen),
 	m_y_screen(y_screen),
 	m_width(64),
-	m_height(64)
+	m_height(64),
+	m_layer(FRONT)
 {
 }
 C_MenuItem::~C_MenuItem()
@@ -110,6 +111,7 @@ C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
     m_width = 128;
     m_height = 24;
     m_percentage = 100;
+    m_layer = BACK;
 }
 
 void C_ProgressBar::setPercentage(int percentage)

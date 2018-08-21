@@ -43,27 +43,27 @@ C_Menu::C_Menu():
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_map_menuItems[ADDNEWTOWER] = new C_Button("AddTower","Buttons_AddTower",x_button,y_button);
+		m_menuItemsList["AddTower"] = new C_Button("AddTower","Buttons_AddTower",x_button,y_button);
 		y_button +=size;
-		m_map_menuItems[ADDNEWTURBINE] = new C_Button("AddTurbine","Buttons_AddTurbine",x_button,y_button);
+	    m_menuItemsList["AddTurbine"] = new C_Button("AddTurbine","Buttons_AddTurbine",x_button,y_button);
 		y_button +=size;
-		m_map_menuItems[ADDNEWBARRICADE] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
+		m_menuItemsList["AddBarricade"] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
+
         //fox
-		m_map_menuItems[PLAYERLIFE] = new C_ProgressBar("playerlife",x_button - size-50,40);
-		m_map_menuItems[FOX_ICON] = new C_MenuItem("Characters_fox",x_button-10,20);
+        m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x_button - size-50,40);
+		m_menuItemsList["Characters_fox"] = new C_MenuItem("Characters_fox",x_button-10,20);
 		//Lion
-		m_map_menuItems[BOAT_LIFE] = new C_ProgressBar("boatLife",50,40);
+		m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
+		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
+		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","0/0", 20,128,100);
 
-		m_map_menuItems[LION_ICON] = new C_MenuItem("Characters_lion",20,30);
-		m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,128,100);
-
-        m_button_count += 7;
 }
 
 C_Menu::~C_Menu(){
-    for (int i = 0; i < 3; i++){
-        delete m_map_menuItems[i];
-    }
+	for(auto const& x : m_menuItemsList){
+		if(x.second != nullptr)
+	        delete  x.second;
+	}
 }
 
 C_Menu& C_Menu::Instances()
@@ -73,24 +73,33 @@ C_Menu& C_Menu::Instances()
 
 void C_Menu::render(){
     C_Grid& grid=C_Grid::Instances();
-    int playerLife = grid.getAllTownsLifeLevel();
-    m_map_menuItems[PLAYERLIFE]->setPercentage(playerLife);
-    m_map_menuItems[BOAT_LIFE]->setPercentage(m_current_wave,m_total_waves);
+    if(m_menuItemsList["playerlife"] != nullptr){
+        int playerLife = grid.getAllTownsLifeLevel();
+        m_menuItemsList["playerlife"]->setPercentage(playerLife);
+    }
 
-	//drawBackground();
-	for (int i = 0; i < m_button_count; i++){
-	    if(m_map_menuItems[i]!= nullptr)
-		    m_map_menuItems[i]->render();
+    if(m_menuItemsList["boatLife"] != nullptr){
+        m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
+    }
+
+	//draw all buttons, layer by layer;
+	for(int i = BACK; i <= FRONT; i++){
+	    for(auto& x : m_menuItemsList){
+	        if(x.second != nullptr){
+	            if(x.second->getLayer() == i){
+		            x.second->render();
+		        }
+		    }
+	    }
 	}
 }
-C_MenuItem * C_Menu::getMenuItem(int menuItem){
-	return m_map_menuItems[menuItem];
+C_MenuItem * C_Menu::getMenuItem(string name){
+	return m_menuItemsList[name];
 }
 
 int C_Menu::getXScreen(){
 	return m_x_screen;
 }
-
 
 void C_Menu::drawBackground(){
 		C_Window& win=C_Window::Instances();
@@ -113,12 +122,12 @@ void C_Menu::updateLevelInfos(int current_wave, int total_waves){
     m_current_wave = current_wave;
     m_total_waves = total_waves;
     string m = to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
-    delete m_map_menuItems[WAVES_STATUS];
-    m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus",m, 20,128,100);
+    delete m_menuItemsList["wavestatus"];
+    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 20,128,100);
 }
 
 void C_Menu::resetValues(){
     m_current_wave = 1;
     m_total_waves = 1;
-	m_map_menuItems[WAVES_STATUS] = new C_MenuText("wavestatus","0/0", 20,128,100);
+    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","0/0", 20,128,100);
 }

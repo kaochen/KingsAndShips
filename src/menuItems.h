@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //Menu elements like progressbar and buttons
+enum menuLayer {BACK,FRONT};
 
 #ifndef MENUITEMS_H
 #define MENUITEMS_H
@@ -33,6 +34,7 @@ class C_MenuItem
 	virtual int getWidth() const;
 	virtual int getHeight() const;
 	virtual	std::string getName();
+  virtual int getLayer(){return m_layer;};
 
   virtual void setPercentage(int percentage){std::cout << percentage;};
   virtual void setPercentage(int a, int b){std::cout << a << b;};
@@ -44,6 +46,8 @@ class C_MenuItem
 	int m_y_screen;
 	int m_width;
 	int m_height;
+
+  int m_layer;
 };
 
 
