@@ -123,36 +123,33 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 		C_Window& win=C_Window::Instances();
 		SDL_Renderer* renderer = win.getRenderer();
 		//add a life status above the boat
-		int l = m_health / 2;
+		int l = 50;
 		int h = 6;
-		//life
-        int x1_l = x_screen - TILE_HALF_WIDTH/2;
-        int y1_l = y_screen - 85;
-        int x2_l = x1_l + l;
-        int y2_l = y1_l + h;
+
+		//background
+		int x1_b = x_screen - TILE_HALF_WIDTH/2;
+		int y1_b = y_screen - 85;
+		int x2_b = x1_b + l;
+		int y2_b = y1_b + h;
+
+		//health
+        int x2_l = x1_b + (l*m_health/m_max_health);
 
 		int R = 0, G = 200, B = 0;
-        if (m_health < m_max_health/2){
-		    	R = 200;
-		    	G = 0 ;
-		    	}
+        if (m_health < m_max_health/2){ R = 200; G = 0 ; }
 
-        //background
-		int x1_b = x1_l;
-		int y1_b = y1_l;
-		int x2_b = x1_b + m_max_health/2;
-		int y2_b = y1_b + h;
-        int angle = h/2;
+        int angle = 2;
+        if((x2_l - x1_b)<=(angle*2)){angle = 0;}
 
         //highlight
         int y2_h = y1_b + h/2 + 1;
 
         //transparent background
-        roundedBoxRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,120);
+        roundedBoxRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,60);
         //life
-        roundedBoxRGBA(renderer,x1_l,y1_l,x2_l,y2_l,angle,R,G,B,120);
-        //lightbar
-        roundedBoxRGBA(renderer,x1_l+2,y1_l+2,x2_l-2,y2_h,0,255,255,255,80);
+        roundedBoxRGBA(renderer,x1_b,y1_b,x2_l,y2_b,angle,R,G,B,120);
+        //highlight
+        roundedBoxRGBA(renderer,x1_b+2,y1_b+2,x2_l-2,y2_h,0,255,255,255,80);
         //border
         roundedRectangleRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,255);
 

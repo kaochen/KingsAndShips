@@ -25,6 +25,8 @@ using namespace std;
 C_Barricade::C_Barricade( int x_grid,
                  int y_grid,int rank):C_Shooter("barricade", x_grid, y_grid, rank)
 {
+    m_max_health = 50;
+    m_health = m_max_health;
 	m_weapon = new C_Weapon("NONE",0,0,0,0);
 }
 
