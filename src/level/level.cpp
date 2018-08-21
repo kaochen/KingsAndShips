@@ -47,7 +47,7 @@ C_Level::C_Level():
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
 
-	m_wallet = 200;
+	m_wallet = 800;
     m_wallet_max = 1000;
 }
 

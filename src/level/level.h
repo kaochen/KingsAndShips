@@ -74,6 +74,7 @@ class C_Level
   //wallet
   int getWallet(){return m_wallet;};
   int getWalletMax(){return m_wallet_max;};
+  void pay(int cost){m_wallet -= cost;};
 
 	protected:
   //methods

@@ -31,10 +31,12 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 	m_weapon = nullptr;
 	m_y_center_offset = 36;
 	m_lastShootTime = 0;
+	m_cost = 50;
 	C_Message m;
     string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	m.printM(message);
 	m_coord->displayStatus();
+
 }
 
 C_Shooter::~C_Shooter()

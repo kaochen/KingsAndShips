@@ -67,6 +67,8 @@ class C_GameUnits
   //alive or dead
 	virtual int getHealth() const {return m_health;}
 
+  //wallet
+  virtual int getCost(){return 0;};
 	protected:
   //alive or dead
 	virtual bool alive() const {return m_health>0;};

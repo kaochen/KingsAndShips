@@ -36,6 +36,7 @@ class C_Shooter : public C_GameUnits
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void move();
 	virtual void drag(S_Coord screen, bool water);
+  virtual int getCost(){return m_cost;};
 	protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);
@@ -49,6 +50,7 @@ class C_Shooter : public C_GameUnits
 	long m_lastShootTime;
   bool m_justAdded;
 
+  int m_cost;
 };
 
 #endif
