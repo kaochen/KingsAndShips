@@ -388,7 +388,7 @@ int C_Grid::getAllTownsLifeLevel(){
 		        if(m_vgrid[x][y].get(FIELD) != nullptr){
                     string str = m_vgrid[x][y].get(FIELD)->getName();
                     if(str.find("town") != std::string::npos){
-				        life +=  m_vgrid[x][y].get(FIELD)->getLife();
+				        life +=  m_vgrid[x][y].get(FIELD)->getHealth();
 				        c++;
 				    }
 				}

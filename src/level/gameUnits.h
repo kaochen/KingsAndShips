@@ -65,11 +65,11 @@ class C_GameUnits
 	virtual void reverseSelectedStatus();
 
   //alive or dead
-	virtual int getLife() const {return m_life;}
+	virtual int getHealth() const {return m_health;}
 
 	protected:
   //alive or dead
-	virtual bool alive() const {return m_life>0;};
+	virtual bool alive() const {return m_health>0;};
 	virtual void kill();
 
 	virtual int getDistance(int x, int y) const;
@@ -80,7 +80,9 @@ class C_GameUnits
 	std::string m_name;
 	int m_rank;
 
-	int m_life;
+  int m_max_health;
+  int m_health;
+
 
   //Coord
 	C_Coord* m_coord;

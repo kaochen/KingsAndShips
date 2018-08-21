@@ -32,7 +32,7 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 	m_y_center_offset = 36;
 	m_lastShootTime = 0;
 	C_Message m;
-    string message = "Add new shooter: " + m_name +" life: "+ to_string(m_life) + " rank: "+ to_string(m_rank);
+    string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	m.printM(message);
 	m_coord->displayStatus();
 }
@@ -123,7 +123,7 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 		C_Window& win=C_Window::Instances();
 		SDL_Renderer* renderer = win.getRenderer();
 		//add a life status above the boat
-		int l = m_life / 2;
+		int l = m_health / 2;
 		int h = 6;
 		//life
         int x1_l = x_screen - TILE_HALF_WIDTH/2;
@@ -132,7 +132,7 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
         int y2_l = y1_l + h;
 
 		int R = 0, G = 200, B = 0;
-        if (m_life < MAX_LIFE/2){
+        if (m_health < m_max_health/2){
 		    	R = 200;
 		    	G = 0 ;
 		    	}
@@ -140,7 +140,7 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
         //background
 		int x1_b = x1_l;
 		int y1_b = y1_l;
-		int x2_b = x1_b + MAX_LIFE/2;
+		int x2_b = x1_b + m_max_health/2;
 		int y2_b = y1_b + h;
         int angle = h/2;
 

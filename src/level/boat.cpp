@@ -172,11 +172,11 @@ void C_Boat::render(S_Coord screen){
 
 void C_Boat::receiveDamage(S_Weapon weapon)
 {
-	m_life -=weapon.damage;
+	m_health -=weapon.damage;
 	m_speedImpact = weapon.speedImpact;
-	if (m_life < 0)
+	if (m_health < 0)
 	{
-		m_life = 0;
+		m_health = 0;
 	}
 }
 

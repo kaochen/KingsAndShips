@@ -33,7 +33,8 @@ using namespace std;
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_rank(rank),
-	m_life(MAX_LIFE),
+	m_max_health(100),
+	m_health(m_max_health),
 	m_y_center_offset(0),
 	m_strDirection("EE"),
 	m_direction(UNKNOWN),
@@ -65,7 +66,7 @@ C_GameUnits::~C_GameUnits()
 void C_GameUnits::displayStatus() const
 {
     C_Message m;
-    m.printM( "Name: " + m_name + " Life: " + to_string(m_life)  + " Rank : " + to_string(m_rank));
+    m.printM( "Name: " + m_name + " Life: " + to_string(m_health)  + " Rank : " + to_string(m_rank));
  	m_coord->displayStatus();
 }
 
@@ -77,10 +78,10 @@ void C_GameUnits::render(S_Coord screen){
 
 void C_GameUnits::receiveDamage(S_Weapon weapon)
 {
-	m_life -=weapon.damage;
-	if (m_life < 0)
+	m_health -=weapon.damage;
+	if (m_health < 0)
 	{
-		m_life = 0;
+		m_health = 0;
 	}
 }
 

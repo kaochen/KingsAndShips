@@ -24,17 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <queue>
 
 #define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
 #define TILE_HALF_HEIGHT 24
 #define TILE_HALF_WIDTH 48
-#define BOAT_LIST_SIZE 4
-#define MAX_LIFE 100
-#define LAYER 2
-#define SPRITE_SIZE 128
+
 #define MAX_TARGETS 3
-#define MAX_LEVELS 1
 
 struct S_Coord{
 	int x;
