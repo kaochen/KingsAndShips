@@ -230,6 +230,7 @@ void C_Window::gameLoop(){
 		        grid.renderLayer (FIELD);
 
                 listenButtons();
+                menu.updateInfos(m_level);
         		menu.render();
         		time.showFPS ();
         		//print the final render

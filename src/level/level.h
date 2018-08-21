@@ -71,6 +71,10 @@ class C_Level
   void displayWave(int i);
   void loadWaveIntoGrid(int i);
   void updateMenuInfo();
+  //wallet
+  int getWallet(){return m_wallet;};
+  int getWalletMax(){return m_wallet_max;};
+
 	protected:
   //methods
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
@@ -78,6 +82,8 @@ class C_Level
   void loadWave(std::string tmx_File_Path, int waveNbr);
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
   int countAttributes(std::string tmx_File_Path, std::string pattern);
+
+
 	//attibutes
 	std::string m_name;
 	int m_count;
@@ -87,6 +93,10 @@ class C_Level
   int m_nbrOfWaves;
   int m_currentWaveNbr;
   std::vector <C_Wave> m_waves;
+
+  //bank
+  int m_wallet;
+  int m_wallet_max;
 };
 
 

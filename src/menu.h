@@ -22,12 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <map>
 #include <string>
 #include "menuItems.h"
+#include "level/level.h"
 
 
 class C_Menu
 {
 	public:
 	static	C_Menu& Instances();
+  void updateInfos(C_Level *level);
 	void render();
 	C_MenuItem * getMenuItem(std::string name);
 	int getXScreen();

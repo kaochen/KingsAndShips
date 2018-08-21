@@ -46,6 +46,9 @@ C_Level::C_Level():
 	m_decorLayer.data="";
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
+
+	m_wallet = 200;
+    m_wallet_max = 1000;
 }
 
 

@@ -57,6 +57,9 @@ C_Menu::C_Menu():
 		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
 		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","0/0", 20,128,100);
 
+		//wallet
+		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x_button - size-50,100);
+
 }
 
 C_Menu::~C_Menu(){
@@ -71,7 +74,7 @@ C_Menu& C_Menu::Instances()
 	return m_instance;
 }
 
-void C_Menu::render(){
+void C_Menu::updateInfos(C_Level *level){
     C_Grid& grid=C_Grid::Instances();
     if(m_menuItemsList["playerlife"] != nullptr){
         int playerLife = grid.getAllTownsLifeLevel();
@@ -81,7 +84,14 @@ void C_Menu::render(){
     if(m_menuItemsList["boatLife"] != nullptr){
         m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
     }
+    if(m_menuItemsList["walletBar"] != nullptr){
+        int wallet = level->getWallet();
+        int wallet_max = level->getWalletMax();
+        m_menuItemsList["walletBar"]->setPercentage(wallet,wallet_max);
+    }
+}
 
+void C_Menu::render(){
 	//draw all buttons, layer by layer;
 	for(int i = BACK; i <= FRONT; i++){
 	    for(auto& x : m_menuItemsList){
