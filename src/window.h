@@ -70,7 +70,7 @@ class C_Window
   int m_levelNbr;
   C_Landscape* m_landscape;
 
-  int m_buttonType;
+  std::string m_buttonType;
   S_Coord m_cursor;
   S_Coord m_clic;
   bool m_mouseButtonDown;

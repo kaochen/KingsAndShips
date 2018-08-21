@@ -44,7 +44,7 @@ C_Window::C_Window()
 
     m_landscape = new C_Landscape();
 
-    m_buttonType = NONE;
+    m_buttonType = "";
     m_cursor.x = m_cursor.y = 1;
     m_clic.x = m_clic.y = 0;
     m_mouseButtonDown = false;
@@ -297,22 +297,22 @@ void C_Window::listenButtons(){
 			int yb = yt + menuButton->getHeight();
             //reset state
 	 		menuButton->setState(ACTIVE);
-
+            string name = menuButton->getName();
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
-					if(menuButton->getName() == "AddTower"){
+					if(name == "AddTower"){
 						m_archerTower->drag(m_cursor,false);
 						m_addingAnewTower = true;
-						m_buttonType = ADDNEWTOWER;
+						m_buttonType = name;
 						}
-					if(menuButton->getName() == "AddTurbine"){
+					else if(name == "AddTurbine"){
 						m_turbineTower->drag(m_cursor,false);
 						m_addingAnewTower = true;
-						m_buttonType = ADDNEWTURBINE;
+						m_buttonType = name;
 						}
-					if(menuButton->getName() == "AddBarricade"){
+					else if(name == "AddBarricade"){
 						m_barricade->drag(m_cursor,true);
 						m_addingAnewTower = true;
-						m_buttonType = ADDNEWBARRICADE;
+						m_buttonType = name;
 						}
 	 		}
 	 		//mouse Over
@@ -401,7 +401,7 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 
 					    //Add a new Tower
 					    if(m_addingAnewTower == true){
-						    grid.addANewTower(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
+						    grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
 						    m_aTowerIsSelected = grid.selectATower(clicleft);
 						    m_addingAnewTower = false;
 						}
