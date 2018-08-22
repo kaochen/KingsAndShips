@@ -15,7 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//Parent class for all game assets or units use in the game
+/*!
+ *  \file gameUnits.h
+ *  \author kao_chen
+ */
 
 #ifndef GAMEUNITS_H
 #define GAMEUNITS_H
@@ -28,10 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../time.h"
 #include "pathfinding.h"
 
+/*! \class C_GameUnits
+ * \brief mother class for all isometric elements (units) of the game, like boats or trees
+ */
+
 class C_GameUnits
 {
 	public:
-	//methods
 	C_GameUnits(std::string name,
 		     int x_grid,
 		     int y_grid,
@@ -43,7 +49,6 @@ class C_GameUnits
 
 	virtual C_GameUnits * getUnit() {return this;};
 	virtual std::string getName() const {return m_name;};
-
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
   virtual void render(){std::cout << ";)";};
@@ -85,13 +90,11 @@ class C_GameUnits
   int m_max_health;
   int m_health;
 
-
   //Coord
 	C_Coord* m_coord;
 	C_Coord* m_old_coord;
-	int m_y_center_offset;
-	std::string m_strDirection;
-	int m_direction;
+	int m_y_center_offset; /*!< Image offset on the Y axis*/
+	int m_direction; /*!< Orientation of the unit, south, north east...*/
 
 	//Store time for animation
 	C_AnimTime* m_animation[MAX_ANIM];

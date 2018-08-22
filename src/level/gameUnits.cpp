@@ -36,7 +36,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_max_health(100),
 	m_health(m_max_health),
 	m_y_center_offset(0),
-	m_strDirection("EE"),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {

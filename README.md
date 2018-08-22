@@ -76,6 +76,14 @@ perf report --sort comm,dso
 git remote set-url origin git@github.com:kaochen/KingsAndShips.git
 ```
 
+#### Doxygen
+access: doc/html/index.html
+```
+apt install doxygen doxygen-gui graphviz
+doxygen doc/Doxyfile
+doxywizard
+```
+
 ### Links :
 
  * https://www.kraxel.org/blog/tag/meson-ninja/

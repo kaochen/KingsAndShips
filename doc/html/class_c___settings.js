@@ -1,0 +1,25 @@
+var class_c___settings =
+[
+    [ "displayDebugMode", "class_c___settings.html#acf38eb879e22aa46c6d87fc05e94e55a", null ],
+    [ "getCurrentLevelNbr", "class_c___settings.html#ac0b57e4d498d58b2fed273ffcc1efd28", null ],
+    [ "getDebugMode", "class_c___settings.html#a2192a836c8c8c0907ee658c689008326", null ],
+    [ "getDebugPathMode", "class_c___settings.html#a66ec75f04e5d3f35b352ed989ec85916", null ],
+    [ "getGridFirstTileX", "class_c___settings.html#a7e5df76a9bcb48b589a754b14532b617", null ],
+    [ "getGridFirstTileY", "class_c___settings.html#a3be914867405f4b459761ef7e676313e", null ],
+    [ "getGridHeight", "class_c___settings.html#abd289417baee6d7223bb1a4a8cbda870", null ],
+    [ "getGridNbrOfLine", "class_c___settings.html#a5ad1ebaa283c81b6aa1a5926056dbf26", null ],
+    [ "getGridNbrOfRow", "class_c___settings.html#a59188de2678a2c9a3050d2e272b69dd0", null ],
+    [ "getGridSize", "class_c___settings.html#aac15456da1d0362227895586a089766b", null ],
+    [ "getGridWidth", "class_c___settings.html#a8a1d9b47438b74d92526f61554bc4536", null ],
+    [ "getImgFolder", "class_c___settings.html#af15adf0a508bb8b03c3481a4a9078d9d", null ],
+    [ "getLevelFolder", "class_c___settings.html#a5db0d53369e26bfb392acc1f078c831b", null ],
+    [ "getNbrOfLevels", "class_c___settings.html#a0bc401450f8aa1685d141aa3eb37d418", null ],
+    [ "getThemePath", "class_c___settings.html#add94dd0afdb864092926101af359bc31", null ],
+    [ "getTSXfileList", "class_c___settings.html#a52200a8e812900ff2f1e3c5a6390c60e", null ],
+    [ "getWindowHeight", "class_c___settings.html#ae652cf71253dbdbf6ec9e6481e0a7b8a", null ],
+    [ "getWindowWidth", "class_c___settings.html#a026cfc2ea67a8c9ea99102fb38b050fd", null ],
+    [ "initTSXfileList", "class_c___settings.html#ad722693786d167de296baf35ab98b302", null ],
+    [ "setCurrentLevelNbr", "class_c___settings.html#a77a97af59041ed3457568e078112b805", null ],
+    [ "setDebugMode", "class_c___settings.html#a0372ec7a86215c8824946e2381cc79df", null ],
+    [ "setDebugPathMode", "class_c___settings.html#a0a914961c15b7cb2b117bf5d318c35fc", null ]
+];
