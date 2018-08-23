@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "texture.h"
 #include "menu.h"
 #include "message.h"
+#include "wallet.h"
 #include "level/grid.h"
 #include "level/gameUnits.h"
 #include "level/barricade.h"
@@ -407,6 +408,8 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 						        if(tmp != nullptr){
 						            int cost = tmp->getCost();
 						            m_level->pay(cost);
+						            C_Wallet& wallet=C_Wallet::Instances();
+						            wallet.cliStatus();
 						            m_aTowerIsSelected = grid.selectATower(clicleft);
 						        }
 						        }

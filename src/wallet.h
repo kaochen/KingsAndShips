@@ -36,7 +36,7 @@ class C_Wallet
   int getBalance(){return m_balance;};
   void credit(int value){m_credit += value; refreshBalance();};
   void debit(int value){m_credit += value; refreshBalance();};
-
+  void cliStatus();
   protected:
 
 	private:

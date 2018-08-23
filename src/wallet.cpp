@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "wallet.h"
+#include "message.h"
 
 using namespace std;
 
@@ -30,4 +31,11 @@ C_Wallet::C_Wallet():
 }
 
 C_Wallet::~C_Wallet(){
+}
+/*!
+*/
+
+void C_Wallet::cliStatus(){
+    C_Message m;
+    m.printM("Wallet - balance: " + to_string(m_balance) + ", credit: " + to_string(m_credit) + ", debit: " + to_string(m_debit) + "\n");
 }
