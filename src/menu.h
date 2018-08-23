@@ -29,7 +29,7 @@ class C_Menu
 {
 	public:
 	static	C_Menu& Instances();
-  void updateInfos(C_Level *level);
+  void updateInfos();
 	void render();
 	C_MenuItem * getMenuItem(std::string name);
 	int getXScreen();

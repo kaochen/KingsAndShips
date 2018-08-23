@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "level.h"
 #include "grid.h"
 
+#include "../wallet.h"
 #include "../message.h"
 #include "../menu.h"
 
@@ -79,6 +80,8 @@ void C_Level::load(int levelNbr){
     	    loadWave(filename.c_str(),i);
     	}
         updateMenuInfo();
+        C_Wallet& wallet=C_Wallet::Instances();
+        wallet.credit(500); //add a credit for start
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
 	}
 	else{

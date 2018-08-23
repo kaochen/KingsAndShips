@@ -26,7 +26,8 @@ C_Wallet C_Wallet::m_instance=C_Wallet();
 C_Wallet::C_Wallet():
 	m_credit(0),
 	m_debit(0),
-	m_balance(0)
+	m_balance(0),
+	m_progress_bar_max(2000)
 {
 }
 

@@ -34,8 +34,9 @@ class C_Wallet
 	static	C_Wallet& Instances() {return m_instance;};
 
   int getBalance(){return m_balance;};
+  int getWalletMax (){return m_progress_bar_max;};
   void credit(int value){m_credit += value; refreshBalance();};
-  void debit(int value){m_credit += value; refreshBalance();};
+  void debit(int value){m_debit += value; refreshBalance();};
   void cliStatus();
   protected:
 
@@ -52,5 +53,6 @@ class C_Wallet
   int m_credit;
   int m_debit;
   int m_balance;
+  int m_progress_bar_max;
 };
 #endif

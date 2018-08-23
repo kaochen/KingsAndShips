@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "window.h"
 #include "settings.h"
 #include "texture.h"
+#include "wallet.h"
 #include "level/grid.h"
 #include <string>
 
@@ -74,7 +75,7 @@ C_Menu& C_Menu::Instances()
 	return m_instance;
 }
 
-void C_Menu::updateInfos(C_Level *level){
+void C_Menu::updateInfos(){
     C_Grid& grid=C_Grid::Instances();
     if(m_menuItemsList["playerlife"] != nullptr){
         int playerLife = grid.getAllTownsLifeLevel();
@@ -85,9 +86,8 @@ void C_Menu::updateInfos(C_Level *level){
         m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
     }
     if(m_menuItemsList["walletBar"] != nullptr){
-        int wallet = level->getWallet();
-        int wallet_max = level->getWalletMax();
-        m_menuItemsList["walletBar"]->setPercentage(wallet,wallet_max);
+    	C_Wallet& wallet=C_Wallet::Instances();
+        m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
     }
 }
 

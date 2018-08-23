@@ -231,7 +231,7 @@ void C_Window::gameLoop(){
 		        grid.renderLayer (FIELD);
 
                 listenButtons();
-                menu.updateInfos(m_level);
+                menu.updateInfos();
         		menu.render();
         		time.showFPS ();
         		//print the final render
@@ -406,9 +406,8 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 						    if(grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0) == EXIT_SUCCESS){
 						        C_GameUnits * tmp = grid.getUnits(clicleft.getXGrid (),clicleft.getYGrid ());
 						        if(tmp != nullptr){
-						            int cost = tmp->getCost();
-						            m_level->pay(cost);
 						            C_Wallet& wallet=C_Wallet::Instances();
+						            wallet.debit(tmp->getCost());
 						            wallet.cliStatus();
 						            m_aTowerIsSelected = grid.selectATower(clicleft);
 						        }
