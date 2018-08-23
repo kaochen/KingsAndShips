@@ -116,22 +116,30 @@ void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 	}
 }
 
-void C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
+int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
+    int success = EXIT_FAILURE;
 	if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
 		if(type == "AddTower"){
-		    if (!waterway(x_grid,y_grid))
+		    if (!waterway(x_grid,y_grid)){
 		        m_vgrid[x_grid][y_grid].set(FIELD,new C_ArcherTower(x_grid,y_grid,rank));
+		        success = EXIT_SUCCESS;
+		        }
 		}
         else if(type == "AddTurbine"){
-		 	if (!waterway(x_grid,y_grid))
+		 	if (!waterway(x_grid,y_grid)){
 		        m_vgrid[x_grid][y_grid].set(FIELD,new C_Turbine(x_grid,y_grid,rank));
+		        success = EXIT_SUCCESS;
+		        }
 		}
         else if(type == "AddBarricade"){
-		 	if (waterway(x_grid,y_grid))
+		 	if (waterway(x_grid,y_grid)){
 		        m_vgrid[x_grid][y_grid].set(FIELD,new C_Barricade(x_grid,y_grid,1));
+		        success = EXIT_SUCCESS;
+		        }
 		}
     }
-};
+    return success;
+}
 
 
 void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest){

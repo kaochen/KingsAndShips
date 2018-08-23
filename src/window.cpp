@@ -402,11 +402,14 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 
 					    //Add a new Tower
 					    if(m_addingAnewTower == true){
-						    grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0);
-						    C_GameUnits * tmp = grid.getUnits(clicleft.getXGrid (),clicleft.getYGrid ());
-						    int cost = tmp->getCost();
-						    m_level->pay(cost);
-						    m_aTowerIsSelected = grid.selectATower(clicleft);
+						    if(grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0) == EXIT_SUCCESS){
+						        C_GameUnits * tmp = grid.getUnits(clicleft.getXGrid (),clicleft.getYGrid ());
+						        if(tmp != nullptr){
+						            int cost = tmp->getCost();
+						            m_level->pay(cost);
+						            m_aTowerIsSelected = grid.selectATower(clicleft);
+						        }
+						        }
 						    m_addingAnewTower = false;
 						}
 					    else{
