@@ -71,10 +71,6 @@ class C_Level
   void displayWave(int i);
   void loadWaveIntoGrid(int i);
   void updateMenuInfo();
-  //wallet
-  int getWallet(){return m_wallet;};
-  int getWalletMax(){return m_wallet_max;};
-  void pay(int cost){m_wallet -= cost;};
 
 	protected:
   //methods
@@ -95,9 +91,6 @@ class C_Level
   int m_currentWaveNbr;
   std::vector <C_Wave> m_waves;
 
-  //bank
-  int m_wallet;
-  int m_wallet_max;
 };
 
 
