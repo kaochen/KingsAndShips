@@ -64,6 +64,12 @@ void C_Boat::play(){
 		this->kill();
 };
 
+void C_Boat::kill(){
+    C_Shooter::kill();
+    C_Wallet& wallet=C_Wallet::Instances();
+    wallet.credit(m_cost); //reward when killing a boat
+    wallet.cliStatus();
+}
 
 void C_Boat::move()
 {

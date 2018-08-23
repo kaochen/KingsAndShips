@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 #include "weapons.h"
 #include "../time.h"
+#include "../wallet.h"
 
 class C_Shooter : public C_GameUnits
 {
@@ -34,6 +35,7 @@ class C_Shooter : public C_GameUnits
 
 	virtual	void displayStatus() const;
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
+  virtual void kill();
 	virtual void move();
 	virtual void drag(S_Coord screen, bool water);
   virtual int getCost(){return m_cost;};

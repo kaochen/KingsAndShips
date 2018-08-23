@@ -77,7 +77,7 @@ class C_GameUnits
 	protected:
   //alive or dead
 	virtual bool alive() const {return m_health>0;};
-	virtual void kill();
+	virtual void kill(){};
 
 	virtual int getDistance(int x, int y) const;
   virtual std::string imageName(int status,int direction,int imageNbr);

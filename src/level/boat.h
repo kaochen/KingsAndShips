@@ -40,6 +40,7 @@ class C_Boat: public C_Shooter
 
 	virtual void play();
 	virtual void move();
+	virtual void kill();
 	virtual void receiveDamage(S_Weapon weapon);
 
 	protected:

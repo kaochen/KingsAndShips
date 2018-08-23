@@ -98,6 +98,16 @@ void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 	}
 }
 
+void C_Shooter::kill()
+{
+	C_Grid& grid=C_Grid::Instances();
+	C_Message m;
+	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ())
+	            + ":" + to_string(m_coord->getYGrid ()) + "\n");
+ 	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
+ 	m_selected = false;
+}
+
 void C_Shooter::displayStatus() const
 {
 	C_GameUnits::displayStatus();
