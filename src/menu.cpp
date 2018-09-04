@@ -56,7 +56,7 @@ C_Menu::C_Menu():
 		//Lion
 		m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
 		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
-		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","0/0", 20,128,100);
+		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","Wave 0/0", 18,128,100);
 
 		//wallet
 		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x_button - size-50,100);
@@ -131,13 +131,13 @@ void C_Menu::drawBackground(){
 void C_Menu::updateLevelInfos(int current_wave, int total_waves){
     m_current_wave = current_wave;
     m_total_waves = total_waves;
-    string m = to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
+    string m = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
     delete m_menuItemsList["wavestatus"];
-    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 20,128,100);
+    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 18,128,100);
 }
 
 void C_Menu::resetValues(){
     m_current_wave = 1;
     m_total_waves = 1;
-    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","0/0", 20,128,100);
+    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","Wave 0/0", 18,128,100);
 }
