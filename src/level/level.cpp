@@ -78,6 +78,7 @@ void C_Level::load(int levelNbr){
     	}
         updateMenuInfo();
         C_Wallet& wallet=C_Wallet::Instances();
+        wallet.reset();
         wallet.credit(500); //add a credit for start
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
 	}

@@ -23,12 +23,9 @@ using namespace std;
 
 C_Wallet C_Wallet::m_instance=C_Wallet();
 
-C_Wallet::C_Wallet():
-	m_credit(0),
-	m_debit(0),
-	m_balance(0),
-	m_progress_bar_max(2000)
+C_Wallet::C_Wallet()
 {
+    reset();
 }
 
 C_Wallet::~C_Wallet(){
@@ -39,4 +36,11 @@ C_Wallet::~C_Wallet(){
 void C_Wallet::cliStatus(){
     C_Message m;
     m.printM("Wallet - balance: " + to_string(m_balance) + ", credit: " + to_string(m_credit) + ", debit: " + to_string(m_debit) + "\n");
+}
+
+void C_Wallet::reset(){
+	m_credit = 0;
+	m_debit = 0;
+	m_balance = 0;
+	m_progress_bar_max =2000;
 }
