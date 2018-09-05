@@ -35,10 +35,11 @@ class C_Menu
 	int getXScreen();
   void updateLevelInfos(int current_wave, int total_waves);
   void resetValues();
-  void updatePlayerLife();
-  void updateLionStatus();
 
   protected:
+  void updatePlayerLife();
+  void updateLionStatus();
+  void updateWalletStatus();
 	void drawBackground();
 
 	private:

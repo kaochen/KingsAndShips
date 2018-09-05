@@ -51,14 +51,10 @@ C_Menu::C_Menu():
 		y_button +=size;
 		m_menuItemsList["AddBarricade"] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
 
-        //fox
+
         updatePlayerLife();
-
-		//Lion
         updateLionStatus();
-
-		//wallet
-		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",settings.getWindowWidth() -192,100);
+        updateWalletStatus();
 
 }
 
@@ -80,10 +76,7 @@ void C_Menu::updateInfos(){
     if(m_menuItemsList["boatLife"] != nullptr){
         m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
     }
-    if(m_menuItemsList["walletBar"] != nullptr){
-    	C_Wallet& wallet=C_Wallet::Instances();
-        m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
-    }
+    updateWalletStatus();
 }
 
 void C_Menu::render(){
@@ -190,4 +183,16 @@ void C_Menu::updateLionStatus(){
             delete m_menuItemsList["wavestatus"];
         }
 		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 18,128,100);
+}
+
+void C_Menu::updateWalletStatus(){
+    C_Settings& settings=C_Settings::Instances();
+	int x = settings.getWindowWidth();
+    if(m_menuItemsList["walletBar"]== nullptr){
+		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
+		}
+	 if(m_menuItemsList["walletBar"] != nullptr){
+    	C_Wallet& wallet=C_Wallet::Instances();
+        m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
+    }
 }
