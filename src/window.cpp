@@ -208,7 +208,7 @@ void C_Window::gameLoop(){
 	grid.displayStatus();
 
     //load the first level
-    m_level->load(m_levelNbr);
+    loadLevel(m_levelNbr);
     while(!m_quit)
     {
 
@@ -329,7 +329,6 @@ void C_Window::listenButtons(){
 
 void C_Window::listenKeyboard(SDL_Event &event){
     C_Settings& settings=C_Settings::Instances();
-    C_Menu& menu=C_Menu::Instances();
     switch(event.key.keysym.sym)
 			    {
 			    case SDLK_d:
@@ -337,11 +336,7 @@ void C_Window::listenKeyboard(SDL_Event &event){
 				    settings.displayDebugMode();
 				    break;
 			    case SDLK_l:
-			        m_levelNbr = settings.setCurrentLevelNbr(m_levelNbr +1);
-                    delete m_level;
-                    m_level = new C_Level;
-                	m_level->load(m_levelNbr);
-                	menu.resetValues();
+			        loadLevel(m_levelNbr +1);
 				    break;
 			    case SDLK_n:
 				    m_level->sendNextWave();
@@ -356,11 +351,30 @@ void C_Window::listenKeyboard(SDL_Event &event){
 				    m_quit = true;
 				    break;
 			    case SDLK_r:
-                	m_level->load(m_levelNbr);
-                	menu.resetValues();
+			        loadLevel(m_levelNbr);
 				    break;
 			    }
 }
+
+void C_Window::loadLevel(int levelNbr){
+         C_Settings& settings=C_Settings::Instances();
+		  m_levelNbr = settings.setCurrentLevelNbr(levelNbr);
+
+		if(m_level != nullptr){delete m_level;}
+        m_level = new C_Level;
+        if(m_level != nullptr){
+            m_level->load(m_levelNbr);
+
+            C_Menu& menu=C_Menu::Instances();
+            menu.resetValues();
+        }
+        else{
+            C_Message m;
+            m.printM("Can not create level" + to_string(m_levelNbr));
+        }
+
+}
+
 
 void C_Window::listenMouseMotion(SDL_Event &event){
         C_Settings& settings=C_Settings::Instances();
