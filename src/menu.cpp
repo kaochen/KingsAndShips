@@ -51,11 +51,7 @@ C_Menu::C_Menu():
 		y_button +=size;
 		m_menuItemsList["AddBarricade"] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
 
-
-        updatePlayerLife();
-        updateLionStatus();
-        updateWalletStatus();
-
+        updateInfos();
 }
 
 C_Menu::~C_Menu(){
@@ -73,9 +69,6 @@ C_Menu& C_Menu::Instances()
 void C_Menu::updateInfos(){
     updatePlayerLife();
     updateLionStatus();
-    if(m_menuItemsList["boatLife"] != nullptr){
-        m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
-    }
     updateWalletStatus();
 }
 
