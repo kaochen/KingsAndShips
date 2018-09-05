@@ -147,12 +147,7 @@ void C_Menu::updatePlayerLife(){
     }
 
     //text over the progress bar
-    string space;
-    if (playerLife < 100  &&  playerLife >= 10){space = " ";}
-    else if (playerLife < 10){space = "  ";}
-    else{space = "";}
-
-    string text = "Life :"+ space + to_string(playerLife);
+    string text = "Life: " + nbrToString(playerLife);
 	if(m_menuItemsList["lifestatus"] != nullptr){
 		    delete m_menuItemsList["lifestatus"];
 	}
@@ -190,9 +185,20 @@ void C_Menu::updateWalletStatus(){
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
     }
     //text over the progress bar
-    string m = "Gold: " + to_string(wallet.getBalance());
+    string m = "Gold: " + nbrToString(wallet.getBalance());
 	if(m_menuItemsList["walletStatus"] != nullptr){
         delete m_menuItemsList["walletStatus"];
     }
 	m_menuItemsList["walletStatus"] = new C_MenuText("walletStatus",m, 18,x-128,160);
+}
+
+
+string C_Menu::nbrToString(int nbr){
+    string space = "";
+    string nbrStr = to_string(nbr);
+
+    if (nbrStr.size()==2){space = "  ";}
+    else if (nbrStr.size()==1){space = "    ";}
+    else{space = "";}
+    return space + nbrStr;
 }

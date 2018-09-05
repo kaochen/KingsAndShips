@@ -41,6 +41,7 @@ class C_Menu
   void updateLionStatus();
   void updateWalletStatus();
 	void drawBackground();
+  std::string nbrToString(int nbr);
 
 	private:
 	C_Menu& operator= (const C_Menu&){return *this;}
