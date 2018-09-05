@@ -364,9 +364,6 @@ void C_Window::loadLevel(int levelNbr){
         m_level = new C_Level;
         if(m_level != nullptr){
             m_level->load(m_levelNbr);
-
-            C_Menu& menu=C_Menu::Instances();
-            menu.resetValues();
         }
         else{
             C_Message m;
