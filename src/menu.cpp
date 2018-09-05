@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Display all the menuItems in one menu on top of the game
 
 #include "menu.h"
+#include "message.h"
 #include "window.h"
 #include "settings.h"
 #include "texture.h"
@@ -51,15 +52,15 @@ C_Menu::C_Menu():
 		m_menuItemsList["AddBarricade"] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
 
         //fox
-        m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x_button - size-50,40);
-		m_menuItemsList["Characters_fox"] = new C_MenuItem("Characters_fox",x_button-10,20);
+        updatePlayerLife();
+
 		//Lion
 		m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
 		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
 		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","Wave 0/0", 18,128,100);
 
 		//wallet
-		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x_button - size-50,100);
+		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",settings.getWindowWidth() -192,100);
 
 }
 
@@ -76,11 +77,7 @@ C_Menu& C_Menu::Instances()
 }
 
 void C_Menu::updateInfos(){
-    C_Grid& grid=C_Grid::Instances();
-    if(m_menuItemsList["playerlife"] != nullptr){
-        int playerLife = grid.getAllTownsLifeLevel();
-        m_menuItemsList["playerlife"]->setPercentage(playerLife);
-    }
+    updatePlayerLife();
 
     if(m_menuItemsList["boatLife"] != nullptr){
         m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
@@ -140,4 +137,43 @@ void C_Menu::resetValues(){
     m_current_wave = 1;
     m_total_waves = 1;
     m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","Wave 0/0", 18,128,100);
+    updatePlayerLife();
+}
+
+
+void C_Menu::updatePlayerLife(){
+    C_Grid& grid=C_Grid::Instances();
+    int playerLife = grid.getAllTownsLifeLevel();
+
+    C_Settings& settings=C_Settings::Instances();
+	int x = settings.getWindowWidth();
+
+    if(m_menuItemsList["Characters_fox"] == nullptr){
+	    m_menuItemsList["Characters_fox"] = new C_MenuItem("Characters_fox",x - 92,20);
+	}
+
+    //progress bar value
+    if(m_menuItemsList["playerlife"] == nullptr){
+        m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x - 192,40);
+    }
+
+    if(m_menuItemsList["playerlife"] != nullptr){
+        m_menuItemsList["playerlife"]->setPercentage(playerLife);
+    }
+    else{
+        C_Message m;
+        m.printM("the progess bar playerlife does not exist");
+    }
+
+    //text over the progress bar
+    string space;
+    if (playerLife < 100  &&  playerLife >= 10){space = " ";}
+    else if (playerLife < 10){space = "  ";}
+    else{space = "";}
+
+    string text = "Life :"+ space + to_string(playerLife);
+	if(m_menuItemsList["lifestatus"] != nullptr){
+		    delete m_menuItemsList["lifestatus"];
+	}
+	m_menuItemsList["lifestatus"] = new C_MenuText("lifestatus",text, 18,x - 128,100);
 }
