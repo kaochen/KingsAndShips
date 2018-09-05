@@ -190,7 +190,7 @@ void C_Menu::updateWalletStatus(){
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
     }
     //text over the progress bar
-    string m = "Wallet " + to_string(wallet.getBalance());
+    string m = "Gold: " + to_string(wallet.getBalance());
 	if(m_menuItemsList["walletStatus"] != nullptr){
         delete m_menuItemsList["walletStatus"];
     }
