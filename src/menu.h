@@ -28,20 +28,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Menu
 {
 	public:
-	static	C_Menu& Instances();
-  void updateInfos();
-	void render();
-	C_MenuItem * getMenuItem(std::string name);
-	int getXScreen();
+	static	C_Menu& Instances(){return m_instance;};
+  void updateInfos(); /*!Create or update informations before render them on screen*/
+	void render(); /*!Render the menu on screen*/
+	C_MenuItem * getMenuItem(std::string name){	return m_menuItemsList[name];};
   void updateLevelInfos(int current_wave, int total_waves);
-  void resetValues();
+  void resetValues(); /*!reset values when change or reset the level*/
 
   protected:
-  void updatePlayerLife();
-  void updateLionStatus();
-  void updateWalletStatus();
-	void drawBackground();
-  std::string nbrToString(int nbr);
+  void updateDefenderStatus(); /*!Create or update defender informations*/
+  void updateAttackerStatus(); /*!Create or update attacker informations*/
+  void updateWalletStatus(); /*!Create or update wallet informations of the attacker*/
+  std::string nbrToString(int nbr);/*!fill empty space when convert int to string, "10" become "  10"*/
 
 	private:
 	C_Menu& operator= (const C_Menu&){return *this;}
@@ -50,10 +48,6 @@ class C_Menu
 	C_Menu();
 	~C_Menu();
 
-	int m_x_screen;
-	int m_y_screen;
-	int m_width;
-	int m_height;
   //information to display
   int m_current_wave;
   int m_total_waves;

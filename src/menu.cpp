@@ -21,26 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "message.h"
 #include "window.h"
 #include "settings.h"
-#include "texture.h"
 #include "wallet.h"
 #include "level/grid.h"
-#include <string>
-
-#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
 C_Menu C_Menu::m_instance=C_Menu();
 
 C_Menu::C_Menu():
-	m_y_screen(0),
-	m_height(72),
 	m_current_wave(1),
     m_total_waves(1)
 {
 		C_Settings& settings=C_Settings::Instances();
-		m_width = (settings.getWindowWidth()*50)/100;
-		m_x_screen = (settings.getWindowWidth() - m_width)/2;
 		int size = 64 + 10;
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
@@ -61,14 +53,10 @@ C_Menu::~C_Menu(){
 	}
 }
 
-C_Menu& C_Menu::Instances()
-{
-	return m_instance;
-}
 
 void C_Menu::updateInfos(){
-    updatePlayerLife();
-    updateLionStatus();
+    updateDefenderStatus();
+    updateAttackerStatus();
     updateWalletStatus();
 }
 
@@ -84,30 +72,7 @@ void C_Menu::render(){
 	    }
 	}
 }
-C_MenuItem * C_Menu::getMenuItem(string name){
-	return m_menuItemsList[name];
-}
 
-int C_Menu::getXScreen(){
-	return m_x_screen;
-}
-
-void C_Menu::drawBackground(){
-		C_Window& win=C_Window::Instances();
-		Sint16 x_tr = m_width + m_x_screen; //x top right
-		Sint16 y_tr = m_y_screen -5;
-		Sint16 x_bl = m_x_screen; //x bottom left
-		Sint16 y_bl = m_height;
-		Uint8 R = 50, G = 50, B = 50, A = 230;
-		roundedBoxRGBA(win.getRenderer(),x_tr,y_tr,x_bl,y_bl,5,R,G,B,A);
-		roundedRectangleRGBA(win.getRenderer(),x_tr,y_tr,x_bl,y_bl,5,R,G,B,255);
-
-
-	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture("Buttons_lys", m_x_screen + m_width/2, 80);
-
-
-}
 
 void C_Menu::updateLevelInfos(int current_wave, int total_waves){
     m_current_wave = current_wave;
@@ -117,12 +82,12 @@ void C_Menu::updateLevelInfos(int current_wave, int total_waves){
 void C_Menu::resetValues(){
     m_current_wave = 1;
     m_total_waves = 1;
-    updatePlayerLife();
-    updateLionStatus();
+    updateAttackerStatus();
+    updateDefenderStatus();
 }
 
 
-void C_Menu::updatePlayerLife(){
+void C_Menu::updateDefenderStatus(){
     C_Grid& grid=C_Grid::Instances();
     int playerLife = grid.getAllTownsLifeLevel();
 
@@ -155,7 +120,7 @@ void C_Menu::updatePlayerLife(){
 }
 
 
-void C_Menu::updateLionStatus(){
+void C_Menu::updateAttackerStatus(){
         if (m_menuItemsList["Characters_lion"] == nullptr){
         		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
         }
