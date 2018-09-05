@@ -181,11 +181,18 @@ void C_Menu::updateLionStatus(){
 void C_Menu::updateWalletStatus(){
     C_Settings& settings=C_Settings::Instances();
 	int x = settings.getWindowWidth();
+	C_Wallet& wallet=C_Wallet::Instances();
+	//progress bar
     if(m_menuItemsList["walletBar"]== nullptr){
 		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
 		}
 	 if(m_menuItemsList["walletBar"] != nullptr){
-    	C_Wallet& wallet=C_Wallet::Instances();
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
     }
+    //text over the progress bar
+    string m = "Wallet " + to_string(wallet.getBalance());
+	if(m_menuItemsList["walletStatus"] != nullptr){
+        delete m_menuItemsList["walletStatus"];
+    }
+	m_menuItemsList["walletStatus"] = new C_MenuText("walletStatus",m, 18,x-128,160);
 }
