@@ -46,7 +46,7 @@ class C_Wave{
   C_Wave();
   ~C_Wave();
   void add(int rank, int x, int y);
-  void display();
+  void cliStatus();
   void loadIntoGrid();
   void addToDeadCounter(int nbr);
 
@@ -66,9 +66,9 @@ class C_Level
 	C_Level();
 	~C_Level();
   void load(int levelNbr);
-	void status();
+	void cliStatus();
 	void sendNextWave();
-  void displayWave(int i);
+  void cliWaveStatus(int i);
   void loadWaveIntoGrid(int i);
   void updateMenuInfo();
 

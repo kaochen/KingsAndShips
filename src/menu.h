@@ -36,6 +36,7 @@ class C_Menu
   void updateLevelInfos(int current_wave, int total_waves);
   void resetValues();
   void updatePlayerLife();
+  void updateLionStatus();
 
   protected:
 	void drawBackground();

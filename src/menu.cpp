@@ -55,9 +55,7 @@ C_Menu::C_Menu():
         updatePlayerLife();
 
 		//Lion
-		m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
-		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
-		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","Wave 0/0", 18,128,100);
+        updateLionStatus();
 
 		//wallet
 		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",settings.getWindowWidth() -192,100);
@@ -78,7 +76,7 @@ C_Menu& C_Menu::Instances()
 
 void C_Menu::updateInfos(){
     updatePlayerLife();
-
+    updateLionStatus();
     if(m_menuItemsList["boatLife"] != nullptr){
         m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
     }
@@ -128,16 +126,13 @@ void C_Menu::drawBackground(){
 void C_Menu::updateLevelInfos(int current_wave, int total_waves){
     m_current_wave = current_wave;
     m_total_waves = total_waves;
-    string m = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
-    delete m_menuItemsList["wavestatus"];
-    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 18,128,100);
 }
 
 void C_Menu::resetValues(){
     m_current_wave = 1;
     m_total_waves = 1;
-    m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus","Wave 0/0", 18,128,100);
     updatePlayerLife();
+    updateLionStatus();
 }
 
 
@@ -176,4 +171,23 @@ void C_Menu::updatePlayerLife(){
 		    delete m_menuItemsList["lifestatus"];
 	}
 	m_menuItemsList["lifestatus"] = new C_MenuText("lifestatus",text, 18,x - 128,100);
+}
+
+
+void C_Menu::updateLionStatus(){
+        if (m_menuItemsList["Characters_lion"] == nullptr){
+        		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
+        }
+        if(m_menuItemsList["boatLife"] == nullptr){
+		    m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
+		}
+		if(m_menuItemsList["boatLife"] != nullptr){
+		    m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
+		}
+
+		string m = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
+		if(m_menuItemsList["wavestatus"] != nullptr){
+            delete m_menuItemsList["wavestatus"];
+        }
+		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 18,128,100);
 }

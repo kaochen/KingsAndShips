@@ -54,7 +54,7 @@ C_Level::~C_Level()
 {
 }
 
-void C_Level::status(){
+void C_Level::cliStatus(){
 	cout << m_name << " " << m_id << endl;
 }
 
@@ -94,7 +94,7 @@ void C_Level::sendNextWave(){
         m_currentWaveNbr = 0;
     }
 
-    displayWave(m_currentWaveNbr);
+    cliWaveStatus(m_currentWaveNbr);
     loadWaveIntoGrid(m_currentWaveNbr);
     m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
 }
@@ -206,12 +206,12 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 	m_waves.push_back(wave);
 }
 
-void C_Level::displayWave(int i){
+void C_Level::cliWaveStatus(int i){
         int c = 0;
         for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end();it++){
             C_Wave wave = *it;
             if(i == c){
-                wave.display();
+                wave.cliStatus();
             }
             c++;
         }
@@ -315,7 +315,7 @@ void C_Wave::add(int rank, int x, int y){
     m_count++;
 }
 
-void C_Wave::display(){
+void C_Wave::cliStatus(){
     int c = 0;
     C_Message m;
     for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
