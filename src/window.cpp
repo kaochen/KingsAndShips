@@ -37,6 +37,7 @@ C_Window C_Window::m_instance=C_Window();
 
 C_Window::C_Window()
 {
+ 	initSDL();
 	C_Settings& settings=C_Settings::Instances();
     m_forceRefresh = false;
 
@@ -69,21 +70,29 @@ void C_Window::initSDL()
 		m.printSDLerror("SDL_Init() failed");
 			exit (EXIT_FAILURE);
 		}
+	else{
+	    m.printM("SDL_Init() succeed\n");
+	}
 
 	if(TTF_Init() < 0){
 			m.printTTFerror("TTF_init() failed");
 			exit (EXIT_FAILURE);
 		}
+	else{
+	    m.printM("TTF_Init() succeed\n");
+	}
 
 
 	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG){
 		m.printSDLerror("IMG_Init");
 		//SDL_Quit;
 		}
+	else{
+	    m.printM("IMG_Init succeed\n");
+	}
 }
 
 void C_Window::createWindow(){
- 	initSDL();
     C_Message m;
 	C_Settings& settings=C_Settings::Instances();
  	m_window = SDL_CreateWindow("KingsAndShips",
