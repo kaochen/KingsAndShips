@@ -7,6 +7,7 @@ var class_c___shooter =
     [ "drawEllipse", "class_c___shooter.html#ac4476ec8fa3386508e1c7c080c328b93", null ],
     [ "drawRhombus", "class_c___shooter.html#adba8d15c544bddea6ceddccb6210d7c0", null ],
     [ "getCost", "class_c___shooter.html#ab9edc88e356f130a15a9459c475250cb", null ],
+    [ "kill", "class_c___shooter.html#a593a540b2fb671af6da1bc0e4dfe61d9", null ],
     [ "move", "class_c___shooter.html#a1fbd0067bfa3bf54fc81ae37227548e6", null ],
     [ "render", "class_c___shooter.html#ac45bc8394d52783f99bb57412ac82bdd", null ],
     [ "renderLifeBar", "class_c___shooter.html#a84148fc4c56471af4a2b3c6a4b61ddf4", null ],

@@ -39,6 +39,7 @@ var hierarchy =
     ] ],
     [ "C_TextureList", "class_c___texture_list.html", null ],
     [ "C_Time", "class_c___time.html", null ],
+    [ "C_Wallet", "class_c___wallet.html", null ],
     [ "C_Wave", "class_c___wave.html", null ],
     [ "C_Weapon", "class_c___weapon.html", null ],
     [ "C_Window", "class_c___window.html", null ],

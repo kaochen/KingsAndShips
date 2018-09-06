@@ -32,6 +32,7 @@ var annotated_dup =
     [ "C_Town", "class_c___town.html", "class_c___town" ],
     [ "C_Trees", "class_c___trees.html", "class_c___trees" ],
     [ "C_Turbine", "class_c___turbine.html", "class_c___turbine" ],
+    [ "C_Wallet", "class_c___wallet.html", "class_c___wallet" ],
     [ "C_Wave", "class_c___wave.html", "class_c___wave" ],
     [ "C_Weapon", "class_c___weapon.html", "class_c___weapon" ],
     [ "C_Window", "class_c___window.html", "class_c___window" ],

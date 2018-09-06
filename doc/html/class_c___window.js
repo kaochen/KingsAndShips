@@ -12,6 +12,7 @@ var class_c___window =
     [ "listenSDL_Events", "class_c___window.html#adab5278b4259f9871d9fb3046daef845", null ],
     [ "loadGame", "class_c___window.html#ad291c2e12eff57d85e77fae81aca5231", null ],
     [ "loadingPage", "class_c___window.html#a1ac82414c1af823085e3628e927dcacb", null ],
+    [ "loadLevel", "class_c___window.html#a723ea4e042cb47568075b648d040ea52", null ],
     [ "quitProgram", "class_c___window.html#aca333ff3f8a0b7ea92c273588f725287", null ],
     [ "renderProgressBar", "class_c___window.html#a2bff8f04c2e7809fc6d3a85984b8be44", null ]
 ];

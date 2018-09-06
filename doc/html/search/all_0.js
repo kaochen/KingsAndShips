@@ -32,6 +32,7 @@ var searchData=
   ['c_5ftown',['C_Town',['../class_c___town.html',1,'']]],
   ['c_5ftrees',['C_Trees',['../class_c___trees.html',1,'']]],
   ['c_5fturbine',['C_Turbine',['../class_c___turbine.html',1,'']]],
+  ['c_5fwallet',['C_Wallet',['../class_c___wallet.html',1,'']]],
   ['c_5fwave',['C_Wave',['../class_c___wave.html',1,'']]],
   ['c_5fweapon',['C_Weapon',['../class_c___weapon.html',1,'']]],
   ['c_5fwindow',['C_Window',['../class_c___window.html',1,'']]],
