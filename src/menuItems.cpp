@@ -132,6 +132,11 @@ void C_ButtonAddUnit::drag(S_Coord screen){
 }
 
 void C_ButtonAddUnit::render(){
+    C_Wallet& wallet=C_Wallet::Instances();
+    if(wallet.getBalance() < m_unit->getCost()){
+        m_state = DISABLED;
+    }
+
     C_Button::render();
     C_TextureList& t=C_TextureList::Instances();
     if(t.searchTexture(m_textName)== nullptr){
