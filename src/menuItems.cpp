@@ -30,7 +30,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_y_screen(y_screen),
 	m_width(64),
 	m_height(64),
-	m_layer(FRONT)
+	m_layer(FRONT),
+	m_enable(true)
 {
 }
 C_MenuItem::~C_MenuItem()
@@ -73,18 +74,21 @@ C_Button::~C_Button()
 
 void C_Button::render(){
         string name = "Buttons_"+m_name;
+        string prefix;
         if(m_state == ACTIVE){
-            name +="_Active";
-            }
-        else if(m_state == DISABLED){
-            name +="_Disabled";
+            prefix ="_Active";
             }
         else if(m_state == HOVER){
-            name +="_Hover";
+            prefix ="_Hover";
             }
         else{
-            name +="_Disabled";
+            prefix ="_Disabled";
             }
+
+        if(m_enable == false){
+            prefix ="_Disabled";
+            }
+        name += prefix;
 		C_TextureList& t=C_TextureList::Instances();
 		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
 }
@@ -134,7 +138,10 @@ void C_ButtonAddUnit::drag(S_Coord screen){
 void C_ButtonAddUnit::render(){
     C_Wallet& wallet=C_Wallet::Instances();
     if(wallet.getBalance() < m_unit->getCost()){
-        m_state = DISABLED;
+        m_enable = false;
+    }
+    else{
+        m_enable = true;
     }
 
     C_Button::render();

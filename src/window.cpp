@@ -304,9 +304,15 @@ void C_Window::listenButtons(){
 	 		menuButton->setState(ACTIVE);
             string name = menuButton->getName();
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
-						menuButton->drag(m_cursor);
-						m_addingAnewTower = true;
-						m_buttonType = name;
+			    if(menuButton->getEnable()== true){
+					menuButton->drag(m_cursor);
+					m_addingAnewTower = true;
+					m_buttonType = name;
+				}
+				else{
+					m_addingAnewTower = false;
+					m_buttonType = "";
+				}
 	 		}
 	 		//mouse Over
 	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
