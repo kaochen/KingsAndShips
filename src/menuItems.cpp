@@ -93,16 +93,34 @@ void C_Button::setState(int state){
     m_state = state;
 }
 
+//-------------------------------------------------------------
 
-void C_Button::setPercentage(int percentage)
+C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int y_screen)
+	:C_Button(name,image_out,x_screen,y_screen)
 {
-    cout << percentage; //to calm down gcc
-}
-void C_Button::setPercentage(int a, int b)
-{
-    cout << a << b; //to calm down gcc
+    if(name == "AddTower")
+         m_unit = new C_ArcherTower(0,0,0);
+    else if(name == "AddTurbine")
+         m_unit = new C_Turbine(0,0,0);
+    else if(name == "AddBarricade")
+        m_unit = new C_Barricade(0,0,1);
 }
 
+C_ButtonAddUnit::~C_ButtonAddUnit()
+{
+    if(m_unit !=nullptr)
+        delete m_unit;
+}
+
+void C_ButtonAddUnit::drag(S_Coord screen){
+    bool water = false;
+    if (m_unit != nullptr){
+        if(m_unit->getName() == "barricade"){
+            water = true;
+        }
+        m_unit->drag(screen,water);
+    }
+}
 //-------------------------------------------------------------
 
 C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)

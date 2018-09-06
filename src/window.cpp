@@ -50,9 +50,6 @@ C_Window::C_Window()
     m_clic.x = m_clic.y = 0;
     m_mouseButtonDown = false;
 
-    m_archerTower = new C_ArcherTower(0,0,0);
-    m_turbineTower = new C_Turbine(0,0,0);
-    m_barricade = new C_Barricade(0,0,1);
     m_addingAnewTower = false;
     m_aTowerIsSelected = false;
 
@@ -62,9 +59,6 @@ C_Window::C_Window()
 C_Window::~C_Window(){
     delete m_level;
     delete m_landscape;
-    delete m_archerTower;
-    delete m_turbineTower;
-    delete m_barricade;
 }
 
 
@@ -301,21 +295,9 @@ void C_Window::listenButtons(){
 	 		menuButton->setState(ACTIVE);
             string name = menuButton->getName();
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
-					if(name == "AddTower"){
-						m_archerTower->drag(m_cursor,false);
+						menuButton->drag(m_cursor);
 						m_addingAnewTower = true;
 						m_buttonType = name;
-						}
-					else if(name == "AddTurbine"){
-						m_turbineTower->drag(m_cursor,false);
-						m_addingAnewTower = true;
-						m_buttonType = name;
-						}
-					else if(name == "AddBarricade"){
-						m_barricade->drag(m_cursor,true);
-						m_addingAnewTower = true;
-						m_buttonType = name;
-						}
 	 		}
 	 		//mouse Over
 	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){

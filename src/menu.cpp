@@ -37,11 +37,11 @@ C_Menu::C_Menu():
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_menuItemsList["AddTower"] = new C_Button("AddTower","Buttons_AddTower",x_button,y_button);
+		m_menuItemsList["AddTower"] = new C_ButtonAddUnit("AddTower","Buttons_AddTower",x_button,y_button);
 		y_button +=size;
-	    m_menuItemsList["AddTurbine"] = new C_Button("AddTurbine","Buttons_AddTurbine",x_button,y_button);
+	    m_menuItemsList["AddTurbine"] = new C_ButtonAddUnit("AddTurbine","Buttons_AddTurbine",x_button,y_button);
 		y_button +=size;
-		m_menuItemsList["AddBarricade"] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
+		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","Buttons_AddBarricade",x_button,y_button);
 
         updateInfos();
 }

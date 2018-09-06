@@ -23,6 +23,7 @@ enum menuLayer {BACK,FRONT};
 
 #include <iostream>
 #include <string>
+#include "level/shooter.h"
 
 class C_MenuItem
 {
@@ -40,6 +41,7 @@ class C_MenuItem
   virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
   virtual void setState(int state) {std::cout << state;};
+  virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
 	protected:
 	std::string m_name;
 	int m_x_screen;
@@ -58,14 +60,22 @@ class C_Button: public C_MenuItem
   C_Button(std::string name,std::string image_out,int x_screen, int y_screen);
 	~C_Button();
 
-  virtual void setPercentage(int percentage);
-  virtual void setPercentage(int a, int b);
 	virtual void render();
   virtual void setState(int state);
 	protected:
 	std::string m_image_out;
   int m_state;
+};
 
+class C_ButtonAddUnit: public C_Button
+{
+	public:
+  C_ButtonAddUnit(std::string name,std::string image_out,int x_screen, int y_screen);
+	~C_ButtonAddUnit();
+  virtual void drag(S_Coord screen);
+
+	protected:
+  C_Shooter * m_unit;
 };
 
 

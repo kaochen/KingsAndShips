@@ -76,9 +76,6 @@ class C_Window
   bool m_mouseButtonDown;
 
   //towers are needed when drag & drop from the buttons:
-  C_Towers* m_archerTower;
-  C_Towers* m_turbineTower;
-  C_Barricade* m_barricade;
   bool m_addingAnewTower;
   bool m_aTowerIsSelected;
 
