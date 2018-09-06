@@ -110,11 +110,9 @@ C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int 
 
 
     m_textName = name + "Text";
-    m_text = to_string(0);
-    m_fontSize = 18;
+    m_text = to_string(m_unit->getCost());
+    m_fontSize = 9;
     m_color = {200,200,200,255};
-    C_TextureList& t=C_TextureList::Instances();
-    t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 }
 
 C_ButtonAddUnit::~C_ButtonAddUnit()
@@ -136,7 +134,10 @@ void C_ButtonAddUnit::drag(S_Coord screen){
 void C_ButtonAddUnit::render(){
     C_Button::render();
     C_TextureList& t=C_TextureList::Instances();
-    t.renderTexture(m_textName, m_x_screen, m_y_screen-30);
+    if(t.searchTexture(m_textName)== nullptr){
+        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+    }
+    t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 64);
 }
 //-------------------------------------------------------------
 
