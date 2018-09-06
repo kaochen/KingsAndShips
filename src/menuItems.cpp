@@ -98,12 +98,23 @@ void C_Button::setState(int state){
 C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int y_screen)
 	:C_Button(name,image_out,x_screen,y_screen)
 {
-    if(name == "AddTower")
+    if(name == "AddTower"){
          m_unit = new C_ArcherTower(0,0,0);
-    else if(name == "AddTurbine")
+         }
+    else if(name == "AddTurbine"){
          m_unit = new C_Turbine(0,0,0);
-    else if(name == "AddBarricade")
+         }
+    else if(name == "AddBarricade"){
         m_unit = new C_Barricade(0,0,1);
+        }
+
+
+    m_textName = name + "Text";
+    m_text = to_string(0);
+    m_fontSize = 18;
+    m_color = {200,200,200,255};
+    C_TextureList& t=C_TextureList::Instances();
+    t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 }
 
 C_ButtonAddUnit::~C_ButtonAddUnit()
@@ -120,6 +131,12 @@ void C_ButtonAddUnit::drag(S_Coord screen){
         }
         m_unit->drag(screen,water);
     }
+}
+
+void C_ButtonAddUnit::render(){
+    C_Button::render();
+    C_TextureList& t=C_TextureList::Instances();
+    t.renderTexture(m_textName, m_x_screen, m_y_screen-30);
 }
 //-------------------------------------------------------------
 

@@ -73,9 +73,14 @@ class C_ButtonAddUnit: public C_Button
   C_ButtonAddUnit(std::string name,std::string image_out,int x_screen, int y_screen);
 	~C_ButtonAddUnit();
   virtual void drag(S_Coord screen);
+  virtual void render();
 
 	protected:
   C_Shooter * m_unit;
+  std::string m_textName;
+  std::string m_text;
+  int  m_fontSize;
+  SDL_Color m_color;
 };
 
 
