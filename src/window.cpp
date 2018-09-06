@@ -300,8 +300,7 @@ void C_Window::listenButtons(){
 			int xr = xl + menuButton->getWidth();
 			int yt= menuButton->getYScreen();
 			int yb = yt + menuButton->getHeight();
-            //reset state
-	 		menuButton->setState(ACTIVE);
+
             string name = menuButton->getName();
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
 			    if(menuButton->getEnable()== true){
@@ -312,13 +311,17 @@ void C_Window::listenButtons(){
 				else{
 					m_addingAnewTower = false;
 					m_buttonType = "";
+					m_clic.x = m_clic.y = 0;
 				}
 	 		}
 	 		//mouse Over
 	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
-                    if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine" || menuButton->getName() == "AddBarricade"){
+                    if(name == "AddTower" || name == "AddTurbine" || name == "AddBarricade"){
                         menuButton->setState(HOVER);
 						}
+					else{
+					    menuButton->setState(ACTIVE);
+					}
 	 		}
  		}
 
