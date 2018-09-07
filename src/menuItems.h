@@ -43,6 +43,7 @@ class C_MenuItem
   virtual void setPercentage(int percentage){std::cout << percentage;};
   virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
+  virtual void action();
   virtual int getEnable(){return m_enable;};
   virtual void setState(int state) {std::cout << state;};
   virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};

@@ -310,6 +310,10 @@ void C_Window::listenButtons(){
 					    menuButton->drag(m_cursor);
 					    m_addingAnewTower = true;
 					}
+					if( type == ACTION){
+					    menuButton->action();
+					    m_clic.x = m_clic.y = 0;
+					}
 					m_buttonType = name;
 				}
 				else{

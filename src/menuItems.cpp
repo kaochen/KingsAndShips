@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menuItems.h"
 #include "window.h"
 #include "texture.h"
+#include "message.h"
 #include <string>
 
 #include <SDL2_gfxPrimitives.h>
@@ -66,6 +67,11 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
         C_TextureList& t=C_TextureList::Instances();
 		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
 		renderText();
+  }
+
+  void C_MenuItem::action(){
+    C_Message m;
+    m.printM("push button " + m_name + "\n");
   }
 
 //-------------------------------------------------------------
