@@ -34,25 +34,6 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_enable(true)
 {
 }
-C_MenuItem::~C_MenuItem()
-{
-}
-
-int C_MenuItem::getXScreen() const{
-	return m_x_screen;
-}
-int C_MenuItem::getYScreen() const{
-	return m_y_screen;
-}
-int C_MenuItem::getWidth() const{
-	return m_width;
-}
-int C_MenuItem::getHeight() const{
-	return m_height;
-}
-string C_MenuItem::getName(){
-	return m_name;
-	}
 
  void C_MenuItem::render(){
         C_TextureList& t=C_TextureList::Instances();
@@ -68,9 +49,6 @@ C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
 {
 }
 
-C_Button::~C_Button()
-{
-}
 
 void C_Button::render(){
         string name = "Buttons_"+m_name;
@@ -93,9 +71,6 @@ void C_Button::render(){
 		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
 }
 
-void C_Button::setState(int state){
-    m_state = state;
-}
 
 //-------------------------------------------------------------
 
@@ -162,10 +137,6 @@ C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
     m_layer = BACK;
 }
 
-void C_ProgressBar::setPercentage(int percentage)
-{
-    m_percentage = percentage;
-}
 
 void C_ProgressBar::setPercentage(int a, int b){
     if(a != 0 && b !=0)

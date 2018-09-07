@@ -31,12 +31,12 @@ class C_MenuItem
 {
 	public:
   C_MenuItem(std::string name, int x_screen, int y_screen);
-	virtual ~C_MenuItem();
-	virtual int getXScreen() const;
-	virtual int getYScreen() const;
-	virtual int getWidth() const;
-	virtual int getHeight() const;
-	virtual	std::string getName();
+	virtual ~C_MenuItem(){};
+	virtual int getXScreen() const{return m_x_screen;};
+	virtual int getYScreen() const{return m_y_screen;};
+	virtual int getWidth() const{return m_width;};
+	virtual int getHeight() const{return m_height;};
+	virtual	std::string getName(){return m_name;};
   virtual int getLayer(){return m_layer;};
 
   virtual void setPercentage(int percentage){std::cout << percentage;};
@@ -61,11 +61,11 @@ class C_Button: public C_MenuItem
 {
 	public:
   C_Button(std::string name,std::string image_out,int x_screen, int y_screen);
-	~C_Button();
+	~C_Button(){};
 
 	virtual void render();
   virtual int getState(){return m_state;};
-  virtual void setState(int state);
+  virtual void setState(int state){m_state = state;};
 	protected:
 	std::string m_image_out;
   int m_state;
@@ -93,7 +93,7 @@ class C_ProgressBar: public C_MenuItem
 	public:
   C_ProgressBar(std::string name,int x_screen, int y_screen);
 	virtual void render();
-  virtual void setPercentage(int percentage);
+  virtual void setPercentage(int percentage){m_percentage = percentage;};
   virtual void setPercentage(int a, int b);
   protected:
   void littledots(int x_screen, int y_screen, int width, int height);
