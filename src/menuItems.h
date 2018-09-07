@@ -112,13 +112,5 @@ class C_ProgressBar: public C_MenuItem
 };
 
 
-class C_MenuText: public C_MenuItem
-{
-  public:
-  C_MenuText(std::string name, std::string text, int fontSize, int x_screen, int y_screen);
-  virtual void render();
-  private:
-};
-
 
 #endif

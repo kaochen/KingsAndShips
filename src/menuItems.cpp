@@ -238,20 +238,3 @@ void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height
 		    }
 }
 
-
-C_MenuText::C_MenuText(string name, string text, int fontSize, int x_screen, int y_screen)
-	:C_MenuItem(name,x_screen,y_screen)
-{
-    m_name = name;
-    m_text = text;
-    m_fontSize = fontSize;
-    SDL_Color color = {200,200,200,255};
-    C_TextureList& t=C_TextureList::Instances();
-    t.loadTextAsTexturesIntoMap(name, text, fontSize, color);
-}
-
-void C_MenuText::render(){
-    C_TextureList& t=C_TextureList::Instances();
-    t.renderTexture(m_name, m_x_screen, m_y_screen);
-}
-
