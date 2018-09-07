@@ -162,3 +162,12 @@ void C_Menu::popOutMenu(){
         if(m_menuItemsList["popOutMenu"] == nullptr)
 		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","Buttons_Menu",20,y);
 }
+
+
+void   C_Menu::sendAllCommands(){
+    for(size_t i=0;i<m_commands.size(); i++){
+        m_commands[i]->action();
+    }
+    //flush
+    m_commands.erase(m_commands.begin(),m_commands.end());
+};
