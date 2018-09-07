@@ -44,6 +44,7 @@ C_Menu::C_Menu():
 		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","Buttons_AddBarricade",x_button,y_button);
 
         updateInfos();
+        popOutMenu();
 }
 
 C_Menu::~C_Menu(){
@@ -152,4 +153,12 @@ string C_Menu::nbrToString(int nbr){
     else if (nbrStr.size()==1){space = "    ";}
     else{space = "";}
     return space + nbrStr;
+}
+
+
+void C_Menu::popOutMenu(){
+        C_Settings& settings=C_Settings::Instances();
+        int y = settings.getWindowHeight() - 64 - 20;
+        if(m_menuItemsList["popOutMenu"] == nullptr)
+		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","Buttons_Menu",20,y);
 }

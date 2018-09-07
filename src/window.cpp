@@ -290,40 +290,45 @@ void C_Window::listenSDL_Events(){
 }
 
 void C_Window::listenButtons(){
-    	C_Menu& menu=C_Menu::Instances();
+    C_Menu& menu=C_Menu::Instances();
 
-		C_MenuItem* menuButton;
-        string list[3] = {"AddTower","AddTurbine","AddBarricade"};
-		for (int i = 0; i < 3; i++){
-			menuButton = menu.getMenuItem(list[i]);
+	C_MenuItem* menuButton;
+    string list[4] = {"AddTower","AddTurbine","AddBarricade","popOutMenu"};
+	for (int i = 0; i < 4; i++){
+		menuButton = menu.getMenuItem(list[i]);
+        int type = menuButton->getType();
+		if(type != STATUS){
 			int xl = menuButton->getXScreen();
 			int xr = xl + menuButton->getWidth();
 			int yt= menuButton->getYScreen();
 			int yb = yt + menuButton->getHeight();
 
-            string name = menuButton->getName();
+    		string name = menuButton->getName();
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
 			    if(menuButton->getEnable()== true){
-					menuButton->drag(m_cursor);
-					m_addingAnewTower = true;
+			        if( type == DRAGUNIT){
+					    menuButton->drag(m_cursor);
+					    m_addingAnewTower = true;
+					}
 					m_buttonType = name;
 				}
 				else{
-					m_addingAnewTower = false;
+					if(menuButton->getType() == DRAGUNIT){
+					    m_addingAnewTower = false;
+					}
 					m_buttonType = "";
 					m_clic.x = m_clic.y = 0;
 				}
 	 		}
 	 		//mouse Over
 	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
-                    if(name == "AddTower" || name == "AddTurbine" || name == "AddBarricade"){
                         menuButton->setState(HOVER);
-						}
-					else{
-					    menuButton->setState(ACTIVE);
-					}
 	 		}
+	 		else{
+					    menuButton->setState(ACTIVE);
+			}
  		}
+ 	}
 
 }
 

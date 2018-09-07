@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
+    m_type(ACTION),
 	m_name(name),
 	m_x_screen(x_screen),
 	m_y_screen(y_screen),
@@ -104,6 +105,7 @@ void C_Button::render(){
 C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int y_screen)
 	:C_Button(name,image_out,x_screen,y_screen)
 {
+    m_type = DRAGUNIT;
     if(name == "AddTower"){
          m_unit = new C_ArcherTower(0,0,0);
          }
@@ -154,6 +156,7 @@ void C_ButtonAddUnit::render(){
 C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
+    m_type = STATUS;
     m_width = 128;
     m_height = 24;
     m_percentage = 100;

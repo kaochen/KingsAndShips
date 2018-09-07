@@ -19,9 +19,9 @@
  <tile id="15" type="MenuSpare_Active"/>
  <tile id="16" type="MenuSpare_Hover"/>
  <tile id="17" type="MenuSpare_Disabled"/>
- <tile id="18" type="Menu_Active"/>
- <tile id="19" type="Menu_Hover"/>
- <tile id="20" type="Menu_Disabled"/>
+ <tile id="18" type="popOutMenu_Active"/>
+ <tile id="19" type="popOutMenu_Hover"/>
+ <tile id="20" type="popOutMenu_Disabled"/>
  <tile id="21" type="Play_Active"/>
  <tile id="22" type="Play_Hover"/>
  <tile id="23" type="Play_Disabled"/>

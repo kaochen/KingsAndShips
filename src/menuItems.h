@@ -32,6 +32,7 @@ class C_MenuItem
 	public:
   C_MenuItem(std::string name, int x_screen, int y_screen);
 	virtual ~C_MenuItem(){};
+  virtual int getType(){return m_type;};
 	virtual int getXScreen() const{return m_x_screen;};
 	virtual int getYScreen() const{return m_y_screen;};
 	virtual int getWidth() const{return m_width;};
@@ -53,6 +54,7 @@ class C_MenuItem
   virtual void setTextColor(SDL_Color color){ m_color = color;};
 
 	protected:
+  int m_type;
 	std::string m_name;
 	int m_x_screen;
 	int m_y_screen;

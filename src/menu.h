@@ -47,7 +47,7 @@ class C_Menu
 	static C_Menu m_instance;
 	C_Menu();
 	~C_Menu();
-
+  void popOutMenu();
   //information to display
   int m_current_wave;
   int m_total_waves;
