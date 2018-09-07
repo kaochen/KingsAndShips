@@ -47,11 +47,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
     m_y_text = y_text;
  }
 
-
- void C_MenuItem::render(){
-        C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
-
+ void C_MenuItem::renderText(){
+         C_TextureList& t=C_TextureList::Instances();
 		if(m_text !=""){
 		    if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText){
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
@@ -59,6 +56,12 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
             }
         t.renderTexture(m_textName, m_x_screen + m_x_text, m_y_screen + m_y_text);
         }
+}
+
+ void C_MenuItem::render(){
+        C_TextureList& t=C_TextureList::Instances();
+		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+		renderText();
   }
 
 //-------------------------------------------------------------
@@ -206,6 +209,8 @@ void C_ProgressBar::render(){
 		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,angle,0,0,0,255);
 
 		littledots(m_x_screen +2 , m_y_screen +6, m_width-4, m_height-4);
+
+		renderText();
 }
 
 void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height){
