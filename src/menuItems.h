@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 //Menu elements like progressbar and buttons
-enum menuLayer {BACK,FRONT};
 
 #ifndef MENUITEMS_H
 #define MENUITEMS_H
@@ -25,7 +24,24 @@ enum menuLayer {BACK,FRONT};
 #include <string>
 #include "level/shooter.h"
 
+enum menuLayer {BACK,FRONT};
 enum buttonState{ACTIVE,HOVER,DISABLED};
+
+class C_Command
+{
+public:
+  C_Command(){};
+  virtual ~C_Command(){};
+  virtual void action() = 0;
+};
+
+class C_OpenMenu : public C_Command
+{
+public:
+  C_OpenMenu(){};
+  virtual ~C_OpenMenu(){};
+  virtual void action(){std::cout << "C_OpenAction\n";};
+};
 
 class C_MenuItem
 {
@@ -39,6 +55,7 @@ class C_MenuItem
 	virtual int getHeight() const{return m_height;};
 	virtual	std::string getName(){return m_name;};
   virtual int getLayer(){return m_layer;};
+  virtual void setCommand(C_Command *c){m_command = c;};
 
   virtual void setPercentage(int percentage){std::cout << percentage;};
   virtual void setPercentage(int a, int b){std::cout << a << b;};
@@ -71,6 +88,8 @@ class C_MenuItem
   SDL_Color m_color;
   int m_x_text;
   int m_y_text;
+
+  C_Command * m_command;
 };
 
 

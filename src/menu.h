@@ -24,21 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menuItems.h"
 #include "level/level.h"
 
-class C_Command
-{
-public:
-  C_Command(){};
-  virtual ~C_Command(){};
-  virtual void action() = 0;
-};
-
-class C_OpenMenu : public C_Command
-{
-public:
-  C_OpenMenu(){};
-  virtual ~C_OpenMenu(){};
-  virtual void action(){std::cout << "action\n";};
-};
 
 class C_Menu
 {
@@ -50,8 +35,6 @@ class C_Menu
   void updateLevelInfos(int current_wave, int total_waves);
   void resetValues(); /*!reset values when change or reset the level*/
   //commands
-  void registerCommand(C_Command &c){m_commands.push_back(&c);};
-  void sendAllCommands();
 
   protected:
   void updateDefenderStatus(); /*!Create or update defender informations*/
@@ -71,7 +54,6 @@ class C_Menu
   int m_total_waves;
 
   std::map<std::string, C_MenuItem*> m_menuItemsList;
-  std::vector<C_Command *> m_commands;
 };
 
 #endif

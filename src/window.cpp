@@ -312,9 +312,6 @@ void C_Window::listenButtons(){
 					}
 					if( type == ACTION){
 					    menuButton->action();
-					    C_OpenMenu om;
-                        menu.registerCommand(om);
-                        menu.sendAllCommands();
 					    m_clic.x = m_clic.y = 0;
 					}
 					m_buttonType = name;

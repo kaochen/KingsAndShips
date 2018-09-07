@@ -40,6 +40,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
     m_color = {200,200,200,255};
     m_x_text = 0;
     m_y_text = 0;
+    m_command = nullptr;
 }
 
  void C_MenuItem::setText(string text, int fontSize){
@@ -72,6 +73,9 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
   void C_MenuItem::action(){
     C_Message m;
     m.printM("push button " + m_name + "\n");
+    if(m_command != nullptr){
+        m_command->action();
+        }
   }
 
 //-------------------------------------------------------------

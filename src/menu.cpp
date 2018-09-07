@@ -159,15 +159,11 @@ string C_Menu::nbrToString(int nbr){
 void C_Menu::popOutMenu(){
         C_Settings& settings=C_Settings::Instances();
         int y = settings.getWindowHeight() - 64 - 20;
-        if(m_menuItemsList["popOutMenu"] == nullptr)
+        if(m_menuItemsList["popOutMenu"] == nullptr){
 		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","Buttons_Menu",20,y);
+		    C_OpenMenu *om = new C_OpenMenu();
+            m_menuItemsList["popOutMenu"]->setCommand(om);
+		}
+
 }
 
-
-void   C_Menu::sendAllCommands(){
-    for(size_t i=0;i<m_commands.size(); i++){
-        m_commands[i]->action();
-    }
-    //flush
-    m_commands.erase(m_commands.begin(),m_commands.end());
-};
