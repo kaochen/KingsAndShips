@@ -102,21 +102,15 @@ void C_Menu::updateDefenderStatus(){
     if(m_menuItemsList["playerlife"] == nullptr){
         m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x - 192,40);
     }
-
+    string text = "Life: " + nbrToString(playerLife);
     if(m_menuItemsList["playerlife"] != nullptr){
         m_menuItemsList["playerlife"]->setPercentage(playerLife);
+        m_menuItemsList["playerlife"]->setText(text, 18);
     }
     else{
         C_Message m;
         m.printM("the progess bar playerlife does not exist");
     }
-
-    //text over the progress bar
-    string text = "Life: " + nbrToString(playerLife);
-	if(m_menuItemsList["lifestatus"] != nullptr){
-		    delete m_menuItemsList["lifestatus"];
-	}
-	m_menuItemsList["lifestatus"] = new C_MenuText("lifestatus",text, 18,x - 128,100);
 }
 
 
@@ -128,14 +122,10 @@ void C_Menu::updateAttackerStatus(){
 		    m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
 		}
 		if(m_menuItemsList["boatLife"] != nullptr){
+    		string text = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
 		    m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
+            m_menuItemsList["boatLife"]->setText(text, 18);
 		}
-
-		string m = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
-		if(m_menuItemsList["wavestatus"] != nullptr){
-            delete m_menuItemsList["wavestatus"];
-        }
-		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 18,128,100);
 }
 
 void C_Menu::updateWalletStatus(){
@@ -147,14 +137,10 @@ void C_Menu::updateWalletStatus(){
 		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
 		}
 	 if(m_menuItemsList["walletBar"] != nullptr){
+    	string text = "Gold: " + nbrToString(wallet.getBalance());
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
+        m_menuItemsList["walletBar"]->setText(text, 18);
     }
-    //text over the progress bar
-    string m = "Gold: " + nbrToString(wallet.getBalance());
-	if(m_menuItemsList["walletStatus"] != nullptr){
-        delete m_menuItemsList["walletStatus"];
-    }
-	m_menuItemsList["walletStatus"] = new C_MenuText("walletStatus",m, 18,x-128,160);
 }
 
 

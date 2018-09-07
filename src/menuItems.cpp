@@ -36,6 +36,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
     m_textName = name + "Text";
     m_text = "";
     m_color = {200,200,200,255};
+    m_x_text = 0;
+    m_y_text = 0;
 }
 
  void C_MenuItem::setText(string text, int fontSize){
@@ -47,6 +49,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
     m_y_text = y_text;
  }
 
+
  void C_MenuItem::renderText(){
          C_TextureList& t=C_TextureList::Instances();
 		if(m_text !=""){
@@ -54,7 +57,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, m_x_screen + m_x_text, m_y_screen + m_y_text);
+        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text, m_y_screen +  m_width/2 + m_y_text);
         }
 }
 
@@ -155,6 +158,7 @@ C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
     m_height = 24;
     m_percentage = 100;
     m_layer = BACK;
+    m_y_text = -4;
 }
 
 
