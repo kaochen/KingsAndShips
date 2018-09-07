@@ -23,25 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <string>
 #include "level/shooter.h"
+#include "command.h"
 
 enum menuLayer {BACK,FRONT};
 enum buttonState{ACTIVE,HOVER,DISABLED};
-
-class C_Command
-{
-public:
-  C_Command(){};
-  virtual ~C_Command(){};
-  virtual void action() = 0;
-};
-
-class C_OpenMenu : public C_Command
-{
-public:
-  C_OpenMenu(){};
-  virtual ~C_OpenMenu(){};
-  virtual void action(){std::cout << "C_OpenAction\n";};
-};
 
 class C_MenuItem
 {

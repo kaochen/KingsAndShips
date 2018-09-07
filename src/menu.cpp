@@ -30,7 +30,8 @@ C_Menu C_Menu::m_instance=C_Menu();
 
 C_Menu::C_Menu():
 	m_current_wave(1),
-    m_total_waves(1)
+    m_total_waves(1),
+    m_bottomMenuOpen(false)
 {
 		C_Settings& settings=C_Settings::Instances();
 		int size = 64 + 10;
@@ -62,6 +63,8 @@ void C_Menu::updateInfos(){
 }
 
 void C_Menu::render(){
+    displayBottomMenu();
+
 	//draw all buttons, layer by layer;
 	for(int i = BACK; i <= FRONT; i++){
 	    for(auto& x : m_menuItemsList){
@@ -165,5 +168,28 @@ void C_Menu::popOutMenu(){
             m_menuItemsList["popOutMenu"]->setCommand(om);
 		}
 
+}
+
+void C_Menu::openBottomMenu(){
+    if(m_bottomMenuOpen)
+        m_bottomMenuOpen = false;
+    else
+        m_bottomMenuOpen = true;
+}
+
+
+void C_Menu::displayBottomMenu(){
+    if(m_bottomMenuOpen){
+        SDL_Rect r;
+        r.w = 100;
+        r.h = 50;
+        r.x = 0;
+        r.y = 200;
+        C_Window& win=C_Window::Instances();
+        SDL_Renderer* renderer = win.getRenderer ();
+
+        SDL_SetRenderDrawColor(renderer,0,0,0,125);
+        SDL_RenderFillRect(renderer, &r);
+    }
 }
 
