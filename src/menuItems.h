@@ -45,6 +45,12 @@ class C_MenuItem
   virtual int getEnable(){return m_enable;};
   virtual void setState(int state) {std::cout << state;};
   virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
+
+  //set Text
+  virtual void setText(std::string text, int fontSize);
+  virtual void setTextPosition(int x_text, int y_text);
+  virtual void setTextColor(SDL_Color color){ m_color = color;};
+
 	protected:
 	std::string m_name;
 	int m_x_screen;
@@ -53,6 +59,14 @@ class C_MenuItem
 	int m_height;
   int m_layer;
   bool m_enable;
+  //text
+  std::string m_textName;
+  std::string m_text;
+  std::string m_oldText;
+  int  m_fontSize;
+  SDL_Color m_color;
+  int m_x_text;
+  int m_y_text;
 };
 
 
@@ -81,10 +95,6 @@ class C_ButtonAddUnit: public C_Button
 
 	protected:
   C_Shooter * m_unit;
-  std::string m_textName;
-  std::string m_text;
-  int  m_fontSize;
-  SDL_Color m_color;
 };
 
 
@@ -107,8 +117,6 @@ class C_MenuText: public C_MenuItem
   C_MenuText(std::string name, std::string text, int fontSize, int x_screen, int y_screen);
   virtual void render();
   private:
-  std::string m_text;
-  int m_fontSize;
 };
 
 

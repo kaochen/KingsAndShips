@@ -33,11 +33,32 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_layer(FRONT),
 	m_enable(true)
 {
+    m_textName = name + "Text";
+    m_text = "";
+    m_color = {200,200,200,255};
 }
+
+ void C_MenuItem::setText(string text, int fontSize){
+    m_text = text;
+    m_fontSize = fontSize;
+ }
+ void C_MenuItem::setTextPosition(int x_text, int y_text){
+    m_x_text = x_text;
+    m_y_text = y_text;
+ }
+
 
  void C_MenuItem::render(){
         C_TextureList& t=C_TextureList::Instances();
 		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+
+		if(m_text !=""){
+		    if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText){
+                t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+                m_oldText = m_text;
+            }
+        t.renderTexture(m_textName, m_x_screen + m_x_text, m_y_screen + m_y_text);
+        }
   }
 
 //-------------------------------------------------------------
@@ -86,12 +107,8 @@ C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int 
     else if(name == "AddBarricade"){
         m_unit = new C_Barricade(0,0,1);
         }
-
-
-    m_textName = name + "Text";
     m_text = to_string(m_unit->getCost());
     m_fontSize = 9;
-    m_color = {200,200,200,255};
 }
 
 C_ButtonAddUnit::~C_ButtonAddUnit()
