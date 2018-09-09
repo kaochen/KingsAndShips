@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "wallet.h"
 #include "level/grid.h"
+#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
@@ -180,16 +181,19 @@ void C_Menu::openBottomMenu(){
 
 void C_Menu::displayBottomMenu(){
     if(m_bottomMenuOpen){
-        SDL_Rect r;
-        r.w = 100;
-        r.h = 50;
-        r.x = 0;
-        r.y = 200;
-        C_Window& win=C_Window::Instances();
-        SDL_Renderer* renderer = win.getRenderer ();
+        C_Settings& settings=C_Settings::Instances();
+        int height = settings.getWindowHeight()/3;
+        int width = settings.getWindowWidth();
+        int angle = 10;
+        Sint16 x1 = 0; //x top left
+		Sint16 y1 = settings.getWindowHeight() - height;
+		Sint16 x2 = x1 + width; //x bottom right
+		Sint16 y2 = settings.getWindowHeight() + angle;
+		Uint8 R = 0, G = 0, B = 0, A = 150;
 
-        SDL_SetRenderDrawColor(renderer,0,0,0,125);
-        SDL_RenderFillRect(renderer, &r);
+		//background
+        C_Window& win=C_Window::Instances();
+		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
     }
 }
 
