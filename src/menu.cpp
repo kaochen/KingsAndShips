@@ -137,12 +137,15 @@ void C_Menu::updateWalletStatus(){
     C_Settings& settings=C_Settings::Instances();
 	int x = settings.getWindowWidth();
 	C_Wallet& wallet=C_Wallet::Instances();
+    if(m_menuItemsList["gold_pile"] == nullptr){
+	    m_menuItemsList["gold_pile"] = new C_MenuItem("gold_pile",x - 236,58);
+	}
 	//progress bar
     if(m_menuItemsList["walletBar"]== nullptr){
 		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
 		}
 	 if(m_menuItemsList["walletBar"] != nullptr){
-    	string text = "Gold: " + nbrToString(wallet.getBalance());
+    	string text = nbrToString(wallet.getBalance());
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
         m_menuItemsList["walletBar"]->setText(text, 18);
     }
