@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 
 #include "texture.h"
-#include "menu.h"
+#include "menu/menu.h"
 #include "message.h"
 #include "wallet.h"
 #include "level/grid.h"

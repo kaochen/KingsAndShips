@@ -17,9 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "menuItems.h"
-#include "window.h"
-#include "texture.h"
-#include "message.h"
+#include "../window.h"
+#include "../texture.h"
+#include "../message.h"
 #include <string>
 
 #include <SDL2_gfxPrimitives.h>

@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
-#include "level/shooter.h"
+#include "../level/shooter.h"
 #include "command.h"
 
 enum menuLayer {BACK,FRONT};

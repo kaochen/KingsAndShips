@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Display all the menuItems in one menu on top of the game
 
 #include "menu.h"
-#include "message.h"
-#include "window.h"
-#include "settings.h"
-#include "wallet.h"
-#include "level/grid.h"
+#include "../message.h"
+#include "../window.h"
+#include "../settings.h"
+#include "../wallet.h"
+#include "../level/grid.h"
 #include <SDL2_gfxPrimitives.h>
 
 using namespace std;
