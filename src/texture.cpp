@@ -203,7 +203,7 @@ void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSi
 	else{
 		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
 		if (m_texture == nullptr){
-    		m.printSDLerror("CreateTexture");
+    		m.printSDLerror("CreateTexture from this text:" + m_message + " failed ");
 		}
 	}
 	SDL_FreeSurface(surf);

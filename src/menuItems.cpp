@@ -19,43 +19,63 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menuItems.h"
 #include "window.h"
 #include "texture.h"
+#include "message.h"
 #include <string>
 
 #include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
+    m_type(ACTION),
 	m_name(name),
 	m_x_screen(x_screen),
 	m_y_screen(y_screen),
 	m_width(64),
 	m_height(64),
-	m_layer(FRONT)
+	m_layer(FRONT),
+	m_enable(true)
 {
-}
-C_MenuItem::~C_MenuItem()
-{
+    m_textName = name + "Text";
+    m_text = "";
+    m_color = {200,200,200,255};
+    m_x_text = 0;
+    m_y_text = 0;
+    m_command = nullptr;
 }
 
-int C_MenuItem::getXScreen() const{
-	return m_x_screen;
+ void C_MenuItem::setText(string text, int fontSize){
+    m_text = text;
+    m_fontSize = fontSize;
+ }
+ void C_MenuItem::setTextPosition(int x_text, int y_text){
+    m_x_text = x_text;
+    m_y_text = y_text;
+ }
+
+
+ void C_MenuItem::renderText(){
+         C_TextureList& t=C_TextureList::Instances();
+		if(m_text !=""){
+		    if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText){
+                t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+                m_oldText = m_text;
+            }
+        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text, m_y_screen +  m_width/2 + m_y_text);
+        }
 }
-int C_MenuItem::getYScreen() const{
-	return m_y_screen;
-}
-int C_MenuItem::getWidth() const{
-	return m_width;
-}
-int C_MenuItem::getHeight() const{
-	return m_height;
-}
-string C_MenuItem::getName(){
-	return m_name;
-	}
 
  void C_MenuItem::render(){
         C_TextureList& t=C_TextureList::Instances();
 		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+		renderText();
+  }
+
+  void C_MenuItem::action(){
+    C_Message m;
+    m.printM("push button " + m_name + "\n");
+    if(m_command != nullptr){
+        m_command->action();
+        }
   }
 
 //-------------------------------------------------------------
@@ -67,57 +87,93 @@ C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
 {
 }
 
-C_Button::~C_Button()
-{
-}
 
 void C_Button::render(){
         string name = "Buttons_"+m_name;
+        string prefix;
         if(m_state == ACTIVE){
-            name +="_Active";
-            }
-        else if(m_state == DISABLED){
-            name +="_Disabled";
+            prefix ="_Active";
             }
         else if(m_state == HOVER){
-            name +="_Hover";
+            prefix ="_Hover";
             }
         else{
-            name +="_Disabled";
+            prefix ="_Disabled";
             }
+
+        if(m_enable == false){
+            prefix ="_Disabled";
+            }
+        name += prefix;
 		C_TextureList& t=C_TextureList::Instances();
 		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
 }
 
-void C_Button::setState(int state){
-    m_state = state;
-}
 
+//-------------------------------------------------------------
 
-void C_Button::setPercentage(int percentage)
+C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int y_screen)
+	:C_Button(name,image_out,x_screen,y_screen)
 {
-    cout << percentage; //to calm down gcc
-}
-void C_Button::setPercentage(int a, int b)
-{
-    cout << a << b; //to calm down gcc
+    m_type = DRAGUNIT;
+    if(name == "AddTower"){
+         m_unit = new C_ArcherTower(0,0,0);
+         }
+    else if(name == "AddTurbine"){
+         m_unit = new C_Turbine(0,0,0);
+         }
+    else if(name == "AddBarricade"){
+        m_unit = new C_Barricade(0,0,1);
+        }
+    m_text = to_string(m_unit->getCost());
+    m_fontSize = 9;
 }
 
+C_ButtonAddUnit::~C_ButtonAddUnit()
+{
+    if(m_unit !=nullptr)
+        delete m_unit;
+}
+
+void C_ButtonAddUnit::drag(S_Coord screen){
+    bool water = false;
+    if (m_unit != nullptr){
+        if(m_unit->getName() == "barricade"){
+            water = true;
+        }
+        m_unit->drag(screen,water);
+    }
+}
+
+void C_ButtonAddUnit::render(){
+    C_Wallet& wallet=C_Wallet::Instances();
+    if(wallet.getBalance() < m_unit->getCost()){
+        m_enable = false;
+    }
+    else{
+        m_enable = true;
+    }
+
+    C_Button::render();
+    C_TextureList& t=C_TextureList::Instances();
+    if(t.searchTexture(m_textName)== nullptr){
+        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+    }
+    t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 64);
+}
 //-------------------------------------------------------------
 
 C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
+    m_type = STATUS;
     m_width = 128;
     m_height = 24;
     m_percentage = 100;
     m_layer = BACK;
+    m_y_text = -4;
 }
 
-void C_ProgressBar::setPercentage(int percentage)
-{
-    m_percentage = percentage;
-}
 
 void C_ProgressBar::setPercentage(int a, int b){
     if(a != 0 && b !=0)
@@ -170,6 +226,8 @@ void C_ProgressBar::render(){
 		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,angle,0,0,0,255);
 
 		littledots(m_x_screen +2 , m_y_screen +6, m_width-4, m_height-4);
+
+		renderText();
 }
 
 void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height){
@@ -191,22 +249,5 @@ void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height
 		        }
 		        dot.y = y_screen + j*steps*size;
 		    }
-}
-
-
-C_MenuText::C_MenuText(string name, string text, int fontSize, int x_screen, int y_screen)
-	:C_MenuItem(name,x_screen,y_screen)
-{
-    m_name = name;
-    m_text = text;
-    m_fontSize = fontSize;
-    SDL_Color color = {200,200,200,255};
-    C_TextureList& t=C_TextureList::Instances();
-    t.loadTextAsTexturesIntoMap(name, text, fontSize, color);
-}
-
-void C_MenuText::render(){
-    C_TextureList& t=C_TextureList::Instances();
-    t.renderTexture(m_name, m_x_screen, m_y_screen);
 }
 

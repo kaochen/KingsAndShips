@@ -35,6 +35,9 @@ class C_Menu
   void updateLevelInfos(int current_wave, int total_waves);
   void resetValues(); /*!reset values when change or reset the level*/
 
+  //commands
+  void openBottomMenu();
+  void displayBottomMenu();
   protected:
   void updateDefenderStatus(); /*!Create or update defender informations*/
   void updateAttackerStatus(); /*!Create or update attacker informations*/
@@ -47,11 +50,11 @@ class C_Menu
 	static C_Menu m_instance;
 	C_Menu();
 	~C_Menu();
-
+  void popOutMenu();
   //information to display
   int m_current_wave;
   int m_total_waves;
-
+  bool m_bottomMenuOpen;
   std::map<std::string, C_MenuItem*> m_menuItemsList;
 };
 

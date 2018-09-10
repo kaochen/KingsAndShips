@@ -37,6 +37,7 @@ C_Window C_Window::m_instance=C_Window();
 
 C_Window::C_Window()
 {
+ 	initSDL();
 	C_Settings& settings=C_Settings::Instances();
     m_forceRefresh = false;
 
@@ -50,9 +51,6 @@ C_Window::C_Window()
     m_clic.x = m_clic.y = 0;
     m_mouseButtonDown = false;
 
-    m_archerTower = new C_ArcherTower(0,0,0);
-    m_turbineTower = new C_Turbine(0,0,0);
-    m_barricade = new C_Barricade(0,0,1);
     m_addingAnewTower = false;
     m_aTowerIsSelected = false;
 
@@ -62,9 +60,6 @@ C_Window::C_Window()
 C_Window::~C_Window(){
     delete m_level;
     delete m_landscape;
-    delete m_archerTower;
-    delete m_turbineTower;
-    delete m_barricade;
 }
 
 
@@ -75,21 +70,29 @@ void C_Window::initSDL()
 		m.printSDLerror("SDL_Init() failed");
 			exit (EXIT_FAILURE);
 		}
+	else{
+	    m.printM("SDL_Init() succeed\n");
+	}
 
 	if(TTF_Init() < 0){
 			m.printTTFerror("TTF_init() failed");
 			exit (EXIT_FAILURE);
 		}
+	else{
+	    m.printM("TTF_Init() succeed\n");
+	}
 
 
 	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG){
 		m.printSDLerror("IMG_Init");
 		//SDL_Quit;
 		}
+	else{
+	    m.printM("IMG_Init succeed\n");
+	}
 }
 
 void C_Window::createWindow(){
- 	initSDL();
     C_Message m;
 	C_Settings& settings=C_Settings::Instances();
  	m_window = SDL_CreateWindow("KingsAndShips",
@@ -287,43 +290,49 @@ void C_Window::listenSDL_Events(){
 }
 
 void C_Window::listenButtons(){
-    	C_Menu& menu=C_Menu::Instances();
+    C_Menu& menu=C_Menu::Instances();
 
-		C_MenuItem* menuButton;
-        string list[3] = {"AddTower","AddTurbine","AddBarricade"};
-		for (int i = 0; i < 3; i++){
-			menuButton = menu.getMenuItem(list[i]);
+	C_MenuItem* menuButton;
+    string list[4] = {"AddTower","AddTurbine","AddBarricade","popOutMenu"};
+	for (int i = 0; i < 4; i++){
+		menuButton = menu.getMenuItem(list[i]);
+        int type = menuButton->getType();
+		if(type != STATUS){
 			int xl = menuButton->getXScreen();
 			int xr = xl + menuButton->getWidth();
 			int yt= menuButton->getYScreen();
 			int yb = yt + menuButton->getHeight();
-            //reset state
-	 		menuButton->setState(ACTIVE);
-            string name = menuButton->getName();
+
+    		string name = menuButton->getName();
 			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
-					if(name == "AddTower"){
-						m_archerTower->drag(m_cursor,false);
-						m_addingAnewTower = true;
-						m_buttonType = name;
-						}
-					else if(name == "AddTurbine"){
-						m_turbineTower->drag(m_cursor,false);
-						m_addingAnewTower = true;
-						m_buttonType = name;
-						}
-					else if(name == "AddBarricade"){
-						m_barricade->drag(m_cursor,true);
-						m_addingAnewTower = true;
-						m_buttonType = name;
-						}
+			    if(menuButton->getEnable()== true){
+			        if( type == DRAGUNIT){
+					    menuButton->drag(m_cursor);
+					    m_addingAnewTower = true;
+					}
+					if( type == ACTION){
+					    menuButton->action();
+					    m_clic.x = m_clic.y = 0;
+					}
+					m_buttonType = name;
+				}
+				else{
+					if(menuButton->getType() == DRAGUNIT){
+					    m_addingAnewTower = false;
+					}
+					m_buttonType = "";
+					m_clic.x = m_clic.y = 0;
+				}
 	 		}
 	 		//mouse Over
 	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
-                    if(menuButton->getName() == "AddTower" || menuButton->getName() == "AddTurbine" || menuButton->getName() == "AddBarricade"){
                         menuButton->setState(HOVER);
-						}
 	 		}
+	 		else{
+					    menuButton->setState(ACTIVE);
+			}
  		}
+ 	}
 
 }
 

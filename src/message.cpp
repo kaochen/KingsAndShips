@@ -63,7 +63,7 @@ void C_Message::printSDLerror(string message){
 
 void C_Message::printTTFerror(string message){
             timestamp();
-            cout << "[TTF_] " << message  << " " << SDL_GetError() << endl;
+            cout << "[TTF_] " << message  << " " << TTF_GetError() << endl;
             SDL_ClearError();
     }
 

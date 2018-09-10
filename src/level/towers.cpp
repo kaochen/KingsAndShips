@@ -93,6 +93,7 @@ C_Turbine::C_Turbine(int x_grid,
 		   int y_grid,
 		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
 {
+    m_cost = 75;
 	m_weapon = new C_Weapon("WIND",0,1,0,2);
 }
 

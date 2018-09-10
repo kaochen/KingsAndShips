@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "wallet.h"
 #include "level/grid.h"
+#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
@@ -30,20 +31,22 @@ C_Menu C_Menu::m_instance=C_Menu();
 
 C_Menu::C_Menu():
 	m_current_wave(1),
-    m_total_waves(1)
+    m_total_waves(1),
+    m_bottomMenuOpen(false)
 {
 		C_Settings& settings=C_Settings::Instances();
 		int size = 64 + 10;
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_menuItemsList["AddTower"] = new C_Button("AddTower","Buttons_AddTower",x_button,y_button);
+		m_menuItemsList["AddTower"] = new C_ButtonAddUnit("AddTower","Buttons_AddTower",x_button,y_button);
 		y_button +=size;
-	    m_menuItemsList["AddTurbine"] = new C_Button("AddTurbine","Buttons_AddTurbine",x_button,y_button);
+	    m_menuItemsList["AddTurbine"] = new C_ButtonAddUnit("AddTurbine","Buttons_AddTurbine",x_button,y_button);
 		y_button +=size;
-		m_menuItemsList["AddBarricade"] = new C_Button("AddBarricade","Buttons_AddBarricade",x_button,y_button);
+		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","Buttons_AddBarricade",x_button,y_button);
 
         updateInfos();
+        popOutMenu();
 }
 
 C_Menu::~C_Menu(){
@@ -61,6 +64,8 @@ void C_Menu::updateInfos(){
 }
 
 void C_Menu::render(){
+    displayBottomMenu();
+
 	//draw all buttons, layer by layer;
 	for(int i = BACK; i <= FRONT; i++){
 	    for(auto& x : m_menuItemsList){
@@ -102,21 +107,15 @@ void C_Menu::updateDefenderStatus(){
     if(m_menuItemsList["playerlife"] == nullptr){
         m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x - 192,40);
     }
-
+    string text = "Life: " + nbrToString(playerLife);
     if(m_menuItemsList["playerlife"] != nullptr){
         m_menuItemsList["playerlife"]->setPercentage(playerLife);
+        m_menuItemsList["playerlife"]->setText(text, 18);
     }
     else{
         C_Message m;
         m.printM("the progess bar playerlife does not exist");
     }
-
-    //text over the progress bar
-    string text = "Life: " + nbrToString(playerLife);
-	if(m_menuItemsList["lifestatus"] != nullptr){
-		    delete m_menuItemsList["lifestatus"];
-	}
-	m_menuItemsList["lifestatus"] = new C_MenuText("lifestatus",text, 18,x - 128,100);
 }
 
 
@@ -128,14 +127,10 @@ void C_Menu::updateAttackerStatus(){
 		    m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
 		}
 		if(m_menuItemsList["boatLife"] != nullptr){
+    		string text = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
 		    m_menuItemsList["boatLife"]->setPercentage(m_current_wave,m_total_waves);
+            m_menuItemsList["boatLife"]->setText(text, 18);
 		}
-
-		string m = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
-		if(m_menuItemsList["wavestatus"] != nullptr){
-            delete m_menuItemsList["wavestatus"];
-        }
-		m_menuItemsList["wavestatus"] = new C_MenuText("wavestatus",m, 18,128,100);
 }
 
 void C_Menu::updateWalletStatus(){
@@ -147,14 +142,10 @@ void C_Menu::updateWalletStatus(){
 		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
 		}
 	 if(m_menuItemsList["walletBar"] != nullptr){
+    	string text = "Gold: " + nbrToString(wallet.getBalance());
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
+        m_menuItemsList["walletBar"]->setText(text, 18);
     }
-    //text over the progress bar
-    string m = "Gold: " + nbrToString(wallet.getBalance());
-	if(m_menuItemsList["walletStatus"] != nullptr){
-        delete m_menuItemsList["walletStatus"];
-    }
-	m_menuItemsList["walletStatus"] = new C_MenuText("walletStatus",m, 18,x-128,160);
 }
 
 
@@ -167,3 +158,42 @@ string C_Menu::nbrToString(int nbr){
     else{space = "";}
     return space + nbrStr;
 }
+
+
+void C_Menu::popOutMenu(){
+        C_Settings& settings=C_Settings::Instances();
+        int y = settings.getWindowHeight() - 64 - 20;
+        if(m_menuItemsList["popOutMenu"] == nullptr){
+		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","Buttons_Menu",20,y);
+		    C_OpenMenu *om = new C_OpenMenu();
+            m_menuItemsList["popOutMenu"]->setCommand(om);
+		}
+
+}
+
+void C_Menu::openBottomMenu(){
+    if(m_bottomMenuOpen)
+        m_bottomMenuOpen = false;
+    else
+        m_bottomMenuOpen = true;
+}
+
+
+void C_Menu::displayBottomMenu(){
+    if(m_bottomMenuOpen){
+        C_Settings& settings=C_Settings::Instances();
+        int height = settings.getWindowHeight()/3;
+        int width = settings.getWindowWidth();
+        int angle = 10;
+        Sint16 x1 = 0; //x top left
+		Sint16 y1 = settings.getWindowHeight() - height;
+		Sint16 x2 = x1 + width; //x bottom right
+		Sint16 y2 = settings.getWindowHeight() + angle;
+		Uint8 R = 0, G = 0, B = 0, A = 150;
+
+		//background
+        C_Window& win=C_Window::Instances();
+		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
+    }
+}
+

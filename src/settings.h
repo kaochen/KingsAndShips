@@ -52,6 +52,7 @@ enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST
 enum GroundType {GROUND_01,GROUND_02};
 enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 enum Status {ALIVE,DEAD};
+enum buttonType {ACTION,DRAGUNIT,STATUS};
 
 //singleton
 class C_Settings
