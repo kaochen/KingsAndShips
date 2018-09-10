@@ -37,6 +37,7 @@ all_src = ['src/settings.cpp',
 	'src/window.cpp',
 	'src/menu/command.cpp',
 	'src/menu/menuItems.cpp',
+	'src/menu/tab.cpp',
 	'src/menu/menu.cpp',
 	'src/main.cpp']
 

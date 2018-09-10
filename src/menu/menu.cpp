@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Display all the menuItems in one menu on top of the game
 
 #include "menu.h"
+#include "tab.h"
 #include "../message.h"
 #include "../window.h"
 #include "../settings.h"
@@ -183,20 +184,7 @@ void C_Menu::openBottomMenu(){
 
 
 void C_Menu::displayBottomMenu(){
-    if(m_bottomMenuOpen){
-        C_Settings& settings=C_Settings::Instances();
-        int height = settings.getWindowHeight()/3;
-        int width = settings.getWindowWidth();
-        int angle = 10;
-        Sint16 x1 = 0; //x top left
-		Sint16 y1 = settings.getWindowHeight() - height;
-		Sint16 x2 = x1 + width; //x bottom right
-		Sint16 y2 = settings.getWindowHeight() + angle;
-		Uint8 R = 0, G = 0, B = 0, A = 150;
-
-		//background
-        C_Window& win=C_Window::Instances();
-		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
-    }
+    C_Tab tab;
+    tab.displayTab(m_bottomMenuOpen);
 }
 
