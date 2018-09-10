@@ -36,6 +36,12 @@ C_Tab::C_Tab()
 
 void C_Tab::displayTab(bool open, size_t nbr){
     if(open){
+        focusTab(nbr);
+        nonFocusTab(m_screen.x, 0);
+    }
+}
+
+void C_Tab::focusTab(size_t nbr){
 
         Uint8 R = 0, G = 0, B = 0, A = 150;
         Sint16 *vx = getVertex_X(m_screen.x, nbr);
@@ -55,9 +61,9 @@ void C_Tab::displayTab(bool open, size_t nbr){
 		    Sint16 *vy1 = getVertex_Y(m_screen.y + i);
 		    polygonRGBA(renderer,vx,vy1,8,R,G,B,A);
 		}
-    }
-}
 
+
+}
 
 Sint16  *C_Tab::getVertex_X(Sint16 x, size_t nbr){
         //draw points clockwise
@@ -104,3 +110,36 @@ Sint16  *C_Tab::getVertex_Y(Sint16 y){
         return array;
 }
 
+void C_Tab::nonFocusTab(Sint16 x, size_t nbr){
+
+        //draw points clockwise
+        Sint16 x1 = x - 5 + (nbr*(m_tabSize+20+20)); //bottom left
+		Sint16 y1 = m_screen.y;
+		Sint16 x2 = x1 + 20;
+		Sint16 y2 = y1 - 20;
+
+		Sint16 x3 = x2 + m_tabSize;
+		Sint16 y3 = y2;
+		Sint16 x4 = x3 + 20;
+		Sint16 y4 = y1;
+
+        Sint16 vx[] = {x1,x2,x3,x4};
+        Sint16 vy[] = {y1,y2,y3,y4};
+
+        Uint8 R = 0, G = 0, B = 0, A = 150;
+
+        C_Window& win=C_Window::Instances();
+    	SDL_Renderer * renderer = win.getRenderer();
+		filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
+		for(Sint16 j = 0; j < 2; j++){
+		    for(Sint16 i = 0; i < 2; i++){
+                Sint16 vx1[] = {Sint16(x1+i),Sint16(x2+i),Sint16(x3-i),Sint16(x4-i)};
+                Sint16 vy1[] = {Sint16(y1+i),Sint16(y2+i),Sint16(y3+i),Sint16(y4+i)};
+		        polygonRGBA(renderer,vx1,vy1,4,R,G,B,A);
+		        }
+		    x1 += 1;
+		    x2 += 1;
+		    x3 += 1;
+		    x4 += 1;
+		}
+}

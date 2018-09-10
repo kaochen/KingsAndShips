@@ -28,8 +28,11 @@ class C_Tab
   ~C_Tab(){};
   void displayTab(bool open, size_t nbr);
   protected:
+  void focusTab(size_t nbr);
+  void nonFocusTab(Sint16 x, size_t nbr);
   Sint16 *getVertex_X(Sint16 x,size_t nbr);
   Sint16 *getVertex_Y(Sint16 y);
+
 
 	private:
   S_Coord m_screen /*!< top left corner of the tab*/;
