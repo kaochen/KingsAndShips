@@ -185,6 +185,6 @@ void C_Menu::openBottomMenu(){
 
 void C_Menu::displayBottomMenu(){
     C_Tab tab;
-    tab.displayTab(m_bottomMenuOpen);
+    tab.displayTab(m_bottomMenuOpen, 1);
 }
 

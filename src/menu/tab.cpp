@@ -34,11 +34,11 @@ C_Tab::C_Tab()
 }
 
 
-void C_Tab::displayTab(bool open){
+void C_Tab::displayTab(bool open, size_t nbr){
     if(open){
 
         Uint8 R = 0, G = 0, B = 0, A = 150;
-        Sint16 *vx = getVertex_X(m_screen.x);
+        Sint16 *vx = getVertex_X(m_screen.x, nbr);
         Sint16 *vy = getVertex_Y(m_screen.y);
 		//draw
         C_Window& win=C_Window::Instances();
@@ -48,7 +48,7 @@ void C_Tab::displayTab(bool open){
         //border
 		A = 180;
 		for(int i = 0; i < 3; i++){
-            Sint16 *vx1 = getVertex_X(m_screen.x + i);
+            Sint16 *vx1 = getVertex_X(m_screen.x + i, nbr);
 		    polygonRGBA(renderer,vx1,vy,8,R,G,B,A);
 		}
 		for(int i = 0; i < 3; i++){
@@ -59,10 +59,10 @@ void C_Tab::displayTab(bool open){
 }
 
 
-Sint16  *C_Tab::getVertex_X(Sint16 x){
+Sint16  *C_Tab::getVertex_X(Sint16 x, size_t nbr){
         //draw points clockwise
         Sint16 x1 = x - 5; //top left
-		Sint16 x2 = x1 + 5; //tab beginning
+		Sint16 x2 = x1 + 5 + (nbr*(m_tabSize+20+20)); //tab beginning
 		Sint16 x3 = x2 + 20;
 		Sint16 x4 = x3 + m_tabSize;
 		Sint16 x5 = x4 + 20;
