@@ -188,3 +188,17 @@ void C_Menu::displayBottomMenu(){
     tab.displayTab(m_bottomMenuOpen, 1);
 }
 
+vector<string> C_Menu::getListOfButtonToListen(){
+    vector<string> list;
+    if(m_bottomMenuOpen){
+        list.push_back("popOutMenu");
+    }
+    else{
+        list.push_back("AddTower");
+        list.push_back("AddTurbine");
+        list.push_back("AddBarricade");
+        list.push_back("popOutMenu");
+    }
+    return list;
+}
+

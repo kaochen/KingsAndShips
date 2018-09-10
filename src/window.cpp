@@ -293,8 +293,9 @@ void C_Window::listenButtons(){
     C_Menu& menu=C_Menu::Instances();
 
 	C_MenuItem* menuButton;
-    string list[4] = {"AddTower","AddTurbine","AddBarricade","popOutMenu"};
-	for (int i = 0; i < 4; i++){
+	vector <string> list;
+	list = menu.getListOfButtonToListen();
+	for (size_t i = 0; i < list.size(); i++){
 		menuButton = menu.getMenuItem(list[i]);
         int type = menuButton->getType();
 		if(type != STATUS){

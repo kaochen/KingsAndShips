@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <map>
 #include <string>
+#include <vector>
 #include "menuItems.h"
 #include "../level/level.h"
 
@@ -38,6 +39,7 @@ class C_Menu
   //commands
   void openBottomMenu();
   void displayBottomMenu();
+  std::vector<std::string> getListOfButtonToListen();
   protected:
   void updateDefenderStatus(); /*!Create or update defender informations*/
   void updateAttackerStatus(); /*!Create or update attacker informations*/
