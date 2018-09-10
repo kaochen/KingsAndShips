@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TAB_H
 #define TAB_H
 #include "../settings.h"
+#include <SDL2_gfxPrimitives.h>
 
 class C_Tab
 {
@@ -27,10 +28,14 @@ class C_Tab
   ~C_Tab(){};
   void displayTab(bool open);
   protected:
+  Sint16 *getVertex_X();
+  Sint16 *getVertex_Y();
+
 	private:
   S_Coord m_screen /*!< top left corner of the tab*/;
   int m_height;
   int m_width;
+  Sint16 m_tabSize;
 };
 
 #endif
