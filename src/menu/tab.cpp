@@ -44,6 +44,9 @@ void C_Tab::displayTab(bool open){
         C_Window& win=C_Window::Instances();
     	SDL_Renderer * renderer = win.getRenderer();
 		filledPolygonRGBA(renderer,vx,vy,8,R,G,B,A);
+
+        //border
+		A = 180;
 		for(int i = 0; i < 3; i++){
             Sint16 *vx1 = getVertex_X(m_screen.x + i);
 		    polygonRGBA(renderer,vx1,vy,8,R,G,B,A);
@@ -58,12 +61,12 @@ void C_Tab::displayTab(bool open){
 
 Sint16  *C_Tab::getVertex_X(Sint16 x){
         //draw points clockwise
-        Sint16 x1 = x; //top left
+        Sint16 x1 = x - 5; //top left
 		Sint16 x2 = x1 + 5; //tab beginning
 		Sint16 x3 = x2 + 20;
 		Sint16 x4 = x3 + m_tabSize;
 		Sint16 x5 = x4 + 20;
-		Sint16 x6 = x1 + m_width; //top right
+		Sint16 x6 = x + m_width; //top right
         Sint16 x7 = x6; // bottom right
 	    Sint16 x8 = x1; //bottom left;
         Sint16 *array = new Sint16[8];
