@@ -38,20 +38,27 @@ void C_Tab::displayTab(bool open){
     if(open){
 
         Uint8 R = 0, G = 0, B = 0, A = 150;
-        Sint16 *vx = getVertex_X();
-        Sint16 *vy = getVertex_Y();
+        Sint16 *vx = getVertex_X(m_screen.x);
+        Sint16 *vy = getVertex_Y(m_screen.y);
 		//draw
         C_Window& win=C_Window::Instances();
     	SDL_Renderer * renderer = win.getRenderer();
 		filledPolygonRGBA(renderer,vx,vy,8,R,G,B,A);
-		polygonRGBA(renderer,vx,vy,8,R,G,B,A);
+		for(int i = 0; i < 3; i++){
+            Sint16 *vx1 = getVertex_X(m_screen.x + i);
+		    polygonRGBA(renderer,vx1,vy,8,R,G,B,A);
+		}
+		for(int i = 0; i < 3; i++){
+		    Sint16 *vy1 = getVertex_Y(m_screen.y + i);
+		    polygonRGBA(renderer,vx,vy1,8,R,G,B,A);
+		}
     }
 }
 
 
-Sint16  *C_Tab::getVertex_X(){
+Sint16  *C_Tab::getVertex_X(Sint16 x){
         //draw points clockwise
-        Sint16 x1 = m_screen.x; //top left
+        Sint16 x1 = x; //top left
 		Sint16 x2 = x1 + 5; //tab beginning
 		Sint16 x3 = x2 + 20;
 		Sint16 x4 = x3 + m_tabSize;
@@ -71,10 +78,10 @@ Sint16  *C_Tab::getVertex_X(){
         return array;
 }
 
-Sint16  *C_Tab::getVertex_Y(){
+Sint16  *C_Tab::getVertex_Y(Sint16 y){
         C_Settings& settings=C_Settings::Instances();
         //draw points clockwise
-		Sint16 y1 = m_screen.y; //top left
+		Sint16 y1 = y; //top left
         Sint16 y2 = y1; //tab beginning
 		Sint16 y3 = y2 - 20;
 		Sint16 y4 = y3;

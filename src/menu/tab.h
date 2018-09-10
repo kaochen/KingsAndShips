@@ -28,8 +28,8 @@ class C_Tab
   ~C_Tab(){};
   void displayTab(bool open);
   protected:
-  Sint16 *getVertex_X();
-  Sint16 *getVertex_Y();
+  Sint16 *getVertex_X(Sint16 x);
+  Sint16 *getVertex_Y(Sint16 y);
 
 	private:
   S_Coord m_screen /*!< top left corner of the tab*/;
