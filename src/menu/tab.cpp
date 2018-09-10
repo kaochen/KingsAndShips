@@ -38,16 +38,41 @@ C_Tab::C_Tab()
 void C_Tab::displayTab(bool open){
     if(open){
         C_Settings& settings=C_Settings::Instances();
-        int angle = 10;
-        Sint16 x1 = m_screen.x; //x top left
-		Sint16 y1 = m_screen.y;
-		Sint16 x2 = x1 + m_width; //x bottom right
-		Sint16 y2 = settings.getWindowHeight() + angle;
-		Uint8 R = 0, G = 0, B = 0, A = 150;
 
-		//background
+        Uint8 R = 0, G = 0, B = 0, A = 150;
+        //draw points clockwise
+        Sint16 x1 = m_screen.x; //top left
+		Sint16 y1 = m_screen.y;
+
+		Sint16 x2 = x1 + 5; //tab beginning
+		Sint16 y2 = y1;
+
+		Sint16 x3 = x2 + 20;
+		Sint16 y3 = y2 - 20;
+
+		Sint16 tabSize = 100;
+		Sint16 x4 = x3 + tabSize;
+		Sint16 y4 = y3;
+
+		Sint16 x5 = x4 + 20;
+		Sint16 y5 = y1;
+
+		Sint16 x6 = x1 + m_width; //top right
+		Sint16 y6 = y1;
+
+        Sint16 x7 = x6; // bottom right
+        Sint16 y7 = settings.getWindowHeight();
+
+	    Sint16 x8 = x1;
+	    Sint16 y8 = y7;
+
+	    Sint16 vx[] = {x1,x2,x3,x4,x5,x6,x7,x8};
+	    Sint16 vy[] = {y1,y2,y3,y4,y5,y6,y7,y8};
+
+		//draw
         C_Window& win=C_Window::Instances();
-		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
+    	SDL_Renderer * renderer = win.getRenderer();
+		filledPolygonRGBA(renderer,vx,vy,8,R,G,B,A);
     }
 }
 
