@@ -83,9 +83,9 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 //-------------------------------------------------------------
 
 C_Button::C_Button(string name,string image,int x_screen, int y_screen)
-	:C_MenuItem(name,x_screen,y_screen),
-	m_image(image)
+	:C_MenuItem(name,x_screen,y_screen)
 {
+    m_image = image;
 }
 
 

@@ -57,7 +57,9 @@ class C_MenuItem
   virtual void setTextPosition(int x_text, int y_text);
   virtual void setTextColor(SDL_Color color){ m_color = color;};
 
+  virtual void setImage(std::string image){m_image = image;};
 	protected:
+
   int m_type;
 	std::string m_name;
   std::string m_image;
@@ -90,8 +92,6 @@ class C_Button: public C_MenuItem
 
 	virtual void render();
   virtual int getState(){return m_state;};
-	protected:
-	std::string m_image;
 };
 
 class C_ButtonAddUnit: public C_Button

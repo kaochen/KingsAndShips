@@ -34,8 +34,7 @@ C_Menu::C_Menu():
 	m_current_wave(1),
     m_total_waves(1),
     m_bottomMenuOpen(false),
-    m_nbrOfTabs(3),
-    m_currentTab(0)
+    m_nbrOfTabs(3)
 {
 		C_Settings& settings=C_Settings::Instances();
 		int size = 64 + 10;
@@ -253,4 +252,23 @@ void C_Menu::menuBanner(){
 		        }
 		    }
 	}
+    setTabNbr(0); //set the focus on the first tab
 }
+
+void C_Menu::setTabNbr(int nbr){
+    //first reset all
+    for (int i = 0; i < m_nbrOfTabs ; i++){
+        string name = tabName(i);
+        if(m_menuItemsList[name] != nullptr){
+            m_menuItemsList[name]->setImage("FlagGrey");
+        }
+    }
+    //then set the choosen one
+        string name = tabName(nbr);
+        if(m_menuItemsList[name] != nullptr){
+            m_menuItemsList[name]->setImage("FlagRed");
+        }
+    m_currentTab = nbr;
+
+}
+
