@@ -30,3 +30,10 @@ void C_OpenMenu::action(){
     C_Menu& menu=C_Menu::Instances();
     menu.openBottomMenu();
 }
+
+void C_ChangeTab::action(){
+    C_Message m;
+    m.printM("Send an ChangeTab action\n");
+    C_Menu& menu=C_Menu::Instances();
+    menu.setTabNbr(m_nbr);
+}

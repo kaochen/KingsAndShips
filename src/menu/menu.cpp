@@ -246,6 +246,11 @@ void C_Menu::menuBanner(){
     string name = tabName(i);
         if(m_menuItemsList[name] == nullptr){
 		    m_menuItemsList[name] = new C_Button(name,"FlagGrey",x_screen + i*flagWidth ,y_screen);
+		    if(m_menuItemsList[name] != nullptr){
+		        m_menuItemsList[name]->setCommand(new C_ChangeTab);
+		        if( m_menuItemsList[name]->getCommand() != nullptr)
+		            m_menuItemsList[name]->getCommand()->setNbr(i);
+		        }
 		    }
 	}
 }

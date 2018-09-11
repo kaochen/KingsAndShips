@@ -41,6 +41,7 @@ class C_MenuItem
 	virtual	std::string getName(){return m_name;};
   virtual int getLayer(){return m_layer;};
   virtual void setCommand(C_Command *c){m_command = c;};
+  virtual C_Command * getCommand(){return m_command;};
 
   virtual void setPercentage(int percentage){std::cout << percentage;};
   virtual void setPercentage(int a, int b){std::cout << a << b;};

@@ -41,6 +41,7 @@ class C_Menu
   void openBottomMenu();
   void displayBottomMenu();
   std::vector<std::string> getListOfButtonToListen();
+  void setTabNbr(int nbr){m_currentTab = nbr;};
   protected:
   std::vector<std::string> getListOfButtonVisible();
   void updateDefenderStatus(); /*!Create or update defender informations*/
