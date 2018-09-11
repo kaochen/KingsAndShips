@@ -56,12 +56,15 @@ class C_Menu
 	~C_Menu();
   void popOutMenu();
   void menuBanner();
+  std::string tabName(int nbr){ return "tab" + std::to_string(nbr) + "_Flag";};
   //information to display
   int m_current_wave;
   int m_total_waves;
   bool m_bottomMenuOpen;
   std::map<std::string, C_MenuItem*> m_menuItemsList;
   C_Tab * m_tabs;
+  int m_nbrOfTabs;
+  int m_currentTab;
 };
 
 #endif
