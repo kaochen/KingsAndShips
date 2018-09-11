@@ -240,7 +240,7 @@ void C_Menu::menuBanner(){
     m_tabs = new C_Tab(x_screen,y_screen,width,height);
     int flagWidth = 128;
     x_screen += 32;
-    y_screen -= 48;
+    y_screen -= 24;
     for (int i = 0; i < m_nbrOfTabs ; i++){
     string name = tabName(i);
         if(m_menuItemsList[name] == nullptr){

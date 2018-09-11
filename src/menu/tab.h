@@ -29,7 +29,6 @@ class C_Tab
   void displayTab(bool open, size_t nbr);
   protected:
   void focusTab(size_t nbr);
-  void nonFocusTab(size_t nbr);
 
 	private:
   S_Coord m_screen /*!< top left corner of the tab*/;
