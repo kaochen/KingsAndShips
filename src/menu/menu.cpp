@@ -194,7 +194,9 @@ vector<string> C_Menu::getListOfButtonToListen(){
     //Always Visible
     list.push_back("popOutMenu");
     if(m_bottomMenuOpen){
-        list.push_back("tab1_FlagRed");
+        list.push_back("tab0_Flag");
+        list.push_back("tab1_Flag");
+        list.push_back("tab2_Flag");
     }
     else{
         list.push_back("AddTower");
@@ -218,7 +220,9 @@ vector<string> C_Menu::getListOfButtonVisible(){
     list.push_back("AddBarricade");
 
     if(m_bottomMenuOpen){
-        list.push_back("tab1_FlagRed");
+        list.push_back("tab0_Flag");
+        list.push_back("tab1_Flag");
+        list.push_back("tab3_Flag");
     }
 
     return list;
@@ -233,9 +237,13 @@ void C_Menu::menuBanner(){
     int y_screen = settings.getWindowHeight() - height;
     if(m_tabs != nullptr){delete m_tabs;};
     m_tabs = new C_Tab(x_screen,y_screen,width,height);
-
-    if(m_menuItemsList["tab1_FlagRed"] == nullptr){
-		m_menuItemsList["tab1_FlagRed"] = new C_Button("FlagRed","FlagRed",x_screen + 32 ,y_screen - 48);
-		}
-
+    int flagWidth = 128;
+    x_screen += 32;
+    y_screen -= 48;
+    for (int i = 0; i < 3 ; i++){
+    string name = "tab" + to_string(i) + "_Flag";
+        if(m_menuItemsList[name] == nullptr){
+		    m_menuItemsList[name] = new C_Button("FlagGrey","FlagGrey",x_screen + i*flagWidth ,y_screen);
+		    }
+	}
 }

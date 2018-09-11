@@ -7,7 +7,7 @@
  <tile id="3" type="FlagBlue_Active"/>
  <tile id="4" type="FlagBlue_Hover"/>
  <tile id="5" type="FlagBlue_Disabled"/>
- <tile id="6" type="FlagGray_Active"/>
- <tile id="7" type="FlagGray_Hover"/>
- <tile id="8" type="FlagGray_Disabled"/>
+ <tile id="6" type="FlagGrey_Active"/>
+ <tile id="7" type="FlagGrey_Hover"/>
+ <tile id="8" type="FlagGrey_Disabled"/>
 </tileset>
