@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Tab
 {
 	public:
-  C_Tab();
+  C_Tab(int x_screen,int y_screen, int width, int height);
   ~C_Tab(){};
   void displayTab(bool open, size_t nbr);
   protected:

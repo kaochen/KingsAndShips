@@ -296,43 +296,45 @@ void C_Window::listenButtons(){
 	vector <string> list;
 	list = menu.getListOfButtonToListen();
 	for (size_t i = 0; i < list.size(); i++){
-		menuButton = menu.getMenuItem(list[i]);
-        int type = menuButton->getType();
-		if(type != STATUS){
-			int xl = menuButton->getXScreen();
-			int xr = xl + menuButton->getWidth();
-			int yt= menuButton->getYScreen();
-			int yb = yt + menuButton->getHeight();
+	    menuButton = menu.getMenuItem(list[i]);
+		if(menuButton != nullptr){
+            int type = menuButton->getType();
+		    if(type != STATUS){
+			    int xl = menuButton->getXScreen();
+			    int xr = xl + menuButton->getWidth();
+			    int yt= menuButton->getYScreen();
+			    int yb = yt + menuButton->getHeight();
 
-    		string name = menuButton->getName();
-			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
-			    if(menuButton->getEnable()== true){
-			        if( type == DRAGUNIT){
-					    menuButton->drag(m_cursor);
-					    m_addingAnewTower = true;
-					}
-					if( type == ACTION){
-					    menuButton->action();
+        		string name = menuButton->getName();
+			    if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
+			        if(menuButton->getEnable()== true){
+			            if( type == DRAGUNIT){
+					        menuButton->drag(m_cursor);
+					        m_addingAnewTower = true;
+					    }
+					    if( type == ACTION){
+					        menuButton->action();
+					        m_clic.x = m_clic.y = 0;
+					    }
+					    m_buttonType = name;
+				    }
+				    else{
+					    if(menuButton->getType() == DRAGUNIT){
+					        m_addingAnewTower = false;
+					    }
+					    m_buttonType = "";
 					    m_clic.x = m_clic.y = 0;
-					}
-					m_buttonType = name;
-				}
-				else{
-					if(menuButton->getType() == DRAGUNIT){
-					    m_addingAnewTower = false;
-					}
-					m_buttonType = "";
-					m_clic.x = m_clic.y = 0;
-				}
-	 		}
-	 		//mouse Over
-	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
-                        menuButton->setState(HOVER);
-	 		}
-	 		else{
-					    menuButton->setState(ACTIVE);
-			}
- 		}
+				    }
+	     		}
+	     		//mouse Over
+	     		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
+                            menuButton->setState(HOVER);
+	     		}
+	     		else{
+					        menuButton->setState(ACTIVE);
+			    }
+     		}
+     	}
  	}
 
 }

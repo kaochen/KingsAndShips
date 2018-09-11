@@ -48,6 +48,7 @@ C_Menu::C_Menu():
 
         updateInfos();
         popOutMenu();
+        menuBanner();
 }
 
 C_Menu::~C_Menu(){
@@ -66,17 +67,18 @@ void C_Menu::updateInfos(){
 
 void C_Menu::render(){
     displayBottomMenu();
-
+    vector<string>  list = getListOfButtonVisible();
 	//draw all buttons, layer by layer;
-	for(int i = BACK; i <= FRONT; i++){
-	    for(auto& x : m_menuItemsList){
-	        if(x.second != nullptr){
-	            if(x.second->getLayer() == i){
-		            x.second->render();
+	for(int j = BACK; j <= FRONT; j++){
+	    for(size_t i = 0; i < list.size(); i++){
+                C_MenuItem * b = getMenuItem(list[i]);
+	            if( b != nullptr){
+	                if(b->getLayer() == j){
+		                b->render();
+		            }
 		        }
 		    }
 	    }
-	}
 }
 
 
@@ -184,21 +186,56 @@ void C_Menu::openBottomMenu(){
 
 
 void C_Menu::displayBottomMenu(){
-    C_Tab tab;
-    tab.displayTab(m_bottomMenuOpen, 1);
+    m_tabs->displayTab(m_bottomMenuOpen, 1);
 }
 
 vector<string> C_Menu::getListOfButtonToListen(){
     vector<string> list;
+    //Always Visible
+    list.push_back("popOutMenu");
     if(m_bottomMenuOpen){
-        list.push_back("popOutMenu");
+        list.push_back("tab1_FlagRed");
     }
     else{
         list.push_back("AddTower");
         list.push_back("AddTurbine");
         list.push_back("AddBarricade");
-        list.push_back("popOutMenu");
     }
     return list;
 }
+vector<string> C_Menu::getListOfButtonVisible(){
+    vector<string> list;
+    //Always Visible
+    list.push_back("Characters_lion");
+    list.push_back("boatLife");
+    list.push_back("Characters_fox");
+    list.push_back("playerlife");
+    list.push_back("gold_pile");
+    list.push_back("walletBar");
+    list.push_back("popOutMenu");
+    list.push_back("AddTower");
+    list.push_back("AddTurbine");
+    list.push_back("AddBarricade");
 
+    if(m_bottomMenuOpen){
+        list.push_back("tab1_FlagRed");
+    }
+
+    return list;
+}
+
+
+void C_Menu::menuBanner(){
+    C_Settings& settings=C_Settings::Instances();
+    int width = settings.getWindowWidth();
+    int height = settings.getWindowHeight()/3;
+    int x_screen = 0;
+    int y_screen = settings.getWindowHeight() - height;
+    if(m_tabs != nullptr){delete m_tabs;};
+    m_tabs = new C_Tab(x_screen,y_screen,width,height);
+
+    if(m_menuItemsList["tab1_FlagRed"] == nullptr){
+		m_menuItemsList["tab1_FlagRed"] = new C_Button("FlagRed","FlagRed",x_screen + 32 ,y_screen - 48);
+		}
+
+}

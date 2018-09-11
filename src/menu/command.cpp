@@ -26,7 +26,7 @@ using namespace std;
 
 void C_OpenMenu::action(){
     C_Message m;
-    m.printM("Send an openMenu action");
+    m.printM("Send an openMenu action\n");
     C_Menu& menu=C_Menu::Instances();
     menu.openBottomMenu();
 }

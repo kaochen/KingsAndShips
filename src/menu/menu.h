@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include "menuItems.h"
 #include "../level/level.h"
+#include "tab.h"
 
 
 class C_Menu
@@ -41,6 +42,7 @@ class C_Menu
   void displayBottomMenu();
   std::vector<std::string> getListOfButtonToListen();
   protected:
+  std::vector<std::string> getListOfButtonVisible();
   void updateDefenderStatus(); /*!Create or update defender informations*/
   void updateAttackerStatus(); /*!Create or update attacker informations*/
   void updateWalletStatus(); /*!Create or update wallet informations of the attacker*/
@@ -53,11 +55,13 @@ class C_Menu
 	C_Menu();
 	~C_Menu();
   void popOutMenu();
+  void menuBanner();
   //information to display
   int m_current_wave;
   int m_total_waves;
   bool m_bottomMenuOpen;
   std::map<std::string, C_MenuItem*> m_menuItemsList;
+  C_Tab * m_tabs;
 };
 
 #endif

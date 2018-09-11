@@ -21,16 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Tab::C_Tab()
 
+C_Tab::C_Tab(int x_screen,int y_screen, int width, int height)
 {
-    C_Settings& settings=C_Settings::Instances();
-    m_width = settings.getWindowWidth();
-    m_height = settings.getWindowHeight()/3;
-    m_screen.x = 0;
-    m_screen.y = settings.getWindowHeight() - m_height;
+    m_screen.x = x_screen;
+    m_screen.y = y_screen;
+    m_width = width;
+    m_height = height;
     m_tabSize = 100;
-
 }
 
 

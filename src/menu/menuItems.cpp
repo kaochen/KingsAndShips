@@ -33,7 +33,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_width(64),
 	m_height(64),
 	m_layer(FRONT),
-	m_enable(true)
+	m_enable(true),
+	m_state(ACTIVE)
 {
     m_textName = name + "Text";
     m_text = "";
@@ -82,8 +83,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 
 C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen),
-	m_image_out(image_out),
-	m_state(ACTIVE)
+	m_image_out(image_out)
 {
 }
 

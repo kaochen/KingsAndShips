@@ -47,7 +47,7 @@ class C_MenuItem
 	virtual	void render();
   virtual void action();
   virtual int getEnable(){return m_enable;};
-  virtual void setState(int state) {std::cout << state;};
+  virtual void setState(int state){m_state = state;};
   virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
 
   //set Text
@@ -73,6 +73,7 @@ class C_MenuItem
   SDL_Color m_color;
   int m_x_text;
   int m_y_text;
+  int m_state;
 
   C_Command * m_command;
 };
@@ -87,10 +88,8 @@ class C_Button: public C_MenuItem
 
 	virtual void render();
   virtual int getState(){return m_state;};
-  virtual void setState(int state){m_state = state;};
 	protected:
 	std::string m_image_out;
-  int m_state;
 };
 
 class C_ButtonAddUnit: public C_Button
