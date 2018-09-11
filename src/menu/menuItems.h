@@ -59,6 +59,7 @@ class C_MenuItem
 	protected:
   int m_type;
 	std::string m_name;
+  std::string m_image;
 	int m_x_screen;
 	int m_y_screen;
 	int m_width;
@@ -83,19 +84,19 @@ class C_MenuItem
 class C_Button: public C_MenuItem
 {
 	public:
-  C_Button(std::string name,std::string image_out,int x_screen, int y_screen);
+  C_Button(std::string name,std::string image,int x_screen, int y_screen);
 	~C_Button(){};
 
 	virtual void render();
   virtual int getState(){return m_state;};
 	protected:
-	std::string m_image_out;
+	std::string m_image;
 };
 
 class C_ButtonAddUnit: public C_Button
 {
 	public:
-  C_ButtonAddUnit(std::string name,std::string image_out,int x_screen, int y_screen);
+  C_ButtonAddUnit(std::string name,std::string image,int x_screen, int y_screen);
 	~C_ButtonAddUnit();
   virtual void drag(S_Coord screen);
   virtual void render();

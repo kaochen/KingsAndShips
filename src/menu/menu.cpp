@@ -40,11 +40,11 @@ C_Menu::C_Menu():
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_menuItemsList["AddTower"] = new C_ButtonAddUnit("AddTower","Buttons_AddTower",x_button,y_button);
+		m_menuItemsList["AddTower"] = new C_ButtonAddUnit("AddTower","AddTower",x_button,y_button);
 		y_button +=size;
-	    m_menuItemsList["AddTurbine"] = new C_ButtonAddUnit("AddTurbine","Buttons_AddTurbine",x_button,y_button);
+	    m_menuItemsList["AddTurbine"] = new C_ButtonAddUnit("AddTurbine","AddTurbine",x_button,y_button);
 		y_button +=size;
-		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","Buttons_AddBarricade",x_button,y_button);
+		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","AddBarricade",x_button,y_button);
 
         updateInfos();
         popOutMenu();
@@ -170,7 +170,7 @@ void C_Menu::popOutMenu(){
         C_Settings& settings=C_Settings::Instances();
         int y = settings.getWindowHeight() - 64 - 20;
         if(m_menuItemsList["popOutMenu"] == nullptr){
-		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","Buttons_Menu",20,y);
+		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","popOutMenu",20,y);
 		    C_OpenMenu *om = new C_OpenMenu();
             m_menuItemsList["popOutMenu"]->setCommand(om);
 		}
@@ -222,7 +222,7 @@ vector<string> C_Menu::getListOfButtonVisible(){
     if(m_bottomMenuOpen){
         list.push_back("tab0_Flag");
         list.push_back("tab1_Flag");
-        list.push_back("tab3_Flag");
+        list.push_back("tab2_Flag");
     }
 
     return list;
@@ -243,7 +243,7 @@ void C_Menu::menuBanner(){
     for (int i = 0; i < 3 ; i++){
     string name = "tab" + to_string(i) + "_Flag";
         if(m_menuItemsList[name] == nullptr){
-		    m_menuItemsList[name] = new C_Button("FlagGrey","FlagGrey",x_screen + i*flagWidth ,y_screen);
+		    m_menuItemsList[name] = new C_Button(name,"FlagGrey",x_screen + i*flagWidth ,y_screen);
 		    }
 	}
 }

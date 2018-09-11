@@ -28,6 +28,7 @@ using namespace std;
 C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
     m_type(ACTION),
 	m_name(name),
+	m_image(name),
 	m_x_screen(x_screen),
 	m_y_screen(y_screen),
 	m_width(64),
@@ -67,7 +68,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 
  void C_MenuItem::render(){
         C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(m_name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+		t.renderTexture(m_image, m_x_screen + m_width/2,m_y_screen + m_height + 18);
 		renderText();
   }
 
@@ -81,15 +82,15 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 
 //-------------------------------------------------------------
 
-C_Button::C_Button(string name,string image_out,int x_screen, int y_screen)
+C_Button::C_Button(string name,string image,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen),
-	m_image_out(image_out)
+	m_image(image)
 {
 }
 
 
 void C_Button::render(){
-        string name = "Buttons_"+m_name;
+        string name = "Buttons_"+m_image;
         string prefix;
         if(m_state == ACTIVE){
             prefix ="_Active";
@@ -112,8 +113,8 @@ void C_Button::render(){
 
 //-------------------------------------------------------------
 
-C_ButtonAddUnit::C_ButtonAddUnit(string name,string image_out,int x_screen, int y_screen)
-	:C_Button(name,image_out,x_screen,y_screen)
+C_ButtonAddUnit::C_ButtonAddUnit(string name,string image,int x_screen, int y_screen)
+	:C_Button(name,image,x_screen,y_screen)
 {
     m_type = DRAGUNIT;
     if(name == "AddTower"){
