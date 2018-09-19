@@ -231,31 +231,16 @@ vector<string> C_Menu::getListOfButtonVisible(){
 
 
 void C_Menu::menuBanner(){
-    C_Settings& settings=C_Settings::Instances();
-    int height = (settings.getWindowHeight()*2)/3;
-    int x_screen = 0;
-    int y_screen = settings.getWindowHeight() - height;
     m_tabs.push_back( new C_Tab("Levels"));
     m_tabs.push_back( new C_Tab("Settings"));
     m_tabs.push_back( new C_Tab("About"));
 
-    int flagWidth = 128;
-    x_screen += 32;
-    y_screen += 4;
+    //declare buttons from tabs into the mainItemList
     for (size_t i = 0; i < m_tabs.size() ; i++){
-        string text = m_tabs[i]->getTitle();
-        string name = m_tabs[i]->getName();
-
-        cout << "tab name: " << name << endl;
-        if(m_menuItemsList[name] == nullptr){
-		    m_menuItemsList[name] = new C_MenuButton(name,text,18,x_screen + i*flagWidth ,y_screen);
-		    if(m_menuItemsList[name] != nullptr){
-		        m_menuItemsList[name]->setCommand(new C_ChangeTab);
-		        if( m_menuItemsList[name]->getCommand() != nullptr)
-		            m_menuItemsList[name]->getCommand()->setNbr(i);
-		        }
-		    }
-	}
+            std::map<std::string, C_MenuItem*> tabItems;
+            tabItems = m_tabs[i]->getItemList();
+            m_menuItemsList.insert(tabItems.begin(),tabItems.end());
+        }
     setTabNbr(0); //set the focus on the first tab
 }
 

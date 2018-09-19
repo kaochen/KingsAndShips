@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-int C_Tab::m_id = 0;
+int C_Tab::m_id = -1;
 
 C_Tab::C_Tab(string title)
 {
@@ -34,6 +34,13 @@ C_Tab::C_Tab(string title)
     m_screen.x = 0;
     m_screen.y = (settings.getWindowHeight() - m_height)/2;
     m_tabSize = 100;
+
+    m_itemsList[m_name] = new C_MenuButton(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 28) ,m_screen.y);
+    if(m_itemsList[m_name] != nullptr){
+		    m_itemsList[m_name]->setCommand(new C_ChangeTab);
+		        if( m_itemsList[m_name]->getCommand() != nullptr)
+		            m_itemsList[m_name]->getCommand()->setNbr(m_id);
+		        }
 }
 
 

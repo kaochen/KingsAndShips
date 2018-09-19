@@ -19,7 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TAB_H
 #define TAB_H
 #include "../settings.h"
+#include "menuItems.h"
 #include <string>
+#include <map>
 #include <SDL2_gfxPrimitives.h>
 
 class C_Tab
@@ -30,6 +32,7 @@ class C_Tab
   void displayTab(bool open, size_t nbr);
   std::string getName(){return m_name;};
   std::string getTitle(){return m_title;};
+  std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
   protected:
   void focusTab(size_t nbr);
 
@@ -41,6 +44,8 @@ class C_Tab
   int m_height;
   int m_width;
   Sint16 m_tabSize;
+
+  std::map<std::string, C_MenuItem*> m_itemsList;
 };
 
 #endif
