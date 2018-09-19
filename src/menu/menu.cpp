@@ -218,9 +218,14 @@ vector<string> C_Menu::getListOfButtonVisible(){
 
 
     if(m_bottomMenuOpen){
+        //get tab selector buttons
         for (size_t i = 0; i < m_tabs.size() ; i++){
             list.push_back(m_tabs[i]->getName());
         }
+        //get the list of active button from the selected tab
+        vector<string> tmp = m_tabs[m_currentTab]->getListOfVisibleItems();
+        list.insert(list.end(), tmp.begin(), tmp.end());
+
     }
     else{
         list.push_back("AddTower");
@@ -234,7 +239,7 @@ vector<string> C_Menu::getListOfButtonVisible(){
 
 void C_Menu::menuBanner(){
     m_tabs.push_back( new C_Tab("Levels"));
-    m_tabs.push_back( new C_Tab("Settings"));
+    m_tabs.push_back( new C_Tab_Settings("Settings"));
     m_tabs.push_back( new C_Tab("About"));
 
     //declare buttons from tabs into the mainItemList

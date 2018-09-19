@@ -92,3 +92,18 @@ void C_Tab::drawAseparator(Sint16 x, Sint16 y, Sint16 width){
 		filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 }
 
+std::vector<string> C_Tab::getListOfVisibleItems(){
+    vector <string> list;
+	for(auto const& x : m_itemsList){
+		    list.push_back(x.first);
+	}
+	return list;
+}
+
+C_Tab_Settings::C_Tab_Settings(string title)
+    :C_Tab(title)
+{
+    string name = "settings_resolution";
+    string text = "Resolution" ;
+    m_itemsList[name] = new C_MenuButton(name,text,18,m_screen.x + 10 ,m_screen.y +  100);
+}

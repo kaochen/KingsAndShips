@@ -28,16 +28,18 @@ class C_Tab
 {
 	public:
   C_Tab(std::string title);
-  ~C_Tab(){};
-  void displayTab(bool open, size_t nbr);
-  std::string getName(){return m_name;};
-  std::string getTitle(){return m_title;};
-  std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
-  protected:
-  void focusTab(size_t nbr);
-  void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
+  virtual ~C_Tab(){};
+  virtual void displayTab(bool open, size_t nbr);
+  virtual std::string getName(){return m_name;};
+  virtual std::string getTitle(){return m_title;};
+  virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
+  virtual std::vector<std::string> getListOfVisibleItems();
 
-	private:
+  protected:
+  virtual void focusTab(size_t nbr);
+  virtual void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
+
+	protected:
   static int m_id;
   std::string m_name;
   std::string m_title;
@@ -45,8 +47,13 @@ class C_Tab
   int m_height;
   int m_width;
   Sint16 m_tabSize;
-
   std::map<std::string, C_MenuItem*> m_itemsList;
+};
+
+class C_Tab_Settings : public C_Tab
+{
+public:
+  C_Tab_Settings(std::string title);
 };
 
 #endif
