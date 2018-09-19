@@ -40,7 +40,7 @@ public:
 	virtual SDL_Texture* getTexture();
 	virtual void destroyTexture();
 	virtual void displayStatus();
-  virtual void render(int x, int y, double angle);
+  virtual void render(int x, int y, double angle, int align);
 
 	virtual int getId() = 0;
 	virtual void loadTexture(std::string &path) = 0;

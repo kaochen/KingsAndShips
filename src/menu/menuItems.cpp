@@ -172,6 +172,7 @@ void C_ButtonSettings::render(){
 
 		if(m_state == ACTIVE){R = 50; G = 50; B = 50;}
 		else if(m_state == HOVER){R = 8; G = 63; B = 127;}
+
 		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 
         C_TextureList& t=C_TextureList::Instances();
