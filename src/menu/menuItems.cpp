@@ -129,8 +129,8 @@ void C_MenuButton::render(){
 		Uint8 R = 0, G = 0, B = 0;
 
         //top
-		if(m_state == ACTIVE){R = 255; G = 115; B = 46;}
-		else if(m_state == HOVER){R = 255; G = 166; B = 122;}
+		if(m_state == ACTIVE){R = 50; G = 50; B = 50;}
+		else if(m_state == HOVER){R = 70; G = 70; B = 70;}
 		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 
         //bottom
