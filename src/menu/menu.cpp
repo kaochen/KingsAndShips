@@ -215,14 +215,17 @@ vector<string> C_Menu::getListOfButtonVisible(){
     list.push_back("gold_pile");
     list.push_back("walletBar");
     list.push_back("popOutMenu");
-    list.push_back("AddTower");
-    list.push_back("AddTurbine");
-    list.push_back("AddBarricade");
+
 
     if(m_bottomMenuOpen){
         for (size_t i = 0; i < m_tabs.size() ; i++){
             list.push_back(m_tabs[i]->getName());
         }
+    }
+    else{
+        list.push_back("AddTower");
+        list.push_back("AddTurbine");
+        list.push_back("AddBarricade");
     }
 
     return list;
