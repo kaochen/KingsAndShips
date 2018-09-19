@@ -23,15 +23,16 @@ using namespace std;
 
 int C_Tab::m_id = 0;
 
-C_Tab::C_Tab(string title,int x_screen,int y_screen, int width, int height)
+C_Tab::C_Tab(string title)
 {
     m_id++;
     m_name = "tab_" + m_id;
     m_title = title;
-    m_screen.x = x_screen;
-    m_screen.y = y_screen;
-    m_width = width;
-    m_height = height;
+    C_Settings& settings=C_Settings::Instances();
+    m_width = settings.getWindowWidth();
+    m_height = (settings.getWindowHeight()*2)/3;
+    m_screen.x = 0;
+    m_screen.y = (settings.getWindowHeight() - m_height)/2;
     m_tabSize = 100;
 }
 
@@ -44,14 +45,13 @@ void C_Tab::displayTab(bool open, size_t nbr){
 
 void C_Tab::focusTab(size_t nbr){
 
-        C_Settings& settings=C_Settings::Instances();
         Uint8 R = 0, G = 0, B = 0, A = 150;
         Sint16 x1 = m_screen.x - 5; //top left
  		Sint16 y1 = m_screen.y; //top left
 		Sint16 x2 = m_screen.x + m_width; //top right
 		Sint16 y2 = y1;
         Sint16 x3 = x2; // bottom right
-        Sint16 y3 = settings.getWindowHeight();
+        Sint16 y3 = y1 + m_height;
 	    Sint16 x4 = x1; //bottom left;
 	    Sint16 y4 = y3;
 
@@ -62,19 +62,6 @@ void C_Tab::focusTab(size_t nbr){
     	SDL_Renderer * renderer = win.getRenderer();
 		filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
-        //border
-
-		for(Sint16 j = 0; j < 2; j++){
-		    for(Sint16 i = 0; i < 2; i++){
-                Sint16 vx1[] = {Sint16(x1+i),Sint16(x2+i),Sint16(x3+i),Sint16(x4-i)};
-                Sint16 vy1[] = {Sint16(y1+i),Sint16(y2+i),Sint16(y3+i),Sint16(y4+i)};
-		        polygonRGBA(renderer,vx1,vy1,4,R,G,B,A);
-		        }
-		    x1 += 1;
-		    x2 += 1;
-		    x3 += 1;
-		    x4 += 1;
-		}
 
 }
 

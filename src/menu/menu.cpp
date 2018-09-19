@@ -232,13 +232,12 @@ vector<string> C_Menu::getListOfButtonVisible(){
 
 void C_Menu::menuBanner(){
     C_Settings& settings=C_Settings::Instances();
-    int width = settings.getWindowWidth();
-    int height = settings.getWindowHeight()/3;
+    int height = (settings.getWindowHeight()*2)/3;
     int x_screen = 0;
     int y_screen = settings.getWindowHeight() - height;
-    m_tabs.push_back( new C_Tab("Levels",x_screen,y_screen,width,height));
-    m_tabs.push_back( new C_Tab("Settings",x_screen,y_screen,width,height));
-    m_tabs.push_back( new C_Tab("About",x_screen,y_screen,width,height));
+    m_tabs.push_back( new C_Tab("Levels"));
+    m_tabs.push_back( new C_Tab("Settings"));
+    m_tabs.push_back( new C_Tab("About"));
 
     int flagWidth = 128;
     x_screen += 32;

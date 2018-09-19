@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Tab
 {
 	public:
-  C_Tab(std::string title, int x_screen,int y_screen, int width, int height);
+  C_Tab(std::string title);
   ~C_Tab(){};
   void displayTab(bool open, size_t nbr);
   std::string getName(){return m_name;};
