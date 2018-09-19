@@ -64,7 +64,6 @@ class C_Menu
   bool m_bottomMenuOpen;
   std::map<std::string, C_MenuItem*> m_menuItemsList;
   std::vector<C_Tab *> m_tabs;
-  int m_nbrOfTabs;
   int m_currentTab;
 };
 

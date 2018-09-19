@@ -33,8 +33,7 @@ C_Menu C_Menu::m_instance=C_Menu();
 C_Menu::C_Menu():
 	m_current_wave(1),
     m_total_waves(1),
-    m_bottomMenuOpen(false),
-    m_nbrOfTabs(3)
+    m_bottomMenuOpen(false)
 {
 		C_Settings& settings=C_Settings::Instances();
 		int size = 64 + 10;
