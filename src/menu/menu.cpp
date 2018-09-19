@@ -240,11 +240,11 @@ void C_Menu::menuBanner(){
     m_tabs = new C_Tab(x_screen,y_screen,width,height);
     int flagWidth = 128;
     x_screen += 32;
-    y_screen -= 24;
+    y_screen += 4;
     for (int i = 0; i < m_nbrOfTabs ; i++){
     string name = tabName(i);
         if(m_menuItemsList[name] == nullptr){
-		    m_menuItemsList[name] = new C_Button(name,"FlagGrey",x_screen + i*flagWidth ,y_screen);
+		    m_menuItemsList[name] = new C_MenuButton(name,name,18,x_screen + i*flagWidth ,y_screen);
 		    if(m_menuItemsList[name] != nullptr){
 		        m_menuItemsList[name]->setCommand(new C_ChangeTab);
 		        if( m_menuItemsList[name]->getCommand() != nullptr)

@@ -94,6 +94,13 @@ class C_Button: public C_MenuItem
 	virtual void render();
 };
 
+class C_MenuButton: public C_MenuItem
+{
+  public:
+  C_MenuButton(std::string name,std::string text, int fontSize, int x_screen, int y_screen);
+  virtual void render();
+};
+
 class C_ButtonAddUnit: public C_Button
 {
 	public:

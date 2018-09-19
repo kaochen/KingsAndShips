@@ -110,6 +110,43 @@ void C_Button::render(){
 		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
 }
 
+//-------------------------------------------------------------
+
+C_MenuButton::C_MenuButton(string name,string text, int fontSize,int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen){
+	setText(text, fontSize);
+	m_width = 100;
+	m_height = 100;
+}
+
+
+void C_MenuButton::render(){
+        C_Window& win=C_Window::Instances();
+        Sint16 x1 = m_x_screen; //x top right
+		Sint16 y1 = m_y_screen;
+		Sint16 x2 = x1 + 100; //x bottom left
+		Sint16 y2 = y1 + 5;
+		Uint8 R = 0, G = 0, B = 0;
+
+        //top
+		if(m_state == ACTIVE){R = 255; G = 115; B = 46;}
+		else if(m_state == HOVER){R = 255; G = 166; B = 122;}
+		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
+
+        //bottom
+        y1 = y2 + 5;
+        y2 = y1 + 20;
+		boxRGBA(win.getRenderer(),x1,y1,x2,y2,200,200,200,50);
+
+        C_TextureList& t=C_TextureList::Instances();
+		if(m_text !=""){
+		    if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText){
+                t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+                m_oldText = m_text;
+            }
+        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text , y2 + 36);
+        }
+}
 
 //-------------------------------------------------------------
 
