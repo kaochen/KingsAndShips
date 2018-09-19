@@ -129,8 +129,8 @@ void C_MenuButton::render(){
 		Uint8 R = 0, G = 0, B = 0;
 
         //top
-		if(m_state == ACTIVE){R = 50; G = 50; B = 50;}
-		else if(m_state == HOVER){R = 70; G = 70; B = 70;}
+		if(m_state == ACTIVE){R = 8; G = 63; B = 127;}
+		else if(m_state == HOVER){R = 16; G = 126; B = 255;}
 		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 
         //bottom
@@ -147,6 +147,52 @@ void C_MenuButton::render(){
         t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text , y2 + 36);
         }
 }
+
+//-------------------------------------------------------------
+
+C_ButtonSettings::C_ButtonSettings(string name,string text,int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen){
+	m_fontSize = 18;
+	m_title = name;
+	m_titleName = "Settings_Title_" + name;
+    m_text = text;
+	m_textName = "Settings_Text_" + name;
+	m_width = 400;
+	m_height = 20;
+}
+
+
+void C_ButtonSettings::render(){
+        C_Window& win=C_Window::Instances();
+        Sint16 x1 = m_x_screen; //x top right
+		Sint16 y1 = m_y_screen;
+		Sint16 x2 = x1 + m_width; //x bottom left
+		Sint16 y2 = y1 + m_height;
+		Uint8 R = 0, G = 0, B = 0;
+
+		if(m_state == ACTIVE){R = 50; G = 50; B = 50;}
+		else if(m_state == HOVER){R = 8; G = 63; B = 127;}
+		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
+
+        C_TextureList& t=C_TextureList::Instances();
+        if(m_title !=""){
+		    if(t.searchTexture(m_titleName)== nullptr || m_title != m_oldTitle){
+                t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
+                m_oldTitle = m_title;
+            }
+        t.renderTexture(m_titleName, x1 + 50, y2 + 38);
+        }
+
+		if(m_text !=""){
+		    if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText){
+                t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+                m_oldText = m_text;
+            }
+        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text , y2 + 38);
+        }
+}
+
+
 
 //-------------------------------------------------------------
 

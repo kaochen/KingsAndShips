@@ -103,7 +103,10 @@ std::vector<string> C_Tab::getListOfVisibleItems(){
 C_Tab_Settings::C_Tab_Settings(string title)
     :C_Tab(title)
 {
-    string name = "settings_resolution";
-    string text = "Resolution" ;
-    m_itemsList[name] = new C_MenuButton(name,text,18,m_screen.x + 10 ,m_screen.y +  100);
+    string name = "Resolution";
+    C_Settings& settings=C_Settings::Instances();
+    string width = to_string(settings.getWindowWidth());
+    string height = to_string(settings.getWindowHeight());
+    string text = width + "x" + height;
+    m_itemsList[name] = new C_ButtonSettings(name,text,m_screen.x + 10 ,m_screen.y +  50);
 }
