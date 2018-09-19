@@ -63,7 +63,7 @@ class C_Menu
   int m_total_waves;
   bool m_bottomMenuOpen;
   std::map<std::string, C_MenuItem*> m_menuItemsList;
-  C_Tab * m_tabs;
+  std::vector<C_Tab *> m_tabs;
   int m_nbrOfTabs;
   int m_currentTab;
 };

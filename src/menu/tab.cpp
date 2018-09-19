@@ -21,9 +21,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+int C_Tab::m_id = 0;
 
-C_Tab::C_Tab(int x_screen,int y_screen, int width, int height)
+C_Tab::C_Tab(string title,int x_screen,int y_screen, int width, int height)
 {
+    m_id++;
+    m_name = "tab_" + m_id;
+    m_title = title;
     m_screen.x = x_screen;
     m_screen.y = y_screen;
     m_width = width;

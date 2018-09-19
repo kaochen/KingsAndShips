@@ -187,7 +187,7 @@ void C_Menu::openBottomMenu(){
 
 
 void C_Menu::displayBottomMenu(){
-    m_tabs->displayTab(m_bottomMenuOpen, m_currentTab);
+    m_tabs[0]->displayTab(m_bottomMenuOpen, m_currentTab);
 }
 
 vector<string> C_Menu::getListOfButtonToListen(){
@@ -195,8 +195,8 @@ vector<string> C_Menu::getListOfButtonToListen(){
     //Always Visible
     list.push_back("popOutMenu");
     if(m_bottomMenuOpen){
-        for (int i = 0; i < m_nbrOfTabs ; i++){
-            list.push_back(tabName(i));
+        for (size_t i = 0; i < m_tabs.size() ; i++){
+            list.push_back(m_tabs[i]->getName());
         }
     }
     else{
@@ -221,8 +221,8 @@ vector<string> C_Menu::getListOfButtonVisible(){
     list.push_back("AddBarricade");
 
     if(m_bottomMenuOpen){
-        for (int i = 0; i < m_nbrOfTabs ; i++){
-            list.push_back(tabName(i));
+        for (size_t i = 0; i < m_tabs.size() ; i++){
+            list.push_back(m_tabs[i]->getName());
         }
     }
 
@@ -236,15 +236,20 @@ void C_Menu::menuBanner(){
     int height = settings.getWindowHeight()/3;
     int x_screen = 0;
     int y_screen = settings.getWindowHeight() - height;
-    if(m_tabs != nullptr){delete m_tabs;};
-    m_tabs = new C_Tab(x_screen,y_screen,width,height);
+    m_tabs.push_back( new C_Tab("Levels",x_screen,y_screen,width,height));
+    m_tabs.push_back( new C_Tab("Settings",x_screen,y_screen,width,height));
+    m_tabs.push_back( new C_Tab("About",x_screen,y_screen,width,height));
+
     int flagWidth = 128;
     x_screen += 32;
     y_screen += 4;
-    for (int i = 0; i < m_nbrOfTabs ; i++){
-    string name = tabName(i);
+    for (size_t i = 0; i < m_tabs.size() ; i++){
+        string text = m_tabs[i]->getTitle();
+        string name = m_tabs[i]->getName();
+
+        cout << "tab name: " << name << endl;
         if(m_menuItemsList[name] == nullptr){
-		    m_menuItemsList[name] = new C_MenuButton(name,name,18,x_screen + i*flagWidth ,y_screen);
+		    m_menuItemsList[name] = new C_MenuButton(name,text,18,x_screen + i*flagWidth ,y_screen);
 		    if(m_menuItemsList[name] != nullptr){
 		        m_menuItemsList[name]->setCommand(new C_ChangeTab);
 		        if( m_menuItemsList[name]->getCommand() != nullptr)
@@ -256,18 +261,6 @@ void C_Menu::menuBanner(){
 }
 
 void C_Menu::setTabNbr(int nbr){
-    //first reset all
-    for (int i = 0; i < m_nbrOfTabs ; i++){
-        string name = tabName(i);
-        if(m_menuItemsList[name] != nullptr){
-            m_menuItemsList[name]->setImage("FlagGrey");
-        }
-    }
-    //then set the choosen one
-        string name = tabName(nbr);
-        if(m_menuItemsList[name] != nullptr){
-            m_menuItemsList[name]->setImage("FlagRed");
-        }
     m_currentTab = nbr;
 
 }

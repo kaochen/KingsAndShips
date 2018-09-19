@@ -19,18 +19,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef TAB_H
 #define TAB_H
 #include "../settings.h"
+#include <string>
 #include <SDL2_gfxPrimitives.h>
 
 class C_Tab
 {
 	public:
-  C_Tab(int x_screen,int y_screen, int width, int height);
+  C_Tab(std::string title, int x_screen,int y_screen, int width, int height);
   ~C_Tab(){};
   void displayTab(bool open, size_t nbr);
+  std::string getName(){return m_name;};
+  std::string getTitle(){return m_title;};
   protected:
   void focusTab(size_t nbr);
 
 	private:
+  static int m_id;
+  std::string m_name;
+  std::string m_title;
   S_Coord m_screen /*!< top left corner of the tab*/;
   int m_height;
   int m_width;
