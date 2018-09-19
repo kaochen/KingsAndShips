@@ -96,6 +96,7 @@ class C_TextureList
 public:
 	static	C_TextureList& Instances();
 	void renderTexture(std::string name, int x, int y);
+  void renderTexture(std::string name, int x, int y,int align);
 	void renderTextureEx(std::string name, int x, int y, double angle, int align);
   C_Texture* searchTexture(std::string name);
 	void renderTextureFromId(int id, int x, int y);

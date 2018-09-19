@@ -254,6 +254,10 @@ void C_TextureList::renderTexture(string name, int x, int y){
 	renderTextureEx(name, x,y,0.0,CENTER);
 }
 
+void C_TextureList::renderTexture(string name, int x, int y,int align){
+	renderTextureEx(name, x,y,0.0,align);
+}
+
 
 void C_TextureList::renderTextureEx(string name, int x, int y, double angle, int align)
 {

@@ -181,7 +181,7 @@ void C_ButtonSettings::render(){
                 t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
                 m_oldTitle = m_title;
             }
-        t.renderTexture(m_titleName, x1 + 50, y2 + 38);
+        t.renderTexture(m_titleName, x1, y2 + 38, LEFT);
         }
 
 		if(m_text !=""){
@@ -189,7 +189,7 @@ void C_ButtonSettings::render(){
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text , y2 + 38);
+        t.renderTexture(m_textName, x2, y2 + 38, RIGHT);
         }
 }
 
