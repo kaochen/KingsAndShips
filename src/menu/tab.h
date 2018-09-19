@@ -35,6 +35,7 @@ class C_Tab
   std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
   protected:
   void focusTab(size_t nbr);
+  void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
 
 	private:
   static int m_id;
