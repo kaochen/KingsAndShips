@@ -67,10 +67,23 @@ void C_Texture::render(int x, int y, double angle, int align){
     if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
 			SDL_Rect pos;
 			SDL_QueryTexture(m_texture, NULL, NULL, &pos.w, &pos.h);
-			if(align == CENTER){ pos.x = x - pos.w/2;}
-			else if(align == LEFT){pos.x = x;}
-			else if(align == RIGHT){pos.x = x - pos.w;}
+			if(align == CENTER){
+			    pos.x = x - pos.w/2;
+			    pos.y = y - pos.h/2;
+			    }
+			else if(align == LEFT){
+			pos.x = x;
+			pos.y = y - pos.h/2;
+			}
+			else if(align == RIGHT){
+			pos.x = x - pos.w;
+			pos.y = y - pos.h/2;
+			}
+			else if(align == CENTER_TILE){
+			pos.x = x - pos.w/2;
 			pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
+			}
+
 			SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 			}
 }
@@ -251,7 +264,7 @@ C_TextureList& C_TextureList::Instances()
 
 
 void C_TextureList::renderTexture(string name, int x, int y){
-	renderTextureEx(name, x,y,0.0,CENTER);
+	renderTextureEx(name, x,y,0.0,CENTER_TILE);
 }
 
 void C_TextureList::renderTexture(string name, int x, int y,int align){

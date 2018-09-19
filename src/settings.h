@@ -53,7 +53,7 @@ enum GroundType {GROUND_01,GROUND_02};
 enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 enum Status {ALIVE,DEAD};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
-enum texture_align {LEFT,CENTER,RIGHT};
+enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 
 //singleton
 class C_Settings
