@@ -49,6 +49,7 @@ class C_MenuItem
   virtual void action();
   virtual int getEnable(){return m_enable;};
   virtual void setState(int state){m_state = state;};
+  virtual int getState(){return m_state;};
   virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
 
   //set Text
@@ -91,7 +92,6 @@ class C_Button: public C_MenuItem
 	~C_Button(){};
 
 	virtual void render();
-  virtual int getState(){return m_state;};
 };
 
 class C_ButtonAddUnit: public C_Button
