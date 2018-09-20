@@ -109,4 +109,9 @@ C_Tab_Settings::C_Tab_Settings(string title)
     string height = to_string(settings.getWindowHeight());
     string text = width + "x" + height;
     m_itemsList[name] = new C_ButtonSettings(name,text,m_screen.x + 10 ,m_screen.y +  50);
+
+    name = "Theme";
+    text =  settings.getThemePath();
+    m_itemsList[name] = new C_ButtonSettings(name,text,m_screen.x + 10 ,m_screen.y +  75);
+
 }

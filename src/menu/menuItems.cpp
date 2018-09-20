@@ -170,10 +170,15 @@ void C_ButtonSettings::render(){
 		Sint16 y2 = y1 + m_height;
 		Uint8 R = 0, G = 0, B = 0;
 
-		if(m_state == ACTIVE){R = 50; G = 50; B = 50;}
-		else if(m_state == HOVER){R = 8; G = 63; B = 127;}
+		if(m_state == ACTIVE){
+		    R = 50; G = 50; B = 50;
+    		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
+		}
+		else if(m_state == HOVER){
+		    R = 8; G = 63; B = 127;
+    		boxRGBA(win.getRenderer(),x1-2,y1-2,x2+2,y2+2,R,G,B,255);
+		    }
 
-		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 
         C_TextureList& t=C_TextureList::Instances();
         if(m_title !=""){
