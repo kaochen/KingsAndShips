@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "texture.h"
 #include "menu/menu.h"
+#include "menu/command.h"
 #include "message.h"
 #include "wallet.h"
 #include "level/grid.h"
@@ -350,6 +351,13 @@ void C_Window::listenKeyboard(SDL_Event &event){
 			    case SDLK_l:
 			        loadLevel(m_levelNbr +1);
 				    break;
+				case SDLK_m:
+				{
+				    C_OpenMenu openMenu;
+				    openMenu.action();
+				}
+				    break;
+
 			    case SDLK_n:
 				    m_level->sendNextWave();
 				    break;
