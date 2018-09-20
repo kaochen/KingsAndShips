@@ -295,7 +295,7 @@ void C_Window::listenButtons(){
 
 	C_MenuItem* menuButton;
 	vector <string> list;
-	list = menu.getListOfButtonToListen();
+	list = menu.getMenuItemsList();
 	for (size_t i = 0; i < list.size(); i++){
 	    menuButton = menu.getMenuItem(list[i]);
 		if(menuButton != nullptr){

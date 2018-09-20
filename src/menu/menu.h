@@ -40,10 +40,9 @@ class C_Menu
   //commands
   void openBottomMenu();
   void displayBottomMenu();
-  std::vector<std::string> getListOfButtonToListen();
+  std::vector<std::string> getMenuItemsList();
   void setTabNbr(int nbr);
   protected:
-  std::vector<std::string> getListOfButtonVisible();
   void updateDefenderStatus(); /*!Create or update defender informations*/
   void updateAttackerStatus(); /*!Create or update attacker informations*/
   void updateWalletStatus(); /*!Create or update wallet informations of the attacker*/

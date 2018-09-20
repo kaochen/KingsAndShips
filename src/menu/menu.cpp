@@ -67,7 +67,7 @@ void C_Menu::updateInfos(){
 
 void C_Menu::render(){
     displayBottomMenu();
-    vector<string>  list = getListOfButtonVisible();
+    vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
 	for(int j = BACK; j <= FRONT; j++){
 	    for(size_t i = 0; i < list.size(); i++){
@@ -189,23 +189,8 @@ void C_Menu::displayBottomMenu(){
     m_tabs[0]->displayTab(m_bottomMenuOpen, m_currentTab);
 }
 
-vector<string> C_Menu::getListOfButtonToListen(){
-    vector<string> list;
-    //Always Visible
-    list.push_back("popOutMenu");
-    if(m_bottomMenuOpen){
-        for (size_t i = 0; i < m_tabs.size() ; i++){
-            list.push_back(m_tabs[i]->getName());
-        }
-    }
-    else{
-        list.push_back("AddTower");
-        list.push_back("AddTurbine");
-        list.push_back("AddBarricade");
-    }
-    return list;
-}
-vector<string> C_Menu::getListOfButtonVisible(){
+
+vector<string> C_Menu::getMenuItemsList(){
     vector<string> list;
     //Always Visible
     list.push_back("Characters_lion");
