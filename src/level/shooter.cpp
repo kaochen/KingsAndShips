@@ -29,7 +29,6 @@ C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
 	C_GameUnits(name, x_grid, y_grid, rank)
 {
 	m_weapon = nullptr;
-	m_y_center_offset = 36;
 	m_lastShootTime = 0;
 	m_cost = 50;
 	C_Message m;
@@ -245,7 +244,7 @@ void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok){
 	Sint16 h =  w/2;
 	Sint16 x1 = x - w;
 
-	Sint16 y1 = y - h + TILE_HALF_HEIGHT; //center
+	Sint16 y1 = y - h + 14; //center
 	Sint16 x2 = x1 + w;
 	Sint16 y2 = y1 + h;
 	Sint16 x3 = x1 + (w*2);

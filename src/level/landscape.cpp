@@ -151,7 +151,6 @@ int C_Landscape::waterDirection(){
 C_Decors::C_Decors(string name, int x_grid, int y_grid):
 	C_GameUnits(name, x_grid, y_grid, 0)
 {
-    m_y_center_offset= 36;
 }
 
 void C_Decors::render(S_Coord screen){
@@ -160,24 +159,23 @@ void C_Decors::render(S_Coord screen){
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
 //---------------------------C_Ground -------------------------
 C_Ground::C_Ground(string name, int x_grid, int y_grid):
 	C_GameUnits(name, x_grid, y_grid,0)
 {
-    m_y_center_offset = 36;
 }
 
 void C_Ground::render(){
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(m_name, m_coord->getXScreen(),m_coord->getYScreen()+ m_y_center_offset);
+	t.renderTexture(m_name, m_coord->getXScreen(),m_coord->getYScreen(),CENTER_TILE);
 
 	    size_t found = m_name.find("Water");
 	    if(found == string::npos){
 	        if ((m_coord->getXGrid()+m_coord->getYGrid())%2 == 0){
-                darkenGround(m_coord->getXScreen(), m_coord->getYScreen());
+                darkenGround(m_coord->getXScreen(), m_coord->getYScreen() + TILE_HALF_HEIGHT);
             }
 	    }
 
@@ -190,7 +188,7 @@ void C_Ground::darkenGround(int x_screen, int y_screen){
 	Sint16 h =  w/2;
 	Sint16 x1 = x_screen - w;
 
-	Sint16 y1 = y_screen - h + 36; //center
+	Sint16 y1 = y_screen - h -2; //center
 	Sint16 x2 = x1 + w;
 	Sint16 y2 = y1 + h;
 	Sint16 x3 = x1 + (w*2);
@@ -216,7 +214,7 @@ void C_Trees::render(S_Coord screen){
 	string fileName = "trees_01_0" + to_string(imageNbr);
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
 

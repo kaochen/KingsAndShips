@@ -62,13 +62,13 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text, m_y_screen +  m_width/2 + m_y_text);
+        t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen +  m_height/2,CENTER);
         }
 }
 
  void C_MenuItem::render(){
         C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(m_image, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+		t.renderTexture(m_image, m_x_screen + m_width/2,m_y_screen+m_height/2,CENTER);
 		renderText();
   }
 
@@ -107,7 +107,7 @@ void C_Button::render(){
             }
         name += prefix;
 		C_TextureList& t=C_TextureList::Instances();
-		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height + 18);
+		t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
 }
 
 //-------------------------------------------------------------
@@ -116,7 +116,7 @@ C_MenuButton::C_MenuButton(string name,string text, int fontSize,int x_screen, i
 	:C_MenuItem(name,x_screen,y_screen){
 	setText(text, fontSize);
 	m_width = 100;
-	m_height = 100;
+	m_height = 24;
 }
 
 
@@ -124,7 +124,7 @@ void C_MenuButton::render(){
         C_Window& win=C_Window::Instances();
         Sint16 x1 = m_x_screen; //x top right
 		Sint16 y1 = m_y_screen;
-		Sint16 x2 = x1 + 100; //x bottom left
+		Sint16 x2 = x1 + m_width; //x bottom left
 		Sint16 y2 = y1 + 5;
 		Uint8 R = 0, G = 0, B = 0;
 
@@ -144,7 +144,7 @@ void C_MenuButton::render(){
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, m_x_screen + m_width/2 + m_x_text , y2 + 36);
+        t.renderTexture(m_textName, m_x_screen + m_width/2 , m_y_screen + m_height/2 + 10,CENTER);
         }
 }
 
@@ -244,7 +244,7 @@ void C_ButtonAddUnit::render(){
     if(t.searchTexture(m_textName)== nullptr){
         t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
     }
-    t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 64);
+    t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 16,CENTER);
 }
 //-------------------------------------------------------------
 

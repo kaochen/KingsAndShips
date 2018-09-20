@@ -81,7 +81,7 @@ void C_Texture::render(int x, int y, double angle, int align){
 			}
 			else if(align == CENTER_TILE){
 			pos.x = x - pos.w/2;
-			pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
+			pos.y = y - pos.h/2 - TILE_HALF_HEIGHT;
 			}
 
 			SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);

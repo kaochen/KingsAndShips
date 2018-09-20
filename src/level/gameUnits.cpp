@@ -35,7 +35,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_rank(rank),
 	m_max_health(100),
 	m_health(m_max_health),
-	m_y_center_offset(0),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
@@ -72,7 +71,7 @@ void C_GameUnits::displayStatus() const
 void C_GameUnits::render(S_Coord screen){
 	C_TextureList& t=C_TextureList::Instances();
     string fileName = imageName(ALIVE,m_direction,0);
-	t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	t.renderTexture(fileName, screen.x,screen.y);
 }
 
 void C_GameUnits::receiveDamage(S_Weapon weapon)

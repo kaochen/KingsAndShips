@@ -139,7 +139,6 @@ int C_Coord::getYScreen(){
 void C_Coord::centerOnTile(){
 	C_CoordGrid tmp(m_this.grid);
 	m_this.screen = tmp.getScreen ();
-	m_this.screen.y += TILE_HALF_HEIGHT;
 	m_this.grid = tmp.getGrid ();
 }
 
