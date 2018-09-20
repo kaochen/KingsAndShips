@@ -116,7 +116,7 @@ C_MenuButton::C_MenuButton(string name,string text, int fontSize,int x_screen, i
 	:C_MenuItem(name,x_screen,y_screen){
 	setText(text, fontSize);
 	m_width = 100;
-	m_height = 24;
+	m_height = 30;
 }
 
 
@@ -144,7 +144,7 @@ void C_MenuButton::render(){
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, m_x_screen + m_width/2 , m_y_screen + m_height/2 + 10,CENTER);
+        t.renderTexture(m_textName, m_x_screen + m_width/2 , m_y_screen + m_height*2/3,CENTER);
         }
 }
 
