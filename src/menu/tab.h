@@ -56,4 +56,10 @@ public:
   C_Tab_Settings();
 };
 
+class C_Tab_Levels : public C_Tab
+{
+public:
+  C_Tab_Levels();
+};
+
 #endif

@@ -115,3 +115,12 @@ C_Tab_Settings::C_Tab_Settings()
     m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  75);
 
 }
+
+C_Tab_Levels::C_Tab_Levels()
+    :C_Tab("Levels")
+{
+    C_Settings& settings=C_Settings::Instances();
+    string name = "Number of Levels";
+    string text = to_string(settings.getNbrOfLevels());
+    m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  50);
+}
