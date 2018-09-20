@@ -123,4 +123,8 @@ C_Tab_Levels::C_Tab_Levels()
     string name = "Number of Levels";
     string text = to_string(settings.getNbrOfLevels());
     m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  50);
+
+    name = "Card 1";
+    text = "Level 1";
+    m_itemsList[name] = new C_MB_LevelCard(name,text,m_screen.x + 10 ,m_screen.y +  75);
 }
