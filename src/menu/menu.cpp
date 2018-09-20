@@ -40,11 +40,11 @@ C_Menu::C_Menu():
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_menuItemsList["AddTower"] = new C_ButtonAddUnit("AddTower","AddTower",x_button,y_button);
+		m_menuItemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
 		y_button +=size;
-	    m_menuItemsList["AddTurbine"] = new C_ButtonAddUnit("AddTurbine","AddTurbine",x_button,y_button);
+	    m_menuItemsList["AddTurbine"] = new C_GB_AddUnit("AddTurbine","AddTurbine",x_button,y_button);
 		y_button +=size;
-		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","AddBarricade",x_button,y_button);
+		m_menuItemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
 
         updateInfos();
         popOutMenu();
@@ -108,7 +108,7 @@ void C_Menu::updateDefenderStatus(){
 
     //progress bar value
     if(m_menuItemsList["playerlife"] == nullptr){
-        m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x - 192,40);
+        m_menuItemsList["playerlife"] = new C_GP_Status("playerlife",x - 192,40);
     }
     string text = "Life: " + nbrToString(playerLife);
     if(m_menuItemsList["playerlife"] != nullptr){
@@ -127,7 +127,7 @@ void C_Menu::updateAttackerStatus(){
         		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
         }
         if(m_menuItemsList["boatLife"] == nullptr){
-		    m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
+		    m_menuItemsList["boatLife"] = new C_GP_Status("boatLife",50,40);
 		}
 		if(m_menuItemsList["boatLife"] != nullptr){
     		string text = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
@@ -145,7 +145,7 @@ void C_Menu::updateWalletStatus(){
 	}
 	//progress bar
     if(m_menuItemsList["walletBar"]== nullptr){
-		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
+		m_menuItemsList["walletBar"] = new C_GP_Status("walletBar",x - 192,100);
 		}
 	 if(m_menuItemsList["walletBar"] != nullptr){
     	string text = nbrToString(wallet.getBalance());

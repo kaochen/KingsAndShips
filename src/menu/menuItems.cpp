@@ -112,7 +112,7 @@ void C_Button::render(){
 
 //-------------------------------------------------------------
 
-C_MenuButton::C_MenuButton(string name,string text, int fontSize,int x_screen, int y_screen)
+C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen){
 	setText(text, fontSize);
 	m_width = 100;
@@ -120,7 +120,7 @@ C_MenuButton::C_MenuButton(string name,string text, int fontSize,int x_screen, i
 }
 
 
-void C_MenuButton::render(){
+void C_MB_TabSelect::render(){
         C_Window& win=C_Window::Instances();
         Sint16 x1 = m_x_screen; //x top right
 		Sint16 y1 = m_y_screen;
@@ -150,7 +150,7 @@ void C_MenuButton::render(){
 
 //-------------------------------------------------------------
 
-C_ButtonSettings::C_ButtonSettings(string name,string text,int x_screen, int y_screen)
+C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen){
 	m_fontSize = 18;
 	m_title = name;
@@ -162,7 +162,7 @@ C_ButtonSettings::C_ButtonSettings(string name,string text,int x_screen, int y_s
 }
 
 
-void C_ButtonSettings::render(){
+void C_MB_1Line::render(){
         C_Window& win=C_Window::Instances();
         Sint16 x1 = m_x_screen; //x top right
 		Sint16 y1 = m_y_screen;
@@ -202,7 +202,7 @@ void C_ButtonSettings::render(){
 
 //-------------------------------------------------------------
 
-C_ButtonAddUnit::C_ButtonAddUnit(string name,string image,int x_screen, int y_screen)
+C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 	:C_Button(name,image,x_screen,y_screen)
 {
     m_type = DRAGUNIT;
@@ -219,13 +219,13 @@ C_ButtonAddUnit::C_ButtonAddUnit(string name,string image,int x_screen, int y_sc
     m_fontSize = 9;
 }
 
-C_ButtonAddUnit::~C_ButtonAddUnit()
+C_GB_AddUnit::~C_GB_AddUnit()
 {
     if(m_unit !=nullptr)
         delete m_unit;
 }
 
-void C_ButtonAddUnit::drag(S_Coord screen){
+void C_GB_AddUnit::drag(S_Coord screen){
     bool water = false;
     if (m_unit != nullptr){
         if(m_unit->getName() == "barricade"){
@@ -235,7 +235,7 @@ void C_ButtonAddUnit::drag(S_Coord screen){
     }
 }
 
-void C_ButtonAddUnit::render(){
+void C_GB_AddUnit::render(){
     C_Wallet& wallet=C_Wallet::Instances();
     if(wallet.getBalance() < m_unit->getCost()){
         m_enable = false;
@@ -253,7 +253,7 @@ void C_ButtonAddUnit::render(){
 }
 //-------------------------------------------------------------
 
-C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
+C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
     m_type = STATUS;
@@ -265,7 +265,7 @@ C_ProgressBar::C_ProgressBar(string name,int x_screen, int y_screen)
 }
 
 
-void C_ProgressBar::setPercentage(int a, int b){
+void C_GP_Status::setPercentage(int a, int b){
     if(a != 0 && b !=0)
         m_percentage = ((100*a)/b);
     else
@@ -277,7 +277,7 @@ void C_ProgressBar::setPercentage(int a, int b){
         m_percentage = 0;
 }
 
-void C_ProgressBar::render(){
+void C_GP_Status::render(){
         C_Window& win=C_Window::Instances();
         Sint16 x1 = m_x_screen; //x top right
 		Sint16 y1 = m_y_screen;
@@ -320,7 +320,7 @@ void C_ProgressBar::render(){
 		renderText();
 }
 
-void C_ProgressBar::littledots(int x_screen, int y_screen, int width, int height){
+void C_GP_Status::littledots(int x_screen, int y_screen, int width, int height){
         C_Window& win=C_Window::Instances();
         SDL_Rect dot;
             int size = 1;

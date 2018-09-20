@@ -94,17 +94,17 @@ class C_Button: public C_MenuItem
 	virtual void render();
 };
 
-class C_MenuButton: public C_MenuItem
+class C_MB_TabSelect: public C_MenuItem /*!Button Menu one line two texts*/
 {
   public:
-  C_MenuButton(std::string name,std::string text, int fontSize, int x_screen, int y_screen);
+  C_MB_TabSelect(std::string name,std::string text, int fontSize, int x_screen, int y_screen);
   virtual void render();
 };
 
-class C_ButtonSettings: public C_MenuItem
+class C_MB_1Line: public C_MenuItem  /*!Button Menu one line two texts*/
 {
   public:
-  C_ButtonSettings(std::string name,std::string text, int x_screen, int y_screen);
+  C_MB_1Line(std::string name,std::string text, int x_screen, int y_screen);
   virtual void render();
   protected:
   std::string m_title;
@@ -112,11 +112,11 @@ class C_ButtonSettings: public C_MenuItem
   std::string m_oldTitle;
 };
 
-class C_ButtonAddUnit: public C_Button
+class C_GB_AddUnit: public C_Button /*!Game Button add a new unit on the ground*/
 {
 	public:
-  C_ButtonAddUnit(std::string name,std::string image,int x_screen, int y_screen);
-	~C_ButtonAddUnit();
+  C_GB_AddUnit(std::string name,std::string image,int x_screen, int y_screen);
+	~C_GB_AddUnit();
   virtual void drag(S_Coord screen);
   virtual void render();
 
@@ -125,10 +125,10 @@ class C_ButtonAddUnit: public C_Button
 };
 
 
-class C_ProgressBar: public C_MenuItem
+class C_GP_Status: public C_MenuItem /*!In Game Progress to show the status (Life, wallet)*/
 {
 	public:
-  C_ProgressBar(std::string name,int x_screen, int y_screen);
+  C_GP_Status(std::string name,int x_screen, int y_screen);
 	virtual void render();
   virtual void setPercentage(int percentage){m_percentage = percentage;};
   virtual void setPercentage(int a, int b);

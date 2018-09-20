@@ -35,7 +35,7 @@ C_Tab::C_Tab(string title)
     m_screen.y = (settings.getWindowHeight() - m_height)/2;
     m_tabSize = 120;
 
-    m_itemsList[m_name] = new C_MenuButton(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10 ,m_screen.y + 5);
+    m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10 ,m_screen.y + 5);
     if(m_itemsList[m_name] != nullptr){
 		    m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		        if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -108,10 +108,10 @@ C_Tab_Settings::C_Tab_Settings(string title)
     string width = to_string(settings.getWindowWidth());
     string height = to_string(settings.getWindowHeight());
     string text = width + "x" + height;
-    m_itemsList[name] = new C_ButtonSettings(name,text,m_screen.x + 10 ,m_screen.y +  50);
+    m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  50);
 
     name = "Theme";
     text =  settings.getThemePath();
-    m_itemsList[name] = new C_ButtonSettings(name,text,m_screen.x + 10 ,m_screen.y +  75);
+    m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  75);
 
 }
