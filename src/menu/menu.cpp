@@ -224,7 +224,7 @@ vector<string> C_Menu::getMenuItemsList(){
 
 void C_Menu::menuBanner(){
     m_tabs.push_back( new C_Tab("Levels"));
-    m_tabs.push_back( new C_Tab_Settings("Settings"));
+    m_tabs.push_back( new C_Tab_Settings());
     m_tabs.push_back( new C_Tab("About"));
 
     //declare buttons from tabs into the mainItemList

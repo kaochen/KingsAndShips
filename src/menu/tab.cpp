@@ -100,8 +100,8 @@ std::vector<string> C_Tab::getListOfVisibleItems(){
 	return list;
 }
 
-C_Tab_Settings::C_Tab_Settings(string title)
-    :C_Tab(title)
+C_Tab_Settings::C_Tab_Settings()
+    :C_Tab("Settings")
 {
     string name = "Resolution";
     C_Settings& settings=C_Settings::Instances();

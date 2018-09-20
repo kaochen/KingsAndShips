@@ -53,7 +53,7 @@ class C_Tab
 class C_Tab_Settings : public C_Tab
 {
 public:
-  C_Tab_Settings(std::string title);
+  C_Tab_Settings();
 };
 
 #endif
