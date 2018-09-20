@@ -44,6 +44,7 @@ class C_Window
   void gameLoop();
   void quitProgram();
   void listenButtons();
+  void loadLevel(int levelNbr);
 
 	protected:
 	void initSDL();
@@ -53,7 +54,6 @@ class C_Window
   void listenKeyboard(SDL_Event &event);
   void listenMouseMotion(SDL_Event &event);
   void listenMouseButtonUP(SDL_Event &event);
-  void loadLevel(int levelNbr);
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
 	C_Window (const C_Window&){}

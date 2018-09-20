@@ -37,3 +37,9 @@ void C_ChangeTab::action(){
     C_Menu& menu=C_Menu::Instances();
     menu.setTabNbr(m_nbr);
 }
+
+void C_LoadALevel::action(){
+    C_Window& win=C_Window::Instances();
+    win.loadLevel(m_nbr);
+}
+

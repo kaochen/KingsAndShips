@@ -124,7 +124,15 @@ C_Tab_Levels::C_Tab_Levels()
     string text = to_string(settings.getNbrOfLevels());
     m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  50);
 
-    name = "Card 1";
-    text = "Level 1";
-    m_itemsList[name] = new C_MB_LevelCard(name,text,m_screen.x + 10 ,m_screen.y +  75);
+    int j = 0;
+    for(int i = 1; i <= settings.getNbrOfLevels(); i++){
+        name = "Card_" + to_string(i);
+        text = "Level " + to_string(i);
+        cout << name << endl;
+        m_itemsList[name] = new C_MB_LevelCard(name,text,m_screen.x + 10 + j*(210),m_screen.y +  75);
+        C_LoadALevel *command = new C_LoadALevel();
+        m_itemsList[name]->setCommand(command);
+        m_itemsList[name]->getCommand()->setNbr(i);
+        j++;
+    }
 }
