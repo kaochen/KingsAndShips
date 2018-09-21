@@ -80,6 +80,22 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
         }
   }
 
+
+
+void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height){
+	    C_TextureList& t=C_TextureList::Instances();
+	    int size = 12;
+        int x = width/size + 1;
+        int y = height/size + 1;
+        for(int j = 0; j < y; j++){
+            for(int i = 0; i < x; i++){
+                t.renderTexture("icons_12px_stripes", x_screen +i*size,y_screen +j*size, LEFT);
+            }
+        }
+}
+
+
+
 //-------------------------------------------------------------
 
 C_Button::C_Button(string name,string image,int x_screen, int y_screen)
@@ -207,37 +223,41 @@ C_MB_LevelCard::C_MB_LevelCard(string name,string text,int x_screen, int y_scree
 	m_titleName = "Card_Title_" + name;
     m_text = text;
 	m_textName = "Card_Text_" + name;
-	m_width = 200;
+	m_width = 204;
 	m_height = 300;
 }
 
 void C_MB_LevelCard::render(){
     C_Window& win=C_Window::Instances();
-        Sint16 x1 = m_x_screen; //x top right
-		Sint16 y1 = m_y_screen;
-		Sint16 x2 = x1 + m_width; //x bottom left
-		Sint16 y2 = y1 + m_height;
 		Uint8 R = 0, G = 0, B = 0;
-        int zoom = 2;
-
+        int zoom = 0;
 		if(m_state == ACTIVE){
 		    R = 50; G = 50; B = 50;
-
 		}
 		else if(m_state == HOVER){
 		    R = 8; G = 63; B = 127;
-		    x1 -=zoom; y1 -=zoom; x2 +=zoom; y2 +=zoom;
+		    zoom = 6;
 		    }
+
+        Sint16 x1 = m_x_screen -zoom; //x top right
+		Sint16 y1 = m_y_screen -zoom;
+		Sint16 x2 = x1 + m_width + 2*zoom; //x bottom left
+		Sint16 y2 = y1 + m_height + 2*zoom;
 
     	boxRGBA(win.getRenderer(),x1,y1,x2,y2,50,50,50,100);
     	boxRGBA(win.getRenderer(),x1,y1,x2,y1+50,R,G,B,255);
     	boxRGBA(win.getRenderer(),x1,y1+250,x2,y2,R,G,B,255);
 
+        int width = x2 - x1;
+        int height = y2 - y1;
+        stripes(x1, y1, width, height);
+
     	C_TextureList& t=C_TextureList::Instances();
         if(t.searchTexture(m_textName)== nullptr){
              t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
         }
-        t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + 25,CENTER);
+        t.renderTexture(m_textName, x1 + width/2, y1 + 25,CENTER);
+
 }
 
 //-------------------------------------------------------------
