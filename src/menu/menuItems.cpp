@@ -94,6 +94,19 @@ void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height){
         }
 }
 
+void C_MenuItem::corners(int x_screen, int y_screen, int width, int height, bool big){
+	    C_TextureList& t=C_TextureList::Instances();
+	    int size = 12/2;
+	    string name = "icons_12px_corner_small";
+	    if(big)
+	    name = "icons_12px_corner_big";
+        t.renderTextureEx(name, x_screen + width - size,y_screen + size,0.0, CENTER); //top left
+        t.renderTextureEx(name, x_screen + width - size,y_screen + height - size,90.0, CENTER); //bottom left
+        t.renderTextureEx(name, x_screen + size ,y_screen + height - size,180.0, CENTER); //bottom right
+        t.renderTextureEx(name, x_screen + size,y_screen + size,270.0, CENTER); //top right
+
+}
+
 
 
 //-------------------------------------------------------------
@@ -231,12 +244,14 @@ void C_MB_LevelCard::render(){
     C_Window& win=C_Window::Instances();
 		Uint8 R = 0, G = 0, B = 0;
         int zoom = 0;
+        bool big = false;
 		if(m_state == ACTIVE){
 		    R = 50; G = 50; B = 50;
 		}
 		else if(m_state == HOVER){
 		    R = 8; G = 63; B = 127;
 		    zoom = 6;
+		    big = true;
 		    }
 
         Sint16 x1 = m_x_screen -zoom; //x top right
@@ -251,6 +266,7 @@ void C_MB_LevelCard::render(){
         int width = x2 - x1;
         int height = y2 - y1;
         stripes(x1, y1, width, height);
+        corners(x1, y1, width, height, big);
 
     	C_TextureList& t=C_TextureList::Instances();
         if(t.searchTexture(m_textName)== nullptr){
