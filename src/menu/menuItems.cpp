@@ -85,11 +85,11 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height){
 	    C_TextureList& t=C_TextureList::Instances();
 	    int size = 12;
-        int x = width/size + 1;
-        int y = height/size + 1;
+        int x = width/size;
+        int y = height/size;
         for(int j = 0; j < y; j++){
             for(int i = 0; i < x; i++){
-                t.renderTexture("icons_12px_stripes", x_screen +i*size,y_screen +j*size, LEFT);
+                t.renderTexture("icons_12px_stripes", x_screen +i*size,y_screen +(j)*size + size/2, LEFT);
             }
         }
 }
