@@ -84,7 +84,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 
 void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height){
 	    C_TextureList& t=C_TextureList::Instances();
-	    int size = 12;
+	    int size = 6;
         int x = width/size;
         int y = height/size;
         for(int j = 0; j < y; j++){
@@ -186,28 +186,33 @@ C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	m_titleName = "Settings_Title_" + name;
     m_text = text;
 	m_textName = "Settings_Text_" + name;
-	m_width = 400;
-	m_height = 20;
+	m_width = 408;
+	m_height = 24;
 }
 
 
 void C_MB_1Line::render(){
         C_Window& win=C_Window::Instances();
-        Sint16 x1 = m_x_screen; //x top right
-		Sint16 y1 = m_y_screen;
-		Sint16 x2 = x1 + m_width; //x bottom left
-		Sint16 y2 = y1 + m_height;
-		Uint8 R = 0, G = 0, B = 0;
-
+        Uint8 R = 0, G = 0, B = 0;
+        int zoom = 0;
 		if(m_state == ACTIVE){
 		    R = 50; G = 50; B = 50;
-    		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 		}
 		else if(m_state == HOVER){
 		    R = 8; G = 63; B = 127;
-    		boxRGBA(win.getRenderer(),x1-2,y1-2,x2+2,y2+2,R,G,B,255);
+		    zoom = 3;
 		    }
 
+        Sint16 x1 = m_x_screen -zoom; //x top right
+		Sint16 y1 = m_y_screen -zoom;
+		Sint16 x2 = x1 + m_width + 2*zoom; //x bottom left
+		Sint16 y2 = y1 + m_height + 2*zoom;
+
+    	boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
+
+        int width = x2 - x1;
+        int height = y2 - y1;
+        stripes(x1, y1, width, height);
 
         C_TextureList& t=C_TextureList::Instances();
         if(m_title !=""){
@@ -215,7 +220,7 @@ void C_MB_1Line::render(){
                 t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
                 m_oldTitle = m_title;
             }
-        t.renderTexture(m_titleName, x1+2, y1 + m_height/2, LEFT);
+        t.renderTexture(m_titleName, x1+2, y1 + height/2, LEFT);
         }
 
 		if(m_text !=""){
@@ -223,7 +228,7 @@ void C_MB_1Line::render(){
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, x2-2, y1 + m_height/2, RIGHT);
+        t.renderTexture(m_textName, x2-2, y1 + height/2, RIGHT);
         }
 }
 

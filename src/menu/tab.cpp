@@ -113,7 +113,7 @@ C_Tab_Settings::C_Tab_Settings()
 
     name = "Theme";
     text =  settings.getThemePath();
-    m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  75);
+    m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10 ,m_screen.y +  80);
 
 }
 
@@ -130,7 +130,7 @@ C_Tab_Levels::C_Tab_Levels()
         name = "Card_" + to_string(i);
         text = "Level " + to_string(i);
         cout << name << endl;
-        m_itemsList[name] = new C_MB_LevelCard(name,text,m_screen.x + 10 + j*(230),m_screen.y +  90);
+        m_itemsList[name] = new C_MB_LevelCard(name,text,m_screen.x + 10 + j*(230),m_screen.y +  100);
         C_LoadALevel *command = new C_LoadALevel();
         m_itemsList[name]->setCommand(command);
         m_itemsList[name]->getCommand()->setNbr(i);
