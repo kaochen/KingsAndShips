@@ -154,18 +154,20 @@ void C_MB_TabSelect::render(){
         Sint16 x1 = m_x_screen; //x top right
 		Sint16 y1 = m_y_screen;
 		Sint16 x2 = x1 + m_width; //x bottom left
-		Sint16 y2 = y1 + 5;
+		Sint16 y2 = y1 + 3;
 		Uint8 R = 0, G = 0, B = 0;
 
         //top
-		if(m_state == ACTIVE){R = 8; G = 63; B = 127;}
+        if(m_state == ACTIVE){R = 8; G = 63; B = 127;}
 		else if(m_state == HOVER){R = 16; G = 126; B = 255;}
 		boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 
         //bottom
-        y1 = y2 + 5;
-        y2 = y1 + 20;
-		boxRGBA(win.getRenderer(),x1,y1,x2,y2,200,200,200,50);
+        y1 = y2 + 2;
+        y2 = y1 + 25;
+        boxRGBA(win.getRenderer(),x1,y1,x2,y2,200,200,200,50);
+
+        stripes(x1, y1, m_width, m_height);
 
         C_TextureList& t=C_TextureList::Instances();
 		if(m_text !=""){
@@ -173,7 +175,7 @@ void C_MB_TabSelect::render(){
                 t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
                 m_oldText = m_text;
             }
-        t.renderTexture(m_textName, m_x_screen + m_width/2 , m_y_screen + m_height*2/3,CENTER);
+        t.renderTexture(m_textName, m_x_screen + m_width/2 , m_y_screen + m_height/2,CENTER);
         }
 }
 
