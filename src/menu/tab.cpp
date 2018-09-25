@@ -72,6 +72,9 @@ void C_Tab::focusTab(size_t nbr){
 
 		Sint16 xSep = m_screen.x + 20;
 		drawAseparator(xSep,m_screen.y + 40,m_width - 40);
+
+		drawBackgroundGrid(x1, y1, m_width, m_height);
+
 }
 
 void C_Tab::drawAseparator(Sint16 x, Sint16 y, Sint16 width){
@@ -91,6 +94,19 @@ void C_Tab::drawAseparator(Sint16 x, Sint16 y, Sint16 width){
         C_Window& win=C_Window::Instances();
     	SDL_Renderer * renderer = win.getRenderer();
 		filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
+}
+
+
+void C_Tab::drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height){
+        Sint16 x1 = x;
+        Sint16 y1 = y;
+        Sint16 y2 = y1 + height;
+        C_Window& win=C_Window::Instances();
+        for(int i = 0; i < width/20; i++){
+            x1 +=20;
+            Sint16 x2 = x1 + 1;
+    	    boxRGBA(win.getRenderer(),x1,y1,x2,y2,100,100,100,20);
+    	}
 }
 
 std::vector<string> C_Tab::getListOfVisibleItems(){

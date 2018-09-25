@@ -38,6 +38,7 @@ class C_Tab
   protected:
   virtual void focusTab(size_t nbr);
   virtual void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
+  virtual void drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height);
 
 	protected:
   static int m_id;
