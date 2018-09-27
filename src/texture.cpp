@@ -61,14 +61,31 @@ void C_Texture::displayStatus(){
     m.printM("Tileset Name: " + m_name +  " " + "\n");
 }
 
-void C_Texture::render(int x, int y, double angle){
+void C_Texture::render(int x, int y, double angle, int align){
     C_Window& win=C_Window::Instances();
 	C_Settings& settings=C_Settings::Instances();
     if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())){
 			SDL_Rect pos;
 			SDL_QueryTexture(m_texture, NULL, NULL, &pos.w, &pos.h);
+			if(align == CENTER){
+			    pos.x = x - pos.w/2;
+			    pos.y = y - pos.h/2;
+			    }
+			else if(align == LEFT){
+			pos.x = x;
+			pos.y = y - pos.h/2;
+			}
+			else if(align == RIGHT){
+			pos.x = x - pos.w;
+			pos.y = y - pos.h/2;
+			}
+			else if(align == CENTER_TILE){
 			pos.x = x - pos.w/2;
-			pos.y = y - pos.h/2 - (TILE_HALF_HEIGHT*2);
+			int i = 1;
+			if(pos.h > 128){i = 2;}
+			pos.y = y - pos.h/2 - i*TILE_HALF_HEIGHT;
+			}
+
 			SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 			}
 }
@@ -249,10 +266,15 @@ C_TextureList& C_TextureList::Instances()
 
 
 void C_TextureList::renderTexture(string name, int x, int y){
-	renderTextureEx(name, x,y,0.0);
+	renderTextureEx(name, x,y,0.0,CENTER_TILE);
 }
 
-void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
+void C_TextureList::renderTexture(string name, int x, int y,int align){
+	renderTextureEx(name, x,y,0.0,align);
+}
+
+
+void C_TextureList::renderTextureEx(string name, int x, int y, double angle, int align)
 {
 	if(name != ""){
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
@@ -260,7 +282,7 @@ void C_TextureList::renderTextureEx(string name, int x, int y, double angle)
 			cout << "\""<< name << "\" not available in the texture map (renderTextureEx)" << endl;
 		}
 		else{
-			m_map_textures[name]->render(x,y,angle);
+			m_map_textures[name]->render(x,y,angle,align);
 		}
 	}
 }

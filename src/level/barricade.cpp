@@ -42,7 +42,7 @@ void C_Barricade::render(S_Coord screen){
 	    string fileName = m_name+"_"+to_string(m_rank)+"_A_" + to_string(imageNbr);
 	    //cout << "image name is "<< fileName << endl;
 	    C_TextureList& t=C_TextureList::Instances();
-	    t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
-	    renderLifeBar(screen.x, screen.y+36);
+	    t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	    renderLifeBar(screen.x, screen.y);
 	}
 }

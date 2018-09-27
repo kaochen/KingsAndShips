@@ -41,7 +41,6 @@ C_Boat::C_Boat(int x_grid,
 	m_C_Path = new C_Path(town.x,town.y);
 	m_C_Path->calcPath(x_grid,y_grid,town.x,town.y);
 	m_C_Path->showPath();
-	m_y_center_offset = 18;
 	m_direction = EAST;
 	m_animDirection = new C_AnimTime();
 	m_countStop = 0;
@@ -164,7 +163,7 @@ void C_Boat::render(S_Coord screen){
 	     status = ALIVE;
 	    if (m_weapon->getShooting())
 		    m_weapon->render();
-	    renderLifeBar(screen.x, screen.y + m_y_center_offset);
+	    renderLifeBar(screen.x, screen.y);
         m_C_Path->displayPath();
 	    }
 	else {
@@ -172,7 +171,7 @@ void C_Boat::render(S_Coord screen){
 	        imageNbr = 0;
 	     }
     string fileName = imageName(status,m_direction,imageNbr);
-    t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+    t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
 

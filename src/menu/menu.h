@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <map>
 #include <string>
+#include <vector>
 #include "menuItems.h"
-#include "level/level.h"
+#include "../level/level.h"
+#include "tab.h"
 
 
 class C_Menu
@@ -38,6 +40,8 @@ class C_Menu
   //commands
   void openBottomMenu();
   void displayBottomMenu();
+  std::vector<std::string> getMenuItemsList();
+  void setTabNbr(int nbr);
   protected:
   void updateDefenderStatus(); /*!Create or update defender informations*/
   void updateAttackerStatus(); /*!Create or update attacker informations*/
@@ -51,11 +55,15 @@ class C_Menu
 	C_Menu();
 	~C_Menu();
   void popOutMenu();
+  void menuBanner();
+  std::string tabName(int nbr){ return "tab" + std::to_string(nbr) + "_Flag";};
   //information to display
   int m_current_wave;
   int m_total_waves;
   bool m_bottomMenuOpen;
   std::map<std::string, C_MenuItem*> m_menuItemsList;
+  std::vector<C_Tab *> m_tabs;
+  int m_currentTab;
 };
 
 #endif

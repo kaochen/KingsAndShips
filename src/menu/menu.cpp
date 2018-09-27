@@ -18,11 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Display all the menuItems in one menu on top of the game
 
 #include "menu.h"
-#include "message.h"
-#include "window.h"
-#include "settings.h"
-#include "wallet.h"
-#include "level/grid.h"
+#include "tab.h"
+#include "../message.h"
+#include "../window.h"
+#include "../settings.h"
+#include "../wallet.h"
+#include "../level/grid.h"
 #include <SDL2_gfxPrimitives.h>
 
 using namespace std;
@@ -39,14 +40,15 @@ C_Menu::C_Menu():
 		int x_button = settings.getWindowWidth() - size;
 		int y_button = settings.getWindowHeight()/2 - size;
 		//left buttons
-		m_menuItemsList["AddTower"] = new C_ButtonAddUnit("AddTower","Buttons_AddTower",x_button,y_button);
+		m_menuItemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
 		y_button +=size;
-	    m_menuItemsList["AddTurbine"] = new C_ButtonAddUnit("AddTurbine","Buttons_AddTurbine",x_button,y_button);
+	    m_menuItemsList["AddTurbine"] = new C_GB_AddUnit("AddTurbine","AddTurbine",x_button,y_button);
 		y_button +=size;
-		m_menuItemsList["AddBarricade"] = new C_ButtonAddUnit("AddBarricade","Buttons_AddBarricade",x_button,y_button);
+		m_menuItemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
 
         updateInfos();
         popOutMenu();
+        menuBanner();
 }
 
 C_Menu::~C_Menu(){
@@ -65,17 +67,18 @@ void C_Menu::updateInfos(){
 
 void C_Menu::render(){
     displayBottomMenu();
-
+    vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
-	for(int i = BACK; i <= FRONT; i++){
-	    for(auto& x : m_menuItemsList){
-	        if(x.second != nullptr){
-	            if(x.second->getLayer() == i){
-		            x.second->render();
+	for(int j = BACK; j <= FRONT; j++){
+	    for(size_t i = 0; i < list.size(); i++){
+                C_MenuItem * b = getMenuItem(list[i]);
+	            if( b != nullptr){
+	                if(b->getLayer() == j){
+		                b->render();
+		            }
 		        }
 		    }
 	    }
-	}
 }
 
 
@@ -105,7 +108,7 @@ void C_Menu::updateDefenderStatus(){
 
     //progress bar value
     if(m_menuItemsList["playerlife"] == nullptr){
-        m_menuItemsList["playerlife"] = new C_ProgressBar("playerlife",x - 192,40);
+        m_menuItemsList["playerlife"] = new C_GP_Status("playerlife",x - 192,40);
     }
     string text = "Life: " + nbrToString(playerLife);
     if(m_menuItemsList["playerlife"] != nullptr){
@@ -124,7 +127,7 @@ void C_Menu::updateAttackerStatus(){
         		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
         }
         if(m_menuItemsList["boatLife"] == nullptr){
-		    m_menuItemsList["boatLife"] = new C_ProgressBar("boatLife",50,40);
+		    m_menuItemsList["boatLife"] = new C_GP_Status("boatLife",50,40);
 		}
 		if(m_menuItemsList["boatLife"] != nullptr){
     		string text = "Wave " + to_string(m_total_waves - m_current_wave +1) + "/" + to_string(m_total_waves);
@@ -137,12 +140,15 @@ void C_Menu::updateWalletStatus(){
     C_Settings& settings=C_Settings::Instances();
 	int x = settings.getWindowWidth();
 	C_Wallet& wallet=C_Wallet::Instances();
+    if(m_menuItemsList["gold_pile"] == nullptr){
+	    m_menuItemsList["gold_pile"] = new C_MenuItem("gold_pile",x - 236,58);
+	}
 	//progress bar
     if(m_menuItemsList["walletBar"]== nullptr){
-		m_menuItemsList["walletBar"] = new C_ProgressBar("walletBar",x - 192,100);
+		m_menuItemsList["walletBar"] = new C_GP_Status("walletBar",x - 192,100);
 		}
 	 if(m_menuItemsList["walletBar"] != nullptr){
-    	string text = "Gold: " + nbrToString(wallet.getBalance());
+    	string text = nbrToString(wallet.getBalance());
         m_menuItemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
         m_menuItemsList["walletBar"]->setText(text, 18);
     }
@@ -164,7 +170,7 @@ void C_Menu::popOutMenu(){
         C_Settings& settings=C_Settings::Instances();
         int y = settings.getWindowHeight() - 64 - 20;
         if(m_menuItemsList["popOutMenu"] == nullptr){
-		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","Buttons_Menu",20,y);
+		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","popOutMenu",20,y);
 		    C_OpenMenu *om = new C_OpenMenu();
             m_menuItemsList["popOutMenu"]->setCommand(om);
 		}
@@ -180,20 +186,58 @@ void C_Menu::openBottomMenu(){
 
 
 void C_Menu::displayBottomMenu(){
-    if(m_bottomMenuOpen){
-        C_Settings& settings=C_Settings::Instances();
-        int height = settings.getWindowHeight()/3;
-        int width = settings.getWindowWidth();
-        int angle = 10;
-        Sint16 x1 = 0; //x top left
-		Sint16 y1 = settings.getWindowHeight() - height;
-		Sint16 x2 = x1 + width; //x bottom right
-		Sint16 y2 = settings.getWindowHeight() + angle;
-		Uint8 R = 0, G = 0, B = 0, A = 150;
+    m_tabs[0]->displayTab(m_bottomMenuOpen, m_currentTab);
+}
 
-		//background
-        C_Window& win=C_Window::Instances();
-		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
+
+vector<string> C_Menu::getMenuItemsList(){
+    vector<string> list;
+    //Always Visible
+    list.push_back("Characters_lion");
+    list.push_back("boatLife");
+    list.push_back("Characters_fox");
+    list.push_back("playerlife");
+    list.push_back("gold_pile");
+    list.push_back("walletBar");
+    list.push_back("popOutMenu");
+
+
+    if(m_bottomMenuOpen){
+        //get tab selector buttons
+        for (size_t i = 0; i < m_tabs.size() ; i++){
+            list.push_back(m_tabs[i]->getName());
+        }
+        //get the list of active button from the selected tab
+        vector<string> tmp = m_tabs[m_currentTab]->getListOfVisibleItems();
+        list.insert(list.end(), tmp.begin(), tmp.end());
+
     }
+    else{
+        list.push_back("AddTower");
+        list.push_back("AddTurbine");
+        list.push_back("AddBarricade");
+    }
+
+    return list;
+}
+
+
+void C_Menu::menuBanner(){
+    m_tabs.push_back( new C_Tab_Levels());
+    m_tabs.push_back( new C_Tab_Settings());
+    m_tabs.push_back( new C_Tab("About"));
+
+    //declare buttons from tabs into the mainItemList
+    for (size_t i = 0; i < m_tabs.size() ; i++){
+            std::map<std::string, C_MenuItem*> tabItems;
+            tabItems = m_tabs[i]->getItemList();
+            m_menuItemsList.insert(tabItems.begin(),tabItems.end());
+        }
+    setTabNbr(0); //set the focus on the first tab
+}
+
+void C_Menu::setTabNbr(int nbr){
+    m_currentTab = nbr;
+
 }
 

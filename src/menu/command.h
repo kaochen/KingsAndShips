@@ -30,6 +30,9 @@ public:
   C_Command(){};
   virtual ~C_Command(){};
   virtual void action() = 0;
+  virtual void setNbr(int nbr){m_nbr = nbr;};
+protected:
+  int m_nbr;
 };
 
 class C_OpenMenu : public C_Command
@@ -40,4 +43,15 @@ public:
   virtual void action();
 };
 
+class C_ChangeTab : public C_Command
+{
+public:
+  virtual void action();
+};
+
+class C_LoadALevel : public C_Command
+{
+public:
+  virtual void action();
+};
 #endif

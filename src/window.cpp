@@ -20,7 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 
 #include "texture.h"
-#include "menu.h"
+#include "menu/menu.h"
+#include "menu/command.h"
 #include "message.h"
 #include "wallet.h"
 #include "level/grid.h"
@@ -293,45 +294,48 @@ void C_Window::listenButtons(){
     C_Menu& menu=C_Menu::Instances();
 
 	C_MenuItem* menuButton;
-    string list[4] = {"AddTower","AddTurbine","AddBarricade","popOutMenu"};
-	for (int i = 0; i < 4; i++){
-		menuButton = menu.getMenuItem(list[i]);
-        int type = menuButton->getType();
-		if(type != STATUS){
-			int xl = menuButton->getXScreen();
-			int xr = xl + menuButton->getWidth();
-			int yt= menuButton->getYScreen();
-			int yb = yt + menuButton->getHeight();
+	vector <string> list;
+	list = menu.getMenuItemsList();
+	for (size_t i = 0; i < list.size(); i++){
+	    menuButton = menu.getMenuItem(list[i]);
+		if(menuButton != nullptr){
+            int type = menuButton->getType();
+		    if(type != STATUS){
+			    int xl = menuButton->getXScreen();
+			    int xr = xl + menuButton->getWidth();
+			    int yt= menuButton->getYScreen();
+			    int yb = yt + menuButton->getHeight();
 
-    		string name = menuButton->getName();
-			if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
-			    if(menuButton->getEnable()== true){
-			        if( type == DRAGUNIT){
-					    menuButton->drag(m_cursor);
-					    m_addingAnewTower = true;
-					}
-					if( type == ACTION){
-					    menuButton->action();
+        		string name = menuButton->getName();
+			    if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb){
+			        if(menuButton->getEnable()== true){
+			            if( type == DRAGUNIT){
+					        menuButton->drag(m_cursor);
+					        m_addingAnewTower = true;
+					    }
+					    if( type == ACTION){
+					        menuButton->action();
+					        m_clic.x = m_clic.y = 0;
+					    }
+					    m_buttonType = name;
+				    }
+				    else{
+					    if(menuButton->getType() == DRAGUNIT){
+					        m_addingAnewTower = false;
+					    }
+					    m_buttonType = "";
 					    m_clic.x = m_clic.y = 0;
-					}
-					m_buttonType = name;
-				}
-				else{
-					if(menuButton->getType() == DRAGUNIT){
-					    m_addingAnewTower = false;
-					}
-					m_buttonType = "";
-					m_clic.x = m_clic.y = 0;
-				}
-	 		}
-	 		//mouse Over
-	 		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
-                        menuButton->setState(HOVER);
-	 		}
-	 		else{
-					    menuButton->setState(ACTIVE);
-			}
- 		}
+				    }
+	     		}
+	     		//mouse Over
+	     		if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb){
+                            menuButton->setState(HOVER);
+	     		}
+	     		else{
+					        menuButton->setState(ACTIVE);
+			    }
+     		}
+     	}
  	}
 
 }
@@ -347,6 +351,13 @@ void C_Window::listenKeyboard(SDL_Event &event){
 			    case SDLK_l:
 			        loadLevel(m_levelNbr +1);
 				    break;
+				case SDLK_m:
+				{
+				    C_OpenMenu openMenu;
+				    openMenu.action();
+				}
+				    break;
+
 			    case SDLK_n:
 				    m_level->sendNextWave();
 				    break;

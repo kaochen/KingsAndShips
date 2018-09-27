@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../wallet.h"
 #include "../message.h"
-#include "../menu.h"
+#include "../menu/menu.h"
 
 using namespace std;
 

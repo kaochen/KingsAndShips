@@ -17,16 +17,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "command.h"
-#include "message.h"
+#include "../message.h"
 #include <SDL2/SDL.h>
-#include "window.h"
+#include "../window.h"
 #include "menu.h"
 
 using namespace std;
 
 void C_OpenMenu::action(){
     C_Message m;
-    m.printM("Send an openMenu action");
+    m.printM("Send an openMenu action\n");
     C_Menu& menu=C_Menu::Instances();
     menu.openBottomMenu();
 }
+
+void C_ChangeTab::action(){
+    C_Message m;
+    m.printM("Send an ChangeTab action\n");
+    C_Menu& menu=C_Menu::Instances();
+    menu.setTabNbr(m_nbr);
+}
+
+void C_LoadALevel::action(){
+    C_Window& win=C_Window::Instances();
+    win.loadLevel(m_nbr);
+}
+

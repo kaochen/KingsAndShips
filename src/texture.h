@@ -40,7 +40,7 @@ public:
 	virtual SDL_Texture* getTexture();
 	virtual void destroyTexture();
 	virtual void displayStatus();
-  virtual void render(int x, int y, double angle);
+  virtual void render(int x, int y, double angle, int align);
 
 	virtual int getId() = 0;
 	virtual void loadTexture(std::string &path) = 0;
@@ -96,7 +96,8 @@ class C_TextureList
 public:
 	static	C_TextureList& Instances();
 	void renderTexture(std::string name, int x, int y);
-	void renderTextureEx(std::string name, int x, int y, double angle);
+  void renderTexture(std::string name, int x, int y,int align);
+	void renderTextureEx(std::string name, int x, int y, double angle, int align);
   C_Texture* searchTexture(std::string name);
 	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();

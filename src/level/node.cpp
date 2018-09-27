@@ -196,7 +196,7 @@ void C_Node::highlight(){
 	int R = 200, G = 200, B = 200, A = 100;
 	int x_screen = m_coord->getXScreen ();
 	int y_screen = m_coord->getYScreen ();
-	filledEllipseRGBA(renderer,x_screen, y_screen+ 14 ,10,5,R,G,B,A);
+	filledEllipseRGBA(renderer,x_screen, y_screen ,10,5,R,G,B,A);
 }
 
 void C_Node::prepareRender(){

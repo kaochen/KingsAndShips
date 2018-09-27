@@ -46,7 +46,7 @@ void C_Towers::renderSmoke(){
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, m_coord->getXScreen (),m_coord->getYScreen () + 36);
+	t.renderTexture(fileName, m_coord->getXScreen (),m_coord->getYScreen ());
 	if (imageNbr == 7)
 		m_justAdded = false;
 }
@@ -110,7 +110,7 @@ void C_Turbine::render(S_Coord screen){
 
 	    string fileName = imageName(ALIVE,current.direction,imageNbr);
 	    C_TextureList& t=C_TextureList::Instances();
-	    t.renderTexture(fileName, screen.x,screen.y + m_y_center_offset);
+	    t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 
 	    if (m_justAdded)
 		    renderSmoke();
