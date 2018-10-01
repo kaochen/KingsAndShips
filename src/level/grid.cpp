@@ -194,6 +194,19 @@ bool C_Grid::waterway(int x_grid, int y_grid){
 	return waterway;
 }
 
+bool C_Grid::testBarricade(int x_grid, int y_grid){
+    bool barricade = false;
+
+    if(m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+        string str = m_vgrid[x_grid][y_grid].get(FIELD)->getName();
+        if(str.find("barricade") != std::string::npos)
+	        barricade = true;
+	    else
+	        barricade = false;
+	}
+	return barricade;
+}
+
 bool C_Grid::isThisConstructible(S_Coord grid){
 	if ( waterway(grid.x, grid.y)){
 		return false;

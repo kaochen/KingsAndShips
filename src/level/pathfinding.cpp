@@ -37,6 +37,10 @@ C_Path::C_Path(int x_dest, int y_dest)
 			        block = false;
 		    }
 	        C_Node z(x,y,block);
+	        if(grid.testBarricade(x,y)){
+	            z.setBarricade(true);
+	            //cout << "Barricade in : " << x << ":" << y << endl;
+	        }
             line.push_back(z);
 	    }
 	    m_vgridNode.push_back(line);
@@ -328,7 +332,9 @@ void C_Path::calcG_Around(C_Node *current){
 
 //Help to turn around a corner
 bool C_Path::crossACorner(int x_from, int y_from, int x_dest, int y_dest){
-    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock())
+    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock() ||
+    m_vgridNode[x_from][y_dest].getBarricade()||m_vgridNode[x_dest][y_from].getBarricade())
+
         return true;
     else
         return false;

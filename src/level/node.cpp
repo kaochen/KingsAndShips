@@ -34,6 +34,7 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	coo.y = y_grid;
 	m_coord = new C_CoordGrid(coo);
 	setBlock(block);
+	m_barricade = false;
 	m_G = 0;
 	m_H = 0;
 	m_F = m_G + m_H;
