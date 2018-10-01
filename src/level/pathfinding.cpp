@@ -332,9 +332,7 @@ void C_Path::calcG_Around(C_Node *current){
 
 //Help to turn around a corner
 bool C_Path::crossACorner(int x_from, int y_from, int x_dest, int y_dest){
-    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock() ||
-    m_vgridNode[x_from][y_dest].getBarricade()||m_vgridNode[x_dest][y_from].getBarricade())
-
+    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock() )
         return true;
     else
         return false;
