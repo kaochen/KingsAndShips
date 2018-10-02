@@ -45,7 +45,7 @@ C_Window::C_Window()
     m_level = new C_Level;
     m_levelNbr = settings.getCurrentLevelNbr();
 
-    m_landscape = new C_Landscape();
+
 
     m_buttonType = "";
     m_cursor.x = m_cursor.y = 1;
@@ -60,7 +60,6 @@ C_Window::C_Window()
 
 C_Window::~C_Window(){
     delete m_level;
-    delete m_landscape;
 }
 
 
@@ -209,7 +208,6 @@ void C_Window::gameLoop(){
 	C_Time& time=C_Time::Instances();
     C_Grid& grid=C_Grid::Instances();
 	C_Menu& menu=C_Menu::Instances();
-	grid.displayStatus();
 
     //load the first level
     loadLevel(m_levelNbr);
@@ -229,10 +227,7 @@ void C_Window::gameLoop(){
 	        if (m_forceRefresh){
 
 		        //display game content from bottom to top
-                m_landscape->render();
-		        grid.renderLayer (GRAVEYARD);
-		        grid.renderLayer (GROUND);
-		        grid.renderLayer (FIELD);
+                m_level->render();
 
                 listenButtons();
                 menu.updateInfos();

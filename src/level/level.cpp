@@ -47,11 +47,13 @@ C_Level::C_Level():
 	m_decorLayer.data="";
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
+	m_landscape = new C_Landscape();
 }
 
 
 C_Level::~C_Level()
 {
+    delete m_landscape;
 }
 
 void C_Level::cliStatus(){
@@ -311,6 +313,13 @@ int C_Level::countAttributes(string tmx_File_Path, string pattern){
     return c;
 }
 
+void C_Level::render(){
+    C_Grid& grid=C_Grid::Instances();
+    m_landscape->render();
+	grid.renderLayer (GRAVEYARD);
+	grid.renderLayer (GROUND);
+	grid.renderLayer (FIELD);
+}
 
 //______________________________Waves_____________________________//
 
