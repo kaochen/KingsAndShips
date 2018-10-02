@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <list>
 #include <vector>
 
+#include "../coord.h"
 
 
 struct S_boat{
@@ -79,7 +80,7 @@ class C_Level
   void loadWave(std::string tmx_File_Path, int waveNbr);
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
   int countAttributes(std::string tmx_File_Path, std::string pattern);
-
+  S_Coord getFirstTile(S_tmxLayer &layer);
 
 	//attibutes
 	std::string m_name;

@@ -159,21 +159,36 @@ void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
 	C_Grid& grid=C_Grid::Instances();
 	m_groundLayer = extractTMXfile(tmx_File_Path,"Ground");
     string data = m_groundLayer.data;
-
-	for (int y = 0; y < m_groundLayer.height; y++){
-		for (int x = 0; x < m_groundLayer.width; x++){
+    S_Coord start = getFirstTile(m_groundLayer);
+	for (int y = start.y; y < m_groundLayer.height; y++){
+		for (int x = start.x; x < m_groundLayer.width; x++){
 				string extract = data;
 				int mark = extract.find_first_of(',');
 				if (mark > 0)
 					extract.resize(mark,'C');
 				int nbr = stoi(extract);
 				//cout << nbr;
+				if(nbr == 0){nbr = 27;}; //FIXME water is not the 0 but the 27 in the tileset
 				grid.setGround(x,y,nbr);
 
 				//cout << extract <<":";
 				data = data.substr(mark + 1);
 		}
 	}
+}
+
+S_Coord C_Level::getFirstTile(S_tmxLayer &layer){
+    C_Grid& grid=C_Grid::Instances();
+    int x = 0; int y = 0;
+    if(grid.size()-layer.width>1){
+        x = (grid.size()-layer.width)/2;
+        }
+    if(grid.size()-layer.height>1){
+        y = (grid.size()-layer.height)/2;
+        }
+    S_Coord first{x,y};
+    cout << "first " << x << ":" << y << "-----------------------------------------"<< endl;
+    return first;
 }
 
 void C_Level::loadWave(string tmx_File_Path, int waveNbr){
@@ -239,9 +254,9 @@ void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
 	C_Grid& grid=C_Grid::Instances();
 	m_decorLayer = extractTMXfile(tmx_File_Path,"Decors");
     string data = m_decorLayer.data;
-
-	for (int y = 0; y < m_decorLayer.height; y++){
-		for (int x = 0; x < m_decorLayer.width; x++){
+    S_Coord start = getFirstTile(m_decorLayer);
+	for (int y = start.y; y < m_decorLayer.height; y++){
+		for (int x = start.x; x < m_decorLayer.width; x++){
 				string extract = data;
 				int mark = extract.find_first_of(',');
 				if (mark > 0)
