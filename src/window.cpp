@@ -408,25 +408,17 @@ void C_Window::listenMouseMotion(SDL_Event &event){
 }
 
 void C_Window::listenMouseButtonUP(SDL_Event &event){
-        C_Grid& grid=C_Grid::Instances();
 			    if (event.button.button ==  SDL_BUTTON_LEFT)
 				    {
 					    m_clic.x = event.button.x;
 					    m_clic.y = event.button.y;
-					    C_CoordScreen clicleft(m_clic);
 
 					    //Select or add a new Tower
 					    if(m_addingAnewTower == true){
-						    if(grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0) == EXIT_SUCCESS){
-						        C_GameUnits * tmp = grid.getUnits(clicleft.getXGrid (),clicleft.getYGrid ());
-						        if(tmp != nullptr){
-						            C_Wallet& wallet=C_Wallet::Instances();
-						            wallet.debit(tmp->getCost());
-						            wallet.cliStatus();
-						        }
-						        }
+	                        m_level->addUnit(m_buttonType, m_clic);
 						    m_addingAnewTower = false;
 						}
+						C_CoordScreen clicleft(m_clic);
 						m_aTowerIsSelected = m_level->selectATower(clicleft);
 
 

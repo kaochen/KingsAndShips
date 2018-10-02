@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../wallet.h"
 #include "../message.h"
 #include "../menu/menu.h"
+#include "../coord.h"
 
 using namespace std;
 
@@ -330,6 +331,20 @@ bool C_Level::selectATower(C_Coord clic){
     C_Grid& grid=C_Grid::Instances();
     return grid.selectATower(clic);
 }
+
+void C_Level::addUnit(string &type, S_Coord clic){
+    C_Grid& grid=C_Grid::Instances();
+    C_CoordScreen coord(clic);
+    if(grid.addUnit(type,coord.getXGrid (),coord.getYGrid (),0) == EXIT_SUCCESS){
+	   C_GameUnits * tmp = grid.getUnits(coord.getXGrid (),coord.getYGrid ());
+	   if(tmp != nullptr){
+	       C_Wallet& wallet=C_Wallet::Instances();
+	       wallet.debit(tmp->getCost());
+	       wallet.cliStatus();
+	       }
+	    }
+}
+
 
 //______________________________Waves_____________________________//
 

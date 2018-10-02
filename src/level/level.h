@@ -76,6 +76,7 @@ class C_Level
   void render();
   void playAllUnits ();
   bool selectATower(C_Coord clic);
+  void addUnit(std::string &type, S_Coord clic);
 
 	protected:
   //methods
