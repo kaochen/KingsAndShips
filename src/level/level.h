@@ -74,6 +74,7 @@ class C_Level
   void loadWaveIntoGrid(int i);
   void updateMenuInfo();
   void render();
+  void playAllUnits ();
 
 	protected:
   //methods

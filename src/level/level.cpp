@@ -321,6 +321,11 @@ void C_Level::render(){
 	grid.renderLayer (FIELD);
 }
 
+void C_Level::playAllUnits(){
+    C_Grid& grid=C_Grid::Instances();
+    grid.playAllUnits();
+}
+
 //______________________________Waves_____________________________//
 
 

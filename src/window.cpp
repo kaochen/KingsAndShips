@@ -206,7 +206,6 @@ void C_Window::quitProgram()
 void C_Window::gameLoop(){
 
 	C_Time& time=C_Time::Instances();
-    C_Grid& grid=C_Grid::Instances();
 	C_Menu& menu=C_Menu::Instances();
 
     //load the first level
@@ -221,7 +220,7 @@ void C_Window::gameLoop(){
 				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
-				grid.playAllUnits();
+				m_level->playAllUnits();
 
             //render image
 	        if (m_forceRefresh){
