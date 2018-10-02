@@ -56,7 +56,7 @@ public:
   bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
-
+  int size(){return m_vgrid.size() - 2;};
 	void displayStatus();
 	void playAllUnits();
 	void deleteGrid();

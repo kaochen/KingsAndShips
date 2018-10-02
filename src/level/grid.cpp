@@ -70,9 +70,15 @@ void C_Grid::reset()
 
 void C_Grid::renderLayer(int layer){
 	C_Settings& settings=C_Settings::Instances();
+    int  offset = 1;
 
-	int x_start = 0, x_end = x_start + settings.getGridWidth() + 4;
-	int y_start = 13, y_end = y_start + settings.getGridHeight() + 3;
+	int x_start = 0;
+    if (m_vgrid.size() - 30 >0){
+        x_start = (m_vgrid.size() -30)/2 -offset;
+    }
+	int x_end = x_start + settings.getGridWidth() + 4*offset;
+	int y_start = m_vgrid.size()/2 -offset ;
+	int y_end = y_start + settings.getGridHeight() + offset;
 
 	//cout << "Line ";
 	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
