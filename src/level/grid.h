@@ -63,7 +63,6 @@ public:
 
 	bool selectATower(C_Coord clic);
 
-	C_GameUnits* getSelectedUnit();
   virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
   virtual bool mainEmpty(int x_grid, int y_grid);
   virtual std::string getName(int layer, int x_grid, int y_grid);

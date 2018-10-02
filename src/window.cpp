@@ -389,7 +389,6 @@ void C_Window::loadLevel(int levelNbr){
 
 void C_Window::listenMouseMotion(SDL_Event &event){
         C_Settings& settings=C_Settings::Instances();
-        C_Grid& grid=C_Grid::Instances();
 		    // get x cursor position
 			    if(event.button.x < 0)
 				    m_cursor.x = 0;
@@ -406,12 +405,7 @@ void C_Window::listenMouseMotion(SDL_Event &event){
 			    else
 				    m_cursor.y = event.button.y;
 
-			    if (m_mouseButtonDown){
-					    if(m_aTowerIsSelected){
-						    grid.getSelectedUnit();
-					    }
-			    }
-        }
+}
 
 void C_Window::listenMouseButtonUP(SDL_Event &event){
         C_Grid& grid=C_Grid::Instances();

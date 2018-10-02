@@ -336,18 +336,6 @@ void C_Grid::unselectedAll(int x_grid, int y_grid){
 }
 
 
-C_GameUnits* C_Grid::getSelectedUnit(){
-		C_GameUnits* current = nullptr;
-		for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid.size(); x++){
-				if ( m_vgrid[x][y].get(FIELD) != nullptr)
-					if (m_vgrid[x][y].get(FIELD)->getSelectedStatus())
-						current = m_vgrid[x][y].get(FIELD)->getUnit();
-			}
-		}
-		return current;
-}
-
 bool C_Grid::mainEmpty(int x_grid, int y_grid, C_GameUnits *current){
     if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr || m_vgrid[x_grid][y_grid].get(FIELD) == current ){
         return false;
