@@ -327,9 +327,10 @@ void C_Level::playAllUnits(){
     grid.playAllUnits();
 }
 
-bool C_Level::selectATower(C_Coord clic){
+bool C_Level::selectATower(S_Coord clic){
     C_Grid& grid=C_Grid::Instances();
-    return grid.selectATower(clic);
+    C_CoordScreen coord(clic);
+    return grid.selectATower(coord);
 }
 
 void C_Level::addUnit(string &type, S_Coord clic){

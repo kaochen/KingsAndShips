@@ -408,20 +408,17 @@ void C_Window::listenMouseMotion(SDL_Event &event){
 }
 
 void C_Window::listenMouseButtonUP(SDL_Event &event){
-			    if (event.button.button ==  SDL_BUTTON_LEFT)
-				    {
-					    m_clic.x = event.button.x;
-					    m_clic.y = event.button.y;
+	if (event.button.button ==  SDL_BUTTON_LEFT){
+		m_clic.x = event.button.x;
+		m_clic.y = event.button.y;
 
-					    //Select or add a new Tower
-					    if(m_addingAnewTower == true){
-	                        m_level->addUnit(m_buttonType, m_clic);
-						    m_addingAnewTower = false;
-						}
-						C_CoordScreen clicleft(m_clic);
-						m_aTowerIsSelected = m_level->selectATower(clicleft);
+		//Select or add a new Tower
+		if(m_addingAnewTower == true){
+	        m_level->addUnit(m_buttonType, m_clic);
+			m_addingAnewTower = false;
+		}
 
-
-				    m_mouseButtonDown = false;
-				    }
+		m_aTowerIsSelected = m_level->selectATower(m_clic);
+	    m_mouseButtonDown = false;
+		}
 }

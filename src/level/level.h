@@ -75,7 +75,7 @@ class C_Level
   void updateMenuInfo();
   void render();
   void playAllUnits ();
-  bool selectATower(C_Coord clic);
+  bool selectATower(S_Coord clic);
   void addUnit(std::string &type, S_Coord clic);
 
 	protected:
