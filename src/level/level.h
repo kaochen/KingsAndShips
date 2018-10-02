@@ -75,6 +75,7 @@ class C_Level
   void updateMenuInfo();
   void render();
   void playAllUnits ();
+  bool selectATower(C_Coord clic);
 
 	protected:
   //methods

@@ -326,6 +326,11 @@ void C_Level::playAllUnits(){
     grid.playAllUnits();
 }
 
+bool C_Level::selectATower(C_Coord clic){
+    C_Grid& grid=C_Grid::Instances();
+    return grid.selectATower(clic);
+}
+
 //______________________________Waves_____________________________//
 
 

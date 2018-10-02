@@ -415,12 +415,7 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 					    m_clic.y = event.button.y;
 					    C_CoordScreen clicleft(m_clic);
 
-					    //Select a Tower
-					    if(m_addingAnewTower == false) {
-						    m_aTowerIsSelected = grid.selectATower(clicleft);
-					    }
-
-					    //Add a new Tower
+					    //Select or add a new Tower
 					    if(m_addingAnewTower == true){
 						    if(grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0) == EXIT_SUCCESS){
 						        C_GameUnits * tmp = grid.getUnits(clicleft.getXGrid (),clicleft.getYGrid ());
@@ -428,14 +423,12 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 						            C_Wallet& wallet=C_Wallet::Instances();
 						            wallet.debit(tmp->getCost());
 						            wallet.cliStatus();
-						            m_aTowerIsSelected = grid.selectATower(clicleft);
 						        }
 						        }
 						    m_addingAnewTower = false;
 						}
-					    else{
-						    m_addingAnewTower = false;
-					    }
+						m_aTowerIsSelected = m_level->selectATower(clicleft);
+
 
 				    m_mouseButtonDown = false;
 				    }
