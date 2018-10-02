@@ -17,7 +17,7 @@ var class_c___game_units =
     [ "getYGrid", "class_c___game_units.html#a8b1189b87eb68e776fcbc2b47236edac", null ],
     [ "getYScreen", "class_c___game_units.html#a0c98dea22a49d6cde459b1ce61507ce3", null ],
     [ "imageName", "class_c___game_units.html#a260c00cb0dbda7b4edcc270b4202a60c", null ],
-    [ "kill", "class_c___game_units.html#a3aa2b0bab5d94f7287b9bd2d0636d585", null ],
+    [ "kill", "class_c___game_units.html#a997cfa84b9c68115e36daecc3e732d90", null ],
     [ "move", "class_c___game_units.html#a5c45328cd343565a4ccb28a7d74304dc", null ],
     [ "play", "class_c___game_units.html#a8010ca3505ef70d98fcff48ea1c2457d", null ],
     [ "receiveDamage", "class_c___game_units.html#aa269bd721a8520489fc17a9f165f11d6", null ],
@@ -34,6 +34,5 @@ var class_c___game_units =
     [ "m_name", "class_c___game_units.html#a78f33cd7d13e3176e16c5ded70ea58e4", null ],
     [ "m_old_coord", "class_c___game_units.html#a0644d4f57ab0246e29d7c69f06e1bd74", null ],
     [ "m_rank", "class_c___game_units.html#a970db224f00faecd01138b8d35e2c593", null ],
-    [ "m_selected", "class_c___game_units.html#af2de4d4e755f384c1cec4214e0544298", null ],
-    [ "m_y_center_offset", "class_c___game_units.html#a65ed95f48cf73036fdec0508a1331ed7", null ]
+    [ "m_selected", "class_c___game_units.html#af2de4d4e755f384c1cec4214e0544298", null ]
 ];

@@ -133,6 +133,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>displayStatus
 <tr class="memitem:a8728a4d6cf72556631da86df483817ee inherit pub_methods_class_c___shooter"><td class="memItemLeft" align="right" valign="top"><a id="a8728a4d6cf72556631da86df483817ee"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>shoot</b> (std::string type[MAX_TARGETS], int nbrofTargets)</td></tr>
 <tr class="separator:a8728a4d6cf72556631da86df483817ee inherit pub_methods_class_c___shooter"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a593a540b2fb671af6da1bc0e4dfe61d9 inherit pub_methods_class_c___shooter"><td class="memItemLeft" align="right" valign="top"><a id="a593a540b2fb671af6da1bc0e4dfe61d9"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>kill</b> ()</td></tr>
+<tr class="separator:a593a540b2fb671af6da1bc0e4dfe61d9 inherit pub_methods_class_c___shooter"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fbd0067bfa3bf54fc81ae37227548e6 inherit pub_methods_class_c___shooter"><td class="memItemLeft" align="right" valign="top"><a id="a1fbd0067bfa3bf54fc81ae37227548e6"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> ()</td></tr>
 <tr class="separator:a1fbd0067bfa3bf54fc81ae37227548e6 inherit pub_methods_class_c___shooter"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -217,9 +220,6 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>drawRhombus</
 <tr class="memitem:a27e65e897719c8dae6dcf07777dbd4dc inherit pro_methods_class_c___game_units"><td class="memItemLeft" align="right" valign="top"><a id="a27e65e897719c8dae6dcf07777dbd4dc"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>alive</b> () const</td></tr>
 <tr class="separator:a27e65e897719c8dae6dcf07777dbd4dc inherit pro_methods_class_c___game_units"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aa2b0bab5d94f7287b9bd2d0636d585 inherit pro_methods_class_c___game_units"><td class="memItemLeft" align="right" valign="top"><a id="a3aa2b0bab5d94f7287b9bd2d0636d585"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>kill</b> ()</td></tr>
-<tr class="separator:a3aa2b0bab5d94f7287b9bd2d0636d585 inherit pro_methods_class_c___game_units"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e6309582367492ebe8b712011e31777 inherit pro_methods_class_c___game_units"><td class="memItemLeft" align="right" valign="top"><a id="a8e6309582367492ebe8b712011e31777"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>getDistance</b> (int x, int y) const</td></tr>
 <tr class="separator:a8e6309582367492ebe8b712011e31777 inherit pro_methods_class_c___game_units"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -270,8 +270,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>m_health</b></td></tr>
 <tr class="memitem:a0644d4f57ab0246e29d7c69f06e1bd74 inherit pro_attribs_class_c___game_units"><td class="memItemLeft" align="right" valign="top"><a id="a0644d4f57ab0246e29d7c69f06e1bd74"></a>
 <a class="el" href="class_c___coord.html">C_Coord</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_old_coord</b></td></tr>
 <tr class="separator:a0644d4f57ab0246e29d7c69f06e1bd74 inherit pro_attribs_class_c___game_units"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65ed95f48cf73036fdec0508a1331ed7 inherit pro_attribs_class_c___game_units"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___game_units.html#a65ed95f48cf73036fdec0508a1331ed7">m_y_center_offset</a></td></tr>
-<tr class="separator:a65ed95f48cf73036fdec0508a1331ed7 inherit pro_attribs_class_c___game_units"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46a05814322e88b3c02a32e66307915b inherit pro_attribs_class_c___game_units"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___game_units.html#a46a05814322e88b3c02a32e66307915b">m_direction</a></td></tr>
 <tr class="separator:a46a05814322e88b3c02a32e66307915b inherit pro_attribs_class_c___game_units"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af8ef2c456ad84c221056ec3a6fe9e1eb inherit pro_attribs_class_c___game_units"><td class="memItemLeft" align="right" valign="top"><a id="af8ef2c456ad84c221056ec3a6fe9e1eb"></a>

@@ -9,7 +9,7 @@ var class_c___texture =
     [ "getTexture", "class_c___texture.html#a578087ce4136263ad53d3eda7f982a86", null ],
     [ "loadTextAsTextures", "class_c___texture.html#a12f33f30f77c9c0ecf9c6609d66c8f12", null ],
     [ "loadTexture", "class_c___texture.html#a9e863e1cae13e175c65e13c2f1822ce5", null ],
-    [ "render", "class_c___texture.html#a8355780e2c1f1b7010d6c62f5ab5eeff", null ],
+    [ "render", "class_c___texture.html#adf89c888fa3895eaf95155946962bd31", null ],
     [ "m_name", "class_c___texture.html#a6f242dbbf805e9c6d36bdcab8e8345a3", null ],
     [ "m_texture", "class_c___texture.html#aa3ef41d34f286155b8fd1da4942cef90", null ]
 ];

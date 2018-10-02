@@ -116,6 +116,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setBlock</b> (bool bl
 <tr class="memitem:a72da8c998bd1f5a5713929bba5dc7fa3"><td class="memItemLeft" align="right" valign="top"><a id="a72da8c998bd1f5a5713929bba5dc7fa3"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getBlock</b> () const</td></tr>
 <tr class="separator:a72da8c998bd1f5a5713929bba5dc7fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7510995b351c005f256e7054ca2d405c"><td class="memItemLeft" align="right" valign="top"><a id="a7510995b351c005f256e7054ca2d405c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getBarricade</b> ()</td></tr>
+<tr class="separator:a7510995b351c005f256e7054ca2d405c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f4faf2f19008c5383c8bc3a94a5549"><td class="memItemLeft" align="right" valign="top"><a id="a46f4faf2f19008c5383c8bc3a94a5549"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setBarricade</b> (bool barricade)</td></tr>
+<tr class="separator:a46f4faf2f19008c5383c8bc3a94a5549"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a981e0d2dd5f68a169aeb32c0f4cc9e11"><td class="memItemLeft" align="right" valign="top"><a id="a981e0d2dd5f68a169aeb32c0f4cc9e11"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getXGrid</b> () const</td></tr>
 <tr class="separator:a981e0d2dd5f68a169aeb32c0f4cc9e11"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -191,9 +197,10 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:ac1b9a28d3a54f00d33ef7e78d8f90b82"><td class="memItemLeft" align="right" valign="top"><a id="ac1b9a28d3a54f00d33ef7e78d8f90b82"></a>
 <a class="el" href="class_c___coord.html">C_Coord</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_coord</b></td></tr>
 <tr class="separator:ac1b9a28d3a54f00d33ef7e78d8f90b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b14a98cad66564a0922ca467cbb480c"><td class="memItemLeft" align="right" valign="top"><a id="a0b14a98cad66564a0922ca467cbb480c"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>m_block</b></td></tr>
+<tr class="memitem:a0b14a98cad66564a0922ca467cbb480c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___node.html#a0b14a98cad66564a0922ca467cbb480c">m_block</a></td></tr>
 <tr class="separator:a0b14a98cad66564a0922ca467cbb480c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d285deb8f5f5ea15fddb24f907f9e1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___node.html#a87d285deb8f5f5ea15fddb24f907f9e1">m_barricade</a></td></tr>
+<tr class="separator:a87d285deb8f5f5ea15fddb24f907f9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c80086521b52a2237b4f1669e15514c"><td class="memItemLeft" align="right" valign="top"><a id="a1c80086521b52a2237b4f1669e15514c"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>m_G</b></td></tr>
 <tr class="separator:a1c80086521b52a2237b4f1669e15514c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -228,6 +235,53 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_h_texture_na
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_f_texture_name</b></td></tr>
 <tr class="separator:a8b0a1fedf8cb06d5167b3ec3c78bc76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a87d285deb8f5f5ea15fddb24f907f9e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87d285deb8f5f5ea15fddb24f907f9e1">&#9670;&nbsp;</a></span>m_barricade</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool C_Node::m_barricade</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>If Unit, that do not move, can be cross after destruction like a barricade </p>
+
+</div>
+</div>
+<a id="a0b14a98cad66564a0922ca467cbb480c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b14a98cad66564a0922ca467cbb480c">&#9670;&nbsp;</a></span>m_block</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool C_Node::m_block</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>If Unit, that do not move, can not be cross by a boat like a ground </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/level/<a class="el" href="node_8h_source.html">node.h</a></li>
 <li>src/level/node.cpp</li>

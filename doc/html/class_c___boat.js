@@ -4,6 +4,7 @@ var class_c___boat =
     [ "C_Boat", "class_c___boat.html#a860ed8f3670ae407a7e839dc044088b5", null ],
     [ "~C_Boat", "class_c___boat.html#a9c1796c412f17cd3f7c6b5554712a70c", null ],
     [ "calcSpeed", "class_c___boat.html#ace01a87f52fe8ec1bcd2f93f96646d79", null ],
+    [ "kill", "class_c___boat.html#a72a211b7f3800680c6237533af87765d", null ],
     [ "move", "class_c___boat.html#a5039cdb106c69d38c57796d56200c0a5", null ],
     [ "play", "class_c___boat.html#a1fc1aa808059c1da1c06eca690a04f2e", null ],
     [ "recalcPath", "class_c___boat.html#a5fbafea3d630d19c378efdf33e6983bc", null ],

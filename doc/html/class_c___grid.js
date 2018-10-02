@@ -1,7 +1,7 @@
 var class_c___grid =
 [
     [ "addANewBoat", "class_c___grid.html#a9a4b1f4f6a10facef35b98f9961eefc7", null ],
-    [ "addUnit", "class_c___grid.html#a595065a6eccc1c74f4d6c825340a0f03", null ],
+    [ "addUnit", "class_c___grid.html#a4a1cd4e4addfa76aa505924ee725a2bf", null ],
     [ "deleteGrid", "class_c___grid.html#ab73a472f90c901207df202cb8f2ca666", null ],
     [ "displayStatus", "class_c___grid.html#a984afa50159212761d04d1832147548f", null ],
     [ "foundTown", "class_c___grid.html#ac1362341c79b81b40527aaed0172dd5c", null ],
@@ -22,6 +22,8 @@ var class_c___grid =
     [ "setDecors", "class_c___grid.html#ac477b1f91b4ee15a9f5a078af5285375", null ],
     [ "setGround", "class_c___grid.html#a76aebb3f461d0fc3e76a8a2dbc9fd6f1", null ],
     [ "setTown", "class_c___grid.html#ab79683114fe097ed2feeb32c22914964", null ],
+    [ "size", "class_c___grid.html#a46eb80db082de40fc2494291c444584a", null ],
+    [ "testBarricade", "class_c___grid.html#a56cee49e7e4022827dcad233319f635a", null ],
     [ "unselectedAll", "class_c___grid.html#abf4be3ecf1792c0713fdfe7e840f8bbc", null ],
     [ "waterway", "class_c___grid.html#a4e1008826d2cdaab85ddc31bfb58fd05", null ]
 ];
