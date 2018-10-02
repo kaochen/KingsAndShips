@@ -48,7 +48,8 @@ C_Level::C_Level():
 	m_decorLayer.data="";
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
-	m_landscape = new C_Landscape();
+
+	m_landscape = nullptr;
 }
 
 
@@ -83,6 +84,8 @@ void C_Level::load(int levelNbr){
         C_Wallet& wallet=C_Wallet::Instances();
         wallet.reset();
         wallet.credit(500); //add a credit for start
+
+        createLandscape();
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
 	}
 	else{
@@ -90,6 +93,13 @@ void C_Level::load(int levelNbr){
     	m.printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
 }
+
+void C_Level::createLandscape(){
+	C_Grid& grid=C_Grid::Instances();
+    C_CoordGrid tmp(grid.foundTown());
+	S_Coord town = tmp.getScreen();
+	m_landscape = new C_Landscape(town);
+	}
 
 void C_Level::sendNextWave(){
     C_Message m;

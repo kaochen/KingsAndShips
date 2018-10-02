@@ -86,6 +86,7 @@ class C_Level
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
   int countAttributes(std::string tmx_File_Path, std::string pattern);
   S_Coord getFirstTile(S_tmxLayer &layer);
+  void createLandscape();
 
 	//attibutes
 	std::string m_name;

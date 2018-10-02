@@ -26,12 +26,12 @@ using namespace std;
 
 
 
-C_Landscape::C_Landscape()
+C_Landscape::C_Landscape(S_Coord town)
 {
     m_waterDrift.x = 0;
     m_waterDrift.y = 0;
     m_animWater= new C_AnimTime();
-    m_waterDirection = waterDirection();
+    m_waterDirection = waterDirection(town);
 }
 
 C_Landscape::~C_Landscape()
@@ -41,7 +41,7 @@ C_Landscape::~C_Landscape()
 
 
 void C_Landscape::render(){
-        renderWater(waterDirection());
+        renderWater(m_waterDirection);
 };
 
 void C_Landscape::renderWater(int direction){
@@ -122,27 +122,19 @@ void C_Landscape::renderWater(int direction){
 
 
 
-int C_Landscape::waterDirection(){
+int C_Landscape::waterDirection(S_Coord town){
 
         	C_Settings& settings=C_Settings::Instances();
-        	C_Grid& grid=C_Grid::Instances();
 
-            S_Coord center;
-            center.x = settings.getWindowWidth()/2;
-            center.y = settings.getWindowHeight()/2;
-
-		    C_CoordGrid tmp(grid.foundTown());
-		    S_Coord town = tmp.getScreen();
-		    //cout << "center: " << center.x << ":" << center.y << "Town: " << town.x <<":" << town.y;
-		    int ab = town.x - center.x;
-		    int bc = town.y - center.y;
+		    int ab = town.x - settings.getWindowWidth()/2;
+		    int bc = town.y - settings.getWindowHeight()/2;;
 		    double angle = atan2(ab,bc);
 		    angle = 180 - (angle *180/3.14159265359);
 			if(angle < 0)
 				angle +=360;
 
+            C_Coord tmp(0,0);
 		    int direction = tmp.angleToDirection(angle);
-		    //cout << "angle" << angle;
 		    return direction;
 }
 
