@@ -73,7 +73,8 @@ void C_Level::load(int levelNbr){
 
     struct stat buffer;
     if (stat (filename.c_str(),  &buffer) == 0){
-
+        extractValueFromTmxFile(filename.c_str(), "map", "width");
+        extractValueFromTmxFile(filename.c_str(), "map", "backgroundcolor");
 	    loadGroundLayerIntoTheGrid(filename.c_str());
 	    loadDecorLayerIntoTheGrid(filename.c_str());
 	    m_nbrOfWaves = countAttributes(filename.c_str(),"Wave");
@@ -113,6 +114,32 @@ void C_Level::sendNextWave(){
     m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
 }
 
+string C_Level::extractValueFromTmxFile(string tmx_File_Path, const string &node, const string &attribute){
+     xmlpp::TextReader reader(tmx_File_Path);
+     string value;
+     while(reader.read())
+        {
+        		string nodeName = reader.get_name();
+	          	//cout << nodeName << "---namespace---\n";
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			      string attrib = reader.get_name();
+			      //cout << attributes << "-----"<< endl;
+
+			      if (nodeName == node && attrib == attribute){
+			      	value = reader.get_value();
+				    }
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+    C_Message m;
+	m.printM("From: " + tmx_File_Path +" Node: \""+ node + "\" attribute: \"" + attribute + "\" get this value: "+ value + "\n");
+    return value;
+}
 
 S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 
