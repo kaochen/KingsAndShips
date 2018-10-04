@@ -40,9 +40,9 @@ class C_Grid
 {
 public:
 	static	C_Grid& Instances() {return m_instance;};
-  void reset();
+  void reset(int size);
 	void renderLayer(int layer);
-
+  int getSize(){return m_size;};
 	void addANewBoat(int x, int y, int rank,C_Wave* parent);
   int addUnit(std::string &type, int x_grid, int y_grid, int rank);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
@@ -85,8 +85,7 @@ private:
 	~C_Grid();
 
   std::vector < std::vector <C_ZLayer> > m_vgrid;
-  int m_width;
-  int m_height;
+  int m_size;
 };
 
 #endif

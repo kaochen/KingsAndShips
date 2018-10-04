@@ -28,10 +28,9 @@ using namespace std;
 C_Path::C_Path(int x_dest, int y_dest)
 {
 	C_Grid& grid=C_Grid::Instances();
-	C_Settings& settings=C_Settings::Instances();
-    for (size_t x = 0; x < settings.getGridSize(); x++){
+    for (int x = 0; x < grid.getSize(); x++){
 	    vector <C_Node> line;
-		for (size_t y = 0; y < settings.getGridSize(); y++){
+		for (int y = 0; y < grid.getSize(); y++){
 		    bool block = true;
 		    if (grid.waterway(x,y)){
 			        block = false;

@@ -94,7 +94,7 @@ void C_Level::load(int levelNbr){
     extractInfosFromTmx(levelNbr);
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
-	grid.reset();
+	grid.reset(m_gridSize);
 
 	C_Message m;
     struct stat buffer;

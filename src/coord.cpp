@@ -18,14 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "coord.h"
 #include "time.h"
-
+#include "level/grid.h"
 using namespace std;
 
 
 C_Coord::C_Coord(int x_grid, int y_grid){
 
-    C_Settings& settings=C_Settings::Instances();
-    int gridSize = settings.getGridSize();
+    C_Grid& grid=C_Grid::Instances();
+    int gridSize = grid.getSize();
 	if (x_grid < 0)
 		x_grid = 0;
 	if (y_grid < 0)
@@ -499,8 +499,8 @@ C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 }
 
 C_CoordGrid::C_CoordGrid(int x_grid, int y_grid ): C_Coord(x_grid, y_grid){
-		C_Settings& settings=C_Settings::Instances();
-		int size = settings.getGridSize();
+    C_Grid& grid=C_Grid::Instances();
+    int size = grid.getSize();
 		if (x_grid < 0)
 			x_grid = 0;
 		if (y_grid < 0)

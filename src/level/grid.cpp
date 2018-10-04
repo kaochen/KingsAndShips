@@ -36,34 +36,30 @@ C_Grid C_Grid::m_instance=C_Grid();
 C_Grid::C_Grid()
 {
 	C_Settings& settings=C_Settings::Instances();
-
     createAnEmptyGrid(settings.getGridSize()-2);
-
-	C_Message m;
-    ostringstream message;
-    message << "Construct Grid " << m_vgrid.size() << "x" << m_vgrid.size() << endl;
-    m.printM(message.str());
 }
 
 C_Grid::~C_Grid()
 {
-	reset();
+    m_vgrid.clear();
 }
 
-void C_Grid::reset()
+void C_Grid::reset(int size)
 {
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-		for (size_t x = 0; x < m_vgrid.size(); x++){
-		    m_vgrid[x][y].delAll();
-		    }
-	    }
+    for (size_t y = 0; y < m_vgrid.size(); y++){
+               for (size_t x = 0; x < m_vgrid.size(); x++){
+                   m_vgrid[x][y].delAll();
+                   }
+           }
+    createAnEmptyGrid(size);
 }
 
 void C_Grid::createAnEmptyGrid(int size){
-    size +=2;
-	for (int y = 0; y < size; y++){
+    m_size = size + 2;
+    m_vgrid.clear();
+	for (int y = 0; y < m_size; y++){
 	    vector <C_ZLayer> line;
-		for (int x = 0; x < size; x++){
+		for (int x = 0; x < m_size; x++){
 		    C_ZLayer z(x,y);
             line.push_back(z);
 		}
@@ -86,9 +82,9 @@ void C_Grid::renderLayer(int layer){
     if (m_vgrid.size() - 30 >0){
         x_start = (m_vgrid.size() -30)/2 -offset;
     }
-	int x_end = x_start + settings.getGridWidth() + 4*offset;
+	int x_end = x_start + m_size;
 	int y_start = m_vgrid.size()/2 -offset ;
-	int y_end = y_start + settings.getGridHeight() + offset;
+	int y_end = y_start + m_size;
 
 	//cout << "Line ";
 	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){

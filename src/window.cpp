@@ -220,8 +220,8 @@ void C_Window::gameLoop(){
 				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
-				m_level->playAllUnits();
 
+			m_level->playAllUnits();
             //render image
 	        if (m_forceRefresh){
 
