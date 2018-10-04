@@ -102,18 +102,13 @@ void C_Level::load(int levelNbr){
 
 	    loadGroundLayerIntoTheGrid(m_filename.c_str());
 	    loadDecorLayerIntoTheGrid(m_filename.c_str());
+	    setWallet();
 	    m_nbrOfWaves = countAttributes(m_filename.c_str(),"Wave");
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(m_filename.c_str(),i);
     	}
         updateMenuInfo();
-        C_Wallet& wallet=C_Wallet::Instances();
-        int walletCredit =  stoi(extractPropertyFromTmxFile(m_filename.c_str(), "wallet"));
-        if(walletCredit < 1){
-            walletCredit = 500;
-        }
-        wallet.reset();
-        wallet.credit(walletCredit); //add a credit for start
+
 
         createLandscape();
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
@@ -122,6 +117,16 @@ void C_Level::load(int levelNbr){
     	m.printM("Can not find " + m_filename+"\n");
     	m.printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
+}
+
+void C_Level::setWallet(){
+        C_Wallet& wallet=C_Wallet::Instances();
+        int walletCredit =  stoi(extractPropertyFromTmxFile(m_filename.c_str(), "wallet"));
+        if(walletCredit < 1){
+            walletCredit = 500;
+        }
+        wallet.reset();
+        wallet.credit(walletCredit); //add a credit for start
 }
 
 void C_Level::createLandscape(){

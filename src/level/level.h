@@ -88,6 +88,7 @@ class C_Level
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
   int countAttributes(std::string tmx_File_Path, std::string pattern);
   S_Coord getFirstTile(S_tmxLayer &layer);
+  void setWallet();
   void createLandscape();
   std::string extractValueFromTmxFile(std::string tmx_File_Path, const std::string &node, const std::string &attribute);
 	//attibutes
