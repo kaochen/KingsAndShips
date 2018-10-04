@@ -108,8 +108,12 @@ void C_Level::load(int levelNbr){
     	}
         updateMenuInfo();
         C_Wallet& wallet=C_Wallet::Instances();
+        int walletCredit =  stoi(extractPropertyFromTmxFile(m_filename.c_str(), "wallet"));
+        if(walletCredit < 1){
+            walletCredit = 500;
+        }
         wallet.reset();
-        wallet.credit(500); //add a credit for start
+        wallet.credit(walletCredit); //add a credit for start
 
         createLandscape();
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
