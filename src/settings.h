@@ -35,6 +35,12 @@ struct S_Coord{
 	int x;
 	int y;
 };
+
+struct S_Size{
+  int w;
+  int h;
+};
+
 struct S_NodeCoord{
 	S_Coord screen;
 	S_Coord grid;
@@ -55,6 +61,7 @@ enum Status {ALIVE,DEAD};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 
+
 //singleton
 class C_Settings
 {
@@ -67,7 +74,7 @@ public:
 	size_t getGridSize() {return m_gridSize;};
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
-
+  S_Size getNbrOfTilesToDisplay();
   //debug
 	void setDebugMode();
 	bool getDebugMode() {return m_debugMode;};

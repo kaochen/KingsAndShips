@@ -50,6 +50,13 @@ void C_Settings::calcGridSize(){
     m_gridSize = sqrt(m_windowHeight*m_windowHeight + m_windowWidth*m_windowWidth)/TILE_HALF_WIDTH + 2;
 }
 
+  S_Size C_Settings::getNbrOfTilesToDisplay(){
+    S_Size size;
+    size.w = m_windowWidth / TILE_HALF_WIDTH;
+    size.h = m_windowHeight / TILE_HALF_HEIGHT;
+    return size;
+  }
+
 void C_Settings::initTSXfileList(){
     C_Message m;
     int size = 18;

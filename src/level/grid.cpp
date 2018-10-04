@@ -76,34 +76,39 @@ void C_Grid::createAnEmptyGrid(int size){
 
 void C_Grid::renderLayer(int layer){
 	C_Settings& settings=C_Settings::Instances();
-    int  offset = 1;
+	S_Size display = settings.getNbrOfTilesToDisplay();
+    int  offset = 4;
 
 	int x_start = 0;
-    if (m_vgrid.size() - 30 >0){
-        x_start = (m_vgrid.size() -30)/2 -offset;
+    if (m_vgrid.size() >0){
+        x_start = (m_vgrid.size() - display.w)/2 -offset;
+        if(x_start < 0){x_start = 0;}
     }
-	int x_end = x_start + m_size;
-	int y_start = m_vgrid.size()/2 -offset ;
-	int y_end = y_start + m_size;
-
-	//cout << "Line ";
+	int x_end = x_start + display.w + offset;
+	int y_start = m_vgrid.size()/2 -3 ;
+	int y_end = y_start + display.h + offset;
+    //int c = 0;
+	//cout << "xs: " << x_start << " ys: " << y_start << " xe: " << x_end << " yend: " << y_end << endl;
 	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
 		int x = x_start;
 		int y = y_start;
 	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
 				if(x >= 0 && x < x_end && y >= 0 && y < y_end){
-					//cout << "|" << x << ":"<< y;
-				    if (layer == GROUND){
-				            if (m_vgrid[x][y].get(GROUND) != nullptr){
-							            m_vgrid[x][y].get(GROUND)->render();
-							            }
-						    }
-						    //draw the deads
-				    if (layer == GRAVEYARD || layer == FIELD){
-						    if (m_vgrid[x][y].get(layer) != nullptr){
-						            m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
-							    }
-						    }
+				    if(x >= 0 && x < (int)(m_vgrid.size()) && y >= 0 && y < (int)(m_vgrid.size())){
+					    //cout << "|" << x << ":"<< y;
+				        if (layer == GROUND){
+				                if (m_vgrid[x][y].get(GROUND) != nullptr){
+							                m_vgrid[x][y].get(GROUND)->render();
+							                //c++;
+							                }
+						        }
+						        //draw the deads
+				        if (layer == GRAVEYARD || layer == FIELD){
+						        if (m_vgrid[x][y].get(layer) != nullptr){
+						                m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
+							        }
+						        }
+				    }
 				}
 				x++;
 				y--;
@@ -113,7 +118,7 @@ void C_Grid::renderLayer(int layer){
 		else
 			y_start++;
 
-		//cout << endl;
+		//cout << "render: "<< c <<"tiles"<< endl;
 	}
 }
 
