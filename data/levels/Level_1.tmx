@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="left-up" width="30" height="30" tilewidth="100" tileheight="50" infinite="0" backgroundcolor="#174c89" nextobjectid="1">
+ <properties>
+  <property name="subname" value="River"/>
+ </properties>
  <tileset firstgid="1" source="../img/Ground_01.tsx"/>
  <tileset firstgid="34" source="../img/boat_01.tsx"/>
  <tileset firstgid="98" source="../img/town_01.tsx"/>

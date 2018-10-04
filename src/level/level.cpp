@@ -75,6 +75,7 @@ void C_Level::extractInfosFromTmx(int levelNbr){
         m_tilewidth = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "tilewidth"));
         m_tileheight = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "tileheight"));
         m_backgroundcolor = extractValueFromTmxFile(m_filename.c_str(), "map", "backgroundcolor");
+        extractPropertyFromTmxFile(m_filename.c_str(), "subname");
 	}
 	else{
 	    C_Message m;
@@ -164,6 +165,38 @@ string C_Level::extractValueFromTmxFile(string tmx_File_Path, const string &node
 	m.printM("From: " + tmx_File_Path +" Node: \""+ node + "\" attribute: \"" + attribute + "\" get this value: "+ value + "\n");
     return value;
 }
+
+string C_Level::extractPropertyFromTmxFile(string tmx_File_Path, const string &name){
+     xmlpp::TextReader reader(tmx_File_Path);
+     string value;
+     while(reader.read())
+        {
+        		string nodeName = reader.get_name();
+	          	//cout << nodeName << "---namespace---\n";
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			      string attrib = reader.get_name();
+			      //cout << attributes << "-----"<< endl;
+
+			      if (nodeName == "property" && attrib == "name"){
+			      	string readName = reader.get_value();
+			      	if(readName == name){
+			      	    reader.move_to_next_attribute();
+			      	    value = reader.get_value();
+			      	    }
+				    }
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+    C_Message m;
+	m.printM("From: " + tmx_File_Path +" Property: " +name+ " = "+ value + "\n");
+    return value;
+}
+
 
 S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
 
