@@ -48,7 +48,7 @@ public:
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 
-	C_GameUnits* getUnits(int x_grid, int y_grid) {	return m_vgrid[x_grid][y_grid].get(FIELD);};
+	C_GameUnits* getUnits(int x_grid, int y_grid);
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);

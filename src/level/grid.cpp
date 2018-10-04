@@ -244,7 +244,12 @@ void C_Grid::moveToDead(int x_grid, int y_grid){
     m_vgrid[x_grid][y_grid].set(FIELD,nullptr);
 }
 
-
+C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid) {
+	if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size()))
+	    return m_vgrid[x_grid][y_grid].get(FIELD);
+	else
+	    return nullptr;
+	};
 
 
 void C_Grid::displayStatus(){
@@ -284,36 +289,38 @@ bool C_Grid::selectATower(C_Coord clic){
 	C_Message m;
 	string message ="";
 	string name ="";
-	if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
-		unselectedAll(grid.x+1,grid.x+1);
-		name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
-			if(name == "ArcherTower" || name == "Turbine"){
-				message =  "Found top " + name;
-				m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
-				selected = true;
-			}
-			else{
-			    message = "Found " + name;
-			}
-	}
-	else{
-		if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr){
-			name = m_vgrid[grid.x][grid.y].get(FIELD)->getName();
-				unselectedAll(grid.x,grid.y);
-				if(name == "ArcherTower"|| name == "Turbine"){
-				    message =  "Found bottom" + name;
-					m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
-					selected = true;
-				}
-				else{
-				    message = "Found " + name;
-				}
-		}
-		else{
-			unselectedAll(grid.x,grid.y);
-			message = "Nothing";
-		}
+	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()) && grid.y >= 0 && grid.y < (int)(m_vgrid.size())){
+	    if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
+		    unselectedAll(grid.x+1,grid.x+1);
+		    name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
+			    if(name == "ArcherTower" || name == "Turbine"){
+				    message =  "Found top " + name;
+				    m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
+				    selected = true;
+			    }
+			    else{
+			        message = "Found " + name;
+			    }
+	    }
+	    else{
+		    if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr){
+			    name = m_vgrid[grid.x][grid.y].get(FIELD)->getName();
+				    unselectedAll(grid.x,grid.y);
+				    if(name == "ArcherTower"|| name == "Turbine"){
+				        message =  "Found bottom" + name;
+					    m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
+					    selected = true;
+				    }
+				    else{
+				        message = "Found " + name;
+				    }
+		    }
+		    else{
+			    unselectedAll(grid.x,grid.y);
+			    message = "Nothing";
+		    }
 
+	    }
 	}
 	m.printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
 	if(settings.getDebugMode())
