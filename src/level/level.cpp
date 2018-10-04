@@ -62,24 +62,48 @@ void C_Level::cliStatus(){
 	cout << m_name << " " << m_id << endl;
 }
 
+void C_Level::extractInfosFromTmx(int levelNbr){
+	C_Settings& settings=C_Settings::Instances();
+    m_filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
+	C_Message m;
+    struct stat buffer;
+    if (stat (m_filename.c_str(),  &buffer) == 0){
+        m_width = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "width"));
+        m_height = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "height"));
+        m_gridSize = calcGridSize();
+        m.printM("Grid size should be " + to_string(m_gridSize) + "\n");
+        m_tilewidth = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "tilewidth"));
+        m_tileheight = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "tileheight"));
+        m_backgroundcolor = extractValueFromTmxFile(m_filename.c_str(), "map", "backgroundcolor");
+	}
+	else{
+	    C_Message m;
+    	m.printM("Can not find " + m_filename+"\n");
+	}
+}
+
+int C_Level::calcGridSize(){
+    if(m_width > m_height)
+        return m_width + 2;
+    else
+        return m_height + 2;
+}
+
 void C_Level::load(int levelNbr){
+    extractInfosFromTmx(levelNbr);
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
-	C_Settings& settings=C_Settings::Instances();
 	grid.reset();
-	C_Message m;
-    string extension =".tmx";
-    string filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + extension;
 
+	C_Message m;
     struct stat buffer;
-    if (stat (filename.c_str(),  &buffer) == 0){
-        extractValueFromTmxFile(filename.c_str(), "map", "width");
-        extractValueFromTmxFile(filename.c_str(), "map", "backgroundcolor");
-	    loadGroundLayerIntoTheGrid(filename.c_str());
-	    loadDecorLayerIntoTheGrid(filename.c_str());
-	    m_nbrOfWaves = countAttributes(filename.c_str(),"Wave");
+    if (stat (m_filename.c_str(),  &buffer) == 0){
+
+	    loadGroundLayerIntoTheGrid(m_filename.c_str());
+	    loadDecorLayerIntoTheGrid(m_filename.c_str());
+	    m_nbrOfWaves = countAttributes(m_filename.c_str(),"Wave");
     	for(int i = 0; i < m_nbrOfWaves; i++){
-    	    loadWave(filename.c_str(),i);
+    	    loadWave(m_filename.c_str(),i);
     	}
         updateMenuInfo();
         C_Wallet& wallet=C_Wallet::Instances();
@@ -90,7 +114,7 @@ void C_Level::load(int levelNbr){
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
 	}
 	else{
-    	m.printM("Can not find " + filename+"\n");
+    	m.printM("Can not find " + m_filename+"\n");
     	m.printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
 }
