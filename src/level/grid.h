@@ -41,7 +41,6 @@ class C_Grid
 public:
 	static	C_Grid& Instances() {return m_instance;};
   void reset();
-
 	void renderLayer(int layer);
 
 	void addANewBoat(int x, int y, int rank,C_Wave* parent);
@@ -74,6 +73,7 @@ public:
 
 protected:
 	void unselectedAll(int x_grid, int y_grid);
+  void createAnEmptyGrid(int size);
 
 
 private:
@@ -85,6 +85,8 @@ private:
 	~C_Grid();
 
   std::vector < std::vector <C_ZLayer> > m_vgrid;
+  int m_width;
+  int m_height;
 };
 
 #endif

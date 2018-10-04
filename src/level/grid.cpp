@@ -37,15 +37,7 @@ C_Grid::C_Grid()
 {
 	C_Settings& settings=C_Settings::Instances();
 
-	for (size_t y = 0; y < settings.getGridSize(); y++){
-	    vector <C_ZLayer> line;
-		for (size_t x = 0; x < settings.getGridSize(); x++){
-		    C_ZLayer z(x,y);
-            line.push_back(z);
-		}
-		m_vgrid.push_back(line);
-		cout << endl;
-	}
+    createAnEmptyGrid(settings.getGridSize()-2);
 
 	C_Message m;
     ostringstream message;
@@ -65,6 +57,24 @@ void C_Grid::reset()
 		    m_vgrid[x][y].delAll();
 		    }
 	    }
+}
+
+void C_Grid::createAnEmptyGrid(int size){
+    size +=2;
+	for (int y = 0; y < size; y++){
+	    vector <C_ZLayer> line;
+		for (int x = 0; x < size; x++){
+		    C_ZLayer z(x,y);
+            line.push_back(z);
+		}
+		m_vgrid.push_back(line);
+		cout << endl;
+	}
+
+	C_Message m;
+    ostringstream message;
+    message << "Construct Grid " << m_vgrid.size() << "x" << m_vgrid.size() << endl;
+    m.printM(message.str());
 }
 
 

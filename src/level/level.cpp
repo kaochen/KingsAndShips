@@ -85,9 +85,9 @@ void C_Level::extractInfosFromTmx(int levelNbr){
 
 int C_Level::calcGridSize(){
     if(m_width > m_height)
-        return m_width + 2;
+        return m_width;
     else
-        return m_height + 2;
+        return m_height;
 }
 
 void C_Level::load(int levelNbr){
