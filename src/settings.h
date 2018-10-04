@@ -67,10 +67,7 @@ public:
 	size_t getGridSize() {return m_gridSize;};
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
-	int getGridNbrOfLine() {return m_gridNbrOfLine;};
-	int getGridNbrOfRow() {return m_gridNbrOfRow;};
-	int getGridFirstTileX() {return m_first_tile_x;};
-	int getGridFirstTileY() {return m_first_tile_y;};
+
   //debug
 	void setDebugMode();
 	bool getDebugMode() {return m_debugMode;};
@@ -103,10 +100,7 @@ private:
 	int m_windowHeight;
   //grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
-	int m_gridNbrOfLine; //nbr of tiles in a line
-	int m_gridNbrOfRow; //nbr of tiles in a row
-	int m_first_tile_x; //first tile to display
-	int m_first_tile_y;
+
   //debug
 	bool m_debugMode;
   bool m_debugPath;

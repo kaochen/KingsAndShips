@@ -32,10 +32,6 @@ C_Settings::C_Settings()
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
     calcGridSize();
-	m_gridNbrOfLine = 28;
-	m_gridNbrOfRow = 15;
-	m_first_tile_x = 13;
-	m_first_tile_y = 0;
 	m_debugMode = false;
 	m_debugPath = false;
 	m_imgFolder = "data/img/";
