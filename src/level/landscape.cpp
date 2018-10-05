@@ -146,7 +146,7 @@ C_Decors::C_Decors(string name, int x_grid, int y_grid):
 }
 
 void C_Decors::render(S_Coord screen){
-
+	m_coord->regenScreenCoord();
 	string fileName = m_name;
 	//cout << "image name is "<< fileName << endl;
 
@@ -161,6 +161,7 @@ C_Ground::C_Ground(string name, int x_grid, int y_grid):
 }
 
 void C_Ground::render(){
+    m_coord->regenScreenCoord();
 	C_TextureList& t=C_TextureList::Instances();
 	t.renderTexture(m_name, m_coord->getXScreen(),m_coord->getYScreen(),CENTER_TILE);
 
@@ -201,7 +202,7 @@ C_Trees::C_Trees(string name, int x_grid, int y_grid):
 }
 
 void C_Trees::render(S_Coord screen){
-
+	m_coord->regenScreenCoord();
 	int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,5,200);
 	string fileName = "trees_01_0" + to_string(imageNbr);
 	//cout << "image name is "<< fileName << endl;

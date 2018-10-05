@@ -61,6 +61,16 @@ void C_Settings::centerCameraPosition(){
     m_cameraPos.x = m_windowWidth/2;
     m_cameraPos.y = m_windowHeight/2;
 }
+
+void C_Settings::moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up){
+    //cout << "r: " << rigth << " l: " << left << " d: "<< down << " u: "<< up << endl;
+    m_cameraPos.x -=rigth;
+    m_cameraPos.x +=left;
+    m_cameraPos.y -=up;
+    m_cameraPos.y +=down;
+};
+
+
   S_Size C_Settings::getNbrOfTilesToDisplay(){
     S_Size size;
     size.w = m_windowWidth / TILE_HALF_WIDTH;

@@ -434,6 +434,10 @@ void C_Coord::regenGridCoord(){
 		m_this.grid = screenToGrid(m_this.screen);
 }
 
+void C_Coord::regenScreenCoord(){
+		m_this.screen = gridToScreen(m_this.grid);
+}
+
 
 bool C_Coord::closeToCenter(S_Coord grid, int px_length){
 		C_CoordGrid tmp(grid);

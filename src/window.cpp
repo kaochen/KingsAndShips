@@ -336,6 +336,7 @@ void C_Window::listenButtons(){
 
 void C_Window::listenKeyboard(SDL_Event &event){
     C_Settings& settings=C_Settings::Instances();
+    int r = 0; int l = 0; int u = 0; int d = 0;
     switch(event.key.keysym.sym)
 			    {
 			    case SDLK_d:
@@ -367,7 +368,20 @@ void C_Window::listenKeyboard(SDL_Event &event){
 			    case SDLK_r:
 			        loadLevel(m_levelNbr);
 				    break;
+			    case SDLK_RIGHT:
+                    r = 10;
+				    break;
+				case SDLK_LEFT:
+                    l = 10;
+				    break;
+				case SDLK_DOWN:
+                    d = 10;
+				    break;
+				case SDLK_UP:
+                    u = 10;
+				    break;
 			    }
+	settings.moveCameraPosition(r,l,d,u);
 }
 
 void C_Window::loadLevel(int levelNbr){

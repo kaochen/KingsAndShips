@@ -37,6 +37,7 @@ void C_Barricade::play(){
 }
 
 void C_Barricade::render(S_Coord screen){
+	m_coord->regenScreenCoord();
     if(alive()){
 	    int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,100);
 	    string fileName = m_name+"_"+to_string(m_rank)+"_A_" + to_string(imageNbr);
