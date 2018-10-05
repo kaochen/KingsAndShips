@@ -85,8 +85,9 @@ void C_Coord::applyOffset(S_Coord offset){
 
 S_Coord C_Coord::screenToGrid(S_Coord screen){
 		C_Settings& settings=C_Settings::Instances();
-		float xOffset = (settings.getWindowWidth() /2);
-		float yOffset = (settings.getWindowHeight() + TILE_HALF_HEIGHT)/2;
+		S_Coord cameraPos = settings.getCameraPosition();
+		float xOffset = cameraPos.x;
+		float yOffset = cameraPos.y + TILE_HALF_HEIGHT/2;
 		float tempX = 0.0, tempY = 0.0;
 		S_Coord coord;
 		tempX = ( ((screen.x - xOffset ) / TILE_HALF_WIDTH + (screen.y + yOffset)/TILE_HALF_HEIGHT )/2);
@@ -98,9 +99,10 @@ S_Coord C_Coord::screenToGrid(S_Coord screen){
 
 S_Coord C_Coord::gridToScreen(S_Coord grid){
 			C_Settings& settings=C_Settings::Instances();
+    		S_Coord cameraPos = settings.getCameraPosition();
 			S_Coord screen;
-			screen.x = settings.getWindowWidth()/2 + (grid.x - grid.y)* TILE_HALF_WIDTH;
-			screen.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
+			screen.x = cameraPos.x + (grid.x - grid.y)* TILE_HALF_WIDTH;
+			screen.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - cameraPos.y;
 			return screen;
 }
 

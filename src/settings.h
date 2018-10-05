@@ -70,6 +70,9 @@ public:
   //window
 	int getWindowWidth() {return m_windowWidth;};
 	int getWindowHeight() {return m_windowHeight;};
+  S_Coord getCameraPosition(){return m_cameraPos;}; /*!< get the position of the window over the level map*/
+  void setCameraPosition(const S_Coord &pos);
+  void centerCameraPosition();
   //grid
 	size_t getGridSize() {return m_gridSize;};
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
@@ -105,6 +108,7 @@ private:
   //window
 	int m_windowWidth;
 	int m_windowHeight;
+  S_Coord m_cameraPos; /*!< get the position of the window over the level map*/
   //grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
 

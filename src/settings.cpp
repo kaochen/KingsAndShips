@@ -31,6 +31,7 @@ C_Settings::C_Settings()
 	//cout << "Construct C_Settings" << endl;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
+    centerCameraPosition();
     calcGridSize();
 	m_debugMode = false;
 	m_debugPath = false;
@@ -50,6 +51,16 @@ void C_Settings::calcGridSize(){
     m_gridSize = sqrt(m_windowHeight*m_windowHeight + m_windowWidth*m_windowWidth)/TILE_HALF_WIDTH + 2;
 }
 
+
+void C_Settings::setCameraPosition(const S_Coord &pos){
+    m_cameraPos.x = pos.x;
+    m_cameraPos.y = pos.y;
+}
+
+void C_Settings::centerCameraPosition(){
+    m_cameraPos.x = m_windowWidth/2;
+    m_cameraPos.y = m_windowHeight/2;
+}
   S_Size C_Settings::getNbrOfTilesToDisplay(){
     S_Size size;
     size.w = m_windowWidth / TILE_HALF_WIDTH;
