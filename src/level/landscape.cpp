@@ -162,16 +162,17 @@ C_Ground::C_Ground(string name, int x_grid, int y_grid):
 
 void C_Ground::render(){
     m_coord->regenScreenCoord();
-	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(m_name, m_coord->getXScreen(),m_coord->getYScreen(),CENTER_TILE);
+    if(m_coord->onScreen()){
+	    C_TextureList& t=C_TextureList::Instances();
+	    t.renderTexture(m_name, m_coord->getXScreen(),m_coord->getYScreen(),CENTER_TILE);
 
-	    size_t found = m_name.find("Water");
-	    if(found == string::npos){
-	        if ((m_coord->getXGrid()+m_coord->getYGrid())%2 == 0){
-                darkenGround(m_coord->getXScreen(), m_coord->getYScreen() + TILE_HALF_HEIGHT);
-            }
-	    }
-
+	        size_t found = m_name.find("Water");
+	        if(found == string::npos){
+	            if ((m_coord->getXGrid()+m_coord->getYGrid())%2 == 0){
+                    darkenGround(m_coord->getXScreen(), m_coord->getYScreen() + TILE_HALF_HEIGHT);
+                }
+	        }
+    }
 }
 
 void C_Ground::darkenGround(int x_screen, int y_screen){
