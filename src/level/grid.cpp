@@ -35,8 +35,6 @@ C_Grid C_Grid::m_instance=C_Grid();
 
 C_Grid::C_Grid()
 {
-	C_Settings& settings=C_Settings::Instances();
-    createAnEmptyGrid(settings.getGridSize()-2);
 }
 
 C_Grid::~C_Grid()
