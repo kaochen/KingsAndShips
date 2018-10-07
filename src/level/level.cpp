@@ -50,6 +50,8 @@ C_Level::C_Level():
 	m_currentWaveNbr = -1;
 
 	m_landscape = nullptr;
+	C_Settings& settings=C_Settings::Instances();
+	settings.centerCameraPosition();
 }
 
 
