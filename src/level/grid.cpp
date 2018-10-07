@@ -57,9 +57,9 @@ void C_Grid::reset(int size)
 void C_Grid::createAnEmptyGrid(int size){
     m_size = size + 2;
     m_vgrid.clear();
-	for (int y = 0; y < m_size; y++){
+	for (int x = 0; x < m_size; x++){
 	    vector <C_ZLayer> line;
-		for (int x = 0; x < m_size; x++){
+		for (int y = 0; y < m_size; y++){
 		    C_ZLayer z(x,y);
             line.push_back(z);
 		}
@@ -75,51 +75,20 @@ void C_Grid::createAnEmptyGrid(int size){
 
 
 void C_Grid::renderLayer(int layer){
-	C_Settings& settings=C_Settings::Instances();
-	S_Size display = settings.getNbrOfTilesToDisplay();
-    int  offset = 4;
-
-	int x_start = 0;
-    if (m_vgrid.size() >0){
-        x_start = (m_vgrid.size() - display.w)/2 -offset;
-        if(x_start < 0){x_start = 0;}
-    }
-	int x_end = x_start + display.w + offset;
-	int y_start = m_vgrid.size()/2 -3 ;
-	int y_end = y_start + display.h + offset;
     //int c = 0;
-	//cout << "xs: " << x_start << " ys: " << y_start << " xe: " << x_end << " yend: " << y_end << endl;
-	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
-		int x = x_start;
-		int y = y_start;
-	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
-				if(x >= 0 && x < x_end && y >= 0 && y < y_end){
-				    if(x >= 0 && x < (int)(m_vgrid.size()) && y >= 0 && y < (int)(m_vgrid.size())){
+    int size = (int)m_vgrid.size();
+	    for (int y = 0; y < size; y++){
+               for (int x = 0; x < size; x++){
+                   if(x >= 0 && x < size && y >= 0 && y < size){
 					    //cout << "|" << x << ":"<< y;
-				        if (layer == GROUND){
-				                if (m_vgrid[x][y].get(GROUND) != nullptr){
-							                m_vgrid[x][y].get(GROUND)->render();
-							                //c++;
-							                }
-						        }
-						        //draw the deads
-				        if (layer == GRAVEYARD || layer == FIELD){
-						        if (m_vgrid[x][y].get(layer) != nullptr){
-						                m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
-							        }
-						        }
-				    }
-				}
-				x++;
-				y--;
-				}
-		if (lineNbr%2 == 0)
-			x_start++;
-		else
-			y_start++;
+					    if(m_vgrid[x][y].render(layer)){
+					        //c++;
+					    };
 
-		//cout << "render: "<< c <<"tiles"<< endl;
-	}
+				    }
+                 }
+          }
+    //cout << "render: "<< c <<"tiles"<< endl;
 }
 
 

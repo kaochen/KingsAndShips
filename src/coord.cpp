@@ -87,7 +87,7 @@ bool C_Coord::onScreen(){
     C_Settings& settings=C_Settings::Instances();
     bool visible = false;
     if(m_this.screen.x > - TILE_HALF_WIDTH && m_this.screen.x < settings.getWindowWidth() + TILE_HALF_WIDTH
-    && m_this.screen.y > - TILE_HALF_HEIGHT && m_this.screen.y < settings.getWindowHeight() + TILE_HALF_HEIGHT){
+    && m_this.screen.y > - TILE_HALF_HEIGHT && m_this.screen.y < settings.getWindowHeight() + 2*TILE_HALF_HEIGHT){
         visible = true;
     }
     return visible;

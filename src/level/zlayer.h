@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 
 #include "gameUnits.h"
+#include "../coord.h"
 
 enum zlayers{GROUND,GRAVEYARD,FIELD};
 
@@ -34,13 +35,12 @@ public:
   C_GameUnits* get(int layer);
   void del(int layer);
   void delAll();
-
+  bool render(int layer);
 private:
   void cliStatus(); //print basic status in the CLI
 
   //attributs
-  int m_x_grid;
-  int m_y_grid;
+  C_Coord* m_coord;
   C_GameUnits * m_field; //main arena.
   C_GameUnits * m_grave; //when unit is dead
   C_GameUnits * m_ground; //land and water

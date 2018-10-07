@@ -52,7 +52,6 @@ void C_Towers::renderSmoke(){
 }
 
 void C_Towers::render(S_Coord screen){
-    m_coord->regenScreenCoord();
 	renderSelected();
 	C_Shooter::render(screen);
 
@@ -78,7 +77,6 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 }
 
 void C_ArcherTower::render(S_Coord screen){
-    m_coord->regenScreenCoord();
 	if(alive()){
 	    renderSelected();
 	    C_GameUnits::render(screen);
@@ -100,7 +98,6 @@ C_Turbine::C_Turbine(int x_grid,
 }
 
 void C_Turbine::render(S_Coord screen){
-	m_coord->regenScreenCoord();
 	if(alive()){
 	    renderSelected();
 	    renderLifeBar(screen.x, screen.y);

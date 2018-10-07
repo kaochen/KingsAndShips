@@ -71,7 +71,6 @@ void C_GameUnits::displayStatus() const
 void C_GameUnits::render(S_Coord screen){
 	C_TextureList& t=C_TextureList::Instances();
     string fileName = imageName(ALIVE,m_direction,0);
-    m_coord->regenScreenCoord();
 	t.renderTexture(fileName, screen.x,screen.y);
 }
 
