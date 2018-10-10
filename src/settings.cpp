@@ -31,7 +31,7 @@ C_Settings::C_Settings()
 	//cout << "Construct C_Settings" << endl;
 	m_windowWidth = WINDOW_WIDTH;
 	m_windowHeight = WINDOW_WIDTH * ASPECT_RATIO;
-    centerCameraPosition();
+    //centerCameraPosition();
     calcGridSize();
 	m_debugMode = false;
 	m_debugPath = false;
@@ -58,6 +58,7 @@ void C_Settings::setCameraPosition(const S_Coord &pos){
 }
 
 void C_Settings::centerCameraPosition(){
+
     m_cameraPos.x = m_windowWidth/2;
     m_cameraPos.y = m_windowHeight/2;
 }

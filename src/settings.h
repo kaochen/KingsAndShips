@@ -75,7 +75,7 @@ public:
   void centerCameraPosition();
   void moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up);
   //grid
-	size_t getGridSize() {return m_gridSize;};
+
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
   S_Size getNbrOfTilesToDisplay();

@@ -91,6 +91,8 @@ class C_Level
   void setWallet();
   void createLandscape();
   std::string extractValueFromTmxFile(std::string tmx_File_Path, const std::string &node, const std::string &attribute);
+  void centerCameraPosition();
+
 	//attibutes
 	std::string m_name;
 	int m_count;

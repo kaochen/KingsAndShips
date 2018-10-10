@@ -50,8 +50,6 @@ C_Level::C_Level():
 	m_currentWaveNbr = -1;
 
 	m_landscape = nullptr;
-	C_Settings& settings=C_Settings::Instances();
-	settings.centerCameraPosition();
 }
 
 
@@ -97,6 +95,7 @@ void C_Level::load(int levelNbr){
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
 	grid.reset(m_gridSize);
+	centerCameraPosition();
 
 	C_Message m;
     struct stat buffer;
@@ -451,6 +450,18 @@ void C_Level::addUnit(string &type, S_Coord clic){
 	    }
 }
 
+
+void C_Level::centerCameraPosition(){
+    C_Settings& settings=C_Settings::Instances();
+    C_Grid& grid=C_Grid::Instances();
+
+    S_Coord pos;
+    pos.x = settings.getWindowWidth()/2;
+    pos.y = (2*TILE_HALF_HEIGHT*grid.size() - settings.getWindowHeight())/2;
+
+    settings.setCameraPosition(pos);
+    //cout << "Center on " << pos.x << ":" << pos.y << " GridSize :" << grid.size()<< endl;
+}
 
 //______________________________Waves_____________________________//
 
