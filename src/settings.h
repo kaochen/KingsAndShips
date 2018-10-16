@@ -100,11 +100,17 @@ private:
 	C_Settings& operator= (const C_Settings&){return *this;}
 	C_Settings (const C_Settings&){}
   bool fileExist(const std::string &file);
+  void loadPrefFile();
+  void extractWindowSize();
   void calcGridSize();
+  bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
 
 	static C_Settings m_instance;
 	C_Settings();
 	~C_Settings();
+
+  //pref file:
+  std::string m_prefFile;
 
   //window
 	int m_windowWidth;
