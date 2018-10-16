@@ -80,8 +80,8 @@ void C_Settings::extractWindowSize(){
         m_windowWidth = 1280;
         m_windowHeight = 720;
     }
-
-	   cout << "Windows Size " << m_windowWidth <<"x" << m_windowHeight << endl;
+    C_Message m;
+    m.printM( "Windows Size will be :" + to_string(m_windowWidth)  +"x" + to_string(m_windowHeight) + "\n");
 }
 
 
