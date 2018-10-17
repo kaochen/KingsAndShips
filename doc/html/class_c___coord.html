@@ -125,6 +125,8 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>isEqual</b> (
 <tr class="memitem:ac000f51090315275088e14896b461c2b"><td class="memItemLeft" align="right" valign="top"><a id="ac000f51090315275088e14896b461c2b"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>applyOffset</b> (<a class="el" href="struct_s___coord.html">S_Coord</a> offset)</td></tr>
 <tr class="separator:ac000f51090315275088e14896b461c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24b512f8d8e4bd9822637a115b392663"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___coord.html#a24b512f8d8e4bd9822637a115b392663">onScreen</a> ()</td></tr>
+<tr class="separator:a24b512f8d8e4bd9822637a115b392663"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedc4c104a23438291c3a23f1fc4f876"><td class="memItemLeft" align="right" valign="top"><a id="aaedc4c104a23438291c3a23f1fc4f876"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>displayStatus</b> ()</td></tr>
 <tr class="separator:aaedc4c104a23438291c3a23f1fc4f876"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,6 +166,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>move</b> (dou
 <tr class="memitem:a036a87e791be498d792ea7501c9a6d17"><td class="memItemLeft" align="right" valign="top"><a id="a036a87e791be498d792ea7501c9a6d17"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>regenGridCoord</b> ()</td></tr>
 <tr class="separator:a036a87e791be498d792ea7501c9a6d17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4480514d2193acf70c68ee08224d50a"><td class="memItemLeft" align="right" valign="top"><a id="ae4480514d2193acf70c68ee08224d50a"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>regenScreenCoord</b> ()</td></tr>
+<tr class="separator:ae4480514d2193acf70c68ee08224d50a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cc97ccd271b5007da17edfdb357af57"><td class="memItemLeft" align="right" valign="top"><a id="a2cc97ccd271b5007da17edfdb357af57"></a>
 virtual double&#160;</td><td class="memItemRight" valign="bottom"><b>atan2_360</b> (int ab, int bc)</td></tr>
 <tr class="separator:a2cc97ccd271b5007da17edfdb357af57"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,6 +194,33 @@ Protected Attributes</h2></td></tr>
 <a class="el" href="struct_s___node_coord.html">S_NodeCoord</a>&#160;</td><td class="memItemRight" valign="bottom"><b>m_this</b></td></tr>
 <tr class="separator:aa4b500f8ffbdffc18492704de7741914"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a24b512f8d8e4bd9822637a115b392663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24b512f8d8e4bd9822637a115b392663">&#9670;&nbsp;</a></span>onScreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool C_Coord::onScreen </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>To know if an object is visible on screen and need render </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="coord_8h_source.html">coord.h</a></li>
 <li>src/coord.cpp</li>

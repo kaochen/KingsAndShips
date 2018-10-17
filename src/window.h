@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "level/towers.h"
 #include "level/barricade.h"
 #include "level/level.h"
-#include "level/landscape.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -54,6 +53,7 @@ class C_Window
   void listenKeyboard(SDL_Event &event);
   void listenMouseMotion(SDL_Event &event);
   void listenMouseButtonUP(SDL_Event &event);
+
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
 	C_Window (const C_Window&){}
@@ -68,7 +68,7 @@ class C_Window
   bool m_forceRefresh;
   C_Level* m_level;
   int m_levelNbr;
-  C_Landscape* m_landscape;
+
 
   std::string m_buttonType;
   S_Coord m_cursor;

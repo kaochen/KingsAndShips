@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <list>
 #include <vector>
 
+#include "landscape.h"
+#include "../coord.h"
 
 
 struct S_boat{
@@ -71,15 +73,25 @@ class C_Level
   void cliWaveStatus(int i);
   void loadWaveIntoGrid(int i);
   void updateMenuInfo();
+  void render();
+  void playAllUnits ();
+  bool selectATower(S_Coord clic);
+  void addUnit(std::string &type, S_Coord clic);
 
 	protected:
   //methods
+  void extractInfosFromTmx(int levelNbr);
+  std::string extractPropertyFromTmxFile(std::string tmx_File_Path, const std::string &name);
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
   void loadWave(std::string tmx_File_Path, int waveNbr);
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
   int countAttributes(std::string tmx_File_Path, std::string pattern);
-
+  S_Coord getFirstTile(S_tmxLayer &layer);
+  void setWallet();
+  void createLandscape();
+  std::string extractValueFromTmxFile(std::string tmx_File_Path, const std::string &node, const std::string &attribute);
+  void centerCameraPosition();
 
 	//attibutes
 	std::string m_name;
@@ -90,7 +102,17 @@ class C_Level
   int m_nbrOfWaves;
   int m_currentWaveNbr;
   std::vector <C_Wave> m_waves;
+  int calcGridSize();
+  C_Landscape* m_landscape;
 
+  //properties
+  std::string m_filename;
+  int m_width;
+  int m_height;
+  int m_gridSize;
+  int m_tilewidth;
+  int m_tileheight;
+  std::string m_backgroundcolor;
 };
 
 

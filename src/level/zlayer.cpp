@@ -25,12 +25,14 @@ using namespace std;
 
 
 C_ZLayer::C_ZLayer(int x_grid, int y_grid):
-    m_x_grid(x_grid),
-    m_y_grid(y_grid),
     m_field(nullptr),
     m_grave(nullptr),
     m_ground(nullptr)
 {
+    S_Coord coord;
+	coord.x = x_grid;
+	coord.y = y_grid;
+	m_coord = new C_CoordGrid(coord);
     cliStatus();
 }
 
@@ -103,8 +105,39 @@ void C_ZLayer::delAll(){
 
 
 void C_ZLayer::cliStatus(){
-    cout << m_x_grid << ":"<< m_y_grid << " ";
+    cout << m_coord->getXGrid() << ":"<< m_coord->getYGrid() << " ";
 }
 
+bool C_ZLayer::render(int layer){
+
+    bool ret = false;
+    m_coord->regenScreenCoord();
+    if(m_coord->onScreen()){ //check if tile is visible on screen
+        switch(layer){
+	        case GROUND :
+	            if(m_ground != nullptr){
+	                m_ground->regendScreenCoord();
+	                m_ground->render();
+	                ret = true;
+	            }
+	         break;
+	         case GRAVEYARD :
+	            if(m_grave != nullptr){
+	                m_grave->regendScreenCoord();
+	                m_grave->render(m_grave->getScreen());
+	                ret = true;
+	            }
+	         break;
+	         case  FIELD:
+	            if(m_field != nullptr){
+	                m_field->regendScreenCoord();
+	                m_field->render(m_field->getScreen());
+	                ret = true;
+	            }
+	         break;
+	    }
+    }
+    return ret;
+}
 
 

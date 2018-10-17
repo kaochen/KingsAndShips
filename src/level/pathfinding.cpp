@@ -28,15 +28,18 @@ using namespace std;
 C_Path::C_Path(int x_dest, int y_dest)
 {
 	C_Grid& grid=C_Grid::Instances();
-	C_Settings& settings=C_Settings::Instances();
-    for (size_t x = 0; x < settings.getGridSize(); x++){
+    for (int x = 0; x < grid.getSize(); x++){
 	    vector <C_Node> line;
-		for (size_t y = 0; y < settings.getGridSize(); y++){
+		for (int y = 0; y < grid.getSize(); y++){
 		    bool block = true;
 		    if (grid.waterway(x,y)){
 			        block = false;
 		    }
 	        C_Node z(x,y,block);
+	        if(grid.testBarricade(x,y)){
+	            z.setBarricade(true);
+	            //cout << "Barricade in : " << x << ":" << y << endl;
+	        }
             line.push_back(z);
 	    }
 	    m_vgridNode.push_back(line);
@@ -328,7 +331,7 @@ void C_Path::calcG_Around(C_Node *current){
 
 //Help to turn around a corner
 bool C_Path::crossACorner(int x_from, int y_from, int x_dest, int y_dest){
-    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock())
+    if(m_vgridNode[x_from][y_dest].getBlock()||m_vgridNode[x_dest][y_from].getBlock() )
         return true;
     else
         return false;

@@ -9,6 +9,7 @@ var class_c___boat =
     [ "play", "class_c___boat.html#a1fc1aa808059c1da1c06eca690a04f2e", null ],
     [ "recalcPath", "class_c___boat.html#a5fbafea3d630d19c378efdf33e6983bc", null ],
     [ "receiveDamage", "class_c___boat.html#ab1ef9507ba173b265f867f88ab96052c", null ],
+    [ "regendScreenCoord", "class_c___boat.html#adeeb2e31ba47a8e16a82d233f7de8a95", null ],
     [ "render", "class_c___boat.html#a6c1b7be0d4f766f181ea6511f0385628", null ],
     [ "m_animDirection", "class_c___boat.html#a3d844ae2105ec42288fb0f394009175e", null ],
     [ "m_C_Path", "class_c___boat.html#a7564e1da3b91d21774a7e2f12886cb18", null ],

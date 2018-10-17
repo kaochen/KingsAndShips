@@ -45,7 +45,7 @@ C_Window::C_Window()
     m_level = new C_Level;
     m_levelNbr = settings.getCurrentLevelNbr();
 
-    m_landscape = new C_Landscape();
+
 
     m_buttonType = "";
     m_cursor.x = m_cursor.y = 1;
@@ -60,7 +60,6 @@ C_Window::C_Window()
 
 C_Window::~C_Window(){
     delete m_level;
-    delete m_landscape;
 }
 
 
@@ -207,9 +206,7 @@ void C_Window::quitProgram()
 void C_Window::gameLoop(){
 
 	C_Time& time=C_Time::Instances();
-    C_Grid& grid=C_Grid::Instances();
 	C_Menu& menu=C_Menu::Instances();
-	grid.displayStatus();
 
     //load the first level
     loadLevel(m_levelNbr);
@@ -223,16 +220,13 @@ void C_Window::gameLoop(){
 				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
-				grid.playAllUnits();
 
+			m_level->playAllUnits();
             //render image
 	        if (m_forceRefresh){
 
 		        //display game content from bottom to top
-                m_landscape->render();
-		        grid.renderLayer (GRAVEYARD);
-		        grid.renderLayer (GROUND);
-		        grid.renderLayer (FIELD);
+                m_level->render();
 
                 listenButtons();
                 menu.updateInfos();
@@ -342,6 +336,7 @@ void C_Window::listenButtons(){
 
 void C_Window::listenKeyboard(SDL_Event &event){
     C_Settings& settings=C_Settings::Instances();
+    int r = 0; int l = 0; int u = 0; int d = 0;
     switch(event.key.keysym.sym)
 			    {
 			    case SDLK_d:
@@ -373,7 +368,20 @@ void C_Window::listenKeyboard(SDL_Event &event){
 			    case SDLK_r:
 			        loadLevel(m_levelNbr);
 				    break;
+			    case SDLK_RIGHT:
+                    r = 10;
+				    break;
+				case SDLK_LEFT:
+                    l = 10;
+				    break;
+				case SDLK_DOWN:
+                    d = 10;
+				    break;
+				case SDLK_UP:
+                    u = 10;
+				    break;
 			    }
+	settings.moveCameraPosition(r,l,d,u);
 }
 
 void C_Window::loadLevel(int levelNbr){
@@ -395,7 +403,6 @@ void C_Window::loadLevel(int levelNbr){
 
 void C_Window::listenMouseMotion(SDL_Event &event){
         C_Settings& settings=C_Settings::Instances();
-        C_Grid& grid=C_Grid::Instances();
 		    // get x cursor position
 			    if(event.button.x < 0)
 				    m_cursor.x = 0;
@@ -412,43 +419,20 @@ void C_Window::listenMouseMotion(SDL_Event &event){
 			    else
 				    m_cursor.y = event.button.y;
 
-			    if (m_mouseButtonDown){
-					    if(m_aTowerIsSelected){
-						    grid.getSelectedUnit();
-					    }
-			    }
-        }
+}
 
 void C_Window::listenMouseButtonUP(SDL_Event &event){
-        C_Grid& grid=C_Grid::Instances();
-			    if (event.button.button ==  SDL_BUTTON_LEFT)
-				    {
-					    m_clic.x = event.button.x;
-					    m_clic.y = event.button.y;
-					    C_CoordScreen clicleft(m_clic);
+	if (event.button.button ==  SDL_BUTTON_LEFT){
+		m_clic.x = event.button.x;
+		m_clic.y = event.button.y;
 
-					    //Select a Tower
-					    if(m_addingAnewTower == false) {
-						    m_aTowerIsSelected = grid.selectATower(clicleft);
-					    }
+		//Select or add a new Tower
+		if(m_addingAnewTower == true){
+	        m_level->addUnit(m_buttonType, m_clic);
+			m_addingAnewTower = false;
+		}
 
-					    //Add a new Tower
-					    if(m_addingAnewTower == true){
-						    if(grid.addUnit(m_buttonType,clicleft.getXGrid (),clicleft.getYGrid (),0) == EXIT_SUCCESS){
-						        C_GameUnits * tmp = grid.getUnits(clicleft.getXGrid (),clicleft.getYGrid ());
-						        if(tmp != nullptr){
-						            C_Wallet& wallet=C_Wallet::Instances();
-						            wallet.debit(tmp->getCost());
-						            wallet.cliStatus();
-						            m_aTowerIsSelected = grid.selectATower(clicleft);
-						        }
-						        }
-						    m_addingAnewTower = false;
-						}
-					    else{
-						    m_addingAnewTower = false;
-					    }
-
-				    m_mouseButtonDown = false;
-				    }
+		m_aTowerIsSelected = m_level->selectATower(m_clic);
+	    m_mouseButtonDown = false;
+		}
 }

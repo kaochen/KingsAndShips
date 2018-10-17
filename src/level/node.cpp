@@ -34,6 +34,7 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
 	coo.y = y_grid;
 	m_coord = new C_CoordGrid(coo);
 	setBlock(block);
+	m_barricade = false;
 	m_G = 0;
 	m_H = 0;
 	m_F = m_G + m_H;
@@ -138,20 +139,30 @@ void C_Node::calcH(const C_Node* target){
 int C_Node::calcG_offset(int x_from, int y_from,
 			 int x_dest, int y_dest){
     int offset = 0;
+	C_Grid& grid=C_Grid::Instances();
+	//if diagonal
 	if(x_from != x_dest && y_from != y_dest){
 		offset += G_DIAG;
+
+		//if barricade on a corner add a malus
+	    string corner1 = grid.getName(FIELD,x_dest,y_from);
+	    string corner2 = grid.getName(FIELD,x_from,y_dest);
+	    if(corner1 == "barricade" || corner2 == "barricade"){
+	        offset += 2*G_DIAG;
+	    }
 	}
 	else{
 		offset += G_HV;
 	}
 
-    //if boat or barricade add a malus
-	C_Grid& grid=C_Grid::Instances();
+    //if boat or barricade on destination add malus
 	string name = grid.getName(FIELD,x_dest,y_dest);
-	if(name == "boat" || name == "barricade"){
-	    offset += 2*G_HV;
+	if(name == "barricade"){
+	    offset += 3*G_HV;
 	}
-
+	else if(name == "boat"){
+	    offset += 2*G_HV;
+	    }
 	return offset;
 }
 

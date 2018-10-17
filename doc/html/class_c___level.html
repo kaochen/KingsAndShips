@@ -95,6 +95,7 @@ Collaboration diagram for C_Level:</div>
 <div class="center"><img src="class_c___level__coll__graph.png" border="0" usemap="#_c___level_coll__map" alt="Collaboration graph"/></div>
 <map name="_c___level_coll__map" id="_c___level_coll__map">
 <area shape="rect" id="node2" href="struct_s__tmx_layer.html" title="S_tmxLayer" alt="" coords="5,5,97,32"/>
+<area shape="rect" id="node3" href="class_c___landscape.html" title="C_Landscape" alt="" coords="121,5,224,32"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -118,9 +119,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loadWaveIntoGrid</b> 
 <tr class="memitem:ad4c138ef9c9eeba6499ee3f1da0e242a"><td class="memItemLeft" align="right" valign="top"><a id="ad4c138ef9c9eeba6499ee3f1da0e242a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>updateMenuInfo</b> ()</td></tr>
 <tr class="separator:ad4c138ef9c9eeba6499ee3f1da0e242a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1525789eb21f9943e5a55b96d3d977d1"><td class="memItemLeft" align="right" valign="top"><a id="a1525789eb21f9943e5a55b96d3d977d1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>render</b> ()</td></tr>
+<tr class="separator:a1525789eb21f9943e5a55b96d3d977d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab064804ebac8835346abe92828f5cf84"><td class="memItemLeft" align="right" valign="top"><a id="ab064804ebac8835346abe92828f5cf84"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>playAllUnits</b> ()</td></tr>
+<tr class="separator:ab064804ebac8835346abe92828f5cf84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10d150a276d23ba225a06325a0b3e42f"><td class="memItemLeft" align="right" valign="top"><a id="a10d150a276d23ba225a06325a0b3e42f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>selectATower</b> (<a class="el" href="struct_s___coord.html">S_Coord</a> clic)</td></tr>
+<tr class="separator:a10d150a276d23ba225a06325a0b3e42f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44b8558b5aff13d60e1e47c76ee6c5e5"><td class="memItemLeft" align="right" valign="top"><a id="a44b8558b5aff13d60e1e47c76ee6c5e5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addUnit</b> (std::string &amp;type, <a class="el" href="struct_s___coord.html">S_Coord</a> clic)</td></tr>
+<tr class="separator:a44b8558b5aff13d60e1e47c76ee6c5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
+<tr class="memitem:aed7dbdaa6ac87e4636dbb8a46b2d3d59"><td class="memItemLeft" align="right" valign="top"><a id="aed7dbdaa6ac87e4636dbb8a46b2d3d59"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>extractInfosFromTmx</b> (int levelNbr)</td></tr>
+<tr class="separator:aed7dbdaa6ac87e4636dbb8a46b2d3d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea37b948dc7b9c284b1dcffdc5c41b51"><td class="memItemLeft" align="right" valign="top"><a id="aea37b948dc7b9c284b1dcffdc5c41b51"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>extractPropertyFromTmxFile</b> (std::string tmx_File_Path, const std::string &amp;name)</td></tr>
+<tr class="separator:aea37b948dc7b9c284b1dcffdc5c41b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bd1ee4fd2e599dc88ffb22b5e33c350"><td class="memItemLeft" align="right" valign="top"><a id="a5bd1ee4fd2e599dc88ffb22b5e33c350"></a>
 <a class="el" href="struct_s__tmx_layer.html">S_tmxLayer</a>&#160;</td><td class="memItemRight" valign="bottom"><b>extractTMXfile</b> (std::string tmx_File_Path, std::string layerName)</td></tr>
 <tr class="separator:a5bd1ee4fd2e599dc88ffb22b5e33c350"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -136,6 +155,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loadDecorLayerIntoThe
 <tr class="memitem:acdd6fc87bf2b033d7c7e6698c93acde6"><td class="memItemLeft" align="right" valign="top"><a id="acdd6fc87bf2b033d7c7e6698c93acde6"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>countAttributes</b> (std::string tmx_File_Path, std::string pattern)</td></tr>
 <tr class="separator:acdd6fc87bf2b033d7c7e6698c93acde6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28d7cb53648e05a56875d6e84645b2f4"><td class="memItemLeft" align="right" valign="top"><a id="a28d7cb53648e05a56875d6e84645b2f4"></a>
+<a class="el" href="struct_s___coord.html">S_Coord</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getFirstTile</b> (<a class="el" href="struct_s__tmx_layer.html">S_tmxLayer</a> &amp;layer)</td></tr>
+<tr class="separator:a28d7cb53648e05a56875d6e84645b2f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eda58e8efe8ebddc4452699a81effd1"><td class="memItemLeft" align="right" valign="top"><a id="a5eda58e8efe8ebddc4452699a81effd1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setWallet</b> ()</td></tr>
+<tr class="separator:a5eda58e8efe8ebddc4452699a81effd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab43387abad3c3e67f4b59c38d7d73b50"><td class="memItemLeft" align="right" valign="top"><a id="ab43387abad3c3e67f4b59c38d7d73b50"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>createLandscape</b> ()</td></tr>
+<tr class="separator:ab43387abad3c3e67f4b59c38d7d73b50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefb215a50f0323bd67961e5d420c7b78"><td class="memItemLeft" align="right" valign="top"><a id="aefb215a50f0323bd67961e5d420c7b78"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>extractValueFromTmxFile</b> (std::string tmx_File_Path, const std::string &amp;node, const std::string &amp;attribute)</td></tr>
+<tr class="separator:aefb215a50f0323bd67961e5d420c7b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8ef6d509419942a9b6684de6c97b2d9"><td class="memItemLeft" align="right" valign="top"><a id="ab8ef6d509419942a9b6684de6c97b2d9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>centerCameraPosition</b> ()</td></tr>
+<tr class="separator:ab8ef6d509419942a9b6684de6c97b2d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8b166c9b133000aa40531664431bdcf"><td class="memItemLeft" align="right" valign="top"><a id="aa8b166c9b133000aa40531664431bdcf"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>calcGridSize</b> ()</td></tr>
+<tr class="separator:aa8b166c9b133000aa40531664431bdcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -163,6 +200,30 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>m_currentWaveNbr</b></
 <tr class="memitem:ad158127d2621ee6c996651250547495a"><td class="memItemLeft" align="right" valign="top"><a id="ad158127d2621ee6c996651250547495a"></a>
 std::vector&lt; <a class="el" href="class_c___wave.html">C_Wave</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_waves</b></td></tr>
 <tr class="separator:ad158127d2621ee6c996651250547495a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa96678df79010bfac5ad6ddbec56ba"><td class="memItemLeft" align="right" valign="top"><a id="afaa96678df79010bfac5ad6ddbec56ba"></a>
+<a class="el" href="class_c___landscape.html">C_Landscape</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>m_landscape</b></td></tr>
+<tr class="separator:afaa96678df79010bfac5ad6ddbec56ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f57704a6ddbda5935b314fe355051a7"><td class="memItemLeft" align="right" valign="top"><a id="a1f57704a6ddbda5935b314fe355051a7"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_filename</b></td></tr>
+<tr class="separator:a1f57704a6ddbda5935b314fe355051a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2941c26f3865e5be40eacf1ac2c4ef3c"><td class="memItemLeft" align="right" valign="top"><a id="a2941c26f3865e5be40eacf1ac2c4ef3c"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_width</b></td></tr>
+<tr class="separator:a2941c26f3865e5be40eacf1ac2c4ef3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21cd52eed325ee8946488a2ed61085c3"><td class="memItemLeft" align="right" valign="top"><a id="a21cd52eed325ee8946488a2ed61085c3"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_height</b></td></tr>
+<tr class="separator:a21cd52eed325ee8946488a2ed61085c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5629e6e5ae1e626e44826d5c09d2bde5"><td class="memItemLeft" align="right" valign="top"><a id="a5629e6e5ae1e626e44826d5c09d2bde5"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_gridSize</b></td></tr>
+<tr class="separator:a5629e6e5ae1e626e44826d5c09d2bde5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3f64c8b8df6b1dc9d724267c6897d2b"><td class="memItemLeft" align="right" valign="top"><a id="ac3f64c8b8df6b1dc9d724267c6897d2b"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_tilewidth</b></td></tr>
+<tr class="separator:ac3f64c8b8df6b1dc9d724267c6897d2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55cbecdaa7c10bf796785dbc4c8f8f78"><td class="memItemLeft" align="right" valign="top"><a id="a55cbecdaa7c10bf796785dbc4c8f8f78"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>m_tileheight</b></td></tr>
+<tr class="separator:a55cbecdaa7c10bf796785dbc4c8f8f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac98e7098ca222b17cbe6d1ce5d9a2183"><td class="memItemLeft" align="right" valign="top"><a id="ac98e7098ca222b17cbe6d1ce5d9a2183"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_backgroundcolor</b></td></tr>
+<tr class="separator:ac98e7098ca222b17cbe6d1ce5d9a2183"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/level/<a class="el" href="level_8h_source.html">level.h</a></li>

@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../wallet.h"
 #include "../message.h"
 #include "../menu/menu.h"
+#include "../coord.h"
 
 using namespace std;
 
@@ -47,46 +48,94 @@ C_Level::C_Level():
 	m_decorLayer.data="";
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
+
+	m_landscape = nullptr;
 }
 
 
 C_Level::~C_Level()
 {
+    delete m_landscape;
 }
 
 void C_Level::cliStatus(){
 	cout << m_name << " " << m_id << endl;
 }
 
+void C_Level::extractInfosFromTmx(int levelNbr){
+	C_Settings& settings=C_Settings::Instances();
+    m_filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
+	C_Message m;
+    struct stat buffer;
+    if (stat (m_filename.c_str(),  &buffer) == 0){
+        m_width = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "width"));
+        m_height = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "height"));
+        m_gridSize = calcGridSize();
+        m.printM("Grid size should be " + to_string(m_gridSize) + "\n");
+        m_tilewidth = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "tilewidth"));
+        m_tileheight = stoi(extractValueFromTmxFile(m_filename.c_str(), "map", "tileheight"));
+        m_backgroundcolor = extractValueFromTmxFile(m_filename.c_str(), "map", "backgroundcolor");
+        extractPropertyFromTmxFile(m_filename.c_str(), "subname");
+	}
+	else{
+	    C_Message m;
+    	m.printM("Can not find " + m_filename+"\n");
+	}
+}
+
+int C_Level::calcGridSize(){
+    if(m_width > m_height)
+        return m_width;
+    else
+        return m_height;
+}
+
 void C_Level::load(int levelNbr){
+    extractInfosFromTmx(levelNbr);
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
-	C_Settings& settings=C_Settings::Instances();
-	grid.reset();
+	grid.reset(m_gridSize);
+	centerCameraPosition();
+
 	C_Message m;
-    string extension =".tmx";
-    string filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + extension;
-
     struct stat buffer;
-    if (stat (filename.c_str(),  &buffer) == 0){
+    if (stat (m_filename.c_str(),  &buffer) == 0){
 
-	    loadGroundLayerIntoTheGrid(filename.c_str());
-	    loadDecorLayerIntoTheGrid(filename.c_str());
-	    m_nbrOfWaves = countAttributes(filename.c_str(),"Wave");
+	    loadGroundLayerIntoTheGrid(m_filename.c_str());
+	    loadDecorLayerIntoTheGrid(m_filename.c_str());
+	    setWallet();
+	    m_nbrOfWaves = countAttributes(m_filename.c_str(),"Wave");
     	for(int i = 0; i < m_nbrOfWaves; i++){
-    	    loadWave(filename.c_str(),i);
+    	    loadWave(m_filename.c_str(),i);
     	}
         updateMenuInfo();
-        C_Wallet& wallet=C_Wallet::Instances();
-        wallet.reset();
-        wallet.credit(500); //add a credit for start
+
+
+        createLandscape();
     	m.printM("Level " + to_string(levelNbr) +" Loaded\n");
 	}
 	else{
-    	m.printM("Can not find " + filename+"\n");
+    	m.printM("Can not find " + m_filename+"\n");
     	m.printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
 }
+
+void C_Level::setWallet(){
+        C_Wallet& wallet=C_Wallet::Instances();
+        int walletCredit =  stoi(extractPropertyFromTmxFile(m_filename.c_str(), "wallet"));
+        if(walletCredit < 1){
+            walletCredit = 500;
+        }
+        wallet.reset();
+        wallet.credit(walletCredit); //add a credit for start
+}
+
+void C_Level::createLandscape(){
+	C_Grid& grid=C_Grid::Instances();
+    C_CoordGrid tmp(grid.foundTown());
+	S_Coord town = tmp.getScreen();
+	m_landscape = new C_Landscape(town);
+	}
 
 void C_Level::sendNextWave(){
     C_Message m;
@@ -98,6 +147,64 @@ void C_Level::sendNextWave(){
     cliWaveStatus(m_currentWaveNbr);
     loadWaveIntoGrid(m_currentWaveNbr);
     m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
+}
+
+string C_Level::extractValueFromTmxFile(string tmx_File_Path, const string &node, const string &attribute){
+     xmlpp::TextReader reader(tmx_File_Path);
+     string value;
+     while(reader.read())
+        {
+        		string nodeName = reader.get_name();
+	          	//cout << nodeName << "---namespace---\n";
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			      string attrib = reader.get_name();
+			      //cout << attributes << "-----"<< endl;
+
+			      if (nodeName == node && attrib == attribute){
+			      	value = reader.get_value();
+				    }
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+    C_Message m;
+	m.printM("From: " + tmx_File_Path +" Node: \""+ node + "\" attribute: \"" + attribute + "\" get this value: "+ value + "\n");
+    return value;
+}
+
+string C_Level::extractPropertyFromTmxFile(string tmx_File_Path, const string &name){
+     xmlpp::TextReader reader(tmx_File_Path);
+     string value;
+     while(reader.read())
+        {
+        		string nodeName = reader.get_name();
+	          	//cout << nodeName << "---namespace---\n";
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			      string attrib = reader.get_name();
+			      //cout << attributes << "-----"<< endl;
+
+			      if (nodeName == "property" && attrib == "name"){
+			      	string readName = reader.get_value();
+			      	if(readName == name){
+			      	    reader.move_to_next_attribute();
+			      	    value = reader.get_value();
+			      	    }
+				    }
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+    C_Message m;
+	m.printM("From: " + tmx_File_Path +" Property: " +name+ " = "+ value + "\n");
+    return value;
 }
 
 
@@ -159,21 +266,36 @@ void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
 	C_Grid& grid=C_Grid::Instances();
 	m_groundLayer = extractTMXfile(tmx_File_Path,"Ground");
     string data = m_groundLayer.data;
-
-	for (int y = 0; y < m_groundLayer.height; y++){
-		for (int x = 0; x < m_groundLayer.width; x++){
+    S_Coord start = getFirstTile(m_groundLayer);
+	for (int y = start.y; y < m_groundLayer.height; y++){
+		for (int x = start.x; x < m_groundLayer.width; x++){
 				string extract = data;
 				int mark = extract.find_first_of(',');
 				if (mark > 0)
 					extract.resize(mark,'C');
 				int nbr = stoi(extract);
 				//cout << nbr;
+				if(nbr == 0){nbr = 27;}; //FIXME water is not the 0 but the 27 in the tileset
 				grid.setGround(x,y,nbr);
 
 				//cout << extract <<":";
 				data = data.substr(mark + 1);
 		}
 	}
+}
+
+S_Coord C_Level::getFirstTile(S_tmxLayer &layer){
+    C_Grid& grid=C_Grid::Instances();
+    int x = 0; int y = 0;
+    if(grid.size()-layer.width>1){
+        x = (grid.size()-layer.width)/2;
+        }
+    if(grid.size()-layer.height>1){
+        y = (grid.size()-layer.height)/2;
+        }
+    S_Coord first{x,y};
+    cout << "first " << x << ":" << y << "-----------------------------------------"<< endl;
+    return first;
 }
 
 void C_Level::loadWave(string tmx_File_Path, int waveNbr){
@@ -239,9 +361,9 @@ void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
 	C_Grid& grid=C_Grid::Instances();
 	m_decorLayer = extractTMXfile(tmx_File_Path,"Decors");
     string data = m_decorLayer.data;
-
-	for (int y = 0; y < m_decorLayer.height; y++){
-		for (int x = 0; x < m_decorLayer.width; x++){
+    S_Coord start = getFirstTile(m_decorLayer);
+	for (int y = start.y; y < m_decorLayer.height; y++){
+		for (int x = start.x; x < m_decorLayer.width; x++){
 				string extract = data;
 				int mark = extract.find_first_of(',');
 				if (mark > 0)
@@ -296,6 +418,50 @@ int C_Level::countAttributes(string tmx_File_Path, string pattern){
     return c;
 }
 
+void C_Level::render(){
+    C_Grid& grid=C_Grid::Instances();
+    m_landscape->render();
+	grid.renderLayer (GRAVEYARD);
+	grid.renderLayer (GROUND);
+	grid.renderLayer (FIELD);
+}
+
+void C_Level::playAllUnits(){
+    C_Grid& grid=C_Grid::Instances();
+    grid.playAllUnits();
+}
+
+bool C_Level::selectATower(S_Coord clic){
+    C_Grid& grid=C_Grid::Instances();
+    C_CoordScreen coord(clic);
+    return grid.selectATower(coord);
+}
+
+void C_Level::addUnit(string &type, S_Coord clic){
+    C_Grid& grid=C_Grid::Instances();
+    C_CoordScreen coord(clic);
+    if(grid.addUnit(type,coord.getXGrid (),coord.getYGrid (),0) == EXIT_SUCCESS){
+	   C_GameUnits * tmp = grid.getUnits(coord.getXGrid (),coord.getYGrid ());
+	   if(tmp != nullptr){
+	       C_Wallet& wallet=C_Wallet::Instances();
+	       wallet.debit(tmp->getCost());
+	       wallet.cliStatus();
+	       }
+	    }
+}
+
+
+void C_Level::centerCameraPosition(){
+    C_Settings& settings=C_Settings::Instances();
+    C_Grid& grid=C_Grid::Instances();
+
+    S_Coord pos;
+    pos.x = settings.getWindowWidth()/2;
+    pos.y = (2*TILE_HALF_HEIGHT*grid.size() - settings.getWindowHeight())/2;
+
+    settings.setCameraPosition(pos);
+    //cout << "Center on " << pos.x << ":" << pos.y << " GridSize :" << grid.size()<< endl;
+}
 
 //______________________________Waves_____________________________//
 

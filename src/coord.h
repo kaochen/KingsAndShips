@@ -35,6 +35,7 @@ public:
 	virtual ~C_Coord();
 	virtual bool isEqual(C_Coord const &b) const;
 	virtual void applyOffset(S_Coord offset);
+  virtual bool onScreen(); /*!< To know if an object is visible on screen and need render*/
 	virtual void displayStatus();
 	virtual S_Coord getGrid();
 	virtual int getXGrid() const;
@@ -48,6 +49,7 @@ public:
   virtual double directionToAngle(int direction);
 	virtual void move(double angle, int speed);
 	virtual void regenGridCoord();
+  virtual void regenScreenCoord();
   virtual double atan2_360(int ab, int bc);
 	virtual bool closeToCenter(S_Coord grid, int px_length);
   virtual int guessADirection(S_Coord start,S_Coord end);

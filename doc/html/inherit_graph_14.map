@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_c___time.html" title="C_Time" alt="" coords="5,5,73,32"/>
+<area shape="rect" id="node1" href="$class_c___texture.html" title="C_Texture" alt="" coords="5,31,88,57"/>
+<area shape="rect" id="node2" href="$class_c___image.html" title="C_Image" alt="" coords="136,5,211,32"/>
+<area shape="rect" id="node3" href="$class_c___text.html" title="C_Text" alt="" coords="141,56,206,83"/>
 </map>

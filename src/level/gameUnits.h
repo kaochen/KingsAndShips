@@ -63,7 +63,7 @@ class C_GameUnits
 	virtual int getXScreen() const {return m_coord->getXScreen ();};
 	virtual int getYScreen() const {return m_coord->getYScreen ();};
 	virtual S_Coord getScreen() const {return m_coord->getScreen ();};
-
+  virtual void regendScreenCoord(){m_coord->regenScreenCoord();};
   //selected or not
 	virtual bool getSelectedStatus() const {return m_selected;};
 	virtual void setSelectedStatus(bool status) {m_selected = status;};

@@ -26,14 +26,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Landscape
 {
 	public:
-    C_Landscape();
+    C_Landscape(S_Coord town);
     ~C_Landscape();
     void render();
 	protected:
 	private:
   //methods
   void renderWater(int direction);
-  int waterDirection();
+  int waterDirection(S_Coord town);
 
   //attributes
   S_Coord m_waterDrift;

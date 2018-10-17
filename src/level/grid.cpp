@@ -35,11 +35,29 @@ C_Grid C_Grid::m_instance=C_Grid();
 
 C_Grid::C_Grid()
 {
-	C_Settings& settings=C_Settings::Instances();
+}
 
-	for (size_t y = 0; y < settings.getGridSize(); y++){
+C_Grid::~C_Grid()
+{
+    m_vgrid.clear();
+}
+
+void C_Grid::reset(int size)
+{
+    for (size_t y = 0; y < m_vgrid.size(); y++){
+               for (size_t x = 0; x < m_vgrid.size(); x++){
+                   m_vgrid[x][y].delAll();
+                   }
+           }
+    createAnEmptyGrid(size);
+}
+
+void C_Grid::createAnEmptyGrid(int size){
+    m_size = size + 2;
+    m_vgrid.clear();
+	for (int x = 0; x < m_size; x++){
 	    vector <C_ZLayer> line;
-		for (size_t x = 0; x < settings.getGridSize(); x++){
+		for (int y = 0; y < m_size; y++){
 		    C_ZLayer z(x,y);
             line.push_back(z);
 		}
@@ -53,56 +71,22 @@ C_Grid::C_Grid()
     m.printM(message.str());
 }
 
-C_Grid::~C_Grid()
-{
-	reset();
-}
-
-void C_Grid::reset()
-{
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-		for (size_t x = 0; x < m_vgrid.size(); x++){
-		    m_vgrid[x][y].delAll();
-		    }
-	    }
-}
-
 
 void C_Grid::renderLayer(int layer){
-	C_Settings& settings=C_Settings::Instances();
+    //int c = 0;
+    int size = (int)m_vgrid.size();
+	    for (int y = 0; y < size; y++){
+               for (int x = 0; x < size; x++){
+                   if(x >= 0 && x < size && y >= 0 && y < size){
+					    //cout << "|" << x << ":"<< y;
+					    if(m_vgrid[x][y].render(layer)){
+					        //c++;
+					    };
 
-	int x_start = 0, x_end = x_start + settings.getGridWidth() + 4;
-	int y_start = 13, y_end = y_start + settings.getGridHeight() + 3;
-
-	//cout << "Line ";
-	for (int lineNbr = y_start; lineNbr < y_end; lineNbr++){
-		int x = x_start;
-		int y = y_start;
-	for (int rowNbr = x_start; rowNbr < x_end; rowNbr++){
-				if(x >= 0 && x < x_end && y >= 0 && y < y_end){
-					//cout << "|" << x << ":"<< y;
-				    if (layer == GROUND){
-				            if (m_vgrid[x][y].get(GROUND) != nullptr){
-							            m_vgrid[x][y].get(GROUND)->render();
-							            }
-						    }
-						    //draw the deads
-				    if (layer == GRAVEYARD || layer == FIELD){
-						    if (m_vgrid[x][y].get(layer) != nullptr){
-						            m_vgrid[x][y].get(layer)->render(m_vgrid[x][y].get(layer)->getScreen());
-							    }
-						    }
-				}
-				x++;
-				y--;
-				}
-		if (lineNbr%2 == 0)
-			x_start++;
-		else
-			y_start++;
-
-		//cout << endl;
-	}
+				    }
+                 }
+          }
+    //cout << "render: "<< c <<"tiles"<< endl;
 }
 
 
@@ -118,37 +102,40 @@ void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
 
 int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
     int success = EXIT_FAILURE;
-	if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
-		if(type == "AddTower"){
-		    if (!waterway(x_grid,y_grid)){
-		        m_vgrid[x_grid][y_grid].set(FIELD,new C_ArcherTower(x_grid,y_grid,rank));
-		        success = EXIT_SUCCESS;
-		        }
-		}
-        else if(type == "AddTurbine"){
-		 	if (!waterway(x_grid,y_grid)){
-		        m_vgrid[x_grid][y_grid].set(FIELD,new C_Turbine(x_grid,y_grid,rank));
-		        success = EXIT_SUCCESS;
-		        }
-		}
-        else if(type == "AddBarricade"){
-		 	if (waterway(x_grid,y_grid)){
-		        m_vgrid[x_grid][y_grid].set(FIELD,new C_Barricade(x_grid,y_grid,1));
-		        success = EXIT_SUCCESS;
-		        }
-		}
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+	    if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
+		    if(type == "AddTower"){
+		        if (!waterway(x_grid,y_grid)){
+		            m_vgrid[x_grid][y_grid].set(FIELD,new C_ArcherTower(x_grid,y_grid,rank));
+		            success = EXIT_SUCCESS;
+		            }
+		    }
+            else if(type == "AddTurbine"){
+		     	if (!waterway(x_grid,y_grid)){
+		            m_vgrid[x_grid][y_grid].set(FIELD,new C_Turbine(x_grid,y_grid,rank));
+		            success = EXIT_SUCCESS;
+		            }
+		    }
+            else if(type == "AddBarricade"){
+		     	if (waterway(x_grid,y_grid)){
+		            m_vgrid[x_grid][y_grid].set(FIELD,new C_Barricade(x_grid,y_grid,1));
+		            success = EXIT_SUCCESS;
+		            }
+		    }
+        }
     }
     return success;
 }
 
 
 void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest){
-if(x_from == x_dest && y_from == y_dest){
-	}
-else{
-    if(m_vgrid[x_from][y_from].get(FIELD) != nullptr){
-        m_vgrid[x_dest][y_dest].set(FIELD,m_vgrid[x_from][y_from].get(FIELD));
-        m_vgrid[x_from][y_from].set(FIELD,nullptr);
+    if(x_from == x_dest && y_from == y_dest){}
+    else{
+        if(x_dest >= 0 && x_dest < (int)(m_vgrid.size()) && y_dest >= 0 && y_dest < (int)(m_vgrid.size())){
+            if(m_vgrid[x_from][y_from].get(FIELD) != nullptr){
+                m_vgrid[x_dest][y_dest].set(FIELD,m_vgrid[x_from][y_from].get(FIELD));
+                m_vgrid[x_from][y_from].set(FIELD,nullptr);
+            }
         }
     }
 }
@@ -183,27 +170,47 @@ void C_Grid::setDecors(int x, int y, int id){
 
 bool C_Grid::waterway(int x_grid, int y_grid){
     bool waterway = false;
-
-    if(m_vgrid[x_grid][y_grid].get(GROUND) != nullptr){
-        string str = m_vgrid[x_grid][y_grid].get(GROUND)->getName();
-        if(str.find("Water") != std::string::npos)
-	        waterway = true;
-	    else
-	        waterway = false;
-	}
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+        if(m_vgrid[x_grid][y_grid].get(GROUND) != nullptr){
+            string str = m_vgrid[x_grid][y_grid].get(GROUND)->getName();
+            if(str.find("Water") != std::string::npos)
+	            waterway = true;
+	        else
+	            waterway = false;
+	    }
+    }
 	return waterway;
 }
 
+bool C_Grid::testBarricade(int x_grid, int y_grid){
+    bool barricade = false;
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+        if(m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+            string str = m_vgrid[x_grid][y_grid].get(FIELD)->getName();
+            if(str.find("barricade") != std::string::npos)
+	            barricade = true;
+	        else
+	            barricade = false;
+	    }
+    }
+	return barricade;
+}
+
 bool C_Grid::isThisConstructible(S_Coord grid){
-	if ( waterway(grid.x, grid.y)){
-		return false;
-		}
-	else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr){
-		return false;
-	}
-	else{
-		return true ;
-		}
+    if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()) && grid.y >= 0 && grid.y < (int)(m_vgrid.size())){
+	    if ( waterway(grid.x, grid.y)){
+		    return false;
+		    }
+	    else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr){
+		    return false;
+	    }
+	    else{
+		    return true ;
+		    }
+    }
+    else{
+        return false;
+    }
 }
 
 bool C_Grid::isThisConstructible(int x_grid,int y_grid){
@@ -215,11 +222,22 @@ bool C_Grid::isThisConstructible(int x_grid,int y_grid){
 
 
 void C_Grid::moveToDead(int x_grid, int y_grid){
-    m_vgrid[x_grid][y_grid].set(DEAD,m_vgrid[x_grid][y_grid].get(FIELD));
-    m_vgrid[x_grid][y_grid].set(FIELD,nullptr);
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+        m_vgrid[x_grid][y_grid].set(DEAD,m_vgrid[x_grid][y_grid].get(FIELD));
+        m_vgrid[x_grid][y_grid].set(FIELD,nullptr);
+    }
+    else{
+        C_Message m;
+	    m.printM("moveTodead outside the grid");
+	}
 }
 
-
+C_GameUnits* C_Grid::getUnits(int x_grid, int y_grid) {
+	if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size()))
+	    return m_vgrid[x_grid][y_grid].get(FIELD);
+	else
+	    return nullptr;
+	};
 
 
 void C_Grid::displayStatus(){
@@ -259,36 +277,38 @@ bool C_Grid::selectATower(C_Coord clic){
 	C_Message m;
 	string message ="";
 	string name ="";
-	if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
-		unselectedAll(grid.x+1,grid.x+1);
-		name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
-			if(name == "ArcherTower" || name == "Turbine"){
-				message =  "Found top " + name;
-				m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
-				selected = true;
-			}
-			else{
-			    message = "Found " + name;
-			}
-	}
-	else{
-		if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr){
-			name = m_vgrid[grid.x][grid.y].get(FIELD)->getName();
-				unselectedAll(grid.x,grid.y);
-				if(name == "ArcherTower"|| name == "Turbine"){
-				    message =  "Found bottom" + name;
-					m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
-					selected = true;
-				}
-				else{
-				    message = "Found " + name;
-				}
-		}
-		else{
-			unselectedAll(grid.x,grid.y);
-			message = "Nothing";
-		}
+	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()) && grid.y >= 0 && grid.y < (int)(m_vgrid.size())){
+	    if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
+		    unselectedAll(grid.x+1,grid.x+1);
+		    name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
+			    if(name == "ArcherTower" || name == "Turbine"){
+				    message =  "Found top " + name;
+				    m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
+				    selected = true;
+			    }
+			    else{
+			        message = "Found " + name;
+			    }
+	    }
+	    else{
+		    if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr){
+			    name = m_vgrid[grid.x][grid.y].get(FIELD)->getName();
+				    unselectedAll(grid.x,grid.y);
+				    if(name == "ArcherTower"|| name == "Turbine"){
+				        message =  "Found bottom" + name;
+					    m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
+					    selected = true;
+				    }
+				    else{
+				        message = "Found " + name;
+				    }
+		    }
+		    else{
+			    unselectedAll(grid.x,grid.y);
+			    message = "Nothing";
+		    }
 
+	    }
 	}
 	m.printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
 	if(settings.getDebugMode())
@@ -299,47 +319,47 @@ bool C_Grid::selectATower(C_Coord clic){
 void C_Grid::unselectedAll(int x_grid, int y_grid){
 	bool status = false;
 	//backup status
-	if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
-		status = m_vgrid[x_grid][y_grid].get(FIELD)->getSelectedStatus();
+	if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+	    if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+		    status = m_vgrid[x_grid][y_grid].get(FIELD)->getSelectedStatus();
 		}
-		//erase all
-		for (size_t y = 0; y < m_vgrid[0].size(); y++){
-			for (size_t x = 0; x < m_vgrid.size(); x++){
-				if ( m_vgrid[x][y].get(FIELD) != nullptr)
-					m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
-			}
+		    //erase all
+		    for (size_t y = 0; y < m_vgrid[0].size(); y++){
+			    for (size_t x = 0; x < m_vgrid.size(); x++){
+				    if ( m_vgrid[x][y].get(FIELD) != nullptr)
+					    m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
+			    }
+		    }
+	    //restore status
+	    if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
+		    m_vgrid[x_grid][y_grid].get(FIELD)->setSelectedStatus(status);
 		}
-	//restore status
-	if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
-		m_vgrid[x_grid][y_grid].get(FIELD)->setSelectedStatus(status);
-		}
+	}
 
 }
 
-
-C_GameUnits* C_Grid::getSelectedUnit(){
-		C_GameUnits* current = nullptr;
-		for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid.size(); x++){
-				if ( m_vgrid[x][y].get(FIELD) != nullptr)
-					if (m_vgrid[x][y].get(FIELD)->getSelectedStatus())
-						current = m_vgrid[x][y].get(FIELD)->getUnit();
-			}
-		}
-		return current;
-}
 
 bool C_Grid::mainEmpty(int x_grid, int y_grid, C_GameUnits *current){
-    if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr || m_vgrid[x_grid][y_grid].get(FIELD) == current ){
-        return false;
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+        if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr || m_vgrid[x_grid][y_grid].get(FIELD) == current ){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
     else{
-        return true;
+        return false;
     }
-};
+}
 bool C_Grid::mainEmpty(int x_grid, int y_grid){
-    if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
-        return true;
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+        if(m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
     else{
         return false;
@@ -347,10 +367,15 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid){
 }
 
 string C_Grid::getName(int layer, int x_grid, int y_grid){
-    if(m_vgrid[x_grid][y_grid].get(layer) != nullptr)
-        return m_vgrid[x_grid][y_grid].get(FIELD)->getName();
-    else
-        return "nothing";
+    if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+        if(m_vgrid[x_grid][y_grid].get(layer) != nullptr)
+            return m_vgrid[x_grid][y_grid].get(FIELD)->getName();
+        else
+            return "nothing";
+    }
+    else{
+        return "outsideGrid";
+    }
 }
 
 
@@ -367,7 +392,13 @@ void C_Grid::setTown(int x_grid, int y_grid){
 			}
 		}
 	//then set
-	 m_vgrid[x_grid][y_grid].set(FIELD,new C_Town(x_grid,y_grid));
+	 if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
+	    m_vgrid[x_grid][y_grid].set(FIELD,new C_Town(x_grid,y_grid));
+	 }
+	 else{
+	    C_Message m;
+	    m.printM("Set Town outside the grid");
+	 }
 }
 
 S_Coord C_Grid::foundTown(){

@@ -18,14 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "coord.h"
 #include "time.h"
-
+#include "level/grid.h"
 using namespace std;
 
 
 C_Coord::C_Coord(int x_grid, int y_grid){
 
-    C_Settings& settings=C_Settings::Instances();
-    int gridSize = settings.getGridSize();
+    C_Grid& grid=C_Grid::Instances();
+    int gridSize = grid.getSize();
 	if (x_grid < 0)
 		x_grid = 0;
 	if (y_grid < 0)
@@ -83,10 +83,21 @@ void C_Coord::applyOffset(S_Coord offset){
 }
 
 
+bool C_Coord::onScreen(){
+    C_Settings& settings=C_Settings::Instances();
+    bool visible = false;
+    if(m_this.screen.x > - TILE_HALF_WIDTH && m_this.screen.x < settings.getWindowWidth() + TILE_HALF_WIDTH
+    && m_this.screen.y > - TILE_HALF_HEIGHT && m_this.screen.y < settings.getWindowHeight() + 2*TILE_HALF_HEIGHT){
+        visible = true;
+    }
+    return visible;
+}
+
 S_Coord C_Coord::screenToGrid(S_Coord screen){
 		C_Settings& settings=C_Settings::Instances();
-		float xOffset = (settings.getWindowWidth() /2);
-		float yOffset = (settings.getWindowHeight() + TILE_HALF_HEIGHT)/2;
+		S_Coord cameraPos = settings.getCameraPosition();
+		float xOffset = cameraPos.x;
+		float yOffset = cameraPos.y + TILE_HALF_HEIGHT/2;
 		float tempX = 0.0, tempY = 0.0;
 		S_Coord coord;
 		tempX = ( ((screen.x - xOffset ) / TILE_HALF_WIDTH + (screen.y + yOffset)/TILE_HALF_HEIGHT )/2);
@@ -98,9 +109,10 @@ S_Coord C_Coord::screenToGrid(S_Coord screen){
 
 S_Coord C_Coord::gridToScreen(S_Coord grid){
 			C_Settings& settings=C_Settings::Instances();
+    		S_Coord cameraPos = settings.getCameraPosition();
 			S_Coord screen;
-			screen.x = settings.getWindowWidth()/2 + (grid.x - grid.y)* TILE_HALF_WIDTH;
-			screen.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - settings.getWindowHeight()/2;
+			screen.x = cameraPos.x + (grid.x - grid.y)* TILE_HALF_WIDTH;
+			screen.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - cameraPos.y;
 			return screen;
 }
 
@@ -432,6 +444,10 @@ void C_Coord::regenGridCoord(){
 		m_this.grid = screenToGrid(m_this.screen);
 }
 
+void C_Coord::regenScreenCoord(){
+		m_this.screen = gridToScreen(m_this.grid);
+}
+
 
 bool C_Coord::closeToCenter(S_Coord grid, int px_length){
 		C_CoordGrid tmp(grid);
@@ -499,8 +515,8 @@ C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord){
 }
 
 C_CoordGrid::C_CoordGrid(int x_grid, int y_grid ): C_Coord(x_grid, y_grid){
-		C_Settings& settings=C_Settings::Instances();
-		int size = settings.getGridSize();
+    C_Grid& grid=C_Grid::Instances();
+    int size = grid.getSize();
 		if (x_grid < 0)
 			x_grid = 0;
 		if (y_grid < 0)

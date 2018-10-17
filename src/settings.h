@@ -35,6 +35,12 @@ struct S_Coord{
 	int x;
 	int y;
 };
+
+struct S_Size{
+  int w;
+  int h;
+};
+
 struct S_NodeCoord{
 	S_Coord screen;
 	S_Coord grid;
@@ -55,6 +61,7 @@ enum Status {ALIVE,DEAD};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 
+
 //singleton
 class C_Settings
 {
@@ -63,14 +70,15 @@ public:
   //window
 	int getWindowWidth() {return m_windowWidth;};
 	int getWindowHeight() {return m_windowHeight;};
+  S_Coord getCameraPosition(){return m_cameraPos;}; /*!< get the position of the window over the level map*/
+  void setCameraPosition(const S_Coord &pos);
+  void centerCameraPosition();
+  void moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up);
   //grid
-	size_t getGridSize() {return m_gridSize;};
+
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
-	int getGridNbrOfLine() {return m_gridNbrOfLine;};
-	int getGridNbrOfRow() {return m_gridNbrOfRow;};
-	int getGridFirstTileX() {return m_first_tile_x;};
-	int getGridFirstTileY() {return m_first_tile_y;};
+  S_Size getNbrOfTilesToDisplay();
   //debug
 	void setDebugMode();
 	bool getDebugMode() {return m_debugMode;};
@@ -92,21 +100,25 @@ private:
 	C_Settings& operator= (const C_Settings&){return *this;}
 	C_Settings (const C_Settings&){}
   bool fileExist(const std::string &file);
+  void loadPrefFile();
+  void extractWindowSize();
   void calcGridSize();
+  bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
 
 	static C_Settings m_instance;
 	C_Settings();
 	~C_Settings();
 
+  //pref file:
+  std::string m_prefFile;
+
   //window
 	int m_windowWidth;
 	int m_windowHeight;
+  S_Coord m_cameraPos; /*!< get the position of the window over the level map*/
   //grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
-	int m_gridNbrOfLine; //nbr of tiles in a line
-	int m_gridNbrOfRow; //nbr of tiles in a row
-	int m_first_tile_x; //first tile to display
-	int m_first_tile_y;
+
   //debug
 	bool m_debugMode;
   bool m_debugPath;

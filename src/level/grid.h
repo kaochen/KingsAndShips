@@ -40,29 +40,28 @@ class C_Grid
 {
 public:
 	static	C_Grid& Instances() {return m_instance;};
-  void reset();
-
+  void reset(int size);
 	void renderLayer(int layer);
-
+  int getSize(){return m_size;};
 	void addANewBoat(int x, int y, int rank,C_Wave* parent);
   int addUnit(std::string &type, int x_grid, int y_grid, int rank);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 
-	C_GameUnits* getUnits(int x_grid, int y_grid) {	return m_vgrid[x_grid][y_grid].get(FIELD);};
+	C_GameUnits* getUnits(int x_grid, int y_grid);
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
+  bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
-
+  int size(){return m_vgrid.size() - 2;};
 	void displayStatus();
 	void playAllUnits();
 	void deleteGrid();
 
 	bool selectATower(C_Coord clic);
 
-	C_GameUnits* getSelectedUnit();
   virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
   virtual bool mainEmpty(int x_grid, int y_grid);
   virtual std::string getName(int layer, int x_grid, int y_grid);
@@ -74,6 +73,7 @@ public:
 
 protected:
 	void unselectedAll(int x_grid, int y_grid);
+  void createAnEmptyGrid(int size);
 
 
 private:
@@ -85,6 +85,7 @@ private:
 	~C_Grid();
 
   std::vector < std::vector <C_ZLayer> > m_vgrid;
+  int m_size;
 };
 
 #endif

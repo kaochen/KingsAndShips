@@ -21,7 +21,9 @@ var class_c___coord =
     [ "guessADirection", "class_c___coord.html#ae71e6598f99f9d097ed018c948b60e4c", null ],
     [ "isEqual", "class_c___coord.html#a5e27d615a7cad76895487570c34b62c5", null ],
     [ "move", "class_c___coord.html#ad5d26a21a76e4004137ef4ecd8563462", null ],
+    [ "onScreen", "class_c___coord.html#a24b512f8d8e4bd9822637a115b392663", null ],
     [ "regenGridCoord", "class_c___coord.html#a036a87e791be498d792ea7501c9a6d17", null ],
+    [ "regenScreenCoord", "class_c___coord.html#ae4480514d2193acf70c68ee08224d50a", null ],
     [ "screenToGrid", "class_c___coord.html#ae84b7db044a8ee29168612e17f30f96c", null ],
     [ "updateScreen", "class_c___coord.html#aa37a260d94cb84fdd092b6360f8e4d78", null ],
     [ "m_this", "class_c___coord.html#aa4b500f8ffbdffc18492704de7741914", null ]

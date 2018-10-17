@@ -43,11 +43,11 @@ C_Shooter::~C_Shooter()
 	delete m_weapon;
 }
 C_GameUnits*  C_Shooter::searchNextTarget(string type){
-    C_Settings& settings=C_Settings::Instances();
-    int gridSize = settings.getGridSize();
+    C_Grid& grid=C_Grid::Instances();
+    int gridSize = grid.getSize();;
 
 	int gridDiag = m_weapon->getFireRange();
-	C_Grid& grid=C_Grid::Instances();
+
 	int x_grid = m_coord->getXGrid();
 	int y_grid = m_coord->getYGrid();
 	C_GameUnits* target = nullptr;
