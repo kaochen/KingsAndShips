@@ -428,7 +428,8 @@ void C_Level::render(){
 
 void C_Level::playAllUnits(){
     C_Grid& grid=C_Grid::Instances();
-    grid.playAllUnits();
+    grid.playAllUnits(GRAVEYARD);
+    grid.playAllUnits(FIELD);
 }
 
 bool C_Level::selectATower(S_Coord clic){

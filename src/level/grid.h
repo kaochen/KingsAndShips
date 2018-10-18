@@ -57,7 +57,7 @@ public:
 	bool isThisConstructible(int x_grid,int y_grid);
   int size(){return m_vgrid.size() - 2;};
 	void displayStatus();
-	void playAllUnits();
+	void playAllUnits(int layer);
 	void deleteGrid();
 
 	bool selectATower(C_Coord clic);

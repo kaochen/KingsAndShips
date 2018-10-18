@@ -35,6 +35,7 @@ public:
   C_GameUnits* get(int layer);
   void del(int layer);
   void delAll();
+  bool play(int layer);
   bool render(int layer);
 private:
   void cliStatus(); //print basic status in the CLI

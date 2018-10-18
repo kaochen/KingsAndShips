@@ -108,6 +108,38 @@ void C_ZLayer::cliStatus(){
     cout << m_coord->getXGrid() << ":"<< m_coord->getYGrid() << " ";
 }
 
+bool C_ZLayer::play(int layer){
+
+    bool ret = false;
+
+    switch(layer){
+	    case GROUND :
+	        if(m_ground != nullptr){
+	            m_ground->regendScreenCoord();
+	            m_ground->play();
+	            ret = true;
+	        }
+	    break;
+	    case GRAVEYARD :
+	        if(m_grave != nullptr){
+	            m_grave->regendScreenCoord();
+	            m_grave->play();
+	            ret = true;
+	        }
+	    break;
+	    case  FIELD:
+	        if(m_field != nullptr){
+	            m_field->regendScreenCoord();
+	            m_field->play();
+	            ret = true;
+	        }
+	    break;
+	}
+
+return ret;
+}
+
+
 bool C_ZLayer::render(int layer){
 
     bool ret = false;
@@ -139,5 +171,4 @@ bool C_ZLayer::render(int layer){
     }
     return ret;
 }
-
 
