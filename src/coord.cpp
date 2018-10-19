@@ -547,16 +547,6 @@ C_CoordScreen::C_CoordScreen(int x_screen, int y_screen ): C_Coord(x_screen, y_s
 }
 
 void C_Coord::createCoordFromScreen(int x_screen, int y_screen){
-		C_Settings& settings=C_Settings::Instances();
-		if (x_screen < 0)
-			x_screen = 0;
-		if (y_screen < 0)
-			y_screen = 0;
-		if (x_screen > settings.getWindowWidth())
-			x_screen = settings.getWindowWidth();
-		if (y_screen > settings.getWindowHeight())
-			y_screen = settings.getWindowHeight();
-
 		m_this.screen = {x_screen, y_screen};
 		m_this.grid = screenToGrid(m_this.screen);
 		m_this.screen = gridToScreen(m_this.grid);
