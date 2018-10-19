@@ -41,7 +41,6 @@ public:
 	virtual int getXGrid() const;
 	virtual int getYGrid() const;
 	virtual S_Coord getScreen();
-	virtual void updateScreen(S_Coord new_screen);
 	virtual int getXScreen();
 	virtual int getYScreen();
 	virtual void centerOnTile();
@@ -55,6 +54,8 @@ public:
   virtual int guessADirection(S_Coord start,S_Coord end);
 
 protected:
+  void createCoordFromScreen(int x_screen, int y_screen);
+
 	S_Coord screenToGrid(S_Coord screen);
 	S_Coord gridToScreen(S_Coord grid);
 	S_NodeCoord m_this;
