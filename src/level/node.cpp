@@ -102,7 +102,6 @@ C_Node* C_Node::getParent(){
 }
 
 int C_Node::getXGrid() const{
-
 	return m_coord->getGrid().x;
 }
 
@@ -230,7 +229,6 @@ void C_Node::prepareRender(){
 }
 
 void C_Node::render(){
-
 	int x_screen = m_coord->getXScreen ();
 	int y_screen = m_coord->getYScreen ();
 
@@ -240,5 +238,9 @@ void C_Node::render(){
 	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);
 	t.renderTexture(m_f_texture_name,x_screen,y_screen + 25);
 
+}
+
+void C_Node::regenScreenCoord(){
+    m_coord->regenScreenCoord();
 }
 

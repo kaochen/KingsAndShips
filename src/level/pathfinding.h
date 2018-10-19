@@ -44,7 +44,7 @@ public:
 	std::stack<C_Node*> getPath();
 	void goNextStep();
   void addANodeAtTheStartOfThePath(S_Coord grid);
-
+  void regenScreenCoord();
 private:
 	size_t findLowestF();
 	void loadPath();
