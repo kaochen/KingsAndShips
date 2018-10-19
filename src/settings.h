@@ -42,8 +42,9 @@ struct S_Size{
 };
 
 struct S_NodeCoord{
-	S_Coord screen;
-	S_Coord grid;
+	S_Coord screen; /*!< position of the center of the tile in px*/
+  S_Coord delta; /*!< difference between the center of the tile and the place of the object. A boat is not always placed in the center of the tile*/
+	S_Coord grid; /*!< position of the tile in grid unit*/
 };
 
 struct S_Weapon{

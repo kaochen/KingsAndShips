@@ -250,14 +250,21 @@ void C_Grid::displayStatus(){
 		}
 }
 
-void C_Grid::playAllUnits(){
-	for (size_t y = 0; y < m_vgrid.size(); y++){
-			for (size_t x = 0; x < m_vgrid.size(); x++){
-				if (m_vgrid[x][y].get(FIELD) != nullptr){
-					m_vgrid[x][y].get(FIELD)->play();
-					}
-			}
-		}
+void C_Grid::playAllUnits(int layer){
+    //int c = 0;
+    int size = (int)m_vgrid.size();
+	    for (int y = 0; y < size; y++){
+               for (int x = 0; x < size; x++){
+                   if(x >= 0 && x < size && y >= 0 && y < size){
+					    //cout << "|" << x << ":"<< y;
+					    if(m_vgrid[x][y].play(layer)){
+					        //c++;
+					    };
+
+				    }
+                 }
+          }
+    //cout << "render: "<< c <<"tiles"<< endl;
 }
 
 

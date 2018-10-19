@@ -42,7 +42,7 @@ class C_Boat: public C_Shooter
 	virtual void move();
 	virtual void kill();
 	virtual void receiveDamage(S_Weapon weapon);
-  virtual void regendScreenCoord(){}; //let move() do the job.
+  //virtual void regendScreenCoord(){}; //let move() do the job.
 	protected:
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);

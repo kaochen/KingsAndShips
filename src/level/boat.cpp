@@ -72,8 +72,8 @@ void C_Boat::kill(){
 
 void C_Boat::move()
 {
+    m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
 	m_moving = true;
-
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town =  grid.foundTown();
 	*m_old_coord = *m_coord;

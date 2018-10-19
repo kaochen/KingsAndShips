@@ -132,6 +132,14 @@ size_t C_Path::findLowestF(){
 	return c;
 }
 
+void C_Path::regenScreenCoord(){
+    int size = m_vgridNode.size();
+	    for (int x = 0; x < size; x++){
+	        for (int y = 0; y < size; y++){
+	        	m_vgridNode[x][y].regenScreenCoord();
+		    }
+	    }
+}
 
 
 void C_Path::setTown(int x_grid,int y_grid){
