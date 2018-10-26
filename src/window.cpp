@@ -50,8 +50,11 @@ C_Window::C_Window()
     m_buttonType = "";
     m_cursor.x = m_cursor.y = 1;
     m_clic.x = m_clic.y = 0;
+    m_dragLeft = {0,0};
     m_mouseButtonDown = false;
+    m_mouseDragWindow = false;
 
+    m_dragAndDropTower = false;
     m_addingAnewTower = false;
     m_aTowerIsSelected = false;
 
@@ -216,7 +219,6 @@ void C_Window::gameLoop(){
         listenSDL_Events();
 
 		if (time.testNewFrame()){
-
 				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
@@ -266,14 +268,8 @@ void C_Window::listenSDL_Events(){
 		    case SDL_MOUSEMOTION:
                 listenMouseMotion(event);
 			    break;
-
 		    case SDL_MOUSEBUTTONDOWN:
-			    if (event.button.button ==  SDL_BUTTON_LEFT)
-				    {
-				    if (m_addingAnewTower || m_aTowerIsSelected){
-					    m_mouseButtonDown = true;
-					    }
-				    }
+                listenMouseButtonDown(event);
 			    break;
 		    case SDL_MOUSEBUTTONUP:
 		        listenMouseButtonUP(event);
@@ -281,6 +277,7 @@ void C_Window::listenSDL_Events(){
 		    case SDL_KEYDOWN:
 		        listenKeyboard(event);
 		    }
+		navigateOverTheMap(event);
     }
 }
 
@@ -433,6 +430,37 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 		}
 
 		m_aTowerIsSelected = m_level->selectATower(m_clic);
-	    m_mouseButtonDown = false;
+	    m_dragAndDropTower = false;
+		m_mouseDragWindow = false;
+	}
+}
+
+
+void C_Window::listenMouseButtonDown(SDL_Event &event){
+    if (event.button.button ==  SDL_BUTTON_LEFT){
+		    m_mouseButtonDown = true;
+			if (m_addingAnewTower || m_aTowerIsSelected){
+			    m_dragAndDropTower = true;
+			    m_mouseDragWindow = false;
+		    }
+			else{
+			    m_dragAndDropTower = false;
+			    m_mouseDragWindow = true;
+			    m_dragLeft.x = event.button.x;
+			    m_dragLeft.y = event.button.y;
+			}
 		}
+}
+
+void C_Window::navigateOverTheMap(SDL_Event &event){
+		if(m_mouseDragWindow){
+		        S_Coord drag;
+		        drag.x = event.button.x - m_dragLeft.x;
+		        drag.y = event.button.y - m_dragLeft.y;
+	            //cout << "mouseDownLeft: "<< drag.x <<":"<< drag.y << endl;
+	            C_Settings& settings=C_Settings::Instances();
+	            settings.moveCameraPosition(drag.x, drag.y*(-1));
+	            m_dragLeft.x = event.button.x;
+				m_dragLeft.y = event.button.y;
+	        }
 }

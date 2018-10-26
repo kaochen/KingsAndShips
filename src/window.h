@@ -53,6 +53,8 @@ class C_Window
   void listenKeyboard(SDL_Event &event);
   void listenMouseMotion(SDL_Event &event);
   void listenMouseButtonUP(SDL_Event &event);
+  void listenMouseButtonDown(SDL_Event &event);
+  void navigateOverTheMap(SDL_Event &event);
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}
@@ -73,9 +75,12 @@ class C_Window
   std::string m_buttonType;
   S_Coord m_cursor;
   S_Coord m_clic;
+  S_Coord m_dragLeft;
   bool m_mouseButtonDown;
+  bool m_mouseDragWindow;
 
   //towers are needed when drag & drop from the buttons:
+  bool m_dragAndDropTower;
   bool m_addingAnewTower;
   bool m_aTowerIsSelected;
 

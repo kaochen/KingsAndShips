@@ -111,6 +111,11 @@ void C_Settings::moveCameraPosition(const int &rigth,const int &left,const int &
     m_cameraPos.y +=down;
 };
 
+void C_Settings::moveCameraPosition(const int &x,const int &y){
+    m_cameraPos.x +=x;
+    m_cameraPos.y +=y;
+};
+
 
   S_Size C_Settings::getNbrOfTilesToDisplay(){
     S_Size size;
