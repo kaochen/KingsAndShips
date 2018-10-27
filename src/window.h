@@ -54,7 +54,7 @@ class C_Window
   void listenMouseMotion(SDL_Event &event);
   void listenMouseButtonUP(SDL_Event &event);
   void listenMouseButtonDown(SDL_Event &event);
-  void navigateOverTheMap(SDL_Event &event);
+  void navigateOverTheMap(S_Coord const &button);
 
 	private:
 	C_Window& operator= (const C_Window&){return *this;}

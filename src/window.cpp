@@ -251,9 +251,9 @@ void C_Window::listenSDL_Events(){
 
     SDL_Event event;
     unsigned int windowID = SDL_GetWindowID(m_window);
-
 	    while (SDL_PollEvent(&event))
 	    {
+        S_Coord button = {event.button.x, event.button.y};
 		    switch (event.type)
 		    {
 		     case SDL_QUIT:
@@ -277,7 +277,7 @@ void C_Window::listenSDL_Events(){
 		    case SDL_KEYDOWN:
 		        listenKeyboard(event);
 		    }
-		navigateOverTheMap(event);
+		navigateOverTheMap(button);
     }
 }
 
@@ -452,15 +452,15 @@ void C_Window::listenMouseButtonDown(SDL_Event &event){
 		}
 }
 
-void C_Window::navigateOverTheMap(SDL_Event &event){
+void C_Window::navigateOverTheMap(S_Coord const &button){
 		if(m_mouseDragWindow){
 		        S_Coord drag;
-		        drag.x = event.button.x - m_dragLeft.x;
-		        drag.y = event.button.y - m_dragLeft.y;
+		        drag.x = button.x - m_dragLeft.x;
+		        drag.y = m_dragLeft.y - button.y; //reverse
 	            //cout << "mouseDownLeft: "<< drag.x <<":"<< drag.y << endl;
 	            C_Settings& settings=C_Settings::Instances();
-	            settings.moveCameraPosition(drag.x, drag.y*(-1));
-	            m_dragLeft.x = event.button.x;
-				m_dragLeft.y = event.button.y;
+	            settings.moveCameraPosition(drag.x, drag.y);
+	            m_dragLeft.x = button.x;
+				m_dragLeft.y = button.y;
 	        }
 }
