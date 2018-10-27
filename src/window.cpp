@@ -445,7 +445,13 @@ void C_Window::listenMouseButtonDown(SDL_Event &event){
 		    }
 			else{
 			    m_dragAndDropTower = false;
-			    m_mouseDragWindow = true;
+			    C_OpenMenu openMenu;
+			    if (openMenu.getBool()){
+				    m_mouseDragWindow = false;
+			    }
+			    else{
+			    	m_mouseDragWindow = true;
+			    }
 			    m_dragLeft.x = event.button.x;
 			    m_dragLeft.y = event.button.y;
 			}

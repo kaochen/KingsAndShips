@@ -39,6 +39,7 @@ class C_Menu
 
   //commands
   void openBottomMenu();
+  bool isOpen(){return m_bottomMenuOpen;};
   void displayBottomMenu();
   std::vector<std::string> getMenuItemsList();
   void setTabNbr(int nbr);

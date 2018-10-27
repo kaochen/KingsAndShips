@@ -31,6 +31,7 @@ public:
   virtual ~C_Command(){};
   virtual void action() = 0;
   virtual void setNbr(int nbr){m_nbr = nbr;};
+  virtual bool getBool(){std::cout << "return false \n";return false;};
 protected:
   int m_nbr;
 };
@@ -41,7 +42,10 @@ public:
   C_OpenMenu(){};
   virtual ~C_OpenMenu(){};
   virtual void action();
+  virtual bool getBool();
 };
+
+
 
 class C_ChangeTab : public C_Command
 {
