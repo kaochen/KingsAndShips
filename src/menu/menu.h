@@ -55,8 +55,9 @@ class C_Menu
 	static C_Menu m_instance;
 	C_Menu();
 	~C_Menu();
-  void popOutMenu();
+  void popOutMenu();/*!set button to open or close the menu"*/
   void menuBanner();
+  void recenterButton();/*!setup button to recenter the window over the map*/
   std::string tabName(int nbr){ return "tab" + std::to_string(nbr) + "_Flag";};
   //information to display
   int m_current_wave;

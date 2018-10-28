@@ -48,3 +48,8 @@ void C_LoadALevel::action(){
     win.loadLevel(m_nbr);
 }
 
+void C_CenterCamera::action(){
+    C_Settings& settings=C_Settings::Instances();
+    settings.centerCameraPosition();
+}
+

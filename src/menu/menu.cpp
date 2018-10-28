@@ -48,6 +48,7 @@ C_Menu::C_Menu():
 
         updateInfos();
         popOutMenu();
+        recenterButton();
         menuBanner();
 }
 
@@ -200,6 +201,7 @@ vector<string> C_Menu::getMenuItemsList(){
     list.push_back("gold_pile");
     list.push_back("walletBar");
     list.push_back("popOutMenu");
+    list.push_back("recenterButton");
 
 
     if(m_bottomMenuOpen){
@@ -241,3 +243,13 @@ void C_Menu::setTabNbr(int nbr){
 
 }
 
+
+void C_Menu::recenterButton(){
+        C_Settings& settings=C_Settings::Instances();
+        int y = settings.getWindowHeight() - 64 - 20;
+        if(m_menuItemsList["recenterButton"] == nullptr){
+		    m_menuItemsList["recenterButton"] = new C_Button("recenterButton","MenuSpare",20+64+20,y);
+		    C_CenterCamera *command = new C_CenterCamera();
+            m_menuItemsList["recenterButton"]->setCommand(command);
+		}
+}

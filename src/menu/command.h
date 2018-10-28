@@ -58,4 +58,10 @@ class C_LoadALevel : public C_Command
 public:
   virtual void action();
 };
+
+class C_CenterCamera : public C_Command
+{
+public:
+  virtual void action();
+};
 #endif
