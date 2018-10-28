@@ -460,13 +460,16 @@ void C_Window::listenMouseButtonDown(SDL_Event &event){
 
 void C_Window::navigateOverTheMap(S_Coord const &button){
 		if(m_mouseDragWindow){
-		        S_Coord drag;
-		        drag.x = button.x - m_dragLeft.x;
-		        drag.y = m_dragLeft.y - button.y; //reverse
-	            //cout << "mouseDownLeft: "<< drag.x <<":"<< drag.y << endl;
 	            C_Settings& settings=C_Settings::Instances();
-	            settings.moveCameraPosition(drag.x, drag.y);
-	            m_dragLeft.x = button.x;
-				m_dragLeft.y = button.y;
+		        if(button.x > 0 && button.x < settings.getWindowWidth() &&
+		            button.y > 0 && button.y < settings.getWindowHeight()){
+		            S_Coord drag;
+		            drag.x = button.x - m_dragLeft.x;
+		            drag.y = m_dragLeft.y - button.y; //reverse
+	                //cout << "button: "<< button.x <<":"<< button.y << " drag: "<< drag.x <<":"<< drag.y << endl;
+	                settings.moveCameraPosition(drag.x, drag.y);
+	                m_dragLeft.x = button.x;
+				    m_dragLeft.y = button.y;
+				    }
 	        }
 }
