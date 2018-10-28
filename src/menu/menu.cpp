@@ -47,8 +47,11 @@ C_Menu::C_Menu():
 		m_menuItemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
 
         updateInfos();
-        popOutMenu();
-        recenterButton();
+        //add the bottom buttons line
+        S_Coord line;
+        line.x = 20;
+        line.y = settings.getWindowHeight() - 20;
+        bottomButtonsLine(line);
         menuBanner();
 }
 
@@ -167,16 +170,7 @@ string C_Menu::nbrToString(int nbr){
 }
 
 
-void C_Menu::popOutMenu(){
-        C_Settings& settings=C_Settings::Instances();
-        int y = settings.getWindowHeight() - 64 - 20;
-        if(m_menuItemsList["popOutMenu"] == nullptr){
-		    m_menuItemsList["popOutMenu"] = new C_Button("popOutMenu","popOutMenu",20,y);
-		    C_OpenMenu *om = new C_OpenMenu();
-            m_menuItemsList["popOutMenu"]->setCommand(om);
-		}
 
-}
 
 void C_Menu::openBottomMenu(){
     if(m_bottomMenuOpen)
@@ -244,12 +238,28 @@ void C_Menu::setTabNbr(int nbr){
 }
 
 
-void C_Menu::recenterButton(){
-        C_Settings& settings=C_Settings::Instances();
-        int y = settings.getWindowHeight() - 64 - 20;
-        if(m_menuItemsList["recenterButton"] == nullptr){
-		    m_menuItemsList["recenterButton"] = new C_Button("recenterButton","MenuSpare",20+64+20,y);
-		    C_CenterCamera *command = new C_CenterCamera();
-            m_menuItemsList["recenterButton"]->setCommand(command);
+void C_Menu::bottomButton(const string &name,S_Coord screen){
+        if(m_menuItemsList[name] == nullptr){
+            C_Command *command = nullptr;
+            if(name ==  "popOutMenu"){
+            	m_menuItemsList[name] = new C_Button(name,name,screen.x,screen.y);
+		        command = new C_OpenMenu();
+		    }
+            else if(name ==  "recenterButton"){
+		        m_menuItemsList[name] = new C_Button(name,"MenuSpare",screen.x,screen.y);
+		        command = new C_CenterCamera();
+		    }
+            m_menuItemsList[name]->setCommand(command);
 		}
+}
+
+void C_Menu::bottomButtonsLine(S_Coord screen){
+    S_Coord pos;
+    int buttonSize = 64;
+    int space = 10;
+    pos.x = screen.x;
+    pos.y = screen.y - buttonSize;
+    bottomButton("popOutMenu", pos);
+    pos.x += buttonSize + space;
+    bottomButton("recenterButton", pos);
 }
