@@ -75,6 +75,7 @@ public:
   void setCameraPosition(const S_Coord &pos);
   void centerCameraPosition();
   void moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up);
+  void moveCameraPosition(const int &x,const int &y);
   //grid
 
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};

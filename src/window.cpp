@@ -50,8 +50,11 @@ C_Window::C_Window()
     m_buttonType = "";
     m_cursor.x = m_cursor.y = 1;
     m_clic.x = m_clic.y = 0;
+    m_dragLeft = {0,0};
     m_mouseButtonDown = false;
+    m_mouseDragWindow = false;
 
+    m_dragAndDropTower = false;
     m_addingAnewTower = false;
     m_aTowerIsSelected = false;
 
@@ -216,7 +219,6 @@ void C_Window::gameLoop(){
         listenSDL_Events();
 
 		if (time.testNewFrame()){
-
 				m_forceRefresh = true;
 				time.updateFrameTime();
 				//play all units
@@ -249,9 +251,9 @@ void C_Window::listenSDL_Events(){
 
     SDL_Event event;
     unsigned int windowID = SDL_GetWindowID(m_window);
-
 	    while (SDL_PollEvent(&event))
 	    {
+        S_Coord button = {event.button.x, event.button.y};
 		    switch (event.type)
 		    {
 		     case SDL_QUIT:
@@ -266,14 +268,8 @@ void C_Window::listenSDL_Events(){
 		    case SDL_MOUSEMOTION:
                 listenMouseMotion(event);
 			    break;
-
 		    case SDL_MOUSEBUTTONDOWN:
-			    if (event.button.button ==  SDL_BUTTON_LEFT)
-				    {
-				    if (m_addingAnewTower || m_aTowerIsSelected){
-					    m_mouseButtonDown = true;
-					    }
-				    }
+                listenMouseButtonDown(event);
 			    break;
 		    case SDL_MOUSEBUTTONUP:
 		        listenMouseButtonUP(event);
@@ -281,6 +277,7 @@ void C_Window::listenSDL_Events(){
 		    case SDL_KEYDOWN:
 		        listenKeyboard(event);
 		    }
+		navigateOverTheMap(button);
     }
 }
 
@@ -433,6 +430,46 @@ void C_Window::listenMouseButtonUP(SDL_Event &event){
 		}
 
 		m_aTowerIsSelected = m_level->selectATower(m_clic);
-	    m_mouseButtonDown = false;
+	    m_dragAndDropTower = false;
+		m_mouseDragWindow = false;
+	}
+}
+
+
+void C_Window::listenMouseButtonDown(SDL_Event &event){
+    if (event.button.button ==  SDL_BUTTON_LEFT){
+		    m_mouseButtonDown = true;
+			if (m_addingAnewTower || m_aTowerIsSelected){
+			    m_dragAndDropTower = true;
+			    m_mouseDragWindow = false;
+		    }
+			else{
+			    m_dragAndDropTower = false;
+			    C_OpenMenu openMenu;
+			    if (openMenu.getBool()){
+				    m_mouseDragWindow = false;
+			    }
+			    else{
+			    	m_mouseDragWindow = true;
+			    }
+			    m_dragLeft.x = event.button.x;
+			    m_dragLeft.y = event.button.y;
+			}
 		}
+}
+
+void C_Window::navigateOverTheMap(S_Coord const &button){
+		if(m_mouseDragWindow){
+	            C_Settings& settings=C_Settings::Instances();
+		        if(button.x > 0 && button.x < settings.getWindowWidth() &&
+		            button.y > 0 && button.y < settings.getWindowHeight()){
+		            S_Coord drag;
+		            drag.x = button.x - m_dragLeft.x;
+		            drag.y = m_dragLeft.y - button.y; //reverse
+	                //cout << "button: "<< button.x <<":"<< button.y << " drag: "<< drag.x <<":"<< drag.y << endl;
+	                settings.moveCameraPosition(drag.x, drag.y);
+	                m_dragLeft.x = button.x;
+				    m_dragLeft.y = button.y;
+				    }
+	        }
 }

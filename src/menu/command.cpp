@@ -31,6 +31,11 @@ void C_OpenMenu::action(){
     menu.openBottomMenu();
 }
 
+bool C_OpenMenu::getBool(){
+    C_Menu& menu=C_Menu::Instances();
+    return menu.isOpen();
+}
+
 void C_ChangeTab::action(){
     C_Message m;
     m.printM("Send an ChangeTab action\n");
