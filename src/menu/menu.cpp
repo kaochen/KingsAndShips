@@ -195,7 +195,7 @@ vector<string> C_Menu::getMenuItemsList(){
     list.push_back("gold_pile");
     list.push_back("walletBar");
     list.push_back("popOutMenu");
-    list.push_back("recenterButton");
+    list.push_back("home");
 
 
     if(m_bottomMenuOpen){
@@ -240,15 +240,10 @@ void C_Menu::setTabNbr(int nbr){
 
 void C_Menu::bottomButton(const string &name,S_Coord screen){
         if(m_menuItemsList[name] == nullptr){
+            m_menuItemsList[name] = new C_Button(name,name,screen.x,screen.y);
             C_Command *command = nullptr;
-            if(name ==  "popOutMenu"){
-            	m_menuItemsList[name] = new C_Button(name,name,screen.x,screen.y);
-		        command = new C_OpenMenu();
-		    }
-            else if(name ==  "recenterButton"){
-		        m_menuItemsList[name] = new C_Button(name,"MenuSpare",screen.x,screen.y);
-		        command = new C_CenterCamera();
-		    }
+            if(name ==  "popOutMenu"){ command = new C_OpenMenu();}
+            else if(name ==  "home"){ command = new C_CenterCamera(); }
             m_menuItemsList[name]->setCommand(command);
 		}
 }
@@ -261,5 +256,5 @@ void C_Menu::bottomButtonsLine(S_Coord screen){
     pos.y = screen.y - buttonSize;
     bottomButton("popOutMenu", pos);
     pos.x += buttonSize + space;
-    bottomButton("recenterButton", pos);
+    bottomButton("home", pos);
 }
