@@ -123,7 +123,7 @@ bool C_ZLayer::play(int layer){
 	    case GRAVEYARD :
 	        if(m_grave != nullptr){
 	            m_grave->regendScreenCoord();
-	            m_grave->play();
+	            //m_grave->play();
 	            ret = true;
 	        }
 	    break;
