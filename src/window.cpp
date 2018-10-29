@@ -389,6 +389,7 @@ void C_Window::loadLevel(int levelNbr){
         m_level = new C_Level;
         if(m_level != nullptr){
             m_level->load(m_levelNbr);
+            settings.cameraOnAPoint(m_level->getGridTown());
         }
         else{
             C_Message m;

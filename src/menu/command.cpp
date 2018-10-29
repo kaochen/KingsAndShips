@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL.h>
 #include "../window.h"
 #include "menu.h"
+#include "../level/grid.h"
 
 using namespace std;
 
@@ -50,6 +51,7 @@ void C_LoadALevel::action(){
 
 void C_CenterCamera::action(){
     C_Settings& settings=C_Settings::Instances();
-    settings.centerCameraPosition();
+    C_Grid& grid=C_Grid::Instances();
+    settings.cameraOnAPoint(grid.foundTown());
 }
 

@@ -74,6 +74,7 @@ public:
   S_Coord getCameraPosition(){return m_cameraPos;}; /*!< get the position of the window over the level map*/
   void setCameraPosition(const S_Coord &pos);
   void centerCameraPosition();
+  void cameraOnAPoint(S_Coord grid);
   void moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up);
   void moveCameraPosition(const int &x,const int &y);
   //grid

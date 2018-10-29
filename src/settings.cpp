@@ -102,6 +102,12 @@ void C_Settings::centerCameraPosition(){
     m_cameraPos.x = m_windowWidth/2;
     m_cameraPos.y = m_windowHeight/2;
 }
+void C_Settings::cameraOnAPoint(S_Coord grid){
+    S_Coord pos;
+	pos.x = getWindowWidth()/2 - (grid.x - grid.y)* TILE_HALF_WIDTH ;
+    pos.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - getWindowHeight()/2;
+    setCameraPosition(pos);
+}
 
 void C_Settings::moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up){
     //cout << "r: " << rigth << " l: " << left << " d: "<< down << " u: "<< up << endl;
