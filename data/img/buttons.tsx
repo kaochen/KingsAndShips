@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="Buttons" tilewidth="64" tileheight="64" tilecount="30" columns="6">
- <image source="original/t_buttons.png" width="384" height="320"/>
+<tileset version="1.2" tiledversion="1.2.0" name="Buttons" tilewidth="64" tileheight="64" tilecount="36" columns="9">
+ <image source="original/t_buttons.png" width="576" height="256"/>
  <tile id="0" type="AddSpare_Active"/>
  <tile id="1" type="AddSpare_Hover"/>
  <tile id="2" type="AddSpare_Disabled"/>
@@ -28,4 +28,13 @@
  <tile id="24" type="Pause_Active"/>
  <tile id="25" type="Pause_Hover"/>
  <tile id="26" type="Pause_Disabled"/>
+ <tile id="27" type="home_Active"/>
+ <tile id="28" type="home_Hover"/>
+ <tile id="29" type="home_Disabled"/>
+ <tile id="30" type="reset_Active"/>
+ <tile id="31" type="reset_Hover"/>
+ <tile id="32" type="reset_Disabled"/>
+ <tile id="33" type="quit_Active"/>
+ <tile id="34" type="quit_Hover"/>
+ <tile id="35" type="quit_Disabled"/>
 </tileset>
