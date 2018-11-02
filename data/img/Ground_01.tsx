@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="Ground_01" tilewidth="128" tileheight="128" tilecount="33" columns="8">
+<tileset version="1.2" tiledversion="1.2.0" name="Ground_01" tilewidth="128" tileheight="128" tilecount="33" columns="8">
  <tileoffset x="-14" y="11"/>
  <grid orientation="orthogonal" width="8" height="1"/>
  <image source="original/t_ground_01.png" width="1024" height="512"/>
@@ -11,7 +11,7 @@
  <tile id="5" type="Grass05"/>
  <tile id="6" type="Grass06"/>
  <tile id="7" type="Grass07"/>
- <tile id="8" type="Grass08"/>
+ <tile id="8" type="darken"/>
  <tile id="9" type="Grass09"/>
  <tile id="10" type="Grass10"/>
  <tile id="11" type="Grass11"/>
