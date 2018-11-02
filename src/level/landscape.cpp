@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <SDL2_gfxPrimitives.h>
 
 #include "landscape.h"
 #include "grid.h"
@@ -166,31 +165,11 @@ void C_Ground::render(){
 	        size_t found = m_name.find("Water");
 	        if(found == string::npos){
 	            if ((m_coord->getXGrid()+m_coord->getYGrid())%2 == 0){
-                    darkenGround(m_coord->getXScreen(), m_coord->getYScreen() + TILE_HALF_HEIGHT);
+	            	t.renderTexture("Ground_01_darken", m_coord->getXScreen(),m_coord->getYScreen() -2, CENTER_TILE);
                 }
 	        }
 }
 
-void C_Ground::darkenGround(int x_screen, int y_screen){
-	C_Window& win=C_Window::Instances();
-	SDL_Renderer * renderer = win.getRenderer();
-	Sint16 w =  TILE_HALF_WIDTH;
-	Sint16 h =  w/2;
-	Sint16 x1 = x_screen - w;
-
-	Sint16 y1 = y_screen - h -2; //center
-	Sint16 x2 = x1 + w;
-	Sint16 y2 = y1 + h;
-	Sint16 x3 = x1 + (w*2);
-	Sint16 y3 = y1;
-	Sint16 x4 = x2;
-	Sint16 y4 = y1 - h;
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	int R = 30, G = 30, B = 30, A = 50;
-
-	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-}
 
 //---------------------------C_Trees-------------------------
 C_Trees::C_Trees(string name, int x_grid, int y_grid):
