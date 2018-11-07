@@ -284,7 +284,7 @@ bool C_Grid::selectATower(C_Coord clic){
 	C_Message m;
 	string message ="";
 	string name ="";
-	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()) && grid.y >= 0 && grid.y < (int)(m_vgrid.size())){
+	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()-1) && grid.y >= 0 && grid.y < (int)(m_vgrid.size()-1)){
 	    if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
 		    unselectedAll(grid.x+1,grid.x+1);
 		    name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
