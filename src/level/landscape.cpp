@@ -175,13 +175,15 @@ void C_Ground::render(){
 C_Trees::C_Trees(string name, int x_grid, int y_grid):
 	C_Decors(name, x_grid, y_grid)
 {
+    int size =  name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
+    m_name = m_name.substr(0,size);
 }
 
 void C_Trees::render(S_Coord screen){
 	int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,90);
-	string fileName = "trees_01_0" + to_string(imageNbr);
+	string fileName = m_name + "_0" + to_string(imageNbr);
 	if(imageNbr>9){
-	    fileName = "trees_01_" + to_string(imageNbr);
+	    fileName = m_name + "_" + to_string(imageNbr);
 	}
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t=C_TextureList::Instances();
