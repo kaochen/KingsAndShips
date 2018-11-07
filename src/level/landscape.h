@@ -28,11 +28,11 @@ class C_Landscape
 	public:
     C_Landscape(S_Coord town);
     ~C_Landscape();
-    void render();
+    void render(int gridSize);
 	protected:
 	private:
   //methods
-  void renderWater(int direction);
+  void renderWater(int direction, int gridSize);
   int waterDirection(S_Coord town);
 
   //attributes

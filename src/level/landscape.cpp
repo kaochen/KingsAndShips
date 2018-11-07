@@ -40,26 +40,28 @@ C_Landscape::~C_Landscape()
 }
 
 
-void C_Landscape::render(){
-        renderWater(m_waterDirection);
+void C_Landscape::render(int gridSize){
+        renderWater(m_waterDirection,gridSize);
 };
 
-void C_Landscape::renderWater(int direction){
+void C_Landscape::renderWater(int direction, int gridSize){
 	    C_Window& win=C_Window::Instances();
 	    SDL_Renderer* renderer = win.getRenderer ();
-
+	    C_Settings& settings=C_Settings::Instances();
+        S_Coord camera = settings.getCameraPosition();
 		C_TextureList& t=C_TextureList::Instances();
         //cout << "direction: " << direction << endl;
 		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 		SDL_RenderClear(renderer);
-		for(int j = -3; j < 21; j++){
+		gridSize +=2;
+		for(int j = -2; j < (gridSize+4); j++){
 		    int h = 2*TILE_HALF_WIDTH;
 		    if (j%2 ==0)
 		        h = 0;
 
-		    int y = j*TILE_HALF_WIDTH;
-		    for(int i = -3; i < 11; i++){
-		        int x = i*4*TILE_HALF_WIDTH + h;
+		    int y = j*TILE_HALF_WIDTH - camera.y;
+		    for(int i = -(gridSize/4); i < (gridSize/4); i++){
+		        int x =  i*4*TILE_HALF_WIDTH + h + camera.x;
         	    t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x ,y + m_waterDrift.y);
         	    t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1) ,y + m_waterDrift.y*(-1));
         	}
