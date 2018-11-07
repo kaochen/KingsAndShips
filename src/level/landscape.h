@@ -61,8 +61,12 @@ class C_Ground : public C_GameUnits
 class C_Trees : public C_Decors
 {
   public:
-  C_Trees(std::string name, int x_grid, int y_grid);
-  virtual void render(S_Coord screen);
+    C_Trees(std::string name, int x_grid, int y_grid);
+    virtual void play();
+    virtual void render(S_Coord screen);
+
+  private:
+    int m_imageNbr;
 };
 
 #endif
