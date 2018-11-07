@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 #include "../settings.h"
 #include "../texture.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -177,7 +178,9 @@ C_Trees::C_Trees(string name, int x_grid, int y_grid):
 {
     int size =  name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
     m_name = m_name.substr(0,size);
-    m_imageNbr = 0;
+    m_imageNbr =  0;
+    int random = rand() %10;
+    m_animation[MAIN_ANIM]->setAnimNbr(random);
 }
 
 void C_Trees::play(){

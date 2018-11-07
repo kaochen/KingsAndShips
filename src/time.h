@@ -75,6 +75,7 @@ class C_AnimTime
 	C_AnimTime();
 	~C_AnimTime();
 
+  void setAnimNbr(const long &nbr){m_animNbr = nbr;};
 	int getAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers restart to startNbr
   int getLoopAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers goes back
   bool frameDelay(int delay);
