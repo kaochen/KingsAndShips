@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 #include "../settings.h"
 #include "../texture.h"
+#include <stdlib.h>
 
 using namespace std;
 
@@ -39,26 +40,28 @@ C_Landscape::~C_Landscape()
 }
 
 
-void C_Landscape::render(){
-        renderWater(m_waterDirection);
+void C_Landscape::render(int gridSize){
+        renderWater(m_waterDirection,gridSize);
 };
 
-void C_Landscape::renderWater(int direction){
+void C_Landscape::renderWater(int direction, int gridSize){
 	    C_Window& win=C_Window::Instances();
 	    SDL_Renderer* renderer = win.getRenderer ();
-
+	    C_Settings& settings=C_Settings::Instances();
+        S_Coord camera = settings.getCameraPosition();
 		C_TextureList& t=C_TextureList::Instances();
         //cout << "direction: " << direction << endl;
 		SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 		SDL_RenderClear(renderer);
-		for(int j = -3; j < 21; j++){
+		gridSize +=2;
+		for(int j = -2; j < (gridSize+4); j++){
 		    int h = 2*TILE_HALF_WIDTH;
 		    if (j%2 ==0)
 		        h = 0;
 
-		    int y = j*TILE_HALF_WIDTH;
-		    for(int i = -3; i < 11; i++){
-		        int x = i*4*TILE_HALF_WIDTH + h;
+		    int y = j*TILE_HALF_WIDTH - camera.y;
+		    for(int i = -(gridSize/4); i < (gridSize/4); i++){
+		        int x =  i*4*TILE_HALF_WIDTH + h + camera.x;
         	    t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x ,y + m_waterDrift.y);
         	    t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1) ,y + m_waterDrift.y*(-1));
         	}
@@ -175,11 +178,22 @@ void C_Ground::render(){
 C_Trees::C_Trees(string name, int x_grid, int y_grid):
 	C_Decors(name, x_grid, y_grid)
 {
+    int size =  name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
+    m_name = m_name.substr(0,size);
+    m_imageNbr =  0;
+    int random = rand() %10;
+    m_animation[MAIN_ANIM]->setAnimNbr(random);
+}
+
+void C_Trees::play(){
+	m_imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,90);
 }
 
 void C_Trees::render(S_Coord screen){
-	int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,5,200);
-	string fileName = "trees_01_0" + to_string(imageNbr);
+	string fileName = m_name + "_0" + to_string(m_imageNbr);
+	if(m_imageNbr>9){
+	    fileName = m_name + "_" + to_string(m_imageNbr);
+	}
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t=C_TextureList::Instances();
 	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
