@@ -423,6 +423,7 @@ void C_Level::render(){
 	grid.renderLayer (GRAVEYARD);
 	grid.renderLayer (GROUND);
 	grid.renderLayer (FIELD);
+	m_landscape->renderOutsideBottom(grid.size());
 }
 
 void C_Level::playAllUnits(){

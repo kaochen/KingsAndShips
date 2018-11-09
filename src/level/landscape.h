@@ -29,10 +29,12 @@ class C_Landscape
     C_Landscape(S_Coord town);
     ~C_Landscape();
     void render(int gridSize);
+    void renderOutsideBottom(int gridSize);
 	protected:
 	private:
   //methods
   void renderWater(int direction, int gridSize);
+  void renderBottomLeft(int gridSize);
   int waterDirection(S_Coord town);
 
   //attributes

@@ -140,6 +140,41 @@ int C_Landscape::waterDirection(S_Coord town){
 		    return direction;
 }
 
+void C_Landscape::renderOutsideBottom(int gridSize){
+    renderBottomLeft(gridSize);
+}
+
+
+void C_Landscape::renderBottomLeft(int gridSize){
+        //guess corner
+    	C_Settings& settings=C_Settings::Instances();
+        C_CoordScreen bottomLeft(0,settings.getWindowHeight());
+        S_Coord b_left = bottomLeft.getGrid();
+        C_CoordScreen bottomRight(settings.getWindowWidth(),settings.getWindowHeight());
+        S_Coord b_right = bottomRight.getGrid();
+        //cout << gridSize  << " "<< b_left.x << ":" << b_left.y << " -- "<< b_right.x << ":" << b_right.y << endl;
+    	C_TextureList& t=C_TextureList::Instances();
+        S_Coord corner = {0,gridSize};
+        //int count = 0;
+    	for(int x = corner.x; x < b_right.x + 1; x++){
+    		for(int y = corner.y ; y < b_left.y + 1; y++){
+    		    S_Coord c = {x,y};
+        		C_CoordGrid coord(c);
+        		int x_min = 0 - TILE_HALF_WIDTH;
+        		int y_min = 0 - TILE_HALF_HEIGHT;
+        		int x_max = settings.getWindowWidth() + TILE_HALF_WIDTH;
+        		int y_max = settings.getWindowHeight() + TILE_HALF_HEIGHT;
+        		S_Coord screen = coord.getScreen();
+                if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max){
+        		    //count++;
+            	    t.renderTexture("Ground_01_paper", coord.getXScreen() ,coord.getYScreen());
+            	}
+        	}
+        }
+        //cout << "border render: " << count << endl;
+}
+
+
 //---------------------------Decors-------------------------
 
 C_Decors::C_Decors(string name, int x_grid, int y_grid):
