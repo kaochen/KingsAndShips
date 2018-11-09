@@ -140,12 +140,8 @@ int C_Landscape::waterDirection(S_Coord town){
 		    return direction;
 }
 
-void C_Landscape::renderOutsideBottom(int gridSize){
-    renderBottom(gridSize);
-}
 
-
-void C_Landscape::renderBottom(int gridSize){
+void C_Landscape::renderBottomMask(int gridSize){
     	C_Settings& settings=C_Settings::Instances();
     	//get coordinates from the tile that are on corners
         C_CoordScreen bottomLeft(0,settings.getWindowHeight());
@@ -174,6 +170,40 @@ void C_Landscape::renderBottom(int gridSize){
         		tile.render(c);
         	}
         }
+        //cout << "border render: " << count << endl;
+}
+
+
+void C_Landscape::renderTopMask(int gridSize){
+    	C_Settings& settings=C_Settings::Instances();
+    	//get coordinates from the tile that are on corners
+    	C_CoordScreen topLeft(0,0);
+        S_Coord t_left = topLeft.getGrid();
+        C_CoordScreen bottomLeft(0,settings.getWindowHeight());
+        S_Coord b_left = bottomLeft.getGrid();
+        C_CoordScreen topRight(settings.getWindowWidth(),0);
+        S_Coord t_right = topRight.getGrid();
+
+        S_Coord corner = {gridSize,0}; //corner of the map.
+        //cover the top right corner with tiles
+        C_OutsideTile tile;
+    	for(int x = corner.x; x > t_left.x - 2; x--){
+    		for(int y = corner.y ; y > t_right.y - 2; y--){
+    		    S_Coord c = {x,y};
+        		tile.render(c);
+        	}
+        }
+        //cover the top left corner with tiles
+
+        corner.x = -1;
+        //int count = 0;
+    	for(int x = corner.x; x > t_left.x - 2; x--){
+    		for(int y = corner.y ; y < b_left.y + 2; y++){
+    		    S_Coord c = {x,y};
+        		tile.render(c);
+        	}
+        }
+
         //cout << "border render: " << count << endl;
 }
 
