@@ -141,39 +141,41 @@ int C_Landscape::waterDirection(S_Coord town){
 }
 
 void C_Landscape::renderOutsideBottom(int gridSize){
-    renderBottomLeft(gridSize);
+    renderBottom(gridSize);
 }
 
 
-void C_Landscape::renderBottomLeft(int gridSize){
-        //guess corner
+void C_Landscape::renderBottom(int gridSize){
     	C_Settings& settings=C_Settings::Instances();
+    	//get coordinates from the tile that are on corners
         C_CoordScreen bottomLeft(0,settings.getWindowHeight());
         S_Coord b_left = bottomLeft.getGrid();
         C_CoordScreen bottomRight(settings.getWindowWidth(),settings.getWindowHeight());
         S_Coord b_right = bottomRight.getGrid();
-        //cout << gridSize  << " "<< b_left.x << ":" << b_left.y << " -- "<< b_right.x << ":" << b_right.y << endl;
-    	C_TextureList& t=C_TextureList::Instances();
-        S_Coord corner = {0,gridSize};
-        //int count = 0;
+
+        S_Coord corner = {0,gridSize}; //corner of the map.
+        //cover the bottom left corner with tiles
+        C_OutsideTile tile;
     	for(int x = corner.x; x < b_right.x + 1; x++){
     		for(int y = corner.y ; y < b_left.y + 1; y++){
     		    S_Coord c = {x,y};
-        		C_CoordGrid coord(c);
-        		int x_min = 0 - TILE_HALF_WIDTH;
-        		int y_min = 0 - TILE_HALF_HEIGHT;
-        		int x_max = settings.getWindowWidth() + TILE_HALF_WIDTH;
-        		int y_max = settings.getWindowHeight() + TILE_HALF_HEIGHT;
-        		S_Coord screen = coord.getScreen();
-                if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max){
-        		    //count++;
-            	    t.renderTexture("Ground_01_paper", coord.getXScreen() ,coord.getYScreen());
-            	}
+        		tile.render(c);
+        	}
+        }
+        //cover the bottom right corner with tiles
+        C_CoordScreen topRight(settings.getWindowWidth(),0);
+        S_Coord t_right = topRight.getGrid();
+        corner.x = gridSize;
+
+        //int count = 0;
+    	for(int x = corner.x; x < b_right.x + 1; x++){
+    		for(int y = corner.y ; y > t_right.y - 1; y--){
+    		    S_Coord c = {x,y};
+        		tile.render(c);
         	}
         }
         //cout << "border render: " << count << endl;
 }
-
 
 //---------------------------Decors-------------------------
 
@@ -234,6 +236,23 @@ void C_Trees::render(S_Coord screen){
 	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
+//---------------------------C_Trees-------------------------
+C_OutsideTile::C_OutsideTile():
+	C_GameUnits("outsideTile", 0,0,0)
+{
 
+}
 
-
+void C_OutsideTile::render(S_Coord grid){
+    C_Settings& settings=C_Settings::Instances();
+    int x_min = 0 - TILE_HALF_WIDTH;
+    int y_min = 0 - TILE_HALF_HEIGHT;
+    int x_max = settings.getWindowWidth() + TILE_HALF_WIDTH;
+    int y_max = settings.getWindowHeight() + TILE_HALF_HEIGHT;
+    C_CoordGrid coord(grid);
+    S_Coord screen = coord.getScreen();
+    if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max){
+        C_TextureList& t=C_TextureList::Instances();
+        t.renderTexture("Ground_01_paper", screen.x ,screen.y);
+    }
+}

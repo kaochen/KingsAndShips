@@ -34,7 +34,7 @@ class C_Landscape
 	private:
   //methods
   void renderWater(int direction, int gridSize);
-  void renderBottomLeft(int gridSize);
+  void renderBottom(int gridSize);
   int waterDirection(S_Coord town);
 
   //attributes
@@ -71,4 +71,11 @@ class C_Trees : public C_Decors
     int m_imageNbr;
 };
 
+
+class C_OutsideTile: public C_GameUnits
+{
+public:
+    C_OutsideTile();
+    virtual void render(S_Coord grid);
+};
 #endif
