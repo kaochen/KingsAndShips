@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../settings.h"
 #include "../texture.h"
 #include <stdlib.h>
-#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 
@@ -283,26 +282,9 @@ void C_OutsideTile::render(S_Coord grid){
     C_CoordGrid coord(grid);
     S_Coord screen = coord.getScreen();
     if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max){
-        renderTile(screen.x,screen.y);
+        C_TextureList& t=C_TextureList::Instances();
+	    t.renderTexture("Ground_01_paper", screen.x,screen.y);
     }
 }
 
 
-void C_OutsideTile::renderTile(int x_screen, int y_screen){
-	C_Window& win=C_Window::Instances();
-	SDL_Renderer * renderer = win.getRenderer();
-	Sint16 w =  TILE_HALF_WIDTH;
-	Sint16 h =  TILE_HALF_HEIGHT;
-	Sint16 x1 = x_screen - TILE_HALF_WIDTH;
-	Sint16 y1 = y_screen; //center
-	Sint16 x2 = x1 + w;
-	Sint16 y2 = y1 + h;
-	Sint16 x3 = x1 + (w*2);
-	Sint16 y3 = y1;
-	Sint16 x4 = x2;
-	Sint16 y4 = y1 - h;
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	int R = 0, G = 0, B = 0, A = 255;
-	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-}
