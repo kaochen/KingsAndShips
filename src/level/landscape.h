@@ -77,5 +77,7 @@ class C_OutsideTile: public C_GameUnits
 public:
     C_OutsideTile();
     virtual void render(S_Coord grid);
+private:
+    virtual void renderTile(int x_screen, int y_screen);
 };
 #endif
