@@ -145,7 +145,6 @@ class C_GP_Status: public C_MenuItem /*!In Game Progress to show the status (Lif
   virtual void setPercentage(int percentage){m_percentage = percentage;};
   virtual void setPercentage(int a, int b);
   protected:
-  void littledots(int x_screen, int y_screen, int width, int height);
   int m_percentage;
 };
 

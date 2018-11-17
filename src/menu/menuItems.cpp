@@ -361,66 +361,14 @@ void C_GP_Status::setPercentage(int a, int b){
 }
 
 void C_GP_Status::render(){
-        C_Window& win=C_Window::Instances();
-        Sint16 x1 = m_x_screen; //x top right
-		Sint16 y1 = m_y_screen;
-		Sint16 x2 = x1 + m_width; //x bottom left
-		Sint16 y2 = y1 + m_height;
-		Uint8 R = 0, G = 0, B = 0, A = 100;
-
-        int angle = 4;
-		//background
-		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
-        //life status
-        Sint16 x_life = x1 + (m_percentage*m_width/100);
-
-        //cout << m_percentage << "/" << angle << endl;
-        G = 255;
-        if (m_percentage < 50){
-            G = 0;
-            R = 255;
-            }
-        int offset = 0;
-        int lifeAngle = angle;
-        if(m_percentage < (angle*2)){
-            lifeAngle = 2;
-            offset = 1;
-            }
-
-        if(m_percentage > 2)
-		        roundedBoxRGBA(win.getRenderer(),x1,y1+offset,x_life,y2-offset,lifeAngle,R,G,B,A);
-
-        //reflect
-		roundedBoxRGBA(win.getRenderer(),x1+4,y1,x2-4,y1+4,angle/2,255,255,255,30);
-		//shadow
-		roundedBoxRGBA(win.getRenderer(),x1+2,y2-4,x2-2,y2,angle/2,0,0,0,70);
-		//double border
-		roundedRectangleRGBA(win.getRenderer(),x1+1,y1+1,x2-1,y2-1,angle-1,0,0,0,255);
-		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,angle,0,0,0,255);
-
-		littledots(m_x_screen +2 , m_y_screen +6, m_width-4, m_height-4);
-
+        C_TextureList& t=C_TextureList::Instances();
+        int y = m_y_screen + 13;
+        for (int i = 0; i <= m_width/6; i++){ //ProgressBar_Center are 6px wide
+            t.renderTexture("ProgressBar_Center_Green", m_x_screen + i*6, y,CENTER);
+        }
+        t.renderTexture("ProgressBar_Left_Green", m_x_screen, y,CENTER);
+        t.renderTexture("ProgressBar_Right_Green", m_x_screen + m_width, y,CENTER);
 		renderText();
 }
 
-void C_GP_Status::littledots(int x_screen, int y_screen, int width, int height){
-        C_Window& win=C_Window::Instances();
-        SDL_Rect dot;
-            int size = 1;
-            int steps = 3;
-		    dot.w = size;
-		    dot.h = size;
-		    dot.x = x_screen;
-		    dot.y = y_screen;
-    		SDL_SetRenderDrawColor(win.getRenderer(), 60, 60, 60, 20 );
-    		int w = width/(size*steps);
-    		int h = height/(size*steps);
-		    for(int j = 1; j < h;j++){
-		        for(int i = 1; i < w;i++){
-		            dot.x = x_screen + i*steps*size;
-		            SDL_RenderFillRect(win.getRenderer(), &dot);
-		        }
-		        dot.y = y_screen + j*steps*size;
-		    }
-}
 
