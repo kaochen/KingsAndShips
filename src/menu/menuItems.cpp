@@ -363,11 +363,26 @@ void C_GP_Status::setPercentage(int a, int b){
 void C_GP_Status::render(){
         C_TextureList& t=C_TextureList::Instances();
         int y = m_y_screen + 13;
-        for (int i = 0; i <= m_width/6; i++){ //ProgressBar_Center are 6px wide
-            t.renderTexture("ProgressBar_Center_Green", m_x_screen + i*6, y,CENTER);
+        int steps = m_percentage/(100/(m_width/6));
+        for (int i = 1; i <= m_width/6; i++){ //ProgressBar_Center are 6px wide
+            string image;
+            if(i < steps){
+                image = "ProgressBar_Center_Green";
+                }
+            else{
+                image = "ProgressBar_Center_Red";
+            }
+            t.renderTexture(image, m_x_screen + i*6, y,CENTER);
         }
-        t.renderTexture("ProgressBar_Left_Green", m_x_screen, y,CENTER);
-        t.renderTexture("ProgressBar_Right_Green", m_x_screen + m_width, y,CENTER);
+        if(m_percentage > 6)
+            t.renderTexture("ProgressBar_Left_Green", m_x_screen, y,CENTER);
+        else
+            t.renderTexture("ProgressBar_Left_Red", m_x_screen, y,CENTER);
+
+        if(100 - 6 <= m_percentage)
+            t.renderTexture("ProgressBar_Right_Green", m_x_screen + m_width, y,CENTER);
+        else
+            t.renderTexture("ProgressBar_Right_Red", m_x_screen + m_width, y,CENTER);
 		renderText();
 }
 
