@@ -343,6 +343,8 @@ C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen)
     m_width = 128;
     m_height = 24;
     m_percentage = 100;
+    m_oldPercentage = m_percentage;
+    m_xOffset = 0;
     m_layer = BACK;
     m_y_text = -4;
 }
@@ -360,13 +362,23 @@ void C_GP_Status::setPercentage(int a, int b){
         m_percentage = 0;
 }
 
+
 void C_GP_Status::render(){
         C_TextureList& t=C_TextureList::Instances();
         int y = m_y_screen + 13;
-        int steps = m_percentage/(100/(m_width/6));
-        for (int i = 1; i <= m_width/6; i++){ //ProgressBar_Center are 6px wide
+       // needMove();
+        int all = m_width/6;
+        int mark = 0;
+        int xOffset = 0;
+        if(m_percentage !=0){
+            mark = (m_percentage * m_width)/(100*6);
+            }
+        if(m_oldPercentage !=100){
+            xOffset = (100 - m_percentage) * m_width/100;
+        }
+        for (int i = 0; i <= all; i++){ //ProgressBar_Center are 6px wide
             string image;
-            if(i < steps){
+            if(i < mark){
                 image = "ProgressBar_Center1_Green";
                 if(i % 2 == 0){
                     image = "ProgressBar_Center2_Green";
@@ -378,8 +390,8 @@ void C_GP_Status::render(){
                     image = "ProgressBar_Center2_Red";
                 }
             }
+            t.renderTexture(image, m_x_screen + i*6 - xOffset, y,CENTER);
 
-            t.renderTexture(image, m_x_screen + i*6, y,CENTER);
         }
         if(m_percentage > 6)
             t.renderTexture("ProgressBar_Left_Green", m_x_screen, y,CENTER);
@@ -393,4 +405,25 @@ void C_GP_Status::render(){
 		renderText();
 }
 
+void C_GP_Status::needMove(){
+    int dist = (m_percentage - m_oldPercentage)*m_width/100;
 
+    if(m_percentage > m_oldPercentage){
+        cout << dist << " ++ " << m_xOffset << endl;
+        m_xOffset++;
+    }
+    if(m_percentage < m_oldPercentage){
+        m_xOffset--;
+        cout << dist << " -- " << m_xOffset << endl;
+    }
+    else{
+        m_xOffset = 0;
+    }
+
+    if(dist < 0){dist *=(-1);};
+    if(m_xOffset > dist || m_xOffset < -dist){
+        m_oldPercentage = m_percentage;
+        m_xOffset = 0;
+    }
+
+}
