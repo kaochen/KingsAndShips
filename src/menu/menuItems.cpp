@@ -367,11 +367,18 @@ void C_GP_Status::render(){
         for (int i = 1; i <= m_width/6; i++){ //ProgressBar_Center are 6px wide
             string image;
             if(i < steps){
-                image = "ProgressBar_Center2_Green";
+                image = "ProgressBar_Center1_Green";
+                if(i % 2 == 0){
+                    image = "ProgressBar_Center2_Green";
                 }
-            else{
-                image = "ProgressBar_Center2_Red";
             }
+            else{
+                image = "ProgressBar_Center1_Red";
+                if(i % 2 == 0){
+                    image = "ProgressBar_Center2_Red";
+                }
+            }
+
             t.renderTexture(image, m_x_screen + i*6, y,CENTER);
         }
         if(m_percentage > 6)
