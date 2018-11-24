@@ -136,19 +136,23 @@ class C_GB_AddUnit: public C_Button /*!Game Button add a new unit on the ground*
   C_Shooter * m_unit;
 };
 
+enum colorList{GREEN,RED,BLUE};
 
 class C_GP_Status: public C_MenuItem /*!In Game Progress to show the status (Life, wallet)*/
 {
 	public:
-  C_GP_Status(std::string name,int x_screen, int y_screen);
+  C_GP_Status(std::string name,int x_screen, int y_screen, int colorIn, int colorOut);
 	virtual void render();
   virtual void setPercentage(int percentage){m_percentage = percentage;};
   virtual void setPercentage(int a, int b);
   protected:
   virtual void needMove();
+  std::string colorToStr(int color);
   int m_percentage;
   int m_oldPercentage;
   int m_xOffset;
+  int m_colorIn;
+  int m_colorOut;
 };
 
 

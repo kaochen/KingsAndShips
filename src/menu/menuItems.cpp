@@ -336,7 +336,7 @@ void C_GB_AddUnit::render(){
 }
 //-------------------------------------------------------------
 
-C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen)
+C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, int colorOut)
 	:C_MenuItem(name,x_screen,y_screen)
 {
     m_type = STATUS;
@@ -347,6 +347,8 @@ C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen)
     m_xOffset = 0;
     m_layer = BACK;
     m_y_text = -4;
+    m_colorIn = colorIn;
+    m_colorOut = colorOut;
 }
 
 
@@ -377,32 +379,46 @@ void C_GP_Status::render(){
         if(m_oldPercentage !=100){
             xOffset = (100 - m_percentage) * m_width/100;
         }
+        string name = "ProgressBar_";
         for (int i = 0; i <= all; i++){
-            string image;
+        string image = name + "Center" ;
             if(i < mark){
-                image = "ProgressBar_Center1_Green";
                 if(i % 2 == 0){
-                    image = "ProgressBar_Center2_Green";
+                    image += "2_";
                 }
+                else{
+                    image += "1_";
+                }
+                image +=colorToStr(m_colorIn);
             }
             else{
-                image = "ProgressBar_Center1_Red";
                 if(i % 2 == 0){
-                    image = "ProgressBar_Center2_Red";
+                    image += "2_";
                 }
+                else{
+                    image += "1_";
+                }
+                image +=colorToStr(m_colorOut);
             }
             t.renderTexture(image, m_x_screen + i*size - xOffset, y,CENTER);
-
         }
-        if(m_percentage > size)
-            t.renderTexture("ProgressBar_Left_Green", m_x_screen, y,CENTER);
-        else
-            t.renderTexture("ProgressBar_Left_Red", m_x_screen, y,CENTER);
 
-        if(100 - size <= m_percentage)
-            t.renderTexture("ProgressBar_Right_Green", m_x_screen + m_width, y,CENTER);
+        string leftImage = name + "Left_";
+        if(m_percentage > size)
+            leftImage += colorToStr(m_colorIn);
         else
-            t.renderTexture("ProgressBar_Right_Red", m_x_screen + m_width, y,CENTER);
+            leftImage += colorToStr(m_colorOut);
+
+        t.renderTexture(leftImage, m_x_screen, y,CENTER);
+
+
+        string rightImage = name + "Right_";
+        if(100 - size <= m_percentage)
+            rightImage += colorToStr(m_colorIn);
+        else
+            rightImage += colorToStr(m_colorOut);
+
+        t.renderTexture(rightImage, m_x_screen + m_width, y,CENTER);
 		renderText();
 }
 
@@ -425,6 +441,22 @@ void C_GP_Status::needMove(){
     if(m_xOffset > dist || m_xOffset < -dist){
         m_oldPercentage = m_percentage;
         m_xOffset = 0;
+    }
+
+}
+
+string C_GP_Status::colorToStr(int color){
+    if (color == GREEN){
+        return "Green";
+    }
+    else if(color == RED){
+        return "Red";
+    }
+    else if(color == BLUE){
+        return "Blue";
+    }
+    else{
+        return "Green";
     }
 
 }
