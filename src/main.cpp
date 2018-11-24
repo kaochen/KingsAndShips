@@ -16,13 +16,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "window.h"
-
-
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 
 int main()
 {
+    //init random
+    srand(time(NULL));
+
 	//init settings
 	C_Window& win=C_Window::Instances();
 	win.createWindow();

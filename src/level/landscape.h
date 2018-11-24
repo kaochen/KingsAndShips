@@ -28,11 +28,13 @@ class C_Landscape
 	public:
     C_Landscape(S_Coord town);
     ~C_Landscape();
-    void render();
+    void render(int gridSize);
+    void renderBottomMask(int gridSize);
+    void renderTopMask(int gridSize);
 	protected:
 	private:
   //methods
-  void renderWater(int direction);
+  void renderWater(int direction, int gridSize);
   int waterDirection(S_Coord town);
 
   //attributes
@@ -61,8 +63,19 @@ class C_Ground : public C_GameUnits
 class C_Trees : public C_Decors
 {
   public:
-  C_Trees(std::string name, int x_grid, int y_grid);
-  virtual void render(S_Coord screen);
+    C_Trees(std::string name, int x_grid, int y_grid);
+    virtual void play();
+    virtual void render(S_Coord screen);
+
+  private:
+    int m_imageNbr;
 };
 
+
+class C_OutsideTile: public C_GameUnits
+{
+public:
+    C_OutsideTile();
+    virtual void render(S_Coord grid);
+};
 #endif

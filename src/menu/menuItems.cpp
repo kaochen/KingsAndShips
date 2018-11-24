@@ -336,15 +336,19 @@ void C_GB_AddUnit::render(){
 }
 //-------------------------------------------------------------
 
-C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen)
+C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, int colorOut)
 	:C_MenuItem(name,x_screen,y_screen)
 {
     m_type = STATUS;
     m_width = 128;
     m_height = 24;
     m_percentage = 100;
+    m_oldPercentage = m_percentage;
+    m_xOffset = 0;
     m_layer = BACK;
     m_y_text = -4;
+    m_colorIn = colorIn;
+    m_colorOut = colorOut;
 }
 
 
@@ -360,67 +364,76 @@ void C_GP_Status::setPercentage(int a, int b){
         m_percentage = 0;
 }
 
+
 void C_GP_Status::render(){
-        C_Window& win=C_Window::Instances();
-        Sint16 x1 = m_x_screen; //x top right
-		Sint16 y1 = m_y_screen;
-		Sint16 x2 = x1 + m_width; //x bottom left
-		Sint16 y2 = y1 + m_height;
-		Uint8 R = 0, G = 0, B = 0, A = 100;
-
-        int angle = 4;
-		//background
-		roundedBoxRGBA(win.getRenderer(),x1,y1,x2,y2,angle,R,G,B,A);
-        //life status
-        Sint16 x_life = x1 + (m_percentage*m_width/100);
-
-        //cout << m_percentage << "/" << angle << endl;
-        G = 255;
-        if (m_percentage < 50){
-            G = 0;
-            R = 255;
+        C_TextureList& t=C_TextureList::Instances();
+        int y = m_y_screen + 13;
+        int size = 6; //ProgressBar_Center are 6px wide
+        int all = m_width/size;
+        int mark = 0;
+        if(m_percentage !=0){
+            mark = (m_percentage * m_width)/(100*size);
             }
-        int offset = 0;
-        int lifeAngle = angle;
-        if(m_percentage < (angle*2)){
-            lifeAngle = 2;
-            offset = 1;
+        int xOffset = 0;
+        if(m_oldPercentage !=100){
+            xOffset = (100 - m_percentage) * m_width/100;
+        }
+        string name = "ProgressBar_";
+        for (int i = 0; i <= all; i++){
+        string image = name + "Center" ;
+            if(i < mark){
+                if(i % 2 == 0){
+                    image += "2_";
+                }
+                else{
+                    image += "1_";
+                }
+                image +=colorToStr(m_colorIn);
             }
+            else{
+                if(i % 2 == 0){
+                    image += "2_";
+                }
+                else{
+                    image += "1_";
+                }
+                image +=colorToStr(m_colorOut);
+            }
+            t.renderTexture(image, m_x_screen + i*size - xOffset, y,CENTER);
+        }
 
-        if(m_percentage > 2)
-		        roundedBoxRGBA(win.getRenderer(),x1,y1+offset,x_life,y2-offset,lifeAngle,R,G,B,A);
+        string leftImage = name + "Left_";
+        if(m_percentage > size)
+            leftImage += colorToStr(m_colorIn);
+        else
+            leftImage += colorToStr(m_colorOut);
 
-        //reflect
-		roundedBoxRGBA(win.getRenderer(),x1+4,y1,x2-4,y1+4,angle/2,255,255,255,30);
-		//shadow
-		roundedBoxRGBA(win.getRenderer(),x1+2,y2-4,x2-2,y2,angle/2,0,0,0,70);
-		//double border
-		roundedRectangleRGBA(win.getRenderer(),x1+1,y1+1,x2-1,y2-1,angle-1,0,0,0,255);
-		roundedRectangleRGBA(win.getRenderer(),x1,y1,x2,y2,angle,0,0,0,255);
+        t.renderTexture(leftImage, m_x_screen, y,CENTER);
 
-		littledots(m_x_screen +2 , m_y_screen +6, m_width-4, m_height-4);
 
+        string rightImage = name + "Right_";
+        if(100 - size <= m_percentage)
+            rightImage += colorToStr(m_colorIn);
+        else
+            rightImage += colorToStr(m_colorOut);
+
+        t.renderTexture(rightImage, m_x_screen + m_width, y,CENTER);
 		renderText();
 }
 
-void C_GP_Status::littledots(int x_screen, int y_screen, int width, int height){
-        C_Window& win=C_Window::Instances();
-        SDL_Rect dot;
-            int size = 1;
-            int steps = 3;
-		    dot.w = size;
-		    dot.h = size;
-		    dot.x = x_screen;
-		    dot.y = y_screen;
-    		SDL_SetRenderDrawColor(win.getRenderer(), 60, 60, 60, 20 );
-    		int w = width/(size*steps);
-    		int h = height/(size*steps);
-		    for(int j = 1; j < h;j++){
-		        for(int i = 1; i < w;i++){
-		            dot.x = x_screen + i*steps*size;
-		            SDL_RenderFillRect(win.getRenderer(), &dot);
-		        }
-		        dot.y = y_screen + j*steps*size;
-		    }
-}
 
+string C_GP_Status::colorToStr(int color){
+    if (color == GREEN){
+        return "Green";
+    }
+    else if(color == RED){
+        return "Red";
+    }
+    else if(color == BLUE){
+        return "Blue";
+    }
+    else{
+        return "Green";
+    }
+
+}

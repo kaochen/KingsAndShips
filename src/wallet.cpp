@@ -42,5 +42,5 @@ void C_Wallet::reset(){
 	m_credit = 0;
 	m_debit = 0;
 	m_balance = 0;
-	m_progress_bar_max =2000;
+	m_progress_bar_max =1000;
 }

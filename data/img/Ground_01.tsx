@@ -12,7 +12,7 @@
  <tile id="6" type="Grass06"/>
  <tile id="7" type="Grass07"/>
  <tile id="8" type="darken"/>
- <tile id="9" type="Grass09"/>
+ <tile id="9" type="paper"/>
  <tile id="10" type="Grass10"/>
  <tile id="11" type="Grass11"/>
  <tile id="12" type="Grass12"/>

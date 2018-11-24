@@ -419,10 +419,12 @@ int C_Level::countAttributes(string tmx_File_Path, string pattern){
 
 void C_Level::render(){
     C_Grid& grid=C_Grid::Instances();
-    m_landscape->render();
+    m_landscape->render(grid.size());
+	m_landscape->renderTopMask(grid.size());
 	grid.renderLayer (GRAVEYARD);
 	grid.renderLayer (GROUND);
 	grid.renderLayer (FIELD);
+	m_landscape->renderBottomMask(grid.size());
 }
 
 void C_Level::playAllUnits(){
