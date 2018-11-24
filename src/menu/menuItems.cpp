@@ -367,16 +367,17 @@ void C_GP_Status::render(){
         C_TextureList& t=C_TextureList::Instances();
         int y = m_y_screen + 13;
        // needMove();
-        int all = m_width/6;
+        int size = 6; //ProgressBar_Center are 6px wide
+        int all = m_width/size;
         int mark = 0;
-        int xOffset = 0;
         if(m_percentage !=0){
-            mark = (m_percentage * m_width)/(100*6);
+            mark = (m_percentage * m_width)/(100*size);
             }
+        int xOffset = 0;
         if(m_oldPercentage !=100){
             xOffset = (100 - m_percentage) * m_width/100;
         }
-        for (int i = 0; i <= all; i++){ //ProgressBar_Center are 6px wide
+        for (int i = 0; i <= all; i++){
             string image;
             if(i < mark){
                 image = "ProgressBar_Center1_Green";
@@ -390,15 +391,15 @@ void C_GP_Status::render(){
                     image = "ProgressBar_Center2_Red";
                 }
             }
-            t.renderTexture(image, m_x_screen + i*6 - xOffset, y,CENTER);
+            t.renderTexture(image, m_x_screen + i*size - xOffset, y,CENTER);
 
         }
-        if(m_percentage > 6)
+        if(m_percentage > size)
             t.renderTexture("ProgressBar_Left_Green", m_x_screen, y,CENTER);
         else
             t.renderTexture("ProgressBar_Left_Red", m_x_screen, y,CENTER);
 
-        if(100 - 6 <= m_percentage)
+        if(100 - size <= m_percentage)
             t.renderTexture("ProgressBar_Right_Green", m_x_screen + m_width, y,CENTER);
         else
             t.renderTexture("ProgressBar_Right_Red", m_x_screen + m_width, y,CENTER);
