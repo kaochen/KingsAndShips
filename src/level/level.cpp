@@ -316,7 +316,8 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
                     m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
-                    wave.add(1,x,y);
+                    cout << str << "----------------"<< endl;
+                    wave.add(str,1,x,y);
 				    }
 				//grid.setGround(x,y,nbr);
 
@@ -471,8 +472,8 @@ C_Wave::~C_Wave()
 }
 
 
-void C_Wave::add(int rank, int x, int y){
-    S_boat tmp ={rank,x,y,true};
+void C_Wave::add(string name, int rank, int x, int y){
+    S_boat tmp ={name,rank,x,y,true};
     m_boatList.push_back(tmp);
     m_count++;
 }
@@ -502,7 +503,7 @@ void C_Wave::loadIntoGrid(){
         S_boat tmp = *i;
         m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y) +"\n");
         if (tmp.alive)
-            grid.addANewBoat(tmp.x,tmp.y,tmp.rank,this);
+            grid.addANewBoat(tmp,this);
 
     }
 }

@@ -35,7 +35,7 @@ class C_Boat: public C_Shooter
 	public:
 	//methods
 	C_Boat();
-	C_Boat(int x_grid, int y_grid,int rank,C_Wave* parent);
+	C_Boat(S_boat boat,C_Wave* parent);
 	~C_Boat();
 
 	virtual void play();
@@ -47,7 +47,7 @@ class C_Boat: public C_Shooter
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);
   virtual int calcSpeed();
-
+  virtual int getRankFromName(std::string name);
 
 	//attributs
 	bool m_moving;

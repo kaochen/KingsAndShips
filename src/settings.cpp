@@ -132,11 +132,11 @@ void C_Settings::moveCameraPosition(const int &x,const int &y){
 
 void C_Settings::initTSXfileList(){
     C_Message m;
-    int size = 19;
+    int size = 21;
     string list[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
-    "Rocks_00.tsx","Trees_00.tsx","turbine_00.tsx","archerTower_00.tsx",
+    "Rocks_00.tsx","Trees_00.tsx","boat_00.tsx","turbine_00.tsx","archerTower_00.tsx",
 	"archerTower_01.tsx","buttons.tsx","Water_00.tsx","smoke_01.tsx",
-	"charaters.tsx","boat_dead_01.tsx","Weapons.tsx","barricade_01.tsx",
+	"charaters.tsx","boat_dead_00.tsx","boat_dead_01.tsx","Weapons.tsx","barricade_01.tsx",
 	"gold.tsx","buttons_tabs.tsx","icons_12px.tsx", "ProgressBar.tsx"};
 
 	for(int i = 0; i < size; i++){

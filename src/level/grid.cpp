@@ -90,9 +90,9 @@ void C_Grid::renderLayer(int layer){
 }
 
 
-void C_Grid::addANewBoat(int x, int y, int rank,C_Wave* parent){
-	if (waterway(x,y)){
-		m_vgrid[x][y].set(FIELD,new C_Boat(x,y,rank,parent));
+void C_Grid::addANewBoat(S_boat boat,C_Wave* parent){
+	if (waterway(boat.x,boat.y)){
+		m_vgrid[boat.x][boat.y].set(FIELD,new C_Boat(boat,parent));
 	}
 	else{
 	    C_Message m;

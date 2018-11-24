@@ -30,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 struct S_boat{
+  std::string name;
 	int rank;
 	int x;
 	int y;
@@ -47,7 +48,7 @@ class C_Wave{
   public:
   C_Wave();
   ~C_Wave();
-  void add(int rank, int x, int y);
+  void add(std::string name,int rank, int x, int y);
   void cliStatus();
   void loadIntoGrid();
   void addToDeadCounter(int nbr);
