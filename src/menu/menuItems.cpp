@@ -368,7 +368,6 @@ void C_GP_Status::setPercentage(int a, int b){
 void C_GP_Status::render(){
         C_TextureList& t=C_TextureList::Instances();
         int y = m_y_screen + 13;
-       // needMove();
         int size = 6; //ProgressBar_Center are 6px wide
         int all = m_width/size;
         int mark = 0;
@@ -422,28 +421,6 @@ void C_GP_Status::render(){
 		renderText();
 }
 
-void C_GP_Status::needMove(){
-    int dist = (m_percentage - m_oldPercentage)*m_width/100;
-
-    if(m_percentage > m_oldPercentage){
-        cout << dist << " ++ " << m_xOffset << endl;
-        m_xOffset++;
-    }
-    if(m_percentage < m_oldPercentage){
-        m_xOffset--;
-        cout << dist << " -- " << m_xOffset << endl;
-    }
-    else{
-        m_xOffset = 0;
-    }
-
-    if(dist < 0){dist *=(-1);};
-    if(m_xOffset > dist || m_xOffset < -dist){
-        m_oldPercentage = m_percentage;
-        m_xOffset = 0;
-    }
-
-}
 
 string C_GP_Status::colorToStr(int color){
     if (color == GREEN){
