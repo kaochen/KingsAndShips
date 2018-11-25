@@ -22,20 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
-#include "level.h"
 #include "shooter.h"
 
 #include "../coord.h"
 #include "../time.h"
 #include "../texture.h"
 
-class C_Wave; //needed here
 class C_Boat: public C_Shooter
 {
 	public:
 	//methods
 	C_Boat();
-	C_Boat(S_boat boat,C_Wave* parent);
+	C_Boat(S_UnitModel boat);
 	~C_Boat();
 
 	virtual void play();
@@ -47,7 +45,6 @@ class C_Boat: public C_Shooter
 	virtual void render(S_Coord screen);
   virtual void recalcPath(S_Coord dest);
   virtual int calcSpeed();
-  virtual int getRankFromName(std::string name);
 
 	//attributs
 	bool m_moving;
@@ -58,7 +55,6 @@ class C_Boat: public C_Shooter
   int m_countStop;
   int m_countRegenPath;
   C_AnimTime* m_animDirection;
-  C_Wave* m_wave;
 };
 
 #endif

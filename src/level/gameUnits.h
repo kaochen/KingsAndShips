@@ -31,6 +31,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../time.h"
 #include "pathfinding.h"
 
+struct S_UnitModel{
+  std::string name;
+	int rank;
+  S_Coord coord;
+  bool alive;
+};
+
 /*! \class C_GameUnits
  * \brief mother class for all isometric elements (units) of the game, like boats or trees
  */

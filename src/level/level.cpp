@@ -24,12 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "boat.h"
 #include "level.h"
 #include "grid.h"
-
 #include "../wallet.h"
 #include "../message.h"
 #include "../menu/menu.h"
 #include "../coord.h"
-
 using namespace std;
 
 
@@ -317,7 +315,8 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 	                string str = t.getNameFromID(nbr);
                     m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
                     cout << str << "----------------"<< endl;
-                    wave.add(str,1,x,y);
+                    S_Coord pos = {x,y};
+                    wave.add(str,1,pos);
 				    }
 				//grid.setGround(x,y,nbr);
 
@@ -472,8 +471,8 @@ C_Wave::~C_Wave()
 }
 
 
-void C_Wave::add(string name, int rank, int x, int y){
-    S_boat tmp ={name,rank,x,y,true};
+void C_Wave::add(string name, int rank, S_Coord coord){
+    S_UnitModel tmp ={name,rank,coord,true};
     m_boatList.push_back(tmp);
     m_count++;
 }
@@ -481,10 +480,10 @@ void C_Wave::add(string name, int rank, int x, int y){
 void C_Wave::cliStatus(){
     int c = 0;
     C_Message m;
-    for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
+    for(vector <S_UnitModel>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
         ostringstream message;
-        message << "Rank " + to_string((*i).rank) << " at " << (*i).x << ":" << (*i).y;
+        message << "Rank " + to_string((*i).rank) << " at " << (*i).coord.x << ":" << (*i).coord.y;
         if ((*i).alive)
             message << " Alive\n";
         else
@@ -498,12 +497,14 @@ void C_Wave::cliStatus(){
 void C_Wave::loadIntoGrid(){
     C_Grid& grid=C_Grid::Instances();
     C_Message m;
-    for(vector <S_boat>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
+    for(vector <S_UnitModel>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
-        S_boat tmp = *i;
-        m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.x) + ":" + to_string(tmp.y) +"\n");
-        if (tmp.alive)
-            grid.addANewBoat(tmp,this);
+        S_UnitModel tmp = *i;
+        m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.coord.x)
+             + ":" + to_string(tmp.coord.y) +"\n");
+        if (tmp.alive){
+            grid.addANewBoat(tmp);
+        }
 
     }
 }

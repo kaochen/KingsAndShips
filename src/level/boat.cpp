@@ -22,10 +22,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Boat::C_Boat(S_boat boat,
-			 C_Wave* parent):C_Shooter("boat", boat.x, boat.y ,boat.rank)
+C_Boat::C_Boat(S_UnitModel boat):C_Shooter("boat", boat.coord.x, boat.coord.y ,boat.rank)
 {
-    m_rank = getRankFromName(boat.name);
+    m_rank = boat.rank;
 	m_weapon = new C_Weapon("BOAT",2,0,2000,2);
 	m_moving = false;
 	m_speed = SLOW;
@@ -36,13 +35,12 @@ C_Boat::C_Boat(S_boat boat,
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town = grid.foundTown();
 	m_C_Path = new C_Path(town.x,town.y);
-	m_C_Path->calcPath(boat.x,boat.y,town.x,town.y);
+	m_C_Path->calcPath(boat.coord.x,boat.coord.y,town.x,town.y);
 	m_C_Path->showPath();
 	m_direction = EAST;
 	m_animDirection = new C_AnimTime();
 	m_countStop = 0;
 	m_countRegenPath = 0;
-	m_wave = parent;
 }
 
 C_Boat::~C_Boat()
@@ -206,15 +204,3 @@ int C_Boat::calcSpeed(){
            return speed;
 }
 
-int C_Boat::getRankFromName(string name){
-    string rank = name.substr(5,1);
-    int ret = stoi(rank);
-    cout << name << ":" << ret << endl;
-    if(ret >= 0 || ret < 10 ){
-        return ret;
-    }
-    else{
-        return 0;
-    }
-
-}

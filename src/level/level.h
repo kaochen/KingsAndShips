@@ -29,14 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../coord.h"
 
 
-struct S_boat{
-  std::string name;
-	int rank;
-	int x;
-	int y;
-  bool alive;
-};
-
 struct S_tmxLayer{
   std::string name;
   int width;
@@ -48,14 +40,14 @@ class C_Wave{
   public:
   C_Wave();
   ~C_Wave();
-  void add(std::string name,int rank, int x, int y);
+  void add(std::string name,int rank, S_Coord coord);
   void cliStatus();
   void loadIntoGrid();
   void addToDeadCounter(int nbr);
 
   private:
   //attibutes
-  std::vector <S_boat> m_boatList;
+  std::vector <S_UnitModel> m_boatList;
   int m_count;
   int m_count_dead;
 };

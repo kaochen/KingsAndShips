@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "towers.h"
 #include "town.h"
 #include "landscape.h"
+#include "factory.h"
 
 #include "../texture.h"
 #include "../message.h"
@@ -90,9 +91,14 @@ void C_Grid::renderLayer(int layer){
 }
 
 
-void C_Grid::addANewBoat(S_boat boat,C_Wave* parent){
-	if (waterway(boat.x,boat.y)){
-		m_vgrid[boat.x][boat.y].set(FIELD,new C_Boat(boat,parent));
+void C_Grid::addANewBoat(S_UnitModel boat){
+	if (waterway(boat.coord.x,boat.coord.y)){
+		C_UnitFactory& unitFactory=C_Singleton<C_UnitFactory>::Instances();
+	    C_GameUnits *tmp = unitFactory.create("boat",boat.coord);
+	    if(tmp != nullptr){
+		    m_vgrid[boat.coord.x][boat.coord.y].set(FIELD,tmp);
+		}
+
 	}
 	else{
 	    C_Message m;
