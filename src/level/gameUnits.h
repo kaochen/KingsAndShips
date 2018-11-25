@@ -31,6 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../time.h"
 #include "pathfinding.h"
 
+struct S_Weapon{
+	int damage;
+	int speedImpact;
+	int fireRate;
+	int fireRange;
+  int direction;
+};
+
 struct S_UnitModel{
   std::string name;
 	int rank;

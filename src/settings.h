@@ -47,13 +47,6 @@ struct S_NodeCoord{
 	S_Coord grid; /*!< position of the tile in grid unit*/
 };
 
-struct S_Weapon{
-	int damage;
-	int speedImpact;
-	int fireRate;
-	int fireRange;
-  int direction;
-};
 
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
 enum GroundType {GROUND_01,GROUND_02};
