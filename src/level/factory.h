@@ -46,9 +46,8 @@ T C_Singleton<T>::m_instance;
 
 
 
-class C_UnitFactory : public C_Singleton<C_GameUnits>
+class C_UnitFactory
 {
-  friend class C_Singleton<C_GameUnits>;
   public:
     C_UnitFactory();
     virtual ~C_UnitFactory(){};

@@ -33,7 +33,7 @@ You can use x+1 to find a unit close to another one m_vgrid[x+1][y]*/
 #include "gameUnits.h"
 #include "level.h"
 #include "../coord.h"
-
+#include "factory.h"
 
 //singleton
 class C_Grid
@@ -86,6 +86,7 @@ private:
 
   std::vector < std::vector <C_ZLayer> > m_vgrid;
   int m_size;
+  C_UnitFactory m_factory;
 };
 
 #endif

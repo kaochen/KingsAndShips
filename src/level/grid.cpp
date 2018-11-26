@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "towers.h"
 #include "town.h"
 #include "landscape.h"
-#include "factory.h"
 
 #include "../texture.h"
 #include "../message.h"
@@ -36,6 +35,8 @@ C_Grid C_Grid::m_instance=C_Grid();
 
 C_Grid::C_Grid()
 {
+    cout << "Create Grid" << endl;
+    m_factory = C_UnitFactory();
 }
 
 C_Grid::~C_Grid()
@@ -51,6 +52,7 @@ void C_Grid::reset(int size)
                    }
            }
     createAnEmptyGrid(size);
+    m_factory = C_UnitFactory();
 }
 
 void C_Grid::createAnEmptyGrid(int size){
@@ -93,8 +95,7 @@ void C_Grid::renderLayer(int layer){
 
 void C_Grid::addANewBoat(S_UnitModel boat){
 	if (waterway(boat.coord.x,boat.coord.y)){
-		C_UnitFactory& unitFactory=C_Singleton<C_UnitFactory>::Instances();
-	    C_GameUnits *tmp = unitFactory.create("boat",boat.coord);
+	    C_GameUnits *tmp = m_factory.create("boat",boat.coord);
 	    if(tmp != nullptr){
 		    m_vgrid[boat.coord.x][boat.coord.y].set(FIELD,tmp);
 		}
