@@ -23,15 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Xml::C_Xml()
+C_Xml::C_Xml(string const file_Path):
+ m_file_path(file_Path)
 {
 }
 
-C_Xml::~C_Xml(){
-}
 
-string C_Xml::extractStrProperty(string const &File_Path,string const &name){
-     xmlpp::TextReader reader(File_Path);
+string C_Xml::extractStrProperty(string const &name){
+     xmlpp::TextReader reader(m_file_path);
      string value, type;
      while(reader.read())
         {
@@ -64,7 +63,7 @@ string C_Xml::extractStrProperty(string const &File_Path,string const &name){
 		reader.move_to_element();
     	}
     C_Message m;
-	m.printM("From: " + File_Path +" Property: " +name+ " = "+ value + " type: " + type +"\n");
+	m.printM("From: " + m_file_path +" Property: " +name+ " = "+ value + " type: " + type +"\n");
     return value;
 }
 

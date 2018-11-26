@@ -31,13 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Xml
 {
 	public:
-    C_Xml();
-    ~C_Xml();
-    std::string extractStrProperty(std::string const &File_Path,std::string const &name);
+    C_Xml(std::string const file_Path);
+    ~C_Xml(){};
+    std::string extractStrProperty(std::string const &name);
 
   protected:
 
 	private:
+  std::string m_file_path;
 
 };
 #endif

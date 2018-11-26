@@ -22,9 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_UnitFactory::C_UnitFactory(){
-    C_Xml xml;
-    xml.extractStrProperty("data/img/boat_00.tsx","damage");
-    xml.extractStrProperty("data/levels/Level_1.tmx","wallet");
+    C_Xml tsx("data/img/boat_00.tsx");
+    tsx.extractStrProperty("damage");
+    C_Xml tmx("data/levels/Level_1.tmx");
+    tmx.extractStrProperty("wallet");
 
     S_UnitModel boat00;
     boat00.name = "boat";
