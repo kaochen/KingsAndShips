@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_UnitFactory::C_UnitFactory(){
+    C_Xml xml;
+    xml.extractStrProperty("data/img/boat_00.tsx","damage");
+    xml.extractStrProperty("data/levels/Level_1.tmx","wallet");
+
     S_UnitModel boat00;
     boat00.name = "boat";
     boat00.rank = 1;

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "shooter.h"
 #include "towers.h"
 #include "boat.h"
+#include "../xml.h"
 
 template <typename T>
 class C_Singleton{
