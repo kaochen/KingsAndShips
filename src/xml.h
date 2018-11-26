@@ -33,7 +33,7 @@ class C_Xml
 	public:
     C_Xml(std::string const file_Path);
     ~C_Xml(){};
-    std::string extractStrProperty(std::string const &name);
+    std::string extractStrValue(std::string const &node, std::string const &id, std::string const &idValue, std::string const &name);
 
   protected:
 

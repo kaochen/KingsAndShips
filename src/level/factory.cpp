@@ -23,9 +23,10 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory(){
     C_Xml tsx("data/img/boat_00.tsx");
-    tsx.extractStrProperty("damage");
+    tsx.extractStrValue("property","name","damage","value");
+    tsx.extractStrValue("property","name","damage","type");
     C_Xml tmx("data/levels/Level_1.tmx");
-    tmx.extractStrProperty("wallet");
+    tmx.extractStrValue("map","orientation","isometric","backgroundcolor");
 
     S_UnitModel boat00;
     boat00.name = "boat";
