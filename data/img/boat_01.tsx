@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="boat_1_A" tilewidth="128" tileheight="128" tilecount="64" columns="8">
+<tileset version="1.2" tiledversion="1.2.0" name="boat_1_A" tilewidth="128" tileheight="128" tilecount="64" columns="8">
  <tileoffset x="-14" y="11"/>
+ <properties>
+  <property name="damage" type="int" value="2"/>
+  <property name="firerange" type="int" value="2"/>
+  <property name="firerate" type="int" value="2000"/>
+  <property name="price" type="int" value="75"/>
+  <property name="rank" type="int" value="1"/>
+  <property name="speed" type="int" value="1"/>
+ </properties>
  <image source="original/t_boat_01.png" width="1024" height="1024"/>
  <tile id="0" type="EE_0"/>
  <tile id="1" type="EE_1"/>
