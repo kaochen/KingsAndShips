@@ -75,7 +75,6 @@ class C_Level
 	protected:
   //methods
   void extractInfosFromTmx(int levelNbr);
-  std::string extractPropertyFromTmxFile(std::string tmx_File_Path, const std::string &name);
 	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
   void loadWave(std::string tmx_File_Path, int waveNbr);
@@ -100,6 +99,7 @@ class C_Level
 
   //properties
   std::string m_filename;
+  std::string m_levelName;
   int m_width;
   int m_height;
   int m_gridSize;

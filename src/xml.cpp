@@ -67,3 +67,29 @@ string C_Xml::extractStrValue(string const &node, string const &id, string const
     return value;
 }
 
+
+
+string C_Xml::extractStrValue(string const &node, string const &name){
+     xmlpp::TextReader reader(m_file_path);
+     string value;
+     while(reader.read())
+        {
+        		string nodeName = reader.get_name();
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			        string attrib = reader.get_name();
+			        if (nodeName == node && attrib == name){
+                        value = reader.get_value();
+                    }
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+    C_Message m;
+	m.printM("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ value+"\n");
+    return value;
+}
+

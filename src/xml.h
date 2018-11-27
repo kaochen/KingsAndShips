@@ -33,8 +33,8 @@ class C_Xml
 	public:
     C_Xml(std::string const file_Path);
     ~C_Xml(){};
-    std::string extractStrValue(std::string const &node, std::string const &id, std::string const &idValue, std::string const &name);
-
+    std::string extractStrValue(std::string const &node, std::string const &id, std::string const &idValue, std::string const &name); //in the "node" where "id" = "idValue" get value of "name"
+    std::string extractStrValue(std::string const &node, std::string const &name); //in the only one "node" get value of "name"
   protected:
 
 	private:
