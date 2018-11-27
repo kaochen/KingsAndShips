@@ -35,7 +35,7 @@ class C_Wave{
   public:
   C_Wave();
   ~C_Wave();
-  void add(std::string name,int rank, S_Coord coord);
+  void add(std::string name, S_Coord coord);
   void cliStatus();
   void loadIntoGrid();
   void addToDeadCounter(int nbr);

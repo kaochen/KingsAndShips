@@ -27,7 +27,7 @@ C_Boat::C_Boat(S_UnitModel boat):C_Shooter("boat", boat.coord.x, boat.coord.y ,b
     m_rank = boat.rank;
 	m_weapon = new C_Weapon("BOAT",2,0,2000,2);
 	m_moving = false;
-	m_speed = SLOW;
+	m_speed = boat.speed;
 	m_speedImpact = 0;
 	m_speedImpactLoop = 60;
 	m_coord->centerOnTile();

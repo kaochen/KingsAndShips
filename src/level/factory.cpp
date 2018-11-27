@@ -22,21 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_UnitFactory::C_UnitFactory(){
-    C_Xml tsx("data/img/boat_00.tsx");
-    tsx.extractStrValue("property","name","damage","value");
-    tsx.extractStrValue("property","name","damage","type");
 
-    S_UnitModel boat00;
-    boat00.name = "boat";
-    boat00.rank = 1;
-    boat00.coord.x = 0;
-    boat00.coord.y = 0;
-    boat00.alive = true;
-    m_models[boat00.name]= boat00;
+    S_UnitModel unit = extractProperties("data/img/boat_00.tsx");
+    m_models[unit.name]= unit;
+    unit = extractProperties("data/img/boat_01.tsx");
+    m_models[unit.name]= unit;
 }
 C_GameUnits* C_UnitFactory::create(string type, S_Coord pos){
+    cout << "create:" << type << endl;
     C_GameUnits* unit = nullptr;
-    if(type == "boat" ){
+    if(type == "boat_1_A" || type == "boat_0_A"  ){
         S_UnitModel current = m_models[type];
         current.coord = pos;
         unit = new C_Boat(current);
@@ -44,4 +39,25 @@ C_GameUnits* C_UnitFactory::create(string type, S_Coord pos){
     }
     return unit;
 }
+/*  <property name="damage" type="int" value="1"/>
+  <property name="firerange" type="int" value="2"/>
+  <property name="firerate" type="int" value="1500"/>
+  <property name="price" type="int" value="50"/>
+  <property name="rank" type="int" value="0"/>
+  <property name="speed" type="int" value="2"/>
+*/
 
+S_UnitModel C_UnitFactory::extractProperties(string filename){
+    C_Xml tsx(filename);
+    S_UnitModel unit;
+    unit.name = tsx.extractStrValue("tileset","name");
+    unit.rank = stoi(tsx.extractStrValue("property","name","rank","value"));
+    unit.coord = {0,0};
+    unit.price = stoi(tsx.extractStrValue("property","name","price","value"));
+    unit.speed = stoi(tsx.extractStrValue("property","name","speed","value"));
+    unit.weapon.damage = stoi(tsx.extractStrValue("property","name","damage","value"));
+    unit.weapon.fireRate = stoi(tsx.extractStrValue("property","name","firerate","value"));
+    unit.weapon.fireRange = stoi(tsx.extractStrValue("property","name","firerange","value"));
+    unit.alive = true;
+    return unit;
+}

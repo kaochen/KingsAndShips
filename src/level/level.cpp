@@ -205,9 +205,9 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				int nbr = stoi(extract);
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
-                    m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
+                    m.printM(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
                     S_Coord pos = {x,y};
-                    wave.add(str,1,pos);
+                    wave.add(str,pos);
 				    }
 				//grid.setGround(x,y,nbr);
 
@@ -329,8 +329,18 @@ C_Wave::~C_Wave()
 }
 
 
-void C_Wave::add(string name, int rank, S_Coord coord){
-    S_UnitModel tmp ={name,rank,coord,true};
+void C_Wave::add(string name, S_Coord coord){
+    S_UnitModel tmp;
+    tmp.name = name;
+    //extract rank from name boat_1_A_EE_0 -> rank = 1 boat_0_A_EE_0 -> rank = 0
+    size_t pos = tmp.name.find("_") + 1;
+    string sub = tmp.name.substr (pos);
+    size_t pos2 = sub.find("_");
+    string r = tmp.name.substr (pos, pos2);
+    //cout << tmp.name << " : " << pos << " : "<< sub << " : " << pos2 << "rank " << r << endl;
+    tmp.rank = stoi(r);
+    tmp.coord = coord;
+    tmp.alive = true;
     m_boatList.push_back(tmp);
     m_count++;
 }

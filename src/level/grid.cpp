@@ -95,7 +95,8 @@ void C_Grid::renderLayer(int layer){
 
 void C_Grid::addANewBoat(S_UnitModel boat){
 	if (waterway(boat.coord.x,boat.coord.y)){
-	    C_GameUnits *tmp = m_factory.create("boat",boat.coord);
+	    string name = "boat_"+ to_string(boat.rank)+"_A";
+	    C_GameUnits *tmp = m_factory.create(name,boat.coord);
 	    if(tmp != nullptr){
 		    m_vgrid[boat.coord.x][boat.coord.y].set(FIELD,tmp);
 		}
