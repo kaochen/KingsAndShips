@@ -73,7 +73,6 @@ class C_Level
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
   void loadWave(std::string tmx_File_Path, int waveNbr);
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
-  int countAttributes(std::string tmx_File_Path, std::string pattern);
   S_Coord getFirstTile(S_tmxLayer &layer);
   void setWallet();
   void createLandscape();

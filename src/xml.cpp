@@ -142,3 +142,35 @@ S_tmxLayer C_Xml::extractLayerInTMX(string layerName){
 	//cout  << data << "////" << endl;
     return layer;
 }
+
+
+int C_Xml::countAttributes(string pattern){
+	string old;
+    xmlpp::TextReader reader(m_file_path);
+    int c = 0;
+     while(reader.read())
+        {
+        	string nodeName = reader.get_name();
+        	if (reader.has_attributes()){
+			reader.move_to_first_attribute();
+			do
+			{
+			  string attributes = reader.get_name();
+			  if (nodeName == "layer" && attributes == "name"){
+			  	    string value = reader.get_value();
+                    //cout << value << endl;
+			        if(value.compare(0,pattern.size(),pattern)==0 && old != value){
+			  	        c++;
+    			  	    old = value;
+			  	    }
+				}
+				attributes = "";
+			} while(reader.move_to_next_attribute());
+		}
+	    reader.move_to_element();
+	    nodeName = "";
+	}
+	C_Message m;
+	m.printM(c +" "+ pattern + " in " + m_file_path +"\n");
+    return c;
+}

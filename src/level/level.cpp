@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include <sys/stat.h>
-#include <libxml++/libxml++.h>
-#include <libxml++/parsers/textreader.h>
+#include <sstream>
 
 #include "gameUnits.h"
 #include "boat.h"
@@ -102,7 +101,8 @@ void C_Level::load(int levelNbr){
 	    loadGroundLayerIntoTheGrid(m_filename.c_str());
 	    loadDecorLayerIntoTheGrid(m_filename.c_str());
 	    setWallet();
-	    m_nbrOfWaves = countAttributes(m_filename.c_str(),"Wave");
+	    C_Xml tmx(m_filename);
+	    m_nbrOfWaves = tmx.countAttributes("Wave");
     	for(int i = 0; i < m_nbrOfWaves; i++){
     	    loadWave(m_filename.c_str(),i);
     	}
@@ -273,40 +273,6 @@ void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
 void C_Level::updateMenuInfo(){
     C_Menu& menu=C_Menu::Instances();
     menu.updateLevelInfos(m_nbrOfWaves - m_currentWaveNbr, m_nbrOfWaves);
-}
-
-int C_Level::countAttributes(string tmx_File_Path, string pattern){
-	string old = "";
-    C_Message m;
-    xmlpp::TextReader reader(tmx_File_Path);
-    int c = 0;
-     while(reader.read())
-        {
-        	string nodeName = reader.get_name();
-        	if (reader.has_attributes()){
-			reader.move_to_first_attribute();
-			do
-			{
-			  string attributes = reader.get_name();
-			  if (nodeName == "layer" && attributes == "name"){
-                	//cout << "NodeName: " << nodeName << endl;
-			  	    //cout << "Attributes: " << attributes << endl;
-			  	    string value = reader.get_value();
-                    //cout << value << endl;
-			        if(value.compare(0,pattern.size(),pattern)==0 && old != value){
-			  	        c++;
-    			  	    //cout << "Found " << reader.get_value() << " + " << c << endl;
-    			  	    old = value;
-			  	    }
-				}
-				attributes = "";
-			} while(reader.move_to_next_attribute());
-		}
-	    reader.move_to_element();
-	    nodeName = "";
-	}
-	m.printM(c +" "+ pattern + " in " + tmx_File_Path +"\n");
-    return c;
 }
 
 void C_Level::render(){
