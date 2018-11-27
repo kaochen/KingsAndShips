@@ -93,3 +93,52 @@ string C_Xml::extractStrValue(string const &node, string const &name){
     return value;
 }
 
+string C_Xml::extractStrData(string const &node, string const &name){
+     xmlpp::TextReader reader(m_file_path);
+     string data;
+     string currentNodeName;
+     while(reader.read())
+        {
+        		string nodeType = reader.get_name();
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			        string attrib = reader.get_name();
+			        if (nodeType == node && attrib == "name"){
+			  	        currentNodeName = reader.get_value();
+				    }
+			        if (nodeType == "data" && currentNodeName == name){
+					        data = reader.read_inner_xml();
+				            currentNodeName ="";
+
+					}
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+    C_Message m;
+	m.printM("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
+    return data;
+}
+
+
+S_tmxLayer C_Xml::extractLayerInTMX(string layerName){
+
+	S_tmxLayer layer;
+	layer.name = layerName;
+	layer.width = stoi(extractStrValue("layer","name",layerName,"width"));
+	layer.height = stoi(extractStrValue("layer","name",layerName,"height"));
+    layer.data =  extractStrData("layer", layerName);
+
+	//drop all \n
+	size_t start = 0;
+	string in = "\n", out = "";
+	while((start = layer.data.find(in,start)) != std::string::npos){
+		layer.data.replace(start,in.length(),out);
+		start += out.length();
+	}
+	//cout  << data << "////" << endl;
+    return layer;
+}

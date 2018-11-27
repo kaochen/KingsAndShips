@@ -27,14 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "landscape.h"
 #include "../coord.h"
+#include "../xml.h"
 
 
-struct S_tmxLayer{
-  std::string name;
-  int width;
-  int height;
-  std::string data;
-};
 
 class C_Wave{
   public:
@@ -75,7 +70,6 @@ class C_Level
 	protected:
   //methods
   void extractInfosFromTmx(int levelNbr);
-	S_tmxLayer extractTMXfile(std::string tmx_File_Path, std::string layerName);
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
   void loadWave(std::string tmx_File_Path, int waveNbr);
   void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
@@ -83,7 +77,6 @@ class C_Level
   S_Coord getFirstTile(S_tmxLayer &layer);
   void setWallet();
   void createLandscape();
-  std::string extractValueFromTmxFile(std::string tmx_File_Path, const std::string &node, const std::string &attribute);
 
 	//attibutes
 	std::string m_name;

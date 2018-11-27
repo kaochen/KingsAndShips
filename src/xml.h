@@ -28,13 +28,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * \brief functions to extract data from tmx and tsx files
  */
 
+struct S_tmxLayer{
+  std::string name;
+  int width;
+  int height;
+  std::string data;
+};
+
 class C_Xml
 {
 	public:
     C_Xml(std::string const file_Path);
     ~C_Xml(){};
+    //values
     std::string extractStrValue(std::string const &node, std::string const &id, std::string const &idValue, std::string const &name); //in the "node" where "id" = "idValue" get value of "name"
     std::string extractStrValue(std::string const &node, std::string const &name); //in the only one "node" get value of "name"
+    //data
+    std::string extractStrData(std::string const &node, std::string const &name);                                                                      //
+    S_tmxLayer extractLayerInTMX(std::string layerName);
   protected:
 
 	private:

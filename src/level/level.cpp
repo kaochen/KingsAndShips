@@ -148,91 +148,11 @@ void C_Level::sendNextWave(){
     m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
 }
 
-string C_Level::extractValueFromTmxFile(string tmx_File_Path, const string &node, const string &attribute){
-     xmlpp::TextReader reader(tmx_File_Path);
-     string value;
-     while(reader.read())
-        {
-        		string nodeName = reader.get_name();
-	          	//cout << nodeName << "---namespace---\n";
-
-	          	if (reader.has_attributes()){
-			    reader.move_to_first_attribute();
-			    do
-			    {
-			      string attrib = reader.get_name();
-			      //cout << attributes << "-----"<< endl;
-
-			      if (nodeName == node && attrib == attribute){
-			      	value = reader.get_value();
-				    }
-				} while(reader.move_to_next_attribute());
-		}
-		reader.move_to_element();
-    	}
-    C_Message m;
-	m.printM("From: " + tmx_File_Path +" Node: \""+ node + "\" attribute: \"" + attribute + "\" get this value: "+ value + "\n");
-    return value;
-}
-
-
-S_tmxLayer C_Level::extractTMXfile(string tmx_File_Path, string layerName){
-
-	S_tmxLayer layer;
-	layer.name = layerName;
-    string currentLayerName ="";
-    C_Message m;
-	m.printM("Reading: " + tmx_File_Path +"\n");
- xmlpp::TextReader reader(tmx_File_Path);
- while(reader.read())
-    {
-    		string nodeName = reader.get_name();
-	      	//cout << nodeName << "---namespace---\n";
-
-	      	if (reader.has_attributes()){
-			reader.move_to_first_attribute();
-			do
-			{
-			  string attributes = reader.get_name();
-			  //cout << attributes << "-----"<< endl;
-
-			  if (nodeName == "layer" && attributes == "name"){
-			  	currentLayerName = reader.get_value();
-				}
-			  if (nodeName == "layer" && attributes == "width"){
-			  	layer.width = stoi(reader.get_value());
-				}
-			  if (nodeName == "layer" && attributes == "height"){
-			  	layer.height = stoi(reader.get_value());
-				}
-			  if (nodeName == "data" && attributes == "encoding"){
-				if (reader.get_value() == "csv" && currentLayerName == layerName){
-				    m.printDebug("found a " + layerName +" layer in the tmx file " + tmx_File_Path+"\n");
-					layer.data = reader.read_inner_xml();
-				    currentLayerName ="";
-						}
-					}
-
-			} while(reader.move_to_next_attribute());
-		}
-		reader.move_to_element();
-    	}
-
-	//drop all \n
-	size_t start = 0;
-	string in = "\n", out = "";
-	while((start = layer.data.find(in,start)) != std::string::npos){
-		layer.data.replace(start,in.length(),out);
-		start += out.length();
-	}
-
-	//cout  << data << "////" << endl;
-    return layer;
-}
 
 void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
 	C_Grid& grid=C_Grid::Instances();
-	m_groundLayer = extractTMXfile(tmx_File_Path,"Ground");
+	C_Xml tmx(tmx_File_Path);
+	m_groundLayer = tmx.extractLayerInTMX("Ground");
     string data = m_groundLayer.data;
     S_Coord start = getFirstTile(m_groundLayer);
 	for (int y = start.y; y < m_groundLayer.height; y++){
@@ -272,7 +192,8 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 
     C_Wave wave;
 	string name = "Wave" + to_string(waveNbr);
-	S_tmxLayer layer = extractTMXfile(tmx_File_Path,name);
+	C_Xml tmx(tmx_File_Path);
+	S_tmxLayer layer = tmx.extractLayerInTMX(name);
     string data = layer.data;
     C_Message m;
 	for (int y = 0; y < layer.height; y++){
@@ -285,7 +206,6 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
                     m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
-                    cout << str << "----------------"<< endl;
                     S_Coord pos = {x,y};
                     wave.add(str,1,pos);
 				    }
@@ -329,7 +249,8 @@ void C_Level::loadWaveIntoGrid(int i){
 
 void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
 	C_Grid& grid=C_Grid::Instances();
-	m_decorLayer = extractTMXfile(tmx_File_Path,"Decors");
+	C_Xml tmx(tmx_File_Path);
+	m_decorLayer = tmx.extractLayerInTMX("Decors");
     string data = m_decorLayer.data;
     S_Coord start = getFirstTile(m_decorLayer);
 	for (int y = start.y; y < m_decorLayer.height; y++){
