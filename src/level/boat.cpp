@@ -28,7 +28,7 @@ C_Boat::C_Boat(S_UnitModel boat):C_Shooter("boat", boat.coord.x, boat.coord.y ,b
     m_max_health = boat.health;
     m_health = m_max_health;
     m_cost = boat.cost;
-	m_weapon = new C_Weapon("BOAT",boat.weapon.damage,0,boat.weapon.fireRate,boat.weapon.fireRange);
+	m_weapon = new C_Weapon("BOAT",boat.weapon);
 	m_moving = false;
 	m_speed = boat.speed;
 	m_speedImpact = 0;

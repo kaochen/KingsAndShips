@@ -35,6 +35,17 @@ C_Weapon::C_Weapon():m_name("CANON"),
 	m_weapon.fireRange = 2;
 
 }
+C_Weapon::C_Weapon(string name, S_Weapon spec):
+	m_name(name),
+	m_x_screen(0),
+	m_y_screen(0),
+	m_shooting(false),
+	m_lastShootTime(0),
+	m_dist(80),
+	m_angle(0.0)
+{
+    m_weapon = spec;
+};
 
 C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange):
 	m_name(name),

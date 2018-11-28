@@ -56,9 +56,13 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     unit.coord = {0,0};
     unit.cost = stoi(tsx.extractStrValue("property","name","cost","value"));
     unit.speed = stoi(tsx.extractStrValue("property","name","speed","value"));
+    unit.alive = true;
+
+    //S_Weapon
     unit.weapon.damage = stoi(tsx.extractStrValue("property","name","damage","value"));
+    unit.weapon.speedImpact = stoi(tsx.extractStrValue("property","name","speedImpact","value"));
     unit.weapon.fireRate = stoi(tsx.extractStrValue("property","name","firerate","value"));
     unit.weapon.fireRange = stoi(tsx.extractStrValue("property","name","firerange","value"));
-    unit.alive = true;
+    unit.weapon.direction = EAST;
     return unit;
 }

@@ -30,6 +30,7 @@ class C_Weapon
 public:
 	C_Weapon();
 	C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange);
+	C_Weapon(std::string name, S_Weapon spec);
 	~C_Weapon();
 
 	void change(std::string name, int damage, int fireRate, int fireRange);
