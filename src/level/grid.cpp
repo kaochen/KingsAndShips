@@ -114,9 +114,13 @@ int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
 	    if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
 		    if(type == "AddTower"){
 		        if (!waterway(x_grid,y_grid)){
-		            m_vgrid[x_grid][y_grid].set(FIELD,new C_ArcherTower(x_grid,y_grid,rank));
-		            success = EXIT_SUCCESS;
+                    S_Coord pos = {x_grid,y_grid};
+	                C_GameUnits *tmp = m_factory.create("ArcherTower_0_A",pos);
+	                if(tmp != nullptr){
+		                  m_vgrid[x_grid][y_grid].set(FIELD,tmp);
 		            }
+		            success = EXIT_SUCCESS;
+		        }
 		    }
             else if(type == "AddTurbine"){
 		     	if (!waterway(x_grid,y_grid)){

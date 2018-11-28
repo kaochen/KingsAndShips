@@ -48,6 +48,7 @@ class C_ArcherTower: public C_Towers
 {
 	public:
 		C_ArcherTower(int x_grid, int y_grid, int rank);
+    C_ArcherTower(S_UnitModel archer);
 		virtual void render(S_Coord screen);
 	protected:
 

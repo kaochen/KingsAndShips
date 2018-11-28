@@ -27,6 +27,8 @@ C_UnitFactory::C_UnitFactory(){
     m_models[unit.name]= unit;
     unit = extractProperties("data/img/boat_01.tsx");
     m_models[unit.name]= unit;
+    unit = extractProperties("data/img/archerTower_00.tsx");
+    m_models[unit.name]= unit;
 }
 C_GameUnits* C_UnitFactory::create(string type, S_Coord pos){
     cout << "create:" << type << endl;
@@ -36,6 +38,11 @@ C_GameUnits* C_UnitFactory::create(string type, S_Coord pos){
         current.coord = pos;
         unit = new C_Boat(current);
         //C_GameUnits *boat = new C_ArcherTower(pos.x,pos.y,current.rank);
+    }
+    else if(type == "ArcherTower_0_A" || type == "ArcherTower_1_A"){
+        S_UnitModel current = m_models[type];
+        current.coord = pos;
+        unit = new C_ArcherTower(current);
     }
     return unit;
 }

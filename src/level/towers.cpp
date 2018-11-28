@@ -76,6 +76,15 @@ C_ArcherTower::C_ArcherTower(int x_grid,
 	m_weapon = new C_Weapon("ARCHER",10,0,2000,2);
 }
 
+C_ArcherTower::C_ArcherTower(S_UnitModel archer):C_Towers("ArcherTower", archer.coord.x, archer.coord.y, archer.rank)
+{
+    m_rank = archer.rank;
+    m_max_health = archer.health;
+    m_health = m_max_health;
+    m_cost = archer.cost;
+	m_weapon = new C_Weapon("ARCHER",archer.weapon);
+}
+
 void C_ArcherTower::render(S_Coord screen){
 	if(alive()){
 	    renderSelected();
