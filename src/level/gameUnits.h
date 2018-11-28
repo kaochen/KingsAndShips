@@ -44,7 +44,7 @@ struct S_UnitModel{
 	int rank;
   int health;
   S_Coord coord;
-  int price;
+  int cost;
   int speed;
   S_Weapon weapon;
   bool alive;

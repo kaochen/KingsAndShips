@@ -6,7 +6,7 @@
   <property name="damage" type="int" value="1"/>
   <property name="firerange" type="int" value="2"/>
   <property name="firerate" type="int" value="1500"/>
-  <property name="price" type="int" value="50"/>
+  <property name="cost" type="int" value="50"/>
   <property name="rank" type="int" value="0"/>
   <property name="speed" type="int" value="3"/>
  </properties>
