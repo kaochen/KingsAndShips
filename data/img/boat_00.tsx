@@ -2,12 +2,13 @@
 <tileset version="1.2" tiledversion="1.2.0" name="boat_0_A" tilewidth="128" tileheight="128" tilecount="64" columns="8">
  <tileoffset x="-14" y="11"/>
  <properties>
+  <property name="health" type="int" value="50"/>
   <property name="damage" type="int" value="1"/>
   <property name="firerange" type="int" value="2"/>
   <property name="firerate" type="int" value="1500"/>
   <property name="price" type="int" value="50"/>
   <property name="rank" type="int" value="0"/>
-  <property name="speed" type="int" value="2"/>
+  <property name="speed" type="int" value="3"/>
  </properties>
  <image source="original/t_boat_00.png" width="1024" height="1024"/>
  <tile id="0" type="EE_0"/>

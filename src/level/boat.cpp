@@ -25,6 +25,8 @@ using namespace std;
 C_Boat::C_Boat(S_UnitModel boat):C_Shooter("boat", boat.coord.x, boat.coord.y ,boat.rank)
 {
     m_rank = boat.rank;
+    m_max_health = boat.health;
+    m_health = m_max_health;
 	m_weapon = new C_Weapon("BOAT",2,0,2000,2);
 	m_moving = false;
 	m_speed = boat.speed;

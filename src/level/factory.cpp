@@ -52,6 +52,7 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     S_UnitModel unit;
     unit.name = tsx.extractStrValue("tileset","name");
     unit.rank = stoi(tsx.extractStrValue("property","name","rank","value"));
+    unit.health = stoi(tsx.extractStrValue("property","name","health","value"));
     unit.coord = {0,0};
     unit.price = stoi(tsx.extractStrValue("property","name","price","value"));
     unit.speed = stoi(tsx.extractStrValue("property","name","speed","value"));

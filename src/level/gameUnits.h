@@ -42,6 +42,7 @@ struct S_Weapon{
 struct S_UnitModel{
   std::string name;
 	int rank;
+  int health;
   S_Coord coord;
   int price;
   int speed;
