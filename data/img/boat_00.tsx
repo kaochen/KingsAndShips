@@ -2,7 +2,7 @@
 <tileset version="1.2" tiledversion="1.2.0" name="boat_0_A" tilewidth="128" tileheight="128" tilecount="64" columns="8">
  <tileoffset x="-14" y="11"/>
  <properties>
-  <property name="health" type="int" value="50"/>
+  <property name="health" type="int" value="A5"/>
   <property name="damage" type="int" value="1"/>
   <property name="firerange" type="int" value="2"/>
   <property name="firerate" type="int" value="1500"/>

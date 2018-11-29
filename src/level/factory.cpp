@@ -68,18 +68,19 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     C_Xml tsx(filename);
     S_UnitModel unit;
     unit.name = tsx.extractStrValue("tileset","name");
-    unit.rank = stoi(tsx.extractStrValue("property","name","rank","value"));
-    unit.health = stoi(tsx.extractStrValue("property","name","health","value"));
+    unit.rank = tsx.getIntProperty("rank", 0);
+    //unit.health = stoi(tsx.extractStrValue("property","name","health","value"));
+    unit.health = tsx.getIntProperty("health", 100);
     unit.coord = {0,0};
-    unit.cost = stoi(tsx.extractStrValue("property","name","cost","value"));
-    unit.speed = stoi(tsx.extractStrValue("property","name","speed","value"));
+    unit.cost = tsx.getIntProperty("cost", 50);
+    unit.speed = tsx.getIntProperty("speed", 1);
     unit.alive = true;
 
     //S_Weapon
-    unit.weapon.damage = stoi(tsx.extractStrValue("property","name","damage","value"));
-    unit.weapon.speedImpact = stoi(tsx.extractStrValue("property","name","speedImpact","value"));
-    unit.weapon.fireRate = stoi(tsx.extractStrValue("property","name","firerate","value"));
-    unit.weapon.fireRange = stoi(tsx.extractStrValue("property","name","firerange","value"));
+    unit.weapon.damage = tsx.getIntProperty("damage", 2);
+    unit.weapon.speedImpact = tsx.getIntProperty("speedImpact", 0);
+    unit.weapon.fireRate = tsx.getIntProperty("firerate", 2000);
+    unit.weapon.fireRange = tsx.getIntProperty("firerange", 2);
     unit.weapon.direction = EAST;
     return unit;
 }
@@ -89,3 +90,4 @@ bool C_UnitFactory::tsxExist(const string &file){
     ifstream tmp(file.c_str());
     return !tmp.fail();
 }
+

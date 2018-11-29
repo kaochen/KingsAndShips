@@ -47,6 +47,7 @@ class C_Xml
     std::string extractStrData(std::string const &node, std::string const &name);                                                                      //
     S_tmxLayer extractLayerInTMX(std::string layerName);
     int countAttributes(std::string pattern);
+    int getIntProperty(std::string const &idValue, int Default);
   protected:
 
 	private:

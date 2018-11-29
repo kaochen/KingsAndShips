@@ -174,3 +174,28 @@ int C_Xml::countAttributes(string pattern){
 	m.printM(c +" "+ pattern + " in " + m_file_path +"\n");
     return c;
 }
+
+int C_Xml::getIntProperty(string const &idValue, int Default){
+    string text = extractStrValue("property","name",idValue,"value");
+    C_Message m;
+    m.printM("From: " + m_file_path +" in Node: property where name="+ idValue+" value= "+ text);
+    int False = 0;
+    int ret = Default;
+    if(text.size()>0){
+        for(size_t i = 0; i < text.size(); i++){
+        	if(!isdigit(text[i])){
+	            cout << " -> value is not a number, It is replaced by \"Default\": "<< to_string(Default);
+	            False++;
+        	}
+        }
+        if(False <= 0){
+            ret = stoi(text);
+        }
+    }
+    else{
+	    cout << "-> value is empty: It is replaced by \"Default\": " << to_string(Default);
+        ret = Default;
+    }
+    cout << endl;
+    return ret;
+}
