@@ -18,18 +18,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "factory.h"
 #include "grid.h"
+#include "../message.h"
+#include <fstream>
 
 using namespace std;
 
 C_UnitFactory::C_UnitFactory(){
-
-    S_UnitModel unit = extractProperties("data/img/boat_00.tsx");
-    m_models[unit.name]= unit;
-    unit = extractProperties("data/img/boat_01.tsx");
-    m_models[unit.name]= unit;
-    unit = extractProperties("data/img/archerTower_00.tsx");
-    m_models[unit.name]= unit;
+    int size = 3;
+    string file[size] = {"boat_00.tsx","boat_01.tsx","archerTower_00.tsx"};
+    for(int i = 0; i < size; i++){
+        string path = "data/img/" + file[i];
+        if(tsxExist(path)){
+            S_UnitModel unit = extractProperties(path);
+            m_models[unit.name]= unit;
+            cout << endl;
+        }
+        else{
+            C_Message m;
+            m.printM("Can not find the tsx file: " + path);
+        }
+    }
 }
+
 C_GameUnits* C_UnitFactory::create(string type, S_Coord pos){
     cout << "create:" << type << endl;
     C_GameUnits* unit = nullptr;
@@ -72,4 +82,10 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     unit.weapon.fireRange = stoi(tsx.extractStrValue("property","name","firerange","value"));
     unit.weapon.direction = EAST;
     return unit;
+}
+
+
+bool C_UnitFactory::tsxExist(const string &file){
+    ifstream tmp(file.c_str());
+    return !tmp.fail();
 }

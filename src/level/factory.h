@@ -56,6 +56,7 @@ class C_UnitFactory
   protected:
     S_UnitModel extractProperties(std::string filename);
   private:
+    bool tsxExist(const std::string &file);
   	std::map<std::string, S_UnitModel> m_models;
 };
 
