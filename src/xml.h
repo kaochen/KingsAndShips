@@ -48,6 +48,7 @@ class C_Xml
     S_tmxLayer extractLayerInTMX(std::string layerName);
     int countAttributes(std::string pattern);
     int getIntProperty(std::string const &idValue, int Default);
+    bool nodeExist(std::string const &node, std::string const &name);
   protected:
 
 	private:

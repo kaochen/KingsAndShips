@@ -176,26 +176,65 @@ int C_Xml::countAttributes(string pattern){
 }
 
 int C_Xml::getIntProperty(string const &idValue, int Default){
-    string text = extractStrValue("property","name",idValue,"value");
-    C_Message m;
-    m.printM("From: " + m_file_path +" in Node: property where name="+ idValue+" value= "+ text);
-    int False = 0;
     int ret = Default;
-    if(text.size()>0){
-        for(size_t i = 0; i < text.size(); i++){
-        	if(!isdigit(text[i])){
-	            cout << " -> value is not a number, It is replaced by \"Default\": "<< to_string(Default);
-	            False++;
-        	}
+    if(nodeExist("property", idValue)){
+        string text = extractStrValue("property","name",idValue,"value");
+        C_Message m;
+        m.printM("From: " + m_file_path +" in Node: property where name="+ idValue+" value= "+ text);
+        int False = 0;
+        if(text.size()>0){
+            for(size_t i = 0; i < text.size(); i++){
+            	if(!isdigit(text[i])){
+	                cout << " -> value is not a number, It is replaced by \"Default\": "<< to_string(Default);
+	                False++;
+            	}
+            }
+            if(False <= 0){
+                ret = stoi(text);
+            }
         }
-        if(False <= 0){
-            ret = stoi(text);
+        else{
+	        cout << "-> value is empty: It is replaced by \"Default\": " << to_string(Default);
+            ret = Default;
         }
+        cout << endl;
     }
     else{
-	    cout << "-> value is empty: It is replaced by \"Default\": " << to_string(Default);
-        ret = Default;
+        C_Message m;
+        m.printM("No property named: "+ idValue + " in " + m_file_path + "-> Apply \"Default\": " + to_string(Default) +"\n");
     }
-    cout << endl;
+    return ret;
+}
+
+
+bool C_Xml::nodeExist(string const &node, string const &name){
+     xmlpp::TextReader reader(m_file_path);
+     string value;
+     bool ret = false;
+     while(reader.read())
+        {
+        		string nodeName = reader.get_name();
+
+	          	if (reader.has_attributes()){
+			    reader.move_to_first_attribute();
+			    do
+			    {
+			        string attrib = reader.get_name();
+			        if (nodeName == node && attrib == "name"){
+                        value = reader.get_value();
+                        if(value == name){
+                            ret = true;
+                        }
+                    }
+				} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+    	}
+
+	if(!ret){
+	 C_Message m;
+	    m.printM("From: " + m_file_path +" the Node: "+ node  +" where " + "name="+ name + " does not exist\n");
+	}
+
     return ret;
 }
