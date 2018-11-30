@@ -24,8 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_UnitFactory::C_UnitFactory(){
-    int size = 3;
-    string file[size] = {"boat_00.tsx","boat_01.tsx","archerTower_00.tsx"};
+    int size = 7;
+    string file[size] = {"boat_00.tsx","boat_01.tsx","archerTower_00.tsx",
+    "archerTower_01.tsx","barricade_01.tsx","town_01.tsx","turbine_00.tsx"};
     for(int i = 0; i < size; i++){
         string path = "data/img/" + file[i];
         if(tsxExist(path)){

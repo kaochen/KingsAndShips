@@ -2,6 +2,7 @@
 <tileset name="ArcherTower_0_A" tilewidth="128" tileheight="128" tilecount="1" columns="1">
  <tileoffset x="-14" y="11"/>
  <properties>
+  <property name="health" type="int" value="75"/>
   <property name="damage" type="int" value="10"/>
   <property name="firerange" type="int" value="2"/>
   <property name="firerate" type="int" value="2000"/>

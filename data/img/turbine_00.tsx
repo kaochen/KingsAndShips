@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="Turbine_0_A" tilewidth="128" tileheight="128" tilecount="64" columns="8">
  <tileoffset x="-14" y="11"/>
+  <properties>
+  <property name="health" type="int" value="75"/>
+  <property name="damage" type="int" value="0"/>
+  <property name="firerange" type="int" value="1"/>
+  <property name="firerate" type="int" value="0"/>
+  <property name="speedImpact" type="int" value="1"/>
+  <property name="cost" type="int" value="75"/>
+  <property name="rank" type="int" value="0"/>
+  <property name="speed" type="int" value="0"/>
+ </properties>
  <image source="original/t_turbine_01.png" width="1024" height="1024"/>
  <tile id="0" type="SS_0"/>
  <tile id="1" type="SE_0"/>
