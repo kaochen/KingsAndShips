@@ -44,44 +44,47 @@ C_UnitFactory::C_UnitFactory(){
 C_GameUnits* C_UnitFactory::create(S_Unit type){
     cout << "create:" << type.name << endl;
     C_GameUnits* unit = nullptr;
-    if(type.name == "boat_1_A" || type.name == "boat_0_A"  ){
-        S_UnitModel current = m_models[type.name];
-        current.coord = type.coord;
+    S_UnitModel current = m_models[type.name];
+    current.coord = type.coord;
+
+    if(type.name == "boat_1" || type.name == "boat_0"  ){
         unit = new C_Boat(current);
-        //C_GameUnits *boat = new C_ArcherTower(pos.x,pos.y,current.rank);
     }
-    else if(type.name == "ArcherTower_0_A" || type.name == "ArcherTower_1_A"){
-        S_UnitModel current = m_models[type.name];
-        current.coord = type.coord;
+    else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1"){
         unit = new C_ArcherTower(current);
+    }
+    else if(type.name == "barricade_1"){
+        unit = new C_Barricade(current);
+    }
+    else if(type.name == "town_1"){
+        unit = new C_Town(current);
+    }
+    else if(type.name == "Turbine_0"){
+        unit = new C_Turbine(current);
     }
     return unit;
 }
-/*  <property name="damage" type="int" value="1"/>
-  <property name="firerange" type="int" value="2"/>
-  <property name="firerate" type="int" value="1500"/>
-  <property name="price" type="int" value="50"/>
-  <property name="rank" type="int" value="0"/>
-  <property name="speed" type="int" value="2"/>
-*/
 
 S_UnitModel C_UnitFactory::extractProperties(string filename){
     C_Xml tsx(filename);
     S_UnitModel unit;
     unit.name = tsx.extractStrValue("tileset","name");
-    unit.rank = tsx.getIntProperty("rank", 0);
+    unit.type = tsx.extractStrValue("property","name","unit.type","value");
+    unit.rank = tsx.getIntProperty("unit.rank", 0);
     //unit.health = stoi(tsx.extractStrValue("property","name","health","value"));
-    unit.health = tsx.getIntProperty("health", 100);
+    unit.health = 100;
+    //unit.health = tsx.getIntProperty("unit.health", 100);
     unit.coord = {0,0};
-    unit.cost = tsx.getIntProperty("cost", 50);
-    unit.speed = tsx.getIntProperty("speed", 1);
+    unit.cost = tsx.getIntProperty("unit.cost", 50);
+    unit.speed = tsx.getIntProperty("unit.speed", 1);
     unit.alive = true;
 
     //S_Weapon
-    unit.weapon.damage = tsx.getIntProperty("damage", 2);
-    unit.weapon.speedImpact = tsx.getIntProperty("speedImpact", 0);
-    unit.weapon.fireRate = tsx.getIntProperty("firerate", 2000);
-    unit.weapon.fireRange = tsx.getIntProperty("firerange", 2);
+    unit.weapon.name = tsx.extractStrValue("property","name","weapon.name","value");
+    unit.weapon.damage = tsx.getIntProperty("weapon.damage", 2);
+    unit.weapon.speedImpact = tsx.getIntProperty("weapon.speedImpact", 0);
+    unit.weapon.fireRate = tsx.getIntProperty("weapon.firerate", 2000);
+    unit.weapon.fireRange = tsx.getIntProperty("weapon.firerange", 2);
     unit.weapon.direction = EAST;
     return unit;
 }

@@ -37,6 +37,7 @@ struct S_Unit{
 };
 
 struct S_Weapon{
+  std::string name;
 	int damage;
 	int speedImpact;
 	int fireRate;
@@ -46,6 +47,7 @@ struct S_Weapon{
 
 struct S_UnitModel{
   std::string name;
+  std::string type;
 	int rank;
   int health;
   S_Coord coord;
@@ -66,10 +68,12 @@ class C_GameUnits
 		     int x_grid,
 		     int y_grid,
 		     int rank);
+  C_GameUnits(S_UnitModel model);
 
 	virtual ~C_GameUnits();
 	virtual void play(){};
 	virtual void move(){};
+	virtual void drag(S_Coord screen, bool water){if(water){std::cout << screen.x;}};
 
 	virtual C_GameUnits * getUnit() {return this;};
 	virtual std::string getName() const {return m_name;};
@@ -109,10 +113,11 @@ class C_GameUnits
 
 	//attibuts
 	std::string m_name;
+  std::string m_type;
 	int m_rank;
 
-  int m_max_health;
   int m_health;
+  int m_max_health;
 
   //Coord
 	C_Coord* m_coord;

@@ -22,9 +22,13 @@ using namespace std;
 
 
 C_Town::C_Town( int x_grid,
-                 int y_grid):C_Shooter("town", x_grid, y_grid, 1)
+                 int y_grid):C_Shooter("town_1", x_grid, y_grid, 1)
 {
 	m_weapon = new C_Weapon("ARCHER",10,0,2000,2);
+}
+
+C_Town::C_Town(S_UnitModel model):C_Shooter(model){
+    m_weapon = new C_Weapon("ARCHER",model.weapon);
 }
 
 void C_Town::play(){

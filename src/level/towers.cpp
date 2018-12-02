@@ -24,10 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_Towers::C_Towers(string name,
-		   int x_grid,
-		   int y_grid,
-		   int rank):C_Shooter(name, x_grid, y_grid, rank)
+C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 {
 	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
@@ -69,20 +66,10 @@ void C_Towers::renderSelected(){
 
 //---------------------------------------------------
 
-C_ArcherTower::C_ArcherTower(int x_grid,
-		   int y_grid,
-		   int rank):C_Towers("ArcherTower", x_grid, y_grid, rank)
-{
-	m_weapon = new C_Weapon("ARCHER",10,0,2000,2);
-}
 
-C_ArcherTower::C_ArcherTower(S_UnitModel archer):C_Towers("ArcherTower", archer.coord.x, archer.coord.y, archer.rank)
+C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
-    m_rank = archer.rank;
-    m_max_health = archer.health;
-    m_health = m_max_health;
-    m_cost = archer.cost;
-	m_weapon = new C_Weapon("ARCHER",archer.weapon);
+	m_weapon = new C_Weapon("ARCHER",model.weapon);
 }
 
 void C_ArcherTower::render(S_Coord screen){
@@ -98,12 +85,9 @@ void C_ArcherTower::render(S_Coord screen){
 	}
 }
 
-C_Turbine::C_Turbine(int x_grid,
-		   int y_grid,
-		   int rank):C_Towers("Turbine", x_grid, y_grid, rank)
+C_Turbine::C_Turbine(S_UnitModel model):C_Towers(model)
 {
-    m_cost = 75;
-	m_weapon = new C_Weapon("WIND",0,1,0,2);
+	m_weapon = new C_Weapon("WIND",model.weapon);
 }
 
 void C_Turbine::render(S_Coord screen){

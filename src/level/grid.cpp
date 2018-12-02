@@ -114,7 +114,7 @@ int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
 		    if(type == "AddTower"){
 		        if (!waterway(x_grid,y_grid)){
                     S_Unit tower;
-                    tower.name = "ArcherTower_0_A";
+                    tower.name = "ArcherTower_0";
                     tower.coord = {x_grid,y_grid};
 	                C_GameUnits *tmp = m_factory.create(tower);
 	                if(tmp != nullptr){
@@ -125,13 +125,25 @@ int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
 		    }
             else if(type == "AddTurbine"){
 		     	if (!waterway(x_grid,y_grid)){
-		            m_vgrid[x_grid][y_grid].set(FIELD,new C_Turbine(x_grid,y_grid,rank));
-		            success = EXIT_SUCCESS;
+		     	    S_Unit turbine;
+                    turbine.name = "Turbine_0";
+                    turbine.coord = {x_grid,y_grid};
+	                C_GameUnits *tmp = m_factory.create(turbine);
+	                if(tmp != nullptr){
+		                  m_vgrid[x_grid][y_grid].set(FIELD,tmp);
 		            }
+		            success = EXIT_SUCCESS;
+		        }
 		    }
             else if(type == "AddBarricade"){
 		     	if (waterway(x_grid,y_grid)){
-		            m_vgrid[x_grid][y_grid].set(FIELD,new C_Barricade(x_grid,y_grid,1));
+		     	    S_Unit unit;
+                    unit.name = "barricade_1";
+                    unit.coord = {x_grid,y_grid};
+	                C_GameUnits *tmp = m_factory.create(unit);
+	                if(tmp != nullptr){
+		                  m_vgrid[x_grid][y_grid].set(FIELD,tmp);
+		            }
 		            success = EXIT_SUCCESS;
 		            }
 		    }
@@ -413,7 +425,13 @@ void C_Grid::setTown(int x_grid, int y_grid){
 		}
 	//then set
 	 if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
-	    m_vgrid[x_grid][y_grid].set(FIELD,new C_Town(x_grid,y_grid));
+	    S_Unit town;
+        town.name = "town_1";
+        town.coord = {x_grid,y_grid};
+	    C_GameUnits *tmp = m_factory.create(town);
+	    if(tmp != nullptr){
+	        m_vgrid[x_grid][y_grid].set(FIELD,tmp);
+		            }
 	 }
 	 else{
 	    C_Message m;

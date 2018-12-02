@@ -27,6 +27,7 @@ class C_Barricade: public C_Shooter
 {
   public:
     C_Barricade(int x_grid, int y_grid, int rank);
+    C_Barricade(S_UnitModel model);
   protected:
   	virtual void play();
   	virtual void render(S_Coord screen);

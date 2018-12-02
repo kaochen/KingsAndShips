@@ -32,8 +32,7 @@ class C_Boat: public C_Shooter
 {
 	public:
 	//methods
-	C_Boat();
-	C_Boat(S_UnitModel boat);
+	C_Boat(S_UnitModel model);
 	~C_Boat();
 
 	virtual void play();

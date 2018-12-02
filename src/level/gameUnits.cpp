@@ -32,9 +32,10 @@ using namespace std;
 
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
+	m_type("unit"),
 	m_rank(rank),
+	m_health(100),
 	m_max_health(100),
-	m_health(m_max_health),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
@@ -48,6 +49,24 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	coord.y = y_grid;
 	m_coord = new C_CoordGrid(coord);
 	m_old_coord = new C_CoordGrid(coord);
+}
+
+C_GameUnits::C_GameUnits(S_UnitModel model):
+    m_name(model.name),
+	m_type(model.type),
+	m_rank(model.rank),
+    m_health(model.health),
+    m_max_health(model.health),
+	m_direction(UNKNOWN),
+	m_selected(false)
+{
+	for (int i = 0; i < MAX_ANIM; i++){
+		m_animation[i]= new C_AnimTime();
+	}
+
+	m_coord = new C_CoordGrid(model.coord);
+	m_old_coord = new C_CoordGrid(model.coord);
+
 }
 
 //delete
@@ -114,7 +133,7 @@ string C_GameUnits::imageName(int status,int direction,int imageNbr){
             statusStr = "D";
             break;
     }
-    return m_name + "_" + to_string(m_rank) + "_"+ statusStr + "_"
+    return m_type + "_" + to_string(m_rank) + "_"+ statusStr + "_"
             + directionToStr(direction) + "_" + to_string(imageNbr) ;
 }
 

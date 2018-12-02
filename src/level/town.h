@@ -27,6 +27,8 @@ class C_Town: public C_Shooter
 {
   public:
     C_Town(int x_grid, int y_grid);
+    C_Town(S_UnitModel model);
+
   protected:
   	virtual void play();
   	virtual void render(S_Coord screen);

@@ -29,9 +29,7 @@ class C_Towers: public C_Shooter
 {
 	public:
 	//methods
-	C_Towers();
-	C_Towers(std::string name, int x_grid, int y_grid, int rank);
-
+  C_Towers(S_UnitModel model);
 	virtual void play();
 
 	protected:
@@ -47,7 +45,6 @@ class C_Towers: public C_Shooter
 class C_ArcherTower: public C_Towers
 {
 	public:
-		C_ArcherTower(int x_grid, int y_grid, int rank);
     C_ArcherTower(S_UnitModel archer);
 		virtual void render(S_Coord screen);
 	protected:
@@ -57,7 +54,7 @@ class C_ArcherTower: public C_Towers
 class C_Turbine: public C_Towers
 {
 	public:
-		C_Turbine(int x_grid, int y_grid, int rank);
+    C_Turbine(S_UnitModel model);
 		virtual void render(S_Coord screen);
 	protected:
 

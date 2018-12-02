@@ -22,23 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Boat::C_Boat(S_UnitModel boat):C_Shooter("boat", boat.coord.x, boat.coord.y ,boat.rank)
+C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 {
-    m_rank = boat.rank;
-    m_max_health = boat.health;
-    m_health = m_max_health;
-    m_cost = boat.cost;
-	m_weapon = new C_Weapon("BOAT",boat.weapon);
+	m_weapon = new C_Weapon("BOAT",model.weapon);
 	m_moving = false;
-	m_speed = boat.speed;
-	m_speedImpact = 0;
+	m_speed = model.speed;
 	m_speedImpactLoop = 60;
 	m_coord->centerOnTile();
 	//Find a way to town
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town = grid.foundTown();
 	m_C_Path = new C_Path(town.x,town.y);
-	m_C_Path->calcPath(boat.coord.x,boat.coord.y,town.x,town.y);
+	m_C_Path->calcPath(model.coord.x,model.coord.y,town.x,town.y);
 	m_C_Path->showPath();
 	m_direction = EAST;
 	m_animDirection = new C_AnimTime();

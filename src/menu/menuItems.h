@@ -133,7 +133,7 @@ class C_GB_AddUnit: public C_Button /*!Game Button add a new unit on the ground*
   virtual void render();
 
 	protected:
-  C_Shooter * m_unit;
+  C_GameUnits * m_unit;
 };
 
 enum colorList{GREEN,RED,BLUE};

@@ -31,6 +31,10 @@ C_Barricade::C_Barricade( int x_grid,
 	m_weapon = new C_Weapon("NONE",0,0,0,0);
 }
 
+C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model){
+    m_weapon = new C_Weapon("NONE",model.weapon);
+}
+
 void C_Barricade::play(){
 	if(!this->alive())
 		this->kill();
@@ -39,7 +43,7 @@ void C_Barricade::play(){
 void C_Barricade::render(S_Coord screen){
     if(alive()){
 	    int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,100);
-	    string fileName = m_name+"_"+to_string(m_rank)+"_A_" + to_string(imageNbr);
+	    string fileName = m_name+"_A_" + to_string(imageNbr);
 	    //cout << "image name is "<< fileName << endl;
 	    C_TextureList& t=C_TextureList::Instances();
 	    t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);

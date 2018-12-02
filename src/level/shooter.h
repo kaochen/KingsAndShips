@@ -31,6 +31,7 @@ class C_Shooter : public C_GameUnits
 {
 	public:
 	C_Shooter(std::string name, int x_grid, int y_grid, int rank);
+	C_Shooter(S_UnitModel model);
 	virtual ~C_Shooter();
 
 	virtual	void displayStatus() const;

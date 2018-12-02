@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../window.h"
 #include "../texture.h"
 #include "../message.h"
+#include "../level/factory.h"
 #include <string>
 
 #include <SDL2_gfxPrimitives.h>
@@ -288,17 +289,27 @@ void C_MB_LevelCard::render(){
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 	:C_Button(name,image,x_screen,y_screen)
 {
+    C_UnitFactory factory = C_UnitFactory();
+
     m_type = DRAGUNIT;
+    S_Unit unit;
+    m_unit = nullptr;
     if(name == "AddTower"){
-         m_unit = new C_ArcherTower(0,0,0);
-         }
+        unit.name = "ArcherTower_0";
+        m_unit = factory.create(unit);
+    }
     else if(name == "AddTurbine"){
-         m_unit = new C_Turbine(0,0,0);
-         }
+        unit.name = "Turbine_0";
+        m_unit = factory.create(unit);
+    }
     else if(name == "AddBarricade"){
-        m_unit = new C_Barricade(0,0,1);
+        unit.name = "barricade_1";
+        m_unit = factory.create(unit);
         }
-    m_text = to_string(m_unit->getCost());
+    if(m_unit != nullptr)
+        m_text = to_string(m_unit->getCost());
+    else
+        m_text = "empty";
     m_fontSize = 9;
 }
 
@@ -320,19 +331,21 @@ void C_GB_AddUnit::drag(S_Coord screen){
 
 void C_GB_AddUnit::render(){
     C_Wallet& wallet=C_Wallet::Instances();
-    if(wallet.getBalance() < m_unit->getCost()){
-        m_enable = false;
-    }
-    else{
-        m_enable = true;
-    }
+    if(m_unit != nullptr){
+        if(wallet.getBalance() < m_unit->getCost()){
+            m_enable = false;
+        }
+        else{
+            m_enable = true;
+        }
 
-    C_Button::render();
-    C_TextureList& t=C_TextureList::Instances();
-    if(t.searchTexture(m_textName)== nullptr){
-        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+        C_Button::render();
+        C_TextureList& t=C_TextureList::Instances();
+        if(t.searchTexture(m_textName)== nullptr){
+            t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+        }
+        t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 16,CENTER);
     }
-    t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 16,CENTER);
 }
 //-------------------------------------------------------------
 

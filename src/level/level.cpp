@@ -333,9 +333,7 @@ void C_Wave::add(string name, S_Coord coord){
     size_t pos = tmp.name.find("_") + 1;
     string sub = tmp.name.substr (pos);
     size_t pos2 = sub.find("_");
-    string sub2 = tmp.name.substr (pos);
-    size_t pos3 = sub.find("_") + 1;
-    tmp.name = tmp.name.substr(0,pos+pos2+pos3);
+    tmp.name = tmp.name.substr(0,pos+pos2);
 
     tmp.coord = coord;
     m_boatList.push_back(tmp);

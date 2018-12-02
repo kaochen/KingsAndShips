@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 #include "shooter.h"
 #include "towers.h"
+#include "town.h"
 #include "boat.h"
 #include "../xml.h"
 
