@@ -41,18 +41,18 @@ C_UnitFactory::C_UnitFactory(){
     }
 }
 
-C_GameUnits* C_UnitFactory::create(string type, S_Coord pos){
-    cout << "create:" << type << endl;
+C_GameUnits* C_UnitFactory::create(S_Unit type){
+    cout << "create:" << type.name << endl;
     C_GameUnits* unit = nullptr;
-    if(type == "boat_1_A" || type == "boat_0_A"  ){
-        S_UnitModel current = m_models[type];
-        current.coord = pos;
+    if(type.name == "boat_1_A" || type.name == "boat_0_A"  ){
+        S_UnitModel current = m_models[type.name];
+        current.coord = type.coord;
         unit = new C_Boat(current);
         //C_GameUnits *boat = new C_ArcherTower(pos.x,pos.y,current.rank);
     }
-    else if(type == "ArcherTower_0_A" || type == "ArcherTower_1_A"){
-        S_UnitModel current = m_models[type];
-        current.coord = pos;
+    else if(type.name == "ArcherTower_0_A" || type.name == "ArcherTower_1_A"){
+        S_UnitModel current = m_models[type.name];
+        current.coord = type.coord;
         unit = new C_ArcherTower(current);
     }
     return unit;

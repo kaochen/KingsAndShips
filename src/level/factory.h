@@ -51,7 +51,7 @@ class C_UnitFactory
   public:
     C_UnitFactory();
     virtual ~C_UnitFactory(){};
-    virtual C_GameUnits* create(std::string type, S_Coord pos);
+    virtual C_GameUnits* create(S_Unit type);
     virtual void setRank(std::string type, int rank){m_models[type].rank= rank;};
   protected:
     S_UnitModel extractProperties(std::string filename);

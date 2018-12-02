@@ -43,7 +43,7 @@ public:
   void reset(int size);
 	void renderLayer(int layer);
   int getSize(){return m_size;};
-	void addANewBoat(S_UnitModel boat);
+	void addANewBoat(S_Unit boat);
   int addUnit(std::string &type, int x_grid, int y_grid, int rank);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);

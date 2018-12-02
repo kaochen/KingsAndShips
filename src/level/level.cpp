@@ -321,26 +321,23 @@ S_Coord C_Level::getGridTown(){
 
 C_Wave::C_Wave()
 {
-}
-C_Wave::~C_Wave()
-{
     m_count = 0;
-    m_count_dead = 0;
 }
 
 
 void C_Wave::add(string name, S_Coord coord){
-    S_UnitModel tmp;
+    S_Unit tmp;
     tmp.name = name;
-    //extract rank from name boat_1_A_EE_0 -> rank = 1 boat_0_A_EE_0 -> rank = 0
+    //extract rank from name boat_1_A_EE_0 -> shrink name to boat_1
+
     size_t pos = tmp.name.find("_") + 1;
     string sub = tmp.name.substr (pos);
     size_t pos2 = sub.find("_");
-    string r = tmp.name.substr (pos, pos2);
-    //cout << tmp.name << " : " << pos << " : "<< sub << " : " << pos2 << "rank " << r << endl;
-    tmp.rank = stoi(r);
+    string sub2 = tmp.name.substr (pos);
+    size_t pos3 = sub.find("_") + 1;
+    tmp.name = tmp.name.substr(0,pos+pos2+pos3);
+
     tmp.coord = coord;
-    tmp.alive = true;
     m_boatList.push_back(tmp);
     m_count++;
 }
@@ -348,14 +345,10 @@ void C_Wave::add(string name, S_Coord coord){
 void C_Wave::cliStatus(){
     int c = 0;
     C_Message m;
-    for(vector <S_UnitModel>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
+    for(vector <S_Unit>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
         ostringstream message;
-        message << "Rank " + to_string((*i).rank) << " at " << (*i).coord.x << ":" << (*i).coord.y;
-        if ((*i).alive)
-            message << " Alive\n";
-        else
-            message << "dead\n";
+        message << "Add " + (*i).name << " at " << (*i).coord.x << ":" << (*i).coord.y;
         m.printM(message.str());
         c++;
     }
@@ -365,18 +358,12 @@ void C_Wave::cliStatus(){
 void C_Wave::loadIntoGrid(){
     C_Grid& grid=C_Grid::Instances();
     C_Message m;
-    for(vector <S_UnitModel>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
+    for(vector <S_Unit>::iterator i = m_boatList.begin(); i !=m_boatList.end();i++)
     {
-        S_UnitModel tmp = *i;
-        m.printDebug("Rank " + to_string(tmp.rank) + " at " + to_string(tmp.coord.x)
+        S_Unit tmp = *i;
+        m.printDebug("Add " + tmp.name + " at " + to_string(tmp.coord.x)
              + ":" + to_string(tmp.coord.y) +"\n");
-        if (tmp.alive){
-            grid.addANewBoat(tmp);
-        }
-
+        grid.addANewBoat(tmp);
     }
 }
 
-void C_Wave::addToDeadCounter(int nbr){
-    m_count_dead += nbr;
-}

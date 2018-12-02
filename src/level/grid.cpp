@@ -93,10 +93,9 @@ void C_Grid::renderLayer(int layer){
 }
 
 
-void C_Grid::addANewBoat(S_UnitModel boat){
+void C_Grid::addANewBoat(S_Unit boat){
 	if (waterway(boat.coord.x,boat.coord.y)){
-	    string name = "boat_"+ to_string(boat.rank)+"_A";
-	    C_GameUnits *tmp = m_factory.create(name,boat.coord);
+	    C_GameUnits *tmp = m_factory.create(boat);
 	    if(tmp != nullptr){
 		    m_vgrid[boat.coord.x][boat.coord.y].set(FIELD,tmp);
 		}
@@ -114,8 +113,10 @@ int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
 	    if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
 		    if(type == "AddTower"){
 		        if (!waterway(x_grid,y_grid)){
-                    S_Coord pos = {x_grid,y_grid};
-	                C_GameUnits *tmp = m_factory.create("ArcherTower_0_A",pos);
+                    S_Unit tower;
+                    tower.name = "ArcherTower_0_A";
+                    tower.coord = {x_grid,y_grid};
+	                C_GameUnits *tmp = m_factory.create(tower);
 	                if(tmp != nullptr){
 		                  m_vgrid[x_grid][y_grid].set(FIELD,tmp);
 		            }

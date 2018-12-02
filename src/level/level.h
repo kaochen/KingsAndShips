@@ -34,17 +34,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Wave{
   public:
   C_Wave();
-  ~C_Wave();
+  ~C_Wave(){};
   void add(std::string name, S_Coord coord);
   void cliStatus();
   void loadIntoGrid();
-  void addToDeadCounter(int nbr);
 
   private:
   //attibutes
-  std::vector <S_UnitModel> m_boatList;
+  std::vector <S_Unit> m_boatList;
   int m_count;
-  int m_count_dead;
 };
 
 class C_Level
@@ -99,10 +97,6 @@ class C_Level
   int m_tileheight;
   std::string m_backgroundcolor;
 };
-
-
-
-
 
 
 #endif
