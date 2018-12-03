@@ -77,6 +77,7 @@ class C_GameUnits
 
 	virtual C_GameUnits * getUnit() {return this;};
 	virtual std::string getName() const {return m_name;};
+	virtual std::string getType() const {return m_type;};
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
   virtual void render(){std::cout << ";)";};

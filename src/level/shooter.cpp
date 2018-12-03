@@ -56,7 +56,7 @@ C_Shooter::~C_Shooter()
 C_GameUnits*  C_Shooter::searchNextTarget(string type){
     C_Grid& grid=C_Grid::Instances();
     int gridSize = grid.getSize();;
-
+    //cout <<"search next target type:" << type << endl;
 	int gridDiag = m_weapon->getFireRange();
 
 	int x_grid = m_coord->getXGrid();
@@ -71,7 +71,7 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
                     //cout << "test: "<< x << ":" << y << endl;
 				    C_GameUnits* tmp = grid.getUnits(x,y);
 				    if(tmp != nullptr){
-					    if(tmp->getName() == type){
+					    if(tmp->getType() == type){
 					     	int dist = getDistance(x,y);
 					     	list[dist] = tmp;
 				     	}
