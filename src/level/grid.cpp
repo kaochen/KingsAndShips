@@ -308,31 +308,31 @@ bool C_Grid::selectATower(C_Coord clic){
 	C_Settings& settings=C_Settings::Instances();
 	C_Message m;
 	string message ="";
-	string name ="";
+	string type ="";
 	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()-1) && grid.y >= 0 && grid.y < (int)(m_vgrid.size()-1)){
 	    if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr){
 		    unselectedAll(grid.x+1,grid.x+1);
-		    name = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getName();
-			    if(name == "ArcherTower" || name == "Turbine"){
-				    message =  "Found top " + name;
+		    type = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getType();
+			    if(type == "ArcherTower" || type == "Turbine"){
+				    message =  "Found top " + type;
 				    m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
 				    selected = true;
 			    }
 			    else{
-			        message = "Found " + name;
+			        message = "Found " + type;
 			    }
 	    }
 	    else{
 		    if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr){
-			    name = m_vgrid[grid.x][grid.y].get(FIELD)->getName();
+			    type = m_vgrid[grid.x][grid.y].get(FIELD)->getType();
 				    unselectedAll(grid.x,grid.y);
-				    if(name == "ArcherTower"|| name == "Turbine"){
-				        message =  "Found bottom" + name;
+				    if(type == "ArcherTower"|| type == "Turbine"){
+				        message =  "Found bottom" + type;
 					    m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
 					    selected = true;
 				    }
 				    else{
-				        message = "Found " + name;
+				        message = "Found " + type;
 				    }
 		    }
 		    else{
