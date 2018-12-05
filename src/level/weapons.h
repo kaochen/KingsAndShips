@@ -28,23 +28,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Weapon
 {
 public:
-	C_Weapon();
-	C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange);
 	C_Weapon(S_Weapon spec);
-	~C_Weapon();
+	~C_Weapon(){};
 
-	void change(std::string type, int damage, int fireRate, int fireRange);
 	void displayStatus() const;
-	int getDamage() const;
-	int getSpeedImpact() const;
-	int getFireRate() const;
-	int getFireRange() const;
 
-	bool getShooting() const;
-	long getLastShootTime() const;
+	S_Weapon getWeaponInfo() {return m_weapon;};
+	int getDamage() {return m_weapon.damage;};
+	int getFireRate() {return m_weapon.fireRate;};
+	int getFireRange() {return m_weapon.fireRange;};
+	bool getShooting() {return m_shooting;};
+
+  long getLastShootTime() {return m_lastShootTime;};
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
-	S_Weapon getWeaponInfo() const;
 	void render();
 
 	private:
