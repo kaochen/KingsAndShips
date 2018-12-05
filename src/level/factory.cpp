@@ -78,7 +78,7 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     unit.alive = true;
 
     //S_Weapon
-    unit.weapon.name = tsx.extractStrValue("property","name","weapon.name","value");
+    unit.weapon.type = tsx.extractStrValue("property","name","weapon.type","value");
     unit.weapon.damage = tsx.getIntProperty("weapon.damage", 2);
     unit.weapon.speedImpact = tsx.getIntProperty("weapon.speedImpact", 0);
     unit.weapon.fireRate = tsx.getIntProperty("weapon.firerate", 2000);

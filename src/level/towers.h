@@ -45,7 +45,7 @@ class C_Towers: public C_Shooter
 class C_ArcherTower: public C_Towers
 {
 	public:
-    C_ArcherTower(S_UnitModel archer);
+    C_ArcherTower(S_UnitModel model);
 		virtual void render(S_Coord screen);
 	protected:
 

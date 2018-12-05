@@ -25,24 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Shooter::C_Shooter(std::string name, int x_grid, int y_grid, int rank):
-	C_GameUnits(name, x_grid, y_grid, rank)
-{
-	m_weapon = nullptr;
-	m_lastShootTime = 0;
-	m_cost = 50;
-	C_Message m;
-    string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
-	m.printM(message);
-	m_coord->displayStatus();
-
-}
-
 C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
-	m_weapon(nullptr),
 	m_lastShootTime(0),
 	m_cost(model.cost)
 {
+    m_weapon = new C_Weapon(model.weapon);
     C_Message m;
     string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	m.printM(message);

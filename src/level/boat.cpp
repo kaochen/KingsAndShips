@@ -24,7 +24,6 @@ using namespace std;
 
 C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 {
-	m_weapon = new C_Weapon("BOAT",model.weapon);
 	m_moving = false;
 	m_speed = model.speed;
 	m_speedImpactLoop = 60;

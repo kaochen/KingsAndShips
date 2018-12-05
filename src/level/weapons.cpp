@@ -22,21 +22,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Weapon::C_Weapon():m_name("CANON"),
+C_Weapon::C_Weapon():
 		m_x_screen(0),
 		m_y_screen(0),
 		m_shooting(false),
 		m_lastShootTime(0),
 		m_dist(80)
 {
+    m_weapon.type = "CANON";
 	m_weapon.damage = 10;
 	m_weapon.speedImpact = 0;
 	m_weapon.fireRate = 500;
 	m_weapon.fireRange = 2;
 
 }
-C_Weapon::C_Weapon(string name, S_Weapon spec):
-	m_name(name),
+C_Weapon::C_Weapon(S_Weapon model):
+    m_weapon(model),
 	m_x_screen(0),
 	m_y_screen(0),
 	m_shooting(false),
@@ -44,11 +45,9 @@ C_Weapon::C_Weapon(string name, S_Weapon spec):
 	m_dist(80),
 	m_angle(0.0)
 {
-    m_weapon = spec;
-};
+}
 
 C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange):
-	m_name(name),
 	m_x_screen(0),
 	m_y_screen(0),
 	m_shooting(false),
@@ -56,6 +55,7 @@ C_Weapon::C_Weapon(std::string name, int damage,int speedImpact, int fireRate, i
 	m_dist(80),
 	m_angle(0.0)
 {
+    m_weapon.type = name;
 	m_weapon.damage = damage;
 	m_weapon.speedImpact = speedImpact;
 	m_weapon.fireRate = fireRate;
@@ -67,9 +67,9 @@ C_Weapon::~C_Weapon()
 {
 }
 
-void C_Weapon::change(string name, int damage, int fireRate, int fireRange)
+void C_Weapon::change(string type, int damage, int fireRate, int fireRange)
 {
- 	m_name = name;
+ 	m_weapon.type = type;
 	m_weapon.damage = damage;
 	m_weapon.fireRate = fireRate;
 	m_weapon.fireRange = fireRange;
@@ -78,7 +78,7 @@ void C_Weapon::change(string name, int damage, int fireRate, int fireRange)
 
 void C_Weapon::displayStatus() const
 {
- 	cout << "\t\t\tWeapon: " << m_name << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
+ 	cout << "\t\t\tWeapon: " << m_weapon.type << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
 }
 
 int C_Weapon::getDamage() const

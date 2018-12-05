@@ -22,17 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_Barricade::C_Barricade( int x_grid,
-                 int y_grid,int rank):C_Shooter("barricade", x_grid, y_grid, rank)
-{
-    m_cost = 100;
-    m_max_health = 25;
-    m_health = m_max_health;
-	m_weapon = new C_Weapon("NONE",0,0,0,0);
-}
-
 C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model){
-    m_weapon = new C_Weapon("NONE",model.weapon);
 }
 
 void C_Barricade::play(){

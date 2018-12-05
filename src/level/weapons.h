@@ -30,10 +30,10 @@ class C_Weapon
 public:
 	C_Weapon();
 	C_Weapon(std::string name, int damage,int speedImpact, int fireRate, int fireRange);
-	C_Weapon(std::string name, S_Weapon spec);
+	C_Weapon(S_Weapon spec);
 	~C_Weapon();
 
-	void change(std::string name, int damage, int fireRate, int fireRange);
+	void change(std::string type, int damage, int fireRate, int fireRange);
 	void displayStatus() const;
 	int getDamage() const;
 	int getSpeedImpact() const;
@@ -48,7 +48,6 @@ public:
 	void render();
 
 	private:
-	std::string m_name;
 	S_Weapon m_weapon;
 	int m_x_screen;
 	int m_y_screen;

@@ -37,7 +37,7 @@ struct S_Unit{
 };
 
 struct S_Weapon{
-  std::string name;
+  std::string type;
 	int damage;
 	int speedImpact;
 	int fireRate;

@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Shooter : public C_GameUnits
 {
 	public:
-	C_Shooter(std::string name, int x_grid, int y_grid, int rank);
 	C_Shooter(S_UnitModel model);
 	virtual ~C_Shooter();
 

@@ -69,7 +69,6 @@ void C_Towers::renderSelected(){
 
 C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
-	m_weapon = new C_Weapon("ARCHER",model.weapon);
 }
 
 void C_ArcherTower::render(S_Coord screen){
@@ -85,9 +84,9 @@ void C_ArcherTower::render(S_Coord screen){
 	}
 }
 
+
 C_Turbine::C_Turbine(S_UnitModel model):C_Towers(model)
 {
-	m_weapon = new C_Weapon("WIND",model.weapon);
 }
 
 void C_Turbine::render(S_Coord screen){
