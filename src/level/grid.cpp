@@ -211,8 +211,8 @@ bool C_Grid::testBarricade(int x_grid, int y_grid){
     bool barricade = false;
     if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
         if(m_vgrid[x_grid][y_grid].get(FIELD) != nullptr){
-            string str = m_vgrid[x_grid][y_grid].get(FIELD)->getName();
-            if(str.find("barricade") != std::string::npos)
+            string str = m_vgrid[x_grid][y_grid].get(FIELD)->getType();
+            if(str == "barricade" )
 	            barricade = true;
 	        else
 	            barricade = false;
@@ -398,10 +398,10 @@ bool C_Grid::mainEmpty(int x_grid, int y_grid){
     }
 }
 
-string C_Grid::getName(int layer, int x_grid, int y_grid){
+string C_Grid::getUnitType(int layer, int x_grid, int y_grid){
     if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
         if(m_vgrid[x_grid][y_grid].get(layer) != nullptr)
-            return m_vgrid[x_grid][y_grid].get(FIELD)->getName();
+            return m_vgrid[x_grid][y_grid].get(FIELD)->getType();
         else
             return "nothing";
     }
