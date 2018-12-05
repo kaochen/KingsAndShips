@@ -71,9 +71,7 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     unit.name = tsx.extractStrValue("tileset","name");
     unit.type = tsx.extractStrValue("property","name","unit.type","value");
     unit.rank = tsx.getIntProperty("unit.rank", 0);
-    //unit.health = stoi(tsx.extractStrValue("property","name","health","value"));
-    unit.health = 100;
-    //unit.health = tsx.getIntProperty("unit.health", 100);
+    unit.health = tsx.getIntProperty("unit.health", 100);
     unit.coord = {0,0};
     unit.cost = tsx.getIntProperty("unit.cost", 50);
     unit.speed = tsx.getIntProperty("unit.speed", 1);
