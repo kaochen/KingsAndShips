@@ -38,7 +38,7 @@ class C_Shooter : public C_GameUnits
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
   virtual void kill();
 	virtual void move();
-	virtual void drag(S_Coord screen, bool water);
+	virtual void drag(S_Coord screen);
   virtual int getCost(){return m_cost;};
 	protected:
 

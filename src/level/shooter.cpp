@@ -184,11 +184,16 @@ void C_Shooter::render(S_Coord screen){
 	renderLifeBar(screen.x, screen.y);
 }
 
-void C_Shooter::drag(S_Coord screen, bool water)
+void C_Shooter::drag(S_Coord screen)
 {
+
 	m_justAdded = false;
 	C_Grid& grid=C_Grid::Instances();
 
+    bool water = false;
+    if(m_type == "barricade"){
+            water = true;
+    }
 	C_CoordScreen coord(screen);
 
 	int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;

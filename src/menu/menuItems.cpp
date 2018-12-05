@@ -320,12 +320,8 @@ C_GB_AddUnit::~C_GB_AddUnit()
 }
 
 void C_GB_AddUnit::drag(S_Coord screen){
-    bool water = false;
     if (m_unit != nullptr){
-        if(m_unit->getType() == "barricade"){
-            water = true;
-        }
-        m_unit->drag(screen,water);
+        m_unit->drag(screen);
     }
 }
 

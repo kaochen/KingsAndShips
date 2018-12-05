@@ -73,7 +73,7 @@ class C_GameUnits
 	virtual ~C_GameUnits();
 	virtual void play(){};
 	virtual void move(){};
-	virtual void drag(S_Coord screen, bool water){if(water){std::cout << screen.x;}};
+	virtual void drag(S_Coord screen){std::cout << "drag() "<< screen.x;};
 
 	virtual C_GameUnits * getUnit() {return this;};
 	virtual std::string getName() const {return m_name;};
