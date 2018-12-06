@@ -42,7 +42,6 @@ C_UnitFactory::C_UnitFactory(){
 }
 
 C_GameUnits* C_UnitFactory::create(S_Unit type){
-    cout << "create:" << type.name << endl;
     C_GameUnits* unit = nullptr;
     S_UnitModel current = m_models[type.name];
     current.coord = type.coord;

@@ -119,7 +119,7 @@ string C_Xml::extractStrData(string const &node, string const &name){
 		reader.move_to_element();
     	}
     C_Message m;
-	m.printM("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
+	m.printDebug("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
     return data;
 }
 
@@ -177,15 +177,15 @@ int C_Xml::countAttributes(string pattern){
 
 int C_Xml::getIntProperty(string const &idValue, int Default){
     int ret = Default;
+    C_Message m;
     if(nodeExist("property", idValue)){
         string text = extractStrValue("property","name",idValue,"value");
-        C_Message m;
-        m.printM("From: " + m_file_path +" in Node: property where name="+ idValue+" value= "+ text);
+
         int False = 0;
         if(text.size()>0){
             for(size_t i = 0; i < text.size(); i++){
             	if(!isdigit(text[i])){
-	                cout << " -> value is not a number, It is replaced by \"Default\": "<< to_string(Default);
+                    m.printM("name="+ idValue+" value= "+ text +" is not a number, It is replaced by \"Default\": "+ to_string(Default) + "\n");
 	                False++;
             	}
             }
@@ -194,13 +194,11 @@ int C_Xml::getIntProperty(string const &idValue, int Default){
             }
         }
         else{
-	        cout << "-> value is empty: It is replaced by \"Default\": " << to_string(Default);
+            m.printM("name="+ idValue+" value= "+ text +"  is empty It is replaced by \"Default\": "+ to_string(Default) + "\n");
             ret = Default;
         }
-        cout << endl;
     }
     else{
-        C_Message m;
         m.printM("No property named: "+ idValue + " in " + m_file_path + "-> Apply \"Default\": " + to_string(Default) +"\n");
     }
     return ret;

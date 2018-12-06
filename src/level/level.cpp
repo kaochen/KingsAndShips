@@ -182,7 +182,6 @@ S_Coord C_Level::getFirstTile(S_tmxLayer &layer){
         y = (grid.size()-layer.height)/2;
         }
     S_Coord first{x,y};
-    cout << "first " << x << ":" << y << "-----------------------------------------"<< endl;
     return first;
 }
 
@@ -205,13 +204,10 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr){
 				int nbr = stoi(extract);
 				if (nbr!=0){
 	                string str = t.getNameFromID(nbr);
-                    m.printM(to_string(x) + ":" + to_string(y) + "->" + str + " // ") ;
+                    m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + "\n") ;
                     S_Coord pos = {x,y};
                     wave.add(str,pos);
 				    }
-				//grid.setGround(x,y,nbr);
-
-				//cout << extract <<":";
 				data = data.substr(mark + 1);
 		}
 	}
