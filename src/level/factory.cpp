@@ -69,7 +69,7 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     C_Xml tsx(filename);
     S_UnitModel unit;
     unit.name = tsx.extractStrValue("tileset","name");
-    unit.type = tsx.extractStrValue("property","name","unit.type","value");
+    unit.type = tsx.getStrProperty("unit.type","ArcherTower");
     unit.rank = tsx.getIntProperty("unit.rank", 0);
     unit.health = tsx.getIntProperty("unit.health", 100);
     unit.coord = {0,0};
@@ -78,7 +78,8 @@ S_UnitModel C_UnitFactory::extractProperties(string filename){
     unit.alive = true;
 
     //S_Weapon
-    unit.weapon.type = tsx.extractStrValue("property","name","weapon.type","value");
+
+    unit.weapon.type = tsx.getStrProperty("weapon.type","ARCHER");
     unit.weapon.damage = tsx.getIntProperty("weapon.damage", 2);
     unit.weapon.speedImpact = tsx.getIntProperty("weapon.speedImpact", 0);
     unit.weapon.fireRate = tsx.getIntProperty("weapon.firerate", 2000);

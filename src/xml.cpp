@@ -238,3 +238,13 @@ bool C_Xml::nodeExist(string const &node, string const &name){
 
     return ret;
 }
+
+string C_Xml::getStrProperty(string const &property, string Default){
+    string ret = extractStrValue("property","name",property,"value");
+    if(ret.size()==0){
+        ret = Default;
+        C_Message m;
+	    m.printM("From: " + m_file_path +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
+    }
+    return ret;
+}
