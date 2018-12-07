@@ -296,7 +296,7 @@ bool C_Level::selectATower(S_Coord clic){
 void C_Level::addUnit(string &type, S_Coord clic){
     C_Grid& grid=C_Grid::Instances();
     C_CoordScreen coord(clic);
-    if(grid.addUnit(type,coord.getXGrid (),coord.getYGrid (),0) == EXIT_SUCCESS){
+    if(grid.addUnit(type,coord.getXGrid (),coord.getYGrid ()) == EXIT_SUCCESS){
 	   C_GameUnits * tmp = grid.getUnits(coord.getXGrid (),coord.getYGrid ());
 	   if(tmp != nullptr){
 	       C_Wallet& wallet=C_Wallet::Instances();

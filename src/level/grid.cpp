@@ -107,7 +107,7 @@ void C_Grid::addANewBoat(S_Unit boat){
 	}
 }
 
-int C_Grid::addUnit(string &type, int x_grid, int y_grid, int rank){
+int C_Grid::addUnit(string &type, int x_grid, int y_grid){
     int success = EXIT_FAILURE;
     if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())){
 	    if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr){
