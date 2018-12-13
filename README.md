@@ -50,18 +50,36 @@ ninja -C build/
 
 ## Dev tips:
 ### Graphic tools
-  * **Tiled** to edit or build levels (Minimum 1.1) http://www.mapeditor.org
+#### Tiled
+To edit or build levels (Minimum 1.1) http://www.mapeditor.org
+```
+apt install tiled
+```
+##### Properties for tileset 
+  * unit.type => string ( ArcherTower, boat, barricade, town)
+  * unit.health => int (nbr > 0)
+  * unit.cost => int (price to pay when build, or reward when kill)
+  * unit.rank => int
+  * unit.speed => int (0,1,2,3,4)
+  * weapon.type => string (NONE,ARCHER,WIND) not used for now
+  * weapon.damage => int (damage on ennemy health)
+  * weapon.firerange => int (distance is in number of tile around the unit)
+  * weapon.firerate => int (milli-second to wait during two shoots)
+  * weapon.speedImpact => int (0,1,2,3) to slow down a boat (against unit.speed). 
+    
+#### Blender and imagemagick
   * **Blender** for editing graphic elements
   * **ImageMagick** to build tileset from Blender render 
 
 ```
-apt install tiled blender imagemagick
+apt install blender imagemagick
 ```
 
 Build a tileset from images with imagemagick
 ```
 montage Src*.png -tile 8x8 -geometry +0+0 -background none tilset.png
 ```
+
 ### Coding tools
 Search where improving the code is more usefull
 #### linux-perf
