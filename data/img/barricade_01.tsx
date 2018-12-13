@@ -3,7 +3,7 @@
  <tileoffset x="-14" y="11"/>
   <properties>
     <property name="unit.type" type="str" value="barricade"/>
-    <property name="unit.health" type="int" value="30"/>
+    <property name="unit.health" type="int" value="20"/>
     <property name="unit.cost" type="int" value="100"/>
     <property name="unit.rank" type="int" value="1"/>
     <property name="unit.speed" type="int" value="0"/>
