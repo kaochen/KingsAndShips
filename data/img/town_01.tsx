@@ -8,7 +8,7 @@
   <property name="unit.cost" type="int" value="500"/>
   <property name="unit.rank" type="int" value="1"/>
   <property name="unit.speed" type="int" value="0"/>
-  <property name="weapon.type" type="str" value="archerTower"/>
+  <property name="weapon.type" type="str" value="ARCHER"/>
   <property name="weapon.damage" type="int" value="3"/>
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="2000"/>

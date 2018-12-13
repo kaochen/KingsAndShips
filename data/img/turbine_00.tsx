@@ -2,16 +2,16 @@
 <tileset name="Turbine_0" tilewidth="128" tileheight="128" tilecount="64" columns="8">
  <tileoffset x="-14" y="11"/>
    <properties>
-  <property name="unit.type" type="A_str" value="Turbine"/>
-  <property name="unit.health" type="A_int" value="75"/>
-  <property name="unit.cost" type="A_int" value="75"/>
-  <property name="unit.rank" type="A_int" value="0"/>
-  <property name="unit.speed" type="A_int" value="0"/>
-  <property name="weapon.type" type="A_str" value="WIND"/>
-  <property name="weapon.damage" type="A_int" value="0"/>
-  <property name="weapon.firerange" type="A_int" value="2"/>
-  <property name="weapon.firerate" type="A_int" value="0"/>
-  <property name="weapon.speedImpact" type="A_int" value="2"/>
+  <property name="unit.type" type="str" value="Turbine"/>
+  <property name="unit.health" type="int" value="75"/>
+  <property name="unit.cost" type="int" value="75"/>
+  <property name="unit.rank" type="int" value="0"/>
+  <property name="unit.speed" type="int" value="0"/>
+  <property name="weapon.type" type="str" value="WIND"/>
+  <property name="weapon.damage" type="int" value="0"/>
+  <property name="weapon.firerange" type="int" value="2"/>
+  <property name="weapon.firerate" type="int" value="0"/>
+  <property name="weapon.speedImpact" type="int" value="2"/>
  </properties>
  <image source="original/t_turbine_01.png" width="1024" height="1024"/>
  <tile id="0" type="A_SS_0"/>
