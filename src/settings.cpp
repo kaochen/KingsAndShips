@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cmath>
 #include <string.h>
 #include <fstream>
+#include <unistd.h>
 
 using namespace std;
 
@@ -28,7 +29,10 @@ C_Settings C_Settings::m_instance=C_Settings();
 
 C_Settings::C_Settings()
 {
-	//cout << "Construct C_Settings" << endl;
+    C_Message m;
+    string pwd = get_working_path();
+    m.printM("The game is execute from here: " + pwd + "\n");
+
 	m_prefFile = "preferences.ini";
 	loadPrefFile();
 
@@ -245,4 +249,8 @@ bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &f
 }
 
 
-
+string C_Settings::get_working_path()
+{
+   char temp[1024];
+   return ( getcwd(temp, sizeof(temp)) ? std::string( temp ) : std::string("") );
+}

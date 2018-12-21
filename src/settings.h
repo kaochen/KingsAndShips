@@ -91,6 +91,7 @@ public:
   int getCurrentLevelNbr(){return m_currentLevel;};
   int getNbrOfLevels();
   std::string getLevelFolder(){return m_levelFolder;};
+  std::string get_working_path();
 
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
