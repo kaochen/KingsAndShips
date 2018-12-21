@@ -49,5 +49,3 @@ exe = executable('kingsandships',
 	dependencies : all_dep)
 
 install_subdir('data',install_dir : '')
-
-#meson.add_install_script('install.sh')
