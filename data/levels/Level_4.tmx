@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="left-up" width="20" height="20" tilewidth="100" tileheight="50" infinite="0" backgroundcolor="#174c89" nextobjectid="1">
+<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="left-up" width="20" height="20" tilewidth="100" tileheight="50" infinite="0" backgroundcolor="#174c89" nextlayerid="11" nextobjectid="1">
  <properties>
   <property name="subname" value="Island"/>
   <property name="wallet" value="400"/>
@@ -9,7 +9,7 @@
  <tileset firstgid="98" source="../img/town_01.tsx"/>
  <tileset firstgid="99" source="../img/Rocks_00.tsx"/>
  <tileset firstgid="102" source="../img/Trees_00.tsx"/>
- <layer name="Ground" width="20" height="20">
+ <layer id="1" name="Ground" width="20" height="20">
   <data encoding="csv">
 1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
 1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -33,7 +33,7 @@
 1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1
 </data>
  </layer>
- <layer name="Decors" width="20" height="20">
+ <layer id="2" name="Decors" width="20" height="20">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -43,8 +43,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,99,0,98,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,99,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,98,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,102,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -57,8 +57,8 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <group name="Waves">
-  <layer name="Wave0" width="20" height="20">
+ <group id="3" name="Waves">
+  <layer id="4" name="Wave0" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -82,7 +82,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer name="Wave1" width="20" height="20">
+  <layer id="5" name="Wave1" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -106,7 +106,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer name="Wave2" width="20" height="20">
+  <layer id="6" name="Wave2" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -130,7 +130,7 @@
 0,0,0,0,0,0,0,0,0,0,34,0,0,34,0,0,0,0,0,0
 </data>
   </layer>
-  <layer name="Wave3" width="20" height="20">
+  <layer id="7" name="Wave3" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -154,7 +154,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer name="Wave4" width="20" height="20">
+  <layer id="8" name="Wave4" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,34,34,34,34,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -178,7 +178,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer name="Wave5" width="20" height="20">
+  <layer id="9" name="Wave5" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -202,7 +202,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
   </layer>
-  <layer name="Wave6" width="20" height="20">
+  <layer id="10" name="Wave6" width="20" height="20">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

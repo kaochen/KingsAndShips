@@ -31,7 +31,7 @@ void C_Town::play(){
 
 void C_Town::render(S_Coord screen){
 	C_GameUnits::render(screen);
-	renderLifeBar(screen.x, screen.y);
+	//renderLifeBar(screen.x, screen.y);
 	if (m_weapon->getShooting()){
 		m_weapon->render();
 	}
