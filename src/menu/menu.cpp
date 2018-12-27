@@ -196,6 +196,7 @@ vector<string> C_Menu::getMenuItemsList(){
     list.push_back("walletBar");
     list.push_back("popOutMenu");
     list.push_back("home");
+    list.push_back("play");
 
 
     if(m_bottomMenuOpen){
@@ -244,6 +245,7 @@ void C_Menu::bottomButton(const string &name,S_Coord screen){
             C_Command *command = nullptr;
             if(name ==  "popOutMenu"){ command = new C_OpenMenu();}
             else if(name ==  "home"){ command = new C_CenterCamera(); }
+            else if(name ==  "play"){ command = new C_CenterCamera(); }
             m_menuItemsList[name]->setCommand(command);
 		}
 }
@@ -257,4 +259,6 @@ void C_Menu::bottomButtonsLine(S_Coord screen){
     bottomButton("popOutMenu", pos);
     pos.x += buttonSize + space;
     bottomButton("home", pos);
+    pos.x += buttonSize + space;
+    bottomButton("play", pos);
 }

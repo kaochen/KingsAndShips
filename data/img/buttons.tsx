@@ -22,12 +22,12 @@
  <tile id="18" type="popOutMenu_Active"/>
  <tile id="19" type="popOutMenu_Hover"/>
  <tile id="20" type="popOutMenu_Disabled"/>
- <tile id="21" type="Play_Active"/>
- <tile id="22" type="Play_Hover"/>
- <tile id="23" type="Play_Disabled"/>
- <tile id="24" type="Pause_Active"/>
- <tile id="25" type="Pause_Hover"/>
- <tile id="26" type="Pause_Disabled"/>
+ <tile id="21" type="play_Active"/>
+ <tile id="22" type="play_Hover"/>
+ <tile id="23" type="play_Disabled"/>
+ <tile id="24" type="pause_Active"/>
+ <tile id="25" type="pause_Hover"/>
+ <tile id="26" type="pause_Disabled"/>
  <tile id="27" type="home_Active"/>
  <tile id="28" type="home_Hover"/>
  <tile id="29" type="home_Disabled"/>
