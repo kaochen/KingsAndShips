@@ -46,6 +46,7 @@ C_Settings::C_Settings()
 	m_currentLevel = 1;
 	m_levelFolder = "data/levels/";
 	m_nbrOfLevels = getNbrOfLevels();
+	m_playing = PAUSE;
 
 }
 
@@ -253,4 +254,17 @@ string C_Settings::get_working_path()
 {
    char temp[1024];
    return ( getcwd(temp, sizeof(temp)) ? std::string( temp ) : std::string("") );
+}
+
+
+void C_Settings::setPlaying()
+{
+    if(m_playing==PAUSE){
+        m_playing = PLAY;
+        cout << "PLAY" << endl;
+    }
+    else if(m_playing == PLAY){
+        m_playing = PAUSE;
+        cout << "PAUSE" << endl;
+    }
 }

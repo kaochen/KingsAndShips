@@ -54,6 +54,7 @@ enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 enum Status {ALIVE,DEAD};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
+enum game {PLAY,PAUSE};
 
 
 //singleton
@@ -92,6 +93,9 @@ public:
   int getNbrOfLevels();
   std::string getLevelFolder(){return m_levelFolder;};
   std::string get_working_path();
+  //game
+  int getPlaying(){return m_playing;};
+  void setPlaying();
 
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
@@ -127,6 +131,9 @@ private:
   int m_currentLevel;
   int m_nbrOfLevels;
   std::string m_levelFolder;
+
+  //game
+  int m_playing;
 };
 
 #endif

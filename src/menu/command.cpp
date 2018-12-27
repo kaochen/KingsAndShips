@@ -55,3 +55,8 @@ void C_CenterCamera::action(){
     settings.cameraOnAPoint(grid.foundTown());
 }
 
+void C_Play::action(){
+    C_Settings& settings=C_Settings::Instances();
+    settings.setPlaying();
+
+}

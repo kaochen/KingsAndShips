@@ -64,4 +64,10 @@ class C_CenterCamera : public C_Command
 public:
   virtual void action();
 };
+
+class C_Play : public C_Command
+{
+public:
+  virtual void action();
+};
 #endif

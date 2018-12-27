@@ -245,7 +245,7 @@ void C_Menu::bottomButton(const string &name,S_Coord screen){
             C_Command *command = nullptr;
             if(name ==  "popOutMenu"){ command = new C_OpenMenu();}
             else if(name ==  "home"){ command = new C_CenterCamera(); }
-            else if(name ==  "play"){ command = new C_CenterCamera(); }
+            else if(name ==  "play"){ command = new C_Play(); }
             m_menuItemsList[name]->setCommand(command);
 		}
 }
