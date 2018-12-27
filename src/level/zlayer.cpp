@@ -109,33 +109,33 @@ void C_ZLayer::cliStatus(){
 }
 
 bool C_ZLayer::play(int layer){
-
+	C_Settings& settings=C_Settings::Instances();
     bool ret = false;
-
-    switch(layer){
-	    case GROUND :
-	        if(m_ground != nullptr){
-	            m_ground->regendScreenCoord();
-	            m_ground->play();
-	            ret = true;
-	        }
-	    break;
-	    case GRAVEYARD :
-	        if(m_grave != nullptr){
-	            m_grave->regendScreenCoord();
-	            //m_grave->play();
-	            ret = true;
-	        }
-	    break;
-	    case  FIELD:
-	        if(m_field != nullptr){
-	            m_field->regendScreenCoord();
-	            m_field->play();
-	            ret = true;
-	        }
-	    break;
-	}
-
+	if(settings.getPlaying() == PLAY){
+        switch(layer){
+	        case GROUND :
+	            if(m_ground != nullptr){
+	                m_ground->regendScreenCoord();
+	                m_ground->play();
+	                ret = true;
+	            }
+	        break;
+	        case GRAVEYARD :
+	            if(m_grave != nullptr){
+	                m_grave->regendScreenCoord();
+	                //m_grave->play();
+	                ret = true;
+	            }
+	        break;
+	        case  FIELD:
+	            if(m_field != nullptr){
+	                m_field->regendScreenCoord();
+	                m_field->play();
+	                ret = true;
+	            }
+	        break;
+	    }
+    }
 return ret;
 }
 
