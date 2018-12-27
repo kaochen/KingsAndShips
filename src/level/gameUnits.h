@@ -131,4 +131,12 @@ class C_GameUnits
 	bool m_selected;
 };
 
+class C_EmptyUnit: public C_GameUnits
+{
+public:
+    C_EmptyUnit();
+    virtual void render(S_Coord grid){if(grid.x == 0){}};
+    virtual void render(){};
+};
+
 #endif

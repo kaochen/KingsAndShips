@@ -174,3 +174,9 @@ void C_GameUnits::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 {
     cout << type[1] << nbrofTargets << endl; //to quiet gcc
 }
+
+C_EmptyUnit::C_EmptyUnit():
+	C_GameUnits("empty", 0,0,0)
+{
+
+}

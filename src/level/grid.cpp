@@ -429,8 +429,15 @@ void C_Grid::setTown(int x_grid, int y_grid){
         town.name = "town_1";
         town.coord = {x_grid,y_grid};
 	    C_GameUnits *tmp = m_factory.create(town);
+	    C_GameUnits *empty1 = new C_EmptyUnit();
+	    C_GameUnits *empty2 = new C_EmptyUnit();
+	    C_GameUnits *empty3 = new C_EmptyUnit();
 	    if(tmp != nullptr){
+	        //town use 4 tiles
 	        m_vgrid[x_grid][y_grid].set(FIELD,tmp);
+	        m_vgrid[x_grid-1][y_grid].set(FIELD,empty1);
+	        m_vgrid[x_grid][y_grid-1].set(FIELD,empty2);
+	        m_vgrid[x_grid-1][y_grid-1].set(FIELD,empty3);
 		            }
 	 }
 	 else{
