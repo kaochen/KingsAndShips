@@ -259,12 +259,13 @@ string C_Settings::get_working_path()
 
 void C_Settings::setPlaying()
 {
+    C_Message m;
     if(m_playing==PAUSE){
         m_playing = PLAY;
-        cout << "PLAY" << endl;
+        m.printM("PLAY\n");
     }
     else if(m_playing == PLAY){
         m_playing = PAUSE;
-        cout << "PAUSE" << endl;
+        m.printM("PAUSE\n");
     }
 }

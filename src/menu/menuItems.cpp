@@ -121,6 +121,14 @@ C_Button::C_Button(string name,string image,int x_screen, int y_screen)
 
 void C_Button::render(){
         string name = "Buttons_"+m_image;
+
+        C_Settings& settings=C_Settings::Instances();
+        if(m_name == "play"){
+            if(settings.getPlaying() == PLAY){
+                 name = "Buttons_pause";
+            }
+        }
+
         string prefix;
         if(m_state == ACTIVE){
             prefix ="_Active";
