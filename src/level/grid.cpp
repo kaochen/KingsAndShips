@@ -78,8 +78,8 @@ void C_Grid::createAnEmptyGrid(int size){
 void C_Grid::renderLayer(int layer){
     //int c = 0;
     int size = (int)m_vgrid.size();
+    for (int x = 0; x < size; x++){
 	    for (int y = 0; y < size; y++){
-               for (int x = 0; x < size; x++){
                    if(x >= 0 && x < size && y >= 0 && y < size){
 					    //cout << "|" << x << ":"<< y;
 					    if(m_vgrid[x][y].render(layer)){
