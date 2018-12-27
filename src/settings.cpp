@@ -46,7 +46,7 @@ C_Settings::C_Settings()
 	m_currentLevel = 1;
 	m_levelFolder = "data/levels/";
 	m_nbrOfLevels = getNbrOfLevels();
-	m_playing = PAUSE;
+	m_playing = PLAY;
 
 }
 
