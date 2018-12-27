@@ -269,3 +269,16 @@ void C_Settings::setPlaying()
         m.printM("PAUSE\n");
     }
 }
+
+void C_Settings::setPlaying(int state)
+{
+    C_Message m;
+    if(state == PLAY){
+        m_playing = PLAY;
+        m.printM("PLAY\n");
+    }
+    else if(state == PAUSE){
+        m_playing = PAUSE;
+        m.printM("PAUSE\n");
+    }
+}

@@ -173,10 +173,15 @@ string C_Menu::nbrToString(int nbr){
 
 
 void C_Menu::openBottomMenu(){
-    if(m_bottomMenuOpen)
+    C_Settings& settings=C_Settings::Instances();
+    if(m_bottomMenuOpen){
         m_bottomMenuOpen = false;
-    else
+        settings.setPlaying(PLAY);
+    }
+    else{
         m_bottomMenuOpen = true;
+        settings.setPlaying(PAUSE);
+    }
 }
 
 

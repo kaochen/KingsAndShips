@@ -96,6 +96,7 @@ public:
   //game
   int getPlaying(){return m_playing;};
   void setPlaying();
+  void setPlaying(int state);
 
 private:
 	C_Settings& operator= (const C_Settings&){return *this;}
