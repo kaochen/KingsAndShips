@@ -45,7 +45,7 @@ C_Level::C_Level():
 	m_decorLayer.data="";
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
-
+        m_lastWaveTime = SDL_GetTicks();
 	m_landscape = nullptr;
 }
 
@@ -279,6 +279,15 @@ void C_Level::render(){
 	grid.renderLayer (GROUND);
 	grid.renderLayer (FIELD);
 	m_landscape->renderBottomMask(grid.size());
+}
+
+void C_Level::play(){
+        long current = SDL_GetTicks();
+        if((current - m_lastWaveTime)>20000){
+                sendNextWave();
+                m_lastWaveTime = current;
+        }
+        playAllUnits();
 }
 
 void C_Level::playAllUnits(){

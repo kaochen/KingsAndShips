@@ -223,7 +223,7 @@ void C_Window::gameLoop(){
 				time.updateFrameTime();
 				//play all units
 
-			m_level->playAllUnits();
+			m_level->play();
             //render image
 	        if (m_forceRefresh){
 

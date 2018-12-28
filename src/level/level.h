@@ -60,12 +60,12 @@ class C_Level
   void loadWaveIntoGrid(int i);
   void updateMenuInfo();
   void render();
-  void playAllUnits ();
+	void play();
   bool selectATower(S_Coord clic);
   void addUnit(std::string &type, S_Coord clic);
   S_Coord getGridTown();
 
-	protected:
+protected:
   //methods
   void extractInfosFromTmx(int levelNbr);
   void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
@@ -74,6 +74,7 @@ class C_Level
   S_Coord getFirstTile(S_tmxLayer &layer);
   void setWallet();
   void createLandscape();
+	void playAllUnits ();
 
 	//attibutes
 	std::string m_name;
@@ -83,6 +84,7 @@ class C_Level
   S_tmxLayer m_decorLayer;
   int m_nbrOfWaves;
   int m_currentWaveNbr;
+	long m_lastWaveTime;
   std::vector <C_Wave> m_waves;
   int calcGridSize();
   C_Landscape* m_landscape;
