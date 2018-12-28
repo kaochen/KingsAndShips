@@ -137,15 +137,16 @@ void C_Level::createLandscape(){
 	}
 
 void C_Level::sendNextWave(){
-    C_Message m;
-    m_currentWaveNbr++;
-    if(m_currentWaveNbr >= m_nbrOfWaves){
-        m_currentWaveNbr = 0;
-    }
-
-    cliWaveStatus(m_currentWaveNbr);
-    loadWaveIntoGrid(m_currentWaveNbr);
-    m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
+        C_Message m;
+        m_currentWaveNbr++;
+        if(m_currentWaveNbr < m_nbrOfWaves && m_currentWaveNbr >= 0){
+                cliWaveStatus(m_currentWaveNbr);
+                loadWaveIntoGrid(m_currentWaveNbr);
+                m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
+        }
+        else if(m_currentWaveNbr > m_nbrOfWaves){
+                m_currentWaveNbr--;
+        }
 }
 
 
