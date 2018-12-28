@@ -32,72 +32,73 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 class C_Wave{
-  public:
-  C_Wave();
-  ~C_Wave(){};
-  void add(std::string name, S_Coord coord);
-  void cliStatus();
-  void loadIntoGrid();
+public:
+	C_Wave();
+	~C_Wave(){};
+	void add(std::string name, S_Coord coord);
+	void cliStatus();
+	void loadIntoGrid();
 
-  private:
-  //attibutes
-  std::vector <S_Unit> m_boatList;
-  int m_count;
+private:
+//attibutes
+	std::vector <S_Unit> m_boatList;
+	int m_count;
 };
 
 class C_Level
 {
 
-	public:
-
-	//methods
+public:
+//methods
 	C_Level();
 	~C_Level();
-  void load(int levelNbr);
+	void load(int levelNbr);
 	void cliStatus();
 	void sendNextWave();
-  void cliWaveStatus(int i);
-  void loadWaveIntoGrid(int i);
-  void updateMenuInfo();
-  void render();
+	void cliWaveStatus(int i);
+	void loadWaveIntoGrid(int i);
+	void updateMenuInfo();
+	void render();
 	void play();
-  bool selectATower(S_Coord clic);
-  void addUnit(std::string &type, S_Coord clic);
-  S_Coord getGridTown();
+	bool selectATower(S_Coord clic);
+	void addUnit(std::string &type, S_Coord clic);
+	S_Coord getGridTown();
 
 protected:
-  //methods
-  void extractInfosFromTmx(int levelNbr);
-  void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
-  void loadWave(std::string tmx_File_Path, int waveNbr);
-  void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
-  S_Coord getFirstTile(S_tmxLayer &layer);
-  void setWallet();
-  void createLandscape();
+//methods
+	void extractInfosFromTmx(int levelNbr);
+	void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
+	void loadWave(std::string tmx_File_Path, int waveNbr);
+	void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
+	S_Coord getFirstTile(S_tmxLayer &layer);
+	void setWallet();
+	void createLandscape();
 	void playAllUnits ();
+	int calcGridSize();
 
-	//attibutes
+//attibutes
 	std::string m_name;
 	int m_count;
 	int m_id;
-  S_tmxLayer m_groundLayer;
-  S_tmxLayer m_decorLayer;
-  int m_nbrOfWaves;
-  int m_currentWaveNbr;
+	S_tmxLayer m_groundLayer;
+	S_tmxLayer m_decorLayer;
+//waves
+	int m_nbrOfWaves;
+	int m_currentWaveNbr;
 	long m_lastWaveTime;
-  std::vector <C_Wave> m_waves;
-  int calcGridSize();
-  C_Landscape* m_landscape;
+	std::vector <C_Wave> m_waves;
 
-  //properties
-  std::string m_filename;
-  std::string m_levelName;
-  int m_width;
-  int m_height;
-  int m_gridSize;
-  int m_tilewidth;
-  int m_tileheight;
-  std::string m_backgroundcolor;
+	C_Landscape* m_landscape;
+
+//properties
+	std::string m_filename;
+	std::string m_levelName;
+	int m_width;
+	int m_height;
+	int m_gridSize;
+	int m_tilewidth;
+	int m_tileheight;
+	std::string m_backgroundcolor;
 };
 
 
