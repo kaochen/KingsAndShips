@@ -40,10 +40,10 @@ C_Window::C_Window()
 {
  	initSDL();
 	C_Settings& settings=C_Settings::Instances();
-    m_forceRefresh = false;
+        m_forceRefresh = false;
 
-    m_level = new C_Level;
-    m_levelNbr = settings.getCurrentLevelNbr();
+        m_level = nullptr;
+        m_levelNbr = settings.getCurrentLevelNbr();
 
 
 
@@ -382,20 +382,19 @@ void C_Window::listenKeyboard(SDL_Event &event){
 }
 
 void C_Window::loadLevel(int levelNbr){
-         C_Settings& settings=C_Settings::Instances();
-		  m_levelNbr = settings.setCurrentLevelNbr(levelNbr);
+        C_Settings& settings=C_Settings::Instances();
+        m_levelNbr = settings.setCurrentLevelNbr(levelNbr);
 
-		if(m_level != nullptr){delete m_level;}
+	if(m_level != nullptr){delete m_level;}
         m_level = new C_Level;
         if(m_level != nullptr){
-            m_level->load(m_levelNbr);
-            settings.cameraOnAPoint(m_level->getGridTown());
+                m_level->load(m_levelNbr);
+                settings.cameraOnAPoint(m_level->getGridTown());
         }
         else{
-            C_Message m;
-            m.printM("Can not create level" + to_string(m_levelNbr));
+                C_Message m;
+                m.printM("Can not create level" + to_string(m_levelNbr));
         }
-
 }
 
 
