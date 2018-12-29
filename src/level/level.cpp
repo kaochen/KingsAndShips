@@ -30,21 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_Level::C_Level(int nbr):
-	m_id(nbr)
-{
-	m_count = ++m_id;
-	extractInfosFromTmx(nbr);
-	C_Xml tmx(m_filename);
-	m_groundLayer = tmx.extractLayerInTMX("Ground");
-	m_decorLayer = tmx.extractLayerInTMX("Decors");
-
-	m_nbrOfWaves = 0;
-	m_currentWaveNbr = -1;
-        m_lastWaveTime = SDL_GetTicks();
-	m_landscape = nullptr;
-}
-
 C_Level::C_Level(S_LevelModel model):
         m_id(model.nbr),
         m_levelName(model.name),
@@ -79,35 +64,6 @@ C_Level::C_Level(S_LevelModel model):
 C_Level::~C_Level()
 {
     delete m_landscape;
-}
-
-
-void C_Level::extractInfosFromTmx(int levelNbr){
-	C_Settings& settings=C_Settings::Instances();
-	m_filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
-	C_Message m;
-	struct stat buffer;
-        if (stat (m_filename.c_str(),  &buffer) == 0){
-                C_Xml tmx(m_filename);
-                m_width = stoi( tmx.extractStrValue("map","width"));
-                m_height = stoi( tmx.extractStrValue( "map", "height"));
-                m_gridSize = calcGridSize();
-                m.printM("Grid size should be " + to_string(m_gridSize) + "\n");
-                m_tilewidth = stoi( tmx.extractStrValue( "map", "tilewidth"));
-                m_tileheight = stoi( tmx.extractStrValue( "map", "tileheight"));
-                m_backgroundcolor =  tmx.extractStrValue( "map", "backgroundcolor");
-                m_levelName = tmx.extractStrValue("property","name","subname","value");
-	}
-	else{
-    	        m.printM("Can not find " + m_filename+"\n");
-	}
-}
-
-int C_Level::calcGridSize(){
-    if(m_width > m_height)
-        return m_width;
-    else
-        return m_height;
 }
 
 void C_Level::load(int levelNbr){

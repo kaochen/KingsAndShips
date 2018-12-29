@@ -60,7 +60,6 @@ class C_Level
 
 public:
 //methods
-	C_Level(int nbr);
 	C_Level(S_LevelModel model);
 	~C_Level();
 	void load(int levelNbr);
@@ -76,7 +75,6 @@ public:
 
 protected:
 //methods
-	void extractInfosFromTmx(int levelNbr);
 	void loadGroundLayerIntoTheGrid();
 	void loadWave(std::string tmx_File_Path, int waveNbr);
 	void loadDecorLayerIntoTheGrid();
@@ -84,7 +82,6 @@ protected:
 	void setWallet();
 	void createLandscape();
 	void playAllUnits ();
-	int calcGridSize();
 
 //attibutes
 	int m_count;
