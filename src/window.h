@@ -25,9 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-#include "level/factory.h"
 #include "level/level.h"
 #include "coord.h"
+#include "level/factory.h"
+
+class C_LevelFactory;
 
 class C_Window
 {
@@ -38,6 +40,7 @@ public:
 	SDL_Window* getWindow() {return m_window;};
 	SDL_Renderer* getRenderer() {return m_renderer;};
 
+	void listLevels();
   	void loadGame();
 	void gameLoop();
 	void quitProgram();
@@ -67,7 +70,7 @@ private:
 	SDL_Renderer* m_renderer;
 
 	bool m_forceRefresh;
-	//C_LevelFactory * m_levelFactory;
+	C_LevelFactory* m_levelFactory;
   	C_Level* m_level;
 	int m_levelNbr;
 

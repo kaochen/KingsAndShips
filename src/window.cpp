@@ -40,7 +40,7 @@ C_Window::C_Window()
 	C_Settings& settings=C_Settings::Instances();
         m_forceRefresh = false;
 
-        //m_levelFactory = nullptr;
+        m_levelFactory = nullptr;
         m_level = nullptr;
         m_levelNbr = settings.getCurrentLevelNbr();
 
@@ -62,6 +62,7 @@ C_Window::C_Window()
 
 C_Window::~C_Window(){
     delete m_level;
+    delete m_levelFactory;
 }
 
 
@@ -141,6 +142,16 @@ void C_Window::loadGame(){
 	t.displayTexturesList();
 }
 
+void C_Window::listLevels(){
+        C_Message m;
+        m.printM("Start listing levels\n");
+        if(m_levelFactory !=nullptr){
+                delete m_levelFactory;
+        }
+        m_levelFactory = new C_LevelFactory;
+        m.printM("Listing levels completed\n");
+}
+
 void C_Window::loadingPage(int progress, string label, int stepsNbr){
 	    SDL_SetRenderDrawColor(m_renderer, 64, 64, 64, 255);
 	    SDL_RenderClear(m_renderer);
@@ -211,7 +222,6 @@ void C_Window::gameLoop(){
 	C_Menu& menu=C_Menu::Instances();
 
     //load the first level
-    C_LevelFactory levelFactory = C_LevelFactory();
     loadLevel(m_levelNbr);
     while(!m_quit)
     {
