@@ -16,6 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
+#include <sys/stat.h>
+#include <sstream>
 #include "factory.h"
 #include "grid.h"
 #include "../message.h"
@@ -93,3 +95,40 @@ bool C_UnitFactory::tsxExist(const string &file){
     return !tmp.fail();
 }
 
+//-------------------------------Level Factory --------------------
+C_LevelFactory::C_LevelFactory(){
+        for(int i = 1; i <= 6; i++){
+                m_levelList.push_back(extractInfosFromTmx(i));
+        }
+}
+
+S_LevelModel C_LevelFactory::extractInfosFromTmx(int levelNbr){
+        S_LevelModel level;
+        level.nbr = levelNbr;
+	C_Settings& settings=C_Settings::Instances();
+	level.filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
+	C_Message m;
+	struct stat buffer;
+        if (stat (level.filename.c_str(),  &buffer) == 0){
+                C_Xml tmx(level.filename);
+                level.width = stoi( tmx.extractStrValue("map","width"));
+                level.height = stoi( tmx.extractStrValue( "map", "height"));
+                level.gridSize = calcGridSize(level.width,level.height);;
+                m.printM("Grid size should be " + to_string(level.gridSize) + "\n");
+                level.tilewidth = stoi( tmx.extractStrValue( "map", "tilewidth"));
+                level.tileheight = stoi( tmx.extractStrValue( "map", "tileheight"));
+                level.backgroundcolor =  tmx.extractStrValue( "map", "backgroundcolor");
+                level.name = tmx.extractStrValue("property","name","subname","value");
+	}
+	else{
+    	        m.printM("Can not find " + level.filename+"\n");
+	}
+	return level;
+}
+
+int C_LevelFactory::calcGridSize(int width, int height){
+    if(width > height)
+        return width;
+    else
+        return height;
+}

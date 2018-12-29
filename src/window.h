@@ -21,42 +21,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
-#include "coord.h"
-#include "level/towers.h"
-#include "level/barricade.h"
-#include "level/level.h"
-
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
+#include "level/factory.h"
+#include "level/level.h"
+#include "coord.h"
+
 class C_Window
 {
-	public:
+public:
 	static	C_Window& Instances(){return m_instance;};
 
 	void createWindow();
 	SDL_Window* getWindow() {return m_window;};
 	SDL_Renderer* getRenderer() {return m_renderer;};
 
-  void loadGame();
-  void gameLoop();
-  void quitProgram();
-  void listenButtons();
-  void loadLevel(int levelNbr);
+  	void loadGame();
+	void gameLoop();
+	void quitProgram();
+	void listenButtons();
+	void loadLevel(int levelNbr);
 
-	protected:
+protected:
 	void initSDL();
-  void loadingPage(int progress, std::string label, int stepsNbr);
-  void renderProgressBar(int progress, std::string label, int stepsNbr);
-  void listenSDL_Events();
-  void listenKeyboard(SDL_Event &event);
-  void listenMouseMotion(SDL_Event &event);
-  void listenMouseButtonUP(SDL_Event &event);
-  void listenMouseButtonDown(SDL_Event &event);
-  void navigateOverTheMap(S_Coord const &button);
+	void loadingPage(int progress, std::string label, int stepsNbr);
+	void renderProgressBar(int progress, std::string label, int stepsNbr);
+	void listenSDL_Events();
+	void listenKeyboard(SDL_Event &event);
+	void listenMouseMotion(SDL_Event &event);
+	void listenMouseButtonUP(SDL_Event &event);
+	void listenMouseButtonDown(SDL_Event &event);
+	void navigateOverTheMap(S_Coord const &button);
 
-	private:
+private:
 	C_Window& operator= (const C_Window&){return *this;}
 	C_Window (const C_Window&){}
 
@@ -67,23 +66,23 @@ class C_Window
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 
-  bool m_forceRefresh;
-  C_Level* m_level;
-  int m_levelNbr;
+	bool m_forceRefresh;
+	//C_LevelFactory * m_levelFactory;
+  	C_Level* m_level;
+	int m_levelNbr;
 
+	std::string m_buttonType;
+	S_Coord m_cursor;
+	S_Coord m_clic;
+	S_Coord m_dragLeft;
+	bool m_mouseButtonDown;
+	bool m_mouseDragWindow;
 
-  std::string m_buttonType;
-  S_Coord m_cursor;
-  S_Coord m_clic;
-  S_Coord m_dragLeft;
-  bool m_mouseButtonDown;
-  bool m_mouseDragWindow;
+	//towers are needed when drag & drop from the buttons:
+	bool m_dragAndDropTower;
+	bool m_addingAnewTower;
+	bool m_aTowerIsSelected;
 
-  //towers are needed when drag & drop from the buttons:
-  bool m_dragAndDropTower;
-  bool m_addingAnewTower;
-  bool m_aTowerIsSelected;
-
-  bool m_quit;
+	bool m_quit;
 };
 #endif

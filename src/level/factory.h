@@ -22,11 +22,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <string>
 #include <map>
+#include <vector>
 #include "gameUnits.h"
 #include "shooter.h"
+#include "barricade.h"
 #include "towers.h"
 #include "town.h"
 #include "boat.h"
+#include "level.h"
 #include "../xml.h"
 
 template <typename T>
@@ -61,4 +64,15 @@ class C_UnitFactory
   	std::map<std::string, S_UnitModel> m_models;
 };
 
+
+class C_LevelFactory
+{
+public:
+	C_LevelFactory();
+	virtual ~C_LevelFactory(){};
+protected:
+	S_LevelModel extractInfosFromTmx(int levelNbr);
+	int calcGridSize(int width, int height);
+  	std::vector <S_LevelModel> m_levelList;
+};
 #endif

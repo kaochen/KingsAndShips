@@ -26,11 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wallet.h"
 #include "level/grid.h"
 #include "level/gameUnits.h"
+#include "level/towers.h"
 #include "level/barricade.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include <queue>
 
 using namespace std;
@@ -42,6 +40,7 @@ C_Window::C_Window()
 	C_Settings& settings=C_Settings::Instances();
         m_forceRefresh = false;
 
+        //m_levelFactory = nullptr;
         m_level = nullptr;
         m_levelNbr = settings.getCurrentLevelNbr();
 
@@ -212,6 +211,7 @@ void C_Window::gameLoop(){
 	C_Menu& menu=C_Menu::Instances();
 
     //load the first level
+    C_LevelFactory levelFactory = C_LevelFactory();
     loadLevel(m_levelNbr);
     while(!m_quit)
     {

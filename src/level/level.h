@@ -29,7 +29,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../coord.h"
 #include "../xml.h"
 
-
+struct S_LevelModel{
+	int nbr;
+	std::string filename;
+	std::string name;
+	int width;
+	int height;
+	int tilewidth;
+	int tileheight;
+	int gridSize;
+	std::string backgroundcolor;
+};
 
 class C_Wave{
 public:
