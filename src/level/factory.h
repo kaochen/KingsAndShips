@@ -70,6 +70,7 @@ class C_LevelFactory
 public:
 	C_LevelFactory();
 	virtual ~C_LevelFactory(){};
+	virtual C_Level* create(int levelNbr);
 protected:
 	S_LevelModel extractInfosFromTmx(int levelNbr);
 	int calcGridSize(int width, int height);

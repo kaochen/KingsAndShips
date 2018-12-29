@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 #include "../message.h"
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -131,4 +132,22 @@ int C_LevelFactory::calcGridSize(int width, int height){
         return width;
     else
         return height;
+}
+
+
+
+C_Level * C_LevelFactory::create(int nbr){
+        C_Level* ret = nullptr;
+        int id = nbr - 1;
+        if(id < 0){id = 0;}
+
+        //if(find(m_levelList.begin(), m_levelList.end(),id) != m_levelList.end()){
+                S_LevelModel level = m_levelList[id];
+                ret =  new C_Level(nbr);
+        //}
+        //else{
+                C_Message m;
+                m.printM("Level model: " + to_string(nbr) + "does not exist in the level Factory\n");
+        //}
+        return ret;
 }
