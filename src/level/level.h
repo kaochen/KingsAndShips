@@ -61,6 +61,7 @@ class C_Level
 public:
 //methods
 	C_Level(int nbr);
+	C_Level(S_LevelModel model);
 	~C_Level();
 	void load(int levelNbr);
 	void sendNextWave();

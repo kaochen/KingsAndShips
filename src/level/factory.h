@@ -75,5 +75,6 @@ protected:
 	S_LevelModel extractInfosFromTmx(int levelNbr);
 	int calcGridSize(int width, int height);
   	std::vector <S_LevelModel> m_levelList;
+  	int m_lastLevelNbr;
 };
 #endif

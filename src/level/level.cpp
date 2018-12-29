@@ -45,6 +45,36 @@ C_Level::C_Level(int nbr):
 	m_landscape = nullptr;
 }
 
+C_Level::C_Level(S_LevelModel model):
+        m_id(model.nbr),
+        m_levelName(model.name),
+        m_width(model.width),
+        m_height(model.height),
+        m_gridSize(model.gridSize),
+        m_tilewidth(model.tilewidth),
+        m_tileheight(model.tileheight),
+        m_backgroundcolor(model.backgroundcolor)
+{
+	C_Message m;
+	m_count = ++m_id;
+	C_Settings& settings=C_Settings::Instances();
+	m_filename = settings.getLevelFolder() + "Level_" + to_string(model.nbr) + ".tmx";
+	struct stat buffer;
+        if (stat (m_filename.c_str(),  &buffer) == 0){
+	        C_Xml tmx(m_filename);
+	        m_groundLayer = tmx.extractLayerInTMX("Ground");
+	        m_decorLayer = tmx.extractLayerInTMX("Decors");
+
+	        m_nbrOfWaves = 0;
+	        m_currentWaveNbr = -1;
+                m_lastWaveTime = SDL_GetTicks();
+	        m_landscape = nullptr;
+	}
+	else{
+    	        m.printM("Can not find " + m_filename+"\n");
+	}
+}
+
 
 C_Level::~C_Level()
 {

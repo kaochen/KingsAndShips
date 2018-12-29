@@ -98,7 +98,8 @@ bool C_UnitFactory::tsxExist(const string &file){
 
 //-------------------------------Level Factory --------------------
 C_LevelFactory::C_LevelFactory(){
-        for(int i = 1; i <= 6; i++){
+        m_lastLevelNbr = 6;
+        for(int i = 1; i <= m_lastLevelNbr; i++){
                 m_levelList.push_back(extractInfosFromTmx(i));
         }
 }
@@ -138,12 +139,12 @@ int C_LevelFactory::calcGridSize(int width, int height){
 
 C_Level * C_LevelFactory::create(int nbr){
         C_Level* ret = nullptr;
-        int id = nbr - 1;
-        if(id < 0){id = 0;}
-
+        int id = nbr;
+        if(id < 1){id = 1;}
+        else if(id > m_lastLevelNbr){ id = m_lastLevelNbr;}
         //if(find(m_levelList.begin(), m_levelList.end(),id) != m_levelList.end()){
-                S_LevelModel level = m_levelList[id];
-                ret =  new C_Level(nbr);
+                S_LevelModel level = m_levelList[id - 1];
+                ret =  new C_Level(level);
         //}
         //else{
                 C_Message m;
