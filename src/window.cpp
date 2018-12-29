@@ -386,7 +386,7 @@ void C_Window::loadLevel(int levelNbr){
         m_levelNbr = settings.setCurrentLevelNbr(levelNbr);
 
 	if(m_level != nullptr){delete m_level;}
-        m_level = new C_Level;
+        m_level = new C_Level(m_levelNbr);
         if(m_level != nullptr){
                 m_level->load(m_levelNbr);
                 settings.cameraOnAPoint(m_level->getGridTown());

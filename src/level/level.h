@@ -50,10 +50,9 @@ class C_Level
 
 public:
 //methods
-	C_Level();
+	C_Level(int nbr);
 	~C_Level();
 	void load(int levelNbr);
-	void cliStatus();
 	void sendNextWave();
 	void cliWaveStatus(int i);
 	void loadWaveIntoGrid(int i);
@@ -67,9 +66,9 @@ public:
 protected:
 //methods
 	void extractInfosFromTmx(int levelNbr);
-	void loadGroundLayerIntoTheGrid(std::string tmx_File_Path);
+	void loadGroundLayerIntoTheGrid();
 	void loadWave(std::string tmx_File_Path, int waveNbr);
-	void loadDecorLayerIntoTheGrid(std::string tmx_File_Path);
+	void loadDecorLayerIntoTheGrid();
 	S_Coord getFirstTile(S_tmxLayer &layer);
 	void setWallet();
 	void createLandscape();
@@ -77,7 +76,6 @@ protected:
 	int calcGridSize();
 
 //attibutes
-	std::string m_name;
 	int m_count;
 	int m_id;
 	S_tmxLayer m_groundLayer;

@@ -30,19 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_Level::C_Level():
-	m_name("level"),
-	m_id(1)
+C_Level::C_Level(int nbr):
+	m_id(nbr)
 {
 	m_count = ++m_id;
-	m_groundLayer.name="noname";
-	m_groundLayer.width=30;
-	m_groundLayer.height=30;
-	m_groundLayer.data="";
-	m_decorLayer.name="noname";
-	m_decorLayer.width=30;
-	m_decorLayer.height=30;
-	m_decorLayer.data="";
+	extractInfosFromTmx(nbr);
+	C_Xml tmx(m_filename);
+	m_groundLayer = tmx.extractLayerInTMX("Ground");
+	m_decorLayer = tmx.extractLayerInTMX("Decors");
+
 	m_nbrOfWaves = 0;
 	m_currentWaveNbr = -1;
         m_lastWaveTime = SDL_GetTicks();
@@ -55,29 +51,25 @@ C_Level::~C_Level()
     delete m_landscape;
 }
 
-void C_Level::cliStatus(){
-	cout << m_name << " " << m_id << endl;
-}
 
 void C_Level::extractInfosFromTmx(int levelNbr){
 	C_Settings& settings=C_Settings::Instances();
-    m_filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
+	m_filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
 	C_Message m;
-    struct stat buffer;
-    if (stat (m_filename.c_str(),  &buffer) == 0){
-        C_Xml tmx(m_filename);
-        m_width = stoi( tmx.extractStrValue("map","width"));
-        m_height = stoi( tmx.extractStrValue( "map", "height"));
-        m_gridSize = calcGridSize();
-        m.printM("Grid size should be " + to_string(m_gridSize) + "\n");
-        m_tilewidth = stoi( tmx.extractStrValue( "map", "tilewidth"));
-        m_tileheight = stoi( tmx.extractStrValue( "map", "tileheight"));
-        m_backgroundcolor =  tmx.extractStrValue( "map", "backgroundcolor");
-        m_levelName = tmx.extractStrValue("property","name","subname","value");
+	struct stat buffer;
+        if (stat (m_filename.c_str(),  &buffer) == 0){
+                C_Xml tmx(m_filename);
+                m_width = stoi( tmx.extractStrValue("map","width"));
+                m_height = stoi( tmx.extractStrValue( "map", "height"));
+                m_gridSize = calcGridSize();
+                m.printM("Grid size should be " + to_string(m_gridSize) + "\n");
+                m_tilewidth = stoi( tmx.extractStrValue( "map", "tilewidth"));
+                m_tileheight = stoi( tmx.extractStrValue( "map", "tileheight"));
+                m_backgroundcolor =  tmx.extractStrValue( "map", "backgroundcolor");
+                m_levelName = tmx.extractStrValue("property","name","subname","value");
 	}
 	else{
-	    C_Message m;
-    	m.printM("Can not find " + m_filename+"\n");
+    	        m.printM("Can not find " + m_filename+"\n");
 	}
 }
 
@@ -89,7 +81,6 @@ int C_Level::calcGridSize(){
 }
 
 void C_Level::load(int levelNbr){
-    extractInfosFromTmx(levelNbr);
     //clean before loading
 	C_Grid& grid=C_Grid::Instances();
 	grid.reset(m_gridSize);
@@ -98,8 +89,8 @@ void C_Level::load(int levelNbr){
     struct stat buffer;
     if (stat (m_filename.c_str(),  &buffer) == 0){
 
-	    loadGroundLayerIntoTheGrid(m_filename.c_str());
-	    loadDecorLayerIntoTheGrid(m_filename.c_str());
+	    loadGroundLayerIntoTheGrid();
+	    loadDecorLayerIntoTheGrid();
 	    setWallet();
 	    C_Xml tmx(m_filename);
 	    m_nbrOfWaves = tmx.countAttributes("Wave");
@@ -150,10 +141,8 @@ void C_Level::sendNextWave(){
 }
 
 
-void C_Level::loadGroundLayerIntoTheGrid(string tmx_File_Path){
+void C_Level::loadGroundLayerIntoTheGrid(){
 	C_Grid& grid=C_Grid::Instances();
-	C_Xml tmx(tmx_File_Path);
-	m_groundLayer = tmx.extractLayerInTMX("Ground");
     string data = m_groundLayer.data;
     S_Coord start = getFirstTile(m_groundLayer);
 	for (int y = start.y; y < m_groundLayer.height; y++){
@@ -244,12 +233,10 @@ void C_Level::loadWaveIntoGrid(int i){
 }
 
 
-void C_Level::loadDecorLayerIntoTheGrid(string tmx_File_Path){
+void C_Level::loadDecorLayerIntoTheGrid(){
 	C_Grid& grid=C_Grid::Instances();
-	C_Xml tmx(tmx_File_Path);
-	m_decorLayer = tmx.extractLayerInTMX("Decors");
-    string data = m_decorLayer.data;
-    S_Coord start = getFirstTile(m_decorLayer);
+        string data = m_decorLayer.data;
+        S_Coord start = getFirstTile(m_decorLayer);
 	for (int y = start.y; y < m_decorLayer.height; y++){
 		for (int x = start.x; x < m_decorLayer.width; x++){
 				string extract = data;
