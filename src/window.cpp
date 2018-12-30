@@ -150,6 +150,9 @@ void C_Window::listLevels(){
         }
         m_levelFactory = new C_LevelFactory;
         m.printM("Listing levels completed\n");
+        //Now level factory is init, it is possible to generate the menuBanner
+	C_Menu& menu=C_Menu::Instances();
+	menu.menuBanner();
 }
 
 void C_Window::loadingPage(int progress, string label, int stepsNbr){
@@ -482,4 +485,8 @@ void C_Window::navigateOverTheMap(S_Coord const &button){
 				    m_dragLeft.y = button.y;
 				    }
 	        }
+}
+
+S_LevelModel C_Window::getLevelModel(int levelNbr){
+        return m_levelFactory->getModel(levelNbr);
 }

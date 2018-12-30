@@ -31,11 +31,12 @@ class C_Menu
 {
 	public:
 	static	C_Menu& Instances(){return m_instance;};
-  void updateInfos(); /*!Create or update informations before render them on screen*/
+  	void updateInfos(); /*!Create or update informations before render them on screen*/
 	void render(); /*!Render the menu on screen*/
 	C_MenuItem * getMenuItem(std::string name){	return m_menuItemsList[name];};
-  void updateLevelInfos(int current_wave, int total_waves);
-  void resetValues(); /*!reset values when change or reset the level*/
+  	void updateLevelInfos(int current_wave, int total_waves);
+	void resetValues(); /*!reset values when change or reset the level*/
+	void menuBanner();
 
   //commands
   void openBottomMenu();
@@ -55,7 +56,6 @@ class C_Menu
 	static C_Menu m_instance;
 	C_Menu();
 	~C_Menu();
-  void menuBanner();
   void bottomButton(const std::string &name,S_Coord screen);/*!setup button for the bottom line of buttons*/
   void bottomButtonsLine(S_Coord screen);
   std::string tabName(int nbr){ return "tab" + std::to_string(nbr) + "_Flag";};

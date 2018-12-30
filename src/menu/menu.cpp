@@ -52,7 +52,7 @@ C_Menu::C_Menu():
         line.x = 20;
         line.y = settings.getWindowHeight() - 20;
         bottomButtonsLine(line);
-        menuBanner();
+        //menuBanner();
 }
 
 C_Menu::~C_Menu(){

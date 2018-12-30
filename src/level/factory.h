@@ -71,10 +71,12 @@ public:
 	C_LevelFactory();
 	virtual ~C_LevelFactory(){};
 	virtual C_Level* create(int levelNbr);
+	S_LevelModel getModel(int leveNbr);
 protected:
 	S_LevelModel extractInfosFromTmx(int levelNbr);
 	int calcGridSize(int width, int height);
   	std::vector <S_LevelModel> m_levelList;
   	int m_lastLevelNbr;
+
 };
 #endif

@@ -152,3 +152,10 @@ C_Level * C_LevelFactory::create(int nbr){
         //}
         return ret;
 }
+
+S_LevelModel C_LevelFactory::getModel(int levelNbr){
+        int id = levelNbr;
+        if(id < 1){id = 1;}
+        else if(id > m_lastLevelNbr){ id = m_lastLevelNbr;}
+        return m_levelList[id - 1];
+}

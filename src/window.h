@@ -46,7 +46,7 @@ public:
 	void quitProgram();
 	void listenButtons();
 	void loadLevel(int levelNbr);
-
+	S_LevelModel getLevelModel(int levelNbr);
 protected:
 	void initSDL();
 	void loadingPage(int progress, std::string label, int stepsNbr);

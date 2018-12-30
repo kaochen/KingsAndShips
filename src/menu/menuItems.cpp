@@ -247,10 +247,13 @@ void C_MB_1Line::render(){
 
 C_MB_LevelCard::C_MB_LevelCard(string name,string text,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen){
+        C_Window& win=C_Window::Instances();
+        S_LevelModel model = win.getLevelModel(1);
+        cout << "Level name: "<< model.name << endl;
 	m_fontSize = 18;
 	m_title = name;
 	m_titleName = "Card_Title_" + name;
-    m_text = text;
+        m_text = text;
 	m_textName = "Card_Text_" + name;
 	m_width = 204;
 	m_height = 300;
