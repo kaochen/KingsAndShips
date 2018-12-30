@@ -24,50 +24,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 
 
-class C_Command
-{
+class C_Command {
 public:
-  C_Command(){};
-  virtual ~C_Command(){};
-  virtual void action() = 0;
-  virtual void setNbr(int nbr){m_nbr = nbr;};
-  virtual bool getBool(){std::cout << "return false \n";return false;};
+	C_Command() {};
+	virtual ~C_Command() {};
+	virtual void action() = 0;
+	virtual void setNbr(int nbr)
+	{
+		m_nbr = nbr;
+	};
+	virtual bool getBool()
+	{
+		std::cout << "return false \n";
+		return false;
+	};
 protected:
-  int m_nbr;
+	int m_nbr;
 };
 
-class C_OpenMenu : public C_Command
-{
+class C_OpenMenu : public C_Command {
 public:
-  C_OpenMenu(){};
-  virtual ~C_OpenMenu(){};
-  virtual void action();
-  virtual bool getBool();
+	C_OpenMenu() {};
+	virtual ~C_OpenMenu() {};
+	virtual void action();
+	virtual bool getBool();
 };
 
 
 
-class C_ChangeTab : public C_Command
-{
+class C_ChangeTab : public C_Command {
 public:
-  virtual void action();
+	virtual void action();
 };
 
-class C_LoadALevel : public C_Command
-{
+class C_LoadALevel : public C_Command {
 public:
-  virtual void action();
+	virtual void action();
 };
 
-class C_CenterCamera : public C_Command
-{
+class C_CenterCamera : public C_Command {
 public:
-  virtual void action();
+	virtual void action();
 };
 
-class C_Play : public C_Command
-{
+class C_Play : public C_Command {
 public:
-  virtual void action();
+	virtual void action();
 };
 #endif

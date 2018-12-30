@@ -24,43 +24,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <map>
 #include <SDL2_gfxPrimitives.h>
 
-class C_Tab
-{
-	public:
-  C_Tab(std::string title);
-  virtual ~C_Tab(){};
-  virtual void displayTab(bool open, size_t nbr);
-  virtual std::string getName(){return m_name;};
-  virtual std::string getTitle(){return m_title;};
-  virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
-  virtual std::vector<std::string> getListOfVisibleItems();
+class C_Tab {
+public:
+	C_Tab(std::string title);
+	virtual ~C_Tab() {};
+	virtual void displayTab(bool open, size_t nbr);
+	virtual std::string getName()
+	{
+		return m_name;
+	};
+	virtual std::string getTitle()
+	{
+		return m_title;
+	};
+	virtual std::map<std::string, C_MenuItem*> getItemList()
+	{
+		return m_itemsList;
+	};
+	virtual std::vector<std::string> getListOfVisibleItems();
 
-  protected:
-  virtual void focusTab(size_t nbr);
-  virtual void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
-  virtual void drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height);
+protected:
+	virtual void focusTab(size_t nbr);
+	virtual void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
+	virtual void drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height);
 
-	protected:
-  static int m_id;
-  std::string m_name;
-  std::string m_title;
-  S_Coord m_screen /*!< top left corner of the tab*/;
-  int m_height;
-  int m_width;
-  Sint16 m_tabSize;
-  std::map<std::string, C_MenuItem*> m_itemsList;
+protected:
+	static int m_id;
+	std::string m_name;
+	std::string m_title;
+	S_Coord m_screen /*!< top left corner of the tab*/;
+	int m_height;
+	int m_width;
+	Sint16 m_tabSize;
+	std::map<std::string, C_MenuItem*> m_itemsList;
 };
 
-class C_Tab_Settings : public C_Tab
-{
+class C_Tab_Settings : public C_Tab {
 public:
-  C_Tab_Settings();
+	C_Tab_Settings();
 };
 
-class C_Tab_Levels : public C_Tab
-{
+class C_Tab_Levels : public C_Tab {
 public:
-  C_Tab_Levels();
+	C_Tab_Levels();
 };
 
 #endif

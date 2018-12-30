@@ -25,38 +25,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-void C_OpenMenu::action(){
-    C_Message m;
-    m.printM("Send an openMenu action\n");
-    C_Menu& menu=C_Menu::Instances();
-    menu.openBottomMenu();
+void C_OpenMenu::action()
+{
+	C_Message m;
+	m.printM("Send an openMenu action\n");
+	C_Menu& menu=C_Menu::Instances();
+	menu.openBottomMenu();
 }
 
-bool C_OpenMenu::getBool(){
-    C_Menu& menu=C_Menu::Instances();
-    return menu.isOpen();
+bool C_OpenMenu::getBool()
+{
+	C_Menu& menu=C_Menu::Instances();
+	return menu.isOpen();
 }
 
-void C_ChangeTab::action(){
-    C_Message m;
-    m.printM("Send an ChangeTab action\n");
-    C_Menu& menu=C_Menu::Instances();
-    menu.setTabNbr(m_nbr);
+void C_ChangeTab::action()
+{
+	C_Message m;
+	m.printM("Send an ChangeTab action\n");
+	C_Menu& menu=C_Menu::Instances();
+	menu.setTabNbr(m_nbr);
 }
 
-void C_LoadALevel::action(){
-    C_Window& win=C_Window::Instances();
-    win.loadLevel(m_nbr);
+void C_LoadALevel::action()
+{
+	C_Window& win=C_Window::Instances();
+	win.loadLevel(m_nbr);
 }
 
-void C_CenterCamera::action(){
-    C_Settings& settings=C_Settings::Instances();
-    C_Grid& grid=C_Grid::Instances();
-    settings.cameraOnAPoint(grid.foundTown());
+void C_CenterCamera::action()
+{
+	C_Settings& settings=C_Settings::Instances();
+	C_Grid& grid=C_Grid::Instances();
+	settings.cameraOnAPoint(grid.foundTown());
 }
 
-void C_Play::action(){
-    C_Settings& settings=C_Settings::Instances();
-    settings.setPlaying();
+void C_Play::action()
+{
+	C_Settings& settings=C_Settings::Instances();
+	settings.setPlaying();
 
 }
