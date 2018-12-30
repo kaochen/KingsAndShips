@@ -101,6 +101,12 @@ apt install doxygen doxygen-gui graphviz
 doxygen doc/Doxyfile
 doxywizard
 ```
+### Indent
+
+```
+apt install astyle
+astyle --style=stroustrup --indent=force-tab src/level/level.cpp
+```
 
 ### Links :
 

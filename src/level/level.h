@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../coord.h"
 #include "../xml.h"
 
-struct S_LevelModel{
+struct S_LevelModel {
 	int nbr;
 	std::string filename;
 	std::string name;
@@ -41,10 +41,10 @@ struct S_LevelModel{
 	std::string backgroundcolor;
 };
 
-class C_Wave{
+class C_Wave {
 public:
 	C_Wave();
-	~C_Wave(){};
+	~C_Wave() {};
 	void add(std::string name, S_Coord coord);
 	void cliStatus();
 	void loadIntoGrid();
@@ -55,8 +55,7 @@ private:
 	int m_count;
 };
 
-class C_Level
-{
+class C_Level {
 
 public:
 //methods
