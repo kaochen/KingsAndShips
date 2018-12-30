@@ -26,8 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define G_HV 10
 #define G_DIAG 14
 
-class C_Node
-{
+class C_Node {
 public:
 	C_Node(const int x_grid,const int y_grid, const bool block);
 	~C_Node();
@@ -36,8 +35,14 @@ public:
 	bool getTown() const;
 	void setBlock(bool block);
 	bool getBlock() const;
-  bool getBarricade(){return m_barricade;};
-  void setBarricade(bool barricade ){m_barricade = barricade;};
+	bool getBarricade()
+	{
+		return m_barricade;
+	};
+	void setBarricade(bool barricade )
+	{
+		m_barricade = barricade;
+	};
 	int getXGrid() const;
 	int getYGrid() const;
 	void setParent(C_Node * parent);
@@ -60,13 +65,13 @@ public:
 	void highlight();
 	void prepareRender();
 	void render();
-  bool screenAtCenter();
-  void regenScreenCoord();
+	bool screenAtCenter();
+	void regenScreenCoord();
 	int calcG_offset(int x_from, int y_from,int x_dest, int y_dest);
 protected:
 	C_Coord * m_coord;
 	bool m_block; /*!< If Unit, that do not move, can not be cross by a boat like a ground*/
-  bool m_barricade; /*!< If Unit, that do not move, can be cross after destruction like a barricade*/
+	bool m_barricade; /*!< If Unit, that do not move, can be cross after destruction like a barricade*/
 	int m_G; // G cost (distance from the starting node)
 	int m_H; //H cost heuristic (distance from end to end)
 	int m_F; //G cost + H Cost

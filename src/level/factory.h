@@ -33,50 +33,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../xml.h"
 
 template <typename T>
-class C_Singleton{
+class C_Singleton {
 public:
-  	static	T& Instances() {return m_instance;};
+	static	T& Instances()
+	{
+		return m_instance;
+	};
 
 protected:
-    T& operator= (const T&){}
-    C_Singleton(){};
-    ~C_Singleton(){};
+	T& operator= (const T&) {}
+	C_Singleton() {};
+	~C_Singleton() {};
 
 private:
-  static T m_instance;
+	static T m_instance;
 };
 template <typename T>
 T C_Singleton<T>::m_instance;
 
 
 
-class C_UnitFactory
-{
-  public:
-    C_UnitFactory();
-    virtual ~C_UnitFactory(){};
-    virtual C_GameUnits* create(S_Unit type);
-    virtual void setRank(std::string type, int rank){m_models[type].rank= rank;};
-  protected:
-    S_UnitModel extractProperties(std::string filename);
-  private:
-    bool tsxExist(const std::string &file);
-  	std::map<std::string, S_UnitModel> m_models;
+class C_UnitFactory {
+public:
+	C_UnitFactory();
+	virtual ~C_UnitFactory() {};
+	virtual C_GameUnits* create(S_Unit type);
+	virtual void setRank(std::string type, int rank)
+	{
+		m_models[type].rank= rank;
+	};
+protected:
+	S_UnitModel extractProperties(std::string filename);
+private:
+	bool tsxExist(const std::string &file);
+	std::map<std::string, S_UnitModel> m_models;
 };
 
 
-class C_LevelFactory
-{
+class C_LevelFactory {
 public:
 	C_LevelFactory();
-	virtual ~C_LevelFactory(){};
+	virtual ~C_LevelFactory() {};
 	virtual C_Level* create(int levelNbr);
 	S_LevelModel getModel(int leveNbr);
 protected:
 	S_LevelModel extractInfosFromTmx(int levelNbr);
 	int calcGridSize(int width, int height);
-  	std::vector <S_LevelModel> m_levelList;
-  	int m_lastLevelNbr;
+	std::vector <S_LevelModel> m_levelList;
+	int m_lastLevelNbr;
 
 };
 #endif

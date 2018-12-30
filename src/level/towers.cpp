@@ -31,14 +31,16 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_justAdded = true;
 }
 
-void C_Towers::play(){
+void C_Towers::play()
+{
 	string list[1] = {"boat"};
 	this->shoot(list,1);
 	if(!this->alive())
 		this->kill();
 }
 
-void C_Towers::renderSmoke(){
+void C_Towers::renderSmoke()
+{
 	int imageNbr = m_animation[JUSTADDED]->getAnimNbr(0,7,100);
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
@@ -48,7 +50,8 @@ void C_Towers::renderSmoke(){
 		m_justAdded = false;
 }
 
-void C_Towers::render(S_Coord screen){
+void C_Towers::render(S_Coord screen)
+{
 	renderSelected();
 	C_Shooter::render(screen);
 
@@ -56,8 +59,9 @@ void C_Towers::render(S_Coord screen){
 		renderSmoke();
 }
 
-void C_Towers::renderSelected(){
-	if (m_selected == true){
+void C_Towers::renderSelected()
+{
+	if (m_selected == true) {
 		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
 		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width, true);
 	}
@@ -71,16 +75,17 @@ C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
 }
 
-void C_ArcherTower::render(S_Coord screen){
-	if(alive()){
-	    renderSelected();
-	    C_GameUnits::render(screen);
-	    renderLifeBar(screen.x, screen.y);
-	    if (m_weapon->getShooting())
-		    m_weapon->render();
+void C_ArcherTower::render(S_Coord screen)
+{
+	if(alive()) {
+		renderSelected();
+		C_GameUnits::render(screen);
+		renderLifeBar(screen.x, screen.y);
+		if (m_weapon->getShooting())
+			m_weapon->render();
 
-	    if (m_justAdded)
-		    renderSmoke();
+		if (m_justAdded)
+			renderSmoke();
 	}
 }
 
@@ -89,23 +94,24 @@ C_Turbine::C_Turbine(S_UnitModel model):C_Towers(model)
 {
 }
 
-void C_Turbine::render(S_Coord screen){
-	if(alive()){
-	    renderSelected();
-	    renderLifeBar(screen.x, screen.y);
+void C_Turbine::render(S_Coord screen)
+{
+	if(alive()) {
+		renderSelected();
+		renderLifeBar(screen.x, screen.y);
 
-	    S_Weapon current = m_weapon->getWeaponInfo();
-	    int rotationSpeed = 200;
-	    if (m_weapon->getShooting())
-		    rotationSpeed = 50;
-	    int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
+		S_Weapon current = m_weapon->getWeaponInfo();
+		int rotationSpeed = 200;
+		if (m_weapon->getShooting())
+			rotationSpeed = 50;
+		int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
 
-	    string fileName = imageName(ALIVE,current.direction,imageNbr);
-	    C_TextureList& t=C_TextureList::Instances();
-	    t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		string fileName = imageName(ALIVE,current.direction,imageNbr);
+		C_TextureList& t=C_TextureList::Instances();
+		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 
-	    if (m_justAdded)
-		    renderSmoke();
+		if (m_justAdded)
+			renderSmoke();
 	}
 }
 

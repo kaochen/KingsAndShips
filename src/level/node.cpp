@@ -28,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Node::C_Node(const int x_grid,const int y_grid, const bool block){
+C_Node::C_Node(const int x_grid,const int y_grid, const bool block)
+{
 	S_Coord coo;
 	coo.x = x_grid;
 	coo.y = y_grid;
@@ -54,26 +55,29 @@ C_Node::~C_Node()
 
 	C_TextureList& t=C_TextureList::Instances();
 	if(m_h_texture_name != "")
-	    t.freeTexture(m_h_texture_name );
+		t.freeTexture(m_h_texture_name );
 	if(m_g_texture_name != "")
-	    t.freeTexture(m_g_texture_name );
+		t.freeTexture(m_g_texture_name );
 	if(m_f_texture_name != "")
-	    t.freeTexture(m_f_texture_name );
+		t.freeTexture(m_f_texture_name );
 	delete m_coord;
 };
 
-void C_Node::setTown(bool town){
+void C_Node::setTown(bool town)
+{
 	m_Town = town;
 	if(town)
-	    m_block = false;
+		m_block = false;
 
 }
 
-bool C_Node::getTown() const{
+bool C_Node::getTown() const
+{
 	return m_Town;
 }
 
-void C_Node::setBlock(bool block){
+void C_Node::setBlock(bool block)
+{
 	m_block = block;
 	if (m_block)
 		m_open = false;
@@ -81,39 +85,47 @@ void C_Node::setBlock(bool block){
 		m_open = true;
 }
 
-bool C_Node::getBlock() const{
-	    return m_block;
+bool C_Node::getBlock() const
+{
+	return m_block;
 }
 
-bool C_Node::getOpen() const{
+bool C_Node::getOpen() const
+{
 	return m_open;
 }
 
-void C_Node::setOpen(bool open){
+void C_Node::setOpen(bool open)
+{
 	m_open = open;
 }
 
-void C_Node::setParent(C_Node * parent){
+void C_Node::setParent(C_Node * parent)
+{
 	m_parent = parent;
 }
 
-C_Node* C_Node::getParent(){
+C_Node* C_Node::getParent()
+{
 	return m_parent;
 }
 
-int C_Node::getXGrid() const{
+int C_Node::getXGrid() const
+{
 	return m_coord->getGrid().x;
 }
 
-int C_Node::getYGrid() const{
+int C_Node::getYGrid() const
+{
 	return m_coord->getGrid().y;
 }
 
-void C_Node::displayStatus(){
-    C_Message m;
-    ostringstream message;
-    message << " Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y
-    << " F:" << m_F << " G:" << m_G << " H:" << m_H << " dist:" << m_dist << " angle" << m_angle;
+void C_Node::displayStatus()
+{
+	C_Message m;
+	ostringstream message;
+	message << " Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y
+			<< " F:" << m_F << " G:" << m_G << " H:" << m_H << " dist:" << m_dist << " angle" << m_angle;
 	if (m_Town)
 		message << " Town: true <---\n";
 	else
@@ -121,95 +133,105 @@ void C_Node::displayStatus(){
 	m.printM(message.str());
 };
 
-void C_Node::calcH(const C_Node* target){
-    //cout << "town " << target->getXGrid() << ":"<< target->getYGrid() << endl;
-	if (m_Town == false && m_block == false){
+void C_Node::calcH(const C_Node* target)
+{
+	//cout << "town " << target->getXGrid() << ":"<< target->getYGrid() << endl;
+	if (m_Town == false && m_block == false) {
 		int moveOnX =  target->getXGrid() - m_coord->getGrid().x;
-			if (moveOnX < 0)
-				moveOnX *= -1;
+		if (moveOnX < 0)
+			moveOnX *= -1;
 		int moveOnY =  target->getYGrid() - m_coord->getGrid().y;
-			if (moveOnY < 0)
-				moveOnY *= -1;
+		if (moveOnY < 0)
+			moveOnY *= -1;
 		m_H = (moveOnX + moveOnY) *10;
 	}
 }
 
 
 int C_Node::calcG_offset(int x_from, int y_from,
-			 int x_dest, int y_dest){
-    int offset = 0;
+						 int x_dest, int y_dest)
+{
+	int offset = 0;
 	C_Grid& grid=C_Grid::Instances();
 	//if diagonal
-	if(x_from != x_dest && y_from != y_dest){
+	if(x_from != x_dest && y_from != y_dest) {
 		offset += G_DIAG;
 
 		//if barricade on a corner add a malus
-	    string corner1 = grid.getUnitType(FIELD,x_dest,y_from);
-	    string corner2 = grid.getUnitType(FIELD,x_from,y_dest);
-	    if(corner1 == "barricade" || corner2 == "barricade"){
-	        offset += 2*G_DIAG;
-	    }
-	}
-	else{
+		string corner1 = grid.getUnitType(FIELD,x_dest,y_from);
+		string corner2 = grid.getUnitType(FIELD,x_from,y_dest);
+		if(corner1 == "barricade" || corner2 == "barricade") {
+			offset += 2*G_DIAG;
+		}
+	} else {
 		offset += G_HV;
 	}
 
-    //if boat or barricade on destination add malus
+	//if boat or barricade on destination add malus
 	string name = grid.getUnitType(FIELD,x_dest,y_dest);
-	if(name == "barricade"){
-	    offset += 3*G_HV;
+	if(name == "barricade") {
+		offset += 3*G_HV;
+	} else if(name == "boat") {
+		offset += 2*G_HV;
 	}
-	else if(name == "boat"){
-	    offset += 2*G_HV;
-	    }
 	return offset;
 }
 
 
-int C_Node::getG() const{
+int C_Node::getG() const
+{
 	return m_G;
 }
 
-int C_Node::getH() const{
+int C_Node::getH() const
+{
 	return m_H;
 }
 
-int C_Node::getF() const{
+int C_Node::getF() const
+{
 	return m_F;
 }
 
-C_Coord* C_Node::getCoord() const{
+C_Coord* C_Node::getCoord() const
+{
 	return m_coord;
 }
 
-void C_Node::setF(int G){
+void C_Node::setF(int G)
+{
 	m_G = G;
 	m_F = m_H + m_G;
 }
 
-void C_Node::setDist(int dist, double angle){
+void C_Node::setDist(int dist, double angle)
+{
 	m_dist = dist;
 	m_angle = angle;
 }
 
-int C_Node::getDist()const{
+int C_Node::getDist()const
+{
 	return m_dist;
 }
 
-double C_Node::getAngle() const{
+double C_Node::getAngle() const
+{
 	return m_angle;
 }
 
-void C_Node::highlight(){
+void C_Node::highlight()
+{
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
 	int R = 200, G = 200, B = 200, A = 100;
 	int x_screen = m_coord->getXScreen ();
 	int y_screen = m_coord->getYScreen ();
-	filledEllipseRGBA(renderer,x_screen, y_screen ,10,5,R,G,B,A);
+	filledEllipseRGBA(renderer,x_screen, y_screen,10,5,R,G,B,A);
 }
 
-void C_Node::prepareRender(){
+void C_Node::prepareRender()
+{
 	int x_screen = m_coord->getXScreen ();
 	int y_screen = m_coord->getYScreen ();
 	SDL_Color color = {0,0,0,255};
@@ -228,11 +250,12 @@ void C_Node::prepareRender(){
 	t.loadTextAsTexturesIntoMap(m_f_texture_name, value, 15, color);
 }
 
-void C_Node::render(){
+void C_Node::render()
+{
 	int x_screen = m_coord->getXScreen ();
 	int y_screen = m_coord->getYScreen ();
 
- 	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
+	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
 	C_TextureList& t=C_TextureList::Instances();
 	t.renderTexture(m_h_texture_name,x_screen - 20,y_screen + 12);
 	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);
@@ -240,7 +263,8 @@ void C_Node::render(){
 
 }
 
-void C_Node::regenScreenCoord(){
-    m_coord->regenScreenCoord();
+void C_Node::regenScreenCoord()
+{
+	m_coord->regenScreenCoord();
 }
 

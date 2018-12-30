@@ -24,27 +24,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 #include "../coord.h"
 
-enum zlayers{GROUND,GRAVEYARD,FIELD};
+enum zlayers {GROUND,GRAVEYARD,FIELD};
 
-class C_ZLayer
-{
+class C_ZLayer {
 public:
-  C_ZLayer(int x_grid, int y_grid);
-  ~C_ZLayer();
-  void set(int layer, C_GameUnits * unit);
-  C_GameUnits* get(int layer);
-  void del(int layer);
-  void delAll();
-  bool play(int layer);
-  bool render(int layer);
+	C_ZLayer(int x_grid, int y_grid);
+	~C_ZLayer();
+	void set(int layer, C_GameUnits * unit);
+	C_GameUnits* get(int layer);
+	void del(int layer);
+	void delAll();
+	bool play(int layer);
+	bool render(int layer);
 private:
-  void cliStatus(); //print basic status in the CLI
+	void cliStatus(); //print basic status in the CLI
 
-  //attributs
-  C_Coord* m_coord;
-  C_GameUnits * m_field; //main arena.
-  C_GameUnits * m_grave; //when unit is dead
-  C_GameUnits * m_ground; //land and water
+	//attributs
+	C_Coord* m_coord;
+	C_GameUnits * m_field; //main arena.
+	C_GameUnits * m_grave; //when unit is dead
+	C_GameUnits * m_ground; //land and water
 
 };
 

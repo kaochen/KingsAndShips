@@ -28,9 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../time.h"
 #include "../texture.h"
 
-class C_Boat: public C_Shooter
-{
-	public:
+class C_Boat: public C_Shooter {
+public:
 	//methods
 	C_Boat(S_UnitModel model);
 	~C_Boat();
@@ -39,21 +38,21 @@ class C_Boat: public C_Shooter
 	virtual void move();
 	virtual void kill();
 	virtual void receiveDamage(S_Weapon weapon);
-  //virtual void regendScreenCoord(){}; //let move() do the job.
-	protected:
+	//virtual void regendScreenCoord(){}; //let move() do the job.
+protected:
 	virtual void render(S_Coord screen);
-  virtual void recalcPath(S_Coord dest);
-  virtual int calcSpeed();
+	virtual void recalcPath(S_Coord dest);
+	virtual int calcSpeed();
 
 	//attributs
 	bool m_moving;
 	C_Path* m_C_Path;
 	int m_speed;
-  int m_speedImpact;
-  int m_speedImpactLoop;
-  int m_countStop;
-  int m_countRegenPath;
-  C_AnimTime* m_animDirection;
+	int m_speedImpact;
+	int m_speedImpactLoop;
+	int m_countStop;
+	int m_countRegenPath;
+	C_AnimTime* m_animDirection;
 };
 
 #endif

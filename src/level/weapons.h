@@ -25,26 +25,43 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 
 
-class C_Weapon
-{
+class C_Weapon {
 public:
 	C_Weapon(S_Weapon spec);
-	~C_Weapon(){};
+	~C_Weapon() {};
 
 	void displayStatus() const;
 
-	S_Weapon getWeaponInfo() {return m_weapon;};
-	int getDamage() {return m_weapon.damage;};
-	int getFireRate() {return m_weapon.fireRate;};
-	int getFireRange() {return m_weapon.fireRange;};
-	bool getShooting() {return m_shooting;};
+	S_Weapon getWeaponInfo()
+	{
+		return m_weapon;
+	};
+	int getDamage()
+	{
+		return m_weapon.damage;
+	};
+	int getFireRate()
+	{
+		return m_weapon.fireRate;
+	};
+	int getFireRange()
+	{
+		return m_weapon.fireRange;
+	};
+	bool getShooting()
+	{
+		return m_shooting;
+	};
 
-  long getLastShootTime() {return m_lastShootTime;};
+	long getLastShootTime()
+	{
+		return m_lastShootTime;
+	};
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 	void render();
 
-	private:
+private:
 	S_Weapon m_weapon;
 	int m_x_screen;
 	int m_y_screen;

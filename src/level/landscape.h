@@ -23,59 +23,57 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "gameUnits.h"
 
-class C_Landscape
-{
-	public:
-    C_Landscape(S_Coord town);
-    ~C_Landscape();
-    void render(int gridSize);
-    void renderBottomMask(int gridSize);
-    void renderTopMask(int gridSize);
-	protected:
-	private:
-  //methods
-  void renderWater(int direction, int gridSize);
-  int waterDirection(S_Coord town);
-
-  //attributes
-  S_Coord m_waterDrift;
-  int m_waterDirection;
-  C_AnimTime* m_animWater;
-};
-
-class C_Decors : public C_GameUnits
-{
-	public:
-	  C_Decors(std::string name, int x_grid, int y_grid);
-    virtual void render(S_Coord screen);
-    virtual void render(){std::cout << ":D";};
-  protected:
-  private:
-};
-
-class C_Ground : public C_GameUnits
-{
-  public:
-    C_Ground(std::string name, int x_grid, int y_grid);
-    virtual void render();
-};
-
-class C_Trees : public C_Decors
-{
-  public:
-    C_Trees(std::string name, int x_grid, int y_grid);
-    virtual void play();
-    virtual void render(S_Coord screen);
-
-  private:
-    int m_imageNbr;
-};
-
-
-class C_OutsideTile: public C_GameUnits
-{
+class C_Landscape {
 public:
-    C_OutsideTile();
-    virtual void render(S_Coord grid);
+	C_Landscape(S_Coord town);
+	~C_Landscape();
+	void render(int gridSize);
+	void renderBottomMask(int gridSize);
+	void renderTopMask(int gridSize);
+protected:
+private:
+	//methods
+	void renderWater(int direction, int gridSize);
+	int waterDirection(S_Coord town);
+
+	//attributes
+	S_Coord m_waterDrift;
+	int m_waterDirection;
+	C_AnimTime* m_animWater;
+};
+
+class C_Decors : public C_GameUnits {
+public:
+	C_Decors(std::string name, int x_grid, int y_grid);
+	virtual void render(S_Coord screen);
+	virtual void render()
+	{
+		std::cout << ":D";
+	};
+protected:
+private:
+};
+
+class C_Ground : public C_GameUnits {
+public:
+	C_Ground(std::string name, int x_grid, int y_grid);
+	virtual void render();
+};
+
+class C_Trees : public C_Decors {
+public:
+	C_Trees(std::string name, int x_grid, int y_grid);
+	virtual void play();
+	virtual void render(S_Coord screen);
+
+private:
+	int m_imageNbr;
+};
+
+
+class C_OutsideTile: public C_GameUnits {
+public:
+	C_OutsideTile();
+	virtual void render(S_Coord grid);
 };
 #endif

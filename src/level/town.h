@@ -23,14 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "shooter.h"
 
-class C_Town: public C_Shooter
-{
-  public:
-    C_Town(S_UnitModel model);
-  protected:
-  	virtual void play();
-  	virtual void render(S_Coord screen);
-  private:
+class C_Town: public C_Shooter {
+public:
+	C_Town(S_UnitModel model);
+protected:
+	virtual void play();
+	virtual void render(S_Coord screen);
+private:
 };
 
 #endif

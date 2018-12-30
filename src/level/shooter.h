@@ -27,32 +27,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../time.h"
 #include "../wallet.h"
 
-class C_Shooter : public C_GameUnits
-{
-	public:
+class C_Shooter : public C_GameUnits {
+public:
 	C_Shooter(S_UnitModel model);
 	virtual ~C_Shooter();
 
 	virtual	void displayStatus() const;
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
-  virtual void kill();
+	virtual void kill();
 	virtual void move();
 	virtual void drag(S_Coord screen);
-  virtual int getCost(){return m_cost;};
-	protected:
+	virtual int getCost()
+	{
+		return m_cost;
+	};
+protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);
 	virtual void render(S_Coord screen);
 	virtual	C_GameUnits* searchNextTarget(std::string type);
 	virtual void shootTarget(C_GameUnits &target);
-  virtual void drawEllipse(int x,int y, int width, bool ok);
+	virtual void drawEllipse(int x,int y, int width, bool ok);
 	virtual void drawRhombus(int x, int y,int width, int alpha, bool ok);
 
 	C_Weapon *m_weapon;
 	long m_lastShootTime;
-  bool m_justAdded;
+	bool m_justAdded;
 
-  int m_cost;
+	int m_cost;
 };
 
 #endif

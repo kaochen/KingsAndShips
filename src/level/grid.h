@@ -36,15 +36,20 @@ You can use x+1 to find a unit close to another one m_vgrid[x+1][y]*/
 #include "factory.h"
 
 //singleton
-class C_Grid
-{
+class C_Grid {
 public:
-	static	C_Grid& Instances() {return m_instance;};
-  void reset(int size);
+	static	C_Grid& Instances()
+	{
+		return m_instance;
+	};
+	void reset(int size);
 	void renderLayer(int layer);
-  int getSize(){return m_size;};
+	int getSize()
+	{
+		return m_size;
+	};
 	void addANewBoat(S_Unit boat);
-  int addUnit(std::string &type, int x_grid, int y_grid);
+	int addUnit(std::string &type, int x_grid, int y_grid);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 
@@ -52,41 +57,47 @@ public:
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
-  bool testBarricade(int x_grid, int y_grid);
+	bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
-  int size(){return m_vgrid.size() - 2;};
+	int size()
+	{
+		return m_vgrid.size() - 2;
+	};
 	void displayStatus();
 	void playAllUnits(int layer);
 	void deleteGrid();
 
 	bool selectATower(C_Coord clic);
 
-  virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
-  virtual bool mainEmpty(int x_grid, int y_grid);
-  virtual std::string getUnitType(int layer, int x_grid, int y_grid);
+	virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
+	virtual bool mainEmpty(int x_grid, int y_grid);
+	virtual std::string getUnitType(int layer, int x_grid, int y_grid);
 
 
-  void setTown(int x_grid, int y_grid);
-  S_Coord foundTown();
-  int getAllTownsLifeLevel();
+	void setTown(int x_grid, int y_grid);
+	S_Coord foundTown();
+	int getAllTownsLifeLevel();
 
 protected:
 	void unselectedAll(int x_grid, int y_grid);
-  void createAnEmptyGrid(int size);
+	void createAnEmptyGrid(int size);
 
 
 private:
-	C_Grid& operator= (const C_Grid&){return *this;}
-	C_Grid (const C_Grid&){}
+	C_Grid& operator= (const C_Grid&)
+	{
+		return *this;
+	}
+	C_Grid (const C_Grid&) {}
 
 	static C_Grid m_instance;
 	C_Grid();
 	~C_Grid();
 
-  std::vector < std::vector <C_ZLayer> > m_vgrid;
-  int m_size;
-  C_UnitFactory m_factory;
+	std::vector < std::vector <C_ZLayer> > m_vgrid;
+	int m_size;
+	C_UnitFactory m_factory;
 };
 
 #endif

@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_Weapon::C_Weapon(S_Weapon model):
-    m_weapon(model),
+	m_weapon(model),
 	m_x_screen(0),
 	m_y_screen(0),
 	m_shooting(false),
@@ -36,7 +36,7 @@ C_Weapon::C_Weapon(S_Weapon model):
 
 void C_Weapon::displayStatus() const
 {
- 	cout << "\t\t\tWeapon: " << m_weapon.type << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
+	cout << "\t\t\tWeapon: " << m_weapon.type << " (Damage: "<< m_weapon.damage << ", firerate: " << m_weapon.fireRate << ")" << endl;
 }
 
 
@@ -46,41 +46,43 @@ void C_Weapon::setShooting(bool status)
 }
 
 
-bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target){
-			int x_s_target = target.getXScreen();
-			int y_s_target = target.getYScreen();
-			int x_s_shooter = shooter.getXScreen();
-			int y_s_shooter = shooter.getYScreen();
-			int ab = x_s_target - x_s_shooter;
-			int bc = y_s_target - y_s_shooter;
-			int hyp = sqrt((ab*ab + bc*bc));
-			hyp -= hyp*m_dist/100;
-			double angle = atan2(ab,bc);
-			int newA = hyp*sin(angle);
-			int newB = hyp*cos(angle);
-			m_angle = 180 - (angle *180/3.14159265359);
-			if(m_angle < 0)
-				m_angle +=360;
+bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target)
+{
+	int x_s_target = target.getXScreen();
+	int y_s_target = target.getYScreen();
+	int x_s_shooter = shooter.getXScreen();
+	int y_s_shooter = shooter.getYScreen();
+	int ab = x_s_target - x_s_shooter;
+	int bc = y_s_target - y_s_shooter;
+	int hyp = sqrt((ab*ab + bc*bc));
+	hyp -= hyp*m_dist/100;
+	double angle = atan2(ab,bc);
+	int newA = hyp*sin(angle);
+	int newB = hyp*cos(angle);
+	m_angle = 180 - (angle *180/3.14159265359);
+	if(m_angle < 0)
+		m_angle +=360;
 
-			C_Coord coord(1,1); //need a random one
-			m_weapon.direction = coord.angleToDirection(m_angle);
-			//cout << "angle: " << m_angle << ":" << m_weapon.direction << endl;
+	C_Coord coord(1,1); //need a random one
+	m_weapon.direction = coord.angleToDirection(m_angle);
+	//cout << "angle: " << m_angle << ":" << m_weapon.direction << endl;
 
-			m_x_screen = x_s_shooter + newA;
-			m_y_screen = y_s_shooter + newB;
-			m_dist -= 4;
-			if (m_dist < 20){
-				m_dist = 80;
-				m_lastShootTime = SDL_GetTicks();
-				return true;
-				}
-			return false;
+	m_x_screen = x_s_shooter + newA;
+	m_y_screen = y_s_shooter + newB;
+	m_dist -= 4;
+	if (m_dist < 20) {
+		m_dist = 80;
+		m_lastShootTime = SDL_GetTicks();
+		return true;
+	}
+	return false;
 }
 
 
-void C_Weapon::render(){
-		C_TextureList& t=C_TextureList::Instances();
-		t.renderTextureEx("Weapons_arrow", m_x_screen,m_y_screen,m_angle, CENTER_TILE);
+void C_Weapon::render()
+{
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTextureEx("Weapons_arrow", m_x_screen,m_y_screen,m_angle, CENTER_TILE);
 }
 
 

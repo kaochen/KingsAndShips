@@ -42,11 +42,12 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 
 C_Boat::~C_Boat()
 {
-    delete m_animDirection;
-    delete m_C_Path;
+	delete m_animDirection;
+	delete m_C_Path;
 }
 
-void C_Boat::play(){
+void C_Boat::play()
+{
 	this->move();
 	string list[4] = {"town","barricade","ArcherTower","Turbine"};
 	this->shoot(list, 4);
@@ -55,87 +56,86 @@ void C_Boat::play(){
 		this->kill();
 };
 
-void C_Boat::kill(){
-    C_Shooter::kill();
-    C_Wallet& wallet=C_Wallet::Instances();
-    wallet.credit(m_cost); //reward when killing a boat
-    wallet.cliStatus();
+void C_Boat::kill()
+{
+	C_Shooter::kill();
+	C_Wallet& wallet=C_Wallet::Instances();
+	wallet.credit(m_cost); //reward when killing a boat
+	wallet.cliStatus();
 }
 
 void C_Boat::move()
 {
-    m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
+	m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
 	m_moving = true;
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town =  grid.foundTown();
 	*m_old_coord = *m_coord;
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
-	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)){
-       if(path.size() > 0){
+	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)) {
+		if(path.size() > 0) {
 
-		    //determine an angle
+			//determine an angle
 
-		    int old_x_grid = m_coord->getXGrid();
-		    int old_y_grid = m_coord->getYGrid();
+			int old_x_grid = m_coord->getXGrid();
+			int old_y_grid = m_coord->getYGrid();
 
-		    C_Coord destCoord = *path.top()->getCoord();
-		    destCoord.centerOnTile();
-		    S_Coord start = m_coord->getScreen();
-		    S_Coord dest = destCoord.getScreen();
-		    int ab = dest.x - start.x;
-		    int bc = dest.y - start.y;
-		    double angle = destCoord.atan2_360(ab,bc);
+			C_Coord destCoord = *path.top()->getCoord();
+			destCoord.centerOnTile();
+			S_Coord start = m_coord->getScreen();
+			S_Coord dest = destCoord.getScreen();
+			int ab = dest.x - start.x;
+			int bc = dest.y - start.y;
+			double angle = destCoord.atan2_360(ab,bc);
 
-            int speed = calcSpeed();
+			int speed = calcSpeed();
 
-		    //move following angle and speed
-		    C_Coord tmp = *m_coord;
-		    tmp.move(angle,speed);
-		    tmp.regenGridCoord();
-		    bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
-            if(!nextEmpty){
-		        m_coord->move(angle,speed);
-		        m_countStop = 0;
-                m_direction = destCoord.angleToDirection(angle);
-		        m_coord->regenGridCoord();
+			//move following angle and speed
+			C_Coord tmp = *m_coord;
+			tmp.move(angle,speed);
+			tmp.regenGridCoord();
+			bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
+			if(!nextEmpty) {
+				m_coord->move(angle,speed);
+				m_countStop = 0;
+				m_direction = destCoord.angleToDirection(angle);
+				m_coord->regenGridCoord();
 
-		        grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
-			        if(m_coord->closeToCenter(destCoord.getGrid(),2)){
-			            m_coord->centerOnTile(); //to not deviate too much from the path
-			            m_countRegenPath++;
-				        m_C_Path->goNextStep();
-			        }
-		    }
-		    else{
-		        m_countStop++;
-		        int count = FRAMERATE;
-		        if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),3)){
-		            count *= 3;
-		            }
-		        if (m_countStop > count){
-		                recalcPath(town);
-		        }
-		    }
-      }
-      if(m_countRegenPath > 3){
-            recalcPath(town);
-            if(!m_coord->closeToCenter(m_coord->getGrid(),12)){
-                m_C_Path->addANodeAtTheStartOfThePath(m_coord->getGrid());
-             }
-             else{
-                m_coord->centerOnTile();
-             }
+				grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
+				if(m_coord->closeToCenter(destCoord.getGrid(),2)) {
+					m_coord->centerOnTile(); //to not deviate too much from the path
+					m_countRegenPath++;
+					m_C_Path->goNextStep();
+				}
+			} else {
+				m_countStop++;
+				int count = FRAMERATE;
+				if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),3)) {
+					count *= 3;
+				}
+				if (m_countStop > count) {
+					recalcPath(town);
+				}
+			}
+		}
+		if(m_countRegenPath > 3) {
+			recalcPath(town);
+			if(!m_coord->closeToCenter(m_coord->getGrid(),12)) {
+				m_C_Path->addANodeAtTheStartOfThePath(m_coord->getGrid());
+			} else {
+				m_coord->centerOnTile();
+			}
 
-            m_countRegenPath = 0;
-      }
+			m_countRegenPath = 0;
+		}
 	}
 
-	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)){
-	   int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
-       if(path.size() == 0 && pauseNbr == 2){
-		            recalcPath(town);
-       }
+	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)) {
+		int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
+		if(path.size() == 0 && pauseNbr == 2) {
+			recalcPath(town);
+		}
 	}
 
 }
@@ -143,7 +143,8 @@ void C_Boat::move()
 
 
 
-void C_Boat::render(S_Coord screen){
+void C_Boat::render(S_Coord screen)
+{
 	C_TextureList& t=C_TextureList::Instances();
 
 	int imageNbr = 0;
@@ -151,19 +152,18 @@ void C_Boat::render(S_Coord screen){
 	if (m_moving)
 		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
 
-	if (this->alive()){
-	     status = ALIVE;
-	    if (m_weapon->getShooting())
-		    m_weapon->render();
-	    renderLifeBar(screen.x, screen.y);
-        m_C_Path->displayPath();
-	    }
-	else {
-	        status = DEAD;
-	        imageNbr = 0;
-	     }
-    string fileName = imageName(status,m_direction,imageNbr);
-    t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	if (this->alive()) {
+		status = ALIVE;
+		if (m_weapon->getShooting())
+			m_weapon->render();
+		renderLifeBar(screen.x, screen.y);
+		m_C_Path->displayPath();
+	} else {
+		status = DEAD;
+		imageNbr = 0;
+	}
+	string fileName = imageName(status,m_direction,imageNbr);
+	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
 
@@ -171,33 +171,33 @@ void C_Boat::receiveDamage(S_Weapon weapon)
 {
 	m_health -=weapon.damage;
 	m_speedImpact = weapon.speedImpact;
-	if (m_health < 0)
-	{
+	if (m_health < 0) {
 		m_health = 0;
 	}
 }
 
-void C_Boat::recalcPath(S_Coord dest){
-		delete m_C_Path;
-		m_C_Path = new C_Path(dest.x,dest.y);
-	    m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),dest.x,dest.y);
-		m_C_Path->showPath();
+void C_Boat::recalcPath(S_Coord dest)
+{
+	delete m_C_Path;
+	m_C_Path = new C_Path(dest.x,dest.y);
+	m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),dest.x,dest.y);
+	m_C_Path->showPath();
 }
 
-int C_Boat::calcSpeed(){
-            int speed = m_speed - m_speedImpact;
-            if (speed < 0){
-                    speed = VERY_SLOW;
-                    }
-            //reset malus on speed every x moves
-            //cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
-            if (m_speedImpactLoop > 0){
-                m_speedImpactLoop--;
-            }
-            else{
-                m_speedImpact = 0;
-                m_speedImpactLoop=10;
-                }
-           return speed;
+int C_Boat::calcSpeed()
+{
+	int speed = m_speed - m_speedImpact;
+	if (speed < 0) {
+		speed = VERY_SLOW;
+	}
+	//reset malus on speed every x moves
+	//cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
+	if (m_speedImpactLoop > 0) {
+		m_speedImpactLoop--;
+	} else {
+		m_speedImpact = 0;
+		m_speedImpactLoop=10;
+	}
+	return speed;
 }
 

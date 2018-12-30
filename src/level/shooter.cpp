@@ -29,9 +29,9 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_lastShootTime(0),
 	m_cost(model.cost)
 {
-    m_weapon = new C_Weapon(model.weapon);
-    C_Message m;
-    string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
+	m_weapon = new C_Weapon(model.weapon);
+	C_Message m;
+	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	m.printM(message);
 	m_coord->displayStatus();
 }
@@ -40,10 +40,11 @@ C_Shooter::~C_Shooter()
 {
 	delete m_weapon;
 }
-C_GameUnits*  C_Shooter::searchNextTarget(string type){
-    C_Grid& grid=C_Grid::Instances();
-    int gridSize = grid.getSize();;
-    //cout <<"search next target type:" << type << endl;
+C_GameUnits*  C_Shooter::searchNextTarget(string type)
+{
+	C_Grid& grid=C_Grid::Instances();
+	int gridSize = grid.getSize();;
+	//cout <<"search next target type:" << type << endl;
 	int gridDiag = m_weapon->getFireRange();
 
 	int x_grid = m_coord->getXGrid();
@@ -51,23 +52,23 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
 	C_GameUnits* target = nullptr;
 
 	map<int, C_GameUnits*> list;
-	for(int y = (y_grid - gridDiag); y <= (y_grid + gridDiag); y++){
-		for(int x = (x_grid - gridDiag); x <= (x_grid + gridDiag); x++){
-			if((x != x_grid || y != y_grid)){
-			    if(x >= 0 && x <= gridSize && y >= 0 && y <= gridSize){
-                    //cout << "test: "<< x << ":" << y << endl;
-				    C_GameUnits* tmp = grid.getUnits(x,y);
-				    if(tmp != nullptr){
-					    if(tmp->getType() == type){
-					     	int dist = getDistance(x,y);
-					     	list[dist] = tmp;
-				     	}
-				    }
+	for(int y = (y_grid - gridDiag); y <= (y_grid + gridDiag); y++) {
+		for(int x = (x_grid - gridDiag); x <= (x_grid + gridDiag); x++) {
+			if((x != x_grid || y != y_grid)) {
+				if(x >= 0 && x <= gridSize && y >= 0 && y <= gridSize) {
+					//cout << "test: "<< x << ":" << y << endl;
+					C_GameUnits* tmp = grid.getUnits(x,y);
+					if(tmp != nullptr) {
+						if(tmp->getType() == type) {
+							int dist = getDistance(x,y);
+							list[dist] = tmp;
+						}
+					}
 				}
 			}
 		}
 	}
-	if(!list.empty()){
+	if(!list.empty()) {
 		target = list.begin()->second;
 	}
 
@@ -75,23 +76,21 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type){
 }
 void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 {
-    for(int i = 0; i < nbrofTargets; i++){
-	    C_GameUnits* target = searchNextTarget(type[i]);
-	    if(target != nullptr){
-		    long currentTime = SDL_GetTicks();
-		    if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()){
-			    m_weapon->setShooting(true);
-			    shootTarget(*target);
-			    i = MAX_TARGETS + 1;
-			    //cout << target.getName() << " has been shot" << endl;
-		    }
-		    else {
-			    m_weapon->setShooting(false);
-			    }
-		    }
-	    else {
-		     m_weapon->setShooting(false);
-		    }
+	for(int i = 0; i < nbrofTargets; i++) {
+		C_GameUnits* target = searchNextTarget(type[i]);
+		if(target != nullptr) {
+			long currentTime = SDL_GetTicks();
+			if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()) {
+				m_weapon->setShooting(true);
+				shootTarget(*target);
+				i = MAX_TARGETS + 1;
+				//cout << target.getName() << " has been shot" << endl;
+			} else {
+				m_weapon->setShooting(false);
+			}
+		} else {
+			m_weapon->setShooting(false);
+		}
 	}
 }
 
@@ -100,16 +99,16 @@ void C_Shooter::kill()
 	C_Grid& grid=C_Grid::Instances();
 	C_Message m;
 	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ())
-	            + ":" + to_string(m_coord->getYGrid ()) + "\n");
- 	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
- 	m_selected = false;
+			 + ":" + to_string(m_coord->getYGrid ()) + "\n");
+	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
+	m_selected = false;
 }
 
 void C_Shooter::displayStatus() const
 {
 	C_GameUnits::displayStatus();
 	if(m_weapon != nullptr)
- 		m_weapon->displayStatus();
+		m_weapon->displayStatus();
 }
 
 
@@ -118,53 +117,60 @@ void C_Shooter::move()
 }
 
 
-void C_Shooter::shootTarget(C_GameUnits &target){
-	if(m_weapon->getShooting()){
+void C_Shooter::shootTarget(C_GameUnits &target)
+{
+	if(m_weapon->getShooting()) {
 		bool test = m_weapon->shoot(*this, target);
-		if (test){
+		if (test) {
 			target.receiveDamage(m_weapon->getWeaponInfo());
 		}
 	}
 }
 
 void C_Shooter::renderLifeBar(int x_screen, int y_screen)
-	{
-		C_Window& win=C_Window::Instances();
-		SDL_Renderer* renderer = win.getRenderer();
-		//add a life status above the boat
-		int l = 50;
-		int h = 6;
+{
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer* renderer = win.getRenderer();
+	//add a life status above the boat
+	int l = 50;
+	int h = 6;
 
-		//background
-		int x1_b = x_screen - TILE_HALF_WIDTH/2;
-		int y1_b = y_screen - 85;
-		int x2_b = x1_b + l;
-		int y2_b = y1_b + h;
+	//background
+	int x1_b = x_screen - TILE_HALF_WIDTH/2;
+	int y1_b = y_screen - 85;
+	int x2_b = x1_b + l;
+	int y2_b = y1_b + h;
 
-		//health
-        int x2_l = x1_b + (l*m_health/m_max_health);
+	//health
+	int x2_l = x1_b + (l*m_health/m_max_health);
 
-		int R = 0, G = 200, B = 0;
-        if (m_health < m_max_health/2){ R = 200; G = 0 ; }
-
-        int angle = 2;
-        if((x2_l - x1_b)<=(angle*2)){angle = 0;}
-
-        //highlight
-        int y2_h = y1_b + h/2 + 1;
-
-        //transparent background
-        roundedBoxRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,60);
-        //life
-        roundedBoxRGBA(renderer,x1_b,y1_b,x2_l,y2_b,angle,R,G,B,120);
-        //highlight
-        roundedBoxRGBA(renderer,x1_b+2,y1_b+2,x2_l-2,y2_h,0,255,255,255,80);
-        //border
-        roundedRectangleRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,255);
-
+	int R = 0, G = 200, B = 0;
+	if (m_health < m_max_health/2) {
+		R = 200;
+		G = 0 ;
 	}
 
-void C_Shooter::render(S_Coord screen){
+	int angle = 2;
+	if((x2_l - x1_b)<=(angle*2)) {
+		angle = 0;
+	}
+
+	//highlight
+	int y2_h = y1_b + h/2 + 1;
+
+	//transparent background
+	roundedBoxRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,60);
+	//life
+	roundedBoxRGBA(renderer,x1_b,y1_b,x2_l,y2_b,angle,R,G,B,120);
+	//highlight
+	roundedBoxRGBA(renderer,x1_b+2,y1_b+2,x2_l-2,y2_h,0,255,255,255,80);
+	//border
+	roundedRectangleRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,255);
+
+}
+
+void C_Shooter::render(S_Coord screen)
+{
 	C_GameUnits::render(screen);
 	if (m_weapon->getShooting())
 		m_weapon->render();
@@ -177,10 +183,10 @@ void C_Shooter::drag(S_Coord screen)
 	m_justAdded = false;
 	C_Grid& grid=C_Grid::Instances();
 
-    bool water = false;
-    if(m_type == "barricade"){
-            water = true;
-    }
+	bool water = false;
+	if(m_type == "barricade") {
+		water = true;
+	}
 	C_CoordScreen coord(screen);
 
 	int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
@@ -192,23 +198,22 @@ void C_Shooter::drag(S_Coord screen)
 	//draw square
 	x -=2;
 	y -=2;
-	for(int i = 0; i < 3; i++){
+	for(int i = 0; i < 3; i++) {
 		y++;
-		for(int j = 0; j < 3; j++){
+		for(int j = 0; j < 3; j++) {
 			x++;
 			C_CoordGrid tmp(x,y);
-			if(water){
-		    status = grid.waterway(x,y);
-			}
-			else{
-			    status = grid.isThisConstructible(tmp.getGrid ());
+			if(water) {
+				status = grid.waterway(x,y);
+			} else {
+				status = grid.isThisConstructible(tmp.getGrid ());
 			}
 			int x_s = tmp.getXScreen ();
 			int y_s = tmp.getYScreen ();
 			drawRhombus(x_s,y_s,70,40,status);
-			if (i == 1 && j == 1){
+			if (i == 1 && j == 1) {
 				drawRhombus(x_s,y_s,70,90,status);
-				}
+			}
 
 		}
 		x = coord.getXGrid () - 2;
@@ -220,27 +225,29 @@ void C_Shooter::drag(S_Coord screen)
 
 
 void C_Shooter::drawEllipse(int x,
-		int y,
-		int width,
-		bool ok){
-		int animNbr = m_animation[SELECTED]->getAnimNbr(10,20,500);
-		C_Window& win=C_Window::Instances();
-		width = width*90/100;
-		int height = width/2;
-		int R = 0, G = 200, B = 0, A = 10;
-			if(ok == false)
-				R = 120, G = 0, B = 0;
+							int y,
+							int width,
+							bool ok)
+{
+	int animNbr = m_animation[SELECTED]->getAnimNbr(10,20,500);
+	C_Window& win=C_Window::Instances();
+	width = width*90/100;
+	int height = width/2;
+	int R = 0, G = 200, B = 0, A = 10;
+	if(ok == false)
+		R = 120, G = 0, B = 0;
 
-        for(int i = animNbr; i >= 0; i--){
-        int w = width-i;
+	for(int i = animNbr; i >= 0; i--) {
+		int w = width-i;
 		aaellipseRGBA(win.getRenderer(),x,y,w,w/2,R,G,B,A+4*(animNbr -i));
-		}
-        filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A*4);
+	}
+	filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A*4);
 
 
 }
 
-void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok){
+void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok)
+{
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
 	Sint16 w =  width/2;
@@ -257,8 +264,8 @@ void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok){
 	Sint16 vx[] = {x1,x2,x3,x4};
 	Sint16 vy[] = {y1,y2,y3,y4};
 	int R = 0, G = 200, B = 0, A = alpha;
-			if(ok == false)
-				R = 120, G = 0, B = 0;
+	if(ok == false)
+		R = 120, G = 0, B = 0;
 	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
 	A = alpha * 2;

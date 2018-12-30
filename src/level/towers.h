@@ -25,14 +25,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../coord.h"
 
 
-class C_Towers: public C_Shooter
-{
-	public:
+class C_Towers: public C_Shooter {
+public:
 	//methods
-  C_Towers(S_UnitModel model);
+	C_Towers(S_UnitModel model);
 	virtual void play();
 
-	protected:
+protected:
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
 	void renderSmoke();
@@ -42,21 +41,19 @@ class C_Towers: public C_Shooter
 };
 
 
-class C_ArcherTower: public C_Towers
-{
-	public:
-    C_ArcherTower(S_UnitModel model);
-		virtual void render(S_Coord screen);
-	protected:
+class C_ArcherTower: public C_Towers {
+public:
+	C_ArcherTower(S_UnitModel model);
+	virtual void render(S_Coord screen);
+protected:
 
 };
 
-class C_Turbine: public C_Towers
-{
-	public:
-    C_Turbine(S_UnitModel model);
-		virtual void render(S_Coord screen);
-	protected:
+class C_Turbine: public C_Towers {
+public:
+	C_Turbine(S_UnitModel model);
+	virtual void render(S_Coord screen);
+protected:
 
 };
 

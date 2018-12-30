@@ -25,8 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../coord.h"
 #include "node.h"
 
-class C_Path
-{
+class C_Path {
 public:
 	C_Path(int x_dest, int y_dest);
 	~C_Path();
@@ -35,25 +34,28 @@ public:
 	void displayOpenList();
 
 	void setTown(int x_grid,int y_grid);
-  C_Node* getNode(size_t x_grid, size_t y_grid){return &m_vgridNode[x_grid][y_grid];};
+	C_Node* getNode(size_t x_grid, size_t y_grid)
+	{
+		return &m_vgridNode[x_grid][y_grid];
+	};
 	void showPath();
 	void show_H_G_F();
 	C_Node* closestNode();
-  bool closeToDestination(int x_grid, int y_grid, int steps);
+	bool closeToDestination(int x_grid, int y_grid, int steps);
 	void displayPath();
 	std::stack<C_Node*> getPath();
 	void goNextStep();
-  void addANodeAtTheStartOfThePath(S_Coord grid);
-  void regenScreenCoord();
+	void addANodeAtTheStartOfThePath(S_Coord grid);
+	void regenScreenCoord();
 private:
 	size_t findLowestF();
 	void loadPath();
-  void calcG_Around(C_Node *current);
-  bool crossACorner(int x_from, int y_from, int x_dest, int y_dest);
-  std::vector <C_Node*> m_vopenNodes;
+	void calcG_Around(C_Node *current);
+	bool crossACorner(int x_from, int y_from, int x_dest, int y_dest);
+	std::vector <C_Node*> m_vopenNodes;
 	C_Node* m_destination;
 	C_Node* m_start;
-  std::vector < std::vector <C_Node> > m_vgridNode;
+	std::vector < std::vector <C_Node> > m_vgridNode;
 	std::stack<C_Node*> m_path;
 };
 

@@ -21,18 +21,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_Town::C_Town(S_UnitModel model):C_Shooter(model){
+C_Town::C_Town(S_UnitModel model):C_Shooter(model)
+{
 }
 
-void C_Town::play(){
+void C_Town::play()
+{
 	string list[1] = {"boat"};
 	this->shoot(list,1);
 }
 
-void C_Town::render(S_Coord screen){
+void C_Town::render(S_Coord screen)
+{
 	C_GameUnits::render(screen);
 	//renderLifeBar(screen.x, screen.y);
-	if (m_weapon->getShooting()){
+	if (m_weapon->getShooting()) {
 		m_weapon->render();
 	}
 
