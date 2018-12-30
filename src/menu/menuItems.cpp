@@ -245,38 +245,39 @@ void C_MB_1Line::render(){
 
 //-------------------------------------------------------------
 
-C_MB_LevelCard::C_MB_LevelCard(string name,string text,int x_screen, int y_screen)
+C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen){
+	m_nbr = nbr;
         C_Window& win=C_Window::Instances();
-        S_LevelModel model = win.getLevelModel(1);
-        cout << "Level name: "<< model.name << endl;
+        S_LevelModel model = win.getLevelModel(m_nbr);
+
 	m_fontSize = 18;
-	m_title = name;
+	m_title = model.name;
 	m_titleName = "Card_Title_" + name;
-        m_text = text;
+        m_text = "blabla";
 	m_textName = "Card_Text_" + name;
 	m_width = 204;
 	m_height = 300;
 }
 
 void C_MB_LevelCard::render(){
-    C_Window& win=C_Window::Instances();
-		Uint8 R = 0, G = 0, B = 0;
+        C_Window& win=C_Window::Instances();
+	Uint8 R = 0, G = 0, B = 0;
         int zoom = 0;
         bool big = false;
-		if(m_state == ACTIVE){
-		    R = 50; G = 50; B = 50;
-		}
-		else if(m_state == HOVER){
-		    R = 8; G = 63; B = 127;
-		    zoom = 6;
-		    big = true;
-		    }
+	if(m_state == ACTIVE){
+	        R = 50; G = 50; B = 50;
+	}
+	else if(m_state == HOVER){
+	        R = 8; G = 63; B = 127;
+	        zoom = 6;
+	        big = true;
+        }
 
         Sint16 x1 = m_x_screen -zoom; //x top right
-		Sint16 y1 = m_y_screen -zoom;
-		Sint16 x2 = x1 + m_width + 2*zoom; //x bottom left
-		Sint16 y2 = y1 + m_height + 2*zoom;
+	Sint16 y1 = m_y_screen -zoom;
+	Sint16 x2 = x1 + m_width + 2*zoom; //x bottom left
+	Sint16 y2 = y1 + m_height + 2*zoom;
 
     	boxRGBA(win.getRenderer(),x1,y1,x2,y2,50,50,50,100);
     	boxRGBA(win.getRenderer(),x1,y1,x2,y1+50,R,G,B,255);
@@ -288,10 +289,10 @@ void C_MB_LevelCard::render(){
         corners(x1, y1, width, height, big);
 
     	C_TextureList& t=C_TextureList::Instances();
-        if(t.searchTexture(m_textName)== nullptr){
-             t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+        if(t.searchTexture(m_titleName)== nullptr){
+                t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
         }
-        t.renderTexture(m_textName, x1 + width/2, y1 + 25,CENTER);
+        t.renderTexture(m_titleName, x1 + width/2, y1 + 25,CENTER);
 
 }
 

@@ -115,13 +115,14 @@ class C_MB_1Line: public C_MenuItem  /*!Button Menu one line two texts*/
 
 class C_MB_LevelCard: public C_MenuItem  /*!Level Card to select a level*/
 {
-  public:
-  C_MB_LevelCard(std::string name,std::string text, int x_screen, int y_screen);
-  virtual void render();
-  protected:
-  std::string m_title;
-  std::string m_titleName;
-  std::string m_oldTitle;
+public:
+	C_MB_LevelCard(int nbr,std::string name, int x_screen, int y_screen);
+	virtual void render();
+protected:
+	int m_nbr;
+	std::string m_title;
+	std::string m_titleName;
+	std::string m_oldTitle;
 };
 
 class C_GB_AddUnit: public C_Button /*!Game Button add a new unit on the ground*/
