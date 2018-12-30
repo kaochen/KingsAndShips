@@ -24,10 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 
 
-enum coordinates{SCREEN,GRID};
+enum coordinates {SCREEN,GRID};
 
-class C_Coord
-{
+class C_Coord {
 public:
 	C_Coord(int x_grid, int y_grid);
 	C_Coord(S_Coord coord);
@@ -35,7 +34,7 @@ public:
 	virtual ~C_Coord();
 	virtual bool isEqual(C_Coord const &b) const;
 	virtual void applyOffset(S_Coord offset);
-  virtual bool onScreen(); /*!< To know if an object is visible on screen and need render*/
+	virtual bool onScreen(); /*!< To know if an object is visible on screen and need render*/
 	virtual void displayStatus();
 	virtual S_Coord getGrid();
 	virtual int getXGrid() const;
@@ -45,35 +44,33 @@ public:
 	virtual int getYScreen();
 	virtual void centerOnTile();
 	virtual int angleToDirection(double angle);
-  virtual double directionToAngle(int direction);
+	virtual double directionToAngle(int direction);
 	virtual void move(double angle, int speed);
 	virtual void regenGridCoord();
-  virtual void regenScreenCoord();
-  virtual double atan2_360(int ab, int bc);
+	virtual void regenScreenCoord();
+	virtual double atan2_360(int ab, int bc);
 	virtual bool closeToCenter(S_Coord grid, int px_length);
-  virtual int guessADirection(S_Coord start,S_Coord end);
+	virtual int guessADirection(S_Coord start,S_Coord end);
 
 protected:
-  void createCoordFromScreen(int x_screen, int y_screen);
+	void createCoordFromScreen(int x_screen, int y_screen);
 
 	S_Coord screenToGrid(S_Coord screen);
 	S_Coord gridToScreen(S_Coord grid);
 	S_NodeCoord m_this;
 };
 
-	bool operator==(C_Coord const &a,C_Coord const &b);
-	bool operator!=(C_Coord const &a,C_Coord const &b);
+bool operator==(C_Coord const &a,C_Coord const &b);
+bool operator!=(C_Coord const &a,C_Coord const &b);
 
-class C_CoordGrid: public C_Coord
-{
+class C_CoordGrid: public C_Coord {
 public:
 	C_CoordGrid(S_Coord coord);
 	C_CoordGrid(int x_grid, int y_grid);
 	virtual ~C_CoordGrid();
 };
 
-class C_CoordScreen: public C_Coord
-{
+class C_CoordScreen: public C_Coord {
 public:
 	C_CoordScreen(S_Coord coord);
 	C_CoordScreen(int x_screen, int y_screen);

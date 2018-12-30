@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_Xml::C_Xml(string const file_Path):
- m_file_path(file_Path)
+	m_file_path(file_Path)
 {
 }
 
@@ -33,216 +33,212 @@ C_Xml::C_Xml(string const file_Path):
 //<property name="rank" type="int" value="1"/> tsx files
 //<property name="wallet" value="200"/> tmx files
 
-string C_Xml::extractStrValue(string const &node, string const &id, string const &idValue, string const &name){
-     xmlpp::TextReader reader(m_file_path);
-     string value;
-     while(reader.read())
-        {
-        		string nodeName = reader.get_name();
+string C_Xml::extractStrValue(string const &node, string const &id, string const &idValue, string const &name)
+{
+	xmlpp::TextReader reader(m_file_path);
+	string value;
+	while(reader.read()) {
+		string nodeName = reader.get_name();
 
-	          	if (reader.has_attributes()){
-			    reader.move_to_first_attribute();
-			    do
-			    {
-			        string attrib = reader.get_name();
-			        if (nodeName == node && attrib == id){
-			          	string readName = reader.get_value();
-			          	if(readName == idValue){
-			                reader.move_to_first_attribute();
-			                do{
-			              		string attrib2 = reader.get_name();
-			                    if(attrib2 == name){
-			              	        value = reader.get_value();
-			              	    }
-			                }while(reader.move_to_next_attribute());
-
-                        }
-				    }
-				} while(reader.move_to_next_attribute());
-		}
-		reader.move_to_element();
-    	}
-    C_Message m;
-	m.printM("From: " + m_file_path +" in Node: "+ node + " where "+id+ "="+ idValue +", " +name+ " = "+ value+"\n");
-    return value;
-}
-
-
-
-string C_Xml::extractStrValue(string const &node, string const &name){
-     xmlpp::TextReader reader(m_file_path);
-     string value;
-     while(reader.read())
-        {
-        		string nodeName = reader.get_name();
-
-	          	if (reader.has_attributes()){
-			    reader.move_to_first_attribute();
-			    do
-			    {
-			        string attrib = reader.get_name();
-			        if (nodeName == node && attrib == name){
-                        value = reader.get_value();
-                    }
-				} while(reader.move_to_next_attribute());
-		}
-		reader.move_to_element();
-    	}
-    C_Message m;
-	m.printM("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ value+"\n");
-    return value;
-}
-
-string C_Xml::extractStrData(string const &node, string const &name){
-     xmlpp::TextReader reader(m_file_path);
-     string data;
-     string currentNodeName;
-     while(reader.read())
-        {
-        		string nodeType = reader.get_name();
-
-	          	if (reader.has_attributes()){
-			    reader.move_to_first_attribute();
-			    do
-			    {
-			        string attrib = reader.get_name();
-			        if (nodeType == node && attrib == "name"){
-			  	        currentNodeName = reader.get_value();
-				    }
-			        if (nodeType == "data" && currentNodeName == name){
-					        data = reader.read_inner_xml();
-				            currentNodeName ="";
+		if (reader.has_attributes()) {
+			reader.move_to_first_attribute();
+			do {
+				string attrib = reader.get_name();
+				if (nodeName == node && attrib == id) {
+					string readName = reader.get_value();
+					if(readName == idValue) {
+						reader.move_to_first_attribute();
+						do {
+							string attrib2 = reader.get_name();
+							if(attrib2 == name) {
+								value = reader.get_value();
+							}
+						} while(reader.move_to_next_attribute());
 
 					}
-				} while(reader.move_to_next_attribute());
+				}
+			} while(reader.move_to_next_attribute());
 		}
 		reader.move_to_element();
-    	}
-    C_Message m;
-	m.printDebug("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
-    return data;
+	}
+	C_Message m;
+	m.printM("From: " + m_file_path +" in Node: "+ node + " where "+id+ "="+ idValue +", " +name+ " = "+ value+"\n");
+	return value;
 }
 
 
-S_tmxLayer C_Xml::extractLayerInTMX(string layerName){
+
+string C_Xml::extractStrValue(string const &node, string const &name)
+{
+	xmlpp::TextReader reader(m_file_path);
+	string value;
+	while(reader.read()) {
+		string nodeName = reader.get_name();
+
+		if (reader.has_attributes()) {
+			reader.move_to_first_attribute();
+			do {
+				string attrib = reader.get_name();
+				if (nodeName == node && attrib == name) {
+					value = reader.get_value();
+				}
+			} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+	}
+	C_Message m;
+	m.printM("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ value+"\n");
+	return value;
+}
+
+string C_Xml::extractStrData(string const &node, string const &name)
+{
+	xmlpp::TextReader reader(m_file_path);
+	string data;
+	string currentNodeName;
+	while(reader.read()) {
+		string nodeType = reader.get_name();
+
+		if (reader.has_attributes()) {
+			reader.move_to_first_attribute();
+			do {
+				string attrib = reader.get_name();
+				if (nodeType == node && attrib == "name") {
+					currentNodeName = reader.get_value();
+				}
+				if (nodeType == "data" && currentNodeName == name) {
+					data = reader.read_inner_xml();
+					currentNodeName ="";
+
+				}
+			} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+	}
+	C_Message m;
+	m.printDebug("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
+	return data;
+}
+
+
+S_tmxLayer C_Xml::extractLayerInTMX(string layerName)
+{
 
 	S_tmxLayer layer;
 	layer.name = layerName;
 	layer.width = stoi(extractStrValue("layer","name",layerName,"width"));
 	layer.height = stoi(extractStrValue("layer","name",layerName,"height"));
-    layer.data =  extractStrData("layer", layerName);
+	layer.data =  extractStrData("layer", layerName);
 
 	//drop all \n
 	size_t start = 0;
 	string in = "\n", out = "";
-	while((start = layer.data.find(in,start)) != std::string::npos){
+	while((start = layer.data.find(in,start)) != std::string::npos) {
 		layer.data.replace(start,in.length(),out);
 		start += out.length();
 	}
 	//cout  << data << "////" << endl;
-    return layer;
+	return layer;
 }
 
 
-int C_Xml::countAttributes(string pattern){
+int C_Xml::countAttributes(string pattern)
+{
 	string old;
-    xmlpp::TextReader reader(m_file_path);
-    int c = 0;
-     while(reader.read())
-        {
-        	string nodeName = reader.get_name();
-        	if (reader.has_attributes()){
+	xmlpp::TextReader reader(m_file_path);
+	int c = 0;
+	while(reader.read()) {
+		string nodeName = reader.get_name();
+		if (reader.has_attributes()) {
 			reader.move_to_first_attribute();
-			do
-			{
-			  string attributes = reader.get_name();
-			  if (nodeName == "layer" && attributes == "name"){
-			  	    string value = reader.get_value();
-                    //cout << value << endl;
-			        if(value.compare(0,pattern.size(),pattern)==0 && old != value){
-			  	        c++;
-    			  	    old = value;
-			  	    }
+			do {
+				string attributes = reader.get_name();
+				if (nodeName == "layer" && attributes == "name") {
+					string value = reader.get_value();
+					//cout << value << endl;
+					if(value.compare(0,pattern.size(),pattern)==0 && old != value) {
+						c++;
+						old = value;
+					}
 				}
 				attributes = "";
 			} while(reader.move_to_next_attribute());
 		}
-	    reader.move_to_element();
-	    nodeName = "";
+		reader.move_to_element();
+		nodeName = "";
 	}
 	C_Message m;
 	m.printM(c +" "+ pattern + " in " + m_file_path +"\n");
-    return c;
+	return c;
 }
 
-int C_Xml::getIntProperty(string const &idValue, int Default){
-    int ret = Default;
-    C_Message m;
-    if(nodeExist("property", idValue)){
-        string text = extractStrValue("property","name",idValue,"value");
+int C_Xml::getIntProperty(string const &idValue, int Default)
+{
+	int ret = Default;
+	C_Message m;
+	if(nodeExist("property", idValue)) {
+		string text = extractStrValue("property","name",idValue,"value");
 
-        int False = 0;
-        if(text.size()>0){
-            for(size_t i = 0; i < text.size(); i++){
-            	if(!isdigit(text[i])){
-                    m.printM("name="+ idValue+" value= "+ text +" is not a number, It is replaced by \"Default\": "+ to_string(Default) + "\n");
-	                False++;
-            	}
-            }
-            if(False <= 0){
-                ret = stoi(text);
-            }
-        }
-        else{
-            m.printM("name="+ idValue+" value= "+ text +"  is empty It is replaced by \"Default\": "+ to_string(Default) + "\n");
-            ret = Default;
-        }
-    }
-    else{
-        m.printM("No property named: "+ idValue + " in " + m_file_path + "-> Apply \"Default\": " + to_string(Default) +"\n");
-    }
-    return ret;
+		int False = 0;
+		if(text.size()>0) {
+			for(size_t i = 0; i < text.size(); i++) {
+				if(!isdigit(text[i])) {
+					m.printM("name="+ idValue+" value= "+ text +" is not a number, It is replaced by \"Default\": "+ to_string(Default) + "\n");
+					False++;
+				}
+			}
+			if(False <= 0) {
+				ret = stoi(text);
+			}
+		} else {
+			m.printM("name="+ idValue+" value= "+ text +"  is empty It is replaced by \"Default\": "+ to_string(Default) + "\n");
+			ret = Default;
+		}
+	} else {
+		m.printM("No property named: "+ idValue + " in " + m_file_path + "-> Apply \"Default\": " + to_string(Default) +"\n");
+	}
+	return ret;
 }
 
 
-bool C_Xml::nodeExist(string const &node, string const &name){
-     xmlpp::TextReader reader(m_file_path);
-     string value;
-     bool ret = false;
-     while(reader.read())
-        {
-        		string nodeName = reader.get_name();
+bool C_Xml::nodeExist(string const &node, string const &name)
+{
+	xmlpp::TextReader reader(m_file_path);
+	string value;
+	bool ret = false;
+	while(reader.read()) {
+		string nodeName = reader.get_name();
 
-	          	if (reader.has_attributes()){
-			    reader.move_to_first_attribute();
-			    do
-			    {
-			        string attrib = reader.get_name();
-			        if (nodeName == node && attrib == "name"){
-                        value = reader.get_value();
-                        if(value == name){
-                            ret = true;
-                        }
-                    }
-				} while(reader.move_to_next_attribute());
+		if (reader.has_attributes()) {
+			reader.move_to_first_attribute();
+			do {
+				string attrib = reader.get_name();
+				if (nodeName == node && attrib == "name") {
+					value = reader.get_value();
+					if(value == name) {
+						ret = true;
+					}
+				}
+			} while(reader.move_to_next_attribute());
 		}
 		reader.move_to_element();
-    	}
-
-	if(!ret){
-	 C_Message m;
-	    m.printM("From: " + m_file_path +" the Node: "+ node  +" where " + "name="+ name + " does not exist\n");
 	}
 
-    return ret;
+	if(!ret) {
+		C_Message m;
+		m.printM("From: " + m_file_path +" the Node: "+ node  +" where " + "name="+ name + " does not exist\n");
+	}
+
+	return ret;
 }
 
-string C_Xml::getStrProperty(string const &property, string Default){
-    string ret = extractStrValue("property","name",property,"value");
-    if(ret.size()==0){
-        ret = Default;
-        C_Message m;
-	    m.printM("From: " + m_file_path +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
-    }
-    return ret;
+string C_Xml::getStrProperty(string const &property, string Default)
+{
+	string ret = extractStrValue("property","name",property,"value");
+	if(ret.size()==0) {
+		ret = Default;
+		C_Message m;
+		m.printM("From: " + m_file_path +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
+	}
+	return ret;
 }

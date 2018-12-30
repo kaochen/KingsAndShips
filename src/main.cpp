@@ -23,15 +23,15 @@ using namespace std;
 
 int main()
 {
-        //init random
-        srand(time(NULL));
+	//init random
+	srand(time(NULL));
 
 	//init settings
 	C_Window& win=C_Window::Instances();
 	win.createWindow();
-        win.loadGame();
-        win.listLevels();
-        win.gameLoop();
+	win.loadGame();
+	win.listLevels();
+	win.gameLoop();
 	win.quitProgram();
 	return 0;
 }

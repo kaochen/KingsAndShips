@@ -41,7 +41,8 @@ C_Time::C_Time():
 	m_lastFrameTime = 0;
 }
 
-C_Time::~C_Time(){
+C_Time::~C_Time()
+{
 }
 
 
@@ -53,75 +54,75 @@ void C_Time::displayTime() const
 
 void C_Time::showFPS() const
 {
-		C_Window& win=C_Window::Instances();
-		SDL_Renderer* renderer = win.getRenderer();
-		C_Settings& settings=C_Settings::Instances();
-		//add a life status above the boat
+	C_Window& win=C_Window::Instances();
+	SDL_Renderer* renderer = win.getRenderer();
+	C_Settings& settings=C_Settings::Instances();
+	//add a life status above the boat
 
-		int red = 0, green = 200;
-		SDL_Rect f, b, m;
-		    b.x = 20;
-		    b.y = settings.getWindowHeight() - 2*TILE_HALF_HEIGHT;
-		    b.w = 10;
-		    b.h = m_framerate;
+	int red = 0, green = 200;
+	SDL_Rect f, b, m;
+	b.x = 20;
+	b.y = settings.getWindowHeight() - 2*TILE_HALF_HEIGHT;
+	b.w = 10;
+	b.h = m_framerate;
 
-		    f.x = b.x + 1;
-		    f.y = b.y + 1;
-		    f.w = b.w - 2;
-		    f.h = m_frameNbr;
+	f.x = b.x + 1;
+	f.y = b.y + 1;
+	f.w = b.w - 2;
+	f.h = m_frameNbr;
 
-            m.x = b.x - 2;
-            m.y = b.y;
-            m.w = b.w + 4;
-            m.h = 2;
+	m.x = b.x - 2;
+	m.y = b.y;
+	m.w = b.w + 4;
+	m.h = 2;
 
-		    SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-		    //draw background
-		    SDL_RenderFillRect( renderer, &b );
-		    //draw 4 little lines
-		    for(int i = 0; i < 5; i++){
-		        m.y = b.y + i*(b.h/4);
-		        SDL_RenderFillRect( renderer, &m );
-		    }
-		    //fill with green
-		    SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
-		    SDL_RenderFillRect( renderer, &f );
+	SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
+	//draw background
+	SDL_RenderFillRect( renderer, &b );
+	//draw 4 little lines
+	for(int i = 0; i < 5; i++) {
+		m.y = b.y + i*(b.h/4);
+		SDL_RenderFillRect( renderer, &m );
+	}
+	//fill with green
+	SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
+	SDL_RenderFillRect( renderer, &f );
 }
 
 void C_Time::updateFrameNbr()
 {
 	m_currentTime = SDL_GetTicks();
-	if ((m_currentTime - m_start_frame) > (1000/FRAMERATE)){
+	if ((m_currentTime - m_start_frame) > (1000/FRAMERATE)) {
 		m_frameNbr++;
 		m_frameNbrFromStart++;
 		//cout << m_frameNbr << "/" << m_frameNbrFromStart << endl;
-		}
+	}
 
 	m_sec = m_currentTime/1000;
-	if (m_sec != m_lastSec){
+	if (m_sec != m_lastSec) {
 		m_frameNbr = 0;
 		m_lastSec = m_sec;
-		}
+	}
 }
 
 void C_Time::delayGameLoop()
 {
 	long delay = 0;
 	long frameDuration = SDL_GetTicks() - m_start_frame;
-		if (frameDuration < m_frame_duration){
-			delay = m_frame_duration - frameDuration;
-			}
+	if (frameDuration < m_frame_duration) {
+		delay = m_frame_duration - frameDuration;
+	}
 	SDL_Delay(delay);
 	updateFrameNbr();
 }
 
 
-bool C_Time::testNewFrame(){
-	if (m_frameNbr != m_previousFrameNbr){
+bool C_Time::testNewFrame()
+{
+	if (m_frameNbr != m_previousFrameNbr) {
 		m_previousFrameNbr = m_frameNbr;
 		return true;
-		}
-	else
+	} else
 		return false;
 }
 
@@ -138,37 +139,37 @@ C_AnimTime::~C_AnimTime()
 {
 }
 
-int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay){
+int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay)
+{
 	long current = SDL_GetTicks();
-	if (current > m_lastAnimTime + delay){
+	if (current > m_lastAnimTime + delay) {
 		m_animNbr++;
 		m_lastAnimTime = current;
-		}
+	}
 	//loop
-	if (m_animNbr > endNbr){
+	if (m_animNbr > endNbr) {
 		m_animNbr = startNbr;
 	}
 	return m_animNbr;
 }
 
-int C_AnimTime::getLoopAnimNbr(int startNbr, int endNbr, long delay){
+int C_AnimTime::getLoopAnimNbr(int startNbr, int endNbr, long delay)
+{
 	long current = SDL_GetTicks();
-	if (current > m_lastAnimTime + delay){
-	    if(m_rewind){
-	        m_animNbr--;
-	        }
-	    else{
-	        m_animNbr++;
-	        }
+	if (current > m_lastAnimTime + delay) {
+		if(m_rewind) {
+			m_animNbr--;
+		} else {
+			m_animNbr++;
+		}
 
 		m_lastAnimTime = current;
-		}
+	}
 	//loop
-	if (m_animNbr >= endNbr){
+	if (m_animNbr >= endNbr) {
 		m_animNbr = endNbr;
 		m_rewind = true;
-	}
-	else if (m_animNbr <= startNbr){
+	} else if (m_animNbr <= startNbr) {
 		m_animNbr = startNbr;
 		m_rewind = false;
 	}
@@ -180,16 +181,16 @@ int C_AnimTime::getLoopAnimNbr(int startNbr, int endNbr, long delay){
 
 
 
-bool C_AnimTime::frameDelay(int delay){
+bool C_AnimTime::frameDelay(int delay)
+{
 	C_Time& time=C_Time::Instances();
-    long current = time.getFrameNbrFromStart();
-    //cout << "current " << current << " lastFrameNbr " << m_lastFrameNbr << "+" << delay << endl;
-    if(current > (m_lastFrameNbr + delay)){
-        m_lastFrameNbr = current;
-        return true;
-    }
-    else{
-        return  false;
-    }
+	long current = time.getFrameNbrFromStart();
+	//cout << "current " << current << " lastFrameNbr " << m_lastFrameNbr << "+" << delay << endl;
+	if(current > (m_lastFrameNbr + delay)) {
+		m_lastFrameNbr = current;
+		return true;
+	} else {
+		return  false;
+	}
 }
 

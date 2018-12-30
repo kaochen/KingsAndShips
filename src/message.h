@@ -21,19 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 
-class C_Message{
-  public:
-    C_Message();
-    ~C_Message();
-    void printM(std::string message);
-    void printError(std::string message);
-    void printDebug(std::string message);
-    void printDebugPath(std::string message);
-    void printSDLerror(std::string message);
-    void printTTFerror(std::string message);
+class C_Message {
+public:
+	C_Message();
+	~C_Message();
+	void printM(std::string message);
+	void printError(std::string message);
+	void printDebug(std::string message);
+	void printDebugPath(std::string message);
+	void printSDLerror(std::string message);
+	void printTTFerror(std::string message);
 
-  private:
-    void timestamp();
+private:
+	void timestamp();
 };
 
 
