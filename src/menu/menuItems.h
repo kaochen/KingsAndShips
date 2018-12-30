@@ -120,9 +120,11 @@ public:
 	virtual void render();
 protected:
 	int m_nbr;
+	std::string m_id;
+	std::string m_idName;
+
 	std::string m_title;
 	std::string m_titleName;
-	std::string m_oldTitle;
 };
 
 class C_GB_AddUnit: public C_Button /*!Game Button add a new unit on the ground*/

@@ -254,7 +254,11 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	m_fontSize = 18;
 	m_title = model.name;
 	m_titleName = "Card_Title_" + name;
-        m_text = "blabla";
+
+	m_id = to_string(model.nbr);
+	m_idName = "Card_id_" + name;
+
+        m_text = "Grid Size: " + to_string(model.gridSize);
 	m_textName = "Card_Text_" + name;
 	m_width = 204;
 	m_height = 300;
@@ -294,6 +298,15 @@ void C_MB_LevelCard::render(){
         }
         t.renderTexture(m_titleName, x1 + width/2, y1 + 25,CENTER);
 
+        if(t.searchTexture(m_idName)== nullptr){
+                t.loadTextAsTexturesIntoMap(m_idName, m_id, m_fontSize - 4, m_color);
+        }
+        t.renderTexture(m_idName, x1 + 20, y1 + 20,LEFT);
+
+        if(t.searchTexture(m_textName)== nullptr){
+                t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize - 4, m_color);
+        }
+        t.renderTexture(m_textName, x1 + width/2, y1 + height - 30,CENTER);
 }
 
 //-------------------------------------------------------------
