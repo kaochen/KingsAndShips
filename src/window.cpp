@@ -348,6 +348,13 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	int u = 0;
 	int d = 0;
 	switch(event.key.keysym.sym) {
+	case SDLK_ESCAPE:{
+		C_OpenMenu menu;
+		if(menu.getBool()){//if menu open ?
+			menu.action(); //close it
+			}
+		}
+		break;
 	case SDLK_d:
 		settings.setDebugMode();
 		settings.displayDebugMode();
@@ -355,11 +362,11 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	case SDLK_l:
 		loadLevel(m_levelNbr +1);
 		break;
-	case SDLK_m: {
+	case SDLK_m:{
 		C_OpenMenu openMenu;
 		openMenu.action();
-	}
-	break;
+		}
+		break;
 
 	case SDLK_n:
 		m_level->sendNextWave();
