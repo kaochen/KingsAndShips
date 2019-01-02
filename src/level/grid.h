@@ -81,7 +81,6 @@ public:
 	int getAllTownsLifeLevel();
 
 protected:
-	void unselected(int x_grid, int y_grid);
 	void createAnEmptyGrid(int size);
 
 
