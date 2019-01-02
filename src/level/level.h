@@ -69,6 +69,7 @@ public:
 	void render();
 	void play();
 	bool selectATower(S_Coord clic);
+	void unselectedAll();
 	void addUnit(std::string &type, S_Coord clic);
 	S_Coord getGridTown();
 

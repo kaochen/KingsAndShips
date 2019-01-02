@@ -319,7 +319,7 @@ bool C_Grid::selectATower(C_Coord clic)
 	string type ="";
 	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()-1) && grid.y >= 0 && grid.y < (int)(m_vgrid.size()-1)) {
 		if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr) {
-			unselectedAll(grid.x+1,grid.x+1);
+			unselectedAll();
 			type = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getType();
 			if(type == "ArcherTower" || type == "Turbine") {
 				message =  "Found top " + type;
@@ -331,7 +331,7 @@ bool C_Grid::selectATower(C_Coord clic)
 		} else {
 			if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr) {
 				type = m_vgrid[grid.x][grid.y].get(FIELD)->getType();
-				unselectedAll(grid.x,grid.y);
+				unselectedAll();
 				if(type == "ArcherTower"|| type == "Turbine") {
 					message =  "Found bottom" + type;
 					m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
@@ -340,7 +340,7 @@ bool C_Grid::selectATower(C_Coord clic)
 					message = "Found " + type;
 				}
 			} else {
-				unselectedAll(grid.x,grid.y);
+				unselectedAll();
 				message = "Nothing";
 			}
 
@@ -352,7 +352,7 @@ bool C_Grid::selectATower(C_Coord clic)
 	return selected;
 }
 
-void C_Grid::unselectedAll(int x_grid, int y_grid)
+void C_Grid::unselected(int x_grid, int y_grid)
 {
 	bool status = false;
 	//backup status
@@ -361,18 +361,21 @@ void C_Grid::unselectedAll(int x_grid, int y_grid)
 			status = m_vgrid[x_grid][y_grid].get(FIELD)->getSelectedStatus();
 		}
 		//erase all
-		for (size_t y = 0; y < m_vgrid[0].size(); y++) {
-			for (size_t x = 0; x < m_vgrid.size(); x++) {
-				if ( m_vgrid[x][y].get(FIELD) != nullptr)
-					m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
-			}
-		}
+		unselectedAll();
 		//restore status
 		if ( m_vgrid[x_grid][y_grid].get(FIELD) != nullptr) {
 			m_vgrid[x_grid][y_grid].get(FIELD)->setSelectedStatus(status);
 		}
 	}
 
+}
+void C_Grid::unselectedAll(){
+	for (size_t y = 0; y < m_vgrid[0].size(); y++) {
+		for (size_t x = 0; x < m_vgrid.size(); x++) {
+			if ( m_vgrid[x][y].get(FIELD) != nullptr)
+				m_vgrid[x][y].get(FIELD)->setSelectedStatus(false);
+		}
+	}
 }
 
 

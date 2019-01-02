@@ -353,6 +353,8 @@ void C_Window::listenKeyboard(SDL_Event &event)
 		if(menu.getBool()){//if menu open ?
 			menu.action(); //close it
 			}
+
+		m_level->unselectedAll();
 		}
 		break;
 	case SDLK_d:

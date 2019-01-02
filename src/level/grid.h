@@ -69,6 +69,7 @@ public:
 	void deleteGrid();
 
 	bool selectATower(C_Coord clic);
+	void unselectedAll();
 
 	virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
 	virtual bool mainEmpty(int x_grid, int y_grid);
@@ -80,7 +81,7 @@ public:
 	int getAllTownsLifeLevel();
 
 protected:
-	void unselectedAll(int x_grid, int y_grid);
+	void unselected(int x_grid, int y_grid);
 	void createAnEmptyGrid(int size);
 
 

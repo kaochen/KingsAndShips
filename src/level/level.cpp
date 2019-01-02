@@ -291,6 +291,12 @@ bool C_Level::selectATower(S_Coord clic)
 	return grid.selectATower(coord);
 }
 
+void C_Level::unselectedAll()
+{
+	C_Grid& grid=C_Grid::Instances();
+	grid.unselectedAll();
+}
+
 void C_Level::addUnit(string &type, S_Coord clic)
 {
 	C_Grid& grid=C_Grid::Instances();
