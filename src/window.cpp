@@ -399,6 +399,7 @@ void C_Window::listenKeyboard(SDL_Event &event)
 		break;
 	}
 	settings.moveCameraPosition(r,l,d,u);
+	m_clic.x = m_clic.y = 0;
 }
 
 void C_Window::loadLevel(int levelNbr)
