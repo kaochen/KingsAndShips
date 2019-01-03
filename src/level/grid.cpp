@@ -312,7 +312,7 @@ void C_Grid::deleteGrid()
 bool C_Grid::selectATower(C_Coord clic)
 {
 	S_Coord grid = clic.getGrid();
-	bool selected = false;
+	bool selected = false, top = false, bottom = false;
 	C_Settings& settings=C_Settings::Instances();
 	C_Message m;
 	string message ="";
@@ -322,28 +322,37 @@ bool C_Grid::selectATower(C_Coord clic)
 		if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr) {
 			type = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getType();
 			if(type == "ArcherTower" || type == "Turbine") {
-				message =  "Found top " + type;
-				m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
-				selected = true;
-			} else {
-				message = "Found " + type;
+				bottom = true;
 			}
-		} else {
-			if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr) {
-				type = m_vgrid[grid.x][grid.y].get(FIELD)->getType();
-				if(type == "ArcherTower"|| type == "Turbine") {
-					message =  "Found bottom" + type;
-					m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
-					selected = true;
-				} else {
-					message = "Found " + type;
-				}
-			} else {
-				message = "Nothing";
-			}
-
 		}
+		if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr) {
+			type = m_vgrid[grid.x][grid.y].get(FIELD)->getType();
+			if(type == "ArcherTower"|| type == "Turbine") {
+				top = true;
+			}
+		}
+
+		if(bottom && !top){
+			message =  "Found bottom " + type;
+			m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
+			selected = true;
+		} else if(bottom && top){
+			message =  "Found bottom " + type;
+			m_vgrid[grid.x+1][grid.y+1].get(FIELD)->reverseSelectedStatus();
+			selected = true;
+		} else if(!bottom && top){
+			message =  "Found top " + type;
+			m_vgrid[grid.x][grid.y].get(FIELD)->reverseSelectedStatus();
+			selected = true;
+		} else {
+			message = "Nothing";
+			selected = false;
+		}
+	} else {
+		message = "Nothing";
+		selected = false;
 	}
+
 	m.printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
 	if(settings.getDebugMode())
 		clic.displayStatus();
