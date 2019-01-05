@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "shooter.h"
 #include "../coord.h"
+#include "../menu/menuItems.h"
 
 
 class C_Towers: public C_Shooter {
@@ -38,6 +39,7 @@ protected:
 
 	long m_lastSmokeTime;
 	int m_smokeNbr;
+  C_MenuItem * m_upgradeButton;
 };
 
 

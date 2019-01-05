@@ -492,3 +492,17 @@ string C_GP_Status::colorToStr(int color)
 	}
 
 }
+
+
+C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
+	:C_MenuItem(name,screen.x,screen.y)
+{
+	m_width = 12;
+	m_height = 12;
+}
+
+void C_GU_Upgrade::render()
+{
+	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture("icons_12px_arrow_big", m_x_screen,m_y_screen -128,CENTER);
+}
