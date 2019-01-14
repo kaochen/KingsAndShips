@@ -224,6 +224,8 @@ vector<string> C_Menu::getMenuItemsList()
 	if(unit != nullptr){
 	    list.push_back("upgradeTower");
 	    S_Coord coord = unit->getScreen();
+	    coord.x -=32;
+	    coord.y -=120;
 	    m_menuItemsList["upgradeTower"]->setScreen(coord);
     }
 

@@ -66,3 +66,9 @@ void C_Play::action()
 	settings.setPlaying();
 
 }
+
+void C_UpgradeUnit::action()
+{
+    cout << "Upgrade Unit" << endl;
+
+}

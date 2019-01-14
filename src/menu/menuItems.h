@@ -156,11 +156,11 @@ protected:
 	int m_colorOut;
 };
 
-class C_GU_Upgrade: public C_MenuItem{
+class C_GU_Upgrade: public C_Button{
 public:
   	C_GU_Upgrade(std::string name,S_Coord screen);
     ~C_GU_Upgrade(){};
-    void render();
+
 };
 
 #endif
