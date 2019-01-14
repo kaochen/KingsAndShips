@@ -45,7 +45,7 @@ C_Menu::C_Menu():
 	m_menuItemsList["AddTurbine"] = new C_GB_AddUnit("AddTurbine","AddTurbine",x_button,y_button);
 	y_button +=size;
 	m_menuItemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
-	S_Coord upgradeCoord = {400,400};
+	S_Coord upgradeCoord = {10,10};
 	m_menuItemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",upgradeCoord);
 
 	updateInfos();

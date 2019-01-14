@@ -497,6 +497,7 @@ string C_GP_Status::colorToStr(int color)
 C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
 	:C_Button(name,"AddSpare",screen.x,screen.y)
 {
+    m_type = ACTION;
     m_command = new C_UpgradeUnit();
 }
 
