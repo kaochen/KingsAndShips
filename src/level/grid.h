@@ -70,6 +70,7 @@ public:
 
 	bool selectATower(C_Coord clic);
 	void unselectedAll();
+  C_GameUnits* getSelected();
 
 	virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
 	virtual bool mainEmpty(int x_grid, int y_grid);

@@ -29,7 +29,6 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_lastSmokeTime = 0;
 	m_smokeNbr = 1;
 	m_justAdded = true;
-	m_upgradeButton = new 	C_GU_Upgrade("upgrade",m_coord->getScreen());
 }
 
 void C_Towers::play()
@@ -55,8 +54,6 @@ void C_Towers::render(S_Coord screen)
 {
 	renderSelected();
 	C_Shooter::render(screen);
-	if(m_upgradeButton != nullptr)
-		m_upgradeButton->setScreen(screen);
 	if (m_justAdded)
 		renderSmoke();
 }
@@ -66,8 +63,6 @@ void C_Towers::renderSelected()
 	if (m_selected == true) {
 		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
 		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width, true);
-		if(m_upgradeButton != nullptr)
-			m_upgradeButton->render();
 	}
 }
 

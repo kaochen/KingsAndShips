@@ -45,6 +45,8 @@ C_Menu::C_Menu():
 	m_menuItemsList["AddTurbine"] = new C_GB_AddUnit("AddTurbine","AddTurbine",x_button,y_button);
 	y_button +=size;
 	m_menuItemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
+	S_Coord upgradeCoord = {400,400};
+	m_menuItemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",upgradeCoord);
 
 	updateInfos();
 	//add the bottom buttons line
@@ -217,6 +219,13 @@ vector<string> C_Menu::getMenuItemsList()
 	list.push_back("home");
 	list.push_back("play");
 
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+	    list.push_back("upgradeTower");
+	    S_Coord coord = unit->getScreen();
+	    m_menuItemsList["upgradeTower"]->setScreen(coord);
+    }
 
 	if(m_bottomMenuOpen) {
 		//get tab selector buttons
