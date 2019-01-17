@@ -71,15 +71,15 @@ void C_UnitFactory::upgrade(C_GameUnits * unit)
 {
 	if(unit != nullptr){
 		int currentRank = unit->getRank();
+		string currentName = unit->getName();
 		string type = unit->getType();
 		int newRank = currentRank + 1;
-		string up = type +"_"+ to_string(newRank);
-		C_Message m;
-		m.printM(type + " Rank : " + to_string(currentRank) + "\n");
-		if(type == "ArcherTower"){
+		if(type == "ArcherTower" && currentRank < 3){
+			string up = type +"_"+ to_string(newRank);
 			S_UnitModel model = m_models[up];
-			m.printM("New rank "+ model.name + " " + to_string(model.cost) +"\n");
 			unit->upgrade(model);
+			C_Message m;
+			m.printM("Upgrade "+ currentName +" to "+ model.name + ". Cost: " + to_string(model.cost) +"\n");
 		}
 	}
 }

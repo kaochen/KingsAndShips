@@ -73,7 +73,6 @@ void C_UpgradeUnit::action()
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
 		grid.upgradeUnit(unit);
-		cout << "Upgrade Unit" << endl;
 	} else {
 		C_Message m;
 		m.printM("No unit is selected");
