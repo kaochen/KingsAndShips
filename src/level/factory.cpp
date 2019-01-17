@@ -65,6 +65,23 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 	return unit;
 }
 
+void C_UnitFactory::upgrade(C_GameUnits * unit)
+{
+	if(unit != nullptr){
+		int currentRank = unit->getRank();
+		string type = unit->getType();
+		int newRank = currentRank + 1;
+		string up = type +"_"+ to_string(newRank);
+		C_Message m;
+		m.printM(type + " Rank : " + to_string(currentRank) + "\n");
+		if(type == "ArcherTower"){
+			S_UnitModel model = m_models[up];
+			m.printM("New rank "+ model.name + " " + to_string(model.cost) +"\n");
+			unit->upgrade(model);
+		}
+	}
+}
+
 S_UnitModel C_UnitFactory::extractProperties(string filename)
 {
 	C_Xml tsx(filename);

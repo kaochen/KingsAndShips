@@ -72,6 +72,7 @@ public:
 	virtual ~C_GameUnits();
 	virtual void play() {};
 	virtual void move() {};
+	virtual void upgrade(S_UnitModel model) {};
 	virtual void drag(S_Coord screen)
 	{
 		std::cout << "drag() "<< screen.x;
@@ -89,6 +90,8 @@ public:
 	{
 		return m_type;
 	};
+
+	virtual int getRank() const {return m_rank;};
 	virtual void displayStatus() const;
 	virtual void render(S_Coord screen);
 	virtual void render()

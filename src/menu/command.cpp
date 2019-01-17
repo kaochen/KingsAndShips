@@ -69,6 +69,14 @@ void C_Play::action()
 
 void C_UpgradeUnit::action()
 {
-    cout << "Upgrade Unit" << endl;
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+		grid.upgradeUnit(unit);
+		cout << "Upgrade Unit" << endl;
+	} else {
+		C_Message m;
+		m.printM("No unit is selected");
+	}
 
 }

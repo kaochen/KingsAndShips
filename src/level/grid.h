@@ -52,6 +52,7 @@ public:
 	int addUnit(std::string &type, int x_grid, int y_grid);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
+  void upgradeUnit(C_GameUnits * unit){m_factory.upgrade (unit);};
 
 	C_GameUnits* getUnits(int x_grid, int y_grid);
 	void setGround(int x, int y, int id);

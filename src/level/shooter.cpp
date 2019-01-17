@@ -116,6 +116,17 @@ void C_Shooter::move()
 {
 }
 
+void C_Shooter::upgrade(S_UnitModel model)
+{
+	m_rank = model.rank;
+	m_name = model.name;
+
+	if(m_weapon != nullptr){
+		delete m_weapon;
+	}
+	m_weapon = new C_Weapon(model.weapon);
+};
+
 
 void C_Shooter::shootTarget(C_GameUnits &target)
 {
