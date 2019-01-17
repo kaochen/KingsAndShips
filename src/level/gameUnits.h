@@ -72,7 +72,7 @@ public:
 	virtual ~C_GameUnits();
 	virtual void play() {};
 	virtual void move() {};
-	virtual void upgrade(S_UnitModel model) {};
+	virtual void upgrade(S_UnitModel model) {std::cout << "model " << model.name;};
 	virtual void drag(S_Coord screen)
 	{
 		std::cout << "drag() "<< screen.x;

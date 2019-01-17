@@ -28,9 +28,10 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory()
 {
-	int size = 7;
+	int size = 9;
 	string file[size] = {"boat_00.tsx","boat_01.tsx","archerTower_00.tsx",
-						 "archerTower_01.tsx","barricade_01.tsx","town_01.tsx","turbine_00.tsx"
+			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
+			"barricade_01.tsx","town_01.tsx","turbine_00.tsx"
 						};
 	for(int i = 0; i < size; i++) {
 		string path = "data/img/" + file[i];
@@ -53,7 +54,8 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 
 	if(type.name == "boat_1" || type.name == "boat_0"  ) {
 		unit = new C_Boat(current);
-	} else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1") {
+	} else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1"  ||
+		type.name == "ArcherTower_2" || type.name == "ArcherTower_3") {
 		unit = new C_ArcherTower(current);
 	} else if(type.name == "barricade_1") {
 		unit = new C_Barricade(current);
