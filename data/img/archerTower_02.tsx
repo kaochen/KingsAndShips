@@ -4,7 +4,7 @@
   <properties>
   <property name="unit.type" type="str" value="ArcherTower"/>
   <property name="unit.health" type="int" value="100"/>
-  <property name="unit.cost" type="int" value="75"/>
+  <property name="unit.cost" type="int" value="40"/>
   <property name="unit.rank" type="int" value="2"/>
   <property name="unit.speed" type="int" value="0"/>
   <property name="weapon.type" type="str" value="ARCHER"/>

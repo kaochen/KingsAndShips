@@ -77,9 +77,13 @@ void C_UnitFactory::upgrade(C_GameUnits * unit)
 		if(type == "ArcherTower" && currentRank < 3){
 			string up = type +"_"+ to_string(newRank);
 			S_UnitModel model = m_models[up];
-			unit->upgrade(model);
-			C_Message m;
-			m.printM("Upgrade "+ currentName +" to "+ model.name + ". Cost: " + to_string(model.cost) +"\n");
+			C_Wallet& wallet=C_Wallet::Instances();
+			if(wallet.getBalance() - model.cost >= 0){ //check if pocket is deep enough
+				wallet.debit(model.cost);
+				unit->upgrade(model);
+				C_Message m;
+				m.printM("Upgrade "+ currentName +" to "+ model.name + ". Cost: " + to_string(model.cost) +"\n");
+			}
 		}
 	}
 }
