@@ -88,6 +88,28 @@ void C_UnitFactory::upgrade(C_GameUnits * unit)
 	}
 }
 
+bool C_UnitFactory::isUpgradable(C_GameUnits * unit){
+	bool ret = false;
+	if(unit != nullptr){
+		int currentRank = unit->getRank();
+		string currentName = unit->getName();
+		string type = unit->getType();
+		int newRank = currentRank + 1;
+		if(type == "ArcherTower" && currentRank < 3){
+			string up = type +"_"+ to_string(newRank);
+			if(m_models.count(up) > 0){
+				C_Wallet& wallet=C_Wallet::Instances();
+				if(wallet.getBalance() - m_models[up].cost >= 0){ //check if pocket is deep enough
+					ret = true;
+				}
+			} else {
+				//cout << "Model does not exist" << endl;
+			}
+		}
+	}
+	return ret;
+}
+
 S_UnitModel C_UnitFactory::extractProperties(string filename)
 {
 	C_Xml tsx(filename);

@@ -375,7 +375,10 @@ C_GameUnits* C_Grid::getSelected(){
 		for (size_t x = 0; x < m_vgrid.size(); x++) {
 			if ( m_vgrid[x][y].get(FIELD) != nullptr)
 				if(m_vgrid[x][y].get(FIELD)->getSelectedStatus()){
-				    ret = m_vgrid[x][y].get(FIELD);
+				    C_GameUnits *check = m_vgrid[x][y].get(FIELD);
+				    if(check != nullptr){
+				    	ret = check;
+				    }
 				}
 		}
 	}

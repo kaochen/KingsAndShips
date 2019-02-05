@@ -53,6 +53,7 @@ public:
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
   void upgradeUnit(C_GameUnits * unit){m_factory.upgrade (unit);};
+  bool isUnitupgradable(C_GameUnits * unit) {return m_factory.isUpgradable(unit);};
 
 	C_GameUnits* getUnits(int x_grid, int y_grid);
 	void setGround(int x, int y, int id);

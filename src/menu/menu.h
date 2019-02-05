@@ -43,6 +43,7 @@ public:
 	void resetValues(); /*!reset values when change or reset the level*/
 	void menuBanner();
 
+  void updateUpgradeButtonsStatus();
 	//commands
 	void openBottomMenu();
 	bool isOpen()

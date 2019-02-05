@@ -48,7 +48,10 @@ C_Menu::C_Menu():
 	S_Coord upgradeCoord = {10,10};
 	m_menuItemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",upgradeCoord);
 
-	updateInfos();
+	updateDefenderStatus();
+	updateAttackerStatus();
+	updateWalletStatus();
+
 	//add the bottom buttons line
 	S_Coord line;
 	line.x = 20;
@@ -71,6 +74,7 @@ void C_Menu::updateInfos()
 	updateDefenderStatus();
 	updateAttackerStatus();
 	updateWalletStatus();
+	updateUpgradeButtonsStatus();
 }
 
 void C_Menu::render()
@@ -183,6 +187,20 @@ string C_Menu::nbrToString(int nbr)
 	return space + nbrStr;
 }
 
+
+void C_Menu::updateUpgradeButtonsStatus(){
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+		if(m_menuItemsList["upgradeTower"] != nullptr){
+			if(grid.isUnitupgradable(unit)){
+				m_menuItemsList["upgradeTower"]->setEnable(true);
+			} else {
+				m_menuItemsList["upgradeTower"]->setEnable(false);
+			}
+		}
+	}
+}
 
 
 

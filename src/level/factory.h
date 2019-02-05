@@ -60,6 +60,7 @@ public:
 	virtual C_GameUnits* create(S_Unit type);
 	virtual void setRank(std::string type, int rank){m_models[type].rank= rank;};
   virtual void upgrade(C_GameUnits * unit);
+  virtual bool isUpgradable(C_GameUnits * unit);
 protected:
 	S_UnitModel extractProperties(std::string filename);
 private:

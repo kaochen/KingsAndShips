@@ -49,6 +49,7 @@ public:
 	virtual	void render();
 	virtual void action();
 	virtual int getEnable(){return m_enable;};
+	virtual void setEnable(bool enable){m_enable = enable;};
 	virtual void setState(int state){m_state = state;};
 	virtual int getState(){	return m_state;};
 	virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
