@@ -110,6 +110,25 @@ bool C_UnitFactory::isUpgradable(C_GameUnits * unit){
 	return ret;
 }
 
+bool C_UnitFactory::getSelectedModel(int increment, S_UnitModel &model){
+	bool ret = false;
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+
+	if(unit != nullptr){
+		string currentType = unit->getType();
+		int currentRank = unit->getRank();
+		string name = currentType +"_"+ to_string(currentRank + increment);
+		if(m_models.count(name) > 0){
+			S_UnitModel copy = m_models[name];
+			model = copy;
+			ret = true;
+		}
+	}
+	return ret;
+}
+
+
 S_UnitModel C_UnitFactory::extractProperties(string filename)
 {
 	C_Xml tsx(filename);

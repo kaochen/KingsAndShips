@@ -161,7 +161,7 @@ class C_GU_Upgrade: public C_Button{
 public:
   	C_GU_Upgrade(std::string name,S_Coord screen);
     ~C_GU_Upgrade(){};
-
+  	virtual void render();
 };
 
 #endif
