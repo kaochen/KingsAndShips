@@ -4,13 +4,13 @@
   <properties>
   <property name="unit.type" type="str" value="ArcherTower"/>
   <property name="unit.health" type="int" value="100"/>
-  <property name="unit.cost" type="int" value="40"/>
+  <property name="unit.cost" type="int" value="60"/>
   <property name="unit.rank" type="int" value="2"/>
   <property name="unit.speed" type="int" value="0"/>
   <property name="weapon.type" type="str" value="ARCHER"/>
   <property name="weapon.damage" type="int" value="15"/>
   <property name="weapon.firerange" type="int" value="3"/>
-  <property name="weapon.firerate" type="int" value="1500"/>
+  <property name="weapon.firerate" type="int" value="2000"/>
   <property name="weapon.speedImpact" type="int" value="0"/>
  </properties>
  <image source="original/t_archerTower_02.png" width="128" height="128"/>
