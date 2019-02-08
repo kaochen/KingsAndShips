@@ -36,6 +36,7 @@ public:
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void kill();
 	virtual void move();
+	virtual void upgrade(S_UnitModel model);
 	virtual void drag(S_Coord screen);
 	virtual int getCost()
 	{

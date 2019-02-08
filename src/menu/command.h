@@ -71,4 +71,9 @@ class C_Play : public C_Command {
 public:
 	virtual void action();
 };
+
+class C_UpgradeUnit : public C_Command {
+public:
+	virtual void action();
+};
 #endif

@@ -28,9 +28,10 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory()
 {
-	int size = 7;
+	int size = 9;
 	string file[size] = {"boat_00.tsx","boat_01.tsx","archerTower_00.tsx",
-						 "archerTower_01.tsx","barricade_01.tsx","town_01.tsx","turbine_00.tsx"
+			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
+			"barricade_01.tsx","town_01.tsx","turbine_00.tsx"
 						};
 	for(int i = 0; i < size; i++) {
 		string path = "data/img/" + file[i];
@@ -53,7 +54,8 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 
 	if(type.name == "boat_1" || type.name == "boat_0"  ) {
 		unit = new C_Boat(current);
-	} else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1") {
+	} else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1"  ||
+		type.name == "ArcherTower_2" || type.name == "ArcherTower_3") {
 		unit = new C_ArcherTower(current);
 	} else if(type.name == "barricade_1") {
 		unit = new C_Barricade(current);
@@ -64,6 +66,68 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 	}
 	return unit;
 }
+
+void C_UnitFactory::upgrade(C_GameUnits * unit)
+{
+	if(unit != nullptr){
+		int currentRank = unit->getRank();
+		string currentName = unit->getName();
+		string type = unit->getType();
+		int newRank = currentRank + 1;
+		if(type == "ArcherTower" && currentRank < 3){
+			string up = type +"_"+ to_string(newRank);
+			S_UnitModel model = m_models[up];
+			C_Wallet& wallet=C_Wallet::Instances();
+			if(wallet.getBalance() - model.cost >= 0){ //check if pocket is deep enough
+				wallet.debit(model.cost);
+				unit->upgrade(model);
+				C_Message m;
+				m.printM("Upgrade "+ currentName +" to "+ model.name + ". Cost: " + to_string(model.cost) +"\n");
+			}
+		}
+	}
+}
+
+bool C_UnitFactory::isUpgradable(C_GameUnits * unit){
+	bool ret = false;
+	if(unit != nullptr){
+		int currentRank = unit->getRank();
+		string currentName = unit->getName();
+		string type = unit->getType();
+		int newRank = currentRank + 1;
+		if(type == "ArcherTower" && currentRank < 3){
+			string up = type +"_"+ to_string(newRank);
+			if(m_models.count(up) > 0){
+				C_Wallet& wallet=C_Wallet::Instances();
+				if(wallet.getBalance() - m_models[up].cost >= 0){ //check if pocket is deep enough
+					ret = true;
+				}
+			} else {
+				//cout << "Model does not exist" << endl;
+			}
+		}
+	}
+	return ret;
+}
+
+bool C_UnitFactory::getSelectedModel(int increment, S_UnitModel &model){
+	bool ret = false;
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+
+	if(unit != nullptr){
+		string currentType = unit->getType();
+		int currentRank = unit->getRank();
+		string name = currentType +"_"+ to_string(currentRank + increment);
+		if(m_models.count(name) > 0){
+			S_UnitModel copy = m_models[name];
+			model = copy;
+			ret = true;
+		}
+	}
+	return ret;
+}
+
 
 S_UnitModel C_UnitFactory::extractProperties(string filename)
 {

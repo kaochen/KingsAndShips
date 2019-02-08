@@ -66,3 +66,16 @@ void C_Play::action()
 	settings.setPlaying();
 
 }
+
+void C_UpgradeUnit::action()
+{
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+		grid.upgradeUnit(unit);
+	} else {
+		C_Message m;
+		m.printM("No unit is selected");
+	}
+
+}

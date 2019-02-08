@@ -65,13 +65,16 @@ C_GameUnits* C_ZLayer::get(int layer)
 	C_GameUnits * unit = nullptr;
 	switch(layer) {
 	case GROUND :
-		unit = m_ground;
+		if(m_ground != nullptr)
+			unit = m_ground;
 		break;
 	case GRAVEYARD :
-		unit = m_grave;
+		if(m_grave != nullptr)
+			unit = m_grave;
 		break;
 	case  FIELD:
-		unit = m_field;
+		if(m_field != nullptr)
+			unit = m_field;
 		break;
 	}
 	return unit;

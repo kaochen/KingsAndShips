@@ -290,6 +290,30 @@ void C_Window::listenSDL_Events()
 		navigateOverTheMap(button);
 	}
 }
+bool C_Window::testIfButton(S_Coord screen){
+	C_Menu& menu=C_Menu::Instances();
+    bool ret = false;
+	C_MenuItem* menuButton;
+	vector <string> list;
+	list = menu.getMenuItemsList();
+	for (size_t i = 0; i < list.size(); i++) {
+		menuButton = menu.getMenuItem(list[i]);
+		if(menuButton != nullptr) {
+			int type = menuButton->getType();
+			if(type != STATUS) {
+				int xl = menuButton->getXScreen();
+				int xr = xl + menuButton->getWidth();
+				int yt= menuButton->getYScreen();
+				int yb = yt + menuButton->getHeight();
+				string name = menuButton->getName();
+				if (screen.x > xl && screen.x < xr && screen.y > yt && screen.y < yb) {
+				    ret = true;
+				}
+			}
+        }
+    }
+    return ret;
+}
 
 void C_Window::listenButtons()
 {
@@ -307,7 +331,6 @@ void C_Window::listenButtons()
 				int xr = xl + menuButton->getWidth();
 				int yt= menuButton->getYScreen();
 				int yb = yt + menuButton->getHeight();
-
 				string name = menuButton->getName();
 				if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb) {
 					if(menuButton->getEnable()== true) {
@@ -337,7 +360,6 @@ void C_Window::listenButtons()
 			}
 		}
 	}
-
 }
 
 void C_Window::listenKeyboard(SDL_Event &event)
@@ -448,13 +470,16 @@ void C_Window::listenMouseButtonUP(SDL_Event &event)
 		m_clic.x = event.button.x;
 		m_clic.y = event.button.y;
 
-		//Select or add a new Tower
-		if(m_addingAnewTower == true) {
-			m_level->addUnit(m_buttonType, m_clic);
-			m_addingAnewTower = false;
-		}
+	    if(!testIfButton(m_clic)){
+		    //Select or add a new Tower
+		    if(m_addingAnewTower == true) {
+			    m_level->addUnit(m_buttonType, m_clic);
+			    m_addingAnewTower = false;
+		    }
 
-		m_aTowerIsSelected = m_level->selectATower(m_clic);
+		    m_aTowerIsSelected = m_level->selectATower(m_clic);
+
+		}
 		m_dragAndDropTower = false;
 		m_mouseDragWindow = false;
 	}

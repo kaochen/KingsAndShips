@@ -44,6 +44,7 @@ public:
   	void loadGame();
 	void gameLoop();
 	void quitProgram();
+  bool testIfButton(S_Coord screen);
 	void listenButtons();
 	void loadLevel(int levelNbr);
 	S_LevelModel getLevelModel(int levelNbr);

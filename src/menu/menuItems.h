@@ -32,83 +32,36 @@ class C_MenuItem {
 public:
 	C_MenuItem(std::string name, int x_screen, int y_screen);
 	virtual ~C_MenuItem() {};
-	virtual int getType()
-	{
-		return m_type;
-	};
-	virtual int getXScreen() const
-	{
-		return m_x_screen;
-	};
-	virtual int getYScreen() const
-	{
-		return m_y_screen;
-	};
-	virtual int getWidth() const
-	{
-		return m_width;
-	};
-	virtual int getHeight() const
-	{
-		return m_height;
-	};
-	virtual	std::string getName()
-	{
-		return m_name;
-	};
-	virtual int getLayer()
-	{
-		return m_layer;
-	};
-	virtual void setCommand(C_Command *c)
-	{
-		m_command = c;
-	};
-	virtual C_Command * getCommand()
-	{
-		return m_command;
-	};
+	virtual int getType(){return m_type;};
+	virtual int getXScreen() const{return m_x_screen;};
+	virtual int getYScreen() const{return m_y_screen;};
+	virtual void setScreen(S_Coord const screen) {m_x_screen = screen.x; m_y_screen = screen.y;};
 
-	virtual void setPercentage(int percentage)
-	{
-		std::cout << percentage;
-	};
-	virtual void setPercentage(int a, int b)
-	{
-		std::cout << a << b;
-	};
+	virtual int getWidth() const{return m_width;};
+	virtual int getHeight() const{return m_height;};
+	virtual	std::string getName(){return m_name;};
+	virtual int getLayer(){return m_layer;};
+	virtual void setCommand(C_Command *c){m_command = c;};
+	virtual C_Command * getCommand(){return m_command;};
+
+	virtual void setPercentage(int percentage){std::cout << percentage;};
+	virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
 	virtual void action();
-	virtual int getEnable()
-	{
-		return m_enable;
-	};
-	virtual void setState(int state)
-	{
-		m_state = state;
-	};
-	virtual int getState()
-	{
-		return m_state;
-	};
-	virtual void drag(S_Coord screen)
-	{
-		std::cout << "GCC calm: " << screen.x;
-	};
+	virtual int getEnable(){return m_enable;};
+	virtual void setEnable(bool enable){m_enable = enable;};
+	virtual void setState(int state){m_state = state;};
+	virtual int getState(){	return m_state;};
+	virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
 
 	//set Text
 	virtual void renderText();
 	virtual void setText(std::string text, int fontSize);
 	virtual void setTextPosition(int x_text, int y_text);
-	virtual void setTextColor(SDL_Color color)
-	{
-		m_color = color;
-	};
+	virtual void setTextColor(SDL_Color color){m_color = color;};
 
-	virtual void setImage(std::string image)
-	{
-		m_image = image;
-	};
+	virtual void setImage(std::string image){m_image = image;};
+
 protected:
 	void stripes(int x_screen, int y_screen, int width, int height);
 	void corners(int x_screen, int y_screen, int width, int height, bool big);
@@ -204,6 +157,11 @@ protected:
 	int m_colorOut;
 };
 
-
+class C_GU_Upgrade: public C_Button{
+public:
+  	C_GU_Upgrade(std::string name,S_Coord screen);
+    ~C_GU_Upgrade(){};
+  	virtual void render();
+};
 
 #endif

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../texture.h"
 #include "../message.h"
 #include "../level/factory.h"
+#include "../level/grid.h"
 #include <string>
 
 #include <SDL2_gfxPrimitives.h>
@@ -339,7 +340,8 @@ void C_MB_LevelCard::render()
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 	:C_Button(name,image,x_screen,y_screen)
 {
-	C_UnitFactory factory = C_UnitFactory();
+	C_Grid& grid=C_Grid::Instances();
+	C_UnitFactory factory = grid.getFactory();
 
 	m_type = DRAGUNIT;
 	S_Unit unit;
@@ -491,4 +493,36 @@ string C_GP_Status::colorToStr(int color)
 		return "Green";
 	}
 
+}
+
+
+C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
+	:C_Button(name,"upgrade",screen.x,screen.y)
+{
+    m_type = ACTION;
+    m_command = new C_UpgradeUnit();
+    m_text = "0";
+    m_textName = "upgrade_Text_" + name;
+    m_fontSize = 12;
+}
+
+
+void C_GU_Upgrade::render()
+{
+	C_Button::render();
+
+	C_Grid& grid=C_Grid::Instances();
+	C_UnitFactory factory = grid.getFactory();
+	S_UnitModel model;
+	bool check = factory.getSelectedModel(1,model);
+	if(check) {
+		m_text = to_string(model.cost);
+
+		C_TextureList& t=C_TextureList::Instances();
+		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
+			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+			m_oldText = m_text;
+		}
+		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 50,CENTER);
+	}
 }

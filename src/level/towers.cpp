@@ -54,7 +54,6 @@ void C_Towers::render(S_Coord screen)
 {
 	renderSelected();
 	C_Shooter::render(screen);
-
 	if (m_justAdded)
 		renderSmoke();
 }
@@ -87,6 +86,7 @@ void C_ArcherTower::render(S_Coord screen)
 		if (m_justAdded)
 			renderSmoke();
 	}
+
 }
 
 
