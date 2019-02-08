@@ -340,7 +340,8 @@ void C_MB_LevelCard::render()
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 	:C_Button(name,image,x_screen,y_screen)
 {
-	C_UnitFactory factory = C_UnitFactory();
+	C_Grid& grid=C_Grid::Instances();
+	C_UnitFactory factory = grid.getFactory();
 
 	m_type = DRAGUNIT;
 	S_Unit unit;
