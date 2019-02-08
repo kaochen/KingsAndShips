@@ -523,6 +523,6 @@ void C_GU_Upgrade::render()
 			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 			m_oldText = m_text;
 		}
-		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 54,CENTER);
+		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 50,CENTER);
 	}
 }

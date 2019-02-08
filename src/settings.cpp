@@ -157,7 +157,7 @@ void C_Settings::initTSXfileList()
 			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
 			"buttons.tsx","Water_00.tsx","smoke_01.tsx",
 			"charaters.tsx","boat_dead_00.tsx","boat_dead_01.tsx","Weapons.tsx","barricade_01.tsx",
-			"gold.tsx","buttons_tabs.tsx","icons_12px.tsx","buttons_32px.tsx", "ProgressBar.tsx"
+			"gold.tsx","buttons_tabs.tsx","icons_12px.tsx","buttons_64px.tsx", "ProgressBar.tsx"
 			};
 
 	for(int i = 0; i < size; i++) {
