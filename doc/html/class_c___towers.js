@@ -1,7 +1,6 @@
 var class_c___towers =
 [
-    [ "C_Towers", "class_c___towers.html#a567e6b41e4802c7731dfa8dadadcc625", null ],
-    [ "C_Towers", "class_c___towers.html#a1ffad633ae589205309b2b03348abbd6", null ],
+    [ "C_Towers", "class_c___towers.html#a3dbd462a9320a513fac6b00f19f09710", null ],
     [ "play", "class_c___towers.html#af2c327b0c231c0abaed63e5b9a20029d", null ],
     [ "render", "class_c___towers.html#a015e518af31c64659dbeabec44e6b23e", null ],
     [ "renderSelected", "class_c___towers.html#a8f700d0842a129603e3ac18408d25a1e", null ],

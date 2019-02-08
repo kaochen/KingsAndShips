@@ -1,12 +1,10 @@
 <map id="C_GB_AddUnit" name="C_GB_AddUnit">
-<area shape="rect" id="node2" href="$class_c___button.html" title="C_Button" alt="" coords="31,392,108,419"/>
-<area shape="rect" id="node3" href="$class_c___menu_item.html" title="C_MenuItem" alt="" coords="6,303,103,329"/>
-<area shape="rect" id="node4" href="$class_c___command.html" title="C_Command" alt="" coords="5,199,104,225"/>
-<area shape="rect" id="node5" href="$class_c___shooter.html" title="C_Shooter" alt="" coords="138,392,222,419"/>
-<area shape="rect" id="node6" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="127,303,233,329"/>
-<area shape="rect" id="node7" href="$class_c___coord.html" title="C_Coord" alt="" coords="135,199,209,225"/>
-<area shape="rect" id="node8" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="120,109,224,136"/>
-<area shape="rect" id="node9" href="$struct_s___coord.html" title="S_Coord" alt="" coords="135,5,209,32"/>
-<area shape="rect" id="node10" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="233,199,332,225"/>
-<area shape="rect" id="node11" href="$class_c___weapon.html" title="C_Weapon" alt="" coords="257,303,343,329"/>
+<area shape="rect" id="node2" href="$class_c___button.html" title="C_Button" alt="" coords="24,317,101,344"/>
+<area shape="rect" id="node3" href="$class_c___menu_item.html" title="C_MenuItem" alt="" coords="7,213,105,240"/>
+<area shape="rect" id="node4" href="$class_c___command.html" title="C_Command" alt="" coords="5,124,104,151"/>
+<area shape="rect" id="node5" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="126,317,231,344"/>
+<area shape="rect" id="node6" href="$class_c___coord.html" title="C_Coord" alt="" coords="141,213,216,240"/>
+<area shape="rect" id="node7" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="128,124,232,151"/>
+<area shape="rect" id="node8" href="$struct_s___coord.html" title="S_Coord" alt="" coords="143,5,217,32"/>
+<area shape="rect" id="node9" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="240,213,339,240"/>
 </map>

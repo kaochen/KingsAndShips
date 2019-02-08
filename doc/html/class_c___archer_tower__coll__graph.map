@@ -1,10 +1,10 @@
 <map id="C_ArcherTower" name="C_ArcherTower">
-<area shape="rect" id="node2" href="$class_c___towers.html" title="C_Towers" alt="" coords="160,468,243,495"/>
-<area shape="rect" id="node3" href="$class_c___shooter.html" title="C_Shooter" alt="" coords="159,392,243,419"/>
-<area shape="rect" id="node4" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="59,303,165,329"/>
-<area shape="rect" id="node5" href="$class_c___coord.html" title="C_Coord" alt="" coords="20,199,95,225"/>
-<area shape="rect" id="node6" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="5,109,109,136"/>
+<area shape="rect" id="node2" href="$class_c___towers.html" title="C_Towers" alt="" coords="161,483,244,509"/>
+<area shape="rect" id="node3" href="$class_c___shooter.html" title="C_Shooter" alt="" coords="161,407,245,433"/>
+<area shape="rect" id="node4" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="61,317,166,344"/>
+<area shape="rect" id="node5" href="$class_c___coord.html" title="C_Coord" alt="" coords="20,213,95,240"/>
+<area shape="rect" id="node6" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="5,124,109,151"/>
 <area shape="rect" id="node7" href="$struct_s___coord.html" title="S_Coord" alt="" coords="21,5,94,32"/>
-<area shape="rect" id="node8" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="119,199,217,225"/>
-<area shape="rect" id="node9" href="$class_c___weapon.html" title="C_Weapon" alt="" coords="189,303,275,329"/>
+<area shape="rect" id="node8" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="119,213,217,240"/>
+<area shape="rect" id="node9" href="$class_c___weapon.html" title="C_Weapon" alt="" coords="190,317,277,344"/>
 </map>

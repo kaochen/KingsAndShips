@@ -1,7 +1,6 @@
 var class_c___boat =
 [
-    [ "C_Boat", "class_c___boat.html#a59362e0f22b4527cd266a5ea138da03f", null ],
-    [ "C_Boat", "class_c___boat.html#a860ed8f3670ae407a7e839dc044088b5", null ],
+    [ "C_Boat", "class_c___boat.html#acd7bd9bfb2911e13d7f8695e2f34e87c", null ],
     [ "~C_Boat", "class_c___boat.html#a9c1796c412f17cd3f7c6b5554712a70c", null ],
     [ "calcSpeed", "class_c___boat.html#ace01a87f52fe8ec1bcd2f93f96646d79", null ],
     [ "kill", "class_c___boat.html#a72a211b7f3800680c6237533af87765d", null ],
@@ -9,7 +8,6 @@ var class_c___boat =
     [ "play", "class_c___boat.html#a1fc1aa808059c1da1c06eca690a04f2e", null ],
     [ "recalcPath", "class_c___boat.html#a5fbafea3d630d19c378efdf33e6983bc", null ],
     [ "receiveDamage", "class_c___boat.html#ab1ef9507ba173b265f867f88ab96052c", null ],
-    [ "regendScreenCoord", "class_c___boat.html#adeeb2e31ba47a8e16a82d233f7de8a95", null ],
     [ "render", "class_c___boat.html#a6c1b7be0d4f766f181ea6511f0385628", null ],
     [ "m_animDirection", "class_c___boat.html#a3d844ae2105ec42288fb0f394009175e", null ],
     [ "m_C_Path", "class_c___boat.html#a7564e1da3b91d21774a7e2f12886cb18", null ],
@@ -18,6 +16,5 @@ var class_c___boat =
     [ "m_moving", "class_c___boat.html#a5b729daffe773bcd98c0ea84f61fd81e", null ],
     [ "m_speed", "class_c___boat.html#a7e439a0f91679923d16d88921c510167", null ],
     [ "m_speedImpact", "class_c___boat.html#acb55a87eeffcaa1c1c707ef45668734b", null ],
-    [ "m_speedImpactLoop", "class_c___boat.html#a3253349db4aa04e56aaac69791a1f934", null ],
-    [ "m_wave", "class_c___boat.html#ab85a4550a8cf976811ae97fdc89e8283", null ]
+    [ "m_speedImpactLoop", "class_c___boat.html#a3253349db4aa04e56aaac69791a1f934", null ]
 ];

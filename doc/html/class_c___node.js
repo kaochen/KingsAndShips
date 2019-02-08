@@ -21,6 +21,7 @@ var class_c___node =
     [ "getYGrid", "class_c___node.html#a3aa5777d8e441292a9fff6f926cfc3af", null ],
     [ "highlight", "class_c___node.html#a37f25e90f1c10cff364460faf8ebaccb", null ],
     [ "prepareRender", "class_c___node.html#a225c6aec3048eeb6050b885d3942373b", null ],
+    [ "regenScreenCoord", "class_c___node.html#aef01323df10615646597e88d65404f07", null ],
     [ "render", "class_c___node.html#aae0995e619c4e9559d1374392383ee8d", null ],
     [ "screenAtCenter", "class_c___node.html#af072169cc16be5c6aad4af5fa8b0e86e", null ],
     [ "setBarricade", "class_c___node.html#a46f4faf2f19008c5383c8bc3a94a5549", null ],

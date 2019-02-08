@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setcameraposition',['setCameraPosition',['../class_c___settings.html#a503a271565756e4c1233caa44e1c9a53',1,'C_Settings']]]
+  ['onscreen',['onScreen',['../class_c___coord.html#a24b512f8d8e4bd9822637a115b392663',1,'C_Coord']]]
 ];

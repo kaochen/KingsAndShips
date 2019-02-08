@@ -1,0 +1,4 @@
+<map id="S_UnitModel" name="S_UnitModel">
+<area shape="rect" id="node2" href="$struct_s___weapon.html" title="S_Weapon" alt="" coords="5,5,92,32"/>
+<area shape="rect" id="node3" href="$struct_s___coord.html" title="S_Coord" alt="" coords="116,5,189,32"/>
+</map>

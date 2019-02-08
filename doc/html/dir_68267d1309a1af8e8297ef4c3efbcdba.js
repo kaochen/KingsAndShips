@@ -10,5 +10,6 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "wallet.h", "wallet_8h.html", [
       [ "C_Wallet", "class_c___wallet.html", "class_c___wallet" ]
     ] ],
-    [ "window.h", "window_8h_source.html", null ]
+    [ "window.h", "window_8h_source.html", null ],
+    [ "xml.h", "xml_8h_source.html", null ]
 ];

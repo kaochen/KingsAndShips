@@ -1,11 +1,10 @@
 <map id="C_Boat" name="C_Boat">
-<area shape="rect" id="node2" href="$class_c___shooter.html" title="C_Shooter" alt="" coords="82,392,166,419"/>
-<area shape="rect" id="node3" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="184,303,289,329"/>
-<area shape="rect" id="node4" href="$class_c___coord.html" title="C_Coord" alt="" coords="199,199,274,225"/>
-<area shape="rect" id="node5" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="184,109,288,136"/>
-<area shape="rect" id="node6" href="$struct_s___coord.html" title="S_Coord" alt="" coords="200,5,273,32"/>
-<area shape="rect" id="node7" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="10,199,108,225"/>
-<area shape="rect" id="node8" href="$class_c___weapon.html" title="C_Weapon" alt="" coords="73,303,160,329"/>
-<area shape="rect" id="node9" href="$class_c___wave.html" title="C_Wave" alt="" coords="190,392,264,419"/>
-<area shape="rect" id="node10" href="$class_c___path.html" title="C_Path" alt="" coords="288,392,355,419"/>
+<area shape="rect" id="node2" href="$class_c___shooter.html" title="C_Shooter" alt="" coords="81,407,165,433"/>
+<area shape="rect" id="node3" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="182,317,287,344"/>
+<area shape="rect" id="node4" href="$class_c___coord.html" title="C_Coord" alt="" coords="197,213,272,240"/>
+<area shape="rect" id="node5" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="183,124,287,151"/>
+<area shape="rect" id="node6" href="$struct_s___coord.html" title="S_Coord" alt="" coords="198,5,271,32"/>
+<area shape="rect" id="node7" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="20,213,119,240"/>
+<area shape="rect" id="node8" href="$class_c___weapon.html" title="C_Weapon" alt="" coords="71,317,158,344"/>
+<area shape="rect" id="node9" href="$class_c___path.html" title="C_Path" alt="" coords="189,407,256,433"/>
 </map>

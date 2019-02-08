@@ -1,5 +1,5 @@
 <map id="C_CoordScreen" name="C_CoordScreen">
-<area shape="rect" id="node2" href="$class_c___coord.html" title="C_Coord" alt="" coords="25,199,100,225"/>
-<area shape="rect" id="node3" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="11,109,115,136"/>
+<area shape="rect" id="node2" href="$class_c___coord.html" title="C_Coord" alt="" coords="25,213,100,240"/>
+<area shape="rect" id="node3" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="11,124,115,151"/>
 <area shape="rect" id="node4" href="$struct_s___coord.html" title="S_Coord" alt="" coords="26,5,99,32"/>
 </map>

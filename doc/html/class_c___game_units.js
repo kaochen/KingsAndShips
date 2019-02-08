@@ -1,16 +1,20 @@
 var class_c___game_units =
 [
     [ "C_GameUnits", "class_c___game_units.html#a3f0ef04cb3cda940ff88b6184d26d57c", null ],
+    [ "C_GameUnits", "class_c___game_units.html#addb56a8db7868bcf2186776f6de36fcd", null ],
     [ "~C_GameUnits", "class_c___game_units.html#aef4d4867c644e35b1a1b9ed4c1d622fd", null ],
     [ "alive", "class_c___game_units.html#a27e65e897719c8dae6dcf07777dbd4dc", null ],
     [ "directionToStr", "class_c___game_units.html#aa7b0b54f13707e4a0203d19d245aefc2", null ],
     [ "displayStatus", "class_c___game_units.html#ae9f30c88f528c6e9469ae7088e953110", null ],
+    [ "drag", "class_c___game_units.html#a8345fe98152f3d85da8b68456416ce7d", null ],
     [ "getCost", "class_c___game_units.html#a4f1ce5f32fb75ceeb27e629a05124ade", null ],
     [ "getDistance", "class_c___game_units.html#a8e6309582367492ebe8b712011e31777", null ],
     [ "getHealth", "class_c___game_units.html#a82694f0ad56c60a7600d3037d0f47222", null ],
     [ "getName", "class_c___game_units.html#ab47e8c8e54f9d840a2ac945c60fa1e6e", null ],
+    [ "getRank", "class_c___game_units.html#a7d7034de38f5a2cf5f7fd2e536b1c416", null ],
     [ "getScreen", "class_c___game_units.html#a3c4176cc59b0fa0478525818a9a4dd6a", null ],
     [ "getSelectedStatus", "class_c___game_units.html#a468f26212cd7cf57e32217c2e53ffe0a", null ],
+    [ "getType", "class_c___game_units.html#aa66eb7ceb818b02fb26add4286c9c04e", null ],
     [ "getUnit", "class_c___game_units.html#ac557b668706e594c6f80730c35d5c397", null ],
     [ "getXGrid", "class_c___game_units.html#a8943eff06b519b11a7af15215c476a5b", null ],
     [ "getXScreen", "class_c___game_units.html#a333527c663e3f2ed9becd460309be8e8", null ],
@@ -27,6 +31,7 @@ var class_c___game_units =
     [ "reverseSelectedStatus", "class_c___game_units.html#a376137429fcc8044682543ac67c694bf", null ],
     [ "setSelectedStatus", "class_c___game_units.html#aa520c6971174171a9dfef9af33db4cda", null ],
     [ "shoot", "class_c___game_units.html#aa976f32d5cfdc492364a5044fc2c474f", null ],
+    [ "upgrade", "class_c___game_units.html#ab9b0de5b395972bb851df5b8c57e9d4b", null ],
     [ "m_animation", "class_c___game_units.html#af8ef2c456ad84c221056ec3a6fe9e1eb", null ],
     [ "m_coord", "class_c___game_units.html#a34db68070666502c14c29f0d6a22429d", null ],
     [ "m_direction", "class_c___game_units.html#a46a05814322e88b3c02a32e66307915b", null ],
@@ -35,5 +40,6 @@ var class_c___game_units =
     [ "m_name", "class_c___game_units.html#a78f33cd7d13e3176e16c5ded70ea58e4", null ],
     [ "m_old_coord", "class_c___game_units.html#a0644d4f57ab0246e29d7c69f06e1bd74", null ],
     [ "m_rank", "class_c___game_units.html#a970db224f00faecd01138b8d35e2c593", null ],
-    [ "m_selected", "class_c___game_units.html#af2de4d4e755f384c1cec4214e0544298", null ]
+    [ "m_selected", "class_c___game_units.html#af2de4d4e755f384c1cec4214e0544298", null ],
+    [ "m_type", "class_c___game_units.html#a522b97268aac9434d041279851d65a1e", null ]
 ];

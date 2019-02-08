@@ -9,6 +9,7 @@ var class_c___coord =
     [ "atan2_360", "class_c___coord.html#a2cc97ccd271b5007da17edfdb357af57", null ],
     [ "centerOnTile", "class_c___coord.html#af2a7ed2c10f6f663c6322aadd2e225c2", null ],
     [ "closeToCenter", "class_c___coord.html#a7c1fd68cce26a30b1daf325ec1937695", null ],
+    [ "createCoordFromScreen", "class_c___coord.html#a6106b7873a12dde841e7424b511f4dbc", null ],
     [ "directionToAngle", "class_c___coord.html#a49dcf3ecdfd36e3613da79923b63c57d", null ],
     [ "displayStatus", "class_c___coord.html#aaedc4c104a23438291c3a23f1fc4f876", null ],
     [ "getGrid", "class_c___coord.html#a8b9948f0229b8cf94b43be31efbbf586", null ],
@@ -25,6 +26,5 @@ var class_c___coord =
     [ "regenGridCoord", "class_c___coord.html#a036a87e791be498d792ea7501c9a6d17", null ],
     [ "regenScreenCoord", "class_c___coord.html#ae4480514d2193acf70c68ee08224d50a", null ],
     [ "screenToGrid", "class_c___coord.html#ae84b7db044a8ee29168612e17f30f96c", null ],
-    [ "updateScreen", "class_c___coord.html#aa37a260d94cb84fdd092b6360f8e4d78", null ],
     [ "m_this", "class_c___coord.html#aa4b500f8ffbdffc18492704de7741914", null ]
 ];

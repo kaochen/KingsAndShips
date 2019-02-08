@@ -101,18 +101,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>renderLayer</b> (int 
 <tr class="memitem:a97a0559e5efe444ff4569f35d439599e"><td class="memItemLeft" align="right" valign="top"><a id="a97a0559e5efe444ff4569f35d439599e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>getSize</b> ()</td></tr>
 <tr class="separator:a97a0559e5efe444ff4569f35d439599e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a4b1f4f6a10facef35b98f9961eefc7"><td class="memItemLeft" align="right" valign="top"><a id="a9a4b1f4f6a10facef35b98f9961eefc7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addANewBoat</b> (int x, int y, int rank, <a class="el" href="class_c___wave.html">C_Wave</a> *parent)</td></tr>
-<tr class="separator:a9a4b1f4f6a10facef35b98f9961eefc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a1cd4e4addfa76aa505924ee725a2bf"><td class="memItemLeft" align="right" valign="top"><a id="a4a1cd4e4addfa76aa505924ee725a2bf"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>addUnit</b> (std::string &amp;type, int x_grid, int y_grid, int rank)</td></tr>
-<tr class="separator:a4a1cd4e4addfa76aa505924ee725a2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae21108ea97fe76ad52c339ff9d5c2d65"><td class="memItemLeft" align="right" valign="top"><a id="ae21108ea97fe76ad52c339ff9d5c2d65"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addANewBoat</b> (<a class="el" href="struct_s___unit.html">S_Unit</a> boat)</td></tr>
+<tr class="separator:ae21108ea97fe76ad52c339ff9d5c2d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a712dc9e0390117c3b7063fbf1307bf55"><td class="memItemLeft" align="right" valign="top"><a id="a712dc9e0390117c3b7063fbf1307bf55"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>addUnit</b> (std::string &amp;type, int x_grid, int y_grid)</td></tr>
+<tr class="separator:a712dc9e0390117c3b7063fbf1307bf55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cb4fdc8c390add44c8538909aa0ff54"><td class="memItemLeft" align="right" valign="top"><a id="a4cb4fdc8c390add44c8538909aa0ff54"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>moveUnit</b> (int x_from, int y_from, int x_dest, int y_dest)</td></tr>
 <tr class="separator:a4cb4fdc8c390add44c8538909aa0ff54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac7e183eac162156b5dc8dbe90e63993"><td class="memItemLeft" align="right" valign="top"><a id="aac7e183eac162156b5dc8dbe90e63993"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>moveToDead</b> (int x_grid, int y_grid)</td></tr>
 <tr class="separator:aac7e183eac162156b5dc8dbe90e63993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de5f1ef4e0490a48a6252293a421e6f"><td class="memItemLeft" align="right" valign="top"><a id="a4de5f1ef4e0490a48a6252293a421e6f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>upgradeUnit</b> (<a class="el" href="class_c___game_units.html">C_GameUnits</a> *unit)</td></tr>
+<tr class="separator:a4de5f1ef4e0490a48a6252293a421e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a690642da6921d1c655e3fdfba7f94fa1"><td class="memItemLeft" align="right" valign="top"><a id="a690642da6921d1c655e3fdfba7f94fa1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isUnitupgradable</b> (<a class="el" href="class_c___game_units.html">C_GameUnits</a> *unit)</td></tr>
+<tr class="separator:a690642da6921d1c655e3fdfba7f94fa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affa25a0768c29f80eebd91d50188a4ff"><td class="memItemLeft" align="right" valign="top"><a id="affa25a0768c29f80eebd91d50188a4ff"></a>
 <a class="el" href="class_c___game_units.html">C_GameUnits</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getUnits</b> (int x_grid, int y_grid)</td></tr>
 <tr class="separator:affa25a0768c29f80eebd91d50188a4ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,24 +146,33 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> ()</td></tr>
 <tr class="memitem:a984afa50159212761d04d1832147548f"><td class="memItemLeft" align="right" valign="top"><a id="a984afa50159212761d04d1832147548f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>displayStatus</b> ()</td></tr>
 <tr class="separator:a984afa50159212761d04d1832147548f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af948b7c97e3640387724ffddb207ad3a"><td class="memItemLeft" align="right" valign="top"><a id="af948b7c97e3640387724ffddb207ad3a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>playAllUnits</b> ()</td></tr>
-<tr class="separator:af948b7c97e3640387724ffddb207ad3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2711ac42154df062c02f99b898e8bc"><td class="memItemLeft" align="right" valign="top"><a id="a0a2711ac42154df062c02f99b898e8bc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>playAllUnits</b> (int layer)</td></tr>
+<tr class="separator:a0a2711ac42154df062c02f99b898e8bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab73a472f90c901207df202cb8f2ca666"><td class="memItemLeft" align="right" valign="top"><a id="ab73a472f90c901207df202cb8f2ca666"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteGrid</b> ()</td></tr>
 <tr class="separator:ab73a472f90c901207df202cb8f2ca666"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c6f926c407afba30c6a3cc80f10db11"><td class="memItemLeft" align="right" valign="top"><a id="a2c6f926c407afba30c6a3cc80f10db11"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>selectATower</b> (<a class="el" href="class_c___coord.html">C_Coord</a> clic)</td></tr>
 <tr class="separator:a2c6f926c407afba30c6a3cc80f10db11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17694aa557ed9a6f8f4be996308adc6e"><td class="memItemLeft" align="right" valign="top"><a id="a17694aa557ed9a6f8f4be996308adc6e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>unselectedAll</b> ()</td></tr>
+<tr class="separator:a17694aa557ed9a6f8f4be996308adc6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac50af2b555be56c87374a7e2a71df139"><td class="memItemLeft" align="right" valign="top"><a id="ac50af2b555be56c87374a7e2a71df139"></a>
+<a class="el" href="class_c___game_units.html">C_GameUnits</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>getSelected</b> ()</td></tr>
+<tr class="separator:ac50af2b555be56c87374a7e2a71df139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14275093682d66d6b712fa29db887af0"><td class="memItemLeft" align="right" valign="top"><a id="a14275093682d66d6b712fa29db887af0"></a>
+<a class="el" href="class_c___unit_factory.html">C_UnitFactory</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getFactory</b> ()</td></tr>
+<tr class="separator:a14275093682d66d6b712fa29db887af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20f722918bdab974a9f4867809efc899"><td class="memItemLeft" align="right" valign="top"><a id="a20f722918bdab974a9f4867809efc899"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>mainEmpty</b> (int x_grid, int y_grid, <a class="el" href="class_c___game_units.html">C_GameUnits</a> *current)</td></tr>
 <tr class="separator:a20f722918bdab974a9f4867809efc899"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ff0989f8cf05bd2e9411e663de4125d"><td class="memItemLeft" align="right" valign="top"><a id="a7ff0989f8cf05bd2e9411e663de4125d"></a>
 virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>mainEmpty</b> (int x_grid, int y_grid)</td></tr>
 <tr class="separator:a7ff0989f8cf05bd2e9411e663de4125d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae06912592dd78dec8baf28a4325ad597"><td class="memItemLeft" align="right" valign="top"><a id="ae06912592dd78dec8baf28a4325ad597"></a>
-virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getName</b> (int layer, int x_grid, int y_grid)</td></tr>
-<tr class="separator:ae06912592dd78dec8baf28a4325ad597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4e009eeb35c086c51b9c98d3fb27d64"><td class="memItemLeft" align="right" valign="top"><a id="af4e009eeb35c086c51b9c98d3fb27d64"></a>
+virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><b>getUnitType</b> (int layer, int x_grid, int y_grid)</td></tr>
+<tr class="separator:af4e009eeb35c086c51b9c98d3fb27d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab79683114fe097ed2feeb32c22914964"><td class="memItemLeft" align="right" valign="top"><a id="ab79683114fe097ed2feeb32c22914964"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setTown</b> (int x_grid, int y_grid)</td></tr>
 <tr class="separator:ab79683114fe097ed2feeb32c22914964"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -176,9 +191,6 @@ static <a class="el" href="class_c___grid.html">C_Grid</a> &amp;&#160;</td><td c
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:abf4be3ecf1792c0713fdfe7e840f8bbc"><td class="memItemLeft" align="right" valign="top"><a id="abf4be3ecf1792c0713fdfe7e840f8bbc"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>unselectedAll</b> (int x_grid, int y_grid)</td></tr>
-<tr class="separator:abf4be3ecf1792c0713fdfe7e840f8bbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79c49970aeaab24987a4f59e4b93312c"><td class="memItemLeft" align="right" valign="top"><a id="a79c49970aeaab24987a4f59e4b93312c"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>createAnEmptyGrid</b> (int size)</td></tr>
 <tr class="separator:a79c49970aeaab24987a4f59e4b93312c"><td class="memSeparator" colspan="2">&#160;</td></tr>
