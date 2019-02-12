@@ -282,57 +282,46 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 
 	m_text = "Grid Size: " + to_string(model.gridSize);
 	m_textName = "Card_Text_" + name;
-	m_width = 204;
-	m_height = 300;
+	m_width = 158;
+	m_height = 245;
 }
 
 void C_MB_LevelCard::render()
 {
-	C_Window& win=C_Window::Instances();
-	Uint8 R = 0, G = 0, B = 0;
-	int zoom = 0;
-	bool big = false;
+	string name = "Parchment_Card";
+
+	string prefix;
 	if(m_state == ACTIVE) {
-		R = 50;
-		G = 50;
-		B = 50;
+		prefix ="_Active";
 	} else if(m_state == HOVER) {
-		R = 8;
-		G = 63;
-		B = 127;
-		zoom = 6;
-		big = true;
+		prefix ="_Hover";
+	} else {
+		prefix ="_Disabled";
 	}
 
-	Sint16 x1 = m_x_screen -zoom; //x top right
-	Sint16 y1 = m_y_screen -zoom;
-	Sint16 x2 = x1 + m_width + 2*zoom; //x bottom left
-	Sint16 y2 = y1 + m_height + 2*zoom;
-
-	boxRGBA(win.getRenderer(),x1,y1,x2,y2,50,50,50,100);
-	boxRGBA(win.getRenderer(),x1,y1,x2,y1+50,R,G,B,255);
-	boxRGBA(win.getRenderer(),x1,y1+250,x2,y2,R,G,B,255);
-
-	int width = x2 - x1;
-	int height = y2 - y1;
-	stripes(x1, y1, width, height);
-	corners(x1, y1, width, height, big);
-
+	if(m_enable == false) {
+		prefix ="_Disabled";
+	}
+	name += prefix;
 	C_TextureList& t=C_TextureList::Instances();
+	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
+
+    //Text
+    m_color = {0,0,0,255};
 	if(t.searchTexture(m_titleName)== nullptr) {
 		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
 	}
-	t.renderTexture(m_titleName, x1 + width/2, y1 + 25,CENTER);
+	t.renderTexture(m_titleName, m_x_screen + m_width/2, m_y_screen + 40,CENTER);
 
 	if(t.searchTexture(m_idName)== nullptr) {
 		t.loadTextAsTexturesIntoMap(m_idName, m_id, m_fontSize - 4, m_color);
 	}
-	t.renderTexture(m_idName, x1 + 20, y1 + 20,LEFT);
+	t.renderTexture(m_idName, m_x_screen + 16, m_y_screen + 20,LEFT);
 
 	if(t.searchTexture(m_textName)== nullptr) {
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize - 4, m_color);
 	}
-	t.renderTexture(m_textName, x1 + width/2, y1 + height - 30,CENTER);
+	t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height - 40,CENTER);
 }
 
 //-------------------------------------------------------------
