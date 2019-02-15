@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "weapons.h"
 #include "../time.h"
 #include "../wallet.h"
+#include "../menu/popup.h"
 
 class C_Shooter : public C_GameUnits {
 public:
@@ -56,6 +57,7 @@ protected:
 	bool m_justAdded;
 
 	int m_cost;
+	C_Popup m_popup;
 };
 
 #endif

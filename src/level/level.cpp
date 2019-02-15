@@ -267,6 +267,14 @@ void C_Level::render()
 	m_landscape->renderBottomMask(grid.size());
 }
 
+void C_Level::renderSelected(){
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits *current = grid.getSelected();
+	if(current != nullptr){
+		current->render(current->getScreen());
+		}
+}
+
 void C_Level::play()
 {
 	long current = SDL_GetTicks();

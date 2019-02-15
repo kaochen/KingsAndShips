@@ -67,6 +67,7 @@ public:
 	void loadWaveIntoGrid(int i);
 	void updateMenuInfo();
 	void render();
+	void renderSelected();
 	void play();
 	bool selectATower(S_Coord clic);
 	void unselectedAll();

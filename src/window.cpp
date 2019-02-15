@@ -240,7 +240,7 @@ void C_Window::gameLoop()
 
 				//display game content from bottom to top
 				m_level->render();
-
+				m_level->renderSelected();
 				listenButtons();
 				menu.updateInfos();
 				menu.render();
