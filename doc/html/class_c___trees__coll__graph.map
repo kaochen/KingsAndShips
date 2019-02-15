@@ -1,8 +1,0 @@
-<map id="C_Trees" name="C_Trees">
-<area shape="rect" id="node2" href="$class_c___decors.html" title="C_Decors" alt="" coords="71,393,153,420"/>
-<area shape="rect" id="node3" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="59,317,165,344"/>
-<area shape="rect" id="node4" href="$class_c___coord.html" title="C_Coord" alt="" coords="20,213,95,240"/>
-<area shape="rect" id="node5" href="$struct_s___node_coord.html" title="S_NodeCoord" alt="" coords="5,124,109,151"/>
-<area shape="rect" id="node6" href="$struct_s___coord.html" title="S_Coord" alt="" coords="21,5,94,32"/>
-<area shape="rect" id="node7" href="$class_c___anim_time.html" title="C_AnimTime" alt="" coords="119,213,217,240"/>
-</map>

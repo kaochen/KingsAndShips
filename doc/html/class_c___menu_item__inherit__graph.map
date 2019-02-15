@@ -1,9 +1,0 @@
-<map id="C_MenuItem" name="C_MenuItem">
-<area shape="rect" id="node2" href="$class_c___button.html" title="C_Button" alt="" coords="91,80,168,107"/>
-<area shape="rect" id="node5" href="$class_c___g_p___status.html" title="C_GP_Status" alt="" coords="193,80,295,107"/>
-<area shape="rect" id="node6" href="$class_c___m_b__1_line.html" title="C_MB_1Line" alt="" coords="319,80,417,107"/>
-<area shape="rect" id="node7" href="$class_c___m_b___level_card.html" title="C_MB_LevelCard" alt="" coords="441,80,567,107"/>
-<area shape="rect" id="node8" href="$class_c___m_b___tab_select.html" title="C_MB_TabSelect" alt="" coords="591,80,716,107"/>
-<area shape="rect" id="node3" href="$class_c___g_b___add_unit.html" title="C_GB_AddUnit" alt="" coords="5,155,117,181"/>
-<area shape="rect" id="node4" href="$class_c___g_u___upgrade.html" title="C_GU_Upgrade" alt="" coords="141,155,256,181"/>
-</map>
