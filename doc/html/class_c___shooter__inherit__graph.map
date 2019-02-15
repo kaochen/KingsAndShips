@@ -1,9 +1,0 @@
-<map id="C_Shooter" name="C_Shooter">
-<area shape="rect" id="node3" href="$class_c___barricade.html" title="C_Barricade" alt="" coords="5,155,100,181"/>
-<area shape="rect" id="node4" href="$class_c___boat.html" title="C_Boat" alt="" coords="125,155,191,181"/>
-<area shape="rect" id="node5" href="$class_c___towers.html" title="C_Towers" alt="" coords="215,155,298,181"/>
-<area shape="rect" id="node8" href="$class_c___town.html" title="C_Town" alt="" coords="323,155,393,181"/>
-<area shape="rect" id="node2" href="$class_c___game_units.html" title="mother class for all isometric elements (units) of the game, like boats or trees " alt="" coords="155,5,260,32"/>
-<area shape="rect" id="node6" href="$class_c___archer_tower.html" title="C_ArcherTower" alt="" coords="139,229,252,256"/>
-<area shape="rect" id="node7" href="$class_c___turbine.html" title="C_Turbine" alt="" coords="277,229,359,256"/>
-</map>
