@@ -185,6 +185,13 @@ S_UnitModel C_GameUnits::getInfo(){
 	unit.coord = m_coord->getGrid();
 	unit.cost = 0;
 	unit.speed = 0;
+	unit.alive = true;
+	unit.weapon.type = "NO_WEAPON";
+	unit.weapon.damage = 0;
+	unit.weapon.speedImpact = 0;
+	unit.weapon.fireRate = 0;
+	unit.weapon.fireRange = 0;
+	unit.weapon.direction = WEST;
 	return unit;
 }
 

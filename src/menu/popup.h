@@ -37,7 +37,7 @@ public:
 
 	C_Sentence(std::string text, S_Coord screen);
 	~C_Sentence(){};
-	void render(S_Coord screen);
+	void render(S_Coord screen, int align);
 	void update(std::string text);
 private:
 	static int id;

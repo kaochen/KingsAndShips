@@ -39,10 +39,8 @@ public:
 	virtual void move();
 	virtual void upgrade(S_UnitModel model);
 	virtual void drag(S_Coord screen);
-	virtual int getCost()
-	{
-		return m_cost;
-	};
+	virtual int getCost(){return m_cost;};
+	virtual S_UnitModel getInfo();
 protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

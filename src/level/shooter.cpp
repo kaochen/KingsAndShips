@@ -286,3 +286,23 @@ void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok)
 	aapolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
 }
+
+
+S_UnitModel C_Shooter::getInfo(){
+	S_UnitModel unit;
+	unit.name = m_name;
+	unit.type = m_type;
+	unit.rank = m_rank;
+	unit.health = m_health;
+	unit.coord = m_coord->getGrid();
+	unit.cost = m_cost;
+	unit.speed = 0;
+	unit.alive = true;
+	unit.weapon.type = m_weapon->getWeaponInfo().type;
+	unit.weapon.damage = m_weapon->getWeaponInfo().damage;
+	unit.weapon.speedImpact =  m_weapon->getWeaponInfo().speedImpact;
+	unit.weapon.fireRate =  m_weapon->getWeaponInfo().fireRate;
+	unit.weapon.fireRange =  m_weapon->getWeaponInfo().fireRange;
+	unit.weapon.direction =  m_weapon->getWeaponInfo().direction;
+	return unit;
+}
