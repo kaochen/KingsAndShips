@@ -91,6 +91,12 @@ void C_MenuItem::actionHover(bool state)
 {
 	if(m_command != nullptr) {
 		m_command->actionHover(state);
+		if(state){
+			m_state = HOVER;
+		}
+		else {
+			m_state = ACTIVE;
+		}
 	}
 }
 
