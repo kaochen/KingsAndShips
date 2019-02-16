@@ -146,10 +146,10 @@ public:
 	}
 
 	//wallet
-	virtual int getCost()
-	{
-		return 0;
-	};
+	virtual int getCost(){return 0;};
+
+	virtual S_UnitModel getInfo();
+
 protected:
 	//alive or dead
 	virtual bool alive() const

@@ -176,6 +176,18 @@ void C_GameUnits::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 	cout << type[1] << nbrofTargets << endl; //to quiet gcc
 }
 
+S_UnitModel C_GameUnits::getInfo(){
+	S_UnitModel unit;
+	unit.name = m_name;
+	unit.type = m_type;
+	unit.rank = m_rank;
+	unit.health = m_health;
+	unit.coord = m_coord->getGrid();
+	unit.cost = 0;
+	unit.speed = 0;
+	return unit;
+}
+
 C_EmptyUnit::C_EmptyUnit():
 	C_GameUnits("empty", 0,0,0)
 {

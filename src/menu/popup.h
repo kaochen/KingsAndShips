@@ -23,9 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
-#include <vector>
+#include <map>
 #include <SDL2/SDL.h>
 #include "../coord.h"
+#include "../level/gameUnits.h"
 
 /*! \class C_Popup
  * \brief C_Popup display informations when passing over a Tower.
@@ -33,9 +34,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_Sentence{
 public:
-	C_Sentence(std::string title,std::string text);
+	C_Sentence(std::string text);
 	~C_Sentence(){};
 	void render(S_Coord screen);
+	void update(std::string text);
 private:
 	static int id;
 	std::string m_name;
@@ -51,10 +53,11 @@ public:
 	C_Popup();
 	~C_Popup(){};
 	void render(S_Coord screen);
+	void getInfo(S_UnitModel unit);
 private:
 	static int id;
 	std::string m_name;
-	std::vector <C_Sentence> m_sentences;
+	std::map<std::string, C_Sentence*> m_sentences;
 };
 
 #endif
