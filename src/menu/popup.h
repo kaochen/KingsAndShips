@@ -39,6 +39,7 @@ public:
 	~C_Sentence(){};
 	void render(S_Coord screen, int align);
 	void update(std::string text);
+	void changeColor(std::string color);
 private:
 	static int id;
 	std::string m_name;
@@ -46,6 +47,7 @@ private:
 	std::string m_oldText;
 	S_Coord m_screen;
 	SDL_Color m_color;
+	SDL_Color m_oldColor;
 	int m_fontSize;
 };
 
@@ -57,7 +59,7 @@ public:
 	void getInfo(S_UnitModel current);
 	void setMode(std::string mode);
 private:
-	void addLine(std::string name, std::string text, S_Coord screen);
+	void addLine(std::string name, std::string text, S_Coord screen, std::string color);
 	static int id;
 	std::string m_name;
 	std::string m_mode;

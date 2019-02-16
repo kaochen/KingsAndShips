@@ -32,20 +32,37 @@ C_Sentence::C_Sentence(string text, S_Coord screen):
 	m_name = "Sentence_" + to_string(id);
 	m_screen = screen;
 	m_color = {0,0,0,255};
+	m_color = {0,0,0,255};
 	m_fontSize = 14;
 }
 
 void C_Sentence::render(S_Coord screen, int align){
 	C_TextureList& t=C_TextureList::Instances();
-	if(t.searchTexture(m_name)== nullptr || m_text != m_oldText) {
+	bool checkColor = false;
+	if(m_color.r != m_oldColor.r || m_color.g != m_oldColor.g
+		|| m_color.b != m_oldColor.b || m_color.a != m_oldColor.a){
+		checkColor = true;
+	}
+
+
+	if(t.searchTexture(m_name)== nullptr || m_text != m_oldText || checkColor) {
 		t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize, m_color);
 		m_oldText = m_text;
+		m_oldColor = m_color;
 	}
 	t.renderTexture(m_name, screen.x + m_screen.x, screen.y + m_screen.y,align);
 }
 
 void C_Sentence::update(string text){
 	m_text = text;
+}
+
+void C_Sentence::changeColor(string color){
+	if(color == "red")
+		m_color = {200,0,0,255};
+	else
+		m_color = {0,0,0,255};
+
 }
 
 
@@ -77,69 +94,86 @@ void C_Popup::render(S_Coord screen){
 	m_sentences["line6.0"]->render(screen,LEFT);
 	m_sentences["line6.1"]->render(screen,RIGHT);
 
-	m_sentences["line7"]->render(screen,LEFT);
 }
 
 void C_Popup::getInfo(S_UnitModel current){
 	S_UnitModel unit = current;
+	string color = "black";
 	if(m_mode == "upgrade"){
 		C_Grid& grid=C_Grid::Instances();
 		C_UnitFactory factory = grid.getFactory();
 		S_UnitModel up;
 		bool check = factory.getSelectedModel(1,up);
-		if(check)
+		if(check){
 			unit = up;
-
+		} else {
+			unit = current;
+		}
 	}
 
 	S_Coord screen = {0,-65};
-	string text = unit.type + " " + to_string(unit.rank);
-	addLine("line1", text, screen);
+	string text = current.type + " " + to_string(unit.rank);
+	addLine("line1", text, screen, "black");
 	screen.y +=4;
 	text = "_________";
-	addLine("underline", text, screen);
+	addLine("underline", text, screen, "black");
 	///
 	screen.x = -55;
 	screen.y +=20;
-	addLine("line2.0","Health " , screen);
+	addLine("line2.0","Health " , screen, "black");
 	screen.x = 55;
-	addLine("line2.1",to_string(current.health) , screen);
+	addLine("line2.1",to_string(current.health) , screen, "black");
 
 	screen.x = -55;
 	screen.y +=20;
-	addLine("line3.0","Firerange " , screen);
+	addLine("line3.0","Firerange " , screen, "black");
 	screen.x = 55;
-	addLine("line3.1",to_string(unit.weapon.fireRange)  , screen);
+	if( unit.weapon.fireRange > current.weapon.fireRange){
+		addLine("line3.1",to_string(unit.weapon.fireRange), screen, "red");
+	} else {
+		addLine("line3.1",to_string(current.weapon.fireRange), screen, "black");
+	}
 
 	screen.x = -55;
 	screen.y +=20;
-	addLine("line4.0","Firerate ", screen);
+	addLine("line4.0","Firerate ", screen, "black");
 	screen.x = 55;
-	addLine("line4.1",to_string(unit.weapon.fireRate), screen);
+	if( unit.weapon.fireRate < current.weapon.fireRate){
+		addLine("line4.1",to_string(unit.weapon.fireRate), screen, "red");
+	} else {
+		addLine("line4.1",to_string(current.weapon.fireRate), screen, "black");
+	}
 
 	screen.x = -55;
 	screen.y +=20;
-	addLine("line5.0","Damage ", screen);
+	addLine("line5.0","Damage ", screen, "black");
 	screen.x = 55;
-	addLine("line5.1",to_string(unit.weapon.damage), screen);
+	if( unit.weapon.damage > current.weapon.damage){
+		addLine("line5.1",to_string(unit.weapon.damage), screen, "red");
+	} else {
+		addLine("line5.1",to_string(current.weapon.damage), screen, "black");
+	}
 
 	screen.x = -55;
 	screen.y +=20;
-	addLine("line6.0","Speed Impact ", screen);
+	addLine("line6.0","Speed Impact ", screen, "black");
 	screen.x = 55;
-	addLine("line6.1",to_string(unit.weapon.speedImpact), screen);
+	if( unit.weapon.speedImpact > current.weapon.speedImpact){
+		addLine("line6.1",to_string(unit.weapon.speedImpact), screen, "red");
+	} else {
+		addLine("line6.1",to_string(current.weapon.speedImpact), screen, "black");
+	}
 
-	screen.x = -55;
-	text = "mode " + m_mode;
-	screen.y +=20;
-	addLine("line7", text, screen);
 }
 
-void C_Popup::addLine(string name, string text, S_Coord screen){
+void C_Popup::addLine(string name, string text, S_Coord screen, string color){
 	if(m_sentences[name] == nullptr)
 		m_sentences[name]= new C_Sentence(text, screen);
+
 	else
 		m_sentences[name]->update(text);
+
+	m_sentences[name]->changeColor(color);
 
 }
 
