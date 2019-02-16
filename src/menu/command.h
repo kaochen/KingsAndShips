@@ -29,6 +29,7 @@ public:
 	C_Command() {};
 	virtual ~C_Command() {};
 	virtual void action() = 0;
+	virtual void actionHover(bool state){if(state){};};
 	virtual void setNbr(int nbr)
 	{
 		m_nbr = nbr;
@@ -75,5 +76,6 @@ public:
 class C_UpgradeUnit : public C_Command {
 public:
 	virtual void action();
+	virtual void actionHover(bool state);
 };
 #endif

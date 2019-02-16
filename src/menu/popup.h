@@ -55,10 +55,12 @@ public:
 	~C_Popup(){};
 	void render(S_Coord screen);
 	void getInfo(S_UnitModel unit);
+	void setMode(std::string mode);
 private:
 	void addLine(std::string name, std::string text, S_Coord screen);
 	static int id;
 	std::string m_name;
+	std::string m_mode;
 	std::map<std::string, C_Sentence*> m_sentences;
 };
 

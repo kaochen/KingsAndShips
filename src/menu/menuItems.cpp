@@ -87,6 +87,13 @@ void C_MenuItem::action()
 	}
 }
 
+void C_MenuItem::actionHover(bool state)
+{
+	if(m_command != nullptr) {
+		m_command->actionHover(state);
+	}
+}
+
 
 
 void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height)

@@ -41,6 +41,7 @@ public:
 	virtual void drag(S_Coord screen);
 	virtual int getCost(){return m_cost;};
 	virtual S_UnitModel getInfo();
+	virtual void sendToPopup(std::string message){m_popup.setMode(message);};
 protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

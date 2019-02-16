@@ -48,6 +48,7 @@ public:
 	virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
 	virtual void action();
+	virtual void actionHover(bool state);
 	virtual int getEnable(){return m_enable;};
 	virtual void setEnable(bool enable){m_enable = enable;};
 	virtual void setState(int state){m_state = state;};

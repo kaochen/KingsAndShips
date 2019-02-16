@@ -55,6 +55,7 @@ C_Popup::C_Popup()
 {
 	++id;
 	m_name =  "popup_" + to_string(id);
+	m_mode = "normal";
 }
 
 void C_Popup::render(S_Coord screen){
@@ -69,6 +70,7 @@ void C_Popup::render(S_Coord screen){
 	m_sentences["line4"]->render(screen,LEFT);
 	m_sentences["line5"]->render(screen,LEFT);
 	m_sentences["line6"]->render(screen,LEFT);
+	m_sentences["line7"]->render(screen,LEFT);
 }
 
 void C_Popup::getInfo(S_UnitModel unit){
@@ -94,6 +96,9 @@ void C_Popup::getInfo(S_UnitModel unit){
 	text = "Speed Impact " + to_string(unit.weapon.speedImpact);
 	screen.y +=20;
 	addLine("line6", text, screen);
+	text = "mode " + m_mode;
+	screen.y +=20;
+	addLine("line7", text, screen);
 }
 
 void C_Popup::addLine(string name, string text, S_Coord screen){
@@ -102,5 +107,11 @@ void C_Popup::addLine(string name, string text, S_Coord screen){
 	else
 		m_sentences[name]->update(text);
 
+}
+
+
+void C_Popup::setMode(std::string mode){
+	if(mode == "upgrade" || mode == "normal")
+		m_mode = mode;
 }
 
