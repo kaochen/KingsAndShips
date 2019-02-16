@@ -34,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_Sentence{
 public:
-	C_Sentence(std::string text);
+
+	C_Sentence(std::string text, S_Coord screen);
 	~C_Sentence(){};
 	void render(S_Coord screen);
 	void update(std::string text);
@@ -55,6 +56,7 @@ public:
 	void render(S_Coord screen);
 	void getInfo(S_UnitModel unit);
 private:
+	void addLine(std::string name, std::string text, S_Coord screen);
 	static int id;
 	std::string m_name;
 	std::map<std::string, C_Sentence*> m_sentences;

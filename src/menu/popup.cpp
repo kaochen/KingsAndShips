@@ -23,15 +23,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 int C_Sentence::id = 0;
 
-C_Sentence::C_Sentence(string text):
+C_Sentence::C_Sentence(string text, S_Coord screen):
 	m_text(text),
 	m_oldText(text)
 {
 	++id;
 	m_name = "Sentence_" + to_string(id);
-	m_screen = {0,0};
+	m_screen = screen;
 	m_color = {0,0,0,255};
-	m_fontSize = 16;
+	m_fontSize = 14;
 }
 
 void C_Sentence::render(S_Coord screen){
@@ -62,21 +62,24 @@ void C_Popup::render(S_Coord screen){
 	screen.x -=120;
 	screen.y -=40;
 	t.renderTexture("Parchment_Parchment", screen.x,screen.y,CENTER);
-	screen.y -=60;
 	m_sentences["line1"]->render(screen);
-	screen.y +=20;
 	m_sentences["line2"]->render(screen);
-	screen.y +=20;
 }
 
 void C_Popup::getInfo(S_UnitModel unit){
-	if(m_sentences["line1"] == nullptr)
-		m_sentences["line1"]= new C_Sentence(unit.name);
-	else
-		m_sentences["line1"]->update(unit.name);
-
-	if(m_sentences["line2"] == nullptr)
-		m_sentences["line2"]= new C_Sentence(to_string(unit.rank));
-	else
-		m_sentences["line2"]->update(to_string(unit.rank));
+	S_Coord screen = {0,-60};
+	string text = unit.type + " " + to_string(unit.rank);
+	addLine("line1", text, screen);
+	text = "Health " + to_string(unit.health);
+	screen.y +=20;
+	addLine("line2", text, screen);
 }
+
+void C_Popup::addLine(string name, string text, S_Coord screen){
+	if(m_sentences[name] == nullptr)
+		m_sentences[name]= new C_Sentence(text, screen);
+	else
+		m_sentences[name]->update(text);
+
+}
+
