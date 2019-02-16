@@ -54,7 +54,7 @@ public:
 	C_Popup();
 	~C_Popup(){};
 	void render(S_Coord screen);
-	void getInfo(S_UnitModel unit);
+	void getInfo(S_UnitModel current);
 	void setMode(std::string mode);
 private:
 	void addLine(std::string name, std::string text, S_Coord screen);

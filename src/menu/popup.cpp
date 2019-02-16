@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "popup.h"
 #include "../texture.h"
+#include "../level/grid.h"
 
 using namespace std;
 int C_Sentence::id = 0;
@@ -64,38 +65,71 @@ void C_Popup::render(S_Coord screen){
 	screen.y -=40;
 	t.renderTexture("Parchment_Parchment", screen.x,screen.y,CENTER);
 	m_sentences["line1"]->render(screen,CENTER);
-	m_sentences["line11"]->render(screen,CENTER);
-	m_sentences["line2"]->render(screen,LEFT);
-	m_sentences["line3"]->render(screen,LEFT);
-	m_sentences["line4"]->render(screen,LEFT);
-	m_sentences["line5"]->render(screen,LEFT);
-	m_sentences["line6"]->render(screen,LEFT);
+	m_sentences["underline"]->render(screen,CENTER);
+	m_sentences["line2.0"]->render(screen,LEFT);
+	m_sentences["line2.1"]->render(screen,RIGHT);
+	m_sentences["line3.0"]->render(screen,LEFT);
+	m_sentences["line3.1"]->render(screen,RIGHT);
+	m_sentences["line4.0"]->render(screen,LEFT);
+	m_sentences["line4.1"]->render(screen,RIGHT);
+	m_sentences["line5.0"]->render(screen,LEFT);
+	m_sentences["line5.1"]->render(screen,RIGHT);
+	m_sentences["line6.0"]->render(screen,LEFT);
+	m_sentences["line6.1"]->render(screen,RIGHT);
+
 	m_sentences["line7"]->render(screen,LEFT);
 }
 
-void C_Popup::getInfo(S_UnitModel unit){
+void C_Popup::getInfo(S_UnitModel current){
+	S_UnitModel unit = current;
+	if(m_mode == "upgrade"){
+		C_Grid& grid=C_Grid::Instances();
+		C_UnitFactory factory = grid.getFactory();
+		S_UnitModel up;
+		bool check = factory.getSelectedModel(1,up);
+		if(check)
+			unit = up;
+
+	}
+
 	S_Coord screen = {0,-65};
 	string text = unit.type + " " + to_string(unit.rank);
 	addLine("line1", text, screen);
 	screen.y +=4;
 	text = "_________";
-	addLine("line11", text, screen);
+	addLine("underline", text, screen);
+	///
 	screen.x = -55;
-	text = "Health " + to_string(unit.health);
-	screen.y +=16;
-	addLine("line2", text, screen);
-	text = "Firerange " + to_string(unit.weapon.fireRange) + " tiles";
 	screen.y +=20;
-	addLine("line3", text, screen);
-	text = "Firerate " + to_string(unit.weapon.fireRate) + " ms";
+	addLine("line2.0","Health " , screen);
+	screen.x = 55;
+	addLine("line2.1",to_string(current.health) , screen);
+
+	screen.x = -55;
 	screen.y +=20;
-	addLine("line4", text, screen);
-	text = "Damage " + to_string(unit.weapon.damage);
+	addLine("line3.0","Firerange " , screen);
+	screen.x = 55;
+	addLine("line3.1",to_string(unit.weapon.fireRange)  , screen);
+
+	screen.x = -55;
 	screen.y +=20;
-	addLine("line5", text, screen);
-	text = "Speed Impact " + to_string(unit.weapon.speedImpact);
+	addLine("line4.0","Firerate ", screen);
+	screen.x = 55;
+	addLine("line4.1",to_string(unit.weapon.fireRate), screen);
+
+	screen.x = -55;
 	screen.y +=20;
-	addLine("line6", text, screen);
+	addLine("line5.0","Damage ", screen);
+	screen.x = 55;
+	addLine("line5.1",to_string(unit.weapon.damage), screen);
+
+	screen.x = -55;
+	screen.y +=20;
+	addLine("line6.0","Speed Impact ", screen);
+	screen.x = 55;
+	addLine("line6.1",to_string(unit.weapon.speedImpact), screen);
+
+	screen.x = -55;
 	text = "mode " + m_mode;
 	screen.y +=20;
 	addLine("line7", text, screen);
