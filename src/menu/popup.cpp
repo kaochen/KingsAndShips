@@ -75,6 +75,12 @@ C_Popup::C_Popup()
 	m_name =  "popup_" + to_string(id);
 	m_mode = "normal";
 }
+C_Popup::~C_Popup(){
+	for(auto const& x : m_sentences) {
+		if(x.second != nullptr)
+			delete  x.second;
+	}
+}
 
 void C_Popup::render(S_Coord screen){
 	C_TextureList& t=C_TextureList::Instances();

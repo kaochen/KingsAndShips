@@ -54,7 +54,7 @@ private:
 class C_Popup{
 public:
 	C_Popup();
-	~C_Popup(){};
+	~C_Popup();
 	void render(S_Coord screen);
 	void getInfo(S_UnitModel current);
 	void setMode(std::string mode);
