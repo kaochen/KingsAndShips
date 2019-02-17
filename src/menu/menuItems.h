@@ -31,7 +31,7 @@ enum buttonState {ACTIVE,HOVER,DISABLED};
 class C_MenuItem {
 public:
 	C_MenuItem(std::string name, int x_screen, int y_screen);
-	virtual ~C_MenuItem() {};
+	virtual ~C_MenuItem();
 	virtual int getType(){return m_type;};
 	virtual int getXScreen() const{return m_x_screen;};
 	virtual int getYScreen() const{return m_y_screen;};
