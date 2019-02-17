@@ -33,7 +33,7 @@ public:
 	C_Shooter(S_UnitModel model);
 	virtual ~C_Shooter();
 
-	virtual	void displayStatus() const;
+	virtual	void displayStatus();
 	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void kill();
 	virtual void move();

@@ -92,7 +92,7 @@ public:
 	};
 
 	virtual int getRank() const {return m_rank;};
-	virtual void displayStatus() const;
+	virtual void displayStatus();
 	virtual void render(S_Coord screen);
 	virtual void render()
 	{
@@ -104,30 +104,13 @@ public:
 	virtual void receiveDamage(S_Weapon weapon);
 
 	//Coord
-	virtual int getXGrid() const
-	{
-		return m_coord->getXGrid ();
-	};
-	virtual int getYGrid() const
-	{
-		return m_coord->getYGrid ();
-	};
-	virtual int getXScreen() const
-	{
-		return m_coord->getXScreen ();
-	};
-	virtual int getYScreen() const
-	{
-		return m_coord->getYScreen ();
-	};
-	virtual S_Coord getScreen() const
-	{
-		return m_coord->getScreen ();
-	};
-	virtual void regendScreenCoord()
-	{
-		m_coord->regenScreenCoord();
-	};
+	virtual int getXGrid() const{return m_coord.getXGrid ();};
+	virtual int getYGrid() const{return m_coord.getYGrid ();};
+	virtual int getXScreen() {return m_coord.getXScreen ();};
+	virtual int getYScreen() {return m_coord.getYScreen ();};
+	virtual S_Coord getScreen() {return m_coord.getScreen ();};
+	virtual void regendScreenCoord(){ m_coord.regenScreenCoord();};
+
 	//selected or not
 	virtual bool getSelectedStatus() const
 	{
@@ -159,7 +142,7 @@ protected:
 	};
 	virtual void kill() {};
 
-	virtual int getDistance(int x, int y) const;
+	virtual int getDistance(int x, int y);
 	virtual std::string imageName(int status,int direction,int imageNbr);
 	virtual std::string directionToStr(int intDirection);
 
@@ -172,8 +155,8 @@ protected:
 	int m_max_health;
 
 	//Coord
-	C_Coord* m_coord;
-	C_Coord* m_old_coord;
+	C_Coord m_coord;
+	C_Coord m_old_coord;
 	int m_direction; /*!< Orientation of the unit, south, north east...*/
 
 	//Store time for animation

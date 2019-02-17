@@ -45,7 +45,7 @@ void C_Towers::renderSmoke()
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(fileName, m_coord->getXScreen (),m_coord->getYScreen ());
+	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen ());
 	if (imageNbr == 7)
 		m_justAdded = false;
 }
@@ -62,9 +62,9 @@ void C_Towers::renderSelected()
 {
 	if (m_selected == true) {
 		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
-		drawEllipse(m_coord->getXScreen (),m_coord->getYScreen (),width, true);
+		drawEllipse(m_coord.getXScreen (),m_coord.getYScreen (),width, true);
 		m_popup.getInfo(getInfo());
-		m_popup.render(m_coord->getScreen());
+		m_popup.render(m_coord.getScreen());
 	}
 }
 

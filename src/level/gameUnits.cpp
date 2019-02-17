@@ -36,6 +36,8 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_rank(rank),
 	m_health(100),
 	m_max_health(100),
+	m_coord(C_CoordGrid(x_grid,y_grid)),
+	m_old_coord(C_CoordGrid(x_grid,y_grid)),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
@@ -43,12 +45,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	for (int i = 0; i < MAX_ANIM; i++) {
 		m_animation[i]= new C_AnimTime();
 	}
-
-	S_Coord coord;
-	coord.x = x_grid;
-	coord.y = y_grid;
-	m_coord = new C_CoordGrid(coord);
-	m_old_coord = new C_CoordGrid(coord);
 }
 
 C_GameUnits::C_GameUnits(S_UnitModel model):
@@ -57,15 +53,14 @@ C_GameUnits::C_GameUnits(S_UnitModel model):
 	m_rank(model.rank),
 	m_health(model.health),
 	m_max_health(model.health),
+	m_coord(C_CoordGrid(model.coord)),
+	m_old_coord(C_CoordGrid(model.coord)),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
 	for (int i = 0; i < MAX_ANIM; i++) {
 		m_animation[i]= new C_AnimTime();
 	}
-
-	m_coord = new C_CoordGrid(model.coord);
-	m_old_coord = new C_CoordGrid(model.coord);
 
 }
 
@@ -75,16 +70,14 @@ C_GameUnits::~C_GameUnits()
 	for (int i = 0; i < MAX_ANIM; i++) {
 		delete m_animation[i];
 	}
-	delete m_coord;
-	delete m_old_coord;
 }
 
 
-void C_GameUnits::displayStatus() const
+void C_GameUnits::displayStatus()
 {
 	C_Message m;
 	m.printM( "Name: " + m_name + " Life: " + to_string(m_health)  + " Rank : " + to_string(m_rank));
-	m_coord->displayStatus();
+	m_coord.displayStatus();
 }
 
 void C_GameUnits::render(S_Coord screen)
@@ -103,10 +96,10 @@ void C_GameUnits::receiveDamage(S_Weapon weapon)
 }
 
 
-int C_GameUnits::getDistance(int x, int y) const
+int C_GameUnits::getDistance(int x, int y)
 {
-	int sideX = m_coord->getXScreen () - x;
-	int sideY = m_coord->getYScreen () - y;
+	int sideX = m_coord.getXScreen () - x;
+	int sideY = m_coord.getYScreen () - y;
 	int dist = sqrt(sideX*sideX + sideY*sideY);
 	return dist;
 }
@@ -182,7 +175,7 @@ S_UnitModel C_GameUnits::getInfo(){
 	unit.type = m_type;
 	unit.rank = m_rank;
 	unit.health = m_health;
-	unit.coord = m_coord->getGrid();
+	unit.coord = m_coord.getGrid();
 	unit.cost = 0;
 	unit.speed = 0;
 	unit.alive = true;

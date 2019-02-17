@@ -27,7 +27,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_moving = false;
 	m_speed = model.speed;
 	m_speedImpactLoop = 60;
-	m_coord->centerOnTile();
+	m_coord.centerOnTile();
 	//Find a way to town
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town = grid.foundTown();
@@ -70,20 +70,20 @@ void C_Boat::move()
 	m_moving = true;
 	C_Grid& grid=C_Grid::Instances();
 	S_Coord town =  grid.foundTown();
-	*m_old_coord = *m_coord;
+	m_old_coord = m_coord;
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
-	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)) {
+	if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1)) {
 		if(path.size() > 0) {
 
 			//determine an angle
 
-			int old_x_grid = m_coord->getXGrid();
-			int old_y_grid = m_coord->getYGrid();
+			int old_x_grid = m_coord.getXGrid();
+			int old_y_grid = m_coord.getYGrid();
 
 			C_Coord destCoord = path.top()->getCoord();
 			destCoord.centerOnTile();
-			S_Coord start = m_coord->getScreen();
+			S_Coord start = m_coord.getScreen();
 			S_Coord dest = destCoord.getScreen();
 			int ab = dest.x - start.x;
 			int bc = dest.y - start.y;
@@ -92,26 +92,26 @@ void C_Boat::move()
 			int speed = calcSpeed();
 
 			//move following angle and speed
-			C_Coord tmp = *m_coord;
+			C_Coord tmp = m_coord;
 			tmp.move(angle,speed);
 			tmp.regenGridCoord();
 			bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
 			if(!nextEmpty) {
-				m_coord->move(angle,speed);
+				m_coord.move(angle,speed);
 				m_countStop = 0;
 				m_direction = destCoord.angleToDirection(angle);
-				m_coord->regenGridCoord();
+				m_coord.regenGridCoord();
 
-				grid.moveUnit(old_x_grid, old_y_grid,  m_coord->getXGrid (), m_coord->getYGrid ());
-				if(m_coord->closeToCenter(destCoord.getGrid(),2)) {
-					m_coord->centerOnTile(); //to not deviate too much from the path
+				grid.moveUnit(old_x_grid, old_y_grid,  m_coord.getXGrid (), m_coord.getYGrid ());
+				if(m_coord.closeToCenter(destCoord.getGrid(),2)) {
+					m_coord.centerOnTile(); //to not deviate too much from the path
 					m_countRegenPath++;
 					m_C_Path->goNextStep();
 				}
 			} else {
 				m_countStop++;
 				int count = FRAMERATE;
-				if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),3)) {
+				if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)) {
 					count *= 3;
 				}
 				if (m_countStop > count) {
@@ -121,17 +121,17 @@ void C_Boat::move()
 		}
 		if(m_countRegenPath > 3) {
 			recalcPath(town);
-			if(!m_coord->closeToCenter(m_coord->getGrid(),12)) {
-				m_C_Path->addANodeAtTheStartOfThePath(m_coord->getGrid());
+			if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
+				m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
 			} else {
-				m_coord->centerOnTile();
+				m_coord.centerOnTile();
 			}
 
 			m_countRegenPath = 0;
 		}
 	}
 
-	if(!m_C_Path->closeToDestination(m_coord->getXGrid(),m_coord->getYGrid(),1)) {
+	if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1)) {
 		int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
 		if(path.size() == 0 && pauseNbr == 2) {
 			recalcPath(town);
@@ -180,7 +180,7 @@ void C_Boat::recalcPath(S_Coord dest)
 {
 	delete m_C_Path;
 	m_C_Path = new C_Path(dest.x,dest.y);
-	m_C_Path->calcPath(m_coord->getXGrid(),m_coord->getYGrid(),dest.x,dest.y);
+	m_C_Path->calcPath(m_coord.getXGrid(),m_coord.getYGrid(),dest.x,dest.y);
 	m_C_Path->showPath();
 }
 

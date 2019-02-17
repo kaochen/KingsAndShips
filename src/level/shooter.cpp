@@ -33,7 +33,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	C_Message m;
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	m.printM(message);
-	m_coord->displayStatus();
+	m_coord.displayStatus();
 }
 
 C_Shooter::~C_Shooter()
@@ -47,8 +47,8 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type)
 	//cout <<"search next target type:" << type << endl;
 	int gridDiag = m_weapon->getFireRange();
 
-	int x_grid = m_coord->getXGrid();
-	int y_grid = m_coord->getYGrid();
+	int x_grid = m_coord.getXGrid();
+	int y_grid = m_coord.getYGrid();
 	C_GameUnits* target = nullptr;
 
 	map<int, C_GameUnits*> list;
@@ -98,13 +98,13 @@ void C_Shooter::kill()
 {
 	C_Grid& grid=C_Grid::Instances();
 	C_Message m;
-	m.printM("kill " + m_name + " from:"+ to_string(m_coord->getXGrid ())
-			 + ":" + to_string(m_coord->getYGrid ()) + "\n");
-	grid.moveToDead(m_coord->getXGrid (), m_coord->getYGrid ());
+	m.printM("kill " + m_name + " from:"+ to_string(m_coord.getXGrid ())
+			 + ":" + to_string(m_coord.getYGrid ()) + "\n");
+	grid.moveToDead(m_coord.getXGrid (), m_coord.getYGrid ());
 	m_selected = false;
 }
 
-void C_Shooter::displayStatus() const
+void C_Shooter::displayStatus()
 {
 	C_GameUnits::displayStatus();
 	if(m_weapon != nullptr)
@@ -294,7 +294,7 @@ S_UnitModel C_Shooter::getInfo(){
 	unit.type = m_type;
 	unit.rank = m_rank;
 	unit.health = m_health;
-	unit.coord = m_coord->getGrid();
+	unit.coord = m_coord.getGrid();
 	unit.cost = m_cost;
 	unit.speed = 0;
 	unit.alive = true;

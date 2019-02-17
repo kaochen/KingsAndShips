@@ -237,12 +237,12 @@ C_Ground::C_Ground(string name, int x_grid, int y_grid):
 void C_Ground::render()
 {
 	C_TextureList& t=C_TextureList::Instances();
-	t.renderTexture(m_name, m_coord->getXScreen(),m_coord->getYScreen(),CENTER_TILE);
+	t.renderTexture(m_name, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
 
 	size_t found = m_name.find("Water");
 	if(found == string::npos) {
-		if ((m_coord->getXGrid()+m_coord->getYGrid())%2 == 0) {
-			t.renderTexture("Ground_01_darken", m_coord->getXScreen(),m_coord->getYScreen() -2, CENTER_TILE);
+		if ((m_coord.getXGrid()+m_coord.getYGrid())%2 == 0) {
+			t.renderTexture("Ground_01_darken", m_coord.getXScreen(),m_coord.getYScreen() -2, CENTER_TILE);
 		}
 	}
 }
