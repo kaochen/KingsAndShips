@@ -40,7 +40,7 @@ private:
 	void cliStatus(); //print basic status in the CLI
 
 	//attributs
-	C_Coord* m_coord;
+	C_Coord m_coord;
 	C_GameUnits * m_field; //main arena.
 	C_GameUnits * m_grave; //when unit is dead
 	C_GameUnits * m_ground; //land and water

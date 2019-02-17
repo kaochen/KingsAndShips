@@ -25,15 +25,12 @@ using namespace std;
 
 
 C_ZLayer::C_ZLayer(int x_grid, int y_grid):
+	m_coord(C_CoordGrid(x_grid,y_grid)),
 	m_field(nullptr),
 	m_grave(nullptr),
 	m_ground(nullptr)
 {
-	S_Coord coord;
-	coord.x = x_grid;
-	coord.y = y_grid;
-	m_coord = new C_CoordGrid(coord);
-	cliStatus();
+	//cliStatus();
 }
 
 C_ZLayer::~C_ZLayer()
@@ -125,7 +122,7 @@ void C_ZLayer::delAll()
 
 void C_ZLayer::cliStatus()
 {
-	cout << m_coord->getXGrid() << ":"<< m_coord->getYGrid() << " ";
+	cout << m_coord.getXGrid() << ":"<< m_coord.getYGrid() << " ";
 }
 
 bool C_ZLayer::play(int layer)
@@ -165,8 +162,8 @@ bool C_ZLayer::render(int layer)
 {
 
 	bool ret = false;
-	m_coord->regenScreenCoord();
-	if(m_coord->onScreen()) { //check if tile is visible on screen
+	m_coord.regenScreenCoord();
+	if(m_coord.onScreen()) { //check if tile is visible on screen
 		switch(layer) {
 		case GROUND :
 			if(m_ground != nullptr) {
