@@ -41,6 +41,11 @@ C_Grid::C_Grid()
 
 C_Grid::~C_Grid()
 {
+	for (size_t y = 0; y < m_vgrid.size(); y++) {
+		for (size_t x = 0; x < m_vgrid.size(); x++) {
+			m_vgrid[x][y].delAll();
+		}
+	}
 	m_vgrid.clear();
 }
 
@@ -66,7 +71,7 @@ void C_Grid::createAnEmptyGrid(int size)
 			line.push_back(z);
 		}
 		m_vgrid.push_back(line);
-		cout << endl;
+		//cout << endl;
 	}
 
 	C_Message m;
