@@ -43,19 +43,19 @@ public:
 	{
 		m_barricade = barricade;
 	};
-	int getXGrid() const;
-	int getYGrid() const;
+	int getXGrid();
+	int getYGrid();
 	void setParent(C_Node * parent);
 	C_Node* getParent();
 	void setChild(C_Node * child);
 	C_Node* getChild();
 	void displayStatus();
 
-	void calcH(const C_Node* target);
+	void calcH(C_Node* target);
 	int getG() const;
 	int getH() const;
 	int getF() const;
-	C_Coord* getCoord() const;
+	C_Coord getCoord() const;
 	bool getOpen() const;
 	void setOpen(bool open);
 	void setF(int G);
@@ -69,7 +69,7 @@ public:
 	void regenScreenCoord();
 	int calcG_offset(int x_from, int y_from,int x_dest, int y_dest);
 protected:
-	C_Coord * m_coord;
+	C_Coord m_coord;
 	bool m_block; /*!< If Unit, that do not move, can not be cross by a boat like a ground*/
 	bool m_barricade; /*!< If Unit, that do not move, can be cross after destruction like a barricade*/
 	int m_G; // G cost (distance from the starting node)
