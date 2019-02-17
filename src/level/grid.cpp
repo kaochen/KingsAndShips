@@ -158,10 +158,12 @@ void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 {
 	if(x_from == x_dest && y_from == y_dest) {}
 	else {
-		if(x_dest >= 0 && x_dest < (int)(m_vgrid.size()) && y_dest >= 0 && y_dest < (int)(m_vgrid.size())) {
-			if(m_vgrid[x_from][y_from].get(FIELD) != nullptr) {
-				m_vgrid[x_dest][y_dest].set(FIELD,m_vgrid[x_from][y_from].get(FIELD));
-				m_vgrid[x_from][y_from].set(FIELD,nullptr);
+		if(x_from >= 0 && x_from < (int)(m_vgrid.size()) && y_from >= 0 && y_from < (int)(m_vgrid.size())) {
+			if(x_dest >= 0 && x_dest < (int)(m_vgrid.size()) && y_dest >= 0 && y_dest < (int)(m_vgrid.size())) {
+				if(m_vgrid[x_from][y_from].get(FIELD) != nullptr) {
+					m_vgrid[x_dest][y_dest].set(FIELD,m_vgrid[x_from][y_from].get(FIELD));
+					m_vgrid[x_from][y_from].set(FIELD,nullptr);
+				}
 			}
 		}
 	}
