@@ -47,6 +47,7 @@ C_Texture::C_Texture(string name):
 
 C_Texture::~C_Texture()
 {
+	SDL_DestroyTexture(m_texture);
 }
 
 SDL_Texture* C_Texture::getTexture()
@@ -262,6 +263,9 @@ C_TextureList::C_TextureList():
 
 C_TextureList::~C_TextureList()
 {
+	for(map<string, C_Texture*>::iterator it=m_map_textures.begin(); it != m_map_textures.end(); ++it){
+		delete it->second;
+	}
 }
 
 
@@ -334,6 +338,12 @@ map<string, C_Texture*>  C_TextureList::getTextMap()
 
 void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int fontSize, SDL_Color color)
 {
+	map<string, C_Texture*>::iterator search = m_map_textures.find(name);
+	if(search != m_map_textures.end()) {
+		if(m_map_textures[name] != nullptr){
+			delete m_map_textures[name];
+		}
+	}
 	m_map_textures[name] = new C_Text(name,message);
 	m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
 }
