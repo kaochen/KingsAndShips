@@ -66,6 +66,10 @@ C_Menu::~C_Menu()
 		if(x.second != nullptr)
 			delete  x.second;
 	}
+
+	for(vector <C_Tab *>::iterator it = m_tabs.begin(); it !=m_tabs.end(); it++) {
+		delete *it;
+		}
 }
 
 

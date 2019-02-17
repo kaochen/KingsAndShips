@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class C_Tab {
 public:
 	C_Tab(std::string title);
-	virtual ~C_Tab() {};
+	virtual ~C_Tab();
 	virtual void displayTab(bool open, size_t nbr);
 	virtual std::string getName()
 	{

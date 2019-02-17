@@ -44,6 +44,13 @@ C_Tab::C_Tab(string title)
 	}
 }
 
+C_Tab::~C_Tab()
+{
+	for(auto const& x : m_itemsList) {
+		if(x.second != nullptr)
+			delete  x.second;
+	}
+}
 
 void C_Tab::displayTab(bool open, size_t nbr)
 {
