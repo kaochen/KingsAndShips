@@ -28,12 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Node::C_Node(const int x_grid,const int y_grid, const bool block)
+C_Node::C_Node(const int x_grid,const int y_grid, const bool block):
+	m_coord(C_CoordGrid(x_grid,y_grid))
 {
-	S_Coord coo;
-	coo.x = x_grid;
-	coo.y = y_grid;
-	m_coord = new C_CoordGrid(coo);
+
 	setBlock(block);
 	m_barricade = false;
 	m_G = 0;
@@ -51,7 +49,6 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block)
 C_Node::~C_Node()
 {
 	m_parent = nullptr;
-	m_coord = nullptr; //FIXME
 
 	C_TextureList& t=C_TextureList::Instances();
 	if(m_h_texture_name != "")
@@ -60,7 +57,7 @@ C_Node::~C_Node()
 		t.freeTexture(m_g_texture_name );
 	if(m_f_texture_name != "")
 		t.freeTexture(m_f_texture_name );
-	delete m_coord;
+
 };
 
 void C_Node::setTown(bool town)
@@ -110,21 +107,21 @@ C_Node* C_Node::getParent()
 	return m_parent;
 }
 
-int C_Node::getXGrid() const
+int C_Node::getXGrid()
 {
-	return m_coord->getGrid().x;
+	return m_coord.getGrid().x;
 }
 
-int C_Node::getYGrid() const
+int C_Node::getYGrid()
 {
-	return m_coord->getGrid().y;
+	return m_coord.getGrid().y;
 }
 
 void C_Node::displayStatus()
 {
 	C_Message m;
 	ostringstream message;
-	message << " Node :" << m_coord->getGrid().x << ":" << m_coord->getGrid().y
+	message << " Node :" << m_coord.getGrid().x << ":" << m_coord.getGrid().y
 			<< " F:" << m_F << " G:" << m_G << " H:" << m_H << " dist:" << m_dist << " angle" << m_angle;
 	if (m_Town)
 		message << " Town: true <---\n";
@@ -133,14 +130,14 @@ void C_Node::displayStatus()
 	m.printM(message.str());
 };
 
-void C_Node::calcH(const C_Node* target)
+void C_Node::calcH(C_Node* target)
 {
 	//cout << "town " << target->getXGrid() << ":"<< target->getYGrid() << endl;
 	if (m_Town == false && m_block == false) {
-		int moveOnX =  target->getXGrid() - m_coord->getGrid().x;
+		int moveOnX =  target->getXGrid() - m_coord.getGrid().x;
 		if (moveOnX < 0)
 			moveOnX *= -1;
-		int moveOnY =  target->getYGrid() - m_coord->getGrid().y;
+		int moveOnY =  target->getYGrid() - m_coord.getGrid().y;
 		if (moveOnY < 0)
 			moveOnY *= -1;
 		m_H = (moveOnX + moveOnY) *10;
@@ -193,7 +190,7 @@ int C_Node::getF() const
 	return m_F;
 }
 
-C_Coord* C_Node::getCoord() const
+C_Coord C_Node::getCoord() const
 {
 	return m_coord;
 }
@@ -225,15 +222,15 @@ void C_Node::highlight()
 	C_Window& win=C_Window::Instances();
 	SDL_Renderer * renderer = win.getRenderer();
 	int R = 200, G = 200, B = 200, A = 100;
-	int x_screen = m_coord->getXScreen ();
-	int y_screen = m_coord->getYScreen ();
+	int x_screen = m_coord.getXScreen ();
+	int y_screen = m_coord.getYScreen ();
 	filledEllipseRGBA(renderer,x_screen, y_screen,10,5,R,G,B,A);
 }
 
 void C_Node::prepareRender()
 {
-	int x_screen = m_coord->getXScreen ();
-	int y_screen = m_coord->getYScreen ();
+	int x_screen = m_coord.getXScreen ();
+	int y_screen = m_coord.getYScreen ();
 	SDL_Color color = {0,0,0,255};
 	C_TextureList& t=C_TextureList::Instances();
 
@@ -252,8 +249,8 @@ void C_Node::prepareRender()
 
 void C_Node::render()
 {
-	int x_screen = m_coord->getXScreen ();
-	int y_screen = m_coord->getYScreen ();
+	int x_screen = m_coord.getXScreen ();
+	int y_screen = m_coord.getYScreen ();
 
 	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
 	C_TextureList& t=C_TextureList::Instances();
@@ -265,6 +262,6 @@ void C_Node::render()
 
 void C_Node::regenScreenCoord()
 {
-	m_coord->regenScreenCoord();
+	m_coord.regenScreenCoord();
 }
 

@@ -81,7 +81,7 @@ void C_Boat::move()
 			int old_x_grid = m_coord->getXGrid();
 			int old_y_grid = m_coord->getYGrid();
 
-			C_Coord destCoord = *path.top()->getCoord();
+			C_Coord destCoord = path.top()->getCoord();
 			destCoord.centerOnTile();
 			S_Coord start = m_coord->getScreen();
 			S_Coord dest = destCoord.getScreen();
