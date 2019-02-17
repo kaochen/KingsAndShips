@@ -79,3 +79,17 @@ void C_UpgradeUnit::action()
 	}
 
 }
+
+
+void C_UpgradeUnit::actionHover(bool state)
+{
+	C_Grid& grid=C_Grid::Instances();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+		if(state){
+			unit->sendToPopup("upgrade");
+		} else {
+			unit->sendToPopup("normal");
+		}
+	}
+}

@@ -16,6 +16,7 @@ data/img/original/renderFolder/
 data/img/render/
 src/img/render/
 src/img/renderFolder/
+doc/html/
 src/img/blendcache_*/
 
 # Precompiled Headers

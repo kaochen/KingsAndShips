@@ -94,13 +94,21 @@ perf report --sort comm,dso
 git remote set-url origin git@github.com:kaochen/KingsAndShips.git
 ```
 
-#### Doxygen
-access: doc/html/index.html
+#### Documentation
+##### Generate documentation from source with doxygen: 
+
 ```
 apt install doxygen doxygen-gui graphviz
 doxygen doc/Doxyfile
+```
+access: doc/html/index.html
+
+##### Configure :
+```
+sudo apt install doxygen-gui
 doxywizard
 ```
+And open the file doc/Doxyfile
 ### Indent
 
 ```

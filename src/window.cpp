@@ -240,7 +240,7 @@ void C_Window::gameLoop()
 
 				//display game content from bottom to top
 				m_level->render();
-
+				m_level->renderSelected();
 				listenButtons();
 				menu.updateInfos();
 				menu.render();
@@ -353,9 +353,9 @@ void C_Window::listenButtons()
 				}
 				//mouse Over
 				if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb) {
-					menuButton->setState(HOVER);
+					menuButton->actionHover(true);
 				} else {
-					menuButton->setState(ACTIVE);
+					menuButton->actionHover(false);
 				}
 			}
 		}

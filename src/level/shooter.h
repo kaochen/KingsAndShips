@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "weapons.h"
 #include "../time.h"
 #include "../wallet.h"
+#include "../menu/popup.h"
 
 class C_Shooter : public C_GameUnits {
 public:
@@ -38,10 +39,9 @@ public:
 	virtual void move();
 	virtual void upgrade(S_UnitModel model);
 	virtual void drag(S_Coord screen);
-	virtual int getCost()
-	{
-		return m_cost;
-	};
+	virtual int getCost(){return m_cost;};
+	virtual S_UnitModel getInfo();
+	virtual void sendToPopup(std::string message){m_popup.setMode(message);};
 protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);
@@ -56,6 +56,7 @@ protected:
 	bool m_justAdded;
 
 	int m_cost;
+	C_Popup m_popup;
 };
 
 #endif

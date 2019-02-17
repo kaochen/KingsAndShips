@@ -72,8 +72,8 @@ public:
 
 	bool selectATower(C_Coord clic);
 	void unselectedAll();
-  C_GameUnits* getSelected();
-  C_UnitFactory& getFactory(){return m_factory;};
+	C_GameUnits* getSelected();
+	C_UnitFactory& getFactory(){return m_factory;};
 
 	virtual bool mainEmpty(int x_grid, int y_grid, C_GameUnits* current);
 	virtual bool mainEmpty(int x_grid, int y_grid);

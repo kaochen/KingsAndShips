@@ -146,10 +146,11 @@ public:
 	}
 
 	//wallet
-	virtual int getCost()
-	{
-		return 0;
-	};
+	virtual int getCost(){return 0;};
+
+	virtual S_UnitModel getInfo();
+	virtual void sendToPopup(std::string message){std::cout << "sendToPopup "<< message << std::endl;};
+
 protected:
 	//alive or dead
 	virtual bool alive() const
