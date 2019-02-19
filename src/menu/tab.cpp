@@ -27,7 +27,7 @@ int C_Tab::m_id = -1;
 C_Tab::C_Tab(string title)
 {
 	m_id++;
-	m_name = "tab_" + m_id;
+	m_name = "tab_" + to_string(m_id);
 	m_title = title;
 	C_Settings& settings=C_Settings::Instances();
 	m_width = settings.getWindowWidth();
@@ -46,10 +46,7 @@ C_Tab::C_Tab(string title)
 
 C_Tab::~C_Tab()
 {
-	for(auto const& x : m_itemsList) {
-		if(x.second != nullptr)
-			delete  x.second;
-	}
+    m_itemsList.clear(); //items are allready delete
 }
 
 void C_Tab::displayTab(bool open, size_t nbr)

@@ -67,9 +67,10 @@ C_Menu::~C_Menu()
 			delete  x.second;
 	}
 
-	for(vector <C_Tab *>::iterator it = m_tabs.begin(); it !=m_tabs.end(); it++) {
-		delete *it;
-		}
+	for(auto const& tab : m_tabs) {
+		if(tab != nullptr)
+			delete  tab;
+	}
 }
 
 
@@ -305,6 +306,7 @@ void C_Menu::bottomButton(const string &name,S_Coord screen)
 			command = new C_Play();
 		}
 		m_menuItemsList[name]->setCommand(command);
+		command = nullptr;
 	}
 }
 

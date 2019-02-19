@@ -48,7 +48,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 }
 
 C_MenuItem::~C_MenuItem(){
-	delete m_command;
+	if(m_command != nullptr)
+	    delete m_command;
 }
 
 void C_MenuItem::setText(string text, int fontSize)

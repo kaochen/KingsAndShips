@@ -93,7 +93,7 @@ protected:
 class C_Button: public C_MenuItem {
 public:
 	C_Button(std::string name,std::string image,int x_screen, int y_screen);
-	~C_Button() {};
+	virtual ~C_Button() {};
 
 	virtual void render();
 };
@@ -101,12 +101,14 @@ public:
 class C_MB_TabSelect: public C_MenuItem { /*!Button Menu one line two texts*/
 public:
 	C_MB_TabSelect(std::string name,std::string text, int fontSize, int x_screen, int y_screen);
+  virtual	~C_MB_TabSelect() {};
 	virtual void render();
 };
 
 class C_MB_1Line: public C_MenuItem { /*!Button Menu one line two texts*/
 public:
 	C_MB_1Line(std::string name,std::string text, int x_screen, int y_screen);
+  virtual	~C_MB_1Line() {};
 	virtual void render();
 protected:
 	std::string m_title;
@@ -117,6 +119,7 @@ protected:
 class C_MB_LevelCard: public C_MenuItem { /*!Level Card to select a level*/
 public:
 	C_MB_LevelCard(int nbr,std::string name, int x_screen, int y_screen);
+  virtual	~C_MB_LevelCard() {};
 	virtual void render();
 protected:
 	int m_nbr;
@@ -130,7 +133,7 @@ protected:
 class C_GB_AddUnit: public C_Button { /*!Game Button add a new unit on the ground*/
 public:
 	C_GB_AddUnit(std::string name,std::string image,int x_screen, int y_screen);
-	~C_GB_AddUnit();
+	virtual ~C_GB_AddUnit();
 	virtual void drag(S_Coord screen);
 	virtual void render();
 
@@ -143,6 +146,7 @@ enum colorList {GREEN,RED,BLUE};
 class C_GP_Status: public C_MenuItem { /*!In Game Progress to show the status (Life, wallet)*/
 public:
 	C_GP_Status(std::string name,int x_screen, int y_screen, int colorIn, int colorOut);
+  virtual	~C_GP_Status() {};
 	virtual void render();
 	virtual void setPercentage(int percentage)
 	{
@@ -161,7 +165,7 @@ protected:
 class C_GU_Upgrade: public C_Button{
 public:
   	C_GU_Upgrade(std::string name,S_Coord screen);
-    ~C_GU_Upgrade(){};
+    virtual ~C_GU_Upgrade(){};
   	virtual void render();
 };
 
