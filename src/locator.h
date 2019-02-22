@@ -14,32 +14,31 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+/*!
+ * \file locator.h
+ */
 
-#include "locator.h"
+#ifndef LOCATOR_H
+#define LOCATOR_H
+
+#include <iostream>
 #include "message.h"
-#include "window.h"
-#include <cstdlib>
-#include <ctime>
-using namespace std;
 
+/*! \class C_Locator
+ * \brief C_Locator find services .
+ * http://gameprogrammingpatterns.com/service-locator.html
+ */
 
-int main()
+class C_Locator
 {
-	//init random
-	srand(time(NULL));
-    C_Message *p_message = new C_Message();
-    C_Locator::provide(p_message);
-    C_Message *messages =  C_Locator::getMessage();
-    messages->printError("I am here");
+	public:
 
+  static C_Message* getMessage() { return m_message; };
+  static void provide(C_Message* service){m_message = service;};
 
+	private:
+  static C_Message* m_message;
 
-	//init settings
-	C_Window& win=C_Window::Instances();
-	win.createWindow();
-	win.loadGame();
-	win.listLevels();
-	win.gameLoop();
-	win.quitProgram();
-	return 0;
 };
+#endif
+

@@ -42,6 +42,7 @@ all_src = ['src/settings.cpp',
 	'src/menu/menuItems.cpp',
 	'src/menu/tab.cpp',
 	'src/menu/menu.cpp',
+	'src/locator.cpp',
 	'src/main.cpp']
 
 exe = executable('kingsandships',
