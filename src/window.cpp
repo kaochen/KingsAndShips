@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "window.h"
 #include "settings.h"
-
+#include "locator.h"
 #include "texture.h"
 #include "menu/menu.h"
 #include "menu/command.h"
@@ -117,6 +117,8 @@ void C_Window::createWindow()
 		}
 	}
 	m.printM("The main window has been created successfully\n");
+	C_Clock messages =  C_Locator::getMessage();
+	messages.clock();
 }
 
 void C_Window::loadGame()

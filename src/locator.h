@@ -28,17 +28,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * \brief C_Locator find services .
  * http://gameprogrammingpatterns.com/service-locator.html
  */
+class CC_Time{
+public:
+	virtual ~CC_Time(){};
+	virtual void clock() = 0;
+};
+
+class C_Clock : public CC_Time
+{
+public:
+	virtual void clock(){std::cout << "I am a clock" << std::endl;};
+};
 
 class C_Locator
 {
-	public:
+public:
+	static C_Clock& getMessage() { return *m_message; };
+	static void provide(C_Clock* service){m_message = service;};
 
-  static C_Message* getMessage() { return m_message; };
-  static void provide(C_Message* service){m_message = service;};
-
-	private:
-  static C_Message* m_message;
-
+private:
+	static C_Clock* m_message;
 };
+
 #endif
 
