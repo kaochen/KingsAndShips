@@ -29,7 +29,7 @@ int main()
 	srand(time(NULL));
 	//init services
 	C_Locator::setService(new C_Time());
-	C_Locator::setService(new C_TextureList);
+	C_Locator::setService(new C_TextureList());
 	C_Locator::setService(new C_Menu());
 
 
