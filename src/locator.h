@@ -23,31 +23,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include "message.h"
+#include "time.h"
 
 /*! \class C_Locator
  * \brief C_Locator find services .
  * http://gameprogrammingpatterns.com/service-locator.html
  */
-class CC_Time{
-public:
-	virtual ~CC_Time(){};
-	virtual void clock() = 0;
-};
 
-class C_Clock : public CC_Time
-{
-public:
-	virtual void clock(){std::cout << "I am a clock" << std::endl;};
-};
 
 class C_Locator
 {
 public:
-	static C_Clock& getMessage() { return *m_message; };
-	static void provide(C_Clock* service){m_message = service;};
+	static C_Time& getTime() { return *m_time; };
+	static void setService(C_Time* service){m_time = service;};
 
 private:
-	static C_Clock* m_message;
+	static C_Time* m_time;
 };
 
 #endif

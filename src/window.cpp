@@ -117,8 +117,6 @@ void C_Window::createWindow()
 		}
 	}
 	m.printM("The main window has been created successfully\n");
-	C_Clock messages =  C_Locator::getMessage();
-	messages.clock();
 }
 
 void C_Window::loadGame()
@@ -221,8 +219,7 @@ void C_Window::quitProgram()
 
 void C_Window::gameLoop()
 {
-
-	C_Time& time=C_Time::Instances();
+	C_Time time = C_Locator::getTime();
 	C_Menu& menu=C_Menu::Instances();
 
 	//load the first level

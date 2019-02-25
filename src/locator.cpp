@@ -20,5 +20,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Clock* C_Locator::m_message = nullptr;
+C_Time* C_Locator::m_time = nullptr;
 

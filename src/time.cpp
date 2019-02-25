@@ -18,13 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "time.h"
 #include "window.h"
+#include "locator.h"
 #include <string>
 
 using namespace std;
 
 //constructor
-
-C_Time C_Time::m_instance=C_Time();
 
 C_Time::C_Time():
 	m_frameNbr(0),
@@ -39,11 +38,9 @@ C_Time::C_Time():
 {
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
+	cout << "Constructor C_Time() : done" << endl;
 }
 
-C_Time::~C_Time()
-{
-}
 
 
 void C_Time::displayTime() const
@@ -183,7 +180,7 @@ int C_AnimTime::getLoopAnimNbr(int startNbr, int endNbr, long delay)
 
 bool C_AnimTime::frameDelay(int delay)
 {
-	C_Time& time=C_Time::Instances();
+	C_Time time = C_Locator::getTime();
 	long current = time.getFrameNbrFromStart();
 	//cout << "current " << current << " lastFrameNbr " << m_lastFrameNbr << "+" << delay << endl;
 	if(current > (m_lastFrameNbr + delay)) {

@@ -26,13 +26,12 @@ int main()
 {
 	//init random
 	srand(time(NULL));
-	C_Clock *p_message = new C_Clock();
-	C_Locator::provide(p_message);
-	C_Clock messages =  C_Locator::getMessage();
-	messages.clock();
+	//init services
+	C_Time *p_time = new C_Time();
+	C_Locator::setService(p_time);
 
 
-	//init settings
+	//start the window
 	C_Window& win=C_Window::Instances();
 	win.createWindow();
 	win.loadGame();
