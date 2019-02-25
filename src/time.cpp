@@ -180,7 +180,7 @@ int C_AnimTime::getLoopAnimNbr(int startNbr, int endNbr, long delay)
 
 bool C_AnimTime::frameDelay(int delay)
 {
-	C_Time time = C_Locator::getTime();
+	C_Time& time = C_Locator::getTime();
 	long current = time.getFrameNbrFromStart();
 	//cout << "current " << current << " lastFrameNbr " << m_lastFrameNbr << "+" << delay << endl;
 	if(current > (m_lastFrameNbr + delay)) {

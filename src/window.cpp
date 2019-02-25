@@ -219,7 +219,7 @@ void C_Window::quitProgram()
 
 void C_Window::gameLoop()
 {
-	C_Time time = C_Locator::getTime();
+	C_Time& time = C_Locator::getTime();
 	C_Menu& menu = C_Locator::getMenu();
 
 	//load the first level

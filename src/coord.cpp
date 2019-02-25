@@ -243,7 +243,7 @@ double C_Coord::directionToAngle(int direction)
 
 void C_Coord::move(double angle, int speed)
 {
-	C_Time time = C_Locator::getTime();
+	C_Time& time = C_Locator::getTime();
 	//One pixel can't be split, on even frame number use an offset of 0 instead of 1.
 	int halfPixel = 1;
 	if(time.getFrameNbr ()%2 == 0) {
