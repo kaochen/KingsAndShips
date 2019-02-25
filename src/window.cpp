@@ -148,7 +148,7 @@ void C_Window::listLevels()
 	m_levelFactory = new C_LevelFactory;
 	m.printM("Listing levels completed\n");
 	//Now level factory is init, it is possible to generate the menuBanner
-	C_Menu& menu=C_Menu::Instances();
+	C_Menu& menu=C_Locator::getMenu();
 	menu.menuBanner();
 }
 
@@ -220,7 +220,7 @@ void C_Window::quitProgram()
 void C_Window::gameLoop()
 {
 	C_Time time = C_Locator::getTime();
-	C_Menu& menu=C_Menu::Instances();
+	C_Menu& menu = C_Locator::getMenu();
 
 	//load the first level
 	loadLevel(m_levelNbr);
@@ -290,7 +290,7 @@ void C_Window::listenSDL_Events()
 	}
 }
 bool C_Window::testIfButton(S_Coord screen){
-	C_Menu& menu=C_Menu::Instances();
+	C_Menu& menu=C_Locator::getMenu();
     bool ret = false;
 	C_MenuItem* menuButton;
 	vector <string> list;
@@ -316,7 +316,7 @@ bool C_Window::testIfButton(S_Coord screen){
 
 void C_Window::listenButtons()
 {
-	C_Menu& menu=C_Menu::Instances();
+	C_Menu& menu=C_Locator::getMenu();
 
 	C_MenuItem* menuButton;
 	vector <string> list;

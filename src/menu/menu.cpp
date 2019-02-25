@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Menu C_Menu::m_instance=C_Menu();
 
 C_Menu::C_Menu():
 	m_current_wave(1),
@@ -57,7 +56,8 @@ C_Menu::C_Menu():
 	line.x = 20;
 	line.y = settings.getWindowHeight() - 20;
 	bottomButtonsLine(line);
-	//menuBanner();
+
+	cout << "Constructor C_Menu() : done" << endl;
 }
 
 C_Menu::~C_Menu()

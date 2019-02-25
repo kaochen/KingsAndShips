@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "locator.h"
 #include "window.h"
+#include "menu/menu.h"
 #include <cstdlib>
 #include <ctime>
 using namespace std;
@@ -29,6 +30,8 @@ int main()
 	//init services
 	C_Time *p_time = new C_Time();
 	C_Locator::setService(p_time);
+	C_Menu *p_menu = new C_Menu();
+	C_Locator::setMenu(p_menu);
 
 
 	//start the window

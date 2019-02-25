@@ -22,34 +22,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <map>
 #include <string>
 #include <vector>
-#include "menuItems.h"
+#include "../locator.h"
 #include "../level/level.h"
+#include "menuItems.h"
 #include "tab.h"
 
+class C_MenuItem;
 
 class C_Menu {
 public:
-	static	C_Menu& Instances()
-	{
-		return m_instance;
-	};
+	C_Menu();
+	virtual ~C_Menu();
 	void updateInfos(); /*!Create or update informations before render them on screen*/
 	void render(); /*!Render the menu on screen*/
-	C_MenuItem * getMenuItem(std::string name)
-	{
-		return m_menuItemsList[name];
-	};
+	C_MenuItem * getMenuItem(std::string name){return m_menuItemsList[name];};
 	void updateLevelInfos(int current_wave, int total_waves);
 	void resetValues(); /*!reset values when change or reset the level*/
 	void menuBanner();
 
-  void updateUpgradeButtonsStatus();
+ 	void updateUpgradeButtonsStatus();
 	//commands
 	void openBottomMenu();
-	bool isOpen()
-	{
-		return m_bottomMenuOpen;
-	};
+	bool isOpen(){return m_bottomMenuOpen;};
 	void displayBottomMenu();
 	std::vector<std::string> getMenuItemsList();
 	void setTabNbr(int nbr);
@@ -60,20 +54,11 @@ protected:
 	std::string nbrToString(int nbr);/*!fill empty space when convert int to string, "10" become "  10"*/
 
 private:
-	C_Menu& operator= (const C_Menu&)
-	{
-		return *this;
-	}
-	C_Menu (const C_Menu&) {}
-	static C_Menu m_instance;
-	C_Menu();
-	~C_Menu();
+
 	void bottomButton(const std::string &name,S_Coord screen);/*!setup button for the bottom line of buttons*/
 	void bottomButtonsLine(S_Coord screen);
-	std::string tabName(int nbr)
-	{
-		return "tab" + std::to_string(nbr) + "_Flag";
-	};
+	std::string tabName(int nbr){
+		return "tab" + std::to_string(nbr) + "_Flag";};
 	//information to display
 	int m_current_wave;
 	int m_total_waves;

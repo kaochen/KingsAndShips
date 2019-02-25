@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "boat.h"
 #include "level.h"
 #include "grid.h"
+#include "../locator.h"
 #include "../wallet.h"
 #include "../message.h"
 #include "../menu/menu.h"
@@ -252,7 +253,7 @@ void C_Level::loadDecorLayerIntoTheGrid()
 
 void C_Level::updateMenuInfo()
 {
-	C_Menu& menu=C_Menu::Instances();
+	C_Menu& menu=C_Locator::getMenu();
 	menu.updateLevelInfos(m_nbrOfWaves - m_currentWaveNbr, m_nbrOfWaves);
 }
 

@@ -21,4 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_Time* C_Locator::m_time = nullptr;
+C_Menu* C_Locator::m_menu = nullptr;
+
 
