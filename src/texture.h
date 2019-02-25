@@ -89,16 +89,21 @@ protected:
 	std::string m_message;
 };
 
+/*! \class C_TextureList
+ * \brief C_TextureList is a database for SDL Texture.
+ * It store SDL_Texture by name into a map
+ */
 
 //C_TextureList
 class C_TextureList
 {
 public:
-	static	C_TextureList& Instances();
+	C_TextureList();
+	virtual ~C_TextureList();
 	void renderTexture(std::string name, int x, int y);
-  void renderTexture(std::string name, int x, int y,int align);
+	void renderTexture(std::string name, int x, int y,int align);
 	void renderTextureEx(std::string name, int x, int y, double angle, int align);
-  C_Texture* searchTexture(std::string name);
+	C_Texture* searchTexture(std::string name);
 	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);
@@ -108,16 +113,9 @@ public:
 	void freeTexture(std::string name);
 
 private:
-	C_TextureList& operator= (const C_TextureList&){return *this;}
-	C_TextureList (const C_Texture&){}
-
-	static C_TextureList m_instance;
-	C_TextureList();
-	~C_TextureList();
 	int m_count;
 	std::map<std::string, C_Texture*> m_map_textures;
 };
-
 
 
 #endif

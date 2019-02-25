@@ -29,8 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "message.h"
 using namespace std;
 
-C_TextureList C_TextureList::m_instance=C_TextureList();
-
 //Textures
 
 C_Texture::C_Texture():
@@ -259,6 +257,7 @@ void C_Text::loadTexture(string &path)
 C_TextureList::C_TextureList():
 	m_count (0)
 {
+	cout << "Constructor C_TextureList() : done" << endl;
 }
 
 C_TextureList::~C_TextureList()
@@ -266,12 +265,6 @@ C_TextureList::~C_TextureList()
 	for(map<string, C_Texture*>::iterator it=m_map_textures.begin(); it != m_map_textures.end(); ++it){
 		delete it->second;
 	}
-}
-
-
-C_TextureList& C_TextureList::Instances()
-{
-	return m_instance;
 }
 
 

@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "landscape.h"
 
 #include "../texture.h"
+#include "../locator.h"
 #include "../message.h"
 #include "../menu/menu.h"
 
@@ -177,7 +178,7 @@ void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 
 void C_Grid::setGround(int x, int y, int id)
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	if(id !=0) {
 		string str = t.getNameFromID(id);
 		m_vgrid[x][y].set(GROUND,new C_Ground(str,x,y));
@@ -186,7 +187,7 @@ void C_Grid::setGround(int x, int y, int id)
 
 void C_Grid::setDecors(int x, int y, int id)
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	string rocks = "rocks";
 	string trees = "trees";
 	string town = "town";

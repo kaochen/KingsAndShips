@@ -30,6 +30,8 @@ int main()
 	//init services
 	C_Time *p_time = new C_Time();
 	C_Locator::setService(p_time);
+
+	C_Locator::setTextureList(new C_TextureList);
 	C_Menu *p_menu = new C_Menu();
 	C_Locator::setMenu(p_menu);
 

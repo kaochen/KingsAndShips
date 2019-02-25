@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 #include "grid.h"
 
+#include "../locator.h"
 #include "../texture.h"
 #include "../message.h"
 
@@ -82,7 +83,7 @@ void C_GameUnits::displayStatus()
 
 void C_GameUnits::render(S_Coord screen)
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	string fileName = imageName(ALIVE,m_direction,0);
 	t.renderTexture(fileName, screen.x,screen.y);
 }

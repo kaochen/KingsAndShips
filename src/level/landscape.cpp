@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 #include "../settings.h"
 #include "../texture.h"
+#include "../locator.h"
 #include <stdlib.h>
 
 using namespace std;
@@ -51,7 +52,7 @@ void C_Landscape::renderWater(int direction, int gridSize)
 	SDL_Renderer* renderer = win.getRenderer ();
 	C_Settings& settings=C_Settings::Instances();
 	S_Coord camera = settings.getCameraPosition();
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	//cout << "direction: " << direction << endl;
 	SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 	SDL_RenderClear(renderer);
@@ -224,7 +225,7 @@ void C_Decors::render(S_Coord screen)
 	string fileName = m_name;
 	//cout << "image name is "<< fileName << endl;
 
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
@@ -236,7 +237,7 @@ C_Ground::C_Ground(string name, int x_grid, int y_grid):
 
 void C_Ground::render()
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(m_name, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
 
 	size_t found = m_name.find("Water");
@@ -271,7 +272,7 @@ void C_Trees::render(S_Coord screen)
 		fileName = m_name + "_" + to_string(m_imageNbr);
 	}
 	//cout << "image name is "<< fileName << endl;
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
@@ -292,7 +293,7 @@ void C_OutsideTile::render(S_Coord grid)
 	C_CoordGrid coord(grid);
 	S_Coord screen = coord.getScreen();
 	if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max) {
-		C_TextureList& t=C_TextureList::Instances();
+		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture("Ground_01_paper", screen.x,screen.y);
 	}
 }

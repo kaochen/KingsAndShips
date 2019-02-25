@@ -121,7 +121,7 @@ void C_Window::createWindow()
 
 void C_Window::loadGame()
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	C_Settings& settings=C_Settings::Instances();
 	queue<string> *list = settings.getTSXfileList();
 
@@ -198,7 +198,7 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 		SDL_RenderFillRect(m_renderer, &stripes);
 	}
 
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(label,settings.getWindowWidth()/2, settings.getWindowHeight()/2 + 2*height);
 }
 

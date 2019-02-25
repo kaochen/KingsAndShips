@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "weapons.h"
 
 #include "../texture.h"
+#include "../locator.h"
 
 
 using namespace std;
@@ -44,7 +45,7 @@ void C_Towers::renderSmoke()
 	int imageNbr = m_animation[JUSTADDED]->getAnimNbr(0,7,100);
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen ());
 	if (imageNbr == 7)
 		m_justAdded = false;
@@ -109,7 +110,7 @@ void C_Turbine::render(S_Coord screen)
 		int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
 
 		string fileName = imageName(ALIVE,current.direction,imageNbr);
-		C_TextureList& t=C_TextureList::Instances();
+		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 
 		if (m_justAdded)

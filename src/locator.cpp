@@ -22,5 +22,6 @@ using namespace std;
 
 C_Time* C_Locator::m_time = nullptr;
 C_Menu* C_Locator::m_menu = nullptr;
+C_TextureList* C_Locator::m_texturelist = nullptr;
 
 

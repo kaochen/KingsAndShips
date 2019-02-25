@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "menuItems.h"
 #include "../window.h"
+#include "../locator.h"
 #include "../texture.h"
 #include "../message.h"
 #include "../level/factory.h"
@@ -66,7 +67,7 @@ void C_MenuItem::setTextPosition(int x_text, int y_text)
 
 void C_MenuItem::renderText()
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	if(m_text !="") {
 		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
 			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
@@ -78,7 +79,7 @@ void C_MenuItem::renderText()
 
 void C_MenuItem::render()
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(m_image, m_x_screen + m_width/2,m_y_screen+m_height/2,CENTER);
 	renderText();
 }
@@ -109,7 +110,7 @@ void C_MenuItem::actionHover(bool state)
 
 void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height)
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	int size = 6;
 	int x = width/size;
 	int y = height/size;
@@ -122,7 +123,7 @@ void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height)
 
 void C_MenuItem::corners(int x_screen, int y_screen, int width, int height, bool big)
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	int size = 12/2;
 	string name = "icons_12px_corner_small";
 	if(big)
@@ -169,7 +170,7 @@ void C_Button::render()
 		prefix ="_Disabled";
 	}
 	name += prefix;
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
 }
 
@@ -212,7 +213,7 @@ void C_MB_TabSelect::render()
 
 	stripes(x1, y1, m_width, m_height);
 
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	if(m_text !="") {
 		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
 			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
@@ -264,7 +265,7 @@ void C_MB_1Line::render()
 	int height = y2 - y1;
 	stripes(x1, y1, width, height);
 
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	if(m_title !="") {
 		if(t.searchTexture(m_titleName)== nullptr || m_title != m_oldTitle) {
 			t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
@@ -321,7 +322,7 @@ void C_MB_LevelCard::render()
 		prefix ="_Disabled";
 	}
 	name += prefix;
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
 
     //Text
@@ -394,7 +395,7 @@ void C_GB_AddUnit::render()
 		}
 
 		C_Button::render();
-		C_TextureList& t=C_TextureList::Instances();
+		C_TextureList& t= C_Locator::getTextureList();
 		if(t.searchTexture(m_textName)== nullptr) {
 			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		}
@@ -435,7 +436,7 @@ void C_GP_Status::setPercentage(int a, int b)
 
 void C_GP_Status::render()
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	int y = m_y_screen + 13;
 	int size = 6; //ProgressBar_Center are 6px wide
 	int all = m_width/size;
@@ -525,7 +526,7 @@ void C_GU_Upgrade::render()
 	if(check) {
 		m_text = to_string(model.cost);
 
-		C_TextureList& t=C_TextureList::Instances();
+		C_TextureList& t= C_Locator::getTextureList();
 		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
 			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 			m_oldText = m_text;

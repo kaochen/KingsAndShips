@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "barricade.h"
 #include "../texture.h"
+#include "../locator.h"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ void C_Barricade::render(S_Coord screen)
 		int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,100);
 		string fileName = m_name+"_A_" + to_string(imageNbr);
 		//cout << "image name is "<< fileName << endl;
-		C_TextureList& t=C_TextureList::Instances();
+		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		renderLifeBar(screen.x, screen.y);
 	}

@@ -171,7 +171,7 @@ S_Coord C_Level::getFirstTile(S_tmxLayer &layer)
 void C_Level::loadWave(string tmx_File_Path, int waveNbr)
 {
 
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 
 	C_Wave wave;
 	string name = "Wave" + to_string(waveNbr);

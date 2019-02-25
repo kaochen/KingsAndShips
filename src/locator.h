@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "message.h"
 #include "time.h"
 #include "menu/menu.h"
+#include "texture.h"
 
 /*! \class C_Locator
  * \brief C_Locator find services .
@@ -38,12 +39,16 @@ class C_Locator
 public:
 	static C_Time& getTime() { return *m_time; };
 	static C_Menu& getMenu() { return *m_menu; };
+	static C_TextureList& getTextureList() { return *m_texturelist; };
+
 	static void setService(C_Time* service){m_time = service;};
 	static void setMenu(C_Menu* service){m_menu = service;};
+	static void setTextureList(C_TextureList* service){m_texturelist = service;};
 
 private:
 	static C_Time* m_time;
 	static C_Menu* m_menu;
+	static C_TextureList* m_texturelist;
 };
 
 #endif

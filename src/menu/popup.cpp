@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "popup.h"
 #include "../texture.h"
+#include "../locator.h"
 #include "../level/grid.h"
 
 using namespace std;
@@ -37,7 +38,7 @@ C_Sentence::C_Sentence(string text, S_Coord screen):
 }
 
 void C_Sentence::render(S_Coord screen, int align){
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	bool checkColor = false;
 	if(m_color.r != m_oldColor.r || m_color.g != m_oldColor.g
 		|| m_color.b != m_oldColor.b || m_color.a != m_oldColor.a){
@@ -83,7 +84,7 @@ C_Popup::~C_Popup(){
 }
 
 void C_Popup::render(S_Coord screen){
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	screen.x -=120;
 	screen.y -=40;
 	t.renderTexture("Parchment_Parchment", screen.x,screen.y,CENTER);

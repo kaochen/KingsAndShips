@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "weapons.h"
 #include "../texture.h"
+#include "../locator.h"
 
 using namespace std;
 
@@ -81,7 +82,7 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target)
 
 void C_Weapon::render()
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTextureEx("Weapons_arrow", m_x_screen,m_y_screen,m_angle, CENTER_TILE);
 }
 

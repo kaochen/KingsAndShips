@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 
 #include "../window.h"
+#include "../locator.h"
 
 using namespace std;
 
@@ -145,7 +146,7 @@ void C_Boat::move()
 
 void C_Boat::render(S_Coord screen)
 {
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 
 	int imageNbr = 0;
 	int status = ALIVE;

@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../settings.h"
 #include "../window.h"
+#include "../locator.h"
 #include "../texture.h"
 #include "../message.h"
 
@@ -50,7 +51,7 @@ C_Node::~C_Node()
 {
 	m_parent = nullptr;
 
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	if(m_h_texture_name != "")
 		t.freeTexture(m_h_texture_name );
 	if(m_g_texture_name != "")
@@ -232,7 +233,7 @@ void C_Node::prepareRender()
 	int x_screen = m_coord.getXScreen ();
 	int y_screen = m_coord.getYScreen ();
 	SDL_Color color = {0,0,0,255};
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 
 	m_h_texture_name = to_string(x_screen)+to_string(y_screen)+"h_value";
 	string value = "H:"+to_string(m_H);
@@ -253,7 +254,7 @@ void C_Node::render()
 	int y_screen = m_coord.getYScreen ();
 
 	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
-	C_TextureList& t=C_TextureList::Instances();
+	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(m_h_texture_name,x_screen - 20,y_screen + 12);
 	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);
 	t.renderTexture(m_f_texture_name,x_screen,y_screen + 25);
