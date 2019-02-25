@@ -28,12 +28,9 @@ int main()
 	//init random
 	srand(time(NULL));
 	//init services
-	C_Time *p_time = new C_Time();
-	C_Locator::setService(p_time);
-
-	C_Locator::setTextureList(new C_TextureList);
-	C_Menu *p_menu = new C_Menu();
-	C_Locator::setMenu(p_menu);
+	C_Locator::setService(new C_Time());
+	C_Locator::setService(new C_TextureList);
+	C_Locator::setService(new C_Menu());
 
 
 	//start the window

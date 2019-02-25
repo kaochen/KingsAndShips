@@ -42,8 +42,8 @@ public:
 	static C_TextureList& getTextureList() { return *m_texturelist; };
 
 	static void setService(C_Time* service){m_time = service;};
-	static void setMenu(C_Menu* service){m_menu = service;};
-	static void setTextureList(C_TextureList* service){m_texturelist = service;};
+	static void setService(C_Menu* service){m_menu = service;};
+	static void setService(C_TextureList* service){m_texturelist = service;};
 
 private:
 	static C_Time* m_time;
