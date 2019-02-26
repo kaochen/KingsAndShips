@@ -25,6 +25,7 @@ C_Menu* C_Locator::m_menu = nullptr;
 C_TextureList* C_Locator::m_texturelist = nullptr;
 C_Window* C_Locator::m_window = nullptr;
 C_Wallet* C_Locator::m_wallet = nullptr;
+C_Grid* C_Locator::m_grid = nullptr;
 
 
 

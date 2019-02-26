@@ -69,7 +69,7 @@ C_Level::~C_Level()
 void C_Level::load(int levelNbr)
 {
 	//clean before loading
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	grid.reset(m_gridSize);
 
 	C_Message m;
@@ -109,7 +109,7 @@ void C_Level::setWallet()
 
 void C_Level::createLandscape()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_CoordGrid tmp(grid.foundTown());
 	S_Coord town = tmp.getScreen();
 	m_landscape = new C_Landscape(town);
@@ -131,7 +131,7 @@ void C_Level::sendNextWave()
 
 void C_Level::loadGroundLayerIntoTheGrid()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	string data = m_groundLayer.data;
 	S_Coord start = getFirstTile(m_groundLayer);
 	for (int y = start.y; y < m_groundLayer.height; y++) {
@@ -155,7 +155,7 @@ void C_Level::loadGroundLayerIntoTheGrid()
 
 S_Coord C_Level::getFirstTile(S_tmxLayer &layer)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	int x = 0;
 	int y = 0;
 	if(grid.size()-layer.width>1) {
@@ -231,7 +231,7 @@ void C_Level::loadWaveIntoGrid(int i)
 
 void C_Level::loadDecorLayerIntoTheGrid()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	string data = m_decorLayer.data;
 	S_Coord start = getFirstTile(m_decorLayer);
 	for (int y = start.y; y < m_decorLayer.height; y++) {
@@ -259,7 +259,7 @@ void C_Level::updateMenuInfo()
 
 void C_Level::render()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	m_landscape->render(grid.size());
 	m_landscape->renderTopMask(grid.size());
 	grid.renderLayer (GRAVEYARD);
@@ -269,7 +269,7 @@ void C_Level::render()
 }
 
 void C_Level::renderSelected(){
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits *current = grid.getSelected();
 	if(current != nullptr){
 		current->render(current->getScreen());
@@ -288,27 +288,27 @@ void C_Level::play()
 
 void C_Level::playAllUnits()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	grid.playAllUnits(GRAVEYARD);
 	grid.playAllUnits(FIELD);
 }
 
 bool C_Level::selectATower(S_Coord clic)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_CoordScreen coord(clic);
 	return grid.selectATower(coord);
 }
 
 void C_Level::unselectedAll()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	grid.unselectedAll();
 }
 
 void C_Level::addUnit(string &type, S_Coord clic)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_CoordScreen coord(clic);
 	if(grid.addUnit(type,coord.getXGrid (),coord.getYGrid ()) == EXIT_SUCCESS) {
 		C_GameUnits * tmp = grid.getUnits(coord.getXGrid (),coord.getYGrid ());
@@ -323,7 +323,7 @@ void C_Level::addUnit(string &type, S_Coord clic)
 
 S_Coord C_Level::getGridTown()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	return grid.foundTown();
 }
 
@@ -367,7 +367,7 @@ void C_Wave::cliStatus()
 
 void C_Wave::loadIntoGrid()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_Message m;
 	for(vector <S_Unit>::iterator i = m_boatList.begin(); i !=m_boatList.end(); i++) {
 		S_Unit tmp = *i;

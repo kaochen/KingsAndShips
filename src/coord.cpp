@@ -27,7 +27,7 @@ using namespace std;
 C_Coord::C_Coord(int x_grid, int y_grid)
 {
 
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	int gridSize = grid.getSize();
 	if (x_grid < 0)
 		x_grid = 0;
@@ -531,7 +531,7 @@ C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord)
 
 C_CoordGrid::C_CoordGrid(int x_grid, int y_grid ): C_Coord(x_grid, y_grid)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	int size = grid.getSize();
 	if (x_grid < 0)
 		x_grid = 0;

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "pathfinding.h"
 #include "grid.h"
-
+#include "../locator.h"
 #include "../settings.h"
 #include "../message.h"
 
@@ -27,7 +27,7 @@ using namespace std;
 
 C_Path::C_Path(int x_dest, int y_dest)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	for (int x = 0; x < grid.getSize(); x++) {
 		vector <C_Node> line;
 		for (int y = 0; y < grid.getSize(); y++) {

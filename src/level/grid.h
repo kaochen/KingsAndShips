@@ -35,25 +35,20 @@ You can use x+1 to find a unit close to another one m_vgrid[x+1][y]*/
 #include "../coord.h"
 #include "factory.h"
 
-//singleton
+
 class C_Grid {
 public:
-	static	C_Grid& Instances()
-	{
-		return m_instance;
-	};
+	C_Grid();
+	virtual ~C_Grid();
 	void reset(int size);
 	void renderLayer(int layer);
-	int getSize()
-	{
-		return m_size;
-	};
+	int getSize(){return m_size;};
 	void addANewBoat(S_Unit boat);
 	int addUnit(std::string &type, int x_grid, int y_grid);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
-  void upgradeUnit(C_GameUnits * unit){m_factory.upgrade (unit);};
-  bool isUnitupgradable(C_GameUnits * unit) {return m_factory.isUpgradable(unit);};
+	void upgradeUnit(C_GameUnits * unit){m_factory.upgrade (unit);};
+	bool isUnitupgradable(C_GameUnits * unit) {return m_factory.isUpgradable(unit);};
 
 	C_GameUnits* getUnits(int x_grid, int y_grid);
 	void setGround(int x, int y, int id);
@@ -62,10 +57,7 @@ public:
 	bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid);
 	bool isThisConstructible(int x_grid,int y_grid);
-	int size()
-	{
-		return m_vgrid.size() - 2;
-	};
+	int size(){return m_vgrid.size() - 2;};
 	void displayStatus();
 	void playAllUnits(int layer);
 	void deleteGrid();
@@ -79,7 +71,6 @@ public:
 	virtual bool mainEmpty(int x_grid, int y_grid);
 	virtual std::string getUnitType(int layer, int x_grid, int y_grid);
 
-
 	void setTown(int x_grid, int y_grid);
 	S_Coord foundTown();
 	int getAllTownsLifeLevel();
@@ -87,18 +78,7 @@ public:
 protected:
 	void createAnEmptyGrid(int size);
 
-
 private:
-	C_Grid& operator= (const C_Grid&)
-	{
-		return *this;
-	}
-	C_Grid (const C_Grid&) {}
-
-	static C_Grid m_instance;
-	C_Grid();
-	~C_Grid();
-
 	std::vector < std::vector <C_ZLayer> > m_vgrid;
 	int m_size;
 	C_UnitFactory m_factory;

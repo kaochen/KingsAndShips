@@ -57,7 +57,7 @@ void C_LoadALevel::action()
 void C_CenterCamera::action()
 {
 	C_Settings& settings=C_Settings::Instances();
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	settings.cameraOnAPoint(grid.foundTown());
 }
 
@@ -70,7 +70,7 @@ void C_Play::action()
 
 void C_UpgradeUnit::action()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
 		grid.upgradeUnit(unit);
@@ -84,7 +84,7 @@ void C_UpgradeUnit::action()
 
 void C_UpgradeUnit::actionHover(bool state)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
 		if(state){

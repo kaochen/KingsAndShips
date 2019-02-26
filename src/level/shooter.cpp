@@ -43,7 +43,7 @@ C_Shooter::~C_Shooter()
 }
 C_GameUnits*  C_Shooter::searchNextTarget(string type)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	int gridSize = grid.getSize();;
 	//cout <<"search next target type:" << type << endl;
 	int gridDiag = m_weapon->getFireRange();
@@ -97,7 +97,7 @@ void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 
 void C_Shooter::kill()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_Message m;
 	m.printM("kill " + m_name + " from:"+ to_string(m_coord.getXGrid ())
 			 + ":" + to_string(m_coord.getYGrid ()) + "\n");
@@ -194,7 +194,7 @@ void C_Shooter::drag(S_Coord screen)
 {
 
 	m_justAdded = false;
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 
 	bool water = false;
 	if(m_type == "barricade") {

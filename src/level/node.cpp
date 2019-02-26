@@ -151,7 +151,7 @@ int C_Node::calcG_offset(int x_from, int y_from,
 						 int x_dest, int y_dest)
 {
 	int offset = 0;
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	//if diagonal
 	if(x_from != x_dest && y_from != y_dest) {
 		offset += G_DIAG;

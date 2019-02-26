@@ -117,7 +117,7 @@ void C_Menu::resetValues()
 
 void C_Menu::updateDefenderStatus()
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	int playerLife = grid.getAllTownsLifeLevel();
 
 	C_Settings& settings=C_Settings::Instances();
@@ -194,7 +194,7 @@ string C_Menu::nbrToString(int nbr)
 
 
 void C_Menu::updateUpgradeButtonsStatus(){
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
 		if(m_menuItemsList["upgradeTower"] != nullptr){
@@ -242,7 +242,7 @@ vector<string> C_Menu::getMenuItemsList()
 	list.push_back("home");
 	list.push_back("play");
 
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
 	    list.push_back("upgradeTower");

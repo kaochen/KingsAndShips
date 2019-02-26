@@ -32,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Grid C_Grid::m_instance=C_Grid();
-
 C_Grid::C_Grid()
 {
 	cout << "Constructor C_Grid() : done" << endl;

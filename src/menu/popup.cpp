@@ -107,7 +107,7 @@ void C_Popup::getInfo(S_UnitModel current){
 	S_UnitModel unit = current;
 	string color = "black";
 	if(m_mode == "upgrade"){
-		C_Grid& grid=C_Grid::Instances();
+		C_Grid& grid= C_Locator::getGrid();
 		C_UnitFactory factory = grid.getFactory();
 		S_UnitModel up;
 		bool check = factory.getSelectedModel(1,up);

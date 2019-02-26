@@ -30,7 +30,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_speedImpactLoop = 60;
 	m_coord.centerOnTile();
 	//Find a way to town
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	S_Coord town = grid.foundTown();
 	m_C_Path = new C_Path(town.x,town.y);
 	m_C_Path->calcPath(model.coord.x,model.coord.y,town.x,town.y);
@@ -69,7 +69,7 @@ void C_Boat::move()
 {
 	m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
 	m_moving = true;
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	S_Coord town =  grid.foundTown();
 	m_old_coord = m_coord;
 	std::stack<C_Node*> path;

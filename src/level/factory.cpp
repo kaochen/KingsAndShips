@@ -113,7 +113,7 @@ bool C_UnitFactory::isUpgradable(C_GameUnits * unit){
 
 bool C_UnitFactory::getSelectedModel(int increment, S_UnitModel &model){
 	bool ret = false;
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 
 	if(unit != nullptr){

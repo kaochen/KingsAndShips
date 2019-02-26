@@ -207,7 +207,7 @@ void C_Window::quitProgram()
 {
 	C_Message m;
 	//Cleanup before leaving
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	grid.deleteGrid();
 	SDL_DestroyRenderer(m_renderer);
 	SDL_DestroyWindow(m_window);

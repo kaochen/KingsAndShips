@@ -349,7 +349,7 @@ void C_MB_LevelCard::render()
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 	:C_Button(name,image,x_screen,y_screen)
 {
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_UnitFactory factory = grid.getFactory();
 
 	m_type = DRAGUNIT;
@@ -520,7 +520,7 @@ void C_GU_Upgrade::render()
 {
 	C_Button::render();
 
-	C_Grid& grid=C_Grid::Instances();
+	C_Grid& grid= C_Locator::getGrid();
 	C_UnitFactory factory = grid.getFactory();
 	S_UnitModel model;
 	bool check = factory.getSelectedModel(1,model);
