@@ -18,8 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "zlayer.h"
-
-
+#include "../locator.h"
 
 using namespace std;
 
@@ -127,7 +126,7 @@ void C_ZLayer::cliStatus()
 
 bool C_ZLayer::play(int layer)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	bool ret = false;
 	if(settings.getPlaying() == PLAY) {
 		switch(layer) {

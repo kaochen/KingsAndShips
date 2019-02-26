@@ -25,8 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Settings C_Settings::m_instance=C_Settings();
-
 C_Settings::C_Settings()
 {
 	C_Message m;

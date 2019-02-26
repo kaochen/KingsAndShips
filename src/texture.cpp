@@ -67,7 +67,7 @@ void C_Texture::displayStatus()
 
 void C_Texture::render(int x, int y, double angle, int align)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())) {
 		SDL_Rect pos;
 		SDL_QueryTexture(m_texture, NULL, NULL, &pos.w, &pos.h);
@@ -395,7 +395,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 
 				//image node
 				if (nodeName == "image" && attributes == "source") {
-					C_Settings& settings=C_Settings::Instances();
+					C_Settings& settings= C_Locator::getSettings();
 					string tmp = reader.get_value();
 					tmp.replace(0,8,""); //drop default theme "original"
 					filePath = settings.getThemePath() + tmp;

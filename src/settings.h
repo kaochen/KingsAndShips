@@ -57,84 +57,79 @@ enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 enum game {PLAY,PAUSE};
 
 
-//singleton
+
 class C_Settings
 {
 public:
-	static	C_Settings& Instances() {return m_instance;};
-  //window
+	C_Settings();
+	virtual ~C_Settings();
+	//window
 	int getWindowWidth() {return m_windowWidth;};
 	int getWindowHeight() {return m_windowHeight;};
-  S_Coord getCameraPosition(){return m_cameraPos;}; /*!< get the position of the window over the level map*/
-  void setCameraPosition(const S_Coord &pos);
-  void centerCameraPosition();
-  void cameraOnAPoint(S_Coord grid);
-  void moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up);
-  void moveCameraPosition(const int &x,const int &y);
-  //grid
+	S_Coord getCameraPosition(){return m_cameraPos;}; /*!< get the position of the window over the level map*/
+	void setCameraPosition(const S_Coord &pos);
+	void centerCameraPosition();
+	void cameraOnAPoint(S_Coord grid);
+	void moveCameraPosition(const int &rigth,const int &left,const int &down,const int &up);
+	void moveCameraPosition(const int &x,const int &y);
 
+	//grid
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
-  S_Size getNbrOfTilesToDisplay();
-  //debug
+	S_Size getNbrOfTilesToDisplay();
+  	//debug
 	void setDebugMode();
 	bool getDebugMode() {return m_debugMode;};
-  void setDebugPathMode();
-  bool getDebugPathMode() {return m_debugPath;};
+  	void setDebugPathMode();
+	bool getDebugPathMode() {return m_debugPath;};
 	void displayDebugMode();
-  //images
-  void initTSXfileList();
-  std::queue<std::string>* getTSXfileList(){return &m_tsxFileList;};
-  std::string getImgFolder(){return m_imgFolder;};
-  std::string getThemePath(){return m_imgFolder + m_theme;};
-  //level
-  int setCurrentLevelNbr(int nbr);
-  int getCurrentLevelNbr(){return m_currentLevel;};
-  int getNbrOfLevels();
-  std::string getLevelFolder(){return m_levelFolder;};
-  std::string get_working_path();
-  //game
-  int getPlaying(){return m_playing;};
-  void setPlaying();
-  void setPlaying(int state);
+  	//images
+	void initTSXfileList();
+	std::queue<std::string>* getTSXfileList(){return &m_tsxFileList;};
+	std::string getImgFolder(){return m_imgFolder;};
+	std::string getThemePath(){return m_imgFolder + m_theme;};
+	//level
+	int setCurrentLevelNbr(int nbr);
+	int getCurrentLevelNbr(){return m_currentLevel;};
+	int getNbrOfLevels();
+	std::string getLevelFolder(){return m_levelFolder;};
+	std::string get_working_path();
+	//game
+	int getPlaying(){return m_playing;};
+	void setPlaying();
+	void setPlaying(int state);
 
 private:
-	C_Settings& operator= (const C_Settings&){return *this;}
-	C_Settings (const C_Settings&){}
-  bool fileExist(const std::string &file);
-  void loadPrefFile();
-  void extractWindowSize();
-  void calcGridSize();
-  bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
+	bool fileExist(const std::string &file);
+	void loadPrefFile();
+	void extractWindowSize();
+	void calcGridSize();
+	bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
 
-	static C_Settings m_instance;
-	C_Settings();
-	~C_Settings();
+	//pref file:
+	std::string m_prefFile;
 
-  //pref file:
-  std::string m_prefFile;
-
-  //window
+	//window
 	int m_windowWidth;
 	int m_windowHeight;
-  S_Coord m_cameraPos; /*!< get the position of the window over the level map*/
-  //grid
+	S_Coord m_cameraPos; /*!< get the position of the window over the level map*/
+	//grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
 
-  //debug
+	//debug
 	bool m_debugMode;
-  bool m_debugPath;
-  //images
-  std::string m_imgFolder;
-  std::string m_theme;
-  std::queue<std::string> m_tsxFileList;
-  //levels
-  int m_currentLevel;
-  int m_nbrOfLevels;
-  std::string m_levelFolder;
+	bool m_debugPath;
+	//images
+	std::string m_imgFolder;
+	std::string m_theme;
+	std::queue<std::string> m_tsxFileList;
+	//levels
+	int m_currentLevel;
+	int m_nbrOfLevels;
+	std::string m_levelFolder;
 
-  //game
-  int m_playing;
+	//game
+	int m_playing;
 };
 
 #endif

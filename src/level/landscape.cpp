@@ -50,7 +50,7 @@ void C_Landscape::renderWater(int direction, int gridSize)
 {
 	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	S_Coord camera = settings.getCameraPosition();
 	C_TextureList& t= C_Locator::getTextureList();
 	//cout << "direction: " << direction << endl;
@@ -130,7 +130,7 @@ void C_Landscape::renderWater(int direction, int gridSize)
 int C_Landscape::waterDirection(S_Coord town)
 {
 
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 
 	int ab = town.x - settings.getWindowWidth()/2;
 	int bc = town.y - settings.getWindowHeight()/2;;
@@ -147,7 +147,7 @@ int C_Landscape::waterDirection(S_Coord town)
 
 void C_Landscape::renderBottomMask(int gridSize)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	//get coordinates from the tile that are on corners
 	C_CoordScreen bottomLeft(0,settings.getWindowHeight());
 	S_Coord b_left = bottomLeft.getGrid();
@@ -181,7 +181,7 @@ void C_Landscape::renderBottomMask(int gridSize)
 
 void C_Landscape::renderTopMask(int gridSize)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	//get coordinates from the tile that are on corners
 	C_CoordScreen topLeft(0,0);
 	S_Coord t_left = topLeft.getGrid();
@@ -285,7 +285,7 @@ C_OutsideTile::C_OutsideTile():
 
 void C_OutsideTile::render(S_Coord grid)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	int x_min = 0 - TILE_HALF_WIDTH;
 	int y_min = 0 - TILE_HALF_HEIGHT;
 	int x_max = settings.getWindowWidth() + TILE_HALF_WIDTH;

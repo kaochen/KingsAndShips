@@ -97,7 +97,7 @@ void C_Coord::applyOffset(S_Coord offset)
 
 bool C_Coord::onScreen()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	bool visible = false;
 	if(m_this.screen.x > - TILE_HALF_WIDTH && m_this.screen.x < settings.getWindowWidth() + TILE_HALF_WIDTH
 			&& m_this.screen.y > - TILE_HALF_HEIGHT && m_this.screen.y < settings.getWindowHeight() + 2*TILE_HALF_HEIGHT) {
@@ -108,7 +108,7 @@ bool C_Coord::onScreen()
 
 S_Coord C_Coord::screenToGrid(S_Coord screen)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	S_Coord cameraPos = settings.getCameraPosition();
 	float xOffset = cameraPos.x;
 	float yOffset = cameraPos.y + TILE_HALF_HEIGHT/2;
@@ -123,7 +123,7 @@ S_Coord C_Coord::screenToGrid(S_Coord screen)
 
 S_Coord C_Coord::gridToScreen(S_Coord grid)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	S_Coord cameraPos = settings.getCameraPosition();
 	S_Coord screen;
 	screen.x = cameraPos.x + (grid.x - grid.y)* TILE_HALF_WIDTH;

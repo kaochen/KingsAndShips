@@ -56,14 +56,14 @@ void C_LoadALevel::action()
 
 void C_CenterCamera::action()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	C_Grid& grid= C_Locator::getGrid();
 	settings.cameraOnAPoint(grid.foundTown());
 }
 
 void C_Play::action()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	settings.setPlaying();
 
 }

@@ -319,7 +319,7 @@ bool C_Grid::selectATower(C_Coord clic)
 {
 	S_Coord grid = clic.getGrid();
 	bool selected = false, top = false, bottom = false;
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	C_Message m;
 	string message ="";
 	string type ="";

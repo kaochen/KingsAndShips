@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include "message.h"
+#include "settings.h"
 #include "time.h"
 #include "menu/menu.h"
 #include "texture.h"
@@ -46,6 +47,7 @@ public:
 	static C_Window& getWindow() { return *m_window; };
 	static C_Wallet& getWallet() { return *m_wallet; };
 	static C_Grid& getGrid() { return *m_grid; };
+	static C_Settings& getSettings() { return *m_settings; };
 
 	static void setService(C_Time* service){m_time = service;};
 	static void setService(C_Menu* service){m_menu = service;};
@@ -53,6 +55,7 @@ public:
 	static void setService(C_Window* service){m_window = service;};
 	static void setService(C_Wallet* service){m_wallet = service;};
 	static void setService(C_Grid* service){m_grid = service;};
+	static void setService(C_Settings* service){m_settings = service;};
 
 private:
 	static C_Time* m_time;
@@ -61,6 +64,7 @@ private:
 	static C_Window* m_window;
 	static C_Wallet* m_wallet;
 	static C_Grid* m_grid;
+	static C_Settings* m_settings;
 };
 
 #endif

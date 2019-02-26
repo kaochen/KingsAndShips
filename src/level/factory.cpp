@@ -174,7 +174,7 @@ S_LevelModel C_LevelFactory::extractInfosFromTmx(int levelNbr)
 {
 	S_LevelModel level;
 	level.nbr = levelNbr;
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	level.filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
 	C_Message m;
 	struct stat buffer;

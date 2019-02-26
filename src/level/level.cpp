@@ -43,7 +43,7 @@ C_Level::C_Level(S_LevelModel model):
 {
 	C_Message m;
 	m_count = ++m_id;
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	m_filename = settings.getLevelFolder() + "Level_" + to_string(model.nbr) + ".tmx";
 	struct stat buffer;
 	if (stat (m_filename.c_str(),  &buffer) == 0) {

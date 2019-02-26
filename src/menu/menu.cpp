@@ -34,7 +34,7 @@ C_Menu::C_Menu():
 	m_total_waves(1),
 	m_bottomMenuOpen(false)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	int size = 64 + 10;
 	int x_button = settings.getWindowWidth() - size;
 	int y_button = settings.getWindowHeight()/2 - size;
@@ -120,7 +120,7 @@ void C_Menu::updateDefenderStatus()
 	C_Grid& grid= C_Locator::getGrid();
 	int playerLife = grid.getAllTownsLifeLevel();
 
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	int x = settings.getWindowWidth();
 
 	if(m_menuItemsList["Characters_fox"] == nullptr) {
@@ -159,7 +159,7 @@ void C_Menu::updateAttackerStatus()
 
 void C_Menu::updateWalletStatus()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	int x = settings.getWindowWidth();
 	C_Wallet& wallet= C_Locator::getWallet();
 	if(m_menuItemsList["gold_pile"] == nullptr) {
@@ -211,7 +211,7 @@ void C_Menu::updateUpgradeButtonsStatus(){
 
 void C_Menu::openBottomMenu()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	if(m_bottomMenuOpen) {
 		m_bottomMenuOpen = false;
 		settings.setPlaying(PLAY);

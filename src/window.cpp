@@ -36,7 +36,7 @@ using namespace std;
 C_Window::C_Window()
 {
 	initSDL();
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	m_forceRefresh = false;
 
 	m_levelFactory = nullptr;
@@ -96,7 +96,7 @@ void C_Window::initSDL()
 void C_Window::createWindow()
 {
 	C_Message m;
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	m_window = SDL_CreateWindow("KingsAndShips",
 								SDL_WINDOWPOS_UNDEFINED,
 								SDL_WINDOWPOS_UNDEFINED,
@@ -122,7 +122,7 @@ void C_Window::createWindow()
 void C_Window::loadGame()
 {
 	C_TextureList& t= C_Locator::getTextureList();
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	queue<string> *list = settings.getTSXfileList();
 
 	//create texture from the path
@@ -164,7 +164,7 @@ void C_Window::loadingPage(int progress, string label, int stepsNbr)
 
 void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	int height = 40, width = settings.getWindowWidth()/2;
 	int x_screen = 	(settings.getWindowWidth()- width) /2;
 	int y_screen =  (settings.getWindowHeight() - height)/2;
@@ -363,7 +363,7 @@ void C_Window::listenButtons()
 
 void C_Window::listenKeyboard(SDL_Event &event)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	int r = 0;
 	int l = 0;
 	int u = 0;
@@ -425,7 +425,7 @@ void C_Window::listenKeyboard(SDL_Event &event)
 
 void C_Window::loadLevel(int levelNbr)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	m_levelNbr = settings.setCurrentLevelNbr(levelNbr);
 
 	if(m_level != nullptr) {
@@ -444,7 +444,7 @@ void C_Window::loadLevel(int levelNbr)
 
 void C_Window::listenMouseMotion(SDL_Event &event)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	// get x cursor position
 	if(event.button.x < 0)
 		m_cursor.x = 0;
@@ -509,7 +509,7 @@ void C_Window::listenMouseButtonDown(SDL_Event &event)
 void C_Window::navigateOverTheMap(S_Coord const &button)
 {
 	if(m_mouseDragWindow) {
-		C_Settings& settings=C_Settings::Instances();
+		C_Settings& settings= C_Locator::getSettings();
 		if(button.x > 0 && button.x < settings.getWindowWidth() &&
 				button.y > 0 && button.y < settings.getWindowHeight()) {
 			S_Coord drag;

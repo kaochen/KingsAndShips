@@ -188,7 +188,7 @@ void C_Path::loadPath()
 		//m_path.push(current); //force the boat to recenter itself on its current tile.
 		m.printDebugPath("path is loaded\n");
 		//prepare render for debug
-		C_Settings& settings=C_Settings::Instances();
+		C_Settings& settings=C_Locator::getSettings();
 		if(settings.getDebugPathMode()) {
 			for (size_t x = 0; x < m_vgridNode.size(); x++) {
 				for (size_t y = 0; y < m_vgridNode.size(); y++) {
@@ -208,7 +208,7 @@ void C_Path::addANodeAtTheStartOfThePath(S_Coord grid)
 
 void C_Path::showPath()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	if(settings.getDebugPathMode()) {
 		C_Message m;
 		string message ="";
@@ -283,7 +283,7 @@ bool C_Path::closeToDestination(int x_grid, int y_grid, int steps)
 
 void C_Path::displayPath()
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	if(settings.getDebugMode()) {
 		//highlight the path in front of the boats
 		stack<C_Node*> tmp = m_path;

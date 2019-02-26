@@ -30,7 +30,7 @@ C_Tab::C_Tab(string title)
 	m_id++;
 	m_name = "tab_" + to_string(m_id);
 	m_title = title;
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	m_width = settings.getWindowWidth();
 	m_height = (settings.getWindowHeight()*2)/3;
 	m_screen.x = 0;
@@ -131,7 +131,7 @@ C_Tab_Settings::C_Tab_Settings()
 	:C_Tab("Settings")
 {
 	string name = "Resolution";
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	string width = to_string(settings.getWindowWidth());
 	string height = to_string(settings.getWindowHeight());
 	string text = width + "x" + height;
@@ -146,7 +146,7 @@ C_Tab_Settings::C_Tab_Settings()
 C_Tab_Levels::C_Tab_Levels()
 	:C_Tab("Levels")
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings=C_Locator::getSettings();
 	string name = "Number of Levels";
 	string text = to_string(settings.getNbrOfLevels());
 	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  50);

@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "message.h"
+#include "locator.h"
 #include "time.h"
 #include "window.h"
 #include <string>
@@ -46,7 +47,7 @@ void C_Message::printError(string message)
 
 void C_Message::printDebug(string message)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	if(settings.getDebugMode()) {
 		timestamp();
 		cout << "[DEBUG] " << message;
@@ -55,7 +56,7 @@ void C_Message::printDebug(string message)
 
 void C_Message::printDebugPath(string message)
 {
-	C_Settings& settings=C_Settings::Instances();
+	C_Settings& settings= C_Locator::getSettings();
 	if(settings.getDebugPathMode()) {
 		timestamp();
 		cout << "[PATH] " << message;
