@@ -36,7 +36,7 @@ C_Grid C_Grid::m_instance=C_Grid();
 
 C_Grid::C_Grid()
 {
-	cout << "Create Grid" << endl;
+	cout << "Constructor C_Grid() : done" << endl;
 	//m_factory = C_UnitFactory();
 }
 

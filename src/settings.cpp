@@ -47,6 +47,7 @@ C_Settings::C_Settings()
 	m_levelFolder = "data/levels/";
 	m_nbrOfLevels = getNbrOfLevels();
 	m_playing = PLAY;
+	cout << "Constructor C_Settings() : done" << endl;
 
 }
 

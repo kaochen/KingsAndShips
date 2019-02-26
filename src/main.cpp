@@ -23,8 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-int main()
+int main(int argc, char** argv)
 {
+	cout << "the " << argc << " arguments are" << "\n";
+
+	for (int i = 0; i < argc; ++i)
+		cout << argv[i] << "\n";
+
 	//init random
 	srand(time(NULL));
 	//init services
