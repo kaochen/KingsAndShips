@@ -34,8 +34,10 @@ C_UnitFactory::C_UnitFactory()
 			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
 			"barricade_01.tsx","town_01.tsx","turbine_00.tsx"
 						};
+	C_Settings& settings=C_Locator::getSettings();
+	string imageFolder = settings.getImgFolder();
 	for(int i = 0; i < size; i++) {
-		string path = "data/img/" + file[i];
+		string path = imageFolder + file[i];
 		if(tsxExist(path)) {
 			S_UnitModel unit = extractProperties(path);
 			m_models[unit.name]= unit;

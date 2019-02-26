@@ -45,20 +45,20 @@ C_Settings::C_Settings(string path)
 		cout << "here "<< fullpath << " nbr "<< found << endl;
 	}
 
-	m.printM("The game is execute from here: " + fullpath + "\n" + pwd + " " + path + "\n");
+	m.printM("The game is execute from here: " + fullpath + "\n");
 
-	m_prefFile =  "preferences.ini";
+	m_prefFile =  fullpath +"preferences.ini";
 	loadPrefFile();
 
 	//centerCameraPosition();
 	calcGridSize();
 	m_debugMode = false;
 	m_debugPath = false;
-	m_imgFolder = "data/img/";
+	m_imgFolder = fullpath +"data/img/";
 	m_theme = "original";
 	initTSXfileList();
 	m_currentLevel = 1;
-	m_levelFolder = "data/levels/";
+	m_levelFolder = fullpath +"data/levels/";
 	m_nbrOfLevels = getNbrOfLevels();
 	m_playing = PLAY;
 	cout << "Constructor C_Settings() : done" << endl;
