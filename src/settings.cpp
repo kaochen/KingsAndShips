@@ -25,13 +25,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Settings::C_Settings()
+C_Settings::C_Settings(string path)
 {
 	C_Message m;
 	string pwd = get_working_path();
-	m.printM("The game is execute from here: " + pwd + "\n");
+	size_t point = path.find_first_of(".");
 
-	m_prefFile = "preferences.ini";
+	if(point != string::npos){
+		string tmp = path.substr(point+2);
+		path = tmp;
+		cout << "cut point "<< path << " nbr "<<  point << endl;
+	}
+	string fullpath = pwd + "/"+ path;
+	cout << fullpath << endl;
+
+	size_t found = fullpath.find("build");
+	if(found != string::npos){
+		fullpath = fullpath.substr(0,found);
+		cout << "here "<< fullpath << " nbr "<< found << endl;
+	}
+
+	m.printM("The game is execute from here: " + fullpath + "\n" + pwd + " " + path + "\n");
+
+	m_prefFile =  "preferences.ini";
 	loadPrefFile();
 
 	//centerCameraPosition();
@@ -39,7 +55,7 @@ C_Settings::C_Settings()
 	m_debugMode = false;
 	m_debugPath = false;
 	m_imgFolder = "data/img/";
-	m_theme ="original";
+	m_theme = "original";
 	initTSXfileList();
 	m_currentLevel = 1;
 	m_levelFolder = "data/levels/";

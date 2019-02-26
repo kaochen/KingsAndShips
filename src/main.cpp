@@ -36,7 +36,7 @@ int main(int argc, char** argv)
 	//init random
 	srand(time(NULL));
 	//init services
-	C_Locator::setService(new C_Settings());
+	C_Locator::setService(new C_Settings(argv[0]));
 	C_Locator::setService(new C_Time());
 	C_Locator::setService(new C_TextureList());
 	C_Locator::setService(new C_Grid());
