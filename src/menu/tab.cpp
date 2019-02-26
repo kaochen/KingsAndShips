@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../message.h"
 #include "../window.h"
 #include "../texture.h"
+#include "../locator.h"
 
 using namespace std;
 
@@ -72,7 +73,7 @@ void C_Tab::focusTab(size_t nbr)
 	Sint16 vx[] = {x1,x2,x3,x4};
 	Sint16 vy[] = {y1,y2,y3,y4};
 	//draw
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer * renderer = win.getRenderer();
 	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
@@ -98,7 +99,7 @@ void C_Tab::drawAseparator(Sint16 x, Sint16 y, Sint16 width)
 	Sint16 vx[] = {x1,x2,x3,x4};
 	Sint16 vy[] = {y1,y2,y3,y4};
 	//draw
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer * renderer = win.getRenderer();
 	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 }
@@ -109,7 +110,7 @@ void C_Tab::drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height)
 	Sint16 x1 = x;
 	Sint16 y1 = y;
 	Sint16 y2 = y1 + height;
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	for(int i = 0; i < width/20; i++) {
 		x1 +=20;
 		Sint16 x2 = x1 + 1;

@@ -48,7 +48,7 @@ void C_Landscape::render(int gridSize)
 
 void C_Landscape::renderWater(int direction, int gridSize)
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	C_Settings& settings=C_Settings::Instances();
 	S_Coord camera = settings.getCameraPosition();

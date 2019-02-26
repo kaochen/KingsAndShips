@@ -34,8 +34,8 @@ class C_LevelFactory;
 class C_Window
 {
 public:
-	static	C_Window& Instances(){return m_instance;};
-
+	C_Window();
+	virtual ~C_Window();
 	void createWindow();
 	SDL_Window* getWindow() {return m_window;};
 	SDL_Renderer* getRenderer() {return m_renderer;};
@@ -44,7 +44,7 @@ public:
   	void loadGame();
 	void gameLoop();
 	void quitProgram();
-  bool testIfButton(S_Coord screen);
+	bool testIfButton(S_Coord screen);
 	void listenButtons();
 	void loadLevel(int levelNbr);
 	S_LevelModel getLevelModel(int levelNbr);
@@ -60,13 +60,6 @@ protected:
 	void navigateOverTheMap(S_Coord const &button);
 
 private:
-	C_Window& operator= (const C_Window&){return *this;}
-	C_Window (const C_Window&){}
-
-	static C_Window m_instance;
-	C_Window();
-	~C_Window();
-
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 

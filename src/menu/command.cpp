@@ -50,7 +50,7 @@ void C_ChangeTab::action()
 
 void C_LoadALevel::action()
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	win.loadLevel(m_nbr);
 }
 

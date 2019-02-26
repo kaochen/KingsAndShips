@@ -51,7 +51,7 @@ void C_Time::displayTime() const
 
 void C_Time::showFPS() const
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer();
 	C_Settings& settings=C_Settings::Instances();
 	//add a life status above the boat

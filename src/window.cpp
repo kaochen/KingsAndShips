@@ -32,7 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <queue>
 
 using namespace std;
-C_Window C_Window::m_instance=C_Window();
 
 C_Window::C_Window()
 {

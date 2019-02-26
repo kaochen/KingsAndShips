@@ -36,10 +36,11 @@ int main(int argc, char** argv)
 	C_Locator::setService(new C_Time());
 	C_Locator::setService(new C_TextureList());
 	C_Locator::setService(new C_Menu());
+	C_Locator::setService(new C_Window());
 
 
 	//start the window
-	C_Window& win=C_Window::Instances();
+	C_Window& win= C_Locator::getWindow();
 	win.createWindow();
 	win.loadGame();
 	win.listLevels();

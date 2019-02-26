@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 
 #include "../settings.h"
+#include "../locator.h"
 #include "../window.h"
 #include "../locator.h"
 #include "../texture.h"
@@ -220,7 +221,7 @@ double C_Node::getAngle() const
 
 void C_Node::highlight()
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer * renderer = win.getRenderer();
 	int R = 200, G = 200, B = 200, A = 100;
 	int x_screen = m_coord.getXScreen ();

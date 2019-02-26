@@ -187,7 +187,7 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 
 void C_MB_TabSelect::render()
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	Sint16 x1 = m_x_screen; //x top right
 	Sint16 y1 = m_y_screen;
 	Sint16 x2 = x1 + m_width; //x bottom left
@@ -240,7 +240,7 @@ C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 
 void C_MB_1Line::render()
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win= C_Locator::getWindow();
 	Uint8 R = 0, G = 0, B = 0;
 	int zoom = 0;
 	if(m_state == ACTIVE) {
@@ -289,7 +289,8 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
 	m_nbr = nbr;
-	C_Window& win=C_Window::Instances();
+	C_Window& win= C_Locator::getWindow();
+
 	S_LevelModel model = win.getLevelModel(m_nbr);
 
 	m_fontSize = 18;

@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "texture.h"
+#include "locator.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -66,7 +67,6 @@ void C_Texture::displayStatus()
 
 void C_Texture::render(int x, int y, double angle, int align)
 {
-	C_Window& win=C_Window::Instances();
 	C_Settings& settings=C_Settings::Instances();
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())) {
 		SDL_Rect pos;
@@ -88,7 +88,7 @@ void C_Texture::render(int x, int y, double angle, int align)
 			}
 			pos.y = y - pos.h/2 - i*TILE_HALF_HEIGHT;
 		}
-
+		C_Window& win=C_Locator::getWindow();
 		SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 	}
 }
@@ -127,7 +127,7 @@ int C_Image::getId()
 void C_Image::loadTexture(string &path)
 {
 	C_Message m;
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
@@ -198,7 +198,7 @@ C_Text::C_Text(string name, string message):
 void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
 {
 	C_Message m;
-	C_Window& win=C_Window::Instances();
+	C_Window& win= C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Surface *surf = nullptr;
 	TTF_Font *font = TTF_OpenFont(findFont().c_str(),fontSize);

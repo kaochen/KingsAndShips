@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "grid.h"
 
 #include "../texture.h"
+#include "../locator.h"
 #include "../message.h"
 
 using namespace std;
@@ -141,7 +142,7 @@ void C_Shooter::shootTarget(C_GameUnits &target)
 void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 {
     if(m_health < (m_max_health - (m_health/20))){
-	    C_Window& win=C_Window::Instances();
+	    C_Window& win=C_Locator::getWindow();
 	    SDL_Renderer* renderer = win.getRenderer();
 	    //add a life status above the boat
 	    int l = 50;
@@ -242,7 +243,7 @@ void C_Shooter::drawEllipse(int x,
 							bool ok)
 {
 	int animNbr = m_animation[SELECTED]->getAnimNbr(10,20,500);
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	width = width*90/100;
 	int height = width/2;
 	int R = 0, G = 200, B = 0, A = 10;
@@ -260,7 +261,7 @@ void C_Shooter::drawEllipse(int x,
 
 void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok)
 {
-	C_Window& win=C_Window::Instances();
+	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer * renderer = win.getRenderer();
 	Sint16 w =  width/2;
 	Sint16 h =  w/2;
