@@ -30,30 +30,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_Wallet
 {
-	public:
-	static	C_Wallet& Instances() {return m_instance;};
-
-  int getBalance(){return m_balance;};
-  int getWalletMax (){return m_progress_bar_max;};
-  void credit(int value){m_credit += value; refreshBalance();};
-  void debit(int value){m_debit += value; refreshBalance();};
-  void cliStatus();
-  void reset();
-  protected:
-
-	private:
-	C_Wallet& operator= (const C_Wallet&){return *this;}
-	C_Wallet (const C_Wallet&){}
-
-	static C_Wallet m_instance;
+public:
 	C_Wallet();
-	~C_Wallet();
+	virtual ~C_Wallet(){};
+	int getBalance(){return m_balance;};
+	int getWalletMax (){return m_progress_bar_max;};
+	void credit(int value){m_credit += value; refreshBalance();};
+	void debit(int value){m_debit += value; refreshBalance();};
+	void cliStatus();
+	void reset();
 
-  void refreshBalance(){m_balance = m_credit - m_debit;};
+private:
+	void refreshBalance(){m_balance = m_credit - m_debit;};
 
-  int m_credit;
-  int m_debit;
-  int m_balance;
-  int m_progress_bar_max;
+	int m_credit;
+	int m_debit;
+	int m_balance;
+	int m_progress_bar_max;
 };
 #endif

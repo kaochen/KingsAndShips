@@ -387,7 +387,7 @@ void C_GB_AddUnit::drag(S_Coord screen)
 
 void C_GB_AddUnit::render()
 {
-	C_Wallet& wallet=C_Wallet::Instances();
+	C_Wallet& wallet= C_Locator::getWallet();
 	if(m_unit != nullptr) {
 		if(wallet.getBalance() < m_unit->getCost()) {
 			m_enable = false;

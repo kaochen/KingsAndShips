@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "locator.h"
 #include "window.h"
 #include "menu/menu.h"
+#include "wallet.h"
 #include <cstdlib>
 #include <ctime>
 using namespace std;
@@ -35,8 +36,10 @@ int main(int argc, char** argv)
 	//init services
 	C_Locator::setService(new C_Time());
 	C_Locator::setService(new C_TextureList());
+	C_Locator::setService(new C_Wallet());
 	C_Locator::setService(new C_Menu());
 	C_Locator::setService(new C_Window());
+
 
 
 	//start the window

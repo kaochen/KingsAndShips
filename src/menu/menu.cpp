@@ -161,7 +161,7 @@ void C_Menu::updateWalletStatus()
 {
 	C_Settings& settings=C_Settings::Instances();
 	int x = settings.getWindowWidth();
-	C_Wallet& wallet=C_Wallet::Instances();
+	C_Wallet& wallet= C_Locator::getWallet();
 	if(m_menuItemsList["gold_pile"] == nullptr) {
 		m_menuItemsList["gold_pile"] = new C_MenuItem("gold_pile",x - 218,40);
 	}

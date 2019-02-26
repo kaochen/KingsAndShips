@@ -60,7 +60,7 @@ void C_Boat::play()
 void C_Boat::kill()
 {
 	C_Shooter::kill();
-	C_Wallet& wallet=C_Wallet::Instances();
+	C_Wallet& wallet= C_Locator::getWallet();
 	wallet.credit(m_cost); //reward when killing a boat
 	wallet.cliStatus();
 }

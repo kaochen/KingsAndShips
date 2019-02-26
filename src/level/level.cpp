@@ -97,7 +97,7 @@ void C_Level::load(int levelNbr)
 
 void C_Level::setWallet()
 {
-	C_Wallet& wallet=C_Wallet::Instances();
+	C_Wallet& wallet= C_Locator::getWallet();
 	C_Xml tmx(m_filename);
 	int walletCredit =  stoi(tmx.extractStrValue("property","name","wallet","value"));
 	if(walletCredit < 1) {
@@ -313,7 +313,7 @@ void C_Level::addUnit(string &type, S_Coord clic)
 	if(grid.addUnit(type,coord.getXGrid (),coord.getYGrid ()) == EXIT_SUCCESS) {
 		C_GameUnits * tmp = grid.getUnits(coord.getXGrid (),coord.getYGrid ());
 		if(tmp != nullptr) {
-			C_Wallet& wallet=C_Wallet::Instances();
+			C_Wallet& wallet= C_Locator::getWallet();
 			wallet.debit(tmp->getCost());
 			wallet.cliStatus();
 		}

@@ -21,18 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Wallet C_Wallet::m_instance=C_Wallet();
-
 C_Wallet::C_Wallet()
 {
 	reset();
+	cout << "Constructor C_Wallet() : done" << endl;
 }
 
-C_Wallet::~C_Wallet()
-{
-}
-/*!
-*/
 
 void C_Wallet::cliStatus()
 {

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <sys/stat.h>
 #include <sstream>
 #include "factory.h"
+#include "../locator.h"
 #include "grid.h"
 #include "../message.h"
 #include <fstream>
@@ -77,7 +78,7 @@ void C_UnitFactory::upgrade(C_GameUnits * unit)
 		if(type == "ArcherTower" && currentRank < 3){
 			string up = type +"_"+ to_string(newRank);
 			S_UnitModel model = m_models[up];
-			C_Wallet& wallet=C_Wallet::Instances();
+			C_Wallet& wallet=C_Locator::getWallet();
 			if(wallet.getBalance() - model.cost >= 0){ //check if pocket is deep enough
 				wallet.debit(model.cost);
 				unit->upgrade(model);
@@ -98,7 +99,7 @@ bool C_UnitFactory::isUpgradable(C_GameUnits * unit){
 		if(type == "ArcherTower" && currentRank < 3){
 			string up = type +"_"+ to_string(newRank);
 			if(m_models.count(up) > 0){
-				C_Wallet& wallet=C_Wallet::Instances();
+				C_Wallet& wallet=C_Locator::getWallet();
 				if(wallet.getBalance() - m_models[up].cost >= 0){ //check if pocket is deep enough
 					ret = true;
 				}
