@@ -130,10 +130,14 @@ void C_Window::loadGame()
 	int all = list->size();
 	while(list->size()>0) {
 		string imgPath = list->front();
-		t.loadTextAsTexturesIntoMap(imgPath, imgPath, 20, color);
-		loadingPage(all-list->size(), imgPath,all+1);
-		list->pop();
-		t.extractTSXfile(imgPath);
+		//extrat fileName
+		size_t pos = imgPath.find_last_of("/\\");
+		string label = imgPath.substr(pos+1);
+		//render
+		t.loadTextAsTexturesIntoMap(label, label, 20, color);
+		loadingPage(all-list->size(), label,all+1);
+		t.extractTSXfile(imgPath); //extract;
+		list->pop(); //go next
 	}
 	t.displayTexturesList();
 }
