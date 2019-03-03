@@ -37,13 +37,25 @@ C_Settings::C_Settings(string path)
 		cout << "cut point "<< path << " nbr "<<  point << endl;
 	}
 	string fullpath = pwd + "/"+ path;
+	//avoid repetition
+	size_t check = path.find(pwd);
+  	if (check!=std::string::npos)
+  		fullpath = path;
+
 	cout << fullpath << endl;
 
 	size_t found = fullpath.find("build");
-	if(found != string::npos){
+	size_t found2 = fullpath.find("/bin/");
+	if(found != string::npos && found2 == string::npos ){
 		fullpath = fullpath.substr(0,found);
 		cout << "here "<< fullpath << " nbr "<< found << endl;
+
+	}else if(found == string::npos && found2 != string::npos ) {
+		fullpath = fullpath.substr(0,found2);
+		fullpath = fullpath + "/";
+		cout << "here "<< fullpath << " nbr "<< found2 << endl;
 	}
+
 
 	m.printM("The game is execute from here: " + fullpath + "\n");
 
