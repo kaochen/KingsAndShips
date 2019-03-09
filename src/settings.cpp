@@ -27,17 +27,17 @@ using namespace std;
 
 C_Settings::C_Settings(std::vector<std::string> args)
 {
-	C_Message m;
-	m.printM("Constructor C_Settings() : start\n");
+	C_Message::printM("Constructor C_Settings() : start\n");
 	string a_Path = absolutePath(args[0]);
 
-	m.printM("The game is execute from here: " + a_Path + "\n");
+	C_Message::printM("The game is execute from here: " + a_Path + "\n");
 
 	m_prefFile =  a_Path +"preferences.ini";
 	loadPrefFile();
 
 	//centerCameraPosition();
 	calcGridSize();
+	m_verboseMode = getArg("-v",args);
 	m_debugMode = getArg("-d",args);
 	m_debugPath = getArg("-dp",args);
 	m_imgFolder = a_Path +"data/img/";
@@ -47,7 +47,7 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	m_levelFolder = a_Path +"data/levels/";
 	m_nbrOfLevels = getNbrOfLevels();
 	m_playing = PLAY;
-	m.printM("Constructor C_Settings() : done\n");
+	C_Message::printM("Constructor C_Settings() : done\n");
 }
 
 string C_Settings::absolutePath(string &path){

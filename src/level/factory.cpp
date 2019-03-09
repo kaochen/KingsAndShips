@@ -39,12 +39,11 @@ C_UnitFactory::C_UnitFactory()
 	for(int i = 0; i < size; i++) {
 		string path = imageFolder + file[i];
 		if(tsxExist(path)) {
+			C_Message::printV("tsx file: "+ file[i]+"\n");
 			S_UnitModel unit = extractProperties(path);
 			m_models[unit.name]= unit;
-			cout << endl;
 		} else {
-			C_Message m;
-			m.printM("Can not find the tsx file: " + path);
+			C_Message::printError("Can not find the tsx file: " + path);
 		}
 	}
 }
@@ -84,8 +83,7 @@ void C_UnitFactory::upgrade(C_GameUnits * unit)
 			if(wallet.getBalance() - model.cost >= 0){ //check if pocket is deep enough
 				wallet.debit(model.cost);
 				unit->upgrade(model);
-				C_Message m;
-				m.printM("Upgrade "+ currentName +" to "+ model.name + ". Cost: " + to_string(model.cost) +"\n");
+				C_Message::printV("Upgrade "+ currentName +" to "+ model.name + ". Cost: " + to_string(model.cost) +"\n");
 			}
 		}
 	}
@@ -178,20 +176,19 @@ S_LevelModel C_LevelFactory::extractInfosFromTmx(int levelNbr)
 	level.nbr = levelNbr;
 	C_Settings& settings=C_Locator::getSettings();
 	level.filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
-	C_Message m;
 	struct stat buffer;
 	if (stat (level.filename.c_str(),  &buffer) == 0) {
 		C_Xml tmx(level.filename);
 		level.width = stoi( tmx.extractStrValue("map","width"));
 		level.height = stoi( tmx.extractStrValue( "map", "height"));
 		level.gridSize = calcGridSize(level.width,level.height);;
-		m.printM("Grid size should be " + to_string(level.gridSize) + "\n");
+		C_Message::printV("Grid size should be " + to_string(level.gridSize) + "\n");
 		level.tilewidth = stoi( tmx.extractStrValue( "map", "tilewidth"));
 		level.tileheight = stoi( tmx.extractStrValue( "map", "tileheight"));
 		level.backgroundcolor =  tmx.extractStrValue( "map", "backgroundcolor");
 		level.name = tmx.extractStrValue("property","name","subname","value");
 	} else {
-		m.printM("Can not find " + level.filename+"\n");
+		C_Message::printError("Can not find " + level.filename+"\n");
 	}
 	return level;
 }

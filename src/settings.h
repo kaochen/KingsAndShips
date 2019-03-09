@@ -78,6 +78,7 @@ public:
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
 	S_Size getNbrOfTilesToDisplay();
   	//debug
+	bool getVerboseMode() {return m_verboseMode;};
 	void setDebugMode();
 	bool getDebugMode() {return m_debugMode;};
   	void setDebugPathMode();
@@ -119,6 +120,7 @@ private:
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
 
 	//debug
+	bool m_verboseMode;
 	bool m_debugMode;
 	bool m_debugPath;
 	//images

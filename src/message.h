@@ -23,17 +23,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_Message {
 public:
-	C_Message();
-	~C_Message();
-	void printM(std::string message);
-	void printError(std::string message);
-	void printDebug(std::string message);
-	void printDebugPath(std::string message);
-	void printSDLerror(std::string message);
-	void printTTFerror(std::string message);
+	C_Message(){};
+	~C_Message(){};
+	static void printM(std::string message);
+	static void printV(std::string message);
+	static void printError(std::string message);
+	static void printDebug(std::string message);
+	static void printDebugPath(std::string message);
+	static void printSDLerror(std::string message);
+	static void printTTFerror(std::string message);
 
 private:
-	void timestamp();
+	static void timestamp();
 };
 
 

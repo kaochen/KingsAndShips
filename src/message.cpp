@@ -26,17 +26,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Message::C_Message()
-{
-}
-C_Message::~C_Message()
-{
-}
 
 void C_Message::printM(string message)
 {
 	timestamp();
 	cout << "[LOG] " << message;
+}
+
+void C_Message::printV(string message)
+{	C_Settings& settings= C_Locator::getSettings();
+	if(settings.getVerboseMode()) {
+		timestamp();
+		cout << "\033[1;34m[LOG] \033[0m" << message;
+	}
 }
 
 void C_Message::printError(string message)
