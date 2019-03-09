@@ -101,6 +101,7 @@ public:
 
 private:
 	std::string absolutePath(std::string &path);
+	bool getArg(std::string pattern, std::vector<std::string> args);
 	bool fileExist(const std::string &file);
 	void loadPrefFile();
 	void extractWindowSize();

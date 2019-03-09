@@ -38,8 +38,8 @@ C_Settings::C_Settings(std::vector<std::string> args)
 
 	//centerCameraPosition();
 	calcGridSize();
-	m_debugMode = false;
-	m_debugPath = false;
+	m_debugMode = getArg("-d",args);
+	m_debugPath = getArg("-dp",args);
 	m_imgFolder = a_Path +"data/img/";
 	m_theme = "original";
 	initTSXfileList();
@@ -76,6 +76,18 @@ string C_Settings::absolutePath(string &path){
 		absolutePath = absolutePath + "/";
 	}
 	return absolutePath;
+}
+
+bool C_Settings::getArg(string pattern, vector<string> args){
+	bool ret = false;
+	for(int i = 1; i < int(args.size());i++ ){
+		if(args[i] == pattern){
+			C_Message m;
+			m.printM("Argument "+ args[i] + ": true\n");
+			ret = true;
+		}
+	}
+	return ret;
 }
 
 void C_Settings::loadPrefFile()
