@@ -28,57 +28,54 @@ using namespace std;
 C_Settings::C_Settings(string path)
 {
 	C_Message m;
-	string pwd = get_working_path();
-	size_t point = path.find_first_of(".");
+	m.printM("Constructor C_Settings() : start\n");
+	string a_Path = absolutePath(path);
 
-	if(point != string::npos){
-		string tmp = path.substr(point+2);
-		path = tmp;
-		cout << "cut point "<< path << " nbr "<<  point << endl;
-	}
-	string fullpath = pwd + "/"+ path;
-	//avoid repetition
-	size_t check = path.find(pwd);
-  	if (check!=std::string::npos)
-  		fullpath = path;
+	m.printM("The game is execute from here: " + a_Path + "\n");
 
-	cout << fullpath << endl;
-
-	size_t found = fullpath.find("build");
-	size_t found2 = fullpath.find("/bin/");
-	if(found != string::npos && found2 == string::npos ){
-		fullpath = fullpath.substr(0,found);
-		cout << "here "<< fullpath << " nbr "<< found << endl;
-
-	}else if(found == string::npos && found2 != string::npos ) {
-		fullpath = fullpath.substr(0,found2);
-		fullpath = fullpath + "/";
-		cout << "here "<< fullpath << " nbr "<< found2 << endl;
-	}
-
-
-	m.printM("The game is execute from here: " + fullpath + "\n");
-
-	m_prefFile =  fullpath +"preferences.ini";
+	m_prefFile =  a_Path +"preferences.ini";
 	loadPrefFile();
 
 	//centerCameraPosition();
 	calcGridSize();
 	m_debugMode = false;
 	m_debugPath = false;
-	m_imgFolder = fullpath +"data/img/";
+	m_imgFolder = a_Path +"data/img/";
 	m_theme = "original";
 	initTSXfileList();
 	m_currentLevel = 1;
-	m_levelFolder = fullpath +"data/levels/";
+	m_levelFolder = a_Path +"data/levels/";
 	m_nbrOfLevels = getNbrOfLevels();
 	m_playing = PLAY;
-	cout << "Constructor C_Settings() : done" << endl;
-
+	m.printM("Constructor C_Settings() : done\n");
 }
 
-C_Settings::~C_Settings()
-{
+string C_Settings::absolutePath(string &path){
+
+	char temp[1024];
+	string pwd = getcwd(temp, sizeof(temp)) ? std::string( temp ) : std::string("");
+
+	size_t point = path.find_first_of(".");
+	if(point != string::npos){
+		string tmp = path.substr(point+2);
+		path = tmp;
+	}
+	string absolutePath = pwd + "/"+ path;
+	//avoid repetition
+	size_t check = path.find(pwd);
+  	if (check!=std::string::npos)
+  		absolutePath = path;
+
+	size_t found = absolutePath.find("build");
+	size_t found2 = absolutePath.find("/bin/");
+	if(found != string::npos && found2 == string::npos ){
+		absolutePath = absolutePath.substr(0,found);
+
+	}else if(found == string::npos && found2 != string::npos ) {
+		absolutePath = absolutePath.substr(0,found2);
+		absolutePath = absolutePath + "/";
+	}
+	return absolutePath;
 }
 
 void C_Settings::loadPrefFile()
@@ -294,13 +291,6 @@ bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &f
 	}
 	file.close();
 	return ret;
-}
-
-
-string C_Settings::get_working_path()
-{
-	char temp[1024];
-	return ( getcwd(temp, sizeof(temp)) ? std::string( temp ) : std::string("") );
 }
 
 

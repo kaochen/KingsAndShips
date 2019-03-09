@@ -62,7 +62,7 @@ class C_Settings
 {
 public:
 	C_Settings(std::string path);
-	virtual ~C_Settings();
+	virtual ~C_Settings(){};
 	//window
 	int getWindowWidth() {return m_windowWidth;};
 	int getWindowHeight() {return m_windowHeight;};
@@ -93,13 +93,14 @@ public:
 	int getCurrentLevelNbr(){return m_currentLevel;};
 	int getNbrOfLevels();
 	std::string getLevelFolder(){return m_levelFolder;};
-	std::string get_working_path();
+
 	//game
 	int getPlaying(){return m_playing;};
 	void setPlaying();
 	void setPlaying(int state);
 
 private:
+	std::string absolutePath(std::string &path);
 	bool fileExist(const std::string &file);
 	void loadPrefFile();
 	void extractWindowSize();
