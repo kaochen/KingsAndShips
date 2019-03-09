@@ -347,6 +347,10 @@ void C_Window::listenButtons()
 						if( type == ACTION) {
 							menuButton->action();
 							m_clic.x = m_clic.y = 0;
+							if(menuButton->getName() == "popOutMenu" ){
+								m_level->unselectedAll();
+								m_aTowerIsSelected = false;
+							}
 						}
 						m_buttonType = name;
 					} else {
@@ -381,8 +385,6 @@ void C_Window::listenKeyboard(SDL_Event &event)
 		if(menu.getBool()){//if menu open ?
 			menu.action(); //close it
 			}
-
-		m_level->unselectedAll();
 		}
 		break;
 	case SDLK_d:
@@ -395,6 +397,8 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	case SDLK_m:{
 		C_OpenMenu openMenu;
 		openMenu.action();
+		m_level->unselectedAll();
+		m_aTowerIsSelected = false;
 		}
 		break;
 
