@@ -61,7 +61,7 @@ enum game {PLAY,PAUSE};
 class C_Settings
 {
 public:
-	C_Settings(std::string path);
+	C_Settings(std::vector<std::string> args);
 	virtual ~C_Settings(){};
 	//window
 	int getWindowWidth() {return m_windowWidth;};

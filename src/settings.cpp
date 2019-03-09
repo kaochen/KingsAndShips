@@ -25,11 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
-C_Settings::C_Settings(string path)
+C_Settings::C_Settings(std::vector<std::string> args)
 {
 	C_Message m;
 	m.printM("Constructor C_Settings() : start\n");
-	string a_Path = absolutePath(path);
+	string a_Path = absolutePath(args[0]);
 
 	m.printM("The game is execute from here: " + a_Path + "\n");
 

@@ -23,20 +23,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include <cstdlib>
 #include <ctime>
+#include <vector>
 using namespace std;
-
 
 int main(int argc, char** argv)
 {
-	cout << "the " << argc << " arguments are" << "\n";
-
+	vector<string> args;
 	for (int i = 0; i < argc; ++i)
-		cout << argv[i] << "\n";
+		args.push_back(argv[i]);
 
 	//init random
 	srand(time(NULL));
 	//init services
-	C_Locator::setService(new C_Settings(argv[0]));
+	C_Locator::setService(new C_Settings(args));
 	C_Locator::setService(new C_Time());
 	C_Locator::setService(new C_TextureList());
 	C_Locator::setService(new C_Grid());
