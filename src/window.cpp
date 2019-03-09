@@ -338,6 +338,9 @@ void C_Window::listenButtons()
 				if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb) {
 					if(menuButton->getEnable()== true) {
 						if( type == DRAGUNIT) {
+							m_level->unselectedAll();
+							m_aTowerIsSelected = false;
+
 							menuButton->drag(m_cursor);
 							m_addingAnewTower = true;
 						}
@@ -491,6 +494,10 @@ void C_Window::listenMouseButtonUP(SDL_Event &event)
 			m_level->unselectedAll();
 			m_aTowerIsSelected = false;
 		}
+
+		m_addingAnewTower = false;
+		m_buttonType = "";
+		m_clic.x = m_clic.y = 0;
 	}
 }
 
