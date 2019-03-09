@@ -111,9 +111,9 @@ C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_wi
 
 void C_Image::displayStatus()
 {
-	C_Message m;
-	m.printM("Image: " + to_string(m_id) + " "+ m_name + " " + to_string(m_tile_width)
-			 + ":" + to_string(m_tile_height) + " from: " + m_file_path + " "
+	string filename = C_Message::extractFilename(m_file_path);
+	C_Message::printV("Image: " + to_string(m_id) + " "+ m_name + " " + to_string(m_tile_width)
+			 + ":" + to_string(m_tile_height) + " from: " + filename + " "
 			 + to_string(m_file_width) + ":" + to_string(m_file_height)+"\n");
 }
 

@@ -61,7 +61,8 @@ string C_Xml::extractStrValue(string const &node, string const &id, string const
 		}
 		reader.move_to_element();
 	}
-	C_Message::printV("From: " + m_file_path +" in Node: "+ node + " where "+id+ "="+ idValue +", " +name+ " = "+ value+"\n");
+	string filename = C_Message::extractFilename(m_file_path);
+	C_Message::printV("From: " + filename +" in Node: "+ node + " where "+id+ "="+ idValue +", " +name+ " = "+ value+"\n");
 	return value;
 }
 
@@ -85,7 +86,8 @@ string C_Xml::extractStrValue(string const &node, string const &name)
 		}
 		reader.move_to_element();
 	}
-	C_Message::printV("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ value+"\n");
+	string filename = C_Message::extractFilename(m_file_path);
+	C_Message::printV("From: " + filename +" in Node \""+ node  +"\": " + name+ " = "+ value+"\n");
 	return value;
 }
 
@@ -113,7 +115,8 @@ string C_Xml::extractStrData(string const &node, string const &name)
 		}
 		reader.move_to_element();
 	}
-	C_Message::printDebug("From: " + m_file_path +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
+	string filename = C_Message::extractFilename(m_file_path);
+	C_Message::printDebug("From: " + filename +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
 	return data;
 }
 
@@ -164,7 +167,8 @@ int C_Xml::countAttributes(string pattern)
 		reader.move_to_element();
 		nodeName = "";
 	}
-	C_Message::printV(to_string(c) +" "+ pattern + " in " + m_file_path +"\n");
+	string filename = C_Message::extractFilename(m_file_path);
+	C_Message::printV(to_string(c) +" "+ pattern + " in " + filename +"\n");
 	return c;
 }
 
@@ -220,7 +224,8 @@ bool C_Xml::nodeExist(string const &node, string const &name)
 	}
 
 	if(!ret) {
-		C_Message::printError("From: " + m_file_path +" the Node: "+ node  +" where " + "name="+ name + " does not exist\n");
+		string filename = C_Message::extractFilename(m_file_path);
+		C_Message::printError("From: " + filename +" the Node: "+ node  +" where " + "name="+ name + " does not exist\n");
 	}
 
 	return ret;
@@ -231,7 +236,8 @@ string C_Xml::getStrProperty(string const &property, string Default)
 	string ret = extractStrValue("property","name",property,"value");
 	if(ret.size()==0) {
 		ret = Default;
-		C_Message::printV("From: " + m_file_path +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
+		string filename = C_Message::extractFilename(m_file_path);
+		C_Message::printV("From: " + filename +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
 	}
 	return ret;
 }

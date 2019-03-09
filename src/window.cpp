@@ -130,9 +130,7 @@ void C_Window::loadGame()
 	int all = list->size();
 	while(list->size()>0) {
 		string imgPath = list->front();
-		//extrat fileName
-		size_t pos = imgPath.find_last_of("/\\");
-		string label = imgPath.substr(pos+1);
+		string label = C_Message::extractFilename(imgPath);
 		//render
 		t.loadTextAsTexturesIntoMap(label, label, 20, color);
 		loadingPage(all-list->size(), label,all+1);

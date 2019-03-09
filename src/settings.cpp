@@ -262,13 +262,12 @@ int C_Settings::setCurrentLevelNbr(int nbr)
 int C_Settings::getNbrOfLevels()
 {
 	int i = 1;
-	C_Message m;
-	string fileName = m_levelFolder + "Level_" + to_string(i) + ".tmx";
-	cout << fileName << endl;
-	while(fileExist(fileName)) {
+	string filePath = m_levelFolder + "Level_" + to_string(i) + ".tmx";
+	while(fileExist(filePath)) {
 		i++;
-		m.printM("Found level file: " + fileName + "\n");
-		fileName = m_levelFolder + "Level_" + to_string(i) + ".tmx";
+		string filename = C_Message::extractFilename(filePath);
+		C_Message::printM("Found level file: " + filename + "\n");
+		filePath = m_levelFolder + "Level_" + to_string(i) + ".tmx";
 	}
 	return i - 1;
 }

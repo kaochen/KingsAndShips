@@ -32,6 +32,7 @@ public:
 	static void printDebugPath(std::string message);
 	static void printSDLerror(std::string message);
 	static void printTTFerror(std::string message);
+	static std::string extractFilename(std::string path);
 
 private:
 	static void timestamp();
