@@ -92,7 +92,7 @@ public:
 	//level
 	int setCurrentLevelNbr(int nbr);
 	int getCurrentLevelNbr(){return m_currentLevel;};
-	int getNbrOfLevels();
+	int getNbrOfLevels(){return m_nbrOfLevels;};
 	std::string getLevelFolder(){return m_levelFolder;};
 
 	//game
@@ -108,6 +108,7 @@ private:
 	void extractWindowSize();
 	void calcGridSize();
 	bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
+	void setNbrOfLevels();
 
 	//pref file:
 	std::string m_prefFile;

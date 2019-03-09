@@ -45,7 +45,7 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	initTSXfileList();
 	m_currentLevel = 1;
 	m_levelFolder = a_Path +"data/levels/";
-	m_nbrOfLevels = getNbrOfLevels();
+	setNbrOfLevels();
 	m_playing = PLAY;
 	C_Message::printM("Constructor C_Settings() : done\n");
 }
@@ -259,7 +259,7 @@ int C_Settings::setCurrentLevelNbr(int nbr)
 }
 
 
-int C_Settings::getNbrOfLevels()
+void C_Settings::setNbrOfLevels()
 {
 	int i = 1;
 	string filePath = m_levelFolder + "Level_" + to_string(i) + ".tmx";
@@ -269,7 +269,7 @@ int C_Settings::getNbrOfLevels()
 		C_Message::printM("Found level file: " + filename + "\n");
 		filePath = m_levelFolder + "Level_" + to_string(i) + ".tmx";
 	}
-	return i - 1;
+	m_nbrOfLevels = i - 1;
 }
 
 
