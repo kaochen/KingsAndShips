@@ -485,6 +485,12 @@ void C_Window::listenMouseButtonUP(SDL_Event &event)
 		}
 		m_dragAndDropTower = false;
 		m_mouseDragWindow = false;
+	} else if (event.button.button ==  SDL_BUTTON_RIGHT) {
+		C_OpenMenu openMenu;
+		if (!openMenu.getBool()) {
+			m_level->unselectedAll();
+			m_aTowerIsSelected = false;
+		}
 	}
 }
 
