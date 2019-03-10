@@ -238,7 +238,7 @@ void C_Window::gameLoop()
 			m_level->play();
 			//render image
 			if (m_forceRefresh) {
-
+				m_level->endOfALevel();
 				//display game content from bottom to top
 				m_level->render();
 				m_level->renderSelected();

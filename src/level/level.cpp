@@ -327,6 +327,16 @@ S_Coord C_Level::getGridTown()
 	return grid.foundTown();
 }
 
+
+void C_Level::endOfALevel(){
+	//check if it is the last wave
+	int waveLeft = m_waves.size() - 1 - m_currentWaveNbr;
+	if(waveLeft <= 0){
+		C_Message::printM("No more wave\n");
+		}
+	//check if boats of last wave are all dead
+}
+
 //______________________________Waves_____________________________//
 
 
@@ -358,7 +368,7 @@ void C_Wave::cliStatus()
 	C_Message m;
 	for(vector <S_Unit>::iterator i = m_boatList.begin(); i !=m_boatList.end(); i++) {
 		ostringstream message;
-		message << "Add " + (*i).name << " at " << (*i).coord.x << ":" << (*i).coord.y;
+		message << "Detect " + (*i).name << " at " << (*i).coord.x << ":" << (*i).coord.y << endl;
 		m.printM(message.str());
 		c++;
 	}
