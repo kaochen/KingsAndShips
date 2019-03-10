@@ -415,6 +415,11 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	case SDLK_r:
 		loadLevel(m_levelNbr);
 		break;
+	case SDLK_w:{
+		C_OpenEndLevelMenu end;
+		end.action();
+		}
+		break;
 	case SDLK_RIGHT:
 		r = 10;
 		break;

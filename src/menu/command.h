@@ -78,4 +78,9 @@ public:
 	virtual void action();
 	virtual void actionHover(bool state);
 };
+
+class C_OpenEndLevelMenu : public C_Command {
+public:
+	virtual void action();
+};
 #endif

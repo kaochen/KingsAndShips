@@ -29,6 +29,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_MenuItem;
 
+class C_EndLevelMenu{
+public:
+	C_EndLevelMenu();
+	~C_EndLevelMenu(){};
+	void render();
+private:
+	S_Coord m_screen;
+	S_Size m_size;
+};
+
 class C_Menu {
 public:
 	C_Menu();
@@ -43,6 +53,7 @@ public:
  	void updateUpgradeButtonsStatus();
 	//commands
 	void openBottomMenu();
+	void openEndLevelMenu();
 	bool isOpen(){return m_bottomMenuOpen;};
 	void displayBottomMenu();
 	std::vector<std::string> getMenuItemsList();
@@ -66,6 +77,9 @@ private:
 	std::map<std::string, C_MenuItem*> m_menuItemsList;
 	std::vector<C_Tab *> m_tabs;
 	int m_currentTab;
+
+	C_EndLevelMenu* m_endLevelMenu;
+	bool m_endLevelMenuOpen;
 };
 
 #endif

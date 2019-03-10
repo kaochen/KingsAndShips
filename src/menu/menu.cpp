@@ -34,6 +34,7 @@ C_Menu::C_Menu():
 	m_total_waves(1),
 	m_bottomMenuOpen(false)
 {
+	C_Message::printM("Constructor C_Menu() : start\n");
 	C_Settings& settings=C_Locator::getSettings();
 	int size = 64 + 10;
 	int x_button = settings.getWindowWidth() - size;
@@ -56,8 +57,9 @@ C_Menu::C_Menu():
 	line.x = 20;
 	line.y = settings.getWindowHeight() - 20;
 	bottomButtonsLine(line);
-
-	cout << "Constructor C_Menu() : done" << endl;
+	m_endLevelMenu = new C_EndLevelMenu();
+	m_endLevelMenuOpen = false;
+	C_Message::printM("Constructor C_Menu() : done\n");
 }
 
 C_Menu::~C_Menu()
@@ -97,6 +99,8 @@ void C_Menu::render()
 			}
 		}
 	}
+	if(m_endLevelMenuOpen)
+		m_endLevelMenu->render();
 }
 
 
@@ -220,6 +224,17 @@ void C_Menu::openBottomMenu()
 		settings.setPlaying(PAUSE);
 	}
 }
+void C_Menu::openEndLevelMenu()
+{
+	C_Settings& settings=C_Locator::getSettings();
+	if(m_endLevelMenuOpen) {
+		m_endLevelMenuOpen = false;
+		settings.setPlaying(PLAY);
+	} else {
+		m_endLevelMenuOpen = true;
+		settings.setPlaying(PAUSE);
+	}
+}
 
 
 void C_Menu::displayBottomMenu()
@@ -322,4 +337,32 @@ void C_Menu::bottomButtonsLine(S_Coord screen)
 	bottomButton("home", pos);
 	pos.x += buttonSize + space;
 	bottomButton("play", pos);
+}
+
+
+C_EndLevelMenu::C_EndLevelMenu(){
+	C_Settings& settings=C_Locator::getSettings();
+	m_size.w = 100;
+	m_size.h = 200;
+	m_screen.x = (settings.getWindowWidth() - m_size.w)/2;
+	m_screen.y = (settings.getWindowHeight() - m_size.h)/2;
+}
+
+void C_EndLevelMenu::render(){
+	Uint8 R = 0, G = 0, B = 0, A = 150;
+	Sint16 x1 = m_screen.x - 5; //top left
+	Sint16 y1 = m_screen.y; //top left
+	Sint16 x2 = m_screen.x + m_size.w; //top right
+	Sint16 y2 = y1;
+	Sint16 x3 = x2; // bottom right
+	Sint16 y3 = y1 + m_size.h;
+	Sint16 x4 = x1; //bottom left;
+	Sint16 y4 = y3;
+
+	Sint16 vx[] = {x1,x2,x3,x4};
+	Sint16 vy[] = {y1,y2,y3,y4};
+	//draw
+	C_Window& win=C_Locator::getWindow();
+	SDL_Renderer * renderer = win.getRenderer();
+	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 }
