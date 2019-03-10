@@ -417,6 +417,7 @@ void C_Window::listenKeyboard(SDL_Event &event)
 		break;
 	case SDLK_w:{
 		C_OpenEndLevelMenu end;
+		end.setNbr(1);
 		end.action();
 		}
 		break;

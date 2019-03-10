@@ -224,7 +224,7 @@ void C_Menu::openBottomMenu()
 		settings.setPlaying(PAUSE);
 	}
 }
-void C_Menu::openEndLevelMenu()
+void C_Menu::openEndLevelMenu(int status)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	if(m_endLevelMenuOpen) {
@@ -234,6 +234,7 @@ void C_Menu::openEndLevelMenu()
 		m_endLevelMenuOpen = true;
 		settings.setPlaying(PAUSE);
 	}
+	m_endLevelMenu->setWin(status);
 }
 
 

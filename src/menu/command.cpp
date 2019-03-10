@@ -99,5 +99,5 @@ void C_OpenEndLevelMenu::action()
 {
 	C_Message::printM("Send an openEndLevelMenu action\n");
 	C_Menu& menu=C_Locator::getMenu();
-	menu.openEndLevelMenu();
+	menu.openEndLevelMenu(m_nbr);
 }

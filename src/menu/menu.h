@@ -45,7 +45,7 @@ public:
  	void updateUpgradeButtonsStatus();
 	//commands
 	void openBottomMenu();
-	void openEndLevelMenu();
+	void openEndLevelMenu(int status);
 	bool isOpen(){return m_bottomMenuOpen;};
 	void displayBottomMenu();
 	std::vector<std::string> getMenuItemsList();

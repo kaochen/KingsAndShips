@@ -76,6 +76,9 @@ private:
 class C_EndLevelMenu: public C_Panel{
 public:
 	C_EndLevelMenu();
+	void setWin(int win){ m_levelStatus = win;};
 	void render();
+private:
+	int m_levelStatus;
 };
 #endif

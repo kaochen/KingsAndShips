@@ -107,6 +107,7 @@ protected:
 	int m_tilewidth;
 	int m_tileheight;
 	std::string m_backgroundcolor;
+	int m_levelStatus;
 };
 
 

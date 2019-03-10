@@ -39,7 +39,8 @@ C_Level::C_Level(S_LevelModel model):
 	m_gridSize(model.gridSize),
 	m_tilewidth(model.tilewidth),
 	m_tileheight(model.tileheight),
-	m_backgroundcolor(model.backgroundcolor)
+	m_backgroundcolor(model.backgroundcolor),
+	m_levelStatus(ONGOING)
 {
 	C_Message m;
 	m_count = ++m_id;
@@ -71,6 +72,7 @@ void C_Level::load(int levelNbr)
 	//clean before loading
 	C_Grid& grid= C_Locator::getGrid();
 	grid.reset(m_gridSize);
+	m_levelStatus = ONGOING;
 
 	C_Message m;
 	struct stat buffer;
@@ -337,11 +339,24 @@ void C_Level::endOfALevel(){
 		if(waveLeft <= 0){
 			//check if boats of last wave are all dead
 			int boats = grid.nbrOfboatStillAlive();
-			if(boats <= 0)
-				C_Message::printM("You win the battle\n");
+			if(boats <= 0){
+				if(m_levelStatus == ONGOING){
+					C_Message::printM("You win the battle\n");
+					C_OpenEndLevelMenu end;
+					end.setNbr(WIN);
+					end.action();
+					m_levelStatus = WIN;
+				}
 			}
+		}
 	} else {
-		C_Message::printM("You loose\n");
+		if(m_levelStatus == ONGOING){
+			C_Message::printM("You loose\n");
+			C_OpenEndLevelMenu end;
+			end.setNbr(LOOSE);
+			end.action();
+			m_levelStatus = LOOSE;
+		}
 	}
 }
 
