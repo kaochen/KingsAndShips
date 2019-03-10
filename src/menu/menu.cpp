@@ -72,6 +72,7 @@ C_Menu::~C_Menu()
 		if(tab != nullptr)
 			delete  tab;
 	}
+	delete m_endLevelMenu;
 }
 
 
