@@ -332,9 +332,12 @@ void C_Level::endOfALevel(){
 	//check if it is the last wave
 	int waveLeft = m_waves.size() - 1 - m_currentWaveNbr;
 	if(waveLeft <= 0){
-		C_Message::printM("No more wave\n");
+		//check if boats of last wave are all dead
+		C_Grid& grid= C_Locator::getGrid();
+		int boats = grid.nbrOfboatStillAlive();
+		if(boats <= 0)
+			C_Message::printM("All boats are dead\n");
 		}
-	//check if boats of last wave are all dead
 }
 
 //______________________________Waves_____________________________//

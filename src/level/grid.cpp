@@ -504,3 +504,19 @@ int C_Grid::getAllTownsLifeLevel()
 	else
 		return 0;
 }
+
+int C_Grid::nbrOfboatStillAlive()
+{
+	int count = 0;
+	for (size_t y = 0; y < m_vgrid.size(); y++) {
+		for (size_t x = 0; x < m_vgrid.size(); x++) {
+			if (m_vgrid[x][y].get(FIELD) != nullptr) {
+				string type = m_vgrid[x][y].get(FIELD)->getType();
+				if(type == "boat"){
+					count++;
+				}
+			}
+		}
+	}
+	return count;
+}

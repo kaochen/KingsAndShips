@@ -75,6 +75,8 @@ public:
 	S_Coord foundTown();
 	int getAllTownsLifeLevel();
 
+	int nbrOfboatStillAlive();
+
 protected:
 	void createAnEmptyGrid(int size);
 
