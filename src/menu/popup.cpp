@@ -198,7 +198,9 @@ void C_Popup::setMode(std::string mode){
 }
 
 
-C_EndLevelMenu::C_EndLevelMenu(){
+C_EndLevelMenu::C_EndLevelMenu():
+	m_open(false)
+{
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
@@ -214,13 +216,15 @@ C_EndLevelMenu::C_EndLevelMenu(){
 }
 
 void C_EndLevelMenu::render(){
-	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture("Parchment_Parchment", m_screen.x,m_screen.y,CENTER);
-	if(m_levelStatus == WIN)
-		m_sentences["win"]->render(m_screen,CENTER);
-	else if(m_levelStatus == LOOSE)
-		m_sentences["loose"]->render(m_screen,CENTER);
-	else if(m_levelStatus == ONGOING)
-		m_sentences["ongoing"]->render(m_screen,CENTER);
+	if(m_open){
+		C_TextureList& t= C_Locator::getTextureList();
+		t.renderTexture("Parchment_Parchment", m_screen.x,m_screen.y,CENTER);
+		if(m_levelStatus == WIN)
+			m_sentences["win"]->render(m_screen,CENTER);
+		else if(m_levelStatus == LOOSE)
+			m_sentences["loose"]->render(m_screen,CENTER);
+		else if(m_levelStatus == ONGOING)
+			m_sentences["ongoing"]->render(m_screen,CENTER);
+	}
 }
 

@@ -445,6 +445,8 @@ void C_Window::loadLevel(int levelNbr)
 
 	if(m_level != nullptr) {
 		delete m_level;
+		C_Menu& menu=C_Locator::getMenu();
+		menu.resetEndLevelMenu();
 	}
 	m_level = m_levelFactory->create(levelNbr);
 	if(m_level != nullptr) {

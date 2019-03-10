@@ -58,7 +58,6 @@ C_Menu::C_Menu():
 	line.y = settings.getWindowHeight() - 20;
 	bottomButtonsLine(line);
 	m_endLevelMenu = new C_EndLevelMenu();
-	m_endLevelMenuOpen = false;
 	C_Message::printM("Constructor C_Menu() : done\n");
 }
 
@@ -99,8 +98,7 @@ void C_Menu::render()
 			}
 		}
 	}
-	if(m_endLevelMenuOpen)
-		m_endLevelMenu->render();
+	m_endLevelMenu->render();
 }
 
 
@@ -116,6 +114,8 @@ void C_Menu::resetValues()
 	m_total_waves = 1;
 	updateAttackerStatus();
 	updateDefenderStatus();
+	if(m_endLevelMenu != nullptr)
+		m_endLevelMenu->setOpen(false);
 }
 
 
@@ -227,14 +227,22 @@ void C_Menu::openBottomMenu()
 void C_Menu::openEndLevelMenu(int status)
 {
 	C_Settings& settings=C_Locator::getSettings();
-	if(m_endLevelMenuOpen) {
-		m_endLevelMenuOpen = false;
+	if(m_endLevelMenu->getOpen()) {
+		m_endLevelMenu->setOpen(false);
 		settings.setPlaying(PLAY);
 	} else {
-		m_endLevelMenuOpen = true;
+		m_endLevelMenu->setOpen(true);
 		settings.setPlaying(PAUSE);
 	}
 	m_endLevelMenu->setWin(status);
+}
+void C_Menu::resetEndLevelMenu(){
+	if(m_endLevelMenu != nullptr){
+		delete m_endLevelMenu;
+	}
+	m_endLevelMenu = new C_EndLevelMenu();
+	C_Settings& settings=C_Locator::getSettings();
+	settings.setPlaying(PLAY);
 }
 
 

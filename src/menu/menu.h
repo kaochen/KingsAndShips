@@ -50,6 +50,7 @@ public:
 	void displayBottomMenu();
 	std::vector<std::string> getMenuItemsList();
 	void setTabNbr(int nbr);
+	void resetEndLevelMenu();
 protected:
 	void updateDefenderStatus(); /*!Create or update defender informations*/
 	void updateAttackerStatus(); /*!Create or update attacker informations*/
@@ -71,7 +72,6 @@ private:
 	int m_currentTab;
 
 	C_EndLevelMenu* m_endLevelMenu;
-	bool m_endLevelMenuOpen;
 };
 
 #endif
