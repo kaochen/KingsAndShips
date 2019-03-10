@@ -66,4 +66,13 @@ private:
 	std::map<std::string, C_Sentence*> m_sentences;
 };
 
+class C_EndLevelMenu{
+public:
+	C_EndLevelMenu();
+	~C_EndLevelMenu(){};
+	void render();
+private:
+	S_Coord m_screen;
+	S_Size m_size;
+};
 #endif

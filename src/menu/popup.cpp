@@ -190,3 +190,16 @@ void C_Popup::setMode(std::string mode){
 		m_mode = mode;
 }
 
+
+C_EndLevelMenu::C_EndLevelMenu(){
+	C_Settings& settings=C_Locator::getSettings();
+	m_size.w = 100;
+	m_size.h = 200;
+	m_screen.x = (settings.getWindowWidth())/2;
+	m_screen.y = (settings.getWindowHeight())/2;
+}
+
+void C_EndLevelMenu::render(){
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture("Parchment_Parchment", m_screen.x,m_screen.y,CENTER);
+}

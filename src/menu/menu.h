@@ -25,19 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../locator.h"
 #include "../level/level.h"
 #include "menuItems.h"
+#include "popup.h"
 #include "tab.h"
 
 class C_MenuItem;
 
-class C_EndLevelMenu{
-public:
-	C_EndLevelMenu();
-	~C_EndLevelMenu(){};
-	void render();
-private:
-	S_Coord m_screen;
-	S_Size m_size;
-};
 
 class C_Menu {
 public:
