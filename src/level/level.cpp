@@ -329,15 +329,20 @@ S_Coord C_Level::getGridTown()
 
 
 void C_Level::endOfALevel(){
-	//check if it is the last wave
-	int waveLeft = m_waves.size() - 1 - m_currentWaveNbr;
-	if(waveLeft <= 0){
-		//check if boats of last wave are all dead
-		C_Grid& grid= C_Locator::getGrid();
-		int boats = grid.nbrOfboatStillAlive();
-		if(boats <= 0)
-			C_Message::printM("All boats are dead\n");
-		}
+	C_Grid& grid= C_Locator::getGrid();
+	int playerLife = grid.getAllTownsLifeLevel();
+	if(playerLife > 0){
+		//check if it is the last wave
+		int waveLeft = m_waves.size() - 1 - m_currentWaveNbr;
+		if(waveLeft <= 0){
+			//check if boats of last wave are all dead
+			int boats = grid.nbrOfboatStillAlive();
+			if(boats <= 0)
+				C_Message::printM("You win the battle\n");
+			}
+	} else {
+		C_Message::printM("You loose\n");
+	}
 }
 
 //______________________________Waves_____________________________//
