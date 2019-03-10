@@ -66,7 +66,31 @@ void C_Sentence::changeColor(string color){
 
 }
 
+ //---------------------------C_Panel-------------------------------------------
 
+C_Panel::C_Panel(){
+	m_screen = {0,0};
+}
+C_Panel::~C_Panel(){
+	for(auto const& x : m_sentences) {
+		if(x.second != nullptr)
+			delete  x.second;
+	}
+}
+
+
+void C_Panel::addLine(string name, string text, S_Coord screen, string color){
+	if(m_sentences[name] == nullptr)
+		m_sentences[name]= new C_Sentence(text, screen);
+
+	else
+		m_sentences[name]->update(text);
+
+	m_sentences[name]->changeColor(color);
+
+}
+
+//---------------------------C_Popup-------------------------------------------
 
 int C_Popup::id = 0;
 
@@ -193,13 +217,17 @@ void C_Popup::setMode(std::string mode){
 
 C_EndLevelMenu::C_EndLevelMenu(){
 	C_Settings& settings=C_Locator::getSettings();
-	m_size.w = 100;
-	m_size.h = 200;
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
+
+	S_Coord screen = {0,-65};
+	string text = "See you soon";
+	addLine("line1", text, screen, "black");
 }
 
 void C_EndLevelMenu::render(){
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture("Parchment_Parchment", m_screen.x,m_screen.y,CENTER);
+	m_sentences["line1"]->render(m_screen,CENTER);
 }
+

@@ -51,6 +51,16 @@ private:
 	int m_fontSize;
 };
 
+class C_Panel{
+public:
+	C_Panel();
+	virtual ~C_Panel();
+protected:
+	virtual	void addLine(std::string name, std::string text, S_Coord screen, std::string color);
+	std::map<std::string, C_Sentence*> m_sentences;
+	S_Coord m_screen;
+};
+
 class C_Popup{
 public:
 	C_Popup();
@@ -66,13 +76,9 @@ private:
 	std::map<std::string, C_Sentence*> m_sentences;
 };
 
-class C_EndLevelMenu{
+class C_EndLevelMenu: public C_Panel{
 public:
 	C_EndLevelMenu();
-	~C_EndLevelMenu(){};
 	void render();
-private:
-	S_Coord m_screen;
-	S_Size m_size;
 };
 #endif
