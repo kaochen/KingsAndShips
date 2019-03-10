@@ -59,21 +59,18 @@ protected:
 	virtual	void addLine(std::string name, std::string text, S_Coord screen, std::string color);
 	std::map<std::string, C_Sentence*> m_sentences;
 	S_Coord m_screen;
+	static int id;
+	std::string m_name;
 };
 
-class C_Popup{
+class C_Popup: public C_Panel{
 public:
 	C_Popup();
-	~C_Popup();
 	void render(S_Coord screen);
 	void getInfo(S_UnitModel current);
 	void setMode(std::string mode);
 private:
-	void addLine(std::string name, std::string text, S_Coord screen, std::string color);
-	static int id;
-	std::string m_name;
 	std::string m_mode;
-	std::map<std::string, C_Sentence*> m_sentences;
 };
 
 class C_EndLevelMenu: public C_Panel{

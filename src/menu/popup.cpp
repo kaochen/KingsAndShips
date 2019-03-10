@@ -67,9 +67,12 @@ void C_Sentence::changeColor(string color){
 }
 
  //---------------------------C_Panel-------------------------------------------
+int C_Panel::id = 0;
 
 C_Panel::C_Panel(){
 	m_screen = {0,0};
+	++id;
+	m_name =  "panel_" + to_string(id);
 }
 C_Panel::~C_Panel(){
 	for(auto const& x : m_sentences) {
@@ -92,20 +95,11 @@ void C_Panel::addLine(string name, string text, S_Coord screen, string color){
 
 //---------------------------C_Popup-------------------------------------------
 
-int C_Popup::id = 0;
-
 C_Popup::C_Popup()
 {
-	++id;
-	m_name =  "popup_" + to_string(id);
 	m_mode = "normal";
 }
-C_Popup::~C_Popup(){
-	for(auto const& x : m_sentences) {
-		if(x.second != nullptr)
-			delete  x.second;
-	}
-}
+
 
 void C_Popup::render(S_Coord screen){
 	C_TextureList& t= C_Locator::getTextureList();
@@ -194,17 +188,6 @@ void C_Popup::getInfo(S_UnitModel current){
 	} else {
 		addLine("line6.1",to_string(current.weapon.speedImpact), screen, "black");
 	}
-
-}
-
-void C_Popup::addLine(string name, string text, S_Coord screen, string color){
-	if(m_sentences[name] == nullptr)
-		m_sentences[name]= new C_Sentence(text, screen);
-
-	else
-		m_sentences[name]->update(text);
-
-	m_sentences[name]->changeColor(color);
 
 }
 
