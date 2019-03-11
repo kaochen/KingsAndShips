@@ -206,7 +206,7 @@ C_EndLevelMenu::C_EndLevelMenu():
 	m_screen.y = (settings.getWindowHeight())/2;
 	m_levelStatus = ONGOING;
 
-	S_Coord screen = {0,-65};
+	S_Coord screen = {0,0};
 	string text = "Your castle is safe for now";
 	addLine("win", text, screen, "black");
 	text = "You just loose this castle";
@@ -218,7 +218,7 @@ C_EndLevelMenu::C_EndLevelMenu():
 void C_EndLevelMenu::render(){
 	if(m_open){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Parchment_Parchment", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Parchment_Finish_Active", m_screen.x,m_screen.y,CENTER);
 		if(m_levelStatus == WIN)
 			m_sentences["win"]->render(m_screen,CENTER);
 		else if(m_levelStatus == LOOSE)
