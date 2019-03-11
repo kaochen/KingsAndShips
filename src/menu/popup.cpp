@@ -105,7 +105,7 @@ void C_Popup::render(S_Coord screen){
 	C_TextureList& t= C_Locator::getTextureList();
 	screen.x -=120;
 	screen.y -=40;
-	t.renderTexture("Parchment_Parchment", screen.x,screen.y,CENTER);
+	t.renderTexture("Parchment_Popup_Active", screen.x,screen.y,CENTER);
 	m_sentences["line1"]->render(screen,CENTER);
 	m_sentences["underline"]->render(screen,CENTER);
 	m_sentences["line2.0"]->render(screen,LEFT);
