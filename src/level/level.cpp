@@ -341,7 +341,7 @@ void C_Level::endOfALevel(){
 			int boats = grid.nbrOfboatStillAlive();
 			if(boats <= 0){
 				if(m_levelStatus == ONGOING){
-					C_Message::printM("You win the battle\n");
+					C_Message::printM("You won this battle\n");
 					C_OpenEndLevelMenu end;
 					end.setNbr(WIN);
 					end.action();
@@ -351,11 +351,11 @@ void C_Level::endOfALevel(){
 		}
 	} else {
 		if(m_levelStatus == ONGOING){
-			C_Message::printM("You loose\n");
+			C_Message::printM("You lost this battle\n");
 			C_OpenEndLevelMenu end;
-			end.setNbr(LOOSE);
+			end.setNbr(LOSE);
 			end.action();
-			m_levelStatus = LOOSE;
+			m_levelStatus = LOSE;
 		}
 	}
 }

@@ -55,7 +55,7 @@ enum Status {ALIVE,DEAD};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 enum game {PLAY,PAUSE};
-enum level {ONGOING,LOOSE,WIN};
+enum level {ONGOING,LOSE,WIN};
 
 
 
