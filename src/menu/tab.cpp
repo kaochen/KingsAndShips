@@ -50,14 +50,14 @@ C_Tab::~C_Tab()
     m_itemsList.clear(); //items are allready delete
 }
 
-void C_Tab::displayTab(bool open, size_t nbr)
+void C_Tab::displayTab(bool open)
 {
 	if(open) {
-		focusTab(nbr);
+		focusTab();
 	}
 }
 
-void C_Tab::focusTab(size_t nbr)
+void C_Tab::focusTab()
 {
 
 	Uint8 R = 0, G = 0, B = 0, A = 150;

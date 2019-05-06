@@ -249,7 +249,7 @@ void C_Menu::resetEndLevelMenu(){
 
 void C_Menu::displayBottomMenu()
 {
-	m_tabs[0]->displayTab(m_bottomMenuOpen, m_currentTab);
+	m_tabs[0]->displayTab(m_bottomMenuOpen);
 }
 
 
