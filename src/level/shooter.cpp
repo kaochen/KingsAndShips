@@ -223,10 +223,16 @@ void C_Shooter::drag(S_Coord screen)
 			}
 			int x_s = tmp.getXScreen ();
 			int y_s = tmp.getYScreen ();
-			drawRhombus(x_s,y_s,70,40,status);
+
+			C_TextureList& t= C_Locator::getTextureList();
+			string color = "Green";
+			string imageNbr = "01";
 			if (i == 1 && j == 1) {
-				drawRhombus(x_s,y_s,70,90,status);
+				imageNbr = "0" + to_string(m_animation[SELECT]->getLoopAnimNbr(1,8,40));
 			}
+			if(!status){ color = "Red";};
+
+			t.renderTexture("Select_"+color+"_"+imageNbr, x_s,y_s);
 
 		}
 		x = coord.getXGrid () - 2;
@@ -256,35 +262,6 @@ void C_Shooter::drawEllipse(int x,
 	}
 	filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A*4);
 
-
-}
-
-void C_Shooter::drawRhombus(int x, int y, int width, int alpha, bool ok)
-{
-	C_Window& win=C_Locator::getWindow();
-	SDL_Renderer * renderer = win.getRenderer();
-	Sint16 w =  width/2;
-	Sint16 h =  w/2;
-	Sint16 x1 = x - w;
-
-	Sint16 y1 = y - h + 14; //center
-	Sint16 x2 = x1 + w;
-	Sint16 y2 = y1 + h;
-	Sint16 x3 = x1 + (w*2);
-	Sint16 y3 = y1;
-	Sint16 x4 = x2;
-	Sint16 y4 = y1 - h;
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	int R = 0, G = 200, B = 0, A = alpha;
-	if(ok == false)
-		R = 120, G = 0, B = 0;
-	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-
-	A = alpha * 2;
-	if (alpha > 255)
-		alpha = 255;
-	aapolygonRGBA(renderer,vx,vy,4,R,G,B,A);
 
 }
 

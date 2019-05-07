@@ -62,8 +62,8 @@ class C_Time
 	long m_start_frame;
 };
 
-#define MAX_ANIM  6
-enum AnimTime{JUSTADDED,MAIN_ANIM,SELECTED,DRAG,MOVE,PAUSESEARCHPATH};
+#define MAX_ANIM  7
+enum AnimTime{JUSTADDED,MAIN_ANIM,SELECTED,DRAG,MOVE,PAUSESEARCHPATH,SELECT};
 
 class C_AnimTime
 {
