@@ -37,7 +37,7 @@ C_Tab::C_Tab(string title)
 	m_screen.y = (settings.getWindowHeight() - m_height)/2;
 	m_tabSize = 120;
 
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10,m_screen.y + 5);
+	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10,m_screen.y + 30);
 	if(m_itemsList[m_name] != nullptr) {
 		m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -57,6 +57,15 @@ void C_Tab::displayTab(bool open)
 		int x = m_screen.x + m_width/2;
 		int y = m_screen.y + m_height/2;
 		t.renderTexture("Menu_01_background", x,y,CENTER);
+		int nbr = (m_width/12) - 4;
+		for(int i = 0; i < nbr; i++){
+			int x2 = m_screen.x+20;
+			if(i>0){
+				x2 += (i*12);
+			}
+			int y2 = m_screen.y+60;
+			t.renderTexture("Menu_details_separator",x2 ,y2,CENTER);
+		}
 	}
 }
 
@@ -79,11 +88,11 @@ C_Tab_Settings::C_Tab_Settings()
 	string width = to_string(settings.getWindowWidth());
 	string height = to_string(settings.getWindowHeight());
 	string text = width + "x" + height;
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  50);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  80);
 
 	name = "Theme";
 	text =  settings.getThemePath();
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  80);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  110);
 
 }
 
@@ -93,12 +102,12 @@ C_Tab_Levels::C_Tab_Levels()
 	C_Settings& settings=C_Locator::getSettings();
 	string name = "Number of Levels";
 	string text = to_string(settings.getNbrOfLevels());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  50);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  80);
 
 	int j = 0;
 	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {
 		name = "Card_" + to_string(i);
-		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 40 + j*(180),m_screen.y +  100);
+		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 40 + j*(180),m_screen.y +  120);
 		C_LoadALevel *command = new C_LoadALevel();
 		m_itemsList[name]->setCommand(command);
 		m_itemsList[name]->getCommand()->setNbr(i);
