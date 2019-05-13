@@ -64,8 +64,6 @@ public:
 	virtual void setImage(std::string image){m_image = image;};
 
 protected:
-	void stripes(int x_screen, int y_screen, int width, int height);
-	void corners(int x_screen, int y_screen, int width, int height, bool big);
 	int m_type;
 	std::string m_name;
 	std::string m_image;

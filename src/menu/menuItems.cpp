@@ -106,37 +106,6 @@ void C_MenuItem::actionHover(bool state)
 	}
 }
 
-
-
-void C_MenuItem::stripes(int x_screen, int y_screen, int width, int height)
-{
-	C_TextureList& t= C_Locator::getTextureList();
-	int size = 6;
-	int x = width/size;
-	int y = height/size;
-	for(int j = 0; j < y; j++) {
-		for(int i = 0; i < x; i++) {
-			t.renderTexture("icons_12px_stripes", x_screen +i*size,y_screen +(j)*size + size/2, LEFT);
-		}
-	}
-}
-
-void C_MenuItem::corners(int x_screen, int y_screen, int width, int height, bool big)
-{
-	C_TextureList& t= C_Locator::getTextureList();
-	int size = 12/2;
-	string name = "icons_12px_corner_small";
-	if(big)
-		name = "icons_12px_corner_big";
-	t.renderTextureEx(name, x_screen + width - size,y_screen + size,0.0, CENTER); //top left
-	t.renderTextureEx(name, x_screen + width - size,y_screen + height - size,90.0, CENTER); //bottom left
-	t.renderTextureEx(name, x_screen + size,y_screen + height - size,180.0, CENTER);  //bottom right
-	t.renderTextureEx(name, x_screen + size,y_screen + size,270.0, CENTER); //top right
-
-}
-
-
-
 //-------------------------------------------------------------
 
 C_Button::C_Button(string name,string image,int x_screen, int y_screen)
@@ -211,8 +180,6 @@ void C_MB_TabSelect::render()
 	y2 = y1 + 25;
 	boxRGBA(win.getRenderer(),x1,y1,x2,y2,200,200,200,50);
 
-	stripes(x1, y1, m_width, m_height);
-
 	C_TextureList& t= C_Locator::getTextureList();
 	if(m_text !="") {
 		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
@@ -261,9 +228,7 @@ void C_MB_1Line::render()
 
 	boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
 
-	int width = x2 - x1;
 	int height = y2 - y1;
-	stripes(x1, y1, width, height);
 
 	C_TextureList& t= C_Locator::getTextureList();
 	if(m_title !="") {
