@@ -34,10 +34,6 @@ public:
 	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
 	virtual std::vector<std::string> getListOfVisibleItems();
 
-protected:
-	virtual void focusTab();
-	virtual void drawAseparator(Sint16 x, Sint16 y, Sint16 width);
-	virtual void drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height);
 
 protected:
 	static int m_id;

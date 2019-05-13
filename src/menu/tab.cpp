@@ -32,7 +32,7 @@ C_Tab::C_Tab(string title)
 	m_title = title;
 	C_Settings& settings=C_Locator::getSettings();
 	m_width = settings.getWindowWidth();
-	m_height = (settings.getWindowHeight()*2)/3;
+	m_height = 400;
 	m_screen.x = 0;
 	m_screen.y = (settings.getWindowHeight() - m_height)/2;
 	m_tabSize = 120;
@@ -53,70 +53,14 @@ C_Tab::~C_Tab()
 void C_Tab::displayTab(bool open)
 {
 	if(open) {
-		focusTab();
+		C_TextureList& t= C_Locator::getTextureList();
+		int x = m_screen.x + m_width/2;
+		int y = m_screen.y + m_height/2;
+		t.renderTexture("Menu_01_background", x,y,CENTER);
 	}
 }
 
-void C_Tab::focusTab()
-{
 
-	Uint8 R = 0, G = 0, B = 0, A = 150;
-	Sint16 x1 = m_screen.x - 5; //top left
-	Sint16 y1 = m_screen.y; //top left
-	Sint16 x2 = m_screen.x + m_width; //top right
-	Sint16 y2 = y1;
-	Sint16 x3 = x2; // bottom right
-	Sint16 y3 = y1 + m_height;
-	Sint16 x4 = x1; //bottom left;
-	Sint16 y4 = y3;
-
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	//draw
-	C_Window& win=C_Locator::getWindow();
-	SDL_Renderer * renderer = win.getRenderer();
-	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-
-	Sint16 xSep = m_screen.x + 20;
-	drawAseparator(xSep,m_screen.y + 40,m_width - 40);
-
-	drawBackgroundGrid(x1, y1, m_width, m_height);
-
-}
-
-void C_Tab::drawAseparator(Sint16 x, Sint16 y, Sint16 width)
-{
-	Uint8 R = 200, G = 200, B = 200, A = 50;
-	Sint16 x1 = x; //top left
-	Sint16 y1 = y;
-	Sint16 x2 = x + width; //top right
-	Sint16 y2 = y;
-	Sint16 x3 = x2; // bottom right
-	Sint16 y3 = y + 2;
-	Sint16 x4 = x; //bottom left;
-	Sint16 y4 = y3;
-
-	Sint16 vx[] = {x1,x2,x3,x4};
-	Sint16 vy[] = {y1,y2,y3,y4};
-	//draw
-	C_Window& win=C_Locator::getWindow();
-	SDL_Renderer * renderer = win.getRenderer();
-	filledPolygonRGBA(renderer,vx,vy,4,R,G,B,A);
-}
-
-
-void C_Tab::drawBackgroundGrid(Sint16 x, Sint16 y, Sint16 width, Sint16 height)
-{
-	Sint16 x1 = x;
-	Sint16 y1 = y;
-	Sint16 y2 = y1 + height;
-	C_Window& win=C_Locator::getWindow();
-	for(int i = 0; i < width/20; i++) {
-		x1 +=20;
-		Sint16 x2 = x1 + 1;
-		boxRGBA(win.getRenderer(),x1,y1,x2,y2,100,100,100,20);
-	}
-}
 
 std::vector<string> C_Tab::getListOfVisibleItems()
 {
@@ -154,7 +98,7 @@ C_Tab_Levels::C_Tab_Levels()
 	int j = 0;
 	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {
 		name = "Card_" + to_string(i);
-		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 10 + j*(180),m_screen.y +  100);
+		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 40 + j*(180),m_screen.y +  100);
 		C_LoadALevel *command = new C_LoadALevel();
 		m_itemsList[name]->setCommand(command);
 		m_itemsList[name]->getCommand()->setNbr(i);
