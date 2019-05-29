@@ -25,7 +25,7 @@
  <tile id="21" type="Corner_Green_NW"/>
  <tile id="22" type="Corner_Green_NN"/>
  <tile id="23" type="Corner_Green_NE"/>
- <tile id="24" type="Corner_Red_NE"/>
+ <tile id="24" type="Corner_Red_EE"/>
  <tile id="25" type="Corner_Red_SE"/>
  <tile id="26" type="Corner_Red_SS"/>
  <tile id="27" type="Corner_Red_SW"/>

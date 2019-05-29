@@ -48,7 +48,7 @@ protected:
 	virtual void render(S_Coord screen);
 	virtual	C_GameUnits* searchNextTarget(std::string type);
 	virtual void shootTarget(C_GameUnits &target);
-	virtual void drawEllipse(int x,int y, int width, bool ok);
+	virtual void drawEllipse(int x,int y, int size, bool ok);
 
 	C_Weapon *m_weapon;
 	long m_lastShootTime;

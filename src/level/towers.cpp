@@ -62,8 +62,7 @@ void C_Towers::render(S_Coord screen)
 void C_Towers::renderSelected()
 {
 	if (m_selected == true) {
-		int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
-		drawEllipse(m_coord.getXScreen (),m_coord.getYScreen (),width, true);
+		drawEllipse(m_coord.getXScreen (),m_coord.getYScreen (),m_weapon->getFireRange(), true);
 		m_popup.getInfo(getInfo());
 		m_popup.render(m_coord.getScreen());
 	}

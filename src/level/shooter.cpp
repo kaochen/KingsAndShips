@@ -202,12 +202,11 @@ void C_Shooter::drag(S_Coord screen)
 	}
 	C_CoordScreen coord(screen);
 
-	int width = m_weapon->getFireRange()*2*TILE_HALF_WIDTH;
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 	//draw ellipse
 	bool status = grid.isThisConstructible(x,y);
-	drawEllipse(screen.x,screen.y,width, status);
+	drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
 	//draw square
 	x -=2;
 	y -=2;
@@ -243,24 +242,24 @@ void C_Shooter::drag(S_Coord screen)
 }
 
 
-void C_Shooter::drawEllipse(int x,
-							int y,
-							int width,
-							bool ok)
+void C_Shooter::drawEllipse(int x,int y,int size,bool ok)
 {
-	int animNbr = m_animation[SELECTED]->getAnimNbr(10,20,500);
-	C_Window& win=C_Locator::getWindow();
-	width = width*90/100;
-	int height = width/2;
-	int R = 0, G = 200, B = 0, A = 10;
-	if(ok == false)
-		R = 120, G = 0, B = 0;
+	C_TextureList& t= C_Locator::getTextureList();
 
-	for(int i = animNbr; i >= 0; i--) {
-		int w = width-i;
-		aaellipseRGBA(win.getRenderer(),x,y,w,w/2,R,G,B,A+4*(animNbr -i));
-	}
-	filledEllipseRGBA(win.getRenderer(),x,y,width,height,R,G,B,A*4);
+	string color = "Green";
+	if(!ok){
+		color= "Red";
+		}
+	int width = (TILE_HALF_WIDTH);
+	int height = (TILE_HALF_HEIGHT);
+	t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height);
+	t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height);
+	t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height);
+	t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y);
+	t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height);
+	t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height);
+	t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height);
+	t.renderTexture("Select_Corner_"+color+"_NE", x+(size+1)*width,y);
 
 
 }
