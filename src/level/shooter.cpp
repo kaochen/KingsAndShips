@@ -244,23 +244,24 @@ void C_Shooter::drag(S_Coord screen)
 
 void C_Shooter::drawEllipse(int x,int y,int size,bool ok)
 {
-	C_TextureList& t= C_Locator::getTextureList();
+	if(size>0){
+		C_TextureList& t= C_Locator::getTextureList();
 
-	string color = "Green";
-	if(!ok){
-		color= "Red";
-		}
-	int width = (TILE_HALF_WIDTH);
-	int height = (TILE_HALF_HEIGHT);
-	t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height);
-	t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height);
-	t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height);
-	t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y);
-	t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height);
-	t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height);
-	t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height);
-	t.renderTexture("Select_Corner_"+color+"_NE", x+(size+1)*width,y);
-
+		string color = "Green";
+		if(!ok){
+			color= "Red";
+			}
+		int width = (TILE_HALF_WIDTH);
+		int height = (TILE_HALF_HEIGHT);
+		t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height);
+		t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height);
+		t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height);
+		t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y);
+		t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height);
+		t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height);
+		t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height);
+		t.renderTexture("Select_Corner_"+color+"_NE", x+(size+1)*width,y);
+	}
 
 }
 
