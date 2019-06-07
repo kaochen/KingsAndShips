@@ -76,7 +76,6 @@ protected:
 	//text
 	std::string m_textName;
 	std::string m_text;
-	std::string m_oldText;
 	int  m_fontSize;
 	SDL_Color m_color;
 	int m_x_text;

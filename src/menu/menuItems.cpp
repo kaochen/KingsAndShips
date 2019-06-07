@@ -68,10 +68,7 @@ void C_MenuItem::renderText()
 {
 	C_TextureList& t= C_Locator::getTextureList();
 	if(m_text !="") {
-		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
-			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-			m_oldText = m_text;
-		}
+		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen +  m_height/2,CENTER);
 	}
 }
@@ -468,10 +465,7 @@ void C_GU_Upgrade::render()
 		m_text = to_string(model.cost);
 
 		C_TextureList& t= C_Locator::getTextureList();
-		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
-			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-			m_oldText = m_text;
-		}
+		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 50,CENTER);
 	}
 }

@@ -26,8 +26,7 @@ using namespace std;
 int C_Sentence::id = 0;
 
 C_Sentence::C_Sentence(string text, S_Coord screen):
-	m_text(text),
-	m_oldText(text)
+	m_text(text)
 {
 	++id;
 	m_name = "Sentence_" + to_string(id);
@@ -39,18 +38,7 @@ C_Sentence::C_Sentence(string text, S_Coord screen):
 
 void C_Sentence::render(S_Coord screen, int align){
 	C_TextureList& t= C_Locator::getTextureList();
-	bool checkColor = false;
-	if(m_color.r != m_oldColor.r || m_color.g != m_oldColor.g
-		|| m_color.b != m_oldColor.b || m_color.a != m_oldColor.a){
-		checkColor = true;
-	}
-
-
-	if(t.searchTexture(m_name)== nullptr || m_text != m_oldText || checkColor) {
-		t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize, m_color);
-		m_oldText = m_text;
-		m_oldColor = m_color;
-	}
+	t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize, m_color);
 	t.renderTexture(m_name, screen.x + m_screen.x, screen.y + m_screen.y,align);
 }
 

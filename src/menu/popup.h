@@ -44,10 +44,8 @@ private:
 	static int id;
 	std::string m_name;
 	std::string m_text;
-	std::string m_oldText;
 	S_Coord m_screen;
 	SDL_Color m_color;
-	SDL_Color m_oldColor;
 	int m_fontSize;
 };
 
