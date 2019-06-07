@@ -242,8 +242,8 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 
 	m_text = "Grid Size: " + to_string(model.gridSize);
 	m_textName = "Card_Text_" + name;
-	m_width = 158;
-	m_height = 245;
+	m_width = 144;
+	m_height = 218;
 }
 
 void C_MB_LevelCard::render()
