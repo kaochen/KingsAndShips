@@ -88,11 +88,11 @@ C_Tab_Settings::C_Tab_Settings()
 	string width = to_string(settings.getWindowWidth());
 	string height = to_string(settings.getWindowHeight());
 	string text = width + "x" + height;
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  80);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  60);
 
-	name = "Theme";
-	text =  settings.getThemePath();
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  110);
+	name = "Grid Size";
+	text =  to_string(settings.getGridWidth())+ "x" +to_string(settings.getGridHeight());
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  90);
 
 }
 
@@ -102,12 +102,12 @@ C_Tab_Levels::C_Tab_Levels()
 	C_Settings& settings=C_Locator::getSettings();
 	string name = "Number of Levels";
 	string text = to_string(settings.getNbrOfLevels());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  80);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  60);
 
 	int j = 0;
 	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {
 		name = "Card_" + to_string(i);
-		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 40 + j*(180),m_screen.y +  120);
+		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 40 + j*(180),m_screen.y +  90);
 		C_LoadALevel *command = new C_LoadALevel();
 		m_itemsList[name]->setCommand(command);
 		m_itemsList[name]->getCommand()->setNbr(i);
