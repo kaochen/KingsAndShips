@@ -188,27 +188,50 @@ void C_Image::loadTextAsTextures(std::string &message,SDL_Color color, int fontS
 
 //C_Text
 
-C_Text::C_Text(string name, string message):
+C_Text::C_Text(std::string name, std::string message, SDL_Color color, int fontSize):
 	C_Texture(name)
 {
 	m_message = message;
+	m_fontSize = fontSize;
+	m_color = color;
+	createNewTexture();
 }
 
 
 void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
 {
+	bool needUpdate = false;
+	if(message != m_message){
+		needUpdate = true;
+		m_message = message;
+	}
+	if(fontSize != m_fontSize){
+		needUpdate = true;
+		m_fontSize = fontSize;
+	}
+	if(m_color.r != color.r || m_color.g != color.g ||m_color.b != color.b ||
+	m_color.a != color.a ){
+		needUpdate = true;
+		m_color = color;
+	}
+	if(needUpdate){
+		createNewTexture();
+	}
+}
+
+void C_Text::createNewTexture(){
 	C_Message m;
 	C_Window& win= C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Surface *surf = nullptr;
-	TTF_Font *font = TTF_OpenFont(findFont().c_str(),fontSize);
+	TTF_Font *font = TTF_OpenFont(findFont().c_str(),m_fontSize);
 
 	if (font == nullptr) {
 		string error= "TTF_OpenFont open " + findFont() + " failed";
 		m.printTTFerror(error);
 		m_texture = nullptr;
 	} else {
-		surf = TTF_RenderText_Blended(font, message.c_str(), color);
+		surf = TTF_RenderText_Blended(font, m_message.c_str(), m_color);
 	}
 
 	if (surf == nullptr) {
@@ -332,13 +355,16 @@ map<string, C_Texture*>  C_TextureList::getTextMap()
 void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int fontSize, SDL_Color color)
 {
 	map<string, C_Texture*>::iterator search = m_map_textures.find(name);
+	bool exist = false;
 	if(search != m_map_textures.end()) {
 		if(m_map_textures[name] != nullptr){
-			delete m_map_textures[name];
+			exist = true;
 		}
 	}
-	m_map_textures[name] = new C_Text(name,message);
-	m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
+	if(exist)
+		m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
+	else
+		m_map_textures[name] = new C_Text(name,message,color,fontSize);
 }
 
 void C_TextureList::freeTexture(string name)

@@ -37,7 +37,7 @@ C_Tab::C_Tab(string title)
 	m_screen.y = (settings.getWindowHeight() - m_height)/2;
 	m_tabSize = 120;
 
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10,m_screen.y + 30);
+	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10,m_screen.y + 20);
 	if(m_itemsList[m_name] != nullptr) {
 		m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -63,8 +63,8 @@ void C_Tab::displayTab(bool open)
 			if(i>0){
 				x2 += (i*12);
 			}
-			int y2 = m_screen.y+60;
-			t.renderTexture("Menu_details_separator",x2 ,y2,CENTER);
+			int y2 = m_screen.y+50;
+			t.renderTexture("Menu_details_bottom_line_active",x2 ,y2,CENTER);
 		}
 	}
 }

@@ -76,7 +76,7 @@ protected:
 class C_Text: public C_Texture
 {
 public:
-	C_Text(std::string name, std::string message);
+	C_Text(std::string name, std::string message, SDL_Color color, int fontSize);
 
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 
@@ -85,8 +85,11 @@ public:
 	virtual void loadTexture( std::string &path);
 
 protected:
+	void createNewTexture();
 	std::string findFont();
 	std::string m_message;
+	int m_fontSize;
+	SDL_Color m_color;
 };
 
 /*! \class C_TextureList

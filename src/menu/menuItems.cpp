@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../level/grid.h"
 #include <string>
 
-#include <SDL2_gfxPrimitives.h>
 
 using namespace std;
 C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
@@ -151,42 +150,31 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 	setText(text, fontSize);
 	m_width = 100;
 	m_height = 30;
+	m_color = {46,15,2,255};
 }
 
 
 void C_MB_TabSelect::render()
 {
-	C_Window& win=C_Locator::getWindow();
-	Sint16 x1 = m_x_screen; //x top right
-	Sint16 y1 = m_y_screen;
-	Sint16 x2 = x1 + m_width; //x bottom left
-	Sint16 y2 = y1 + 3;
-	Uint8 R = 0, G = 0, B = 0;
 
-	//top
-	if(m_state == ACTIVE) {
-		R = 8;
-		G = 63;
-		B = 127;
-	} else if(m_state == HOVER) {
-		R = 16;
-		G = 126;
-		B = 255;
+	SDL_Color color = m_color;
+	string textureName = "Menu_details_side_line_";
+
+	if(m_state == HOVER){
+		color = {23,4,0,255};
+		textureName +="hover";
+	} else {
+		textureName +="active";
 	}
-	boxRGBA(win.getRenderer(),x1,y1,x2,y2,R,G,B,255);
-
-	//bottom
-	y1 = y2 + 2;
-	y2 = y1 + 25;
-	boxRGBA(win.getRenderer(),x1,y1,x2,y2,200,200,200,50);
 
 	C_TextureList& t= C_Locator::getTextureList();
+	Sint16 y1 = m_y_screen + m_height/2;
+	t.renderTexture(textureName,m_x_screen ,y1,CENTER);
+	t.renderTexture(textureName,m_x_screen + m_width ,y1,CENTER);
+
 	if(m_text !="") {
-		if(t.searchTexture(m_textName)== nullptr || m_text != m_oldText) {
-			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-			m_oldText = m_text;
-		}
-		t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2,CENTER);
+		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, color);
+		t.renderTexture(m_textName, m_x_screen + m_width/2, y1 ,CENTER);
 	}
 }
 

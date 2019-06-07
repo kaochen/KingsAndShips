@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.1" name="Menu_01" tilewidth="1920" tileheight="400" tilecount="1" columns="1">
- <image source="original/menu_background.png" width="1920" height="400"/>
- <tile id="0" type="background"/>
+<tileset version="1.2" tiledversion="1.2.1" name="Menu_details" tilewidth="12" tileheight="12" tilecount="1" columns="1">
+ <image source="original/t_menu_details.png" width="48" height="12"/>
+ <tile id="0" type="bottom_line_active"/>
+ <tile id="1" type="bottom_line_hover"/>
+ <tile id="2" type="side_line_active"/>
+ <tile id="3" type="side_line_hover"/>
 </tileset>
