@@ -121,7 +121,6 @@ int C_Node::getYGrid()
 
 void C_Node::displayStatus()
 {
-	C_Message m;
 	ostringstream message;
 	message << " Node :" << m_coord.getGrid().x << ":" << m_coord.getGrid().y
 			<< " F:" << m_F << " G:" << m_G << " H:" << m_H << " dist:" << m_dist << " angle" << m_angle;
@@ -129,7 +128,7 @@ void C_Node::displayStatus()
 		message << " Town: true <---\n";
 	else
 		message << " Town: false\n";
-	m.printM(message.str());
+	C_Message::printM(message.str());
 };
 
 void C_Node::calcH(C_Node* target)

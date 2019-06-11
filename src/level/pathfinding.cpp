@@ -55,8 +55,7 @@ C_Path::C_Path(int x_dest, int y_dest)
 			m_vgridNode[x][y].calcH(&m_vgridNode[x_dest][y_dest]);
 		}
 	}
-	C_Message m;
-	m.printDebugPath("Construct C_Path done\n");
+	C_Message::printDebugPath("Construct C_Path done\n");
 }
 C_Path::~C_Path()
 {
@@ -71,7 +70,6 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest)
 	m_vopenNodes.push_back(m_start);
 	m_start->setF(0);
 
-	C_Message m;
 	ostringstream message;
 
 	//cout << "New Path from " << x_start << ":"<< y_start << "to" << x_dest << ":"<< y_dest << endl;
@@ -98,7 +96,7 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest)
 
 
 	message << "\n---------\n";
-	m.printDebugPath(message.str());
+	C_Message::printDebugPath(message.str());
 
 	//if(m_vopenNodes.size()>0){
 	loadPath();
@@ -111,8 +109,7 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest)
 
 void C_Path::displayOpenList()
 {
-	C_Message m;
-	m.printDebugPath("Open Nodes: \n");
+	C_Message::printDebugPath("Open Nodes: \n");
 
 	for (size_t i = 0; i < m_vopenNodes.size(); i++) {
 		if(m_vopenNodes[i])
@@ -169,7 +166,6 @@ void C_Path::setTown(int x_grid,int y_grid)
 void C_Path::loadPath()
 {
 	C_Node* current = m_destination;
-	C_Message m;
 	//clear path before
 
 	while(!m_path.empty()) {
@@ -186,7 +182,7 @@ void C_Path::loadPath()
 		}
 		//if the boat is not already in the center of the tile, add the current tile to the path.
 		//m_path.push(current); //force the boat to recenter itself on its current tile.
-		m.printDebugPath("path is loaded\n");
+		C_Message::printDebugPath("path is loaded\n");
 		//prepare render for debug
 		C_Settings& settings=C_Locator::getSettings();
 		if(settings.getDebugPathMode()) {
@@ -210,7 +206,6 @@ void C_Path::showPath()
 {
 	C_Settings& settings=C_Locator::getSettings();
 	if(settings.getDebugPathMode()) {
-		C_Message m;
 		string message ="";
 		show_H_G_F();
 		stack<C_Node*> tmp = m_path;
@@ -220,20 +215,19 @@ void C_Path::showPath()
 			tmp.pop();
 			c++;
 		}
-		m.printDebugPath(message + "steps: " + to_string(c) + "\n");
+		C_Message::printDebugPath(message + "steps: " + to_string(c) + "\n");
 	}
 }
 
 void C_Path::show_H_G_F()
 {
-	C_Message m;
 	string message = "";
 	for(size_t x= 0; x < m_vgridNode.size(); x++) {
 		for(size_t y= 0; y < m_vgridNode.size(); y++) {
 			C_Node* c = &m_vgridNode[x][y];
 			message += "|" + to_string(c->getF());
 		}
-		m.printDebugPath(message + "\n");
+		C_Message::printDebugPath(message + "\n");
 		message ="";
 	}
 }
@@ -349,8 +343,7 @@ void C_Path::calcG_Around(C_Node *current)
 		}
 	}
 	message << endl;
-	C_Message m;
-	m.printDebugPath(message.str());
+	C_Message::printDebugPath(message.str());
 }
 
 //Help to turn around a corner

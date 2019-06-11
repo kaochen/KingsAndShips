@@ -73,10 +73,9 @@ void C_Grid::createAnEmptyGrid(int size)
 		//cout << endl;
 	}
 
-	C_Message m;
 	ostringstream message;
 	message << "Construct Grid " << m_vgrid.size() << "x" << m_vgrid.size() << endl;
-	m.printM(message.str());
+	C_Message::printM(message.str());
 }
 
 
@@ -108,8 +107,7 @@ void C_Grid::addANewBoat(S_Unit boat)
 		}
 
 	} else {
-		C_Message m;
-		m.printM("You should place the boat into the water\n");
+		C_Message::printM("You should place the boat into the water\n");
 	}
 }
 
@@ -261,8 +259,7 @@ void C_Grid::moveToDead(int x_grid, int y_grid)
 		m_vgrid[x_grid][y_grid].set(DEAD,m_vgrid[x_grid][y_grid].get(FIELD));
 		m_vgrid[x_grid][y_grid].set(FIELD,nullptr);
 	} else {
-		C_Message m;
-		m.printM("moveTodead outside the grid");
+		C_Message::printM("moveTodead outside the grid");
 	}
 }
 
@@ -320,7 +317,6 @@ bool C_Grid::selectATower(C_Coord clic)
 	S_Coord grid = clic.getGrid();
 	bool selected = false, top = false, bottom = false;
 	C_Settings& settings=C_Locator::getSettings();
-	C_Message m;
 	string message ="";
 	string type ="";
 	unselectedAll();
@@ -359,7 +355,7 @@ bool C_Grid::selectATower(C_Coord clic)
 		selected = false;
 	}
 
-	m.printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
+	C_Message::printDebug(message + " at " + to_string(grid.x) + ":" + to_string(grid.y));
 	if(settings.getDebugMode())
 		clic.displayStatus();
 	return selected;
@@ -460,8 +456,7 @@ void C_Grid::setTown(int x_grid, int y_grid)
 			m_vgrid[x_grid-1][y_grid-1].set(FIELD,empty3);
 		}
 	} else {
-		C_Message m;
-		m.printM("Set Town outside the grid");
+		C_Message::printM("Set Town outside the grid");
 	}
 }
 

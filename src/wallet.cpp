@@ -30,8 +30,7 @@ C_Wallet::C_Wallet()
 
 void C_Wallet::cliStatus()
 {
-	C_Message m;
-	m.printM("Wallet - balance: " + to_string(m_balance) + ", credit: " + to_string(m_credit) + ", debit: " + to_string(m_debit) + "\n");
+	C_Message::printM("Wallet - balance: " + to_string(m_balance) + ", credit: " + to_string(m_credit) + ", debit: " + to_string(m_debit) + "\n");
 }
 
 void C_Wallet::reset()

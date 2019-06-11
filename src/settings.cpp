@@ -82,8 +82,7 @@ bool C_Settings::getArg(string pattern, vector<string> args){
 	bool ret = false;
 	for(int i = 1; i < int(args.size());i++ ){
 		if(args[i] == pattern){
-			C_Message m;
-			m.printM("Argument "+ args[i] + ": true\n");
+			C_Message::printM("Argument "+ args[i] + ": true\n");
 			ret = true;
 		}
 	}
@@ -127,8 +126,8 @@ void C_Settings::extractWindowSize()
 		m_windowWidth = 1280;
 		m_windowHeight = 720;
 	}
-	C_Message m;
-	m.printM( "Windows Size will be :" + to_string(m_windowWidth)  +"x" + to_string(m_windowHeight) + "\n");
+
+	C_Message::printM( "Windows Size will be :" + to_string(m_windowWidth)  +"x" + to_string(m_windowHeight) + "\n");
 }
 
 
@@ -186,7 +185,6 @@ S_Size C_Settings::getNbrOfTilesToDisplay()
 
 void C_Settings::initTSXfileList()
 {
-	C_Message m;
 	int size = 27;
 	string list[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
 			"Rocks_00.tsx","Trees_00.tsx","boat_00.tsx","turbine_00.tsx","archerTower_00.tsx",
@@ -202,7 +200,7 @@ void C_Settings::initTSXfileList()
 		if(fileExist(filePath))
 			m_tsxFileList.push(filePath);
 		else
-			m.printError(filePath + " is missing\n");
+			C_Message::printError(filePath + " is missing\n");
 	}
 }
 
@@ -229,7 +227,6 @@ void C_Settings::setDebugPathMode()
 
 void C_Settings::displayDebugMode()
 {
-	C_Message m;
 	string debug = "off";
 	string debugPath = "off";
 
@@ -239,7 +236,7 @@ void C_Settings::displayDebugMode()
 	if(m_debugPath)
 		debugPath = "on";
 	string message = "Debug mode: " + debug + ", debug path mode: " + debugPath + "\n";
-	m.printM(message);
+	C_Message::printM(message);
 
 }
 
@@ -285,7 +282,7 @@ bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &f
 {
 	bool ret = false;
 	ifstream file(filename);
-	C_Message m;
+
 	if (file.is_open()) {
 		std::string line;
 		while (getline(file, line)) {
@@ -293,13 +290,13 @@ bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &f
 			if(strstr(line.c_str(), name.c_str()) != nullptr) {
 				std::size_t pos = line.find("=");      // position of "live" in str
 				extract = line.substr (pos+1);
-				m.printM("From " + filename +": " + name + " -> " + extract +"\n");
+				C_Message::printM("From " + filename +": " + name + " -> " + extract +"\n");
 				nbr = stoi(extract);
 				ret = true;
 			}
 		}
 	} else {
-		m.printM("Can not find " + filename +"\n");
+		C_Message::printM("Can not find " + filename +"\n");
 	}
 	file.close();
 	return ret;
@@ -308,24 +305,23 @@ bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &f
 
 void C_Settings::setPlaying()
 {
-	C_Message m;
+
 	if(m_playing==PAUSE) {
 		m_playing = PLAY;
-		m.printM("PLAY\n");
+		C_Message::printM("PLAY\n");
 	} else if(m_playing == PLAY) {
 		m_playing = PAUSE;
-		m.printM("PAUSE\n");
+		C_Message::printM("PAUSE\n");
 	}
 }
 
 void C_Settings::setPlaying(int state)
 {
-	C_Message m;
 	if(state == PLAY) {
 		m_playing = PLAY;
-		m.printM("PLAY\n");
+		C_Message::printM("PLAY\n");
 	} else if(state == PAUSE) {
 		m_playing = PAUSE;
-		m.printM("PAUSE\n");
+		C_Message::printM("PAUSE\n");
 	}
 }

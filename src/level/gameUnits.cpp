@@ -76,8 +76,7 @@ C_GameUnits::~C_GameUnits()
 
 void C_GameUnits::displayStatus()
 {
-	C_Message m;
-	m.printM( "Name: " + m_name + " Life: " + to_string(m_health)  + " Rank : " + to_string(m_rank));
+	C_Message::printM( "Name: " + m_name + " Life: " + to_string(m_health)  + " Rank : " + to_string(m_rank));
 	m_coord.displayStatus();
 }
 

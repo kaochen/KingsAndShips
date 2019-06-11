@@ -28,8 +28,7 @@ using namespace std;
 
 void C_OpenMenu::action()
 {
-	C_Message m;
-	m.printM("Send an openMenu action\n");
+	C_Message::printM("Send an openMenu action\n");
 	C_Menu& menu=C_Locator::getMenu();
 	menu.openBottomMenu();
 }
@@ -42,8 +41,7 @@ bool C_OpenMenu::getBool()
 
 void C_ChangeTab::action()
 {
-	C_Message m;
-	m.printM("Send an ChangeTab action\n");
+	C_Message::printM("Send an ChangeTab action\n");
 	C_Menu& menu=C_Locator::getMenu();
 	menu.setTabNbr(m_nbr);
 }
@@ -75,8 +73,7 @@ void C_UpgradeUnit::action()
 	if(unit != nullptr){
 		grid.upgradeUnit(unit);
 	} else {
-		C_Message m;
-		m.printM("No unit is selected");
+		C_Message::printM("No unit is selected");
 	}
 
 }

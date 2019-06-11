@@ -61,8 +61,7 @@ void C_Texture::destroyTexture()
 
 void C_Texture::displayStatus()
 {
-	C_Message m;
-	m.printM("Tileset Name: " + m_name +  " " + "\n");
+	C_Message::printM("Tileset Name: " + m_name +  " " + "\n");
 }
 
 void C_Texture::render(int x, int y, double angle, int align)
@@ -126,7 +125,6 @@ int C_Image::getId()
 
 void C_Image::loadTexture(string &path)
 {
-	C_Message m;
 	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Texture *texture = nullptr;
@@ -157,7 +155,7 @@ void C_Image::loadTexture(string &path)
 		SDL_FreeSurface(image); //Don't need anymore
 
 		if (texture == nullptr) {
-			m.printSDLerror("SDL_CreateTextureFromSurface() failed");
+			C_Message::printSDLerror("SDL_CreateTextureFromSurface() failed");
 		} else {
 			SDL_SetTextureBlendMode(clip,SDL_BLENDMODE_BLEND);
 			//SDL_SetTextureAlphaMod(clip,255);
@@ -172,7 +170,7 @@ void C_Image::loadTexture(string &path)
 			SDL_SetRenderTarget(renderer, NULL);
 		}
 	} else {
-		m.printSDLerror("IMG_LOAD()");
+		C_Message::printSDLerror("IMG_LOAD()");
 	}
 
 	m_texture = clip;
@@ -220,7 +218,6 @@ void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSi
 }
 
 void C_Text::createNewTexture(){
-	C_Message m;
 	C_Window& win= C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Surface *surf = nullptr;
@@ -228,7 +225,7 @@ void C_Text::createNewTexture(){
 
 	if (font == nullptr) {
 		string error= "TTF_OpenFont open " + findFont() + " failed";
-		m.printTTFerror(error);
+		C_Message::printTTFerror(error);
 		m_texture = nullptr;
 	} else {
 		surf = TTF_RenderText_Blended(font, m_message.c_str(), m_color);
@@ -236,12 +233,12 @@ void C_Text::createNewTexture(){
 
 	if (surf == nullptr) {
 		TTF_CloseFont(font);
-		m.printSDLerror("TTF_RenderText");
+		C_Message::printSDLerror("TTF_RenderText");
 		m_texture = nullptr;
 	} else {
 		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
 		if (m_texture == nullptr) {
-			m.printSDLerror("CreateTexture from this text:" + m_message + " failed ");
+			C_Message::printSDLerror("CreateTexture from this text:" + m_message + " failed ");
 		}
 	}
 	SDL_FreeSurface(surf);
@@ -307,8 +304,7 @@ void C_TextureList::renderTextureEx(string name, int x, int y, double angle, int
 	if(name != "") {
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 		if(search == m_map_textures.end()) {
-			C_Message m;
-			m.printError("\""+ name + "\" not available in the texture map (renderTextureEx)\n");
+			C_Message::printError("\""+ name + "\" not available in the texture map (renderTextureEx)\n");
 		} else {
 			m_map_textures[name]->render(x,y,angle,align);
 		}
@@ -321,8 +317,7 @@ C_Texture* C_TextureList::searchTexture(string name)
 	if(name != "") {
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 		if(search == m_map_textures.end()) {
-			C_Message m;
-			m.printError("\""+ name + "\" not available in the texture map (searchTexture)\n");
+			C_Message::printError("\""+ name + "\" not available in the texture map (searchTexture)\n");
 		} else {
 			texture = m_map_textures[name];
 		}
@@ -469,8 +464,7 @@ void C_TextureList::displayTexturesList()
 		string name = x.first;  // string (key)
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 		if(search == m_map_textures.end()) {
-			C_Message m;
-			m.printM("\""+ name + "\" not available in the texture map  (displayTexturesList)\n");
+			C_Message::printM("\""+ name + "\" not available in the texture map  (displayTexturesList)\n");
 		} else {
 			m_map_textures[name]->displayStatus();
 		}
@@ -488,8 +482,7 @@ string C_TextureList::getNameFromID(int id)
 		string n = x.first;  // string (key)
 		map<string, C_Texture*>::iterator search = m_map_textures.find(n);
 		if(search == m_map_textures.end()) {
-			C_Message m;
-			m.printM("\""+ n + "\" not available in the texture map  (getNameFromID)\n");
+			C_Message::printM("\""+ n + "\" not available in the texture map  (getNameFromID)\n");
 			result = "notFound";
 		} else {
 			idTmp = m_map_textures[n]->getId();

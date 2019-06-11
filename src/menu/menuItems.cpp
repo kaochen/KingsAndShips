@@ -82,8 +82,7 @@ void C_MenuItem::render()
 
 void C_MenuItem::action()
 {
-	C_Message m;
-	m.printM("push button " + m_name + "\n");
+	C_Message::printM("push button " + m_name + "\n");
 	if(m_command != nullptr) {
 		m_command->action();
 	}

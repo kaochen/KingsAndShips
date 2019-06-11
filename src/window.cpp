@@ -69,33 +69,31 @@ C_Window::~C_Window()
 
 void C_Window::initSDL()
 {
-	C_Message m;
 	if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0) {
-		m.printSDLerror("SDL_Init() failed");
+		C_Message::printSDLerror("SDL_Init() failed");
 		exit (EXIT_FAILURE);
 	} else {
-		m.printM("SDL_Init() succeed\n");
+		C_Message::printM("SDL_Init() succeed\n");
 	}
 
 	if(TTF_Init() < 0) {
-		m.printTTFerror("TTF_init() failed");
+		C_Message::printTTFerror("TTF_init() failed");
 		exit (EXIT_FAILURE);
 	} else {
-		m.printM("TTF_Init() succeed\n");
+		C_Message::printM("TTF_Init() succeed\n");
 	}
 
 
 	if((IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG) != IMG_INIT_PNG) {
-		m.printSDLerror("IMG_Init");
+		C_Message::printSDLerror("IMG_Init");
 		//SDL_Quit;
 	} else {
-		m.printM("IMG_Init succeed\n");
+		C_Message::printM("IMG_Init succeed\n");
 	}
 }
 
 void C_Window::createWindow()
 {
-	C_Message m;
 	C_Settings& settings= C_Locator::getSettings();
 	m_window = SDL_CreateWindow("KingsAndShips",
 								SDL_WINDOWPOS_UNDEFINED,
@@ -105,18 +103,18 @@ void C_Window::createWindow()
 								SDL_WINDOW_MOUSE_FOCUS);
 
 	if (m_window == nullptr) {
-		m.printSDLerror("SDL_CreateWindow() failed");
+		C_Message::printSDLerror("SDL_CreateWindow() failed");
 		SDL_Quit();
 	} else {
 		// Create a renderer from the window
 		m_renderer = SDL_CreateRenderer(m_window, -1,SDL_RENDERER_ACCELERATED);
 		if (m_renderer == nullptr) {
 			SDL_DestroyWindow(m_window);
-			m.printSDLerror("SDL_GetWindowSurface() failed");
+			C_Message::printSDLerror("SDL_GetWindowSurface() failed");
 			SDL_Quit();
 		}
 	}
-	m.printM("The main window has been created successfully\n");
+	C_Message::printM("The main window has been created successfully\n");
 }
 
 void C_Window::loadGame()
@@ -142,13 +140,12 @@ void C_Window::loadGame()
 
 void C_Window::listLevels()
 {
-	C_Message m;
-	m.printM("Start listing levels\n");
+	C_Message::printM("Start listing levels\n");
 	if(m_levelFactory !=nullptr) {
 		delete m_levelFactory;
 	}
 	m_levelFactory = new C_LevelFactory;
-	m.printM("Listing levels completed\n");
+	C_Message::printM("Listing levels completed\n");
 	//Now level factory is init, it is possible to generate the menuBanner
 	C_Menu& menu=C_Locator::getMenu();
 	menu.menuBanner();
@@ -207,7 +204,6 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 
 void C_Window::quitProgram()
 {
-	C_Message m;
 	//Cleanup before leaving
 	C_Grid& grid= C_Locator::getGrid();
 	grid.deleteGrid();
@@ -215,7 +211,7 @@ void C_Window::quitProgram()
 	SDL_DestroyWindow(m_window);
 	TTF_Quit();
 	SDL_Quit();
-	m.printM("Bye\n");
+	C_Message::printM("Bye\n");
 }
 
 
@@ -453,8 +449,7 @@ void C_Window::loadLevel(int levelNbr)
 		m_level->load(m_levelNbr);
 		settings.cameraOnAPoint(m_level->getGridTown());
 	} else {
-		C_Message m;
-		m.printM("Can not create level" + to_string(m_levelNbr));
+		C_Message::printM("Can not create level" + to_string(m_levelNbr));
 	}
 }
 

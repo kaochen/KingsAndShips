@@ -212,14 +212,10 @@ C_Level * C_LevelFactory::create(int nbr)
 	} else if(id > m_lastLevelNbr) {
 		id = m_lastLevelNbr;
 	}
-	//if(find(m_levelList.begin(), m_levelList.end(),id) != m_levelList.end()){
 	S_LevelModel level = m_levelList[id - 1];
 	ret =  new C_Level(level);
-	//}
-	//else{
-	C_Message m;
-	m.printM("Level model: " + to_string(nbr) + "does not exist in the level Factory\n");
-	//}
+
+	C_Message::printM("Level model: " + to_string(nbr) + "does not exist in the level Factory\n");
 	return ret;
 }
 

@@ -31,9 +31,8 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_cost(model.cost)
 {
 	m_weapon = new C_Weapon(model.weapon);
-	C_Message m;
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
-	m.printM(message);
+	C_Message::printM(message);
 	m_coord.displayStatus();
 }
 
@@ -98,8 +97,7 @@ void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 void C_Shooter::kill()
 {
 	C_Grid& grid= C_Locator::getGrid();
-	C_Message m;
-	m.printM("kill " + m_name + " from:"+ to_string(m_coord.getXGrid ())
+	C_Message::printM("kill " + m_name + " from:"+ to_string(m_coord.getXGrid ())
 			 + ":" + to_string(m_coord.getYGrid ()) + "\n");
 	grid.moveToDead(m_coord.getXGrid (), m_coord.getYGrid ());
 	m_selected = false;

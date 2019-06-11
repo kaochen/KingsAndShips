@@ -42,7 +42,6 @@ C_Level::C_Level(S_LevelModel model):
 	m_backgroundcolor(model.backgroundcolor),
 	m_levelStatus(ONGOING)
 {
-	C_Message m;
 	m_count = ++m_id;
 	C_Settings& settings=C_Locator::getSettings();
 	m_filename = settings.getLevelFolder() + "Level_" + to_string(model.nbr) + ".tmx";
@@ -57,7 +56,7 @@ C_Level::C_Level(S_LevelModel model):
 		m_lastWaveTime = SDL_GetTicks();
 		m_landscape = nullptr;
 	} else {
-		m.printM("Can not find " + m_filename+"\n");
+		C_Message::printM("Can not find " + m_filename+"\n");
 	}
 }
 
@@ -74,7 +73,6 @@ void C_Level::load(int levelNbr)
 	grid.reset(m_gridSize);
 	m_levelStatus = ONGOING;
 
-	C_Message m;
 	struct stat buffer;
 	if (stat (m_filename.c_str(),  &buffer) == 0) {
 
@@ -90,10 +88,10 @@ void C_Level::load(int levelNbr)
 
 
 		createLandscape();
-		m.printM("Level " + to_string(levelNbr) +" Loaded\n");
+		C_Message::printM("Level " + to_string(levelNbr) +" Loaded\n");
 	} else {
-		m.printM("Can not find " + m_filename+"\n");
-		m.printM("Can not load level " + to_string(levelNbr)+"\n");
+		C_Message::printM("Can not find " + m_filename+"\n");
+		C_Message::printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
 }
 
@@ -119,12 +117,11 @@ void C_Level::createLandscape()
 
 void C_Level::sendNextWave()
 {
-	C_Message m;
 	m_currentWaveNbr++;
 	if(m_currentWaveNbr < m_nbrOfWaves && m_currentWaveNbr >= 0) {
 		cliWaveStatus(m_currentWaveNbr);
 		loadWaveIntoGrid(m_currentWaveNbr);
-		m.printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
+		C_Message::printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
 	} else if(m_currentWaveNbr > m_nbrOfWaves) {
 		m_currentWaveNbr--;
 	}
@@ -180,7 +177,6 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr)
 	C_Xml tmx(tmx_File_Path);
 	S_tmxLayer layer = tmx.extractLayerInTMX(name);
 	string data = layer.data;
-	C_Message m;
 	for (int y = 0; y < layer.height; y++) {
 		for (int x = 0; x < layer.width; x++) {
 			string extract = data;
@@ -190,7 +186,7 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr)
 			int nbr = stoi(extract);
 			if (nbr!=0) {
 				string str = t.getNameFromID(nbr);
-				m.printDebug(to_string(x) + ":" + to_string(y) + "->" + str + "\n") ;
+				C_Message::printDebug(to_string(x) + ":" + to_string(y) + "->" + str + "\n") ;
 				S_Coord pos = {x,y};
 				wave.add(str,pos);
 			}
@@ -211,18 +207,16 @@ void C_Level::cliWaveStatus(int i)
 		}
 		c++;
 	}
-	C_Message m;
-	m.printM("Number of wave for this level: " + to_string(c) +"\n");
+	C_Message::printM("Number of wave for this level: " + to_string(c) +"\n");
 }
 
 void C_Level::loadWaveIntoGrid(int i)
 {
 	int c = 0;
-	C_Message m;
 	for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end(); it++) {
 		C_Wave wave = *it;
 		if(i == c) {
-			m.printM("load wave: " + to_string(c) + "\n");
+			C_Message::printM("load wave: " + to_string(c) + "\n");
 			wave.loadIntoGrid();
 		}
 		c++;
@@ -388,23 +382,21 @@ void C_Wave::add(string name, S_Coord coord)
 void C_Wave::cliStatus()
 {
 	int c = 0;
-	C_Message m;
 	for(vector <S_Unit>::iterator i = m_boatList.begin(); i !=m_boatList.end(); i++) {
 		ostringstream message;
 		message << "Detect " + (*i).name << " at " << (*i).coord.x << ":" << (*i).coord.y << endl;
-		m.printM(message.str());
+		C_Message::printM(message.str());
 		c++;
 	}
-	m.printM("Number of boats in this wave: " + to_string(c) + "\n");
+	C_Message::printM("Number of boats in this wave: " + to_string(c) + "\n");
 }
 
 void C_Wave::loadIntoGrid()
 {
 	C_Grid& grid= C_Locator::getGrid();
-	C_Message m;
 	for(vector <S_Unit>::iterator i = m_boatList.begin(); i !=m_boatList.end(); i++) {
 		S_Unit tmp = *i;
-		m.printDebug("Add " + tmp.name + " at " + to_string(tmp.coord.x)
+		C_Message::printDebug("Add " + tmp.name + " at " + to_string(tmp.coord.x)
 					 + ":" + to_string(tmp.coord.y) +"\n");
 		grid.addANewBoat(tmp);
 	}
