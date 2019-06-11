@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_Message {
 public:
-	C_Message(){};
-	~C_Message(){};
 	static void printM(std::string message);
 	static void printV(std::string message);
 	static void printError(std::string message);
