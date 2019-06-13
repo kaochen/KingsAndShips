@@ -75,7 +75,8 @@ std::vector<string> C_Tab::getListOfVisibleItems()
 {
 	vector <string> list;
 	for(auto const& x : m_itemsList) {
-		list.push_back(x.first);
+		if(x.first != m_name)
+			list.push_back(x.first);
 	}
 	return list;
 }
