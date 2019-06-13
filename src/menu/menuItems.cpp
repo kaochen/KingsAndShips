@@ -101,6 +101,21 @@ void C_MenuItem::actionHover(bool state)
 	}
 }
 
+void C_MenuItem::background(){
+	C_TextureList& t= C_Locator::getTextureList();
+	string textureName = "Menu_details_background_line_";
+	if(m_state == HOVER){
+		textureName +="hover";
+	} else {
+		textureName +="active";
+	}
+	Sint16 y1 = m_y_screen + m_height/2;
+	for(int i = 0; i <= (m_width/4); i++){
+		t.renderTexture(textureName, m_x_screen + 4*i, y1, CENTER);
+	}
+}
+
+
 //-------------------------------------------------------------
 
 C_Button::C_Button(string name,string image,int x_screen, int y_screen)
@@ -163,6 +178,8 @@ void C_MB_TabSelect::render()
 		textureName +="active";
 	}
 
+	background();
+
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
 	t.renderTexture(textureName,m_x_screen ,y1,CENTER);
@@ -201,6 +218,8 @@ void C_MB_1Line::render()
 	} else {
 		textureName +="active";
 	}
+
+	background();
 
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
