@@ -72,10 +72,9 @@ void C_Grid::createAnEmptyGrid(int size)
 		m_vgrid.push_back(line);
 		//cout << endl;
 	}
+	addAllClouds();
 
-	ostringstream message;
-	message << "Construct Grid " << m_vgrid.size() << "x" << m_vgrid.size() << endl;
-	C_Message::printM(message.str());
+	C_Message::printM("Construct Grid " + to_string(m_vgrid.size()) + "x" + to_string(m_vgrid.size()) +"\n");
 }
 
 
@@ -118,23 +117,25 @@ int C_Grid::addUnit(string &type, int x_grid, int y_grid)
 		if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr) {
 			if(type == "AddTower") {
 				if (!waterway(x_grid,y_grid)) {
-					S_Unit tower;
-					tower.name = "ArcherTower_0";
-					tower.coord = {x_grid,y_grid};
-					C_GameUnits *tmp = m_factory.create(tower);
+					S_Unit unit;
+					unit.name = "ArcherTower_0";
+					unit.coord = {x_grid,y_grid};
+					C_GameUnits *tmp = m_factory.create(unit);
 					if(tmp != nullptr) {
 						m_vgrid[x_grid][y_grid].set(FIELD,tmp);
+						cleanClouds(unit.coord, 3);
 					}
 					success = EXIT_SUCCESS;
 				}
 			} else if(type == "AddTurbine") {
 				if (!waterway(x_grid,y_grid)) {
-					S_Unit turbine;
-					turbine.name = "Turbine_0";
-					turbine.coord = {x_grid,y_grid};
-					C_GameUnits *tmp = m_factory.create(turbine);
+					S_Unit unit;
+					unit.name = "Turbine_0";
+					unit.coord = {x_grid,y_grid};
+					C_GameUnits *tmp = m_factory.create(unit);
 					if(tmp != nullptr) {
 						m_vgrid[x_grid][y_grid].set(FIELD,tmp);
+						cleanClouds(unit.coord, 3);
 					}
 					success = EXIT_SUCCESS;
 				}
@@ -146,6 +147,7 @@ int C_Grid::addUnit(string &type, int x_grid, int y_grid)
 					C_GameUnits *tmp = m_factory.create(unit);
 					if(tmp != nullptr) {
 						m_vgrid[x_grid][y_grid].set(FIELD,tmp);
+						cleanClouds(unit.coord, 3);
 					}
 					success = EXIT_SUCCESS;
 				}
@@ -236,8 +238,10 @@ bool C_Grid::isThisConstructible(S_Coord grid)
 			return false;
 		} else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr) {
 			return false;
+		} else if(m_vgrid[grid.x][grid.y].get(CLOUD)!= nullptr) {
+			return false;
 		} else {
-			return true ;
+			return true;
 		}
 	} else {
 		return false;
@@ -282,6 +286,17 @@ void C_Grid::displayStatus()
 		}
 	}
 }
+
+void C_Grid::addAllClouds()
+{
+	for (size_t y = 0; y < m_vgrid.size(); y++) {
+		for (size_t x = 0; x < m_vgrid.size(); x++) {
+			m_vgrid[x][y].set(CLOUD,new C_Clouds(x,y));
+		}
+	}
+
+}
+
 
 void C_Grid::playAllUnits(int layer)
 {
@@ -455,10 +470,25 @@ void C_Grid::setTown(int x_grid, int y_grid)
 			m_vgrid[x_grid][y_grid-1].set(FIELD,empty2);
 			m_vgrid[x_grid-1][y_grid-1].set(FIELD,empty3);
 		}
+		cleanClouds(town.coord, 6);
+
 	} else {
 		C_Message::printM("Set Town outside the grid");
 	}
 }
+
+void C_Grid::cleanClouds(S_Coord grid, int range){
+
+	for(int y = (grid.y - range); y <= (grid.y + range); y++) {
+		for(int x = (grid.x - range); x <= (grid.x + range); x++) {
+			if(x >= 0 && x <= m_size && y >= 0 && y <= m_size) {
+				m_vgrid[x][y].del(CLOUD);
+			}
+		}
+	}
+}
+
+
 
 S_Coord C_Grid::foundTown()
 {

@@ -79,7 +79,8 @@ public:
 
 protected:
 	void createAnEmptyGrid(int size);
-
+	void addAllClouds();
+	void cleanClouds(S_Coord grid, int range);
 private:
 	std::vector < std::vector <C_ZLayer> > m_vgrid;
 	int m_size;

@@ -27,7 +27,8 @@ C_ZLayer::C_ZLayer(int x_grid, int y_grid):
 	m_coord(C_CoordGrid(x_grid,y_grid)),
 	m_field(nullptr),
 	m_grave(nullptr),
-	m_ground(nullptr)
+	m_ground(nullptr),
+	m_cloud(nullptr)
 {
 	//cliStatus();
 }
@@ -37,6 +38,7 @@ C_ZLayer::~C_ZLayer()
 	delete m_field;
 	delete m_grave;
 	delete m_ground;
+	delete m_cloud;
 }
 
 void C_ZLayer::set(int layer, C_GameUnits * unit)
@@ -51,6 +53,9 @@ void C_ZLayer::set(int layer, C_GameUnits * unit)
 		break;
 	case  FIELD:
 		m_field = unit;
+		break;
+	case  CLOUD:
+		m_cloud = unit;
 		break;
 	}
 }
@@ -72,7 +77,12 @@ C_GameUnits* C_ZLayer::get(int layer)
 		if(m_field != nullptr)
 			unit = m_field;
 		break;
+	case  CLOUD:
+		if(m_cloud != nullptr)
+			unit = m_cloud;
+		break;
 	}
+
 	return unit;
 }
 
@@ -97,6 +107,12 @@ void C_ZLayer::del(int layer)
 		}
 		m_field = nullptr;
 		break;
+	case CLOUD :
+		if(m_cloud != nullptr) {
+			delete m_cloud;
+		}
+		m_cloud = nullptr;
+		break;
 	}
 }
 
@@ -114,6 +130,10 @@ void C_ZLayer::delAll()
 		delete m_field;
 	}
 	m_field = nullptr;
+	if(m_cloud != nullptr) {
+		delete m_cloud;
+	}
+	m_cloud = nullptr;
 
 }
 
@@ -151,6 +171,13 @@ bool C_ZLayer::play(int layer)
 				ret = true;
 			}
 			break;
+		case CLOUD :
+			if(m_cloud != nullptr) {
+				m_cloud->regendScreenCoord();
+				//m_grave->play();
+				ret = true;
+			}
+			break;
 		}
 	}
 	return ret;
@@ -182,6 +209,13 @@ bool C_ZLayer::render(int layer)
 			if(m_field != nullptr) {
 				m_field->regendScreenCoord();
 				m_field->render(m_field->getScreen());
+				ret = true;
+			}
+			break;
+		case  CLOUD:
+			if(m_cloud != nullptr) {
+				m_cloud->regendScreenCoord();
+				m_cloud->render();
 				ret = true;
 			}
 			break;

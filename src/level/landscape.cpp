@@ -229,6 +229,25 @@ void C_Decors::render(S_Coord screen)
 	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
+//---------------------------Decors-------------------------
+
+C_Clouds::C_Clouds(int x_grid, int y_grid):
+	C_GameUnits("clouds_01", x_grid, y_grid, 0)
+{
+}
+
+void C_Clouds::render()
+{
+	string fileName = "clouds_01";
+	//cout << "image name is "<< fileName << endl;
+
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture(fileName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
+}
+
+
+
+
 //---------------------------C_Ground -------------------------
 C_Ground::C_Ground(string name, int x_grid, int y_grid):
 	C_GameUnits(name, x_grid, y_grid,0)

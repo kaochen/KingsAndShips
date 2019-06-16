@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 #include "../coord.h"
 
-enum zlayers {GROUND,GRAVEYARD,FIELD};
+enum zlayers {GROUND,GRAVEYARD,FIELD,CLOUD};
 
 class C_ZLayer {
 public:
@@ -44,6 +44,7 @@ private:
 	C_GameUnits * m_field; //main arena.
 	C_GameUnits * m_grave; //when unit is dead
 	C_GameUnits * m_ground; //land and water
+	C_GameUnits * m_cloud;
 
 };
 

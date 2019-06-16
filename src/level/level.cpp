@@ -261,6 +261,7 @@ void C_Level::render()
 	grid.renderLayer (GRAVEYARD);
 	grid.renderLayer (GROUND);
 	grid.renderLayer (FIELD);
+	grid.renderLayer (CLOUD);
 	m_landscape->renderBottomMask(grid.size());
 }
 

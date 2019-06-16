@@ -54,6 +54,13 @@ protected:
 private:
 };
 
+class C_Clouds : public C_GameUnits {
+public:
+	C_Clouds(int x_grid, int y_grid);
+	virtual void render();
+};
+
+
 class C_Ground : public C_GameUnits {
 public:
 	C_Ground(std::string name, int x_grid, int y_grid);
