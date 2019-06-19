@@ -243,6 +243,7 @@ void C_Clouds::render()
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture("clouds_shadow", m_coord.getXScreen()-10,m_coord.getYScreen()+2*TILE_HALF_HEIGHT,CENTER_TILE);
 	t.renderTexture(fileName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
 }
 
