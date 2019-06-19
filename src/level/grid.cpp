@@ -289,8 +289,8 @@ void C_Grid::displayStatus()
 
 void C_Grid::addAllClouds()
 {
-	for (size_t y = 0; y < m_vgrid.size(); y++) {
-		for (size_t x = 0; x < m_vgrid.size(); x++) {
+	for (size_t y = 1; y < m_vgrid.size() - 2; y++) {
+		for (size_t x = 1; x < m_vgrid.size() -1; x++) {
 			m_vgrid[x][y].set(CLOUD,new C_Clouds(x,y));
 		}
 	}
