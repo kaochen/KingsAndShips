@@ -58,6 +58,8 @@ class C_Clouds : public C_GameUnits {
 public:
 	C_Clouds(int x_grid, int y_grid);
 	virtual void render();
+protected:
+	int m_type;
 };
 
 
