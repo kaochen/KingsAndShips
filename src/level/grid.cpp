@@ -110,53 +110,44 @@ void C_Grid::addANewBoat(S_Unit boat)
 	}
 }
 
-int C_Grid::addUnit(string &type, int x_grid, int y_grid)
+bool C_Grid::addUnit(string &type, S_Coord coord)
 {
-	int success = EXIT_FAILURE;
-	if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())) {
-		if (m_vgrid[x_grid][y_grid].get(FIELD) == nullptr) {
-			if(type == "AddTower") {
-				if (!waterway(x_grid,y_grid)) {
-					S_Unit unit;
-					unit.name = "ArcherTower_0";
-					unit.coord = {x_grid,y_grid};
-					C_GameUnits *tmp = m_factory.create(unit);
-					if(tmp != nullptr) {
-						m_vgrid[x_grid][y_grid].set(FIELD,tmp);
-						cleanClouds(unit.coord, 3);
-					}
-					success = EXIT_SUCCESS;
-				}
-			} else if(type == "AddTurbine") {
-				if (!waterway(x_grid,y_grid)) {
-					S_Unit unit;
-					unit.name = "Turbine_0";
-					unit.coord = {x_grid,y_grid};
-					C_GameUnits *tmp = m_factory.create(unit);
-					if(tmp != nullptr) {
-						m_vgrid[x_grid][y_grid].set(FIELD,tmp);
-						cleanClouds(unit.coord, 3);
-					}
-					success = EXIT_SUCCESS;
-				}
-			} else if(type == "AddBarricade") {
-				if (waterway(x_grid,y_grid)) {
-					S_Unit unit;
-					unit.name = "barricade_1";
-					unit.coord = {x_grid,y_grid};
-					C_GameUnits *tmp = m_factory.create(unit);
-					if(tmp != nullptr) {
-						m_vgrid[x_grid][y_grid].set(FIELD,tmp);
-						cleanClouds(unit.coord, 3);
-					}
-					success = EXIT_SUCCESS;
-				}
-			}
+	bool ret = false;
+	bool typeOk = false;
+	if(isThisConstructible(coord)){
+		S_Unit unit;
+		unit.coord = coord;
+		if(type == "AddTower") {
+			unit.name = "ArcherTower_0";
+			typeOk = true;
+		} else if(type == "AddTurbine") {
+			unit.name = "Turbine_0";
+			typeOk = true;
+		} else if(type == "AddBarricade") {
+			unit.name = "barricade_1";
+			typeOk = true;
 		}
+
+		if(typeOk){
+			if(addANewTower(unit))
+				ret = true;
+		}
+
 	}
-	return success;
+	return ret;
 }
 
+
+bool C_Grid::addANewTower(S_Unit unit){
+	bool ret = false;
+		C_GameUnits *tmp = m_factory.create(unit);
+		if(tmp != nullptr) {
+			m_vgrid[unit.coord.x][unit.coord.y].set(FIELD,tmp);
+			cleanClouds(unit.coord, 3);
+			ret = true;
+		}
+	return ret;
+}
 
 void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 {
@@ -233,7 +224,7 @@ bool C_Grid::testBarricade(int x_grid, int y_grid)
 
 bool C_Grid::isThisConstructible(S_Coord grid)
 {
-	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()) && grid.y >= 0 && grid.y < (int)(m_vgrid.size())) {
+	if(grid.x > 0 && grid.x < size() && grid.y > 0 && grid.y < size()) {
 		if ( waterway(grid.x, grid.y)) {
 			return false;
 		} else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr) {
@@ -246,14 +237,6 @@ bool C_Grid::isThisConstructible(S_Coord grid)
 	} else {
 		return false;
 	}
-}
-
-bool C_Grid::isThisConstructible(int x_grid,int y_grid)
-{
-	S_Coord tmp;
-	tmp.x = x_grid;
-	tmp.y = y_grid;
-	return isThisConstructible(tmp);
 }
 
 

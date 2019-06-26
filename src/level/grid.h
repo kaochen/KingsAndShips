@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*The grid is a 2D vector to store and retreive easely each game unit*.
+/*The grid is a 2D vector to store and retreive easely each game unit.
 
 The grid store C_ZLayer class where you can found C_GameUnits in it.
 C_Zlayer is like the z axis for the 2D
@@ -44,7 +44,7 @@ public:
 	void renderLayer(int layer);
 	int getSize(){return m_size;};
 	void addANewBoat(S_Unit boat);
-	int addUnit(std::string &type, int x_grid, int y_grid);
+	bool addUnit(std::string &type, S_Coord coord);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 	void upgradeUnit(C_GameUnits * unit){m_factory.upgrade (unit);};
@@ -56,7 +56,6 @@ public:
 	bool waterway(int x_grid, int y_grid);
 	bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid);
-	bool isThisConstructible(int x_grid,int y_grid);
 	int size(){return m_vgrid.size() - 2;};
 	void displayStatus();
 	void playAllUnits(int layer);
@@ -81,6 +80,7 @@ protected:
 	void createAnEmptyGrid(int size);
 	void addAllClouds();
 	void cleanClouds(S_Coord grid, int range);
+	bool addANewTower(S_Unit unit);
 private:
 	std::vector < std::vector <C_ZLayer> > m_vgrid;
 	int m_size;

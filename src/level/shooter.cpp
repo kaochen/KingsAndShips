@@ -203,7 +203,7 @@ void C_Shooter::drag(S_Coord screen)
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 	//draw ellipse
-	bool status = grid.isThisConstructible(x,y);
+	bool status = grid.isThisConstructible(coord.getGrid());
 	drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
 	//draw square
 	x -=2;
