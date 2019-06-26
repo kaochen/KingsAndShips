@@ -24,7 +24,7 @@ using namespace std;
 C_Wallet::C_Wallet()
 {
 	reset();
-	cout << "Constructor C_Wallet() : done" << endl;
+	C_Message::printM("Constructor C_Wallet() : done\n");
 }
 
 

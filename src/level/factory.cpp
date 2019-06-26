@@ -205,7 +205,6 @@ int C_LevelFactory::calcGridSize(int width, int height)
 
 C_Level * C_LevelFactory::create(int nbr)
 {
-	C_Level* ret = nullptr;
 	int id = nbr;
 	if(id < 1) {
 		id = 1;
@@ -213,10 +212,7 @@ C_Level * C_LevelFactory::create(int nbr)
 		id = m_lastLevelNbr;
 	}
 	S_LevelModel level = m_levelList[id - 1];
-	ret =  new C_Level(level);
-
-	C_Message::printM("Level model: " + to_string(nbr) + "does not exist in the level Factory\n");
-	return ret;
+	return  new C_Level(level);
 }
 
 S_LevelModel C_LevelFactory::getModel(int levelNbr)

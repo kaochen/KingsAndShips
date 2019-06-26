@@ -277,7 +277,7 @@ void C_Text::loadTexture(string &path)
 C_TextureList::C_TextureList():
 	m_count (0)
 {
-	cout << "Constructor C_TextureList() : done" << endl;
+	C_Message::printM("Constructor C_TextureList() : done\n");
 }
 
 C_TextureList::~C_TextureList()

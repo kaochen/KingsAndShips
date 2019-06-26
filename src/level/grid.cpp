@@ -33,8 +33,7 @@ using namespace std;
 
 C_Grid::C_Grid()
 {
-	cout << "Constructor C_Grid() : done" << endl;
-	//m_factory = C_UnitFactory();
+	C_Message::printM("Constructor C_Grid() : done\n");
 }
 
 C_Grid::~C_Grid()

@@ -57,7 +57,7 @@ C_Window::C_Window()
 	m_aTowerIsSelected = false;
 
 	m_quit = false;
-	cout << "Constructor C_Window() : done" << endl;
+	C_Message::printM("Constructor C_Window() : done\n");
 }
 
 C_Window::~C_Window()

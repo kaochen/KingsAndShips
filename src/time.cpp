@@ -38,7 +38,7 @@ C_Time::C_Time():
 {
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
-	cout << "Constructor C_Time() : done" << endl;
+	C_Message::printM("Constructor C_Time() : done\n");
 }
 
 

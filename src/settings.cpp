@@ -243,7 +243,7 @@ void C_Settings::displayDebugMode()
 
 int C_Settings::setCurrentLevelNbr(int nbr)
 {
-	cout << nbr << "->" << m_currentLevel << endl;
+	//cout << nbr << "->" << m_currentLevel << endl;
 	m_currentLevel = nbr;
 
 	if (m_currentLevel > m_nbrOfLevels) {
