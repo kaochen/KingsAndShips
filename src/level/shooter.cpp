@@ -43,7 +43,7 @@ C_Shooter::~C_Shooter()
 C_GameUnits*  C_Shooter::searchNextTarget(string type)
 {
 	C_Grid& grid= C_Locator::getGrid();
-	int gridSize = grid.getSize();;
+	int gridSize = grid.getFullSize();
 	//cout <<"search next target type:" << type << endl;
 	int gridDiag = m_weapon->getFireRange();
 

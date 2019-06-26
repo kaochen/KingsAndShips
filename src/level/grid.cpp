@@ -224,7 +224,7 @@ bool C_Grid::testBarricade(int x_grid, int y_grid)
 
 bool C_Grid::isThisConstructible(S_Coord grid)
 {
-	if(grid.x > 0 && grid.x < size() && grid.y > 0 && grid.y < size()) {
+	if(grid.x > 0 && grid.x < getUsefullSize() && grid.y > 0 && grid.y < getUsefullSize()) {
 		if ( waterway(grid.x, grid.y)) {
 			return false;
 		} else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr) {

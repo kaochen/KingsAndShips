@@ -157,11 +157,11 @@ S_Coord C_Level::getFirstTile(S_tmxLayer &layer)
 	C_Grid& grid= C_Locator::getGrid();
 	int x = 0;
 	int y = 0;
-	if(grid.size()-layer.width>1) {
-		x = (grid.size()-layer.width)/2;
+	if(grid.getUsefullSize()-layer.width>1) {
+		x = (grid.getUsefullSize() -layer.width)/2;
 	}
-	if(grid.size()-layer.height>1) {
-		y = (grid.size()-layer.height)/2;
+	if(grid.getUsefullSize()-layer.height>1) {
+		y = (grid.getUsefullSize() -layer.height)/2;
 	}
 	S_Coord first{x,y};
 	return first;
@@ -256,12 +256,12 @@ void C_Level::updateMenuInfo()
 void C_Level::render()
 {
 	C_Grid& grid= C_Locator::getGrid();
-	m_landscape->render(grid.size());
-	m_landscape->renderTopMask(grid.size());
+	m_landscape->render(grid.getUsefullSize());
+	m_landscape->renderTopMask(grid.getUsefullSize());
 	grid.renderLayer (GRAVEYARD);
 	grid.renderLayer (GROUND);
 	grid.renderLayer (FIELD);
-	m_landscape->renderBottomMask(grid.size());
+	m_landscape->renderBottomMask(grid.getUsefullSize());
 	grid.renderLayer (CLOUD);
 }
 

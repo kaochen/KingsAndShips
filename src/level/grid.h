@@ -42,7 +42,8 @@ public:
 	virtual ~C_Grid();
 	void reset(int size);
 	void renderLayer(int layer);
-	int getSize(){return m_size;};
+	int getFullSize(){return m_size;};
+	int getUsefullSize(){return m_vgrid.size() - 2;};
 	void addANewBoat(S_Unit boat);
 	bool addUnit(std::string &type, S_Coord coord);
 	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
@@ -56,7 +57,6 @@ public:
 	bool waterway(int x_grid, int y_grid);
 	bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid);
-	int size(){return m_vgrid.size() - 2;};
 	void displayStatus();
 	void playAllUnits(int layer);
 	void deleteGrid();
