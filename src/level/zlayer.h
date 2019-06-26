@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef ZLAYER_H
 #define ZLAYER_H
 
-#include <iostream>
 
 #include "gameUnits.h"
 #include "../coord.h"

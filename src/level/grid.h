@@ -26,15 +26,13 @@ You can use x+1 to find a unit close to another one m_vgrid[x+1][y]*/
 #ifndef GRID_H
 #define GRID_H
 
-#include <iostream>
-#include <string>
-
 #include "zlayer.h"
 #include "gameUnits.h"
 #include "level.h"
 #include "../coord.h"
 #include "factory.h"
 
+#include <string>
 
 class C_Grid {
 public:
