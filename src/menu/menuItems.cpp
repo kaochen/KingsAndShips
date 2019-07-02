@@ -352,10 +352,11 @@ void C_GB_AddUnit::render()
 
 		C_Button::render();
 		C_TextureList& t= C_Locator::getTextureList();
+		m_color = {165,146,113,255};
 		if(t.searchTexture(m_textName)== nullptr) {
 			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		}
-		t.renderTexture(m_textName, m_x_screen + 19, m_y_screen + 16,CENTER);
+		t.renderTexture(m_textName, m_x_screen + 11, m_y_screen+10,CENTER);
 	}
 }
 //-------------------------------------------------------------

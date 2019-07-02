@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Buttons" tilewidth="64" tileheight="64" tilecount="36" columns="9">
- <image source="original/t_buttons.png" width="576" height="256"/>
- <tile id="0" type="AddSpare_Active"/>
- <tile id="1" type="AddSpare_Hover"/>
- <tile id="2" type="AddSpare_Disabled"/>
- <tile id="3" type="AddTower_Active"/>
- <tile id="4" type="AddTower_Hover"/>
- <tile id="5" type="AddTower_Disabled"/>
- <tile id="6" type="AddTurbine_Active"/>
- <tile id="7" type="AddTurbine_Hover"/>
- <tile id="8" type="AddTurbine_Disabled"/>
+<tileset version="1.2" tiledversion="1.2.0" name="Buttons" tilewidth="64" tileheight="64" tilecount="36" columns="6">
+ <image source="original/t_buttons.png" width="384" height="384"/>
+ <tile id="0" type="repair_Active"/>
+ <tile id="1" type="repair_Hover"/>
+ <tile id="2" type="repair_Disabled"/>
+ <tile id="3" type="upgrade_Active"/>
+ <tile id="4" type="upgrade_Hover"/>
+ <tile id="5" type="upgrade_Disabled"/>
+ <tile id="6" type="destroy_Active"/>
+ <tile id="7" type="destroy_Hover"/>
+ <tile id="8" type="destroy_Disabled"/>
  <tile id="9" type="AddBarricade_Active"/>
  <tile id="10" type="AddBarricade_Hover"/>
  <tile id="11" type="AddBarricade_Disabled"/>
- <tile id="12" type="AddSpare2_Active"/>
- <tile id="13" type="AddSpare2_Hover"/>
- <tile id="14" type="AddSpare2_Disabled"/>
- <tile id="15" type="MenuSpare_Active"/>
- <tile id="16" type="MenuSpare_Hover"/>
- <tile id="17" type="MenuSpare_Disabled"/>
- <tile id="18" type="popOutMenu_Active"/>
- <tile id="19" type="popOutMenu_Hover"/>
- <tile id="20" type="popOutMenu_Disabled"/>
+ <tile id="12" type="AddTurbine_Active"/>
+ <tile id="13" type="AddTurbine_Hover"/>
+ <tile id="14" type="AddTurbine_Disabled"/>
+ <tile id="15" type="AddTower_Active"/>
+ <tile id="16" type="AddTower_Hover"/>
+ <tile id="17" type="AddTower_Disabled"/>
+ <tile id="18" type="home_Active"/>
+ <tile id="19" type="home_Hover"/>
+ <tile id="20" type="home_Disabled"/>
  <tile id="21" type="play_Active"/>
  <tile id="22" type="play_Hover"/>
  <tile id="23" type="play_Disabled"/>
  <tile id="24" type="pause_Active"/>
  <tile id="25" type="pause_Hover"/>
  <tile id="26" type="pause_Disabled"/>
- <tile id="27" type="home_Active"/>
- <tile id="28" type="home_Hover"/>
- <tile id="29" type="home_Disabled"/>
+ <tile id="27" type="quit_Active"/>
+ <tile id="28" type="quit_Hover"/>
+ <tile id="29" type="quit_Disabled"/>
  <tile id="30" type="reset_Active"/>
  <tile id="31" type="reset_Hover"/>
  <tile id="32" type="reset_Disabled"/>
- <tile id="33" type="quit_Active"/>
- <tile id="34" type="quit_Hover"/>
- <tile id="35" type="quit_Disabled"/>
+ <tile id="33" type="popOutMenu_Active"/>
+ <tile id="34" type="popOutMenu_Hover"/>
+ <tile id="35" type="popOutMenu_Disabled"/>
 </tileset>
