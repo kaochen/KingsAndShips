@@ -202,8 +202,10 @@ void C_Shooter::drag(S_Coord screen)
 
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
+
+	bool status = grid.isThisConstructible(coord.getGrid(), water);
 	//draw ellipse
-	bool status = grid.isThisConstructible(coord.getGrid());
+
 	drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
 	//draw square
 	x -=2;
@@ -213,11 +215,8 @@ void C_Shooter::drag(S_Coord screen)
 		for(int j = 0; j < 3; j++) {
 			x++;
 			C_CoordGrid tmp(x,y);
-			if(water) {
-				status = grid.waterway(x,y);
-			} else {
-				status = grid.isThisConstructible(tmp.getGrid ());
-			}
+			status = grid.isThisConstructible(tmp.getGrid (),water);
+
 			int x_s = tmp.getXScreen ();
 			int y_s = tmp.getYScreen ();
 

@@ -112,26 +112,33 @@ bool C_Grid::addUnit(string &type, S_Coord coord)
 {
 	bool ret = false;
 	bool typeOk = false;
-	if(isThisConstructible(coord)){
-		S_Unit unit;
-		unit.coord = coord;
-		if(type == "AddTower") {
+
+	//on land
+	S_Unit unit;
+	unit.coord = coord;
+	if(type == "AddTower") {
+		if(isThisConstructible(coord, false)){
 			unit.name = "ArcherTower_0";
 			typeOk = true;
-		} else if(type == "AddTurbine") {
+		}
+	} else if(type == "AddTurbine") {
+		if(isThisConstructible(coord, false)){
 			unit.name = "Turbine_0";
 			typeOk = true;
-		} else if(type == "AddBarricade") {
+		}
+	} else if(type == "AddBarricade") {
+		if(isThisConstructible(coord, true)){
 			unit.name = "barricade_1";
 			typeOk = true;
 		}
-
-		if(typeOk){
-			if(addANewTower(unit))
-				ret = true;
-		}
-
 	}
+	if(typeOk){
+		if(addANewTower(unit)){
+			ret = true;
+		}
+	}
+
+
 	return ret;
 }
 
@@ -220,21 +227,29 @@ bool C_Grid::testBarricade(int x_grid, int y_grid)
 	return barricade;
 }
 
-bool C_Grid::isThisConstructible(S_Coord grid)
+bool C_Grid::isThisConstructible(S_Coord grid, bool water)
 {
+	bool test = true;
 	if(grid.x > 0 && grid.x < getUsefullSize() && grid.y > 0 && grid.y < getUsefullSize()) {
-		if ( waterway(grid.x, grid.y)) {
-			return false;
-		} else if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr) {
-			return false;
-		} else if(m_vgrid[grid.x][grid.y].get(CLOUD)!= nullptr) {
-			return false;
+		if(!water){
+			if ( waterway(grid.x, grid.y)){
+					test = false;
+					}
 		} else {
-			return true;
+			if (!waterway(grid.x, grid.y))
+					test = false;
 		}
+
+		if(m_vgrid[grid.x][grid.y].get(FIELD)!= nullptr){
+			test = false;
+			}
+		if(m_vgrid[grid.x][grid.y].get(CLOUD)!= nullptr){
+			test = false;
+			}
 	} else {
-		return false;
+		test = false;
 	}
+	return test;
 }
 
 
