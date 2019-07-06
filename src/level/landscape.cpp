@@ -234,7 +234,7 @@ void C_Decors::render(S_Coord screen)
 C_Clouds::C_Clouds(int x_grid, int y_grid):
 	C_GameUnits("clouds_01", x_grid, y_grid, 0)
 {
-	m_type = rand() %3 + 1;
+	m_type = rand() %4 + 1;
 }
 
 void C_Clouds::render()
