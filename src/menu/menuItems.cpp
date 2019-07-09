@@ -109,9 +109,13 @@ void C_MenuItem::background(){
 	} else {
 		textureName +="active";
 	}
-	Sint16 y1 = m_y_screen + m_height/2;
-	for(int i = 0; i <= (m_width/4); i++){
-		t.renderTexture(textureName, m_x_screen + 4*i, y1, CENTER);
+	for(int j= 0; j <= 1; j++){
+		Sint16 y1 = m_y_screen + 2 + m_height/4  + 11*j;
+		t.renderTexture(textureName,m_x_screen ,y1,CENTER);
+		t.renderTexture(textureName,m_x_screen + m_width ,y1,CENTER);
+		for(int i = 0; i <= (m_width/4); i++){
+			t.renderTexture(textureName, m_x_screen + 4*i, y1, CENTER);
+		}
 	}
 }
 
@@ -161,7 +165,7 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 	setText(text, fontSize);
 	m_width = 100;
 	m_height = 30;
-	m_color = {46,15,2,255};
+	m_color = {165,146,113,255};
 }
 
 
@@ -169,21 +173,15 @@ void C_MB_TabSelect::render()
 {
 
 	SDL_Color color = m_color;
-	string textureName = "Menu_details_side_line_";
 
 	if(m_state == HOVER){
-		color = {23,4,0,255};
-		textureName +="hover";
-	} else {
-		textureName +="active";
+		m_color = {195,176,143,255};
 	}
 
 	background();
 
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
-	t.renderTexture(textureName,m_x_screen ,y1,CENTER);
-	t.renderTexture(textureName,m_x_screen + m_width ,y1,CENTER);
 
 	if(m_text !="") {
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, color);
@@ -203,28 +201,22 @@ C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	m_textName = "Settings_Text_" + name;
 	m_width = 408;
 	m_height = 24;
-	m_color = {46,15,2,255};
+	m_color = {165,146,113,255};
 }
 
 
 void C_MB_1Line::render()
 {
 	SDL_Color color = m_color;
-	string textureName = "Menu_details_side_line_";
 
 	if(m_state == HOVER){
 		color = {23,4,0,255};
-		textureName +="hover";
-	} else {
-		textureName +="active";
 	}
 
 	background();
 
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
-	t.renderTexture(textureName,m_x_screen ,y1,CENTER);
-	t.renderTexture(textureName,m_x_screen + m_width ,y1,CENTER);
 
 	int border = 4;
 	if(m_title !="") {
