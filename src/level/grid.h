@@ -73,6 +73,7 @@ public:
 	int getAllTownsLifeLevel();
 
 	int nbrOfboatStillAlive();
+	Cloud guessTypeOfCloud(S_Coord center);
 
 protected:
 	void createAnEmptyGrid(int size);

@@ -16,4 +16,8 @@
  <tile id="10" type="WW"/>
  <tile id="11" type="NN"/>
  <tile id="12" type="EE"/>
+ <tile id="13" type="CornerB"/>
+ <tile id="14" type="CornerT"/>
+ <tile id="15" type="CornerL"/>
+ <tile id="16" type="CornerR"/>
 </tileset>

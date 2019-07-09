@@ -56,6 +56,7 @@ enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 enum game {PLAY,PAUSE};
 enum level {ONGOING,LOSE,WIN};
+enum class Cloud {CENTER,EE,NE,NN,NW,WW,SW,SS,SE,CORNERB,CORNERT,CORNERL,CORNERR};
 
 
 

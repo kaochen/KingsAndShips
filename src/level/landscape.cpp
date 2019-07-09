@@ -239,7 +239,36 @@ C_Clouds::C_Clouds(int x_grid, int y_grid):
 
 void C_Clouds::render()
 {
+	C_Grid& grid= C_Locator::getGrid();
+	Cloud type = grid.guessTypeOfCloud(m_coord.getGrid());
 	string fileName = "clouds_0"+to_string(m_type);
+	if(type ==  Cloud::EE){
+		fileName = "clouds_EE";
+	} else if(type ==  Cloud::SE){
+		fileName = "clouds_SE";
+	} else if(type ==  Cloud::SS){
+		fileName = "clouds_SS";
+	} else if(type ==  Cloud::SW){
+		fileName = "clouds_SW";
+	} else if(type ==  Cloud::WW){
+		fileName = "clouds_WW";
+	} else if(type ==  Cloud::NW){
+		fileName = "clouds_NW";
+	} else if(type ==  Cloud::NN){
+		fileName = "clouds_NN";
+	} else if(type ==  Cloud::NE){
+		fileName = "clouds_NE";
+	} else if(type ==  Cloud::CORNERB){
+		fileName = "clouds_CornerB";
+	} else if(type ==  Cloud::CORNERT){
+		fileName = "clouds_CornerT";
+	} else if(type ==  Cloud::CORNERR){
+		fileName = "clouds_CornerR";
+	} else if(type ==  Cloud::CORNERL){
+		fileName = "clouds_CornerL";
+	}
+
+
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t= C_Locator::getTextureList();
