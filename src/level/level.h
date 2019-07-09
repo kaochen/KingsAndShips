@@ -83,7 +83,6 @@ protected:
 	S_Coord getFirstTile(S_tmxLayer &layer);
 	void setWallet();
 	void createLandscape();
-	void playAllUnits ();
 
 //attibutes
 	int m_count;

@@ -276,19 +276,19 @@ void C_Level::renderSelected(){
 void C_Level::play()
 {
 	long current = SDL_GetTicks();
-	if((current - m_lastWaveTime)>20000) {
-		sendNextWave();
-		m_lastWaveTime = current;
-	}
-	playAllUnits();
-}
+	C_Settings& settings= C_Locator::getSettings();
+	if(settings.getPlaying() == PLAY){
+		if((current - m_lastWaveTime)>20000) {
+			sendNextWave();
+			m_lastWaveTime = current;
+		}
 
-void C_Level::playAllUnits()
-{
+	}
 	C_Grid& grid= C_Locator::getGrid();
 	grid.playAllUnits(GRAVEYARD);
 	grid.playAllUnits(FIELD);
 }
+
 
 bool C_Level::selectATower(S_Coord clic)
 {
