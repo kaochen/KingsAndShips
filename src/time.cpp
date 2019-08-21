@@ -34,7 +34,9 @@ C_Time::C_Time():
 	m_currentTime(0),
 	m_framerate(FRAMERATE),
 	m_delay(0),
-	m_start_frame(0)
+	m_start_frame(0),
+	m_fpsMax(FRAMERATE),
+	m_fpsLast(m_fpsMax)
 {
 	m_frame_duration = 1000/m_framerate;
 	m_lastFrameTime = 0;
@@ -49,41 +51,28 @@ void C_Time::displayTime() const
 	cout << " - frame:" << m_frameNbr << "/" << m_framerate << endl;
 }
 
-void C_Time::showFPS() const
+void C_Time::showFPS()
 {
-	C_Window& win=C_Locator::getWindow();
-	SDL_Renderer* renderer = win.getRenderer();
 	C_Settings& settings= C_Locator::getSettings();
-	//add a life status above the boat
+	int x_screen = 10;
+	int y_screen = settings.getWindowHeight() - 5;
 
-	int red = 0, green = 200;
-	SDL_Rect f, b, m;
-	b.x = 20;
-	b.y = settings.getWindowHeight() - 2*TILE_HALF_HEIGHT;
-	b.w = 10;
-	b.h = m_framerate;
-
-	f.x = b.x + 1;
-	f.y = b.y + 1;
-	f.w = b.w - 2;
-	f.h = m_frameNbr;
-
-	m.x = b.x - 2;
-	m.y = b.y;
-	m.w = b.w + 4;
-	m.h = 2;
-
-	SDL_SetRenderDrawColor( renderer, 0, 0, 0, 255 );
-	//draw background
-	SDL_RenderFillRect( renderer, &b );
-	//draw 4 little lines
-	for(int i = 0; i < 5; i++) {
-		m.y = b.y + i*(b.h/4);
-		SDL_RenderFillRect( renderer, &m );
+	C_TextureList& t= C_Locator::getTextureList();
+	string textureName = "Menu_details_black";
+	if(m_frameNbr > m_fpsLast)
+		m_fpsLast = m_frameNbr;
+	if(m_frameNbr == 0){
+		m_fpsMax = m_fpsLast + 1;
+		m_fpsLast = 0;
 	}
-	//fill with green
-	SDL_SetRenderDrawColor( renderer, red, green, 0, 255 );
-	SDL_RenderFillRect( renderer, &f );
+
+	string fpsText = "FPS ("+ to_string (m_framerate) +"): " + to_string(m_fpsMax) ;
+		if( fpsText !="") {
+			SDL_Color m_color = {0,0,0,255};
+			t.loadTextAsTexturesIntoMap("fpsText", fpsText, 10, m_color);
+			t.renderTexture("fpsText", x_screen , y_screen -10, LEFT);
+		}
+
 }
 
 void C_Time::updateFrameNbr()

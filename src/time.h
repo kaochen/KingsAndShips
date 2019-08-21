@@ -31,7 +31,7 @@ class C_Time
 	C_Time();
 	virtual ~C_Time(){};
 	void displayTime() const;
-	void showFPS() const;
+	void showFPS();
 
 	void updateFrameTime(){m_start_frame = SDL_GetTicks();};
 	void delayGameLoop();
@@ -60,6 +60,8 @@ class C_Time
 	long m_frame_duration;
 	long m_delay;
 	long m_start_frame;
+  long m_fpsMax;
+  long m_fpsLast;
 };
 
 #define MAX_ANIM  7
