@@ -19,11 +19,11 @@
  <tile id="15" type="Progress_Left_Green"/>
  <tile id="16" type="Progress_1_Red"/>
  <tile id="17" type="Progress_2_Red"/>
- <tile id="18" type="Progress_Rigth_Red"/>
+ <tile id="18" type="Progress_Right_Red"/>
  <tile id="19" type="Progress_Left_Red"/>
  <tile id="20" type="Progress_1_Orange"/>
  <tile id="21" type="Progress_2_Orange"/>
- <tile id="22" type="Progress_Rigth_Orange"/>
+ <tile id="22" type="Progress_Right_Orange"/>
  <tile id="23" type="Progress_Left_Orange"/>
  <tile id="24" type="Ellipse"/>
 </tileset>

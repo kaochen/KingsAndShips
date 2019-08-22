@@ -152,8 +152,12 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 		int life = (x_size*m_health/m_max_health);
 		for(int i = 0; i <= life; i++){
 			string image = "Menu_details_Progress_";
-			if(i%5 == 0){
+			if (i == life){
+				image += "Right_";
+			} else if(i%5 == 0){
 				image += "2_";
+			} else if (i == 0){
+				image += "Left_";
 			} else {
 				image += "1_";
 			}
