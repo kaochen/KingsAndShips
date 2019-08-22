@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menuItems.h"
 #include <string>
 #include <map>
-#include <SDL2_gfxPrimitives.h>
 
 class C_Tab {
 public:

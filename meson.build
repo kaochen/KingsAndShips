@@ -10,10 +10,9 @@ add_global_arguments('-Wall', '-Wextra','-Wno-deprecated-declarations','-g',lang
 sdl2_dep = dependency('sdl2')
 sdl2_image_dep = dependency('SDL2_image')
 sdl2_ttf_dep = dependency('SDL2_ttf')
-sdl2_gfx_dep = dependency('SDL2_gfx')
 libxml_dep = dependency('libxml++-2.6')
 
-all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf_dep, sdl2_gfx_dep, libxml_dep ]
+all_dep = [ sdl2_dep, sdl2_image_dep, sdl2_ttf_dep, libxml_dep ]
 
 all_src = ['src/settings.cpp',
 	'src/coord.cpp',

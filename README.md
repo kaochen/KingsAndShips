@@ -14,7 +14,7 @@ Meson 0.37 is needed at the minimun.
 ### Dependencies
 ```
 apt install build-essential git gettext meson libxml++2.6-dev
-apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev libsdl2-gfx-dev fonts-roboto
+apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev fonts-roboto
 
 ```
 
