@@ -15,7 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <SDL2_gfxPrimitives.h>
 #include <sstream>
 
 #include "node.h"
@@ -220,12 +219,10 @@ double C_Node::getAngle() const
 
 void C_Node::highlight()
 {
-	C_Window& win=C_Locator::getWindow();
-	SDL_Renderer * renderer = win.getRenderer();
-	int R = 200, G = 200, B = 200, A = 100;
+	C_TextureList& t= C_Locator::getTextureList();
 	int x_screen = m_coord.getXScreen ();
 	int y_screen = m_coord.getYScreen ();
-	filledEllipseRGBA(renderer,x_screen, y_screen,10,5,R,G,B,A);
+	t.renderTexture("Menu_details_Ellipse", x_screen,y_screen,CENTER);
 }
 
 void C_Node::prepareRender()

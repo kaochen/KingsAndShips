@@ -25,4 +25,5 @@
  <tile id="21" type="Progress_2_Orange"/>
  <tile id="22" type="Progress_Rigth_Orange"/>
  <tile id="23" type="Progress_Left_Orange"/>
+ <tile id="24" type="Ellipse"/>
 </tileset>
