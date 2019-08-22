@@ -35,7 +35,7 @@ C_Time::C_Time():
 	m_framerate(FRAMERATE),
 	m_delay(0),
 	m_start_frame(0),
-	m_fpsMax(FRAMERATE),
+	m_fpsMax(-1),
 	m_fpsLast(m_fpsMax)
 {
 	m_frame_duration = 1000/m_framerate;
@@ -54,18 +54,22 @@ void C_Time::displayTime() const
 void C_Time::showFPS()
 {
 	C_Settings& settings= C_Locator::getSettings();
-	int x_screen = 10;
-	int y_screen = settings.getWindowHeight() - 5;
-
+	int x_screen = settings.getWindowWidth() - 80;
+	int y_screen = settings.getWindowHeight() - 2;
 	C_TextureList& t= C_Locator::getTextureList();
 	string textureName = "Menu_details_black";
 	if(m_frameNbr > m_fpsLast)
 		m_fpsLast = m_frameNbr;
-	if(m_frameNbr == 0){
+	if(m_frameNbr <= 0){
 		m_fpsMax = m_fpsLast + 1;
-		m_fpsLast = 0;
+		m_fpsLast = -1;
 	}
 
+	//background
+	for (int i = 0; i < 36 ; i++){
+		t.renderTexture("Menu_details_white", x_screen + (i*2) ,y_screen - 10 ,CENTER);
+	}
+	//text
 	string fpsText = "FPS ("+ to_string (m_framerate) +"): " + to_string(m_fpsMax) ;
 		if( fpsText !="") {
 			SDL_Color m_color = {0,0,0,255};
