@@ -15,8 +15,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <SDL2_gfxPrimitives.h>
-
 #include "shooter.h"
 #include "grid.h"
 
@@ -140,45 +138,37 @@ void C_Shooter::shootTarget(C_GameUnits &target)
 void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 {
     if(m_health < (m_max_health - (m_health/20))){
-	    C_Window& win=C_Locator::getWindow();
-	    SDL_Renderer* renderer = win.getRenderer();
-	    //add a life status above the boat
-	    int l = 50;
-	    int h = 6;
-
-	    //background
-	    int x1_b = x_screen - TILE_HALF_WIDTH/2;
-	    int y1_b = y_screen - 85;
-	    int x2_b = x1_b + l;
-	    int y2_b = y1_b + h;
-
-	    //health
-	    int x2_l = x1_b + (l*m_health/m_max_health);
-
-	    int R = 0, G = 200, B = 0;
-	    if (m_health < m_max_health/2) {
-		    R = 200;
-		    G = 0 ;
-	    }
-
-	    int angle = 2;
-	    if((x2_l - x1_b)<=(angle*2)) {
-		    angle = 0;
-	    }
-
-	    //highlight
-	    int y2_h = y1_b + h/2 + 1;
-
-	    //transparent background
-	    roundedBoxRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,60);
-	    //life
-	    roundedBoxRGBA(renderer,x1_b,y1_b,x2_l,y2_b,angle,R,G,B,120);
-	    //highlight
-	    roundedBoxRGBA(renderer,x1_b+2,y1_b+2,x2_l-2,y2_h,0,255,255,255,80);
-	    //border
-	    roundedRectangleRGBA(renderer,x1_b,y1_b,x2_b,y2_b,angle,0,0,0,255);
-    }
+		C_TextureList& t= C_Locator::getTextureList();
+		int x_size = 50;
+		int y = y_screen - 80;
+		int x = x_screen - (x_size/2);
+		t.renderTexture("Menu_details_Progress_Border", x - 1,y,CENTER);
+		t.renderTexture("Menu_details_Progress_Border", x + x_size + 1 ,y,CENTER);
+		for(int i = 0; i <= x_size; i++){
+			string textureName = "Menu_details_Progress_";
+			textureName += "Back";
+			t.renderTexture(textureName, x + i ,y,CENTER);
+		}
+		int life = (x_size*m_health/m_max_health);
+		for(int i = 0; i <= life; i++){
+			string image = "Menu_details_Progress_";
+			if(i%5 == 0){
+				image += "2_";
+			} else {
+				image += "1_";
+			}
+			if (m_health < m_max_health/2 && m_health > m_max_health/3){
+				image += "Orange";
+			} else if (m_health < m_max_health/3) {
+				image += "Red";
+			} else {
+				image += "Green";
+			}
+			t.renderTexture(image, x + i ,y,CENTER);
+		}
+	}
 }
+
 
 void C_Shooter::render(S_Coord screen)
 {
