@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Buttons" tilewidth="64" tileheight="64" tilecount="36" columns="6">
- <image source="original/t_buttons.png" width="384" height="384"/>
+<tileset version="1.2" tiledversion="1.2.1" name="Buttons" tilewidth="64" tileheight="64" tilecount="48" columns="6">
+ <image source="original/t_buttons.png" width="384" height="512"/>
  <tile id="0" type="repair_Active"/>
  <tile id="1" type="repair_Hover"/>
  <tile id="2" type="repair_Disabled"/>
@@ -37,4 +37,15 @@
  <tile id="33" type="popOutMenu_Active"/>
  <tile id="34" type="popOutMenu_Hover"/>
  <tile id="35" type="popOutMenu_Disabled"/>
+ <tile id="36" type="firerate_Active"/>
+ <tile id="37" type="firerate_Hover"/>
+ <tile id="38" type="firerate_Disabled"/>
+ <tile id="39" type="firerange_Active"/>
+ <tile id="40" type="firerange_Hover"/>
+ <tile id="41" type="firerange_Disabled"/>
+ <tile id="42" type="Damage_Active"/>
+ <tile id="43" type="Damage_Hover"/>
+ <tile id="44" type="Damage_Disabled"/>
+ <tile id="45" type="Torus_Green"/>
+ <tile id="46" type="Torus_Dark"/>
 </tileset>
