@@ -63,9 +63,36 @@ void C_Towers::renderSelected()
 {
 	if (m_selected == true) {
 		drawEllipse(m_coord.getXScreen (),m_coord.getYScreen (),m_weapon->getFireRange(), true);
-		m_popup.getInfo(getInfo());
-		m_popup.render(m_coord.getScreen());
+		renderTowerStatus("firerate",m_coord.getXScreen (), m_coord.getYScreen () + 90);
+		renderTowerStatus("firerange",m_coord.getXScreen () -50, m_coord.getYScreen () + 80);
+		renderTowerStatus("Damage",m_coord.getXScreen () +50, m_coord.getYScreen () + 80);
 	}
+}
+
+void C_Towers::renderTowerStatus(std::string name, int x_screen, int y_screen){
+		string textureName = "Buttons_"+ name + "_Active";
+		C_TextureList& t= C_Locator::getTextureList();
+		t.renderTexture(textureName, x_screen,y_screen);
+		int value = 0;
+		if(name == "firerange"){
+			value = (m_weapon->getFireRange()*100)/8;
+		} else if(name == "firerate") {
+			if(m_weapon->getFireRate() != 0){
+				int maxSpeed = 5000;
+				value = (((maxSpeed - m_weapon->getFireRate())*100)/maxSpeed);
+			}
+		} else if(name == "Damage") {
+			value = (m_weapon->getDamage()*100)/40;
+		}
+		int max = 0;
+		if(value != 0){
+			max = (value*72)/100;
+		}
+		for(int i = 0; i < max; i++){
+		double angle = 5.0 * i;
+		t.renderTextureEx("Buttons_Torus_Green", x_screen,y_screen-24, angle, CENTER);
+		}
+
 }
 
 

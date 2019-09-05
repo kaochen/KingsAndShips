@@ -34,7 +34,8 @@ public:
 protected:
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
-	void renderSmoke();
+  virtual void renderTowerStatus(std::string name, int x_screen, int y_screen);
+	virtual void renderSmoke();
 
 	long m_lastSmokeTime;
 	int m_smokeNbr;
