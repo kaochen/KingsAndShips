@@ -61,15 +61,6 @@ protected:
 	std::string m_name;
 };
 
-class C_Popup: public C_Panel{
-public:
-	C_Popup();
-	void render(S_Coord screen);
-	void getInfo(S_UnitModel current);
-	void setMode(std::string mode);
-private:
-	std::string m_mode;
-};
 
 class C_EndLevelMenu: public C_Panel{
 public:
