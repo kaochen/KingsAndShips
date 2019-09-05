@@ -26,7 +26,8 @@ using namespace std;
 
 C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_lastShootTime(0),
-	m_cost(model.cost)
+	m_cost(model.cost),
+	m_upgrade(false)
 {
 	m_weapon = new C_Weapon(model.weapon);
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);

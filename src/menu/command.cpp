@@ -85,9 +85,9 @@ void C_UpgradeUnit::actionHover(bool state)
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
 		if(state){
-			unit->sendToPopup("upgrade");
+			unit->upgrade(true);
 		} else {
-			unit->sendToPopup("normal");
+			unit->upgrade(false);
 		}
 	}
 }

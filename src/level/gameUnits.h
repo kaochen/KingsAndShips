@@ -82,10 +82,7 @@ public:
 	{
 		return this;
 	};
-	virtual std::string getName() const
-	{
-		return m_name;
-	};
+	virtual std::string getName() const { return m_name; };
 	virtual std::string getType() const
 	{
 		return m_type;
@@ -132,7 +129,7 @@ public:
 	virtual int getCost(){return 0;};
 
 	virtual S_UnitModel getInfo();
-	virtual void sendToPopup(std::string message){std::cout << "sendToPopup "<< message << std::endl;};
+  virtual void upgrade(bool upgrade){if(upgrade){std::cout << "upgrade" << std::endl;}};
 
 protected:
 	//alive or dead

@@ -70,19 +70,36 @@ void C_Towers::renderSelected()
 }
 
 void C_Towers::renderTowerStatus(std::string name, int x_screen, int y_screen){
-		string textureName = "Buttons_"+ name + "_Active";
 		C_TextureList& t= C_Locator::getTextureList();
+		string textureName = "Buttons_"+ name + "_Active";
 		t.renderTexture(textureName, x_screen,y_screen);
+		int fireRange = m_weapon->getFireRange();
+		int fireRate = m_weapon->getFireRate();
+		int damage = m_weapon->getDamage();
+		if(m_upgrade){
+		C_Grid& grid= C_Locator::getGrid();
+				C_UnitFactory factory = grid.getFactory();
+				S_UnitModel up;
+				bool check = factory.getSelectedModel(1,up);
+				if(check){
+					renderTowerStatusCircle(name, x_screen, y_screen, up.weapon.fireRate,up.weapon.fireRange, up.weapon.damage, "Dark");
+				}
+		}
+		renderTowerStatusCircle(name, x_screen, y_screen, fireRate,fireRange, damage, "Green");
+
+}
+void C_Towers::renderTowerStatusCircle(std::string name, int x_screen, int y_screen, int fireRate, int fireRange, int damage, std::string color){
+		C_TextureList& t= C_Locator::getTextureList();
 		int value = 0;
 		if(name == "firerange"){
-			value = (m_weapon->getFireRange()*100)/8;
+			value = (fireRange*100)/8;
 		} else if(name == "firerate") {
 			if(m_weapon->getFireRate() != 0){
 				int maxSpeed = 5000;
-				value = (((maxSpeed - m_weapon->getFireRate())*100)/maxSpeed);
+				value = (((maxSpeed - fireRate)*100)/maxSpeed);
 			}
 		} else if(name == "Damage") {
-			value = (m_weapon->getDamage()*100)/40;
+			value = (damage*100)/40;
 		}
 		int max = 0;
 		if(value != 0){
@@ -90,9 +107,8 @@ void C_Towers::renderTowerStatus(std::string name, int x_screen, int y_screen){
 		}
 		for(int i = 0; i < max; i++){
 		double angle = 5.0 * i;
-		t.renderTextureEx("Buttons_Torus_Green", x_screen,y_screen-24, angle, CENTER);
+		t.renderTextureEx("Buttons_Torus_"+ color, x_screen,y_screen-24, angle, CENTER);
 		}
-
 }
 
 
