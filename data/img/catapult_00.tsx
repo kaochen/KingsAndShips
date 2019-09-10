@@ -3,14 +3,14 @@
  <tileoffset x="-14" y="11"/>
  <properties>
   <property name="unit.type" type="str" value="Catapult"/>
-  <property name="unit.health" type="int" value="50"/>
-  <property name="unit.cost" type="int" value="70"/>
+  <property name="unit.health" type="int" value="40"/>
+  <property name="unit.cost" type="int" value="75"/>
   <property name="unit.rank" type="int" value="0"/>
   <property name="unit.speed" type="int" value="3"/>
-  <property name="weapon.type" type="str" value="ARCHER"/>
-  <property name="weapon.damage" type="int" value="5"/>
+  <property name="weapon.type" type="str" value="CANNONBALL"/>
+  <property name="weapon.damage" type="int" value="10"/>
   <property name="weapon.firerange" type="int" value="2"/>
-  <property name="weapon.firerate" type="int" value="3000"/>
+  <property name="weapon.firerate" type="int" value="4000"/>
   <property name="weapon.speedImpact" type="int" value="0"/>
  </properties>
  <image source="original/t_catapult_00.png" width="1536" height="1024"/>
