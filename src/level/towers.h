@@ -58,6 +58,15 @@ protected:
 
 };
 
+class C_Catapult: public C_Towers {
+public:
+	C_Catapult(S_UnitModel model);
+	virtual void render(S_Coord screen);
+protected:
+  bool m_anim_start;
+
+};
+
 
 
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="catapult_0" tilewidth="128" tileheight="128" tilecount="96" columns="12">
+<tileset version="1.2" tiledversion="1.2.0" name="Catapult_0" tilewidth="128" tileheight="128" tilecount="96" columns="12">
  <tileoffset x="-14" y="11"/>
  <properties>
-  <property name="unit.type" type="str" value="boat"/>
+  <property name="unit.type" type="str" value="Catapult"/>
   <property name="unit.health" type="int" value="50"/>
-  <property name="unit.cost" type="int" value="30"/>
+  <property name="unit.cost" type="int" value="70"/>
   <property name="unit.rank" type="int" value="0"/>
   <property name="unit.speed" type="int" value="3"/>
   <property name="weapon.type" type="str" value="ARCHER"/>

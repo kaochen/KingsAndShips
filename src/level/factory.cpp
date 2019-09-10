@@ -29,10 +29,10 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory()
 {
-	int size = 9;
+	int size = 10;
 	string file[size] = {"boat_00.tsx","boat_01.tsx","archerTower_00.tsx",
 			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
-			"barricade_01.tsx","town_01.tsx","turbine_00.tsx"
+			"barricade_01.tsx","town_01.tsx","turbine_00.tsx","catapult_00.tsx"
 						};
 	C_Settings& settings=C_Locator::getSettings();
 	string imageFolder = settings.getImgFolder();
@@ -65,7 +65,10 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 		unit = new C_Town(current);
 	} else if(type.name == "Turbine_0") {
 		unit = new C_Turbine(current);
+	} else if(type.name == "Catapult_0") {
+		unit = new C_Catapult(current);
 	}
+
 	return unit;
 }
 

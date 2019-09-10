@@ -160,3 +160,38 @@ void C_Turbine::render(S_Coord screen)
 	}
 }
 
+
+C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
+{
+	m_anim_start = false;
+}
+
+void C_Catapult::render(S_Coord screen)
+{
+	if(alive()) {
+		renderSelected();
+		int imageNbr = 0;
+		if(m_weapon->getShooting()){
+			m_anim_start = true;
+		}
+		if (m_anim_start){
+			int last = 11;
+			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,11,100);
+			if(imageNbr == last){
+				m_anim_start = false;
+			}
+		}
+		S_Weapon current = m_weapon->getWeaponInfo();
+		string fileName = imageName(ALIVE,current.direction,imageNbr);
+		C_TextureList& t= C_Locator::getTextureList();
+		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		renderLifeBar(screen.x, screen.y);
+		if (m_weapon->getShooting()){
+			m_weapon->render();
+		}
+
+		if (m_justAdded)
+			renderSmoke();
+	}
+
+}
