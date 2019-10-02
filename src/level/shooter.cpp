@@ -73,8 +73,9 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type)
 
 	return target;
 }
-void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
+bool C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 {
+	bool ret = false;
 	for(int i = 0; i < nbrofTargets; i++) {
 		C_GameUnits* target = searchNextTarget(type[i]);
 		if(target != nullptr) {
@@ -83,6 +84,7 @@ void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 				m_weapon->setShooting(true);
 				shootTarget(*target);
 				i = MAX_TARGETS + 1;
+				ret = true;
 				//cout << target.getName() << " has been shot" << endl;
 			} else {
 				m_weapon->setShooting(false);
@@ -91,6 +93,7 @@ void C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 			m_weapon->setShooting(false);
 		}
 	}
+	return ret;
 }
 
 void C_Shooter::kill()

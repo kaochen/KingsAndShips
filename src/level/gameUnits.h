@@ -97,7 +97,7 @@ public:
 	};
 
 	//shoot
-	virtual void shoot(std::string type[MAX_TARGETS], int nbrofTargets);
+	virtual bool shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void receiveDamage(S_Weapon weapon);
 
 	//Coord

@@ -163,35 +163,50 @@ void C_Turbine::render(S_Coord screen)
 
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
-	m_anim_start = false;
+	m_state = WAITING;
 }
+
+void C_Catapult::play(){
+	string list[1] = {"boat"};
+	if(shoot(list,1)){
+		changeState(SHOOTING);
+	} else {
+		changeState(WAITING);
+	}
+
+	if(!alive())
+		kill();
+}
+
 
 void C_Catapult::render(S_Coord screen)
 {
-	if(alive()) {
-		renderSelected();
-		int imageNbr = 0;
-		if(m_weapon->getShooting()){
-			m_anim_start = true;
-		}
-		if (m_anim_start){
-			int last = 11;
-			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,11,100);
-			if(imageNbr == last){
-				m_anim_start = false;
-			}
-		}
-		S_Weapon current = m_weapon->getWeaponInfo();
-		string fileName = imageName(ALIVE,current.direction,imageNbr);
-		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	S_Weapon current = m_weapon->getWeaponInfo();
+	int imageNbr = 0;
+	C_TextureList& t= C_Locator::getTextureList();
+
+	if (m_justAdded){
+		renderSmoke();
+	}
+
+	if(alive()){
 		renderLifeBar(screen.x, screen.y);
-		if (m_weapon->getShooting()){
+
+		if(m_state == WAITING){
+			imageNbr = 0;
+		} else if(m_state == SHOOTING){
+
+			int last = 11;
+			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,last,100);
 			m_weapon->render();
 		}
+		string fileName = imageName(ALIVE,current.direction,imageNbr);
+		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		renderSelected();
 
-		if (m_justAdded)
-			renderSmoke();
+	} else {
+		string fileName = imageName(DEAD,current.direction,imageNbr);
+		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 	}
 
 }
