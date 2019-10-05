@@ -168,10 +168,12 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 
 void C_Catapult::play(){
 	string list[1] = {"boat"};
-	if(shoot(list,1)){
-		changeState(SHOOTING);
-	} else {
-		changeState(WAITING);
+	if(m_state !=  RELOADING){
+		if(shoot(list,1)){
+			changeState(SHOOTING);
+		} else {
+			changeState(WAITING);
+		}
 	}
 
 	if(!alive())
@@ -195,9 +197,18 @@ void C_Catapult::render(S_Coord screen)
 		if(m_state == WAITING){
 			imageNbr = 0;
 		} else if(m_state == SHOOTING){
-
-			int last = 11;
+			int last = 5;
 			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,last,100);
+			if(last == imageNbr){
+				changeState(RELOADING);
+			}
+			m_weapon->render();
+		} else if(m_state == RELOADING){
+			int last = 11;
+			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(6,last,120);
+			if(last == imageNbr){
+				changeState(WAITING);
+			}
 			m_weapon->render();
 		}
 		string fileName = imageName(ALIVE,current.direction,imageNbr);
