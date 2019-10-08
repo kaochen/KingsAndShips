@@ -125,9 +125,6 @@ C_AnimTime::C_AnimTime():
 {
 }
 
-C_AnimTime::~C_AnimTime()
-{
-}
 
 int C_AnimTime::getAnimNbr(int startNbr, int endNbr, long delay)
 {
@@ -183,4 +180,5 @@ bool C_AnimTime::frameDelay(int delay)
 		return  false;
 	}
 }
+
 

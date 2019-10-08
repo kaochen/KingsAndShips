@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../texture.h"
 #include "../locator.h"
+#include "../anim.h"
+
 
 
 using namespace std;
@@ -163,21 +165,64 @@ void C_Turbine::render(S_Coord screen)
 
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
-	m_state = WAITING;
+	m_state = "Waiting";
+	m_target = nullptr;
+	m_anim.add(C_Anim("Waiting",0,1,3000));
+	m_anim.add(C_Anim("Searching",0,0,100));
+	m_anim.add(C_Anim("Shooting",0,5,100));
+	m_anim.add(C_Anim("Reloading",6,11,120));
 }
 
 void C_Catapult::play(){
 	string list[1] = {"boat"};
-	if(m_state !=  RELOADING){
-		if(shoot(list,1)){
-			changeState(SHOOTING);
-		} else {
-			changeState(WAITING);
+	//wait & search
+
+	if(m_state == "Waiting"){
+		m_anim.start(m_state);
+		m_target = nullptr;
+		if(m_anim.end(m_state)){
+			m_anim.reset(m_state);
+			changeState("Searching");
+		}
+	}
+	if(m_state == "Searching"){
+		if(m_target == nullptr){
+			m_target = searchNextTarget(list, 1);
+		}
+		if(m_target != nullptr){
+				m_anim.reset(m_state);
+				changeState("Shooting");
+		}
+	}
+	//shoot
+	if(m_state == "Shooting"){
+		m_anim.start(m_state);
+		if(m_anim.end(m_state)){
+				changeState("Reloading");
 		}
 	}
 
-	if(!alive())
+	//reload/
+	if(m_state == "Reloading"){
+		m_anim.start(m_state);
+		if(m_anim.end(m_state)){
+			changeState("Waiting");
+		}
+	}
+
+	if(alive()){
+		if(m_target != nullptr){
+			if(shoot(m_target)){
+				m_target = nullptr;
+				changeState("Waiting");
+				m_anim.reset(m_state);
+			};
+		}
+		m_anim.get(m_state).play();
+
+	} else {
 		kill();
+	}
 }
 
 
@@ -194,23 +239,11 @@ void C_Catapult::render(S_Coord screen)
 	if(alive()){
 		renderLifeBar(screen.x, screen.y);
 
-		if(m_state == WAITING){
-			imageNbr = 0;
-		} else if(m_state == SHOOTING){
-			int last = 5;
-			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,last,100);
-			if(last == imageNbr){
-				changeState(RELOADING);
-			}
-			m_weapon->render();
-		} else if(m_state == RELOADING){
-			int last = 11;
-			imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(6,last,120);
-			if(last == imageNbr){
-				changeState(WAITING);
-			}
+		imageNbr = m_anim.getImageNbr(m_state);
+		if(m_target != nullptr){
 			m_weapon->render();
 		}
+
 		string fileName = imageName(ALIVE,current.direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		renderSelected();

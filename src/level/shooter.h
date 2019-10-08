@@ -42,6 +42,8 @@ public:
 	virtual int getCost(){return m_cost;};
 	virtual S_UnitModel getInfo();
 	virtual void upgrade(bool upgrade){m_upgrade = upgrade;};
+	C_GameUnits*  searchNextTarget(std::string type[MAX_TARGETS], int nbrofTargets);
+	virtual bool shoot(C_GameUnits* target);
 protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

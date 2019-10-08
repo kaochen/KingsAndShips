@@ -73,6 +73,31 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type)
 
 	return target;
 }
+
+C_GameUnits*  C_Shooter::searchNextTarget(std::string type[MAX_TARGETS], int nbrofTargets){
+	C_GameUnits* ret = nullptr;
+	for(int i = 0; i < nbrofTargets; i++) {
+			C_GameUnits* target = searchNextTarget(type[i]);
+			if(target != nullptr) {
+				ret = target;
+				i = nbrofTargets;
+			}
+	}
+	return ret;
+}
+
+bool C_Shooter::shoot(C_GameUnits* target){
+	bool touched = false;
+	if(target != nullptr){
+		bool test = m_weapon->shoot(*this, *target);
+		if (test) {
+			target->receiveDamage(m_weapon->getWeaponInfo());
+		}
+	}
+	return touched;
+}
+
+
 bool C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
 {
 	bool ret = false;

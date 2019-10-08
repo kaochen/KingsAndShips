@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <map>
 
 #include "settings.h"
 
@@ -71,7 +72,7 @@ class C_AnimTime
 {
 	public:
 	C_AnimTime();
-	~C_AnimTime();
+	~C_AnimTime(){};
 
   void setAnimNbr(const long &nbr){m_animNbr = nbr;};
 	int getAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers restart to startNbr

@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../settings.h"
 #include "../coord.h"
 #include "../time.h"
+#include "../anim.h"
 #include "pathfinding.h"
 
 struct S_Unit {
@@ -158,6 +159,7 @@ protected:
 
 	//Store time for animation
 	C_AnimTime* m_animation[MAX_ANIM];
+  C_AnimList m_anim;
 
 	bool m_selected;
 };

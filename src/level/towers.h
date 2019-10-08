@@ -58,15 +58,16 @@ protected:
 
 };
 
-enum states{WAITING, SEARCHING,SHOOTING, RELOADING,DYING,KILLED};
+
 class C_Catapult: public C_Towers {
 public:
 	C_Catapult(S_UnitModel model);
 	virtual void render(S_Coord screen);
 protected:
-  virtual void play();
-  void changeState(int state){m_state = state;};
-  int m_state;
+	virtual void play();
+	void changeState(std::string state){m_state = state;};
+	std::string m_state;
+	C_GameUnits * m_target;
 };
 
 
