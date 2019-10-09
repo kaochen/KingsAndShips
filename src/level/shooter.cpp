@@ -89,8 +89,8 @@ C_GameUnits*  C_Shooter::searchNextTarget(std::string type[MAX_TARGETS], int nbr
 bool C_Shooter::shoot(C_GameUnits* target){
 	bool touched = false;
 	if(target != nullptr){
-		bool test = m_weapon->shoot(*this, *target);
-		if (test) {
+		touched = m_weapon->shoot(*this, *target);
+		if (touched) {
 			target->receiveDamage(m_weapon->getWeaponInfo());
 		}
 	}

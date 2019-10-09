@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "anim.h"
+#include "message.h"
 
 using namespace std;
 
@@ -57,6 +58,9 @@ int C_Anim::getImageNbr(){
 
 void C_Anim::reset(){
 	m_imageCurrent = m_imageStart;
+	m_timeStart = SDL_GetTicks();
+	m_timeLast = m_timeStart;
+	m_started = false;
 }
 
 void C_Anim::status(){
@@ -66,11 +70,12 @@ void C_Anim::status(){
 bool C_Anim::end(){
 	bool ret = false;
 	long currentTime = SDL_GetTicks();
-	int imageNbr = m_imageEnd - m_imageStart;
+	int imageNbr = 1 + m_imageEnd - m_imageStart;
 
 	if( currentTime > (m_timeStart + imageNbr*m_timeDelay)){
 		ret = true;
 		m_started = false;
+		C_Message::printM(m_name + " End\n");
 	}
 	return ret;
 }
@@ -78,7 +83,10 @@ bool C_Anim::end(){
 void C_Anim::start(){
 	if(!m_started){
 		m_timeStart = SDL_GetTicks();
+		m_timeLast = m_timeStart;
+
 		m_started = true;
+		C_Message::printM(m_name + " Start\n");
 	};
 }
 //---------------- C_AnimList ------------

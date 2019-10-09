@@ -167,7 +167,9 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
 	m_state = "Waiting";
 	m_target = nullptr;
-	m_anim.add(C_Anim("Waiting",0,1,3000));
+	m_throwed = false;
+	m_touched = false;
+	m_anim.add(C_Anim("Waiting",0,0,3000));
 	m_anim.add(C_Anim("Searching",0,0,100));
 	m_anim.add(C_Anim("Shooting",0,5,100));
 	m_anim.add(C_Anim("Reloading",6,11,120));
@@ -175,6 +177,7 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 
 void C_Catapult::play(){
 	string list[1] = {"boat"};
+	bool animEnd = false;
 	//wait & search
 
 	if(m_state == "Waiting"){
@@ -185,38 +188,51 @@ void C_Catapult::play(){
 			changeState("Searching");
 		}
 	}
+
 	if(m_state == "Searching"){
+		m_anim.start(m_state);
 		if(m_target == nullptr){
 			m_target = searchNextTarget(list, 1);
 		}
 		if(m_target != nullptr){
-				m_anim.reset(m_state);
-				changeState("Shooting");
+			m_anim.reset(m_state);
+			changeState("Shooting");
 		}
 	}
 	//shoot
 	if(m_state == "Shooting"){
 		m_anim.start(m_state);
+		m_throwed = true;
 		if(m_anim.end(m_state)){
-				changeState("Reloading");
+			m_anim.reset(m_state);
+			changeState("Reloading");
+			m_anim.start(m_state);
 		}
 	}
 
 	//reload/
 	if(m_state == "Reloading"){
-		m_anim.start(m_state);
 		if(m_anim.end(m_state)){
-			changeState("Waiting");
+			m_anim.reset(m_state);
+			animEnd = true;
 		}
 	}
 
+
 	if(alive()){
-		if(m_target != nullptr){
+		if(m_target != nullptr && m_throwed){
 			if(shoot(m_target)){
 				m_target = nullptr;
-				changeState("Waiting");
-				m_anim.reset(m_state);
-			};
+				m_touched = true;
+			}
+		}
+
+		if(m_touched && animEnd){
+			m_anim.reset("Reloading");
+			changeState("Waiting");
+			m_anim.reset(m_state);
+			m_touched = false;
+			m_throwed = false;
 		}
 		m_anim.get(m_state).play();
 
@@ -240,10 +256,9 @@ void C_Catapult::render(S_Coord screen)
 		renderLifeBar(screen.x, screen.y);
 
 		imageNbr = m_anim.getImageNbr(m_state);
-		if(m_target != nullptr){
+		if(m_throwed && !m_touched){
 			m_weapon->render();
 		}
-
 		string fileName = imageName(ALIVE,current.direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		renderSelected();

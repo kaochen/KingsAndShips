@@ -68,6 +68,8 @@ protected:
 	void changeState(std::string state){m_state = state;};
 	std::string m_state;
 	C_GameUnits * m_target;
+	bool m_throwed;
+	bool m_touched;
 };
 
 
