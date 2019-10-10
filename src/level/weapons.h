@@ -62,6 +62,8 @@ public:
 	void render();
 
 private:
+	int yOffset(int distFromTarget);
+	float angleOffset(int distFromTarget, float angle);
 	S_Weapon m_weapon;
 	int m_x_screen;
 	int m_y_screen;

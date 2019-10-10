@@ -169,7 +169,7 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 	m_target = nullptr;
 	m_throwed = false;
 	m_touched = false;
-	m_anim.add(C_Anim("Waiting",0,0,3000));
+	m_anim.add(C_Anim("Waiting",0,0,m_weapon->getFireRate()));
 	m_anim.add(C_Anim("Searching",0,0,100));
 	m_anim.add(C_Anim("Shooting",0,5,100));
 	m_anim.add(C_Anim("Reloading",6,11,120));

@@ -29,7 +29,7 @@ C_Weapon::C_Weapon(S_Weapon model):
 	m_y_screen(0),
 	m_shooting(false),
 	m_lastShootTime(0),
-	m_dist(80),
+	m_dist(90),
 	m_angle(0.0)
 {
 	m_weapon.direction = EAST;
@@ -72,16 +72,49 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target)
 	//cout << "angle: " << m_angle << ":" << m_weapon.direction << endl;
 
 	m_x_screen = x_s_shooter + newA;
-	m_y_screen = y_s_shooter + newB;
-	m_dist -= 4;
-	if (m_dist < 20) {
-		m_dist = 80;
+	m_y_screen = y_s_shooter + newB - yOffset(m_dist);
+	m_dist -= 3;
+	if (m_dist < 10) {
+		m_dist = 90;
 		m_lastShootTime = SDL_GetTicks();
 		return true;
 	}
 	return false;
 }
 
+//add a little yOffset to the weapon to simulate a curve //FIXME should use a real curve
+int C_Weapon::yOffset(int distFromTarget){
+	int h = 0;
+	int hmax = 20;
+	if(distFromTarget <= 50){
+		h = (distFromTarget * hmax)/50;
+	} else if (distFromTarget < 100 && distFromTarget > 50){
+		h = ((100 - distFromTarget) * hmax)/50;
+	} else {
+		h = 0;
+	}
+	return h;
+}
+
+//add a little angle to the weapon to simulate curve
+float C_Weapon::angleOffset(int distFromTarget, float angle){
+	float a = 0.0;
+	float aMax = 30.0;
+	int distMax = 100;
+	int middle = distMax/2;
+	int rot = 1;
+	if(angle < 180){
+		rot = -1;
+	}
+	if(distFromTarget <= middle){
+		a = -1*rot*((distMax - distFromTarget) * aMax)/middle;
+	} else if (distFromTarget < distMax && distFromTarget > middle){
+		a = rot*(distFromTarget * aMax)/middle;
+	} else {
+		a = 0.0;
+	}
+	return a;
+}
 
 void C_Weapon::render()
 {
@@ -90,7 +123,7 @@ void C_Weapon::render()
 	if(m_weapon.type == "CANNONBALL"){
 		t.renderTextureEx("Weapons_cannonball", m_x_screen,m_y_screen,m_angle, CENTER_TILE);
 	} else {
-		t.renderTextureEx("Weapons_arrow", m_x_screen,m_y_screen,m_angle, CENTER_TILE);
+		t.renderTextureEx("Weapons_arrow", m_x_screen,m_y_screen,m_angle + angleOffset(m_dist, m_angle), CENTER_TILE);
 	}
 
 }
