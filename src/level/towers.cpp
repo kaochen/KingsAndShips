@@ -177,18 +177,15 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 
 void C_Catapult::play(){
 	string list[1] = {"boat"};
-	bool animEnd = false;
 	//wait & search
 
 	if(m_state == "Waiting"){
-		m_anim.start(m_state);
 		if(m_anim.end(m_state)){
 			changeState("Searching");
 		}
 	}
 
 	if(m_state == "Searching"){
-		m_anim.start(m_state);
 		m_touched = false;
 		m_throwed = false;
 		if(m_target == nullptr){
@@ -200,19 +197,16 @@ void C_Catapult::play(){
 	}
 	//shoot
 	if(m_state == "Shooting"){
-		m_anim.start(m_state);
 		if(m_anim.end(m_state)){
-			m_throwed = true;
 			changeState("Reloading");
+			m_throwed = true;
 		}
 	}
 
 	//reload/
 	if(m_state == "Reloading"){
-		m_anim.start(m_state);
 		if(m_anim.end(m_state)){
 			changeState("Waiting");
-			animEnd = true;
 		}
 	}
 
@@ -225,10 +219,6 @@ void C_Catapult::play(){
 			}
 		}
 
-		if(m_touched && animEnd){
-			changeState("Waiting");
-			m_anim.reset(m_state);
-		}
 		m_anim.get(m_state).play();
 
 	} else {
@@ -264,3 +254,9 @@ void C_Catapult::render(S_Coord screen)
 	}
 
 }
+
+void C_Catapult::changeState(std::string state){
+	m_anim.reset(m_state);
+	m_state = state;
+	m_anim.start(m_state);
+	};
