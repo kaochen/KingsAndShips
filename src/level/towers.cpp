@@ -182,38 +182,36 @@ void C_Catapult::play(){
 
 	if(m_state == "Waiting"){
 		m_anim.start(m_state);
-		m_target = nullptr;
 		if(m_anim.end(m_state)){
-			m_anim.reset(m_state);
 			changeState("Searching");
 		}
 	}
 
 	if(m_state == "Searching"){
 		m_anim.start(m_state);
+		m_touched = false;
+		m_throwed = false;
 		if(m_target == nullptr){
 			m_target = searchNextTarget(list, 1);
 		}
 		if(m_target != nullptr){
-			m_anim.reset(m_state);
 			changeState("Shooting");
 		}
 	}
 	//shoot
 	if(m_state == "Shooting"){
 		m_anim.start(m_state);
-		m_throwed = true;
 		if(m_anim.end(m_state)){
-			m_anim.reset(m_state);
+			m_throwed = true;
 			changeState("Reloading");
-			m_anim.start(m_state);
 		}
 	}
 
 	//reload/
 	if(m_state == "Reloading"){
+		m_anim.start(m_state);
 		if(m_anim.end(m_state)){
-			m_anim.reset(m_state);
+			changeState("Waiting");
 			animEnd = true;
 		}
 	}
@@ -228,11 +226,8 @@ void C_Catapult::play(){
 		}
 
 		if(m_touched && animEnd){
-			m_anim.reset("Reloading");
 			changeState("Waiting");
 			m_anim.reset(m_state);
-			m_touched = false;
-			m_throwed = false;
 		}
 		m_anim.get(m_state).play();
 

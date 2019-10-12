@@ -65,7 +65,7 @@ public:
 	virtual void render(S_Coord screen);
 protected:
 	virtual void play();
-	void changeState(std::string state){m_state = state;};
+	void changeState(std::string state){m_anim.reset(m_state); m_state = state;};
 	std::string m_state;
 	C_GameUnits * m_target;
 	bool m_throwed;
