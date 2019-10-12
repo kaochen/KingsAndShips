@@ -192,6 +192,7 @@ void C_Catapult::play(){
 			m_target = searchNextTarget(list, 1);
 		}
 		if(m_target != nullptr){
+			m_weapon->updateDirection(*this, *m_target);
 			changeState("Shooting");
 		}
 	}

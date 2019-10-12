@@ -46,6 +46,20 @@ void C_Weapon::setShooting(bool status)
 	m_shooting = status;
 }
 
+void C_Weapon::updateDirection(C_GameUnits &shooter, C_GameUnits &target){
+
+	int ab = target.getXScreen() - shooter.getXScreen();
+	int bc = target.getYScreen() - shooter.getYScreen();
+	float angle = atan2(ab,bc);
+
+	m_angle = 180 - (angle *180/3.14159265359);
+	if(m_angle < 0)
+		m_angle +=360;
+
+	C_Coord coord(1,1); //need a random one
+	m_weapon.direction = coord.angleToDirection(m_angle);
+}
+
 
 bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target)
 {

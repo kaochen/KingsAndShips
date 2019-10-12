@@ -31,36 +31,18 @@ public:
 	~C_Weapon() {};
 
 	void displayStatus() const;
+	S_Weapon getWeaponInfo(){return m_weapon;};
+	int getDamage(){return m_weapon.damage;};
+	int getFireRate(){return m_weapon.fireRate;};
+	int getFireRange(){return m_weapon.fireRange;};
+	bool getShooting(){return m_shooting;};
 
-	S_Weapon getWeaponInfo()
-	{
-		return m_weapon;
-	};
-	int getDamage()
-	{
-		return m_weapon.damage;
-	};
-	int getFireRate()
-	{
-		return m_weapon.fireRate;
-	};
-	int getFireRange()
-	{
-		return m_weapon.fireRange;
-	};
-	bool getShooting()
-	{
-		return m_shooting;
-	};
-
-	long getLastShootTime()
-	{
-		return m_lastShootTime;
-	};
+	long getLastShootTime(){return m_lastShootTime;};
 	void setShooting(bool status);
 	bool shoot(C_GameUnits &shooter, C_GameUnits &target);
 	void render();
 
+	void updateDirection(C_GameUnits &shooter, C_GameUnits &target);
 private:
 	int yOffset(int distFromTarget);
 	float angleOffset(int distFromTarget, float angle);
