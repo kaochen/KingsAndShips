@@ -77,13 +77,8 @@ bool C_Weapon::shoot(C_GameUnits &shooter, C_GameUnits &target)
 	double angle = atan2(ab,bc);
 	int newA = hyp*sin(angle);
 	int newB = hyp*cos(angle);
-	m_angle = 180 - (angle *180/3.14159265359);
-	if(m_angle < 0)
-		m_angle +=360;
 
-	C_Coord coord(1,1); //need a random one
-	m_weapon.direction = coord.angleToDirection(m_angle);
-	//cout << "angle: " << m_angle << ":" << m_weapon.direction << endl;
+	updateDirection(shooter, target); //FIXME should be removed after using the catapult code for all shooters
 
 	m_x_screen = x_s_shooter + newA;
 	m_y_screen = y_s_shooter + newB - yOffset(m_dist);
