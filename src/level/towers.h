@@ -34,11 +34,17 @@ public:
 protected:
 	virtual void render(S_Coord screen);
 	virtual void renderSelected();
-  virtual void renderTowerStatus(std::string name, int x_screen, int y_screen);
+	virtual void renderTowerStatus(std::string name, int x_screen, int y_screen);
 	virtual void renderSmoke();
-  virtual void renderTowerStatusCircle(std::string name, int x_screen, int y_screen, int fireRate, int fireRange, int damage, std::string color);
+	virtual void renderTowerStatusCircle(std::string name, int x_screen, int y_screen, int fireRate, int fireRange, int damage, std::string color);
 	long m_lastSmokeTime;
 	int m_smokeNbr;
+
+	void changeState(std::string state);
+	std::string m_state;
+	C_GameUnits * m_target;
+	bool m_throwed;
+	bool m_touched;
 };
 
 
@@ -62,14 +68,7 @@ protected:
 class C_Catapult: public C_Towers {
 public:
 	C_Catapult(S_UnitModel model);
-	virtual void render(S_Coord screen);
 protected:
-	virtual void play();
-	void changeState(std::string state);
-	std::string m_state;
-	C_GameUnits * m_target;
-	bool m_throwed;
-	bool m_touched;
 };
 
 
