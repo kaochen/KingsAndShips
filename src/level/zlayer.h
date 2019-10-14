@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "gameUnits.h"
 #include "../coord.h"
 
-enum zlayers {GROUND,GRAVEYARD,FIELD,CLOUD};
+enum zlayers {GROUND,GRAVEYARD,FIELD,WEAPONS,CLOUD};
 
 class C_ZLayer {
 public:

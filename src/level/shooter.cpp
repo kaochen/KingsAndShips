@@ -206,9 +206,15 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 void C_Shooter::render(S_Coord screen)
 {
 	C_GameUnits::render(screen);
-	if (m_weapon->getShooting())
-		m_weapon->render();
 	renderLifeBar(screen.x, screen.y);
+}
+
+void C_Shooter::renderWeapon(){
+	if (alive()) {
+		if (m_weapon->getShooting()){
+			m_weapon->render();
+		}
+	}
 }
 
 void C_Shooter::drag(S_Coord screen)

@@ -44,6 +44,7 @@ public:
 	virtual void upgrade(bool upgrade){m_upgrade = upgrade;};
 	C_GameUnits*  searchNextTarget(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual bool shoot(C_GameUnits* target);
+	virtual void renderWeapon();
 protected:
 
 	virtual void renderLifeBar(int x_screen, int y_screen);

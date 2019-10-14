@@ -122,9 +122,7 @@ void C_Towers::render(S_Coord screen)
 		renderLifeBar(screen.x, screen.y);
 
 		imageNbr = m_anim.getImageNbr(m_state);
-		if(m_throwed && !m_touched){
-			m_weapon->render();
-		}
+
 		string fileName = imageName(ALIVE,current.direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		renderSelected();
@@ -132,6 +130,12 @@ void C_Towers::render(S_Coord screen)
 	} else {
 		string fileName = imageName(DEAD,current.direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	}
+}
+
+void C_Towers::renderWeapon(){
+	if(m_throwed && !m_touched){
+		m_weapon->render();
 	}
 }
 
@@ -214,9 +218,6 @@ void C_ArcherTower::render(S_Coord screen)
 		renderLifeBar(screen.x, screen.y);
 
 		imageNbr = m_anim.getImageNbr(m_state);
-		if(m_throwed && !m_touched){
-			m_weapon->render();
-		}
 		string fileName = imageName(ALIVE,EAST,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		renderSelected();

@@ -212,6 +212,13 @@ bool C_ZLayer::render(int layer)
 				ret = true;
 			}
 			break;
+		case  WEAPONS:
+			if(m_field != nullptr) {
+				m_field->regendScreenCoord();
+				m_field->renderWeapon();
+				ret = true;
+			}
+			break;
 		case  CLOUD:
 			if(m_cloud != nullptr) {
 				m_cloud->regendScreenCoord();

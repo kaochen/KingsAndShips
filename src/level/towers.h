@@ -30,6 +30,7 @@ public:
 	//methods
 	C_Towers(S_UnitModel model);
 	virtual void play();
+	virtual void renderWeapon();
 
 protected:
 	virtual void render(S_Coord screen);

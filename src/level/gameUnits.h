@@ -91,10 +91,8 @@ public:
 	virtual int getRank() const {return m_rank;};
 	virtual void displayStatus();
 	virtual void render(S_Coord screen);
-	virtual void render()
-	{
-		std::cout << ";)";
-	};
+	virtual void render(){std::cout << "render";};
+	virtual void renderWeapon(){};
 
 	//shoot
 	virtual bool shoot(std::string type[MAX_TARGETS], int nbrofTargets);

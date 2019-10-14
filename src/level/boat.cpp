@@ -151,10 +151,8 @@ void C_Boat::render(S_Coord screen)
 	if (m_moving)
 		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
 
-	if (this->alive()) {
+	if (alive()) {
 		status = ALIVE;
-		if (m_weapon->getShooting())
-			m_weapon->render();
 		renderLifeBar(screen.x, screen.y);
 		m_C_Path->displayPath();
 	} else {

@@ -261,6 +261,7 @@ void C_Level::render()
 	grid.renderLayer (GRAVEYARD);
 	grid.renderLayer (GROUND);
 	grid.renderLayer (FIELD);
+	grid.renderLayer (WEAPONS);
 	m_landscape->renderBottomMask(grid.getUsefullSize());
 	grid.renderLayer (CLOUD);
 }

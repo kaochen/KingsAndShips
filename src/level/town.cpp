@@ -31,12 +31,3 @@ void C_Town::play()
 	this->shoot(list,1);
 }
 
-void C_Town::render(S_Coord screen)
-{
-	C_GameUnits::render(screen);
-	//renderLifeBar(screen.x, screen.y);
-	if (m_weapon->getShooting()) {
-		m_weapon->render();
-	}
-
-}

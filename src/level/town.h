@@ -28,7 +28,6 @@ public:
 	C_Town(S_UnitModel model);
 protected:
 	virtual void play();
-	virtual void render(S_Coord screen);
 private:
 };
 
