@@ -55,6 +55,9 @@ protected:
 	virtual void shootTarget(C_GameUnits &target);
 	virtual void drawEllipse(int x,int y, int size, bool ok);
 
+	void changeState(std::string state);
+	std::string m_state;
+
 	C_Weapon *m_weapon;
 	long m_lastShootTime;
 	bool m_justAdded;

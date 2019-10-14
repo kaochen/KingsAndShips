@@ -33,7 +33,6 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_smokeNbr = 1;
 	m_justAdded = true;
 
-	m_state = "Waiting";
 	m_target = nullptr;
 	m_throwed = false;
 	m_touched = false;
@@ -191,11 +190,7 @@ void C_Towers::renderTowerStatusCircle(std::string name, int x_screen, int y_scr
 		}
 }
 
-void C_Towers::changeState(std::string state){
-	m_anim.reset(m_state);
-	m_state = state;
-	m_anim.start(m_state);
-	};
+
 
 //---------------------------------------------------
 

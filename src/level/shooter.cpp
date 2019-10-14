@@ -29,6 +29,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_cost(model.cost),
 	m_upgrade(false)
 {
+	m_state = "Waiting";
 	m_weapon = new C_Weapon(model.weapon);
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	C_Message::printM(message);
@@ -307,3 +308,9 @@ S_UnitModel C_Shooter::getInfo(){
 	unit.weapon.direction =  m_weapon->getWeaponInfo().direction;
 	return unit;
 }
+
+void C_Shooter::changeState(std::string state){
+	m_anim.reset(m_state);
+	m_state = state;
+	m_anim.start(m_state);
+};

@@ -25,22 +25,32 @@ using namespace std;
 
 C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model)
 {
+	m_anim.add(C_Anim("Waiting",0,10,100));
 }
 
 void C_Barricade::play()
 {
-	if(!alive())
+	if(alive()){
+		if(m_state == "Waiting"){
+			if(m_anim.end(m_state)){
+				changeState("Waiting");
+			}
+		}
+		m_anim.get(m_state).play();
+	} else {
 		kill();
+	}
 }
 
 void C_Barricade::render(S_Coord screen)
 {
 	if(alive()) {
-		int	imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,100);
+		renderLifeBar(screen.x, screen.y);
+
+		int	imageNbr = m_anim.getImageNbr(m_state);
 		string fileName = m_name+"_A_" + to_string(imageNbr);
-		//cout << "image name is "<< fileName << endl;
+
 		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
-		renderLifeBar(screen.x, screen.y);
 	}
 }

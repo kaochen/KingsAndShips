@@ -41,8 +41,6 @@ protected:
 	long m_lastSmokeTime;
 	int m_smokeNbr;
 
-	void changeState(std::string state);
-	std::string m_state;
 	C_GameUnits * m_target;
 	bool m_throwed;
 	bool m_touched;
