@@ -305,10 +305,7 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 	if(name == "AddTower") {
 		unit.name = "ArcherTower_0";
 		m_unit = factory.create(unit);
-	} else if(name == "AddTurbine") {
-		unit.name = "Turbine_0";
-		m_unit = factory.create(unit);}
-	 else if(name == "AddCatapult") {
+	}  else if(name == "AddCatapult") {
 		unit.name = "Catapult_0";
 		m_unit = factory.create(unit);
 	} else if(name == "AddBarricade") {

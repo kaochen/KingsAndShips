@@ -227,33 +227,6 @@ void C_ArcherTower::render(S_Coord screen)
 	}
 }
 
-
-C_Turbine::C_Turbine(S_UnitModel model):C_Towers(model)
-{
-}
-
-void C_Turbine::render(S_Coord screen)
-{
-	if(alive()) {
-		renderSelected();
-		renderLifeBar(screen.x, screen.y);
-
-		S_Weapon current = m_weapon->getWeaponInfo();
-		int rotationSpeed = 200;
-		if (m_weapon->getShooting())
-			rotationSpeed = 50;
-		int imageNbr = m_animation[MAIN_ANIM]->getAnimNbr(0,7,rotationSpeed);
-
-		string fileName = imageName(ALIVE,current.direction,imageNbr);
-		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
-
-		if (m_justAdded)
-			renderSmoke();
-	}
-}
-
-
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
 	m_anim.add(C_Anim("Shooting",0,5,100));

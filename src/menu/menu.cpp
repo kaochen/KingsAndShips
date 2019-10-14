@@ -41,9 +41,7 @@ C_Menu::C_Menu():
 	//left buttons
 	m_menuItemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
 	y_button +=size;
-	m_menuItemsList["AddCatapult"] = new C_GB_AddUnit("AddCatapult","AddTurbine",x_button,y_button);
-	y_button +=size;
-	m_menuItemsList["AddTurbine"] = new C_GB_AddUnit("AddTurbine","AddTurbine",x_button,y_button);
+	m_menuItemsList["AddCatapult"] = new C_GB_AddUnit("AddCatapult","AddCatapult",x_button,y_button);
 	y_button +=size;
 	m_menuItemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
 	S_Coord upgradeCoord = {10,10};
@@ -288,7 +286,6 @@ vector<string> C_Menu::getMenuItemsList()
 
 	} else {
 		list.push_back("AddTower");
-		list.push_back("AddTurbine");
 		list.push_back("AddBarricade");
 		list.push_back("AddCatapult");
 	}

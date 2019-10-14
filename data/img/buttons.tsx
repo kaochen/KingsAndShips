@@ -13,9 +13,9 @@
  <tile id="9" type="AddBarricade_Active"/>
  <tile id="10" type="AddBarricade_Hover"/>
  <tile id="11" type="AddBarricade_Disabled"/>
- <tile id="12" type="AddTurbine_Active"/>
- <tile id="13" type="AddTurbine_Hover"/>
- <tile id="14" type="AddTurbine_Disabled"/>
+ <tile id="12" type="AddCatapult_Active"/>
+ <tile id="13" type="AddCatapult_Hover"/>
+ <tile id="14" type="AddCatapult_Disabled"/>
  <tile id="15" type="AddTower_Active"/>
  <tile id="16" type="AddTower_Hover"/>
  <tile id="17" type="AddTower_Disabled"/>

@@ -121,11 +121,6 @@ bool C_Grid::addUnit(string &type, S_Coord coord)
 			unit.name = "ArcherTower_0";
 			typeOk = true;
 		}
-	} else if(type == "AddTurbine") {
-		if(isThisConstructible(coord, false)){
-			unit.name = "Turbine_0";
-			typeOk = true;
-		}
 	} else if(type == "AddCatapult") {
 		if(isThisConstructible(coord, false)){
 			unit.name = "Catapult_0";
@@ -339,13 +334,13 @@ bool C_Grid::selectATower(C_Coord clic)
 	if(grid.x >= 0 && grid.x < (int)(m_vgrid.size()-1) && grid.y >= 0 && grid.y < (int)(m_vgrid.size()-1)) {
 		if (m_vgrid[grid.x+1][grid.y+1].get(FIELD) != nullptr) {
 			type = m_vgrid[grid.x+1][grid.y+1].get(FIELD)->getType();
-			if(type == "ArcherTower" || type == "Turbine"|| type == "Catapult") {
+			if(type == "ArcherTower" || type == "Catapult") {
 				bottom = true;
 			}
 		}
 		if (m_vgrid[grid.x][grid.y].get(FIELD) != nullptr) {
 			type = m_vgrid[grid.x][grid.y].get(FIELD)->getType();
-			if(type == "ArcherTower"|| type == "Turbine"|| type == "Catapult") {
+			if(type == "ArcherTower"|| type == "Catapult") {
 				top = true;
 			}
 		}

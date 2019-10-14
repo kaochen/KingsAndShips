@@ -56,14 +56,6 @@ protected:
 
 };
 
-class C_Turbine: public C_Towers {
-public:
-	C_Turbine(S_UnitModel model);
-	virtual void render(S_Coord screen);
-protected:
-
-};
-
 
 class C_Catapult: public C_Towers {
 public:
