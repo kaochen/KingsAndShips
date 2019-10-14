@@ -35,11 +35,12 @@ public:
 	~C_Boat();
 
 	virtual void play();
-	virtual void kill();
 protected:
 	virtual void render(S_Coord screen);
 	virtual void recalcPath(S_Coord dest);
 	virtual void move();
+
+	virtual void kill();
 
 	//attributs
 	bool m_moving;

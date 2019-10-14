@@ -105,35 +105,22 @@ public:
 	virtual void regendScreenCoord(){ m_coord.regenScreenCoord();};
 
 	//selected or not
-	virtual bool getSelectedStatus() const
-	{
-		return m_selected;
-	};
-	virtual void setSelectedStatus(bool status)
-	{
-		m_selected = status;
-	};
+	virtual bool getSelectedStatus() const {return m_selected;};
+	virtual void setSelectedStatus(bool status)	{m_selected = status;};
 	virtual void reverseSelectedStatus();
 
 	//alive or dead
-	virtual int getHealth() const
-	{
-		return m_health;
-	}
+	virtual int getHealth() const {	return m_health;};
 
 	//wallet
 	virtual int getCost(){return 0;};
 
 	virtual S_UnitModel getInfo();
-  virtual void upgrade(bool upgrade){if(upgrade){std::cout << "upgrade" << std::endl;}};
+	virtual void upgrade(bool upgrade){if(upgrade){std::cout << "upgrade" << std::endl;}};
 
 protected:
 	//alive or dead
-	virtual bool alive() const
-	{
-		return m_health>0;
-	};
-	virtual void kill() {};
+	virtual bool alive() const {return m_health>0;};
 
 	virtual int getDistance(int x, int y);
 	virtual std::string imageName(int status,int direction,int imageNbr);

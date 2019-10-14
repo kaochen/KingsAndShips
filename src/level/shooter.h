@@ -35,7 +35,6 @@ public:
 	virtual ~C_Shooter();
 
 	virtual	void displayStatus();
-	virtual void kill();
 	virtual void upgrade(S_UnitModel model);
 	virtual void drag(S_Coord screen);
 	virtual int getCost(){return m_cost;};
@@ -47,6 +46,8 @@ protected:
 	virtual bool shoot();
 	virtual bool shoot(C_GameUnits* target);
 	C_GameUnits*  searchNextTarget();
+
+	virtual void kill();
 
 	virtual void renderLifeBar(int x_screen, int y_screen);
 	virtual void render(S_Coord screen);

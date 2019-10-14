@@ -29,8 +29,8 @@ C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model)
 
 void C_Barricade::play()
 {
-	if(!this->alive())
-		this->kill();
+	if(!alive())
+		kill();
 }
 
 void C_Barricade::render(S_Coord screen)
