@@ -167,13 +167,6 @@ void C_Boat::render(S_Coord screen)
 }
 
 
-void C_Boat::receiveDamage(S_Weapon weapon)
-{
-	m_health -=weapon.damage;
-	if (m_health < 0) {
-		m_health = 0;
-	}
-}
 
 void C_Boat::recalcPath(S_Coord dest)
 {
