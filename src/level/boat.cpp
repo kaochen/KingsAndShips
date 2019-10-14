@@ -55,7 +55,7 @@ void C_Boat::play()
 	move();
 	shoot();
 
-	if(alive())
+	if(!alive())
 		kill();
 };
 
