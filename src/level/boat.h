@@ -42,14 +42,11 @@ public:
 protected:
 	virtual void render(S_Coord screen);
 	virtual void recalcPath(S_Coord dest);
-	virtual int calcSpeed();
 
 	//attributs
 	bool m_moving;
 	C_Path* m_C_Path;
 	int m_speed;
-	int m_speedImpact;
-	int m_speedImpactLoop;
 	int m_countStop;
 	int m_countRegenPath;
 	C_AnimTime* m_animDirection;

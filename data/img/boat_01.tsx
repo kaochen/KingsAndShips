@@ -11,7 +11,6 @@
   <property name="weapon.damage" type="int" value="2"/>
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="2000"/>
-  <property name="weapon.speedImpact" type="int" value="0"/>
  </properties>
  <image source="original/t_boat_01.png" width="1024" height="1024"/>
  <tile id="0" type="A_EE_0"/>

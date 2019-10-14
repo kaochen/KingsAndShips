@@ -11,7 +11,6 @@
   <property name="weapon.damage" type="int" value="20"/>
   <property name="weapon.firerange" type="int" value="3"/>
   <property name="weapon.firerate" type="int" value="1500"/>
-  <property name="weapon.speedImpact" type="int" value="0"/>
  </properties>
  <image source="original/t_archerTower_03.png" width="128" height="128"/>
  <tile id="0" type="A_EE_0"/>

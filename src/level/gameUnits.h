@@ -40,7 +40,6 @@ struct S_Unit {
 struct S_Weapon {
 	std::string type;
 	int damage;
-	int speedImpact;
 	int fireRate;
 	int fireRange;
 	int direction;

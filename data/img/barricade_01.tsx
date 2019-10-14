@@ -11,7 +11,6 @@
     <property name="weapon.damage" type="int" value="0"/>
     <property name="weapon.firerange" type="int" value="0"/>
     <property name="weapon.firerate" type="int" value="0"/>
-    <property name="weapon.speedImpact" type="int" value="0"/>
  </properties>
  <image source="original/t_barricade_01.png" width="1024" height="256"/>
  <tile id="0" type="A_0"/>

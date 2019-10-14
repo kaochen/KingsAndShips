@@ -182,7 +182,6 @@ S_UnitModel C_GameUnits::getInfo(){
 	unit.alive = true;
 	unit.weapon.type = "NO_WEAPON";
 	unit.weapon.damage = 0;
-	unit.weapon.speedImpact = 0;
 	unit.weapon.fireRate = 0;
 	unit.weapon.fireRange = 0;
 	unit.weapon.direction = WEST;

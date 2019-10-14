@@ -12,7 +12,6 @@
   <property name="weapon.damage" type="int" value="3"/>
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="2000"/>
-  <property name="weapon.speedImpact" type="int" value="0"/>
  </properties>
  <image source="original/Town_01.png" width="256" height="256"/>
  <tile id="0" type="A_EE_0"/>

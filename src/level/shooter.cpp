@@ -298,7 +298,6 @@ S_UnitModel C_Shooter::getInfo(){
 	unit.alive = true;
 	unit.weapon.type = m_weapon->getWeaponInfo().type;
 	unit.weapon.damage = m_weapon->getWeaponInfo().damage;
-	unit.weapon.speedImpact =  m_weapon->getWeaponInfo().speedImpact;
 	unit.weapon.fireRate =  m_weapon->getWeaponInfo().fireRate;
 	unit.weapon.fireRange =  m_weapon->getWeaponInfo().fireRange;
 	unit.weapon.direction =  m_weapon->getWeaponInfo().direction;

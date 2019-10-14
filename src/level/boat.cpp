@@ -27,7 +27,6 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 {
 	m_moving = false;
 	m_speed = model.speed;
-	m_speedImpactLoop = 60;
 	m_coord.centerOnTile();
 	//Find a way to town
 	C_Grid& grid= C_Locator::getGrid();
@@ -90,15 +89,14 @@ void C_Boat::move()
 			int bc = dest.y - start.y;
 			double angle = destCoord.atan2_360(ab,bc);
 
-			int speed = calcSpeed();
 
 			//move following angle and speed
 			C_Coord tmp = m_coord;
-			tmp.move(angle,speed);
+			tmp.move(angle,m_speed);
 			tmp.regenGridCoord();
 			bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
 			if(!nextEmpty) {
-				m_coord.move(angle,speed);
+				m_coord.move(angle,m_speed);
 				m_countStop = 0;
 				m_direction = destCoord.angleToDirection(angle);
 				m_coord.regenGridCoord();
@@ -171,7 +169,6 @@ void C_Boat::render(S_Coord screen)
 void C_Boat::receiveDamage(S_Weapon weapon)
 {
 	m_health -=weapon.damage;
-	m_speedImpact = weapon.speedImpact;
 	if (m_health < 0) {
 		m_health = 0;
 	}
@@ -183,22 +180,5 @@ void C_Boat::recalcPath(S_Coord dest)
 	m_C_Path = new C_Path(dest.x,dest.y);
 	m_C_Path->calcPath(m_coord.getXGrid(),m_coord.getYGrid(),dest.x,dest.y);
 	m_C_Path->showPath();
-}
-
-int C_Boat::calcSpeed()
-{
-	int speed = m_speed - m_speedImpact;
-	if (speed < 0) {
-		speed = VERY_SLOW;
-	}
-	//reset malus on speed every x moves
-	//cout << "speed" << speed << "=" << m_speed << "-" << m_speedImpact << endl;
-	if (m_speedImpactLoop > 0) {
-		m_speedImpactLoop--;
-	} else {
-		m_speedImpact = 0;
-		m_speedImpactLoop=10;
-	}
-	return speed;
 }
 
