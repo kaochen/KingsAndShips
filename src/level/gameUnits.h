@@ -71,7 +71,6 @@ public:
 
 	virtual ~C_GameUnits();
 	virtual void play() {};
-	virtual void move() {};
 	virtual void upgrade(S_UnitModel model) {std::cout << "model " << model.name;};
 	virtual void drag(S_Coord screen)
 	{
@@ -95,7 +94,6 @@ public:
 	virtual void renderWeapon(){};
 
 	//shoot
-	virtual bool shoot(std::string type[MAX_TARGETS], int nbrofTargets);
 	virtual void receiveDamage(S_Weapon weapon);
 
 	//Coord
@@ -156,7 +154,7 @@ protected:
 
 	//Store time for animation
 	C_AnimTime* m_animation[MAX_ANIM];
-  C_AnimList m_anim;
+	C_AnimList m_anim;
 
 	bool m_selected;
 };

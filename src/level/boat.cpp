@@ -38,6 +38,10 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_animDirection = new C_AnimTime();
 	m_countStop = 0;
 	m_countRegenPath = 0;
+	m_targetsTypes.push_back("town");
+	m_targetsTypes.push_back("barricade");
+	m_targetsTypes.push_back("ArcherTower");
+	m_targetsTypes.push_back("Catapult");
 }
 
 C_Boat::~C_Boat()
@@ -48,12 +52,11 @@ C_Boat::~C_Boat()
 
 void C_Boat::play()
 {
-	this->move();
-	string list[4] = {"town","barricade","ArcherTower","Catapult"};
-	this->shoot(list, 4);
+	move();
+	shoot();
 
-	if(!this->alive())
-		this->kill();
+	if(alive())
+		kill();
 };
 
 void C_Boat::kill()

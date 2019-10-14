@@ -74,14 +74,15 @@ C_GameUnits*  C_Shooter::searchNextTarget(string type)
 	return target;
 }
 
-C_GameUnits*  C_Shooter::searchNextTarget(std::string type[MAX_TARGETS], int nbrofTargets){
+C_GameUnits*  C_Shooter::searchNextTarget(){
 	C_GameUnits* ret = nullptr;
-	for(int i = 0; i < nbrofTargets; i++) {
-			C_GameUnits* target = searchNextTarget(type[i]);
+	for(auto i: m_targetsTypes) {
+		if(ret == nullptr){
+			C_GameUnits* target = searchNextTarget(i);
 			if(target != nullptr) {
 				ret = target;
-				i = nbrofTargets;
 			}
+		}
 	}
 	return ret;
 }
@@ -97,25 +98,25 @@ bool C_Shooter::shoot(C_GameUnits* target){
 	return touched;
 }
 
-
-bool C_Shooter::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
+bool C_Shooter::shoot()
 {
 	bool ret = false;
-	for(int i = 0; i < nbrofTargets; i++) {
-		C_GameUnits* target = searchNextTarget(type[i]);
-		if(target != nullptr) {
-			long currentTime = SDL_GetTicks();
-			if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()) {
-				m_weapon->setShooting(true);
-				shootTarget(*target);
-				i = MAX_TARGETS + 1;
-				ret = true;
-				//cout << target.getName() << " has been shot" << endl;
+	for(auto i: m_targetsTypes){
+		if(!ret){
+			C_GameUnits* target = searchNextTarget(i);
+			if(target != nullptr) {
+				long currentTime = SDL_GetTicks();
+				if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()) {
+					m_weapon->setShooting(true);
+					shootTarget(*target);
+					ret = true;
+					//cout << i << ": " << target->getName() << " has been shot" << endl;
+				} else {
+					m_weapon->setShooting(false);
+				}
 			} else {
 				m_weapon->setShooting(false);
 			}
-		} else {
-			m_weapon->setShooting(false);
 		}
 	}
 	return ret;
@@ -138,9 +139,6 @@ void C_Shooter::displayStatus()
 }
 
 
-void C_Shooter::move()
-{
-}
 
 void C_Shooter::upgrade(S_UnitModel model)
 {

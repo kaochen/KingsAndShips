@@ -41,7 +41,7 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_anim.add(C_Anim("Searching",0,0,100));
 	m_anim.add(C_Anim("Shooting",0,0,100));
 	m_anim.add(C_Anim("Reloading",0,0,120));
-
+	m_targetsTypes.push_back("boat");
 }
 
 void C_Towers::play()
@@ -59,7 +59,7 @@ void C_Towers::play()
 		m_touched = false;
 		m_throwed = false;
 		if(m_target == nullptr){
-			m_target = searchNextTarget(list, 1);
+			m_target = searchNextTarget();
 		}
 		if(m_target != nullptr){
 			m_weapon->updateDirection(*this, *m_target);
@@ -202,6 +202,7 @@ void C_Towers::changeState(std::string state){
 
 C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
+	m_targetsTypes.push_back("boat");
 }
 
 void C_ArcherTower::render(S_Coord screen)
@@ -230,6 +231,7 @@ void C_ArcherTower::render(S_Coord screen)
 
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
+	m_targetsTypes.push_back("boat");
 	m_anim.add(C_Anim("Shooting",0,5,100));
 	m_anim.add(C_Anim("Reloading",6,11,120));
 }

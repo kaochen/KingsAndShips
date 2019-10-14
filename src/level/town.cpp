@@ -23,11 +23,11 @@ using namespace std;
 
 C_Town::C_Town(S_UnitModel model):C_Shooter(model)
 {
+	m_targetsTypes.push_back("boat");
 }
 
 void C_Town::play()
 {
-	string list[1] = {"boat"};
-	this->shoot(list,1);
+	shoot();
 }
 

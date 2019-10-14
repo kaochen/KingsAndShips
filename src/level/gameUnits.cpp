@@ -164,11 +164,6 @@ string C_GameUnits::directionToStr(int intDirection)
 }
 
 
-bool C_GameUnits::shoot(std::string type[MAX_TARGETS], int nbrofTargets)
-{
-	cout << type[1] << nbrofTargets << endl; //to quiet gcc
-	return false;
-}
 
 S_UnitModel C_GameUnits::getInfo(){
 	S_UnitModel unit;
