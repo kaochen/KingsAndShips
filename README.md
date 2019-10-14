@@ -84,10 +84,19 @@ montage Src*.png -tile 8x8 -geometry +0+0 -background none tilset.png
 Search where improving the code is more usefull
 #### linux-perf
 ```
-apt install linux-perf
+sudo apt install linux-perf
 sudo perf record -g ./build/kingsandships -sleep 10
-perf report --sort comm,dso
+sudo perf report --sort comm,dso
 ```
+
+#### Valgind :
+```
+sudo apt install valgrind
+valgrind --leak-check=full --show-leak-kinds=all --log-file=valgrind.log ./build/kingsandships
+
+```
+Then read the valgrind.log (It is helpfull, especialy with a segmentation fault)
+
 
 #### Git
 ```
@@ -98,7 +107,7 @@ git remote set-url origin git@github.com:kaochen/KingsAndShips.git
 ##### Generate documentation from source with doxygen: 
 
 ```
-apt install doxygen doxygen-gui graphviz
+sudo apt install doxygen graphviz
 doxygen doc/Doxyfile
 ```
 access: doc/html/index.html
