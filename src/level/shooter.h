@@ -64,6 +64,8 @@ protected:
   	bool m_upgrade;
 	std::vector <std::string> m_targetsTypes;
 
+	bool m_canRotate;
+	bool m_isAnimated;
 };
 
 #endif

@@ -24,6 +24,8 @@ using namespace std;
 C_Town::C_Town(S_UnitModel model):C_Shooter(model)
 {
 	m_targetsTypes.push_back("boat");
+	m_canRotate = false;
+	m_isAnimated = false;
 }
 
 void C_Town::play()

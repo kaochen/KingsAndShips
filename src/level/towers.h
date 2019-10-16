@@ -44,8 +44,7 @@ protected:
 	C_GameUnits * m_target;
 	bool m_throwed;
 	bool m_touched;
-	bool m_canRotate;
-	bool m_isAnimated;
+
 };
 
 
