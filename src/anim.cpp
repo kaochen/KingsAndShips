@@ -35,7 +35,8 @@ C_Anim::C_Anim(std::string name, int imageStart,int imageEnd,long delay):
 	m_imageEnd(imageEnd),
 	m_imageCurrent(imageStart),
 	m_started(false),
-	m_timeDelay(delay)
+	m_timeDelay(delay),
+	m_rewind(false)
 {
 	m_timeStart = SDL_GetTicks();
 	m_timeLast = m_timeStart;
@@ -51,6 +52,28 @@ void C_Anim::play(){
 		}
 	}
 }
+
+void C_Anim::playAndRewind(){
+	long timeCurrent = SDL_GetTicks();
+	if( timeCurrent > (m_timeLast + m_timeDelay)){
+		if(m_rewind) {
+			m_imageCurrent--;
+		} else {
+			m_imageCurrent++;
+		}
+		m_timeLast = timeCurrent;
+
+
+		if (m_imageCurrent >= m_imageEnd) {
+			m_imageCurrent = m_imageEnd;
+			m_rewind = true;
+		} else if (m_imageCurrent <= m_imageStart) {
+			m_imageCurrent = m_imageStart;
+		m_rewind = false;
+		}
+	}
+}
+
 
 int C_Anim::getImageNbr(){
 	return m_imageCurrent;
@@ -127,6 +150,14 @@ void C_AnimList::play(std::string name){
 	for(auto & x : m_list){
 		if(x.first == name){
 			x.second.play();
+		}
+	}
+};
+
+void C_AnimList::playAndRewind(std::string name){
+	for(auto & x : m_list){
+		if(x.first == name){
+			x.second.playAndRewind();
 		}
 	}
 };

@@ -32,6 +32,7 @@ public:
 	C_Anim(std::string name, int imageStart,int imageEnd,long delay);
 	~C_Anim(){};
 	void play();
+	void playAndRewind();
 	void reset();
 	int getImageNbr();
 	std::string getName(){return m_name;};
@@ -49,6 +50,8 @@ private:
 	long m_timeStart;
 	long m_timeDelay;
 	long m_timeLast;
+
+	bool m_rewind;
 };
 
 
@@ -61,6 +64,7 @@ public:
 	int getImageNbr(std::string name);
 	C_Anim& get(std::string name);
 	void play(std::string name);
+	void playAndRewind(std::string name);
 	bool end(std::string name){return get(name).end();};
 	void reset(std::string name){get(name).reset();};
 	void start(std::string name){get(name).start();};

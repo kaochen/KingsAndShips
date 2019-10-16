@@ -34,6 +34,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	C_Message::printM(message);
 	m_coord.displayStatus();
+	m_anim.add(C_Anim("Drag",1,8,40));
 }
 
 C_Shooter::~C_Shooter()
@@ -220,6 +221,7 @@ void C_Shooter::drag(S_Coord screen)
 {
 
 	m_justAdded = false;
+	m_anim.get("Drag").playAndRewind();
 	C_Grid& grid= C_Locator::getGrid();
 
 	bool water = false;
@@ -252,7 +254,7 @@ void C_Shooter::drag(S_Coord screen)
 			string color = "Green";
 			string imageNbr = "01";
 			if (i == 1 && j == 1) {
-				imageNbr = "0" + to_string(m_animation[SELECT]->getLoopAnimNbr(1,8,40));
+				imageNbr = "0" + to_string(m_anim.getImageNbr("Drag"));
 			}
 			if(!status){ color = "Red";};
 
