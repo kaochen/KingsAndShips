@@ -30,6 +30,7 @@ class C_Anim
 public:
 	C_Anim();
 	C_Anim(std::string name, int imageStart,int imageEnd,long delay);
+	C_Anim(std::string name, int imageStart,int imageEnd,long delay, bool randomStart);
 	~C_Anim(){};
 	void play();
 	void playAndRewind();

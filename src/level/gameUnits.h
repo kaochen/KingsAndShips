@@ -69,7 +69,7 @@ public:
 				int rank);
 	C_GameUnits(S_UnitModel model);
 
-	virtual ~C_GameUnits();
+	virtual ~C_GameUnits(){};
 	virtual void play() {};
 	virtual void upgrade(S_UnitModel model) {std::cout << "model " << model.name;};
 	virtual void drag(S_Coord screen)
@@ -126,6 +126,9 @@ protected:
 	virtual std::string imageName(int status,int direction,int imageNbr);
 	virtual std::string directionToStr(int intDirection);
 
+	void changeState(std::string state);
+	std::string m_state;
+
 	//attibuts
 	std::string m_name;
 	std::string m_type;
@@ -140,7 +143,6 @@ protected:
 	int m_direction; /*!< Orientation of the unit, south, north east...*/
 
 	//Store time for animation
-	C_AnimTime* m_animation[MAX_ANIM];
 	C_AnimList m_anim;
 
 	bool m_selected;

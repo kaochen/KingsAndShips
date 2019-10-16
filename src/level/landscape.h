@@ -76,7 +76,6 @@ public:
 	virtual void render(S_Coord screen);
 
 private:
-	int m_imageNbr;
 };
 
 

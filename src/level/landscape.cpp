@@ -305,21 +305,21 @@ C_Trees::C_Trees(string name, int x_grid, int y_grid):
 {
 	int size =  name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
 	m_name = m_name.substr(0,size);
-	m_imageNbr =  0;
-	int random = rand() %10;
-	m_animation[MAIN_ANIM]->setAnimNbr(random);
+	m_state = "Wind";
+	m_anim.add(C_Anim("Wind",0,10,90,true));
 }
 
 void C_Trees::play()
 {
-	m_imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(0,10,90);
+	m_anim.get(m_state).playAndRewind();
 }
 
 void C_Trees::render(S_Coord screen)
 {
-	string fileName = m_name + "_0" + to_string(m_imageNbr);
-	if(m_imageNbr>9) {
-		fileName = m_name + "_" + to_string(m_imageNbr);
+	int imageNbr = m_anim.getImageNbr(m_state);
+	string fileName = m_name + "_0" + to_string(imageNbr);
+	if(imageNbr>9) {
+		fileName = m_name + "_" + to_string(imageNbr);
 	}
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t= C_Locator::getTextureList();

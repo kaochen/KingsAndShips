@@ -311,8 +311,4 @@ S_UnitModel C_Shooter::getInfo(){
 	return unit;
 }
 
-void C_Shooter::changeState(std::string state){
-	m_anim.reset(m_state);
-	m_state = state;
-	m_anim.start(m_state);
-};
+

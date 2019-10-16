@@ -42,6 +42,25 @@ C_Anim::C_Anim(std::string name, int imageStart,int imageEnd,long delay):
 	m_timeLast = m_timeStart;
 }
 
+C_Anim::C_Anim(std::string name, int imageStart,int imageEnd,long delay, bool randomStart):
+	m_name(name),
+	m_imageStart(imageStart),
+	m_imageEnd(imageEnd),
+	m_started(false),
+	m_timeDelay(delay),
+	m_rewind(false)
+{
+	m_timeStart = SDL_GetTicks();
+	m_timeLast = m_timeStart;
+	if(randomStart){
+		int randNbr = rand()%(imageEnd-imageStart + 1) + imageStart;
+		m_imageCurrent = randNbr;
+	} else {
+		m_imageCurrent = imageStart;
+	}
+}
+
+
 void C_Anim::play(){
 	long timeCurrent = SDL_GetTicks();
 	if( timeCurrent > (m_timeLast + m_timeDelay)){

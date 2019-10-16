@@ -42,10 +42,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
-
-	for (int i = 0; i < MAX_ANIM; i++) {
-		m_animation[i]= new C_AnimTime();
-	}
 }
 
 C_GameUnits::C_GameUnits(S_UnitModel model):
@@ -59,19 +55,9 @@ C_GameUnits::C_GameUnits(S_UnitModel model):
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
-	for (int i = 0; i < MAX_ANIM; i++) {
-		m_animation[i]= new C_AnimTime();
-	}
 
 }
 
-//delete
-C_GameUnits::~C_GameUnits()
-{
-	for (int i = 0; i < MAX_ANIM; i++) {
-		delete m_animation[i];
-	}
-}
 
 
 void C_GameUnits::displayStatus()
@@ -163,6 +149,11 @@ string C_GameUnits::directionToStr(int intDirection)
 	return direction;
 }
 
+void C_GameUnits::changeState(std::string state){
+	m_anim.reset(m_state);
+	m_state = state;
+	m_anim.start(m_state);
+};
 
 
 S_UnitModel C_GameUnits::getInfo(){
