@@ -25,7 +25,6 @@ using namespace std;
 
 C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 {
-	m_moving = false;
 	m_speed = model.speed;
 	m_coord.centerOnTile();
 	//Find a way to town
@@ -42,6 +41,10 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_targetsTypes.push_back("barricade");
 	m_targetsTypes.push_back("ArcherTower");
 	m_targetsTypes.push_back("Catapult");
+	m_state ="Moving";
+	m_anim.add(C_Anim("Moving",1,7,80));
+	m_anim.add(C_Anim("Waiting",0,1,600));
+	m_anim.add(C_Anim("PauseSearchPath",1,2,600));
 }
 
 C_Boat::~C_Boat()
@@ -70,13 +73,14 @@ void C_Boat::kill()
 void C_Boat::move()
 {
 	m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
-	m_moving = true;
 	C_Grid& grid= C_Locator::getGrid();
 	S_Coord town =  grid.foundTown();
 	m_old_coord = m_coord;
 	std::stack<C_Node*> path;
 	path = m_C_Path->getPath();
 	if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1)) {
+		m_state = "Moving";
+		m_anim.get(m_state).playAndRewind();
 		if(path.size() > 0) {
 
 			//determine an angle
@@ -131,12 +135,17 @@ void C_Boat::move()
 
 			m_countRegenPath = 0;
 		}
+	} else {
+		m_state = "Waiting";
+		m_anim.get(m_state).play();
 	}
 
 	if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1)) {
-		int	pauseNbr = m_animation[PAUSESEARCHPATH]->getAnimNbr(1,2,600);
-		if(path.size() == 0 && pauseNbr == 2) {
+		m_anim.get("PauseSearchPath").play();
+		if(path.size() == 0 && 	m_anim.get("PauseSearchPath").end()){
 			recalcPath(town);
+			m_anim.get("PauseSearchPath").reset();
+
 		}
 	}
 
@@ -151,11 +160,14 @@ void C_Boat::render(S_Coord screen)
 
 	int imageNbr = 0;
 	int status = ALIVE;
-	if (m_moving)
-		imageNbr = m_animation[MAIN_ANIM]->getLoopAnimNbr(1,7,80);
 
 	if (alive()) {
 		status = ALIVE;
+		if (m_state == "Moving"){
+			imageNbr = m_anim.getImageNbr(m_state);
+		} else {
+			imageNbr = 0;
+		}
 		renderLifeBar(screen.x, screen.y);
 		m_C_Path->displayPath();
 	} else {

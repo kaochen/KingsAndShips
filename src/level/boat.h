@@ -43,7 +43,6 @@ protected:
 	virtual void kill();
 
 	//attributs
-	bool m_moving;
 	C_Path* m_C_Path;
 	int m_speed;
 	int m_countStop;
