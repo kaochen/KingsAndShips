@@ -36,6 +36,10 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_target = nullptr;
 	m_throwed = false;
 	m_touched = false;
+
+	m_canRotate = true;
+	m_isAnimated = true;
+
 	m_anim.add(C_Anim("Waiting",0,0,m_weapon->getFireRate()));
 	m_anim.add(C_Anim("Searching",0,0,100));
 	m_anim.add(C_Anim("Shooting",0,0,100));
@@ -120,17 +124,26 @@ void C_Towers::render(S_Coord screen)
 		renderSmoke();
 	}
 
+	int direction = current.direction;
+	if(!m_canRotate){
+		direction = EAST;
+	}
+
 	if(alive()){
 		renderLifeBar(screen.x, screen.y);
+		if(m_isAnimated){
+			imageNbr = m_anim.getImageNbr(m_state);
+		} else {
+			imageNbr = 0;
+		}
 
-		imageNbr = m_anim.getImageNbr(m_state);
 
-		string fileName = imageName(ALIVE,current.direction,imageNbr);
+		string fileName = imageName(ALIVE,direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		renderSelected();
 
 	} else {
-		string fileName = imageName(DEAD,current.direction,imageNbr);
+		string fileName = imageName(DEAD,direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 	}
 }
@@ -201,30 +214,8 @@ void C_Towers::renderTowerStatusCircle(std::string name, int x_screen, int y_scr
 C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
 	m_targetsTypes.push_back("boat");
-}
-
-void C_ArcherTower::render(S_Coord screen)
-{
-	S_Weapon current = m_weapon->getWeaponInfo();
-	int imageNbr = 0;
-	C_TextureList& t= C_Locator::getTextureList();
-
-	if (m_justAdded){
-		renderSmoke();
-	}
-
-	if(alive()){
-		renderLifeBar(screen.x, screen.y);
-
-		imageNbr = m_anim.getImageNbr(m_state);
-		string fileName = imageName(ALIVE,EAST,imageNbr);
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
-		renderSelected();
-
-	} else {
-		string fileName = imageName(DEAD,EAST,imageNbr);
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
-	}
+	m_canRotate = false;
+	m_isAnimated = false;
 }
 
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)

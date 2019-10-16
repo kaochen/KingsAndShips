@@ -44,13 +44,14 @@ protected:
 	C_GameUnits * m_target;
 	bool m_throwed;
 	bool m_touched;
+	bool m_canRotate;
+	bool m_isAnimated;
 };
 
 
 class C_ArcherTower: public C_Towers {
 public:
 	C_ArcherTower(S_UnitModel model);
-	virtual void render(S_Coord screen);
 protected:
 
 };
