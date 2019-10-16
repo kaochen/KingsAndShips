@@ -117,7 +117,6 @@ bool C_Anim::end(){
 	if( currentTime > (m_timeStart + imageNbr*m_timeDelay)){
 		ret = true;
 		m_started = false;
-		C_Message::printM(m_name + " End\n");
 	}
 	return ret;
 }
@@ -126,9 +125,7 @@ void C_Anim::start(){
 	if(!m_started){
 		m_timeStart = SDL_GetTicks();
 		m_timeLast = m_timeStart;
-
 		m_started = true;
-		C_Message::printM(m_name + " Start\n");
 	};
 }
 //---------------- C_AnimList ------------

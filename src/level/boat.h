@@ -47,7 +47,6 @@ protected:
 	int m_speed;
 	int m_countStop;
 	int m_countRegenPath;
-	C_AnimTime* m_animDirection;
 };
 
 #endif

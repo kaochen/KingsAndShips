@@ -34,7 +34,6 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_C_Path->calcPath(model.coord.x,model.coord.y,town.x,town.y);
 	m_C_Path->showPath();
 	m_direction = EAST;
-	m_animDirection = new C_AnimTime();
 	m_countStop = 0;
 	m_countRegenPath = 0;
 	m_targetsTypes.push_back("town");
@@ -49,7 +48,6 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 
 C_Boat::~C_Boat()
 {
-	delete m_animDirection;
 	delete m_C_Path;
 }
 

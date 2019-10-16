@@ -64,27 +64,4 @@ class C_Time
   long m_fpsMax;
   long m_fpsLast;
 };
-
-#define MAX_ANIM  7
-enum AnimTime{JUSTADDED,MAIN_ANIM,SELECTED,DRAG,MOVE,PAUSESEARCHPATH,SELECT};
-
-class C_AnimTime
-{
-	public:
-	C_AnimTime();
-	~C_AnimTime(){};
-
-  void setAnimNbr(const long &nbr){m_animNbr = nbr;};
-	int getAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers restart to startNbr
-  int getLoopAnimNbr(int startNbr, int endNbr, long delay); //at the endNbr the numbers goes back
-  bool frameDelay(int delay);
-
-	protected:
-	private:
-	long m_animNbr;
-	long m_lastAnimTime;
-	long m_lastFrameNbr;
-  bool m_rewind;
-};
-
 #endif

@@ -39,7 +39,7 @@ private:
 	//attributes
 	S_Coord m_waterDrift;
 	int m_waterDirection;
-	C_AnimTime* m_animWater;
+	C_Anim* m_animWater;
 };
 
 class C_Decors : public C_GameUnits {

@@ -31,7 +31,7 @@ C_Landscape::C_Landscape(S_Coord town)
 {
 	m_waterDrift.x = 0;
 	m_waterDrift.y = 0;
-	m_animWater= new C_AnimTime();
+	m_animWater= new C_Anim("Water",1,4,FRAMERATE);
 	m_waterDirection = waterDirection(town);
 }
 
@@ -69,7 +69,11 @@ void C_Landscape::renderWater(int direction, int gridSize)
 			t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1),y + m_waterDrift.y*(-1));
 		}
 	}
-	int pause = m_animWater->getAnimNbr(1,4,FRAMERATE);
+	int pause = m_animWater->getImageNbr();
+	m_animWater->play();
+	if(m_animWater->end()){
+		m_animWater->reset();
+	}
 
 	int limit = 4*TILE_HALF_WIDTH - 1;
 
