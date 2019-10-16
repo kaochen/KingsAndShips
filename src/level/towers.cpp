@@ -40,6 +40,7 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_anim.add(C_Anim("Searching",0,0,100));
 	m_anim.add(C_Anim("Shooting",0,0,100));
 	m_anim.add(C_Anim("Reloading",0,0,120));
+	m_anim.add(C_Anim("JustAdded",0,7,100));
 	m_targetsTypes.push_back("boat");
 }
 
@@ -98,12 +99,14 @@ void C_Towers::play()
 
 void C_Towers::renderSmoke()
 {
-	int imageNbr = m_animation[JUSTADDED]->getAnimNbr(0,7,100);
+	int imageNbr = m_anim.getImageNbr("JustAdded");
+	m_anim.get("JustAdded").play();
+
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen ());
-	if (imageNbr == 7)
+	if (m_anim.end("JustAdded"))
 		m_justAdded = false;
 }
 
