@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "shooter.h"
 
 #include "../coord.h"
-#include "../time.h"
 #include "../texture.h"
 
 class C_Boat: public C_Shooter {

@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../settings.h"
 #include "../coord.h"
-#include "../time.h"
 #include "../anim.h"
 #include "pathfinding.h"
 
@@ -63,29 +62,17 @@ struct S_UnitModel {
 
 class C_GameUnits {
 public:
-	C_GameUnits(std::string name,
-				int x_grid,
-				int y_grid,
-				int rank);
+	C_GameUnits(std::string name,int x_grid,int y_grid,int rank);
 	C_GameUnits(S_UnitModel model);
 
 	virtual ~C_GameUnits(){};
-	virtual void play() {};
+	virtual void play(){};
 	virtual void upgrade(S_UnitModel model) {std::cout << "model " << model.name;};
-	virtual void drag(S_Coord screen)
-	{
-		std::cout << "drag() "<< screen.x;
-	};
+	virtual void drag(S_Coord screen){std::cout << "drag() "<< screen.x;};
 
-	virtual C_GameUnits * getUnit()
-	{
-		return this;
-	};
+	virtual C_GameUnits * getUnit(){return this;};
 	virtual std::string getName() const { return m_name; };
-	virtual std::string getType() const
-	{
-		return m_type;
-	};
+	virtual std::string getType() const { return m_type; };
 
 	virtual int getRank() const {return m_rank;};
 	virtual void displayStatus();
@@ -151,10 +138,7 @@ protected:
 class C_EmptyUnit: public C_GameUnits {
 public:
 	C_EmptyUnit();
-	virtual void render(S_Coord grid)
-	{
-		if(grid.x == 0) {}
-	};
+	virtual void render(S_Coord grid){ if(grid.x == 0) {}};
 	virtual void render() {};
 };
 
