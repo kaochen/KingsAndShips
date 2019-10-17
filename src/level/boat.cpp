@@ -42,7 +42,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_targetsTypes.push_back("Catapult");
 	m_state ="Moving";
 	m_anim.add(C_Anim("Moving",1,7,80));
-	m_anim.add(C_Anim("Waiting",0,1,600));
+	m_anim.add(C_Anim("Waiting",0,0,600));
 	m_anim.add(C_Anim("PauseSearchPath",1,2,600));
 }
 
@@ -154,26 +154,8 @@ void C_Boat::move()
 
 void C_Boat::render(S_Coord screen)
 {
-	C_TextureList& t= C_Locator::getTextureList();
-
-	int imageNbr = 0;
-	int status = ALIVE;
-
-	if (alive()) {
-		status = ALIVE;
-		if (m_state == "Moving"){
-			imageNbr = m_anim.getImageNbr(m_state);
-		} else {
-			imageNbr = 0;
-		}
-		renderLifeBar(screen.x, screen.y);
-		m_C_Path->displayPath();
-	} else {
-		status = DEAD;
-		imageNbr = 0;
-	}
-	string fileName = imageName(status,m_direction,imageNbr);
-	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	C_Shooter::render(screen);
+	m_C_Path->displayPath();
 }
 
 

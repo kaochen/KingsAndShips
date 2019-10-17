@@ -108,6 +108,12 @@ void C_Shooter::play()
 	} else {
 		kill();
 	}
+
+	S_Weapon current = m_weapon->getWeaponInfo();
+	m_direction = current.direction;
+	if(!m_canRotate){
+		m_direction = EAST;
+	}
 }
 
 
@@ -274,28 +280,19 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 
 void C_Shooter::render(S_Coord screen)
 {
-	S_Weapon current = m_weapon->getWeaponInfo();
 	int imageNbr = 0;
 	C_TextureList& t= C_Locator::getTextureList();
-
-	int direction = current.direction;
-	if(!m_canRotate){
-		direction = EAST;
-	}
 
 	if(alive()){
 		if(m_isAnimated){
 			imageNbr = m_anim.getImageNbr(m_state);
-		} else {
-			imageNbr = 0;
 		}
 
-
-		string fileName = imageName(ALIVE,direction,imageNbr);
+		string fileName = imageName(ALIVE,m_direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 	} else {
 		if(m_renderDead){
-			string fileName = imageName(DEAD,direction,imageNbr);
+			string fileName = imageName(DEAD,m_direction,imageNbr);
 			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		}
 	}
