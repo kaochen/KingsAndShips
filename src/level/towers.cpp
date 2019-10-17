@@ -38,6 +38,7 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_touched = false;
 
 	m_targetsTypes.push_back("boat");
+	m_renderDead = false;
 }
 
 void C_Towers::play()

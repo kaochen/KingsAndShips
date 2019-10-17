@@ -43,7 +43,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 
 	m_canRotate = true;
 	m_isAnimated = true;
-
+	m_renderDead = true;
 }
 
 C_Shooter::~C_Shooter()
@@ -234,8 +234,10 @@ void C_Shooter::render(S_Coord screen)
 		string fileName = imageName(ALIVE,direction,imageNbr);
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 	} else {
-		string fileName = imageName(DEAD,direction,imageNbr);
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		if(m_renderDead){
+			string fileName = imageName(DEAD,direction,imageNbr);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		}
 	}
 }
 

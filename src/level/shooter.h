@@ -66,6 +66,7 @@ protected:
 
 	bool m_canRotate;
 	bool m_isAnimated;
+	bool m_renderDead;
 };
 
 #endif
