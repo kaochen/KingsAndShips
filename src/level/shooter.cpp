@@ -41,15 +41,76 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_anim.add(C_Anim("Reloading",0,0,120));
 	m_anim.add(C_Anim("JustAdded",0,7,100));
 
+	m_target = nullptr;
+	m_throwed = false;
+	m_touched = false;
+
 	m_canRotate = true;
 	m_isAnimated = true;
 	m_renderDead = true;
+	m_renderLifeBar = true;
+
 }
 
 C_Shooter::~C_Shooter()
 {
 	delete m_weapon;
 }
+
+void C_Shooter::play()
+{
+	string list[1] = {"boat"};
+	//wait & search
+
+	if(m_state == "Waiting"){
+		if(m_anim.end(m_state)){
+			changeState("Searching");
+		}
+	}
+
+	if(m_state == "Searching"){
+		m_touched = false;
+		m_throwed = false;
+		if(m_target == nullptr){
+			m_target = searchNextTarget();
+		}
+		if(m_target != nullptr){
+			m_weapon->updateDirection(*this, *m_target);
+			changeState("Shooting");
+		}
+	}
+	//shoot
+	if(m_state == "Shooting"){
+		if(m_anim.end(m_state)){
+			changeState("Reloading");
+			m_throwed = true;
+		}
+	}
+
+	//reload/
+	if(m_state == "Reloading"){
+		if(m_anim.end(m_state)){
+			changeState("Waiting");
+		}
+	}
+
+
+	if(alive()){
+		if(m_target != nullptr && m_throwed){
+			if(shoot(m_target)){
+				m_target = nullptr;
+				m_touched = true;
+			}
+		}
+
+		m_anim.get(m_state).play();
+
+	} else {
+		kill();
+	}
+}
+
+
 C_GameUnits*  C_Shooter::searchNextTarget(string type)
 {
 	C_Grid& grid= C_Locator::getGrid();
@@ -223,7 +284,6 @@ void C_Shooter::render(S_Coord screen)
 	}
 
 	if(alive()){
-		renderLifeBar(screen.x, screen.y);
 		if(m_isAnimated){
 			imageNbr = m_anim.getImageNbr(m_state);
 		} else {
@@ -239,14 +299,17 @@ void C_Shooter::render(S_Coord screen)
 			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 		}
 	}
+
+	//life bar on top
+	if(alive() && m_renderLifeBar){
+		renderLifeBar(screen.x, screen.y);
+	}
 }
 
 
 void C_Shooter::renderWeapon(){
-	if (alive()) {
-		if (m_weapon->getShooting()){
-			m_weapon->render();
-		}
+	if(m_throwed && !m_touched){
+		m_weapon->render();
 	}
 }
 

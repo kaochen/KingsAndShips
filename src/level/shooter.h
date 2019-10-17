@@ -33,6 +33,8 @@ public:
 	C_Shooter(S_UnitModel model);
 	virtual ~C_Shooter();
 
+	virtual void play();
+
 	virtual	void displayStatus();
 	virtual void upgrade(S_UnitModel model);
 	virtual void drag(S_Coord screen);
@@ -54,7 +56,9 @@ protected:
 	virtual void shootTarget(C_GameUnits &target);
 	virtual void drawEllipse(int x,int y, int size, bool ok);
 
-
+	C_GameUnits * m_target;
+	bool m_throwed;
+	bool m_touched;
 
 	C_Weapon *m_weapon;
 	long m_lastShootTime;
@@ -67,6 +71,8 @@ protected:
 	bool m_canRotate;
 	bool m_isAnimated;
 	bool m_renderDead;
+	bool m_renderLifeBar;
+
 };
 
 #endif

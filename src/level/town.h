@@ -27,7 +27,7 @@ class C_Town: public C_Shooter {
 public:
 	C_Town(S_UnitModel model);
 protected:
-	virtual void play();
+	//virtual void play();
 private:
 };
 

@@ -29,8 +29,6 @@ class C_Towers: public C_Shooter {
 public:
 	//methods
 	C_Towers(S_UnitModel model);
-	virtual void play();
-	virtual void renderWeapon();
 
 protected:
 	virtual void render(S_Coord screen);
@@ -41,9 +39,7 @@ protected:
 	long m_lastSmokeTime;
 	int m_smokeNbr;
 
-	C_GameUnits * m_target;
-	bool m_throwed;
-	bool m_touched;
+
 
 };
 

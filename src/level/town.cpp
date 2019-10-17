@@ -27,10 +27,6 @@ C_Town::C_Town(S_UnitModel model):C_Shooter(model)
 	m_canRotate = false;
 	m_isAnimated = false;
 	m_renderDead = false;
-}
-
-void C_Town::play()
-{
-	shoot();
+	m_renderLifeBar = false;
 }
 

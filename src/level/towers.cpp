@@ -33,66 +33,10 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 	m_smokeNbr = 1;
 	m_justAdded = true;
 
-	m_target = nullptr;
-	m_throwed = false;
-	m_touched = false;
-
 	m_targetsTypes.push_back("boat");
 	m_renderDead = false;
 }
 
-void C_Towers::play()
-{
-	string list[1] = {"boat"};
-	//wait & search
-
-	if(m_state == "Waiting"){
-		if(m_anim.end(m_state)){
-			changeState("Searching");
-		}
-	}
-
-	if(m_state == "Searching"){
-		m_touched = false;
-		m_throwed = false;
-		if(m_target == nullptr){
-			m_target = searchNextTarget();
-		}
-		if(m_target != nullptr){
-			m_weapon->updateDirection(*this, *m_target);
-			changeState("Shooting");
-		}
-	}
-	//shoot
-	if(m_state == "Shooting"){
-		if(m_anim.end(m_state)){
-			changeState("Reloading");
-			m_throwed = true;
-		}
-	}
-
-	//reload/
-	if(m_state == "Reloading"){
-		if(m_anim.end(m_state)){
-			changeState("Waiting");
-		}
-	}
-
-
-	if(alive()){
-		if(m_target != nullptr && m_throwed){
-			if(shoot(m_target)){
-				m_target = nullptr;
-				m_touched = true;
-			}
-		}
-
-		m_anim.get(m_state).play();
-
-	} else {
-		kill();
-	}
-}
 
 void C_Towers::renderSmoke()
 {
@@ -118,11 +62,6 @@ void C_Towers::render(S_Coord screen)
 	C_Shooter::render(screen);
 }
 
-void C_Towers::renderWeapon(){
-	if(m_throwed && !m_touched){
-		m_weapon->render();
-	}
-}
 
 void C_Towers::renderSelected()
 {
