@@ -62,7 +62,6 @@ protected:
 
 	C_Weapon *m_weapon;
 	long m_lastShootTime;
-	bool m_justAdded;
 
 	int m_cost;
   	bool m_upgrade;

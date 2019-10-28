@@ -312,8 +312,6 @@ void C_Shooter::renderWeapon(){
 
 void C_Shooter::drag(S_Coord screen)
 {
-
-	m_justAdded = false;
 	m_anim.get("Drag").playAndRewind();
 	C_Grid& grid= C_Locator::getGrid();
 

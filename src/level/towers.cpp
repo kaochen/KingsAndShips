@@ -29,10 +29,6 @@ using namespace std;
 
 C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 {
-	m_lastSmokeTime = 0;
-	m_smokeNbr = 1;
-	m_justAdded = true;
-
 	m_targetsTypes.push_back("boat");
 	m_renderDead = false;
 }
@@ -47,13 +43,11 @@ void C_Towers::renderSmoke()
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen ());
-	if (m_anim.end("JustAdded"))
-		m_justAdded = false;
 }
 
 void C_Towers::render(S_Coord screen)
 {
-	if (m_justAdded){
+	if (!m_anim.end("JustAdded")){
 		renderSmoke();
 	}
 	if(alive()){
