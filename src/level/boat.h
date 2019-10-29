@@ -38,6 +38,8 @@ protected:
 	virtual void render(S_Coord screen);
 	virtual void recalcPath(S_Coord dest);
 	virtual void move(S_Coord finalDestination);
+	virtual float calcAngle(C_Coord nextStep);
+	virtual bool nextStepEmpty();
 
 	virtual void kill();
 

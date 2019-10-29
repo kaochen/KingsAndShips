@@ -63,7 +63,7 @@ void C_Boat::play()
 		//searchPath
 		//close from destination ?
 
-		if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1)) {
+		if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
 				m_state = "Waiting";
 				m_anim.get(m_state).play();
 		} else {
@@ -109,52 +109,67 @@ void C_Boat::move(S_Coord finalDestination)
 
 		m_state = "Moving";
 		m_anim.get(m_state).playAndRewind();
-		if(m_C_Path->getPath().size() > 0) {
 
-			//determine an angle
+		//determine an angle
 
-			int old_x_grid = m_coord.getXGrid();
-			int old_y_grid = m_coord.getYGrid();
+		int old_x_grid = m_coord.getXGrid();
+		int old_y_grid = m_coord.getYGrid();
 
-			C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
-			destCoord.centerOnTile();
-			S_Coord start = m_coord.getScreen();
-			S_Coord dest = destCoord.getScreen();
-			int ab = dest.x - start.x;
-			int bc = dest.y - start.y;
-			double angle = destCoord.atan2_360(ab,bc);
+		C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
+		destCoord.centerOnTile();
 
+		double angle = calcAngle(destCoord);
 
-			//move following angle and speed
-			C_Coord tmp = m_coord;
-			tmp.move(angle,m_speed);
-			tmp.regenGridCoord();
+		//move following angle and speed
+
+		if(!nextStepEmpty()) {
+			m_coord.move(angle,m_speed);
+			m_countStop = 0;
+			m_direction = destCoord.angleToDirection(angle);
+			m_coord.regenGridCoord();
 			C_Grid& grid= C_Locator::getGrid();
-			bool nextEmpty = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
-			if(!nextEmpty) {
-				m_coord.move(angle,m_speed);
-				m_countStop = 0;
-				m_direction = destCoord.angleToDirection(angle);
-				m_coord.regenGridCoord();
-
-				grid.moveUnit(old_x_grid, old_y_grid,  m_coord.getXGrid (), m_coord.getYGrid ());
-				if(m_coord.closeToCenter(destCoord.getGrid(),2)) {
-					m_coord.centerOnTile(); //to not deviate too much from the path
-					m_countRegenPath++;
-					m_C_Path->goNextStep();
-				}
-			} else {
-				m_countStop++;
-				int count = FRAMERATE;
-				if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)) {
-					count *= 3;
-				}
-				if (m_countStop > count) {
-					recalcPath(finalDestination);
+			grid.moveUnit(old_x_grid, old_y_grid,  m_coord.getXGrid (), m_coord.getYGrid ());
+			if(m_coord.closeToCenter(destCoord.getGrid(),2)) {
+				m_coord.centerOnTile(); //to not deviate too much from the path
+				m_countRegenPath++;
+				m_C_Path->goNextStep();
+			}
+		} else {
+			m_countStop++;
+			int count = FRAMERATE;
+			if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)) {
+				count *= 3;
+			}
+			if (m_countStop > count) {
+				recalcPath(finalDestination);
 				}
 			}
-		}
 }
+
+
+bool C_Boat::nextStepEmpty(){
+	bool ret = false;
+
+	C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
+	float angle = calcAngle(destCoord);
+
+	C_Coord tmp = m_coord;
+	tmp.move(angle,m_speed);
+	tmp.regenGridCoord();
+	C_Grid& grid= C_Locator::getGrid();
+	ret = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
+	return ret;
+}
+
+float C_Boat::calcAngle(C_Coord destCoord){
+	destCoord.centerOnTile();
+	S_Coord start = m_coord.getScreen();
+	S_Coord dest = destCoord.getScreen();
+	int ab = dest.x - start.x;
+	int bc = dest.y - start.y;
+	return destCoord.atan2_360(ab,bc);
+}
+
 
 
 
