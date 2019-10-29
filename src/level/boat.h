@@ -37,7 +37,7 @@ public:
 protected:
 	virtual void render(S_Coord screen);
 	virtual void recalcPath(S_Coord dest);
-	virtual void move();
+	virtual void move(S_Coord finalDestination);
 
 	virtual void kill();
 

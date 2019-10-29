@@ -59,7 +59,6 @@ C_Shooter::~C_Shooter()
 
 void C_Shooter::play()
 {
-	string list[1] = {"boat"};
 	//wait & search
 
 	if(m_state == "Waiting"){

@@ -38,7 +38,6 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_health(100),
 	m_max_health(100),
 	m_coord(C_CoordGrid(x_grid,y_grid)),
-	m_old_coord(C_CoordGrid(x_grid,y_grid)),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
@@ -51,7 +50,6 @@ C_GameUnits::C_GameUnits(S_UnitModel model):
 	m_health(model.health),
 	m_max_health(model.health),
 	m_coord(C_CoordGrid(model.coord)),
-	m_old_coord(C_CoordGrid(model.coord)),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {

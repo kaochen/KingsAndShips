@@ -126,7 +126,6 @@ protected:
 
 	//Coord
 	C_Coord m_coord;
-	C_Coord m_old_coord;
 	int m_direction; /*!< Orientation of the unit, south, north east...*/
 
 	//Store time for animation
