@@ -41,8 +41,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_targetsTypes.push_back("Catapult");
 	m_state ="Moving";
 	m_anim.add(C_Anim("Moving",1,7,80));
-	m_anim.add(C_Anim("Waiting",0,0,600));
-	m_anim.add(C_Anim("PauseSearchPath",1,2,600));
+	m_anim.add(C_Anim("Waiting",0,0,800));
 }
 
 C_Boat::~C_Boat()
@@ -53,7 +52,14 @@ C_Boat::~C_Boat()
 void C_Boat::play()
 {
 	if(alive()){
-		move();
+		if(m_state == "Waiting"){
+			if(m_anim.end(m_state)){
+				changeState("Moving");
+			}
+		}
+		if(m_state == "Moving"){
+			move();
+		}
 		shoot();
 	} else {
 		kill();
@@ -106,18 +112,16 @@ void C_Boat::move()
 				m_countRegenPath = 0;
 			}
 		} else {
-			m_anim.get("PauseSearchPath").play();
-			if(	m_anim.get("PauseSearchPath").end()){
-				if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)){
-					recalcPath(finalDestination);
-					//force passing by the center of the tile before going to the next step
-					if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
-						m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
-					} else {
-						m_coord.centerOnTile();
-					}
+			changeState("Waiting");
+
+			if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)){
+				recalcPath(finalDestination);
+				//force passing by the center of the tile before going to the next step
+				if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
+					m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
+				} else {
+					m_coord.centerOnTile();
 				}
-			m_anim.get("PauseSearchPath").reset();
 			}
 		}
 	}
