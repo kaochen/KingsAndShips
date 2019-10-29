@@ -34,7 +34,6 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_C_Path->calcPath(model.coord.x,model.coord.y,town.x,town.y);
 	m_C_Path->showPath();
 	m_direction = EAST;
-	m_countStop = 0;
 	m_countRegenPath = 0;
 	m_targetsTypes.push_back("town");
 	m_targetsTypes.push_back("barricade");
@@ -43,7 +42,6 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_state ="Moving";
 	m_anim.add(C_Anim("Moving",1,7,80));
 	m_anim.add(C_Anim("Waiting",0,0,600));
-	m_anim.add(C_Anim("Waiting",0,0,100));
 	m_anim.add(C_Anim("PauseSearchPath",1,2,600));
 }
 
@@ -55,41 +53,7 @@ C_Boat::~C_Boat()
 void C_Boat::play()
 {
 	if(alive()){
-		C_Grid& grid= C_Locator::getGrid();
-		S_Coord finalDestination = grid.foundTown();
-		m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
-
-		//wait
-		//searchPath
-		//close from destination ?
-
-		if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
-				m_state = "Waiting";
-				m_anim.get(m_state).play();
-		} else {
-				//next tile empty ?
-				//no
-				//move
-				move(finalDestination);
-
-				m_anim.get("PauseSearchPath").play();
-				if(m_C_Path->getPath().size() == 0 && 	m_anim.get("PauseSearchPath").end()){
-					recalcPath(finalDestination);
-					m_anim.get("PauseSearchPath").reset();
-
-				}
-				//recalcpath anyway
-				if(m_countRegenPath > 3) {
-					recalcPath(finalDestination);
-					if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
-						m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
-					} else {
-						m_coord.centerOnTile();
-					}
-					m_countRegenPath = 0;
-				}
-		}
-
+		move();
 		shoot();
 	} else {
 		kill();
@@ -104,46 +68,59 @@ void C_Boat::kill()
 	wallet.cliStatus();
 }
 
-void C_Boat::move(S_Coord finalDestination)
+void C_Boat::move()
 {
+	C_Grid& grid= C_Locator::getGrid();
+	S_Coord finalDestination = grid.foundTown();
+	m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
 
-		m_state = "Moving";
-		m_anim.get(m_state).playAndRewind();
-
-		//determine an angle
-
-		int old_x_grid = m_coord.getXGrid();
-		int old_y_grid = m_coord.getYGrid();
-
-		C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
-		destCoord.centerOnTile();
-
-		double angle = calcAngle(destCoord);
-
-		//move following angle and speed
-
+	if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
+		changeState("Waiting");
+		m_anim.get(m_state).play();
+	} else {
 		if(!nextStepEmpty()) {
+			changeState("Moving");
+			m_anim.get(m_state).playAndRewind();
+
+			int old_x_grid = m_coord.getXGrid();
+			int old_y_grid = m_coord.getYGrid();
+
+			C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
+			destCoord.centerOnTile();
+			double angle = calcAngle(destCoord);
+
 			m_coord.move(angle,m_speed);
-			m_countStop = 0;
 			m_direction = destCoord.angleToDirection(angle);
 			m_coord.regenGridCoord();
-			C_Grid& grid= C_Locator::getGrid();
 			grid.moveUnit(old_x_grid, old_y_grid,  m_coord.getXGrid (), m_coord.getYGrid ());
+
+
 			if(m_coord.closeToCenter(destCoord.getGrid(),2)) {
 				m_coord.centerOnTile(); //to not deviate too much from the path
 				m_countRegenPath++;
 				m_C_Path->goNextStep();
 			}
-		} else {
-			m_countStop++;
-			int count = FRAMERATE;
-			if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)) {
-				count *= 3;
-			}
-			if (m_countStop > count) {
+			//recalc path anyway
+			if(m_countRegenPath > 3) {
 				recalcPath(finalDestination);
-				}
+				m_countRegenPath = 0;
 			}
+		} else {
+			m_anim.get("PauseSearchPath").play();
+			if(	m_anim.get("PauseSearchPath").end()){
+				if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)){
+					recalcPath(finalDestination);
+					//force passing by the center of the tile before going to the next step
+					if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
+						m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
+					} else {
+						m_coord.centerOnTile();
+					}
+				}
+			m_anim.get("PauseSearchPath").reset();
+			}
+		}
+	}
 }
 
 
@@ -187,5 +164,6 @@ void C_Boat::recalcPath(S_Coord dest)
 	m_C_Path = new C_Path(dest.x,dest.y);
 	m_C_Path->calcPath(m_coord.getXGrid(),m_coord.getYGrid(),dest.x,dest.y);
 	m_C_Path->showPath();
+
 }
 

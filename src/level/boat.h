@@ -37,7 +37,7 @@ public:
 protected:
 	virtual void render(S_Coord screen);
 	virtual void recalcPath(S_Coord dest);
-	virtual void move(S_Coord finalDestination);
+	virtual void move();
 	virtual float calcAngle(C_Coord nextStep);
 	virtual bool nextStepEmpty();
 
@@ -46,7 +46,6 @@ protected:
 	//attributs
 	C_Path* m_C_Path;
 	int m_speed;
-	int m_countStop;
 	int m_countRegenPath;
 };
 
