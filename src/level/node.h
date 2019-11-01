@@ -59,9 +59,7 @@ public:
 	bool getOpen() const;
 	void setOpen(bool open);
 	void setF(int G);
-	void setDist(int dist, double angle);
 	int getDist() const;
-	double getAngle() const;
 	void highlight();
 	void prepareRender();
 	void render();
@@ -78,7 +76,6 @@ protected:
 	bool m_Town;
 	bool m_open;
 	C_Node* m_parent;
-	double m_angle;
 	int m_dist;
 	//
 	std::string m_g_texture_name;
