@@ -116,12 +116,6 @@ void C_Boat::move()
 
 			if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)){
 				recalcPath(finalDestination);
-				//force passing by the center of the tile before going to the next step
-				if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
-					m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
-				} else {
-					m_coord.centerOnTile();
-				}
 			}
 		}
 	}
@@ -164,9 +158,19 @@ void C_Boat::render(S_Coord screen)
 
 void C_Boat::recalcPath(S_Coord dest)
 {
+	C_Coord oldNext = m_C_Path->getPath().top()->getCoord();
 	delete m_C_Path;
 	m_C_Path = new C_Path(dest.x,dest.y);
 	m_C_Path->calcPath(m_coord.getXGrid(),m_coord.getYGrid(),dest.x,dest.y);
+	C_Coord newNext = m_C_Path->getPath().top()->getCoord();
+	if(oldNext.getXGrid() != newNext.getXGrid() || oldNext.getYGrid() != newNext.getYGrid() ){
+			//force passing by the center of the tile before going to the next step
+			if(!m_coord.closeToCenter(m_coord.getGrid(),12)) {
+				m_C_Path->addANodeAtTheStartOfThePath(m_coord.getGrid());
+			} else {
+				m_coord.centerOnTile();
+			}
+	}
 	m_C_Path->showPath();
 
 }
