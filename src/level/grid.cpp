@@ -212,20 +212,6 @@ bool C_Grid::waterway(int x_grid, int y_grid)
 	return waterway;
 }
 
-bool C_Grid::testBarricade(int x_grid, int y_grid)
-{
-	bool barricade = false;
-	if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())) {
-		if(m_vgrid[x_grid][y_grid].get(FIELD) != nullptr) {
-			string str = m_vgrid[x_grid][y_grid].get(FIELD)->getType();
-			if(str == "barricade" )
-				barricade = true;
-			else
-				barricade = false;
-		}
-	}
-	return barricade;
-}
 
 bool C_Grid::isThisConstructible(S_Coord grid, bool water)
 {

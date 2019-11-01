@@ -53,7 +53,6 @@ public:
 	void setGround(int x, int y, int id);
 	void setDecors(int x, int y, int id);
 	bool waterway(int x_grid, int y_grid);
-	bool testBarricade(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid, bool water);
 	void displayStatus();
 	void playAllUnits(int layer);

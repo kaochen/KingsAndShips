@@ -36,10 +36,6 @@ C_Path::C_Path(int x_dest, int y_dest)
 				block = false;
 			}
 			C_Node z(x,y,block);
-			if(grid.testBarricade(x,y)) {
-				z.setBarricade(true);
-				//cout << "Barricade in : " << x << ":" << y << endl;
-			}
 			line.push_back(z);
 		}
 		m_vgridNode.push_back(line);

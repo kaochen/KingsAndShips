@@ -35,8 +35,6 @@ public:
 	bool getTown() const {return m_Town;};
 	void setBlock(bool block);
 	bool getBlock() const {return m_block;};
-	bool getBarricade(){return m_barricade;};
-	void setBarricade(bool barricade ){m_barricade = barricade;};
 	int getXGrid(){return m_coord.getGrid().x;};
 	int getYGrid(){return m_coord.getGrid().y;};
 	void setParent(C_Node * parent){m_parent = parent;};
@@ -63,7 +61,6 @@ public:
 protected:
 	C_Coord m_coord;
 	bool m_block; /*!< If Unit, that do not move, can not be cross by a boat like a ground*/
-	bool m_barricade; /*!< If Unit, that do not move, can be cross after destruction like a barricade*/
 	int m_G; // G cost (distance from the starting node)
 	int m_H; //H cost heuristic (distance from end to end)
 	int m_F; //G cost + H Cost
