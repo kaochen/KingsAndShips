@@ -32,39 +32,33 @@ public:
 	~C_Node();
 
 	void setTown(bool town);
-	bool getTown() const;
+	bool getTown() const {return m_Town;};
 	void setBlock(bool block);
-	bool getBlock() const;
-	bool getBarricade()
-	{
-		return m_barricade;
-	};
-	void setBarricade(bool barricade )
-	{
-		m_barricade = barricade;
-	};
-	int getXGrid();
-	int getYGrid();
-	void setParent(C_Node * parent);
-	C_Node* getParent();
+	bool getBlock() const {return m_block;};
+	bool getBarricade(){return m_barricade;};
+	void setBarricade(bool barricade ){m_barricade = barricade;};
+	int getXGrid(){return m_coord.getGrid().x;};
+	int getYGrid(){return m_coord.getGrid().y;};
+	void setParent(C_Node * parent){m_parent = parent;};
+	C_Node* getParent() {return m_parent;};
 	void setChild(C_Node * child);
 	C_Node* getChild();
 	void displayStatus();
 
 	void calcH(C_Node* target);
-	int getG() const;
-	int getH() const;
-	int getF() const;
-	C_Coord getCoord() const;
-	bool getOpen() const;
-	void setOpen(bool open);
+	int getG() const {return m_G;};
+	int getH() const {return m_H;};
+	int getF() const {return m_F;};
+	C_Coord getCoord() const {return m_coord;};
+	bool getOpen() const {return m_open;};
+	void setOpen(bool open) {m_open = open;};
 	void setF(int G);
-	int getDist() const;
+	int getDist() const {return m_dist;};
 	void highlight();
 	void prepareRender();
 	void render();
 	bool screenAtCenter();
-	void regenScreenCoord();
+	void regenScreenCoord() {m_coord.regenScreenCoord();};
 	int calcG_offset(int x_from, int y_from,int x_dest, int y_dest);
 protected:
 	C_Coord m_coord;

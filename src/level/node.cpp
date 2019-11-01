@@ -68,11 +68,6 @@ void C_Node::setTown(bool town)
 
 }
 
-bool C_Node::getTown() const
-{
-	return m_Town;
-}
-
 void C_Node::setBlock(bool block)
 {
 	m_block = block;
@@ -82,40 +77,6 @@ void C_Node::setBlock(bool block)
 		m_open = true;
 }
 
-bool C_Node::getBlock() const
-{
-	return m_block;
-}
-
-bool C_Node::getOpen() const
-{
-	return m_open;
-}
-
-void C_Node::setOpen(bool open)
-{
-	m_open = open;
-}
-
-void C_Node::setParent(C_Node * parent)
-{
-	m_parent = parent;
-}
-
-C_Node* C_Node::getParent()
-{
-	return m_parent;
-}
-
-int C_Node::getXGrid()
-{
-	return m_coord.getGrid().x;
-}
-
-int C_Node::getYGrid()
-{
-	return m_coord.getGrid().y;
-}
 
 void C_Node::displayStatus()
 {
@@ -174,37 +135,11 @@ int C_Node::calcG_offset(int x_from, int y_from,
 }
 
 
-int C_Node::getG() const
-{
-	return m_G;
-}
-
-int C_Node::getH() const
-{
-	return m_H;
-}
-
-int C_Node::getF() const
-{
-	return m_F;
-}
-
-C_Coord C_Node::getCoord() const
-{
-	return m_coord;
-}
-
 void C_Node::setF(int G)
 {
 	m_G = G;
 	m_F = m_H + m_G;
 }
-
-int C_Node::getDist()const
-{
-	return m_dist;
-}
-
 
 void C_Node::highlight()
 {
@@ -245,10 +180,5 @@ void C_Node::render()
 	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);
 	t.renderTexture(m_f_texture_name,x_screen,y_screen + 25);
 
-}
-
-void C_Node::regenScreenCoord()
-{
-	m_coord.regenScreenCoord();
 }
 
