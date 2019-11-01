@@ -43,12 +43,12 @@ public:
 	virtual int getXScreen();
 	virtual int getYScreen();
 	virtual void centerOnTile();
-	virtual int angleToDirection(double angle);
-	virtual double directionToAngle(int direction);
-	virtual void move(double angle, int speed);
+	virtual int angleToDirection(float const &angle);
+	virtual float directionToAngle(int const direction);
+	virtual void move(float const &angle, int const &speed);
 	virtual void regenGridCoord();
 	virtual void regenScreenCoord();
-	virtual double atan2_360(int ab, int bc);
+	virtual float atan2_360(int const &ab, int const &bc);
 	virtual bool closeToCenter(S_Coord grid, int px_length);
 	virtual int guessADirection(S_Coord start,S_Coord end);
 

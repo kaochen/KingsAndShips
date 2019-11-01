@@ -176,7 +176,7 @@ void C_Coord::centerOnTile()
 	m_this.delta = {0,0};
 }
 
-int C_Coord::angleToDirection(double angle)
+int C_Coord::angleToDirection(float const &angle)
 {
 	int  direction = UNKNOWN;
 	if (angle > -45.0 && angle <= 45.0) {
@@ -203,9 +203,9 @@ int C_Coord::angleToDirection(double angle)
 	return direction;
 }
 
-double C_Coord::directionToAngle(int direction)
+float C_Coord::directionToAngle(int const direction)
 {
-	double  angle = 0;
+	float  angle = 0;
 	switch (direction) {
 	case NORTH_WEST :
 		angle = 0.0;
@@ -241,7 +241,7 @@ double C_Coord::directionToAngle(int direction)
 }
 
 
-void C_Coord::move(double angle, int speed)
+void C_Coord::move(float const &angle, int const &speed)
 {
 	C_Time& time = C_Locator::getTime();
 	//One pixel can't be split, on even frame number use an offset of 0 instead of 1.
@@ -438,9 +438,9 @@ void C_Coord::move(double angle, int speed)
 }
 
 
-double C_Coord::atan2_360(int ab, int bc)
+float C_Coord::atan2_360(int const &ab, int const &bc)
 {
-	double angle = atan2(ab,bc);
+	float angle = atan2(ab,bc);
 	angle = 180 - (angle *180/3.14159265359);
 	if(angle < 0)
 		angle +=360;
