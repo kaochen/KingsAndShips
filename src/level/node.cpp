@@ -39,7 +39,6 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block):
 	m_F = m_G + m_H;
 	m_Town = false;
 	m_parent = nullptr;
-	m_dist = 0;
 	m_h_texture_name = "";
 	m_g_texture_name = "";
 	m_f_texture_name = "";
@@ -81,7 +80,7 @@ void C_Node::displayStatus()
 {
 	ostringstream message;
 	message << " Node :" << m_coord.getGrid().x << ":" << m_coord.getGrid().y
-			<< " F:" << m_F << " G:" << m_G << " H:" << m_H << " dist:" << m_dist;
+			<< " F:" << m_F << " G:" << m_G << " H:" << m_H;
 	if (m_Town)
 		message << " Town: true <---\n";
 	else

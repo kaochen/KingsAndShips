@@ -39,8 +39,7 @@ public:
 	int getYGrid(){return m_coord.getGrid().y;};
 	void setParent(C_Node * parent){m_parent = parent;};
 	C_Node* getParent() {return m_parent;};
-	void setChild(C_Node * child);
-	C_Node* getChild();
+
 	void displayStatus();
 
 	void calcH(C_Node* target);
@@ -51,7 +50,6 @@ public:
 	bool getOpen() const {return m_open;};
 	void setOpen(bool open) {m_open = open;};
 	void setF(int G);
-	int getDist() const {return m_dist;};
 	void highlight();
 	void prepareRender();
 	void render();
@@ -67,7 +65,6 @@ protected:
 	bool m_Town;
 	bool m_open;
 	C_Node* m_parent;
-	int m_dist;
 	//
 	std::string m_g_texture_name;
 	std::string m_h_texture_name;
