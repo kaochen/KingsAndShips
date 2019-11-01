@@ -32,7 +32,6 @@ public:
 	~C_Node();
 
 	void setTown(bool town);
-	bool getTown() const {return m_Town;};
 	void setBlock(bool block);
 	bool getBlock() const {return m_block;};
 	int getXGrid(){return m_coord.getGrid().x;};
@@ -62,7 +61,6 @@ protected:
 	int m_G; // G cost (distance from the starting node)
 	int m_H; //H cost heuristic (distance from end to end)
 	int m_F; //G cost + H Cost
-	bool m_Town;
 	bool m_open;
 	C_Node* m_parent;
 	//

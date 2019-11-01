@@ -80,8 +80,7 @@ void C_Path::calcPath(int x_start,int y_start, int x_dest, int y_dest)
 			m_vopenNodes.erase(m_vopenNodes.begin() + lowestF);
 			for(size_t i = 0; i < m_vopenNodes.size(); i++) {
 				if(m_vopenNodes[i]!= nullptr) {
-					if(m_vopenNodes[i]->getTown()) {
-						//cout << "found Town" << endl;
+					if(m_vopenNodes[i]->getXGrid() == x_dest && m_vopenNodes[i]->getYGrid() == y_dest) {
 						m_vopenNodes.clear();
 						break;
 					}

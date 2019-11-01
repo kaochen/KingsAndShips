@@ -37,7 +37,6 @@ C_Node::C_Node(const int x_grid,const int y_grid, const bool block):
 	m_G = 0;
 	m_H = 0;
 	m_F = m_G + m_H;
-	m_Town = false;
 	m_parent = nullptr;
 	m_h_texture_name = "";
 	m_g_texture_name = "";
@@ -60,10 +59,8 @@ C_Node::~C_Node()
 
 void C_Node::setTown(bool town)
 {
-	m_Town = town;
 	if(town)
 		m_block = false;
-
 }
 
 void C_Node::setBlock(bool block)
@@ -80,18 +77,13 @@ void C_Node::displayStatus()
 {
 	ostringstream message;
 	message << " Node :" << m_coord.getGrid().x << ":" << m_coord.getGrid().y
-			<< " F:" << m_F << " G:" << m_G << " H:" << m_H;
-	if (m_Town)
-		message << " Town: true <---\n";
-	else
-		message << " Town: false\n";
+			<< " F:" << m_F << " G:" << m_G << " H:" << m_H <<"\n";
 	C_Message::printM(message.str());
 };
 
 void C_Node::calcH(C_Node* target)
 {
-	//cout << "town " << target->getXGrid() << ":"<< target->getYGrid() << endl;
-	if (m_Town == false && m_block == false) {
+	if (m_block == false) {
 		int moveOnX =  target->getXGrid() - m_coord.getGrid().x;
 		if (moveOnX < 0)
 			moveOnX *= -1;
