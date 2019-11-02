@@ -140,15 +140,7 @@ void C_Path::regenScreenCoord()
 
 void C_Path::setTown(int x_grid,int y_grid)
 {
-	//reset
 	int size = m_vgridNode.size();
-	for (int x = 0; x < size; x++) {
-		for (int y = 0; y < size; y++) {
-			m_vgridNode[x][y].setTown(false);
-		}
-	}
-	//set
-	m_vgridNode[x_grid][y_grid].setTown(true);
 	for(int j = -1; j <= 1; j++) {
 		for(int i = -1; i <= 1; i++) {
 			if(x_grid+i >= 0 && x_grid+i <= size && y_grid+j >= 0 && y_grid+j <= size) {

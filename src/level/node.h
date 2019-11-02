@@ -31,7 +31,6 @@ public:
 	C_Node(const int x_grid,const int y_grid, const bool block);
 	~C_Node();
 
-	void setTown(bool town);
 	void setBlock(bool block);
 	bool getBlock() const {return m_block;};
 	int getXGrid(){return m_coord.getGrid().x;};
@@ -61,7 +60,7 @@ protected:
 	int m_G; // G cost (distance from the starting node)
 	int m_H; //H cost heuristic (distance from end to end)
 	int m_F; //G cost + H Cost
-	bool m_open;
+	bool m_open = true;
 	C_Node* m_parent;
 	//
 	std::string m_g_texture_name;

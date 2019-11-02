@@ -57,11 +57,6 @@ C_Node::~C_Node()
 
 };
 
-void C_Node::setTown(bool town)
-{
-	if(town)
-		m_block = false;
-}
 
 void C_Node::setBlock(bool block)
 {
