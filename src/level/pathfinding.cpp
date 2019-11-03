@@ -153,8 +153,8 @@ void C_Path::setTown(int x_grid,int y_grid)
 void C_Path::loadPath()
 {
 	C_Node* current = m_destination;
-	//clear path before
 
+	//clear path before
 	while(!m_path.empty()) {
 		m_path.pop();
 	}
@@ -165,10 +165,10 @@ void C_Path::loadPath()
 		while(current->getParent() != nullptr) {
 			m_path.push(current);
 			current = current->getParent();
-			//cout <<"parent: "<< current->getXGrid() << ":" << current->getYGrid() << endl;
+
 		}
-		//if the boat is not already in the center of the tile, add the current tile to the path.
-		//m_path.push(current); //force the boat to recenter itself on its current tile.
+		/*if the boat is not already in the center of the tile, add the current tile to the path.
+		to force the boat to recenter itself on its current tile.*/
 		C_Message::printDebugPath("path is loaded\n");
 		//prepare render for debug
 		C_Settings& settings=C_Locator::getSettings();
@@ -180,12 +180,6 @@ void C_Path::loadPath()
 			}
 		}
 	}
-	//m_path.push(m_start); //do not forget the start
-}
-
-void C_Path::addANodeAtTheStartOfThePath(S_Coord grid)
-{
-	m_path.push(&m_vgridNode[grid.x][grid.y]);
 }
 
 
@@ -282,11 +276,6 @@ void C_Path::displayPath()
 			}
 		}
 	}
-}
-
-stack<C_Node*> C_Path::getPath()
-{
-	return m_path;
 }
 
 

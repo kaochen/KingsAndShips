@@ -43,9 +43,9 @@ public:
 	C_Node* closestNode();
 	bool closeToDestination(int x_grid, int y_grid, int steps);
 	void displayPath();
-	std::stack<C_Node*> getPath();
+	std::stack<C_Node*> getPath() {return m_path;};
 	void goNextStep();
-	void addANodeAtTheStartOfThePath(S_Coord grid);
+	void addANodeAtTheStartOfThePath(S_Coord grid){	m_path.push(&m_vgridNode[grid.x][grid.y]);};
 	void regenScreenCoord();
 private:
 	size_t findLowestF();
