@@ -30,6 +30,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_upgrade(false)
 {
 	m_state = "Waiting";
+	m_weaponState = "Waiting";
 	m_weapon = new C_Weapon(model.weapon);
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	C_Message::printM(message);
@@ -59,15 +60,29 @@ C_Shooter::~C_Shooter()
 
 void C_Shooter::play()
 {
+	if(alive()){
+		shoot();
+	} else {
+		kill();
+	}
+
+	S_Weapon current = m_weapon->getWeaponInfo();
+	m_direction = current.direction;
+	if(!m_canRotate){
+		m_direction = EAST;
+	}
+}
+
+void C_Shooter::shoot(){
 	//wait & search
 
-	if(m_state == "Waiting"){
-		if(m_anim.end(m_state)){
-			changeState("Searching");
+	if(m_weaponState == "Waiting"){
+		if(m_anim.end(m_weaponState)){
+			changeWeaponState("Searching");
 		}
 	}
 
-	if(m_state == "Searching"){
+	if(m_weaponState == "Searching"){
 		m_touched = false;
 		m_throwed = false;
 		if(m_target == nullptr){
@@ -75,21 +90,21 @@ void C_Shooter::play()
 		}
 		if(m_target != nullptr){
 			m_weapon->updateDirection(*this, *m_target);
-			changeState("Shooting");
+			changeWeaponState("Shooting");
 		}
 	}
 	//shoot
-	if(m_state == "Shooting"){
-		if(m_anim.end(m_state)){
-			changeState("Reloading");
+	if(m_weaponState == "Shooting"){
+		if(m_anim.end(m_weaponState)){
+			changeWeaponState("Reloading");
 			m_throwed = true;
 		}
 	}
 
 	//reload/
-	if(m_state == "Reloading"){
-		if(m_anim.end(m_state)){
-			changeState("Waiting");
+	if(m_weaponState == "Reloading"){
+		if(m_anim.end(m_weaponState)){
+			changeWeaponState("Waiting");
 		}
 	}
 
@@ -102,19 +117,9 @@ void C_Shooter::play()
 			}
 		}
 
-		m_anim.get(m_state).play();
-
-	} else {
-		kill();
-	}
-
-	S_Weapon current = m_weapon->getWeaponInfo();
-	m_direction = current.direction;
-	if(!m_canRotate){
-		m_direction = EAST;
+		m_anim.get(m_weaponState).play();
 	}
 }
-
 
 C_GameUnits*  C_Shooter::searchNextTarget(string type)
 {
@@ -175,29 +180,6 @@ bool C_Shooter::shoot(C_GameUnits* target){
 	return touched;
 }
 
-bool C_Shooter::shoot()
-{
-	bool ret = false;
-	for(auto i: m_targetsTypes){
-		if(!ret){
-			C_GameUnits* target = searchNextTarget(i);
-			if(target != nullptr) {
-				long currentTime = SDL_GetTicks();
-				if ((currentTime ) > m_weapon->getLastShootTime() + m_weapon->getFireRate()) {
-					m_weapon->setShooting(true);
-					shootTarget(*target);
-					ret = true;
-					//cout << i << ": " << target->getName() << " has been shot" << endl;
-				} else {
-					m_weapon->setShooting(false);
-				}
-			} else {
-				m_weapon->setShooting(false);
-			}
-		}
-	}
-	return ret;
-}
 
 void C_Shooter::kill()
 {
@@ -284,7 +266,7 @@ void C_Shooter::render(S_Coord screen)
 
 	if(alive()){
 		if(m_isAnimated){
-			imageNbr = m_anim.getImageNbr(m_state);
+			imageNbr = m_anim.getImageNbr(m_weaponState);
 		}
 
 		string fileName = imageName(ALIVE,m_direction,imageNbr);
@@ -302,6 +284,11 @@ void C_Shooter::render(S_Coord screen)
 	}
 }
 
+void C_Shooter::changeWeaponState(std::string weaponState){
+	m_anim.reset(weaponState);
+	m_weaponState = weaponState;
+	m_anim.start(weaponState);
+};
 
 void C_Shooter::renderWeapon(){
 	if(m_throwed && !m_touched){

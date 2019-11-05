@@ -43,8 +43,7 @@ public:
 	virtual void upgrade(bool upgrade){m_upgrade = upgrade;};
 	virtual void renderWeapon();
 protected:
-
-	virtual bool shoot();
+	virtual void shoot();
 	virtual bool shoot(C_GameUnits* target);
 	C_GameUnits*  searchNextTarget();
 
@@ -71,6 +70,9 @@ protected:
 	bool m_isAnimated;
 	bool m_renderDead;
 	bool m_renderLifeBar;
+
+	void changeWeaponState(std::string weaponState);
+	std::string m_weaponState;
 
 };
 
