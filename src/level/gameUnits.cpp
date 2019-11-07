@@ -109,6 +109,9 @@ string C_GameUnits::imageName(int status,int direction,int imageNbr)
 	case DEAD:
 		statusStr = "D";
 		break;
+	case WEAPON:
+		statusStr = "W";
+		break;
 	}
 	return m_type + "_" + to_string(m_rank) + "_"+ statusStr + "_"
 		   + directionToStr(direction) + "_" + to_string(imageNbr) ;

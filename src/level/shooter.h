@@ -60,16 +60,18 @@ protected:
 	bool m_touched;
 
 	C_Weapon *m_weapon;
-	long m_lastShootTime;
 
 	int m_cost;
   	bool m_upgrade;
 	std::vector <std::string> m_targetsTypes;
 
 	bool m_canRotate;
-	bool m_isAnimated;
+	bool m_isBottomAnimated;
+	bool m_isTopAnimated;
 	bool m_renderDead;
 	bool m_renderLifeBar;
+	bool m_haveATop; /*!< Have a something on top like a rotating weapon*/
+	bool m_haveABottom;
 
 	void changeWeaponState(std::string weaponState);
 	std::string m_weaponState;

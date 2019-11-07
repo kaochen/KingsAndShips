@@ -26,7 +26,7 @@ using namespace std;
 C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model)
 {
 	m_anim.add(C_Anim("Waiting",0,10,100));
-	m_isAnimated = true;
+	m_isBottomAnimated = true;
 	m_canRotate = false;
 	m_renderDead = false;
 }

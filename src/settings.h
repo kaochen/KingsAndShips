@@ -51,7 +51,7 @@ struct S_NodeCoord{
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
 enum GroundType {GROUND_01,GROUND_02};
 enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
-enum Status {ALIVE,DEAD};
+enum imageType {ALIVE,DEAD,WEAPON};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 enum game {PLAY,PAUSE};

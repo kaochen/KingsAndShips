@@ -118,13 +118,17 @@ C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
 	m_targetsTypes.push_back("boat");
 	m_canRotate = false;
-	m_isAnimated = false;
+	m_isBottomAnimated = false;
 }
 
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
+	m_isBottomAnimated = false;
+	m_isTopAnimated = true;
+	m_haveABottom = false ;
+	m_haveATop = true;
 	m_targetsTypes.push_back("boat");
-	m_anim.add(C_Anim("Shooting",0,5,100));
-	m_anim.add(C_Anim("Reloading",6,11,120));
+	m_anim.add(C_Anim("Weapon_Shooting",0,5,100));
+	m_anim.add(C_Anim("Weapon_Reloading",6,11,120));
 }
 

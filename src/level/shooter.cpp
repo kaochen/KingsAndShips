@@ -25,21 +25,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
-	m_lastShootTime(0),
 	m_cost(model.cost),
 	m_upgrade(false)
 {
 	m_state = "Waiting";
-	m_weaponState = "Waiting";
+	m_weaponState = "Weapon_Waiting";
 	m_weapon = new C_Weapon(model.weapon);
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	C_Message::printM(message);
 	m_coord.displayStatus();
 	m_anim.add(C_Anim("Drag",1,8,40));
 	m_anim.add(C_Anim("Waiting",0,0,m_weapon->getFireRate()));
-	m_anim.add(C_Anim("Searching",0,0,100));
-	m_anim.add(C_Anim("Shooting",0,0,100));
-	m_anim.add(C_Anim("Reloading",0,0,120));
+	m_anim.add(C_Anim("Weapon_Waiting",0,0,m_weapon->getFireRate()));
+	m_anim.add(C_Anim("Weapon_Searching",0,0,100));
+	m_anim.add(C_Anim("Weapon_Shooting",0,0,100));
+	m_anim.add(C_Anim("Weapon_Reloading",0,0,120));
 	m_anim.add(C_Anim("JustAdded",0,7,100));
 
 	m_target = nullptr;
@@ -47,10 +47,12 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_touched = false;
 
 	m_canRotate = true;
-	m_isAnimated = true;
+	m_isBottomAnimated = true;
+	m_isTopAnimated = false;
 	m_renderDead = true;
 	m_renderLifeBar = true;
-
+	m_haveATop = false;
+	m_haveABottom = true;
 }
 
 C_Shooter::~C_Shooter()
@@ -61,6 +63,12 @@ C_Shooter::~C_Shooter()
 void C_Shooter::play()
 {
 	if(alive()){
+		if(m_state == "Waiting"){
+			if(m_anim.end(m_state)){
+				changeState("Waiting");
+			}
+		}
+		m_anim.get(m_state).play();
 		shoot();
 	} else {
 		kill();
@@ -76,13 +84,12 @@ void C_Shooter::play()
 void C_Shooter::shoot(){
 	//wait & search
 
-	if(m_weaponState == "Waiting"){
+	if(m_weaponState == "Weapon_Waiting"){
 		if(m_anim.end(m_weaponState)){
-			changeWeaponState("Searching");
+			changeWeaponState("Weapon_Searching");
 		}
 	}
-
-	if(m_weaponState == "Searching"){
+	if(m_weaponState == "Weapon_Searching"){
 		m_touched = false;
 		m_throwed = false;
 		if(m_target == nullptr){
@@ -90,21 +97,21 @@ void C_Shooter::shoot(){
 		}
 		if(m_target != nullptr){
 			m_weapon->updateDirection(*this, *m_target);
-			changeWeaponState("Shooting");
+			changeWeaponState("Weapon_Shooting");
 		}
 	}
 	//shoot
-	if(m_weaponState == "Shooting"){
+	if(m_weaponState == "Weapon_Shooting"){
 		if(m_anim.end(m_weaponState)){
-			changeWeaponState("Reloading");
+			changeWeaponState("Weapon_Reloading");
 			m_throwed = true;
 		}
 	}
 
 	//reload/
-	if(m_weaponState == "Reloading"){
+	if(m_weaponState == "Weapon_Reloading"){
 		if(m_anim.end(m_weaponState)){
-			changeWeaponState("Waiting");
+			changeWeaponState("Weapon_Waiting");
 		}
 	}
 
@@ -265,12 +272,20 @@ void C_Shooter::render(S_Coord screen)
 	C_TextureList& t= C_Locator::getTextureList();
 
 	if(alive()){
-		if(m_isAnimated){
+		if(m_isBottomAnimated){
+			imageNbr = m_anim.getImageNbr(m_state);
+		}
+		if(m_haveABottom){
+			string fileName = imageName(ALIVE,m_direction,imageNbr);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		}
+		if(m_isTopAnimated){
 			imageNbr = m_anim.getImageNbr(m_weaponState);
 		}
-
-		string fileName = imageName(ALIVE,m_direction,imageNbr);
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		if( m_haveATop){
+			string fileName = imageName(WEAPON,m_direction,imageNbr);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		}
 	} else {
 		if(m_renderDead){
 			string fileName = imageName(DEAD,m_direction,imageNbr);
