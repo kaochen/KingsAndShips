@@ -65,7 +65,6 @@ apt install tiled
   * weapon.damage => int (damage on ennemy health)
   * weapon.firerange => int (distance is in number of tile around the unit)
   * weapon.firerate => int (milli-second to wait during two shoots)
-  * weapon.speedImpact => int (0,1,2,3) to slow down a boat (against unit.speed). 
     
 #### Blender and imagemagick
   * **Blender** for editing graphic elements
