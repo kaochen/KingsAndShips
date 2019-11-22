@@ -134,7 +134,7 @@ void C_Image::loadTexture(string &path)
 	int lineNbr = m_tileNbr/rowCount;
 
 	src.x = m_tile_width * rowNbr;
-	src.y = m_tile_width * lineNbr;
+	src.y = m_tile_height * lineNbr;
 	src.w = m_tile_width;
 	src.h = m_tile_height;
 
@@ -447,7 +447,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			if(search == m_map_textures.end()) {
 				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, filePath, tile_width, tile_height, file_width, file_height );
 				m_count++;
-				//cout << m_count << ": " << fullname << endl;
+				//cout << m_count << ": " << fullname << "Size: " << tile_width <<":"<< tile_height<< endl;
 			}
 		}
 
@@ -459,17 +459,9 @@ void C_TextureList::displayTexturesList()
 {
 
 	for (auto const& x : m_map_textures) {
+		m_map_textures[x.first]->displayStatus();
 
-		string name = x.first;  // string (key)
-		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
-		if(search == m_map_textures.end()) {
-			C_Message::printM("\""+ name + "\" not available in the texture map  (displayTexturesList)\n");
-		} else {
-			m_map_textures[name]->displayStatus();
-		}
 	}
-
-
 }
 
 
