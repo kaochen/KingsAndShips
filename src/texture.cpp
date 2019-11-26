@@ -126,7 +126,6 @@ void C_Image::loadTexture(string &path)
 {
 	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
-	SDL_Texture *texture = nullptr;
 	SDL_Surface *image = IMG_Load(path.c_str());
 	SDL_Rect src;
 	int rowCount = m_file_width / m_tile_width;
@@ -144,10 +143,8 @@ void C_Image::loadTexture(string &path)
 	dest.w = m_tile_width;
 	dest.h = m_tile_height;
 
-	//SDL_SetTextureBlendMode(texture,SDL_BLENDMODE_BLEND); //usefull ?
-	//SDL_SetTextureAlphaMod(texture,0); //usefull ?
-
-	SDL_Texture* clip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET,  src.w, src.h);
+	SDL_Texture* clip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h);
+	SDL_Texture *texture = nullptr;
 
 	if (image != nullptr && clip != nullptr) {
 		texture = SDL_CreateTextureFromSurface(renderer,image);
@@ -157,11 +154,15 @@ void C_Image::loadTexture(string &path)
 			C_Message::printSDLerror("SDL_CreateTextureFromSurface() failed");
 		} else {
 			SDL_SetTextureBlendMode(clip,SDL_BLENDMODE_BLEND);
-			//SDL_SetTextureAlphaMod(clip,255);
 			//change target to clip
 			SDL_SetRenderTarget(renderer, clip);
 			//clean new renderer before renderCopy. This is important to avoid image glitch.
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);	//fill with background color
+			size_t found = m_name.find("clouds_Cloud");
+  			if (found!=std::string::npos){
+				SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0);	//fill with a white background color
+			} else {
+				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);	//fill with a black background color
+			}
 			SDL_RenderClear(renderer);
 
 			SDL_RenderCopy(renderer, texture, &src, &dest);

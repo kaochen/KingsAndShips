@@ -233,51 +233,23 @@ void C_Decors::render(S_Coord screen)
 	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
 }
 
-//---------------------------Decors-------------------------
+//---------------------------Clouds-------------------------
 
 C_Clouds::C_Clouds(int x_grid, int y_grid):
 	C_GameUnits("clouds_01", x_grid, y_grid, 0)
 {
-	m_type = rand() %4 + 1;
+	m_type = rand() %5;
 }
 
 void C_Clouds::render()
 {
-	C_Grid& grid= C_Locator::getGrid();
-	Cloud type = grid.guessTypeOfCloud(m_coord.getGrid());
-	string fileName = "clouds_0"+to_string(m_type);
-	if(type ==  Cloud::EE){
-		fileName = "clouds_EE";
-	} else if(type ==  Cloud::SE){
-		fileName = "clouds_SE";
-	} else if(type ==  Cloud::SS){
-		fileName = "clouds_SS";
-	} else if(type ==  Cloud::SW){
-		fileName = "clouds_SW";
-	} else if(type ==  Cloud::WW){
-		fileName = "clouds_WW";
-	} else if(type ==  Cloud::NW){
-		fileName = "clouds_NW";
-	} else if(type ==  Cloud::NN){
-		fileName = "clouds_NN";
-	} else if(type ==  Cloud::NE){
-		fileName = "clouds_NE";
-	} else if(type ==  Cloud::CORNERB){
-		fileName = "clouds_CornerB";
-	} else if(type ==  Cloud::CORNERT){
-		fileName = "clouds_CornerT";
-	} else if(type ==  Cloud::CORNERR){
-		fileName = "clouds_CornerR";
-	} else if(type ==  Cloud::CORNERL){
-		fileName = "clouds_CornerL";
-	}
-
-
 	//cout << "image name is "<< fileName << endl;
+	string cloudName = "clouds_Cloud_0"+to_string(m_type);
+	string shadowName = "clouds_Shadow_0"+to_string(m_type);
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture("clouds_shadow", m_coord.getXScreen()-10,m_coord.getYScreen(),CENTER_TILE);
-	t.renderTexture(fileName, m_coord.getXScreen(),m_coord.getYScreen()-2*TILE_HALF_HEIGHT,CENTER_TILE);
+	t.renderTexture(shadowName, m_coord.getXScreen(),m_coord.getYScreen()+2*TILE_HALF_HEIGHT,CENTER_TILE);
+	t.renderTexture(cloudName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
 }
 
 
