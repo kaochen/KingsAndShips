@@ -239,6 +239,14 @@ C_Clouds::C_Clouds(int x_grid, int y_grid):
 	C_GameUnits("clouds_01", x_grid, y_grid, 0)
 {
 	m_type = rand() %5;
+	m_fly = rand() %8;
+	m_anim.add(C_Anim("Cloud",-8,8,FRAMERATE*4,true));
+	m_state = "Cloud";
+}
+
+void C_Clouds::play()
+{
+	m_anim.get(m_state).playAndRewind();
 }
 
 void C_Clouds::render()
@@ -249,7 +257,12 @@ void C_Clouds::render()
 
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(shadowName, m_coord.getXScreen(),m_coord.getYScreen()+2*TILE_HALF_HEIGHT,CENTER_TILE);
+	int x = m_fly;
 	t.renderTexture(cloudName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
+	if(m_fly < 6){
+		x = m_anim.getImageNbr(m_state);
+		t.renderTexture(cloudName, m_coord.getXScreen()+x,m_coord.getYScreen(),CENTER_TILE);
+	}
 }
 
 

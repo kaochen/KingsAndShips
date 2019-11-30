@@ -174,7 +174,7 @@ bool C_ZLayer::play(int layer)
 		case CLOUD :
 			if(m_cloud != nullptr) {
 				m_cloud->regendScreenCoord();
-				//m_grave->play();
+				m_cloud->play();
 				ret = true;
 			}
 			break;

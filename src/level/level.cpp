@@ -288,6 +288,7 @@ void C_Level::play()
 	C_Grid& grid= C_Locator::getGrid();
 	grid.playAllUnits(GRAVEYARD);
 	grid.playAllUnits(FIELD);
+	grid.playAllUnits(CLOUD);
 }
 
 
