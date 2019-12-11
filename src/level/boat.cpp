@@ -41,7 +41,13 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_targetsTypes.push_back("Catapult");
 	m_state ="Moving";
 	m_anim.add(new C_AnimRewind("Moving",1,7,80));
-	m_anim.add(new C_Anim("Waiting",0,0,800));
+	m_anim.add(new C_Anim("Waiting",1,1,800));
+
+	m_canRotate = true;
+	m_isBottomAnimated = true;
+	m_isTopAnimated = false;
+	m_haveATop = false;
+	m_haveABottom = true;
 }
 
 C_Boat::~C_Boat()
@@ -64,6 +70,7 @@ void C_Boat::play()
 	} else {
 		kill();
 	}
+	m_anim.get(m_state)->play();
 };
 
 void C_Boat::kill()
@@ -84,7 +91,9 @@ void C_Boat::move()
 			changeState("Waiting");
 	} else {
 		if(!nextStepEmpty()) {
-			changeState("Moving");
+			if(m_state == "Waiting"){
+				changeState("Moving");
+			}
 
 			int old_x_grid = m_coord.getXGrid();
 			int old_y_grid = m_coord.getYGrid();
@@ -117,7 +126,6 @@ void C_Boat::move()
 			}
 		}
 	}
-	m_anim.get(m_state)->play();
 }
 
 
