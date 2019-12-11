@@ -37,7 +37,7 @@ C_Towers::C_Towers(S_UnitModel model):C_Shooter(model)
 void C_Towers::renderSmoke()
 {
 	int imageNbr = m_anim.getImageNbr("JustAdded");
-	m_anim.get("JustAdded").play();
+	m_anim.get("JustAdded")->play();
 
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
@@ -128,7 +128,7 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 	m_haveABottom = false ;
 	m_haveATop = true;
 	m_targetsTypes.push_back("boat");
-	m_anim.add(C_Anim("Weapon_Shooting",0,5,100));
-	m_anim.add(C_Anim("Weapon_Reloading",6,11,120));
+	m_anim.add(new C_Anim("Weapon_Shooting",0,5,100));
+	m_anim.add(new C_Anim("Weapon_Reloading",6,11,120));
 }
 

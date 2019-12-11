@@ -239,30 +239,43 @@ C_Clouds::C_Clouds(int x_grid, int y_grid):
 	C_GameUnits("clouds_01", x_grid, y_grid, 0)
 {
 	m_type = rand() %5;
-	m_fly = rand() %8;
-	m_anim.add(C_Anim("Cloud",-8,8,FRAMERATE*4,true));
-	m_state = "Cloud";
+	m_typeOnTop = rand() %5;
+	m_randStart = rand() %800;
+	m_anim.add(new C_AnimRewind("Moving",-20,19,80,true));
+	m_anim.add(new C_Anim("Waiting",0,0,m_randStart));
+
+	m_state = "Moving";
 }
 
 void C_Clouds::play()
 {
-	m_anim.get(m_state).playAndRewind();
+		if(m_state == "Waiting"){
+			m_anim.get(m_state)->play();
+			if(m_anim.get(m_state)->end()){
+				changeState("Moving");
+			}
+		}
+		if(m_state == "Moving"){
+			m_anim.get(m_state)->play();
+			if(m_anim.get(m_state)->end()){
+				changeState("Waiting");
+			}
+		}
 }
 
 void C_Clouds::render()
 {
 	//cout << "image name is "<< fileName << endl;
 	string cloudName = "clouds_Cloud_0"+to_string(m_type);
+	string cloudOnTopName = "clouds_Cloud_0"+to_string(m_typeOnTop);
 	string shadowName = "clouds_Shadow_0"+to_string(m_type);
 
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(shadowName, m_coord.getXScreen(),m_coord.getYScreen()+2*TILE_HALF_HEIGHT,CENTER_TILE);
-	int x = m_fly;
 	t.renderTexture(cloudName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
-	if(m_fly < 6){
-		x = m_anim.getImageNbr(m_state);
-		t.renderTexture(cloudName, m_coord.getXScreen()+x,m_coord.getYScreen(),CENTER_TILE);
-	}
+	int x = m_anim.get("Moving")->getImageNbr();
+	t.renderTexture(cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen(),CENTER_TILE);
+
 }
 
 
@@ -295,12 +308,12 @@ C_Trees::C_Trees(string name, int x_grid, int y_grid):
 	int size =  name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
 	m_name = m_name.substr(0,size);
 	m_state = "Wind";
-	m_anim.add(C_Anim("Wind",0,10,90,true));
+	m_anim.add(new C_Anim("Wind",0,10,90,true));
 }
 
 void C_Trees::play()
 {
-	m_anim.get(m_state).playAndRewind();
+	m_anim.get(m_state)->playAndRewind();
 }
 
 void C_Trees::render(S_Coord screen)

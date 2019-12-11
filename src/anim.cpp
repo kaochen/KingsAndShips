@@ -30,6 +30,7 @@ C_Anim::C_Anim():
 
 
 C_Anim::C_Anim(std::string name, int imageStart,int imageEnd,long delay):
+	m_type("straight"),
 	m_name(name),
 	m_imageStart(imageStart),
 	m_imageEnd(imageEnd),
@@ -94,10 +95,6 @@ void C_Anim::playAndRewind(){
 }
 
 
-int C_Anim::getImageNbr(){
-	return m_imageCurrent;
-}
-
 void C_Anim::reset(){
 	m_imageCurrent = m_imageStart;
 	m_timeStart = SDL_GetTicks();
@@ -106,7 +103,7 @@ void C_Anim::reset(){
 }
 
 void C_Anim::status(){
-	cout << "Anim: " << m_name << " image" << m_imageCurrent << "/" << m_imageEnd << " Delay: "<< m_timeDelay << " Time: " << m_timeLast <<  endl;
+	cout << "Anim: " << m_name << " Type: "<< m_type << " image" << m_imageCurrent << "/" << m_imageEnd << " Delay: "<< m_timeDelay << " Time: " << m_timeLast <<  endl;
 }
 
 bool C_Anim::end(){
@@ -128,16 +125,66 @@ void C_Anim::start(){
 		m_started = true;
 	};
 }
+
 //---------------- C_AnimList ------------
-C_AnimList::C_AnimList(){
-	m_list["empty"] = C_Anim();
+C_AnimRewind::C_AnimRewind():
+	C_Anim (){
+	m_type = "rewind";
+	m_step = 0;
+	m_rewind = false;
+}
+C_AnimRewind::C_AnimRewind(std::string name, int imageStart,int imageEnd,long delay):
+	C_Anim (name,imageStart,imageEnd,delay){
+	m_type = "rewind";
+	m_step = 0;
+	m_rewind = false;
+}
+C_AnimRewind::C_AnimRewind(std::string name, int imageStart,int imageEnd,long delay, bool randomStart):
+	C_Anim (name,imageStart,imageEnd,delay,randomStart){
+	m_type = "rewind";
+	m_step = 0;
+	m_rewind = false;
 }
 
-void C_AnimList::add(C_Anim anim){
-	m_list[anim.getName()] = anim;
+void C_AnimRewind::play(){
+	long timeCurrent = SDL_GetTicks();
+	if( timeCurrent > (m_timeLast + m_timeDelay)){
+		if(m_rewind) {
+			m_imageCurrent--;
+		} else {
+			m_imageCurrent++;
+		}
+		m_timeLast = timeCurrent;
+
+		if (m_imageCurrent >= m_imageEnd) {
+			m_imageCurrent = m_imageEnd;
+			m_rewind = true;
+			m_step = 1;
+		} else if (m_imageCurrent <= m_imageStart) {
+			m_imageCurrent = m_imageStart;
+			m_rewind = false;
+		}
+	}
+}
+
+bool C_AnimRewind::end(){
+	if(m_step > 0 && m_imageCurrent <= m_imageStart){
+		m_started = false;
+		m_step = 0;
+	}
+	return !m_started;
+}
+
+//---------------- C_AnimList ------------
+C_AnimList::C_AnimList(){
+	m_list["empty"] = new C_Anim();
+}
+
+void C_AnimList::add(C_Anim *anim){
+	m_list[anim->getName()] = anim;
 };
 
-C_Anim& C_AnimList::get(std::string name){
+C_Anim* C_AnimList::get(std::string name){
 	if ( m_list.find(name) == m_list.end() ) {
 		cerr << "Can not find C_Anim : " << name << " !" << endl;
 		return m_list["empty"];
@@ -147,17 +194,17 @@ C_Anim& C_AnimList::get(std::string name){
 }
 
 int C_AnimList::getImageNbr(std::string name){
-	return get(name).getImageNbr();
+	return get(name)->getImageNbr();
 }
 
 void C_AnimList::show(){
 	for (auto const& x : m_list) {
 		string name = x.first;  // string (key)
-		map<string, C_Anim>::iterator search = m_list.find(name);
+		map<string, C_Anim*>::iterator search = m_list.find(name);
 		if(search == m_list.end()) {
 			cout << "\"" << name << "\" not available in the anim map\n";
 		} else {
-			m_list[name].status();
+			m_list[name]->status();
 		}
 	}
 }
@@ -165,7 +212,7 @@ void C_AnimList::show(){
 void C_AnimList::play(std::string name){
 	for(auto & x : m_list){
 		if(x.first == name){
-			x.second.play();
+			x.second->play();
 		}
 	}
 };
@@ -173,8 +220,15 @@ void C_AnimList::play(std::string name){
 void C_AnimList::playAndRewind(std::string name){
 	for(auto & x : m_list){
 		if(x.first == name){
-			x.second.playAndRewind();
+			x.second->playAndRewind();
 		}
 	}
 };
+
+C_AnimList::~C_AnimList()
+{
+	for(map<string, C_Anim*>::iterator it=m_list.begin(); it != m_list.end(); ++it){
+		delete it->second;
+	}
+}
 

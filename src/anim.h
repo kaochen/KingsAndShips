@@ -31,16 +31,17 @@ public:
 	C_Anim();
 	C_Anim(std::string name, int imageStart,int imageEnd,long delay);
 	C_Anim(std::string name, int imageStart,int imageEnd,long delay, bool randomStart);
-	~C_Anim(){};
-	void play();
-	void playAndRewind();
-	void reset();
-	int getImageNbr();
-	std::string getName(){return m_name;};
-	void status();
-	bool end();
-	void start();
-private:
+	virtual ~C_Anim(){};
+	virtual void play();
+	virtual void playAndRewind();
+	virtual void reset();
+	virtual int getImageNbr(){return m_imageCurrent;};
+	virtual std::string getName(){return m_name;};
+	virtual void status();
+	virtual bool end();
+	virtual void start();
+protected:
+	std::string m_type;
 	std::string m_name;
 
 	int m_imageStart;
@@ -55,23 +56,34 @@ private:
 	bool m_rewind;
 };
 
+class C_AnimRewind: public C_Anim {
+public :
+	C_AnimRewind();
+	C_AnimRewind(std::string name, int imageStart,int imageEnd,long delay);
+	C_AnimRewind(std::string name, int imageStart,int imageEnd,long delay, bool randomStart);
+	virtual void play();
+	virtual bool end();
+protected:
+	int m_step;
+};
+
 
 class C_AnimList
 {
 public:
 	C_AnimList();
-	~C_AnimList(){};
-	void add(C_Anim anim);
+	~C_AnimList();
+	void add(C_Anim *anim);
 	int getImageNbr(std::string name);
-	C_Anim& get(std::string name);
+	C_Anim* get(std::string name);
 	void play(std::string name);
 	void playAndRewind(std::string name);
-	bool end(std::string name){return get(name).end();};
-	void reset(std::string name){get(name).reset();};
-	void start(std::string name){get(name).start();};
+	bool end(std::string name){return get(name)->end();};
+	void reset(std::string name){get(name)->reset();};
+	void start(std::string name){get(name)->start();};
 	void show();
 
 private:
-	std::map<std::string, C_Anim> m_list;
+	std::map<std::string, C_Anim*> m_list;
 };
 #endif

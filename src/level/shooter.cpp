@@ -34,13 +34,13 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	C_Message::printM(message);
 	m_coord.displayStatus();
-	m_anim.add(C_Anim("Drag",1,8,40));
-	m_anim.add(C_Anim("Waiting",0,0,m_weapon->getFireRate()));
-	m_anim.add(C_Anim("Weapon_Waiting",0,0,m_weapon->getFireRate()));
-	m_anim.add(C_Anim("Weapon_Searching",0,0,100));
-	m_anim.add(C_Anim("Weapon_Shooting",0,0,100));
-	m_anim.add(C_Anim("Weapon_Reloading",0,0,120));
-	m_anim.add(C_Anim("JustAdded",0,7,100));
+	m_anim.add(new C_Anim("Drag",1,8,40));
+	m_anim.add(new C_Anim("Waiting",0,0,m_weapon->getFireRate()));
+	m_anim.add(new C_Anim("Weapon_Waiting",0,0,m_weapon->getFireRate()));
+	m_anim.add(new C_Anim("Weapon_Searching",0,0,100));
+	m_anim.add(new C_Anim("Weapon_Shooting",0,0,100));
+	m_anim.add(new C_Anim("Weapon_Reloading",0,0,120));
+	m_anim.add(new C_Anim("JustAdded",0,7,100));
 
 	m_target = nullptr;
 	m_throwed = false;
@@ -68,7 +68,7 @@ void C_Shooter::play()
 				changeState("Waiting");
 			}
 		}
-		m_anim.get(m_state).play();
+		m_anim.get(m_state)->play();
 		shoot();
 	} else {
 		kill();
@@ -124,7 +124,7 @@ void C_Shooter::shoot(){
 			}
 		}
 
-		m_anim.get(m_weaponState).play();
+		m_anim.get(m_weaponState)->play();
 	}
 }
 
@@ -313,7 +313,7 @@ void C_Shooter::renderWeapon(){
 
 void C_Shooter::drag(S_Coord screen)
 {
-	m_anim.get("Drag").playAndRewind();
+	m_anim.get("Drag")->playAndRewind();
 	C_Grid& grid= C_Locator::getGrid();
 
 	bool water = false;

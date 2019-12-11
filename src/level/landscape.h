@@ -61,7 +61,8 @@ public:
 	virtual void play();
 protected:
 	int m_type;
-	int m_fly;
+	int m_typeOnTop;
+	int m_randStart;
 };
 
 
