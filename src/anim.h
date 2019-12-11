@@ -33,7 +33,6 @@ public:
 	C_Anim(std::string name, int imageStart,int imageEnd,long delay, bool randomStart);
 	virtual ~C_Anim(){};
 	virtual void play();
-	virtual void playAndRewind();
 	virtual void reset();
 	virtual int getImageNbr(){return m_imageCurrent;};
 	virtual std::string getName(){return m_name;};
@@ -52,8 +51,6 @@ protected:
 	long m_timeStart;
 	long m_timeDelay;
 	long m_timeLast;
-
-	bool m_rewind;
 };
 
 class C_AnimRewind: public C_Anim {
@@ -65,6 +62,7 @@ public :
 	virtual bool end();
 protected:
 	int m_step;
+	bool m_rewind;
 };
 
 
@@ -77,7 +75,6 @@ public:
 	int getImageNbr(std::string name);
 	C_Anim* get(std::string name);
 	void play(std::string name);
-	void playAndRewind(std::string name);
 	bool end(std::string name){return get(name)->end();};
 	void reset(std::string name){get(name)->reset();};
 	void start(std::string name){get(name)->start();};

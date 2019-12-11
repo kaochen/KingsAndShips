@@ -34,7 +34,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
 	C_Message::printM(message);
 	m_coord.displayStatus();
-	m_anim.add(new C_Anim("Drag",1,8,40));
+	m_anim.add(new C_AnimRewind("Drag",1,8,40));
 	m_anim.add(new C_Anim("Waiting",0,0,m_weapon->getFireRate()));
 	m_anim.add(new C_Anim("Weapon_Waiting",0,0,m_weapon->getFireRate()));
 	m_anim.add(new C_Anim("Weapon_Searching",0,0,100));
@@ -313,7 +313,7 @@ void C_Shooter::renderWeapon(){
 
 void C_Shooter::drag(S_Coord screen)
 {
-	m_anim.get("Drag")->playAndRewind();
+	m_anim.get("Drag")->play();
 	C_Grid& grid= C_Locator::getGrid();
 
 	bool water = false;

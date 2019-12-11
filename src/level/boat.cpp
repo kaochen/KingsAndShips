@@ -40,7 +40,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_targetsTypes.push_back("ArcherTower");
 	m_targetsTypes.push_back("Catapult");
 	m_state ="Moving";
-	m_anim.add(new C_Anim("Moving",1,7,80));
+	m_anim.add(new C_AnimRewind("Moving",1,7,80));
 	m_anim.add(new C_Anim("Waiting",0,0,800));
 }
 
@@ -81,12 +81,10 @@ void C_Boat::move()
 	m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
 
 	if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
-		changeState("Waiting");
-		m_anim.get(m_state)->play();
+			changeState("Waiting");
 	} else {
 		if(!nextStepEmpty()) {
 			changeState("Moving");
-			m_anim.get(m_state)->playAndRewind();
 
 			int old_x_grid = m_coord.getXGrid();
 			int old_y_grid = m_coord.getYGrid();
@@ -119,6 +117,7 @@ void C_Boat::move()
 			}
 		}
 	}
+	m_anim.get(m_state)->play();
 }
 
 
