@@ -269,11 +269,15 @@ void C_Clouds::render()
 	string cloudName = "clouds_Cloud_0"+to_string(m_type);
 	string cloudOnTopName = "clouds_Cloud_0"+to_string(m_typeOnTop);
 	string shadowName = "clouds_Shadow_0"+to_string(m_type);
+	string shadowOnTopName = "clouds_Shadow_0"+to_string(m_typeOnTop);
+
+	int x = m_anim.get("Moving")->getImageNbr();
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(shadowName, m_coord.getXScreen(),m_coord.getYScreen()+2*TILE_HALF_HEIGHT,CENTER_TILE);
+	t.renderTexture(shadowName, m_coord.getXScreen()-TILE_HALF_HEIGHT,m_coord.getYScreen()+3*TILE_HALF_HEIGHT,CENTER_TILE);
+	t.renderTexture(shadowOnTopName, m_coord.getXScreen()-TILE_HALF_HEIGHT + x ,m_coord.getYScreen()+3*TILE_HALF_HEIGHT,CENTER_TILE);
+
 	t.renderTexture(cloudName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
-	int x = m_anim.get("Moving")->getImageNbr();
 	t.renderTexture(cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen(),CENTER_TILE);
 
 }
