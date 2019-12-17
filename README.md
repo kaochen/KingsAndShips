@@ -13,7 +13,7 @@ Meson 0.37 is needed at the minimun.
 
 ### Dependencies
 ```
-apt install build-essential git gettext meson libxml++2.6-dev
+apt install build-essential git cmake ninja-build rpm gettext libxml++2.6-dev
 apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev fonts-roboto
 
 ```
@@ -30,13 +30,28 @@ git pull
 
 ### Compile
 ```
-meson build
-ninja -C build/
+mkdir bin
+cd bin
+cmake -G "Ninja" ..
+ninja //ninja-build on CentOS
+```
+
+### Create Package
+```
+cpack
+sudo dpkg -i kingsandships*.deb
+```
+or
+```
+sudo yum install kingsandships*.rpm
 ```
 
 ### Play
+
+From the source folder
+
 ```
-./build/kingsandships
+./bin/kingsandships
 ```
 
  * Drag & drop Tower or Turbines on to the map.

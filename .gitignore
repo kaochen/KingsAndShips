@@ -12,6 +12,7 @@ valgrind.log
 
 # Build directory
 build/
+bin/
 data/img/original/renderFolder/
 data/img/render/
 src/img/render/
