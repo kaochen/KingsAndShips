@@ -9,6 +9,18 @@ SET(PATCH_VERSION 0)
 set(PROJECT_VERSION "${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}")
 set(PROJECT_NAME kingsandships)
 
+IF (WIN32)
+	set(SHARE_FOLDER .)
+ELSE()
+	set(SHARE_FOLDER share/games/${PROJECT_NAME})
+	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST /usr/local /usr/local/bin /usr/local/share)
+ENDIF()
+	configure_file("src/config.h.in" "config.h" @ONLY)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+
 set (SRCS
 	src/settings.cpp
 	src/coord.cpp
@@ -94,8 +106,12 @@ target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY}
                              ${SDL2_TTF_LIBRARIES}
                              ${LibXML++_LIBRARIES})
 
+IF (WIN32)
+	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++11 -D Windows)
+ELSE()
+	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++11)
+ENDIF()
 
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++11)
 
 
 install(TARGETS ${PROJECT_NAME}
@@ -103,17 +119,20 @@ install(TARGETS ${PROJECT_NAME}
 	DESTINATION bin
 	RENAME ${PROJECT_NAME}-${PROJECT_VERSION})
 
+IF (WIN32)
+	set(CPACK_GENERATOR "TGZ;NSIS")
+ELSE()
+	set(CPACK_GENERATOR "RPM;DEB;TGZ")
+	##install (FILES icon.png DESTINATION share/pixmaps)
+	##install (FILES shorcut.desktop DESTINATION share/applications)
+ENDIF()
 
-
-set(CPACK_GENERATOR "RPM;DEB;TGZ")
-set(SHARE_FOLDER share/games/${PROJECT_NAME})
 
 
 install (DIRECTORY data DESTINATION ${SHARE_FOLDER})
 install (FILES README.md DESTINATION ${SHARE_FOLDER})
 
-##install (FILES icon.png DESTINATION share/pixmaps)
-##install (FILES shorcut.desktop DESTINATION share/applications)
+
 
 set(CPACK_PACKAGE_NAME ${PROJECT_NAME})
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
@@ -145,7 +164,13 @@ ELSEIF(CPACK_GENERATOR MATCHES "RPM")
 	set(CPACK_RPM_PACKAGE_REQUIRES "libxml++2.6-2v5")
 	set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
 
+## Windows
+ELSEIF(CPACK_GENERATOR MATCHES "NSIS")
+	set (CPACK_NSIS_MODIFY_PATH ON)
+	set (CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL ON)
 ENDIF()
+
+target_include_directories(${PROJECT_NAME} PUBLIC "${PROJECT_BINARY_DIR}")
 
 include (CPack)
 
