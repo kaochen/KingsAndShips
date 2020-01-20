@@ -109,6 +109,9 @@ private:
 	void calcGridSize();
 	bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
 	void setNbrOfLevels();
+	std::string getPgmPath();
+	static std::string mergePath(std::string path1, std::string path2);
+
 
 	//pref file:
 	std::string m_prefFile;

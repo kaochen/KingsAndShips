@@ -106,6 +106,7 @@ target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY}
                              ${SDL2_TTF_LIBRARIES}
                              ${LibXML++_LIBRARIES})
 
+target_link_libraries(${PROJECT_NAME} stdc++fs)
 IF (WIN32)
 	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++11 -D Windows)
 ELSE()
@@ -131,6 +132,7 @@ ENDIF()
 
 install (DIRECTORY data DESTINATION ${SHARE_FOLDER})
 install (FILES README.md DESTINATION ${SHARE_FOLDER})
+install (FILES preferences.ini DESTINATION ${SHARE_FOLDER})
 
 
 
@@ -148,7 +150,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
 
 ## Debian
 IF (CPACK_GENERATOR MATCHES "DEB")
-	set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+	set(CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
 	set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Kao chen")
 	set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-2.0-0")
 	set(CPACK_DEBIAN_PACKAGE_DEPENDS "libsdl2-image-2.0-0")
@@ -162,7 +164,7 @@ ELSEIF(CPACK_GENERATOR MATCHES "RPM")
 	set(CPACK_RPM_PACKAGE_REQUIRES "libsdl2-image-2.0-0")
 	set(CPACK_RPM_PACKAGE_REQUIRES "libsdl2-ttf-2.0-0")
 	set(CPACK_RPM_PACKAGE_REQUIRES "libxml++2.6-2v5")
-	set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
+	set(CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
 
 ## Windows
 ELSEIF(CPACK_GENERATOR MATCHES "NSIS")

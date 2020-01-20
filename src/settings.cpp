@@ -22,17 +22,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <fstream>
 #include <unistd.h>
+#include <config.h>
+#include <algorithm>
+#include <fstream>
+#include <limits.h>
 
+#include <experimental/filesystem>
 using namespace std;
 
 C_Settings::C_Settings(std::vector<std::string> args)
 {
 	C_Message::printM("Constructor C_Settings() : start\n");
 	string a_Path = absolutePath(args[0]);
+	string share_folder = SHARE_FOLDER;
+	string cmake_install_prefix = CMAKE_INSTALL_PREFIX;
+	string version = PROJECT_VERSION;
+	C_Message::printM("The game "+  version +" is execute from here: " + a_Path + "\n");
+	C_Message::printM("Cmake install prefix: "+  cmake_install_prefix + "\n");
+	C_Message::printM("Share Folder: "+  share_folder+"\n");
+	string pgm_path = getPgmPath();
+	C_Message::printM("Pgm Path: "+  pgm_path + "\n");
+	string app_folder = pgm_path.substr(0,pgm_path.find("bin"));
+	C_Message::printM("App folder: "+  app_folder + "\n");
 
-	C_Message::printM("The game is execute from here: " + a_Path + "\n");
+	string share_path = app_folder + share_folder;
+	//determine if the program is installed or if it is execute from a local folder
+	if(!std::experimental::filesystem::equivalent(app_folder,cmake_install_prefix)){
+		share_path = a_Path;
+	}
 
-	m_prefFile =  a_Path +"preferences.ini";
+	C_Message::printM("Share path: "+  share_path + "\n");
+
+	m_prefFile =  mergePath(share_path,"preferences.ini");
+	C_Message::printM("preferences.ini: "+  m_prefFile + "\n");
 	loadPrefFile();
 
 	//centerCameraPosition();
@@ -40,11 +62,16 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	m_verboseMode = getArg("-v",args);
 	m_debugMode = getArg("-d",args);
 	m_debugPath = getArg("-dp",args);
-	m_imgFolder = a_Path +"data/img/";
+	m_imgFolder = mergePath(share_path,"data/img/");
+	C_Message::printM("images folder: "+  m_imgFolder + "\n");
 	m_theme = "original";
 	initTSXfileList();
 	m_currentLevel = 1;
-	m_levelFolder = a_Path +"data/levels/";
+	m_levelFolder = mergePath(share_path,"data/levels/");
+	C_Message::printM("levels folder: "+  m_levelFolder  + "\n");
+
+
+
 	setNbrOfLevels();
 	m_playing = PLAY;
 	C_Message::printM("Constructor C_Settings() : done\n");
@@ -325,3 +352,21 @@ void C_Settings::setPlaying(int state)
 		C_Message::printM("PAUSE\n");
 	}
 }
+
+std::string C_Settings::getPgmPath(){
+	char result[ PATH_MAX ];
+	ssize_t count = readlink( "/proc/self/exe", result, PATH_MAX );
+	return std::string( result, (count > 0) ? count : 0 );
+}
+
+std::string C_Settings::mergePath(std::string path1, std::string path2){
+	string fullpath = path1 + path2;
+	if(path1.back() != '\\' && path1.back() != '/' ){
+		#if defined (Windows)
+			fullpath = path1  + "\\" + path2;
+	#else
+			fullpath = path1 +  "/" + path2 ;
+		#endif
+	}
+		return  fullpath;
+	}
