@@ -32,19 +32,18 @@ struct S_Coord{
 };
 
 struct S_Size{
-  int w;
-  int h;
+	int w;
+	int h;
 };
 
 struct S_NodeCoord{
 	S_Coord screen; /*!< position of the center of the tile in px*/
-  S_Coord delta; /*!< difference between the center of the tile and the place of the object. A boat is not always placed in the center of the tile*/
+	S_Coord delta; /*!< difference between the center of the tile and the place of the object. A boat is not always placed in the center of the tile*/
 	S_Coord grid; /*!< position of the tile in grid unit*/
 };
 
 
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
-enum GroundType {GROUND_01,GROUND_02};
 enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 enum imageType {ALIVE,DEAD,WEAPON};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
@@ -74,8 +73,6 @@ public:
 
 	int getGridWidth() {return m_windowWidth / (getTileWidth()/2);};
 	int getGridHeight() {return m_windowHeight / (getTileHeight()/2);};
-	S_Size getNbrOfTilesToDisplay();
-
 
   	//debug
 	bool getVerboseMode() {return m_verboseMode;};

@@ -202,13 +202,6 @@ void C_Settings::moveCameraPosition(const int &x,const int &y)
 };
 
 
-S_Size C_Settings::getNbrOfTilesToDisplay()
-{
-	S_Size size;
-	size.w = m_windowWidth / (getTileWidth()/2);
-	size.h = m_windowHeight / (getTileHeight()/2);
-	return size;
-}
 
 void C_Settings::initTSXfileList()
 {
