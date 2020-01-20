@@ -23,12 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <queue>
 
-#define WINDOW_WIDTH 1280
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
-
-
-#define MAX_TARGETS 3
 
 struct S_Coord{
 	int x;
