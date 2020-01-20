@@ -77,6 +77,13 @@ public:
 	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
 	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
 	S_Size getNbrOfTilesToDisplay();
+
+	int getTileWidth(){return m_tileWidth;};
+	int getHalfTileWidth(){return m_tileWidth/2;};
+	int getTileHeigth(){return m_tileWidth/2;};
+	int getHalfTileHeigth(){return m_tileWidth/4;};
+
+
   	//debug
 	bool getVerboseMode() {return m_verboseMode;};
 	void setDebugMode();
@@ -122,7 +129,7 @@ private:
 	S_Coord m_cameraPos; /*!< get the position of the window over the level map*/
 	//grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
-
+	int m_tileWidth = 96;
 	//debug
 	bool m_verboseMode;
 	bool m_debugMode;
