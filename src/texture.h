@@ -40,7 +40,7 @@ public:
 	virtual SDL_Texture* getTexture();
 	virtual void destroyTexture();
 	virtual void displayStatus();
-  virtual void render(int x, int y, double angle, int align);
+	virtual void render(int x, int y, double angle, int align);
 
 	virtual int getId() = 0;
 	virtual void loadTexture(std::string &path) = 0;
@@ -48,7 +48,7 @@ public:
 
 protected:
 	std::string m_name;
-	SDL_Texture * m_texture;
+	std::vector <SDL_Texture*> m_textures;
 };
 
 

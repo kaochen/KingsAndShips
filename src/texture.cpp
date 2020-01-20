@@ -34,28 +34,32 @@ using namespace std;
 C_Texture::C_Texture():
 	m_name("texture")
 {
-	m_texture = nullptr;
 }
 
 C_Texture::C_Texture(string name):
 	m_name(name)
 {
-	m_texture = nullptr;
 }
 
 C_Texture::~C_Texture()
 {
-	SDL_DestroyTexture(m_texture);
+	destroyTexture();
 }
 
 SDL_Texture* C_Texture::getTexture()
 {
-	return m_texture;
+	SDL_Texture* ret = nullptr;
+	if(!m_textures.empty()){
+		ret = m_textures.front();
+	}
+	return ret;
 }
 void C_Texture::destroyTexture()
 {
-	SDL_DestroyTexture(m_texture);
-	m_texture = nullptr;
+	for(auto i: m_textures){
+		SDL_DestroyTexture(i);
+	}
+	m_textures.clear();
 }
 
 void C_Texture::displayStatus()
@@ -68,7 +72,7 @@ void C_Texture::render(int x, int y, double angle, int align)
 	C_Settings& settings= C_Locator::getSettings();
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())) {
 		SDL_Rect pos;
-		SDL_QueryTexture(m_texture, NULL, NULL, &pos.w, &pos.h);
+		SDL_QueryTexture(getTexture(), NULL, NULL, &pos.w, &pos.h);
 		if(align == CENTER) {
 			pos.x = x - pos.w/2;
 			pos.y = y - pos.h/2;
@@ -87,7 +91,7 @@ void C_Texture::render(int x, int y, double angle, int align)
 			pos.y = y - pos.h/2 - i*(settings.getTileHeight()/2);
 		}
 		C_Window& win=C_Locator::getWindow();
-		SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
+		SDL_RenderCopyEx(win.getRenderer(),getTexture(), NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 	}
 }
 
@@ -173,8 +177,8 @@ void C_Image::loadTexture(string &path)
 		C_Message::printSDLerror("IMG_LOAD()");
 	}
 
-	m_texture = clip;
-	if (texture != nullptr) {
+	m_textures.push_back(clip);
+	if (m_textures.back() != nullptr) {
 		SDL_DestroyTexture(texture);
 	}
 }
@@ -226,7 +230,6 @@ void C_Text::createNewTexture(){
 	if (font == nullptr) {
 		string error= "TTF_OpenFont open " + findFont() + " failed";
 		C_Message::printTTFerror(error);
-		m_texture = nullptr;
 	} else {
 		surf = TTF_RenderText_Blended(font, m_message.c_str(), m_color);
 	}
@@ -234,10 +237,9 @@ void C_Text::createNewTexture(){
 	if (surf == nullptr) {
 		TTF_CloseFont(font);
 		C_Message::printSDLerror("TTF_RenderText");
-		m_texture = nullptr;
 	} else {
-		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
-		if (m_texture == nullptr) {
+		m_textures.push_back(SDL_CreateTextureFromSurface(renderer, surf));
+		if (m_textures.back() == nullptr) {
 			C_Message::printSDLerror("CreateTexture from this text:" + m_message + " failed ");
 		}
 	}
