@@ -13,7 +13,7 @@ Meson 0.37 is needed at the minimun.
 
 ### Dependencies
 ```
-apt install build-essential git cmake ninja-build rpm gettext libxml++2.6-dev
+apt install build-essential git cmake ninja-build gettext libxml++2.6-dev
 apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev fonts-roboto
 
 ```
@@ -48,9 +48,12 @@ sudo yum install kingsandships*.rpm
 
 ### Play
 
-From the source folder
-
 ```
+kingsandships
+```
+From the source folder
+```
+cd KingsAndShips
 ./bin/kingsandships
 ```
 
@@ -81,9 +84,10 @@ apt install tiled
   * weapon.firerange => int (distance is in number of tile around the unit)
   * weapon.firerate => int (milli-second to wait during two shoots)
     
-#### Blender and imagemagick
+#### Graphics
   * **Blender** for editing graphic elements
   * **ImageMagick** to build tileset from Blender render 
+  * **Inkscpae** for creating the logo as svg file.
 
 ```
 apt install blender imagemagick
