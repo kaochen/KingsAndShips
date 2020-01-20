@@ -159,7 +159,8 @@ void C_Node::render()
 	int x_screen = m_coord.getXScreen ();
 	int y_screen = m_coord.getYScreen ();
 
-	y_screen +=TILE_HALF_HEIGHT*2; //need a fix
+	C_Settings& settings=C_Locator::getSettings();
+	y_screen += settings.getTileHeight(); //FIXME
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(m_h_texture_name,x_screen - 20,y_screen + 12);
 	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);

@@ -162,7 +162,7 @@ void C_Settings::extractWindowSize()
 
 void C_Settings::calcGridSize()
 {
-	m_gridSize = sqrt(m_windowHeight*m_windowHeight + m_windowWidth*m_windowWidth)/TILE_HALF_WIDTH + 2;
+	m_gridSize = sqrt(m_windowHeight*m_windowHeight + m_windowWidth*m_windowWidth)/(getTileWidth()/2) + 2;
 }
 
 
@@ -181,8 +181,8 @@ void C_Settings::centerCameraPosition()
 void C_Settings::cameraOnAPoint(S_Coord grid)
 {
 	S_Coord pos;
-	pos.x = getWindowWidth()/2 - (grid.x - grid.y)* TILE_HALF_WIDTH ;
-	pos.y = (grid.y + grid.x) * TILE_HALF_HEIGHT - getWindowHeight()/2;
+	pos.x = getWindowWidth()/2 - (grid.x - grid.y)* (getTileWidth()/2) ;
+	pos.y = (grid.y + grid.x) * (getTileHeight()/2) - (getWindowHeight()/2);
 	setCameraPosition(pos);
 }
 
@@ -205,8 +205,8 @@ void C_Settings::moveCameraPosition(const int &x,const int &y)
 S_Size C_Settings::getNbrOfTilesToDisplay()
 {
 	S_Size size;
-	size.w = m_windowWidth / TILE_HALF_WIDTH;
-	size.h = m_windowHeight / TILE_HALF_HEIGHT;
+	size.w = m_windowWidth / (getTileWidth()/2);
+	size.h = m_windowHeight / (getTileHeight()/2);
 	return size;
 }
 

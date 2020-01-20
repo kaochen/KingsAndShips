@@ -26,8 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WINDOW_WIDTH 1280
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
-#define TILE_HALF_HEIGHT 24
-#define TILE_HALF_WIDTH 48
+
 
 #define MAX_TARGETS 3
 
@@ -74,14 +73,12 @@ public:
 	void moveCameraPosition(const int &x,const int &y);
 
 	//grid
-	int getGridWidth() {return m_windowWidth / TILE_HALF_WIDTH;};
-	int getGridHeight() {return m_windowHeight / TILE_HALF_HEIGHT;};
-	S_Size getNbrOfTilesToDisplay();
-
 	int getTileWidth(){return m_tileWidth;};
-	int getHalfTileWidth(){return m_tileWidth/2;};
-	int getTileHeigth(){return m_tileWidth/2;};
-	int getHalfTileHeigth(){return m_tileWidth/4;};
+	int getTileHeight(){return m_tileWidth/2;};
+
+	int getGridWidth() {return m_windowWidth / (getTileWidth()/2);};
+	int getGridHeight() {return m_windowHeight / (getTileHeight()/2);};
+	S_Size getNbrOfTilesToDisplay();
 
 
   	//debug

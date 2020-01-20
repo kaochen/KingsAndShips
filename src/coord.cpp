@@ -100,7 +100,7 @@ bool C_Coord::onScreen()
 	C_Settings& settings=C_Locator::getSettings();
 	bool visible = false;
 	if(m_this.screen.x > - settings.getTileWidth()/2 && m_this.screen.x < settings.getWindowWidth() + settings.getTileWidth()/2
-			&& m_this.screen.y > - settings.getTileHeigth()/2 && m_this.screen.y < settings.getWindowHeight() + settings.getTileWidth()) {
+			&& m_this.screen.y > - settings.getTileHeight()/2 && m_this.screen.y < settings.getWindowHeight() + settings.getTileWidth()) {
 		visible = true;
 	}
 	return visible;
@@ -111,11 +111,11 @@ S_Coord C_Coord::screenToGrid(S_Coord screen)
 	C_Settings& settings=C_Locator::getSettings();
 	S_Coord cameraPos = settings.getCameraPosition();
 	float xOffset = cameraPos.x;
-	float yOffset = cameraPos.y + settings.getTileHeigth()/4;
+	float yOffset = cameraPos.y + settings.getTileHeight()/4;
 	float tempX = 0.0, tempY = 0.0;
 	S_Coord coord;
-	tempX = ((screen.x - xOffset ) / (settings.getTileWidth()/2) + (screen.y + yOffset)/(settings.getTileHeigth()/2) )/2;
-	tempY = (screen.y + yOffset )/settings.getTileHeigth() - (screen.x - xOffset)/settings.getTileWidth();
+	tempX = ((screen.x - xOffset ) / (settings.getTileWidth()/2) + (screen.y + yOffset)/(settings.getTileHeight()/2) )/2;
+	tempY = (screen.y + yOffset )/settings.getTileHeight() - (screen.x - xOffset)/settings.getTileWidth();
 
 	coord.x = tempX;
 	coord.y = tempY;
@@ -128,7 +128,7 @@ S_Coord C_Coord::gridToScreen(S_Coord grid)
 	S_Coord cameraPos = settings.getCameraPosition();
 	S_Coord screen;
 	screen.x = cameraPos.x + (grid.x - grid.y)* (settings.getTileWidth()/2);
-	screen.y = (grid.y + grid.x) * (settings.getTileHeigth()/2) - cameraPos.y;
+	screen.y = (grid.y + grid.x) * (settings.getTileHeight()/2) - cameraPos.y;
 	return screen;
 }
 

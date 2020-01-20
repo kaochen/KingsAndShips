@@ -355,8 +355,8 @@ void C_Shooter::drag(S_Coord screen)
 		}
 		x = coord.getXGrid () - 2;
 	}
-
-	screen.y -= (2*TILE_HALF_HEIGHT);
+	C_Settings& settings=C_Locator::getSettings();
+	screen.y -= settings.getTileHeight();
 	render(screen);
 }
 
@@ -370,8 +370,9 @@ void C_Shooter::drawEllipse(int x,int y,int size,bool ok)
 		if(!ok){
 			color= "Red";
 			}
-		int width = (TILE_HALF_WIDTH);
-		int height = (TILE_HALF_HEIGHT);
+		C_Settings& settings=C_Locator::getSettings();
+		int width = settings.getTileWidth()/2;
+		int height = width/2;
 		t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height);
 		t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height);
 		t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height);

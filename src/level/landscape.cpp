@@ -58,13 +58,13 @@ void C_Landscape::renderWater(int direction, int gridSize)
 	SDL_RenderClear(renderer);
 	gridSize +=2;
 	for(int j = -2; j < (gridSize+4); j++) {
-		int h = 2*TILE_HALF_WIDTH;
+		int h = settings.getTileWidth();
 		if (j%2 ==0)
 			h = 0;
 
-		int y = j*TILE_HALF_WIDTH - camera.y;
+		int y = j*settings.getTileWidth()/2 - camera.y;
 		for(int i = -(gridSize/4); i < (gridSize/4); i++) {
-			int x =  i*4*TILE_HALF_WIDTH + h + camera.x;
+			int x =  i*2*settings.getTileWidth() + h + camera.x;
 			t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x,y + m_waterDrift.y);
 			t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1),y + m_waterDrift.y*(-1));
 		}
@@ -75,7 +75,7 @@ void C_Landscape::renderWater(int direction, int gridSize)
 		m_animWater->reset();
 	}
 
-	int limit = 4*TILE_HALF_WIDTH - 1;
+	int limit = 2*settings.getTileWidth() - 1;
 
 	if(pause%2 == 0) {
 		switch (direction) {
@@ -97,7 +97,7 @@ void C_Landscape::renderWater(int direction, int gridSize)
 			break;
 		case SOUTH_WEST:
 			m_waterDrift.x += 1;
-			limit = 4*TILE_HALF_WIDTH -1;
+			limit = 2*settings.getTileWidth() -1;
 			if(m_waterDrift.x > limit || m_waterDrift.x < -limit) {
 				m_waterDrift.x = 0;
 				m_waterDrift.y = 0;
@@ -105,15 +105,15 @@ void C_Landscape::renderWater(int direction, int gridSize)
 			break;
 		case SOUTH_EAST:
 			m_waterDrift.y -= 1;
-			limit = 2*TILE_HALF_WIDTH -1;
+			limit = settings.getTileWidth() -1;
 			break;
 		case NORTH_WEST:
 			m_waterDrift.y += 1;
-			limit = 2*TILE_HALF_WIDTH -1;
+			limit = settings.getTileWidth() -1;
 			break;
 		case NORTH_EAST:
 			m_waterDrift.x -= 1;
-			limit = 4*TILE_HALF_WIDTH -1;
+			limit = 2*settings.getTileWidth() -1;
 			if(m_waterDrift.x > limit || m_waterDrift.x < -limit) {
 				m_waterDrift.x = 0;
 				m_waterDrift.y = 0;
@@ -241,7 +241,7 @@ C_Clouds::C_Clouds(int x_grid, int y_grid):
 	m_type = rand() %5;
 	m_typeOnTop = rand() %5;
 	m_randStart = rand() %800;
-	m_anim.add(new C_AnimRewind("Moving",-20,19,80,true));
+	m_anim.add(new C_AnimRewind("Moving",-20,20,60,true));
 	m_anim.add(new C_Anim("Waiting",0,0,m_randStart));
 
 	m_state = "Moving";
@@ -274,8 +274,10 @@ void C_Clouds::render()
 	int x = m_anim.get("Moving")->getImageNbr();
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(shadowName, m_coord.getXScreen()-TILE_HALF_HEIGHT,m_coord.getYScreen()+3*TILE_HALF_HEIGHT,CENTER_TILE);
-	t.renderTexture(shadowOnTopName, m_coord.getXScreen()-TILE_HALF_HEIGHT + x ,m_coord.getYScreen()+3*TILE_HALF_HEIGHT,CENTER_TILE);
+	C_Settings& settings=C_Locator::getSettings();
+	int h = settings.getTileHeight()/2;
+	t.renderTexture(shadowName, m_coord.getXScreen()-h,m_coord.getYScreen()+3*h,CENTER_TILE);
+	t.renderTexture(shadowOnTopName, m_coord.getXScreen()-h + x ,m_coord.getYScreen()+3*h,CENTER_TILE);
 
 	t.renderTexture(cloudName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
 	t.renderTexture(cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen(),CENTER_TILE);
@@ -342,10 +344,10 @@ C_OutsideTile::C_OutsideTile():
 void C_OutsideTile::render(S_Coord grid)
 {
 	C_Settings& settings=C_Locator::getSettings();
-	int x_min = 0 - TILE_HALF_WIDTH;
-	int y_min = 0 - TILE_HALF_HEIGHT;
-	int x_max = settings.getWindowWidth() + TILE_HALF_WIDTH;
-	int y_max = settings.getWindowHeight() + TILE_HALF_HEIGHT;
+	int x_min = 0 - (settings.getTileWidth()/2);
+	int y_min = 0 - (settings.getTileHeight()/2);
+	int x_max = settings.getWindowWidth() + (settings.getTileWidth()/2);
+	int y_max = settings.getWindowHeight() + (settings.getTileHeight()/2);
 	C_CoordGrid coord(grid);
 	S_Coord screen = coord.getScreen();
 	if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max) {

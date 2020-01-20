@@ -84,7 +84,7 @@ void C_Texture::render(int x, int y, double angle, int align)
 			if(pos.h > 128) {
 				i = 2;
 			}
-			pos.y = y - pos.h/2 - i*TILE_HALF_HEIGHT;
+			pos.y = y - pos.h/2 - i*(settings.getTileHeight()/2);
 		}
 		C_Window& win=C_Locator::getWindow();
 		SDL_RenderCopyEx(win.getRenderer(),m_texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
