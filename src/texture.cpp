@@ -34,11 +34,15 @@ using namespace std;
 C_Texture::C_Texture():
 	m_name("texture")
 {
+	m_id = 0;
+	m_nbr_of_sub_res = 1;
 }
 
 C_Texture::C_Texture(string name):
 	m_name(name)
 {
+	m_id = 0;
+	m_nbr_of_sub_res = 1;
 }
 
 C_Texture::~C_Texture()
@@ -107,6 +111,12 @@ C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_wi
 	m_tile_width = tile_width;
 	m_file_width = file_width;
 	m_file_height =file_height;
+	size_t found = m_name.find("clouds_Cloud");
+	if (found!=std::string::npos){
+		m_whiteBgrd =  true;
+	} else {
+		m_whiteBgrd = false;
+	}
 	loadTexture (m_file_path);
 }
 
@@ -121,15 +131,17 @@ void C_Image::displayStatus()
 
 
 
-int C_Image::getId()
-{
-	return m_id;
-}
 
 void C_Image::loadTexture(string &path)
 {
 	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
+	if (m_whiteBgrd){
+		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0);	//fill with a white background color
+	} else {
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);	//fill with a black background color
+	}
+
 	SDL_Surface *image = IMG_Load(path.c_str());
 	SDL_Rect src;
 	int rowCount = m_file_width / m_tile_width;
@@ -147,46 +159,52 @@ void C_Image::loadTexture(string &path)
 	dest.w = m_tile_width;
 	dest.h = m_tile_height;
 
-	SDL_Texture* clip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h);
+	//create the destination clips
+	vector <SDL_Texture *> subClip;
+	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
+		subClip.push_back(SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h));
+	}
+
+	//create the image from the image
 	SDL_Texture *texture = nullptr;
-
-	if (image != nullptr && clip != nullptr) {
+	if(image != nullptr){
 		texture = SDL_CreateTextureFromSurface(renderer,image);
-		SDL_FreeSurface(image); //Don't need anymore
-
 		if (texture == nullptr) {
-			C_Message::printSDLerror("SDL_CreateTextureFromSurface() failed");
-		} else {
-			SDL_SetTextureBlendMode(clip,SDL_BLENDMODE_BLEND);
-			//change target to clip
-			SDL_SetRenderTarget(renderer, clip);
-			//clean new renderer before renderCopy. This is important to avoid image glitch.
-			size_t found = m_name.find("clouds_Cloud");
-  			if (found!=std::string::npos){
-				SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0);	//fill with a white background color
-			} else {
-				SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);	//fill with a black background color
-			}
-			SDL_RenderClear(renderer);
-
-			SDL_RenderCopy(renderer, texture, &src, &dest);
-			// reset target to renderer
-			SDL_SetRenderTarget(renderer, NULL);
+			C_Message::printSDLerror("SDL_CreateTextureFromSurface() failed for:");
+			displayStatus();
 		}
+		SDL_FreeSurface(image); //Don't need anymore
 	} else {
 		C_Message::printSDLerror("IMG_LOAD()");
 	}
 
-	m_textures.push_back(clip);
-	if (m_textures.back() != nullptr) {
-		SDL_DestroyTexture(texture);
+	//load part of the image into the clips
+	int i = 0;
+	for(auto s : subClip){
+		if(i < m_nbr_of_sub_res){
+			if (image != nullptr && s != nullptr) {
+				SDL_SetTextureBlendMode(s,SDL_BLENDMODE_BLEND);
+				//change target to clip
+				SDL_SetRenderTarget(renderer, s);
+
+				//clean new renderer before renderCopy. This is important to avoid image glitch.
+				SDL_RenderClear(renderer);
+
+				SDL_RenderCopy(renderer, texture, &src, &dest);
+				// reset target to renderer
+				SDL_SetRenderTarget(renderer, NULL);
+				//save the clip
+				m_textures.push_back(s);
+			}
+			i++;
+		}
+	}
+	//erase the original textures FIXME should be done outside this function in order to load image just one time
+	if (texture == nullptr) {
+		SDL_DestroyTexture(texture); //Don't need anymore
 	}
 }
 
-void C_Image::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
-{
-	cout << "What for ?? " << message << fontSize << color.a << endl;
-}
 
 //C_Text
 
@@ -265,10 +283,6 @@ string C_Text::findFont()
 	}
 }
 
-int C_Text::getId()
-{
-	return 01234567;
-}
 
 void C_Text::loadTexture(string &path)
 {

@@ -42,13 +42,17 @@ public:
 	virtual void displayStatus();
 	virtual void render(int x, int y, double angle, int align);
 
-	virtual int getId() = 0;
-	virtual void loadTexture(std::string &path) = 0;
-	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize) = 0;
+	virtual int getId(){return m_id;};
+	//Should be virtual :
+	virtual void loadTexture(std::string &path){std::cout << path << std::endl;};
+	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize){
+		std::cout << "What for ?? " << message << fontSize << color.a << std::endl;};
 
 protected:
 	std::string m_name;
 	std::vector <SDL_Texture*> m_textures;
+	int m_id;
+	int m_nbr_of_sub_res;
 };
 
 
@@ -57,19 +61,17 @@ class C_Image: public C_Texture
 public:
 	C_Image(int id,int tileNbr, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
 
-	virtual int getId();
 	virtual void loadTexture( std::string &path);
 	virtual void displayStatus();
-	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 
 protected:
-	int m_id;
 	int m_tileNbr;
 	std::string m_file_path;
 	int m_tile_height;
 	int m_tile_width;
 	int m_file_width;
 	int m_file_height;
+	bool m_whiteBgrd;
 };
 
 //C_Text
@@ -81,12 +83,11 @@ public:
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 
 	//why I need to declare this, no clue at all:
-	virtual int getId();
 	virtual void loadTexture( std::string &path);
 
 protected:
-	void createNewTexture();
-	std::string findFont();
+	virtual void createNewTexture();
+	virtual std::string findFont();
 	std::string m_message;
 	int m_fontSize;
 	SDL_Color m_color;
