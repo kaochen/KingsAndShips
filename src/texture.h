@@ -44,7 +44,7 @@ public:
 
 	virtual int getId(){return m_id;};
 	//Should be virtual :
-	virtual void loadTexture(std::string &path){std::cout << path << std::endl;};
+	virtual void loadTexture(SDL_Texture* fullImage){if(fullImage !=nullptr){}};
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize){
 		std::cout << "What for ?? " << message << fontSize << color.a << std::endl;};
 
@@ -59,14 +59,13 @@ protected:
 class C_Image: public C_Texture
 {
 public:
-	C_Image(int id,int tileNbr, std::string name, std::string file_Path, int tile_width, int tile_height, int file_width, int file_height);
+	C_Image(int id,int tileNbr, std::string name, SDL_Texture * texture, int tile_width, int tile_height, int file_width, int file_height);
 
-	virtual void loadTexture( std::string &path);
+	virtual void loadTexture(SDL_Texture* fullImage);
 	virtual void displayStatus();
 
 protected:
 	int m_tileNbr;
-	std::string m_file_path;
 	int m_tile_height;
 	int m_tile_width;
 	int m_file_width;
@@ -83,7 +82,7 @@ public:
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 
 	//why I need to declare this, no clue at all:
-	virtual void loadTexture( std::string &path);
+	virtual void loadTexture(SDL_Texture* fullImage){if(fullImage !=nullptr){}};
 
 protected:
 	virtual void createNewTexture();
@@ -117,6 +116,7 @@ public:
 	void freeTexture(std::string name);
 
 private:
+	SDL_Texture* imageToTexture(std::string &path);
 	int m_count;
 	std::map<std::string, C_Texture*> m_map_textures;
 };

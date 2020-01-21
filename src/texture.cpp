@@ -101,12 +101,11 @@ void C_Texture::render(int x, int y, double angle, int align)
 
 //C_Image
 
-C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_width, int tile_height, int file_width, int file_height):
+C_Image::C_Image(int id, int tileNbr, string name, SDL_Texture * texture, int tile_width, int tile_height, int file_width, int file_height):
 	C_Texture(name)
 {
 	m_id = id;
 	m_tileNbr = tileNbr;
-	m_file_path = file_path;
 	m_tile_height = tile_height;
 	m_tile_width = tile_width;
 	m_file_width = file_width;
@@ -117,22 +116,21 @@ C_Image::C_Image(int id, int tileNbr, string name, string file_path, int tile_wi
 	} else {
 		m_whiteBgrd = false;
 	}
-	loadTexture (m_file_path);
+	loadTexture (texture);
 }
 
 
 void C_Image::displayStatus()
 {
-	string filename = C_Message::extractFilename(m_file_path);
 	C_Message::printV("Image: " + to_string(m_id) + " "+ m_name + " " + to_string(m_tile_width)
-			 + ":" + to_string(m_tile_height) + " from: " + filename + " "
+			 + ":" + to_string(m_tile_height)
 			 + to_string(m_file_width) + ":" + to_string(m_file_height)+"\n");
 }
 
 
 
 
-void C_Image::loadTexture(string &path)
+void C_Image::loadTexture(SDL_Texture* fullImage)
 {
 	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
@@ -141,8 +139,6 @@ void C_Image::loadTexture(string &path)
 	} else {
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);	//fill with a black background color
 	}
-
-	SDL_Surface *image = IMG_Load(path.c_str());
 	SDL_Rect src;
 	int rowCount = m_file_width / m_tile_width;
 	int rowNbr = m_tileNbr%rowCount;
@@ -165,24 +161,11 @@ void C_Image::loadTexture(string &path)
 		subClip.push_back(SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h));
 	}
 
-	//create the image from the image
-	SDL_Texture *texture = nullptr;
-	if(image != nullptr){
-		texture = SDL_CreateTextureFromSurface(renderer,image);
-		if (texture == nullptr) {
-			C_Message::printSDLerror("SDL_CreateTextureFromSurface() failed for:");
-			displayStatus();
-		}
-		SDL_FreeSurface(image); //Don't need anymore
-	} else {
-		C_Message::printSDLerror("IMG_LOAD()");
-	}
-
 	//load part of the image into the clips
 	int i = 0;
 	for(auto s : subClip){
 		if(i < m_nbr_of_sub_res){
-			if (image != nullptr && s != nullptr) {
+			if (fullImage != nullptr && s != nullptr) {
 				SDL_SetTextureBlendMode(s,SDL_BLENDMODE_BLEND);
 				//change target to clip
 				SDL_SetRenderTarget(renderer, s);
@@ -190,7 +173,7 @@ void C_Image::loadTexture(string &path)
 				//clean new renderer before renderCopy. This is important to avoid image glitch.
 				SDL_RenderClear(renderer);
 
-				SDL_RenderCopy(renderer, texture, &src, &dest);
+				SDL_RenderCopy(renderer, fullImage, &src, &dest);
 				// reset target to renderer
 				SDL_SetRenderTarget(renderer, NULL);
 				//save the clip
@@ -199,10 +182,7 @@ void C_Image::loadTexture(string &path)
 			i++;
 		}
 	}
-	//erase the original textures FIXME should be done outside this function in order to load image just one time
-	if (texture == nullptr) {
-		SDL_DestroyTexture(texture); //Don't need anymore
-	}
+
 }
 
 
@@ -284,10 +264,6 @@ string C_Text::findFont()
 }
 
 
-void C_Text::loadTexture(string &path)
-{
-	cout << "empty declaration " << path << endl;
-}
 //#######################################Texture List##################################################
 
 C_TextureList::C_TextureList():
@@ -411,8 +387,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	bool firstID = false;
 	int startCount = m_count + 1;
 
-
-	//	cout << "Tile Count" << startCount << endl;
+	//Get general values :
 	while(reader.read()) {
 		string nodeName = reader.get_name();
 		//cout << nodeName << "---namespace---\n";
@@ -443,18 +418,36 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 				if (nodeName == "image" && attributes == "height") {
 					file_height = stoi(reader.get_value());
 				}
+			} while(reader.move_to_next_attribute());
+		}
+		reader.move_to_element();
+	}
+
+	SDL_Texture* texture = imageToTexture(filePath);
+
+	//	cout << "Tile Count" << startCount << endl;
+	xmlpp::TextReader reader2(tsx_File_Path);
+	while(reader2.read()) {
+		string nodeName = reader2.get_name();
+		//cout << nodeName << "---namespace---\n";
+
+		if (reader2.has_attributes()) {
+			reader2.move_to_first_attribute();
+			do {
+				string attributes = reader2.get_name();
+				//cout << attributes << "-----"<< endl;
 
 				//tile node
 				if (nodeName == "tile" && attributes == "id") {
-					tileNbr = stoi(reader.get_value());
+					tileNbr = stoi(reader2.get_value());
 					firstID = true;
 					//cout << id << "<--" << endl;
 				}
 				if (nodeName == "tile" && attributes == "type")
-					fullname = name +"_" + reader.get_value();
+					fullname = name +"_" + reader2.get_value();
 				//
 
-			} while(reader.move_to_next_attribute());
+			} while(reader2.move_to_next_attribute());
 		}
 		//create new texture
 		if(tileNbr != previousTileNbr && firstID == true) {
@@ -462,13 +455,18 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			int id = tileNbr + startCount;
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()) {
-				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, filePath, tile_width, tile_height, file_width, file_height );
+				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height );
 				m_count++;
 				//cout << m_count << ": " << fullname << "Size: " << tile_width <<":"<< tile_height<< endl;
 			}
 		}
 
-		reader.move_to_element();
+		reader2.move_to_element();
+	}
+
+	//erase the original textures FIXME should be done outside this function in order to load image just one time
+	if (texture == nullptr) {
+		SDL_DestroyTexture(texture); //Don't need anymore
 	}
 }
 
@@ -503,4 +501,19 @@ string C_TextureList::getNameFromID(int id)
 	return result;
 }
 
-
+SDL_Texture* C_TextureList::imageToTexture(std::string &path){
+	SDL_Texture *ret = nullptr;
+	C_Window& win=C_Locator::getWindow();
+	SDL_Renderer* renderer = win.getRenderer ();
+	SDL_Surface *image = IMG_Load(path.c_str());
+	if(image != nullptr){
+		ret = SDL_CreateTextureFromSurface(renderer,image);
+		if (ret == nullptr) {
+			C_Message::printSDLerror("SDL_CreateTextureFromSurface() failed for:" + path);
+		}
+		SDL_FreeSurface(image); //Don't need anymore
+	} else {
+		C_Message::printSDLerror("IMG_LOAD()");
+	}
+	return ret;
+}
