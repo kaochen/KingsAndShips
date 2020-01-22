@@ -283,6 +283,10 @@ void C_Window::listenSDL_Events()
 			break;
 		case SDL_KEYDOWN:
 			listenKeyboard(event);
+			break;
+		case SDL_MOUSEWHEEL:
+			listenMouseWheel(event);
+			break;
 		}
 		navigateOverTheMap(button);
 	}
@@ -554,4 +558,15 @@ void C_Window::navigateOverTheMap(S_Coord const &button)
 S_LevelModel C_Window::getLevelModel(int levelNbr)
 {
 	return m_levelFactory->getModel(levelNbr);
+}
+
+void C_Window::listenMouseWheel(SDL_Event &event){
+	if(event.wheel.y != 0){
+		C_Settings& settings= C_Locator::getSettings();
+		if(event.wheel.y > 0){
+			settings.zoomUp();
+		} else if(event.wheel.y < 0){
+			settings.zoomDown();
+		}
+    }
 }

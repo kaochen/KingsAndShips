@@ -58,6 +58,7 @@ protected:
 	void listenMouseButtonUP(SDL_Event &event);
 	void listenMouseButtonDown(SDL_Event &event);
 	void navigateOverTheMap(S_Coord const &button);
+	void listenMouseWheel(SDL_Event &event);
 
 private:
 	SDL_Window* m_window;
