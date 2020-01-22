@@ -101,7 +101,10 @@ void C_Texture::render(int x, int y, double angle, int align)
 
 //C_Image
 
-C_Image::C_Image(int id, int tileNbr, string name, SDL_Texture * texture, int tile_width, int tile_height, int file_width, int file_height):
+C_Image::C_Image(int id, int tileNbr, string name,
+				 SDL_Texture * texture, int tile_width,
+				 int tile_height, int file_width,
+				 int file_height, int nbrOfZoom):
 	C_Texture(name)
 {
 	m_id = id;
@@ -110,6 +113,7 @@ C_Image::C_Image(int id, int tileNbr, string name, SDL_Texture * texture, int ti
 	m_tile_width = tile_width;
 	m_file_width = file_width;
 	m_file_height =file_height;
+	m_nbr_of_sub_res = nbrOfZoom;
 	size_t found = m_name.find("clouds_Cloud");
 	if (found!=std::string::npos){
 		m_whiteBgrd =  true;
@@ -155,29 +159,32 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 	dest.w = m_tile_width;
 	dest.h = m_tile_height;
 
-	//create the destination clips
-	vector <SDL_Texture *> subClip;
-	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
-		subClip.push_back(SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h));
-	}
-
 	//load part of the image into the clips
-	int i = 0;
-	for(auto s : subClip){
+
+	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
+		if(i>0){
+			dest.w = m_tile_width/4*i;
+			dest.h = m_tile_height/4*i;
+			dest.x = dest.w/2;
+			dest.y = dest.h/2;
+		}
+		SDL_Texture * subClip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h);
 		if(i < m_nbr_of_sub_res){
-			if (fullImage != nullptr && s != nullptr) {
-				SDL_SetTextureBlendMode(s,SDL_BLENDMODE_BLEND);
+			if (fullImage != nullptr && subClip != nullptr) {
+				SDL_SetTextureBlendMode(subClip,SDL_BLENDMODE_BLEND);
 				//change target to clip
-				SDL_SetRenderTarget(renderer, s);
+				SDL_SetRenderTarget(renderer, subClip);
 
 				//clean new renderer before renderCopy. This is important to avoid image glitch.
 				SDL_RenderClear(renderer);
+
+
 
 				SDL_RenderCopy(renderer, fullImage, &src, &dest);
 				// reset target to renderer
 				SDL_SetRenderTarget(renderer, NULL);
 				//save the clip
-				m_textures.push_back(s);
+				m_textures.push_back(subClip);
 			}
 			i++;
 		}
@@ -385,6 +392,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	int tile_width = 128, tile_height = 128, file_width = 1024, file_height = 1024;
 	int tileNbr = 0, previousTileNbr = -1;
 	bool firstID = false;
+	int nbrOfZoom = 1;
 	int startCount = m_count + 1;
 
 	//Get general values :
@@ -417,6 +425,14 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 				}
 				if (nodeName == "image" && attributes == "height") {
 					file_height = stoi(reader.get_value());
+				}
+				if (nodeName == "image" && attributes == "zoom") {
+					string tmp = reader.get_value();
+
+					if(tmp == "yes"){
+						nbrOfZoom = 4;
+						cout << name << " " << tmp << " zoom active" << endl;
+					}
 				}
 			} while(reader.move_to_next_attribute());
 		}
@@ -455,7 +471,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			int id = tileNbr + startCount;
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()) {
-				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height );
+				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbrOfZoom );
 				m_count++;
 				//cout << m_count << ": " << fullname << "Size: " << tile_width <<":"<< tile_height<< endl;
 			}

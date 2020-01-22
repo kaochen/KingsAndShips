@@ -59,7 +59,10 @@ protected:
 class C_Image: public C_Texture
 {
 public:
-	C_Image(int id,int tileNbr, std::string name, SDL_Texture * texture, int tile_width, int tile_height, int file_width, int file_height);
+	C_Image(int id,int tileNbr, std::string name,
+			SDL_Texture * texture, int tile_width,
+			int tile_height, int file_width,
+			int file_height, int nbrOfZoom);
 
 	virtual void loadTexture(SDL_Texture* fullImage);
 	virtual void displayStatus();
