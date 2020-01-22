@@ -58,6 +58,9 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	loadPrefFile();
 
 	//centerCameraPosition();
+	m_zoom = ZOOM_MAX/2;
+	updateTileWidth();
+
 	calcGridSize();
 	m_verboseMode = getArg("-v",args);
 	m_debugMode = getArg("-d",args);

@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
 #define STEP 4
-#define ZOOM_MAX 8
+#define ZOOM_MAX 12
 #define ZOOM_STEP 24
 #define TILE_WIDTH 96
 
@@ -140,7 +140,7 @@ private:
 	std::string m_imgFolder;
 	std::string m_theme;
 	std::queue<std::string> m_tsxFileList;
-	int m_zoom = 1;
+	int m_zoom = ZOOM_MAX/2;
 	int m_zoom_max = ZOOM_MAX;
 	int m_zoom_min = 1;
 	//levels
