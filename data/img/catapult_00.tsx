@@ -12,7 +12,7 @@
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="4000"/>
  </properties>
- <image source="original/t_catapult_00.png" width="1536" height="1024"/>
+ <image source="original/t_catapult_00.png" width="1536" height="1024" zoom="yes"/>
  <tile id="0" type="W_EE_0"/>
  <tile id="1" type="W_EE_1"/>
  <tile id="2" type="W_EE_2"/>

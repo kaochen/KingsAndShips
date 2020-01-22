@@ -70,8 +70,6 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	m_levelFolder = mergePath(share_path,"data/levels/");
 	C_Message::printM("levels folder: "+  m_levelFolder  + "\n");
 
-
-
 	setNbrOfLevels();
 	m_playing = PLAY;
 	C_Message::printM("Constructor C_Settings() : done\n");
@@ -201,7 +199,21 @@ void C_Settings::moveCameraPosition(const int &x,const int &y)
 	m_cameraPos.y +=y;
 };
 
+void C_Settings::zoomDown(){
+	m_zoom +=1;
+	if(m_zoom > m_zoom_max){
+		m_zoom = m_zoom_max;
+	}
+	cout << "zoomDown: " << m_zoom << endl;
+}
 
+void C_Settings::zoomUp(){
+	m_zoom -=1;
+	if(m_zoom < m_zoom_min){
+		m_zoom = m_zoom_min;
+	}
+	cout << "zoomUp" << m_zoom  << endl;
+}
 
 void C_Settings::initTSXfileList()
 {

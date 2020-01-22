@@ -411,6 +411,12 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	case SDLK_r:
 		loadLevel(m_levelNbr);
 		break;
+	case SDLK_s:
+		settings.zoomDown();
+		break;
+	case SDLK_z:
+		settings.zoomUp();
+		break;
 	case SDLK_w:{
 		C_OpenEndLevelMenu end;
 		end.setNbr(1);

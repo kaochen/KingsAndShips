@@ -13,6 +13,6 @@
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="2000"/>
  </properties>
- <image source="original/Town_01.png" width="256" height="256"/>
+ <image source="original/Town_01.png" width="256" height="256" zoom="yes"/>
  <tile id="0" type="A_EE_0"/>
 </tileset>

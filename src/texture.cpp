@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "texture.h"
 #include "locator.h"
+#include "settings.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
@@ -52,9 +53,15 @@ C_Texture::~C_Texture()
 
 SDL_Texture* C_Texture::getTexture()
 {
+	C_Settings& settings= C_Locator::getSettings();
+	size_t zoom = settings.getZoom() - 1;
 	SDL_Texture* ret = nullptr;
 	if(!m_textures.empty()){
-		ret = m_textures.front();
+		if(zoom < m_textures.size()){
+			ret = m_textures[zoom];
+		} else {
+			ret = m_textures.front();
+		}
 	}
 	return ret;
 }
@@ -162,13 +169,14 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 	//load part of the image into the clips
 
 	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
-		if(i>0){
-			dest.w = m_tile_width/4*i;
-			dest.h = m_tile_height/4*i;
-			dest.x = dest.w/2;
-			dest.y = dest.h/2;
+		if(i < ZOOM_MAX){
+			dest.w = m_tile_width/4*(ZOOM_MAX - i);
+			dest.h = m_tile_height/4*(ZOOM_MAX - i);
+			//dest.x = dest.w/2;
+			//dest.y = dest.h/2;
+			cout << i << "/" << m_nbr_of_sub_res  << " : " << dest.w << "x" << dest.w<< endl;
 		}
-		SDL_Texture * subClip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  src.w, src.h);
+		SDL_Texture * subClip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  dest.w, dest.h);
 		if(i < m_nbr_of_sub_res){
 			if (fullImage != nullptr && subClip != nullptr) {
 				SDL_SetTextureBlendMode(subClip,SDL_BLENDMODE_BLEND);
@@ -185,8 +193,12 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 				SDL_SetRenderTarget(renderer, NULL);
 				//save the clip
 				m_textures.push_back(subClip);
+				if(i>0){
+					SDL_Rect pos;
+					SDL_QueryTexture(subClip, NULL, NULL, &pos.w, &pos.h);
+					cout << "W:" << pos.w <<  " H:" << pos.h << endl;
+				}
 			}
-			i++;
 		}
 	}
 
@@ -430,7 +442,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 					string tmp = reader.get_value();
 
 					if(tmp == "yes"){
-						nbrOfZoom = 4;
+						nbrOfZoom = ZOOM_MAX;
 						cout << name << " " << tmp << " zoom active" << endl;
 					}
 				}

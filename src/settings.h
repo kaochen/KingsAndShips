@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
+#define ZOOM_MAX 4
 
 struct S_Coord{
 	int x;
@@ -86,6 +87,10 @@ public:
 	std::queue<std::string>* getTSXfileList(){return &m_tsxFileList;};
 	std::string getImgFolder(){return m_imgFolder;};
 	std::string getThemePath(){return m_imgFolder + m_theme;};
+	int getZoom(){return m_zoom;};
+	int getZoomMax(){return m_zoom;};
+	void zoomUp();
+	void zoomDown();
 	//level
 	int setCurrentLevelNbr(int nbr);
 	int getCurrentLevelNbr(){return m_currentLevel;};
@@ -96,6 +101,7 @@ public:
 	int getPlaying(){return m_playing;};
 	void setPlaying();
 	void setPlaying(int state);
+
 
 private:
 	std::string absolutePath(std::string &path);
@@ -128,6 +134,9 @@ private:
 	std::string m_imgFolder;
 	std::string m_theme;
 	std::queue<std::string> m_tsxFileList;
+	int m_zoom = 1;
+	int m_zoom_max = ZOOM_MAX;
+	int m_zoom_min = 1;
 	//levels
 	int m_currentLevel;
 	int m_nbrOfLevels;

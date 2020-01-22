@@ -2,7 +2,7 @@
 <tileset version="1.2" tiledversion="1.2.1" name="clouds" tilewidth="128" tileheight="64" tilecount="5" columns="5">
  <tileoffset x="-14" y="11"/>
  <grid orientation="isometric" width="128" height="64"/>
- <image source="original/t_clouds_01.png" width="640" height="128"/>
+ <image source="original/t_clouds_01.png" width="640" height="128" zoom="yes"/>
  <tile id="0" type="Cloud_00"/>
  <tile id="1" type="Cloud_01"/>
  <tile id="2" type="Cloud_02"/>
