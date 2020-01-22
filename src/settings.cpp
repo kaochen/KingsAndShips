@@ -201,6 +201,10 @@ void C_Settings::moveCameraPosition(const int &x,const int &y)
 
 void C_Settings::zoomDown(){
 	m_zoom +=1;
+	if(m_zoom <= m_zoom_max){
+		moveCameraPosition(0,-(TILE_WIDTH/4));
+	}
+
 	if(m_zoom > m_zoom_max){
 		m_zoom = m_zoom_max;
 	}
@@ -210,6 +214,9 @@ void C_Settings::zoomDown(){
 
 void C_Settings::zoomUp(){
 	m_zoom -=1;
+	if(m_zoom >= m_zoom_min){
+		moveCameraPosition(0,(TILE_WIDTH/4));
+	}
 	if(m_zoom < m_zoom_min){
 		m_zoom = m_zoom_min;
 	}
@@ -218,13 +225,16 @@ void C_Settings::zoomUp(){
 }
 
 void C_Settings::updateTileWidth(){
-		int ret = TILE_WIDTH;
+		int w = TILE_WIDTH;
+		int h = TILE_WIDTH/2;
 		int i = getZoom() - 1;
 		if(i > 0 && i < ZOOM_MAX){
-			ret = TILE_WIDTH/ZOOM_MAX*(ZOOM_MAX - i);
+			w = TILE_WIDTH - (i*STEP);
+			h = w/2;
 		}
 		//std::cout << i  << "-> " << ret << "/" << m_tileWidth << std::endl;
-		m_tileWidth = ret;
+		m_tileWidth = w;
+		m_tileHeight = h;
 }
 
 void C_Settings::initTSXfileList()

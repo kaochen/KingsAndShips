@@ -170,8 +170,10 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 
 	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
 		if(i < ZOOM_MAX){
-			dest.w = m_tile_width/4*(ZOOM_MAX - i);
-			dest.h = m_tile_height/4*(ZOOM_MAX - i);
+			int stepW = m_tile_width/ZOOM_STEP;
+			int stepH = m_tile_height/ZOOM_STEP;
+			dest.w = m_tile_width - (i*stepW);
+			dest.h = m_tile_height - (i*stepH);
 			//dest.x = dest.w/2;
 			//dest.y = dest.h/2;
 			cout << i << "/" << m_nbr_of_sub_res  << " : " << dest.w << "x" << dest.w<< endl;

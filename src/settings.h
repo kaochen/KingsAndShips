@@ -25,7 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
-#define ZOOM_MAX 4
+#define STEP 4
+#define ZOOM_MAX 8
+#define ZOOM_STEP 24
 #define TILE_WIDTH 96
 
 struct S_Coord{
@@ -71,7 +73,7 @@ public:
 
 	//grid
 	int getTileWidth(){return m_tileWidth;};
-	int getTileHeight(){return m_tileWidth/2;};
+	int getTileHeight(){return m_tileHeight;};
 
 	int getGridWidth() {return m_windowWidth / (getTileWidth()/2);};
 	int getGridHeight() {return m_windowHeight / (getTileHeight()/2);};
@@ -128,6 +130,7 @@ private:
 	//grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
 	int m_tileWidth = TILE_WIDTH;
+	int m_tileHeight = TILE_WIDTH/2;
 
 	//debug
 	bool m_verboseMode;
