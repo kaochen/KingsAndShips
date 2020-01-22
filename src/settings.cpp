@@ -204,7 +204,8 @@ void C_Settings::zoomDown(){
 	if(m_zoom > m_zoom_max){
 		m_zoom = m_zoom_max;
 	}
-	cout << "zoomDown: " << m_zoom << endl;
+	//cout << "zoomDown: " << m_zoom << endl;
+	updateTileWidth();
 }
 
 void C_Settings::zoomUp(){
@@ -212,7 +213,18 @@ void C_Settings::zoomUp(){
 	if(m_zoom < m_zoom_min){
 		m_zoom = m_zoom_min;
 	}
-	cout << "zoomUp" << m_zoom  << endl;
+	//cout << "zoomUp" << m_zoom  << endl;
+	updateTileWidth();
+}
+
+void C_Settings::updateTileWidth(){
+		int ret = TILE_WIDTH;
+		int i = getZoom() - 1;
+		if(i > 0 && i < ZOOM_MAX){
+			ret = TILE_WIDTH/ZOOM_MAX*(ZOOM_MAX - i);
+		}
+		//std::cout << i  << "-> " << ret << "/" << m_tileWidth << std::endl;
+		m_tileWidth = ret;
 }
 
 void C_Settings::initTSXfileList()

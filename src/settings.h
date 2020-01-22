@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
 #define ZOOM_MAX 4
+#define TILE_WIDTH 96
 
 struct S_Coord{
 	int x;
@@ -114,6 +115,7 @@ private:
 	void setNbrOfLevels();
 	std::string getPgmPath();
 	static std::string mergePath(std::string path1, std::string path2);
+	void updateTileWidth();
 
 
 	//pref file:
@@ -125,7 +127,8 @@ private:
 	S_Coord m_cameraPos; /*!< get the position of the window over the level map*/
 	//grid
 	size_t m_gridSize; //the grid is a square even if the screen is non-square.
-	int m_tileWidth = 96;
+	int m_tileWidth = TILE_WIDTH;
+
 	//debug
 	bool m_verboseMode;
 	bool m_debugMode;
