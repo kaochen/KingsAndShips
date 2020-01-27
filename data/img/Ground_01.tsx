@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Ground_01" tilewidth="128" tileheight="128" tilecount="33" columns="8">
+<tileset version="1.2" tiledversion="1.2.0" name="Ground_01" tilewidth="256" tileheight="256" tilecount="33" columns="8">
  <tileoffset x="-14" y="11"/>
  <grid orientation="orthogonal" width="8" height="1"/>
- <image source="original/t_ground_01.png" width="1024" height="512" zoom="yes"/>
+ <image source="original/t_ground_01.png" width="2048" height="1024" zoom="yes"/>
  <tile id="0" type="Grass00"/>
  <tile id="1" type="Grass01"/>
  <tile id="2" type="Grass02"/>
