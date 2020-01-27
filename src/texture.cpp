@@ -101,6 +101,10 @@ void C_Texture::render(int x, int y, double angle, int align)
 			}
 			pos.y = y - pos.h/2 - i*(settings.getTileHeight()/2);
 		}
+
+		/*if(m_name == "Ground_01_Grass00" && pos.x > 1000 && pos.x < 1100){
+			cout << m_name << " -> "  << pos.x << ":" << pos.y << " -> " << pos.w << ":" << pos.h  << endl;
+		}*/
 		C_Window& win=C_Locator::getWindow();
 		SDL_RenderCopyEx(win.getRenderer(),getTexture(), NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 	}
@@ -170,10 +174,8 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 
 	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
 		if(i < ZOOM_MAX){
-			int stepW = m_tile_width/ZOOM_STEP;
-			int stepH = m_tile_height/ZOOM_STEP;
-			dest.w = m_tile_width - (i*stepW);
-			dest.h = m_tile_height - (i*stepH);
+			dest.w = m_tile_width - (i*(STEP));
+			dest.h = m_tile_height - (i*STEP);
 			//dest.x = dest.w/2;
 			//dest.y = dest.h/2;
 			cout << i << "/" << m_nbr_of_sub_res  << " : " << dest.w << "x" << dest.w<< endl;

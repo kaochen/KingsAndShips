@@ -25,10 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
-#define STEP 4
-#define ZOOM_MAX 12
-#define ZOOM_STEP 24
-#define TILE_WIDTH 96
+#define STEP 8
+#define ZOOM_MAX 24
+#define ZOOM_STEP 32
+#define IMG_WIDTH 256
+#define TILE_WIDTH (IMG_WIDTH - (IMG_WIDTH/4))
 
 struct S_Coord{
 	int x;
