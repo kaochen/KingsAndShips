@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="trees" tilewidth="128" tileheight="128" tilecount="22" columns="11">
+<tileset version="1.2" tiledversion="1.2.0" name="trees" tilewidth="256" tileheight="256" tilecount="22" columns="11">
  <tileoffset x="-14" y="11"/>
  <grid orientation="isometric" width="128" height="128"/>
- <image source="original/t_trees_01.png" width="1408" height="256" zoom="yes"/>
+ <image source="original/t_trees_01.png" width="2816" height="512" zoom="yes"/>
  <tile id="0" type="01_00">
   <animation>
    <frame tileid="0" duration="100"/>

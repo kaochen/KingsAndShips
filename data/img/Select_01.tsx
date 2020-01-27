@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.1" name="Select" tilewidth="128" tileheight="128" tilecount="32" columns="8">
- <image source="original/t_select_01.png" width="1024" height="512" zoom="yes"/>
+<tileset version="1.2" tiledversion="1.2.1" name="Select" tilewidth="256" tileheight="256" tilecount="32" columns="8">
+ <image source="original/t_select_01.png" width="2048" height="1024" zoom="yes"/>
  <tile id="0" type="Green_01"/>
  <tile id="1" type="Green_02"/>
  <tile id="2" type="Green_03"/>
