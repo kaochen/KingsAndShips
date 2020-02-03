@@ -110,14 +110,14 @@ S_Coord C_Coord::screenToGrid(S_Coord screen)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	S_Coord cameraPos = settings.getCameraPosition();
-	float xOffset = cameraPos.x;
-	float yOffset = cameraPos.y + settings.getTileHeight()/4;
+	float xOffset = cameraPos.x + settings.getTileWidth()/2;
+	float yOffset = cameraPos.y + settings.getTileHeight()/2;
 	float tempX = 0.0, tempY = 0.0;
 	S_Coord coord;
 	tempX = ((screen.x - xOffset ) / (settings.getTileWidth()/2) + (screen.y + yOffset)/(settings.getTileHeight()/2) )/2;
-	tempY = (screen.y + yOffset )/settings.getTileHeight() - (screen.x - xOffset)/settings.getTileWidth();
+	tempY = (screen.y + yOffset )/(settings.getTileHeight()) - (screen.x - xOffset)/(settings.getTileWidth());
 
-	coord.x = tempX;
+	coord.x = tempX + 1;
 	coord.y = tempY;
 	return coord;
 }

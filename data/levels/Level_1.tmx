@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="isometric" renderorder="left-up" width="30" height="30" tilewidth="100" tileheight="50" infinite="0" backgroundcolor="#174c89" nextlayerid="10" nextobjectid="1">
+<map version="1.2" tiledversion="1.3.1" orientation="isometric" renderorder="left-up" compressionlevel="0" width="30" height="30" tilewidth="192" tileheight="96" infinite="0" backgroundcolor="#174c89" nextlayerid="10" nextobjectid="1">
  <properties>
   <property name="subname" value="Swamp"/>
   <property name="wallet" value="200"/>

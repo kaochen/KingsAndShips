@@ -312,6 +312,7 @@ void C_Grid::deleteGrid()
 bool C_Grid::selectATower(C_Coord clic)
 {
 	S_Coord grid = clic.getGrid();
+	cout << "Select: " << grid.x << ":" << grid.y << endl;
 	bool selected = false, top = false, bottom = false;
 	C_Settings& settings=C_Locator::getSettings();
 	string message ="";

@@ -174,11 +174,9 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 
 	for(int i = 0 ; i < m_nbr_of_sub_res; i++){
 		if(i < ZOOM_MAX){
-			dest.w = m_tile_width - (i*(STEP));
-			dest.h = m_tile_height - (i*STEP);
-			//dest.x = dest.w/2;
-			//dest.y = dest.h/2;
-			cout << i << "/" << m_nbr_of_sub_res  << " : " << dest.w << "x" << dest.w<< endl;
+			dest.w = m_tile_width - (i*(m_tile_width/ZOOM_STEP));
+			dest.h = m_tile_height - (i*(m_tile_height/ZOOM_STEP));
+			//cout << i << "/" << m_nbr_of_sub_res  << " : " << dest.w << "x" << dest.w<< endl;
 		}
 		SDL_Texture * subClip = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,  dest.w, dest.h);
 		if(i < m_nbr_of_sub_res){
