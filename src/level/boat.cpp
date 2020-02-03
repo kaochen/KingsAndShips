@@ -85,7 +85,6 @@ void C_Boat::move()
 {
 	C_Grid& grid= C_Locator::getGrid();
 	S_Coord finalDestination = grid.foundTown();
-	m_C_Path->regenScreenCoord(); //first refresh the coord for the path in case of the window has moved
 
 	if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
 			changeState("Waiting");
@@ -104,7 +103,7 @@ void C_Boat::move()
 
 			m_coord.move(angle,m_speed);
 			m_direction = destCoord.angleToDirection(angle);
-			m_coord.regenGridCoord();
+
 			grid.moveUnit(old_x_grid, old_y_grid,  m_coord.getXGrid (), m_coord.getYGrid ());
 
 
@@ -137,7 +136,7 @@ bool C_Boat::nextStepEmpty(){
 
 	C_Coord tmp = m_coord;
 	tmp.move(angle,m_speed);
-	tmp.regenGridCoord();
+
 	C_Grid& grid= C_Locator::getGrid();
 	ret = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
 	return ret;

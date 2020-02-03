@@ -89,7 +89,6 @@ public:
 	virtual int getXScreen() {return m_coord.getXScreen ();};
 	virtual int getYScreen() {return m_coord.getYScreen ();};
 	virtual S_Coord getScreen() {return m_coord.getScreen ();};
-	virtual void regendScreenCoord(){ m_coord.regenScreenCoord();};
 
 	//selected or not
 	virtual bool getSelectedStatus() const {return m_selected;};

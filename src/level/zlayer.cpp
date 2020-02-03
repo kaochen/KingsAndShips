@@ -152,28 +152,24 @@ bool C_ZLayer::play(int layer)
 		switch(layer) {
 		case GROUND :
 			if(m_ground != nullptr) {
-				m_ground->regendScreenCoord();
 				m_ground->play();
 				ret = true;
 			}
 			break;
 		case GRAVEYARD :
 			if(m_grave != nullptr) {
-				m_grave->regendScreenCoord();
 				//m_grave->play();
 				ret = true;
 			}
 			break;
 		case  FIELD:
 			if(m_field != nullptr) {
-				m_field->regendScreenCoord();
 				m_field->play();
 				ret = true;
 			}
 			break;
 		case CLOUD :
 			if(m_cloud != nullptr) {
-				m_cloud->regendScreenCoord();
 				m_cloud->play();
 				ret = true;
 			}
@@ -188,40 +184,35 @@ bool C_ZLayer::render(int layer)
 {
 
 	bool ret = false;
-	m_coord.regenScreenCoord();
+	//m_coord.regenScreenCoord();
 	if(m_coord.onScreen()) { //check if tile is visible on screen
 		switch(layer) {
 		case GROUND :
 			if(m_ground != nullptr) {
-				m_ground->regendScreenCoord();
 				m_ground->render();
 				ret = true;
 			}
 			break;
 		case GRAVEYARD :
 			if(m_grave != nullptr) {
-				m_grave->regendScreenCoord();
 				m_grave->render(m_grave->getScreen());
 				ret = true;
 			}
 			break;
 		case  FIELD:
 			if(m_field != nullptr) {
-				m_field->regendScreenCoord();
 				m_field->render(m_field->getScreen());
 				ret = true;
 			}
 			break;
 		case  WEAPONS:
 			if(m_field != nullptr) {
-				m_field->regendScreenCoord();
 				m_field->renderWeapon();
 				ret = true;
 			}
 			break;
 		case  CLOUD:
 			if(m_cloud != nullptr) {
-				m_cloud->regendScreenCoord();
 				m_cloud->render();
 				ret = true;
 			}

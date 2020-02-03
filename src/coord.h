@@ -31,7 +31,7 @@ public:
 	C_Coord(int x_grid, int y_grid);
 	C_Coord(S_Coord coord);
 	C_Coord(const C_Coord &a);
-	virtual ~C_Coord();
+	virtual ~C_Coord(){};
 	virtual bool isEqual(C_Coord const &b) const;
 	virtual void applyOffset(S_Coord offset);
 	virtual bool onScreen(); /*!< To know if an object is visible on screen and need render*/
@@ -46,8 +46,7 @@ public:
 	virtual int angleToDirection(float const &angle);
 	virtual float directionToAngle(int const direction);
 	virtual void move(float const &angle, int const &speed);
-	virtual void regenGridCoord();
-	virtual void regenScreenCoord();
+
 	virtual float atan2_360(int const &ab, int const &bc);
 	virtual bool closeToCenter(S_Coord grid, int px_length);
 	virtual int guessADirection(S_Coord start,S_Coord end);
@@ -57,7 +56,8 @@ protected:
 
 	S_Coord screenToGrid(S_Coord screen);
 	S_Coord gridToScreen(S_Coord grid);
-	S_NodeCoord m_this;
+	S_Coord m_grid;
+	S_Coord m_screenDelta;
 };
 
 bool operator==(C_Coord const &a,C_Coord const &b);
@@ -67,13 +67,11 @@ class C_CoordGrid: public C_Coord {
 public:
 	C_CoordGrid(S_Coord coord);
 	C_CoordGrid(int x_grid, int y_grid);
-	virtual ~C_CoordGrid();
 };
 
 class C_CoordScreen: public C_Coord {
 public:
 	C_CoordScreen(S_Coord coord);
 	C_CoordScreen(int x_screen, int y_screen);
-	virtual ~C_CoordScreen();
 };
 #endif

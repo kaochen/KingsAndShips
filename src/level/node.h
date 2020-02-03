@@ -52,7 +52,6 @@ public:
 	void prepareRender();
 	void render();
 	bool screenAtCenter();
-	void regenScreenCoord() {m_coord.regenScreenCoord();};
 	int calcG_offset(int x_from, int y_from,int x_dest, int y_dest);
 protected:
 	C_Coord m_coord;
