@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="boat_1" tilewidth="128" tileheight="128" tilecount="64" columns="8">
- <tileoffset x="-14" y="11"/>
+<tileset version="1.2" tiledversion="1.2.0" name="boat_1" tilewidth="256" tileheight="256" tilecount="64" columns="8">
+ <tileoffset x="-32" y="32"/>
  <properties>
   <property name="unit.type" type="str" value="boat"/>
   <property name="unit.health" type="int" value="100"/>
@@ -12,7 +12,7 @@
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="2000"/>
  </properties>
- <image source="original/t_boat_01.png" width="1024" height="1024" zoom="yes"/>
+ <image source="original/t_boat_01.png" width="2048" height="2048" zoom="yes"/>
  <tile id="0" type="A_EE_0"/>
  <tile id="1" type="A_EE_1"/>
  <tile id="2" type="A_EE_2"/>
