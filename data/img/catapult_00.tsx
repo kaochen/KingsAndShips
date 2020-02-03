@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Catapult_0" tilewidth="128" tileheight="128" tilecount="96" columns="12">
+<tileset version="1.2" tiledversion="1.2.0" name="Catapult_0" tilewidth="258" tileheight="258" tilecount="96" columns="12">
  <tileoffset x="-14" y="11"/>
  <properties>
   <property name="unit.type" type="str" value="Catapult"/>
@@ -12,7 +12,7 @@
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="4000"/>
  </properties>
- <image source="original/t_catapult_00.png" width="1536" height="1024" zoom="yes"/>
+ <image source="original/t_catapult_00.png" width="3072" height="2048" zoom="yes"/>
  <tile id="0" type="W_EE_0"/>
  <tile id="1" type="W_EE_1"/>
  <tile id="2" type="W_EE_2"/>
