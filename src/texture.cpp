@@ -75,7 +75,10 @@ void C_Texture::destroyTexture()
 
 void C_Texture::displayStatus()
 {
-	C_Message::printM("Tileset Name: " + m_name +  " " + "\n");
+	C_Message::printM("Tileset Name: " + m_name);
+	SDL_Rect pos;
+	SDL_QueryTexture(getTexture(), NULL, NULL, &pos.w, &pos.h);
+	cout << "size: " << pos.w << ":" << pos.h << endl;
 }
 
 void C_Texture::render(int x, int y, double angle, int align)
@@ -253,6 +256,7 @@ void C_Text::createNewTexture(){
 		TTF_CloseFont(font);
 		C_Message::printSDLerror("TTF_RenderText");
 	} else {
+		destroyTexture();
 		m_textures.push_back(SDL_CreateTextureFromSurface(renderer, surf));
 		if (m_textures.back() == nullptr) {
 			C_Message::printSDLerror("CreateTexture from this text:" + m_message + " failed ");
