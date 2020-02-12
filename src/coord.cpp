@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define STEPSNBR 48
+#define STEPSNBR 96 // lower tilewidth possible (128x128 image -> tilewidth = 96)
 
 #include "coord.h"
 #include "time.h"
@@ -248,45 +248,52 @@ void C_Coord::refreshGrid(){
 
 }
 
-void C_Coord::move(float const &angle)
+void C_Coord::move(float const &angle, int speed)
 {
+
 	//cout << "Angle : " << angle << endl;
+	int s = speed;
+	if(s <= 1){
+		s = 1;
+	} else if (s >= 5){
+		s = 5;
+	}
 
 	if(angle > 45.0 && angle <= 76.7) {
 		//cout << "NORTH" << endl;
-		m_delta.x +=1;
-		m_delta.y -=1;
+		m_delta.x +=s;
+		m_delta.y -=s;
 
 	} else if(angle > 76.7 && angle <=103.3) {
 		//cout << "NORTH_EAST" << endl;
-		m_delta.x +=1;
+		m_delta.x +=s;
 
 	} else if (angle > 103.3 && angle <=135.0) {
 		//cout << "EAST" << endl;
-		m_delta.x +=1;
-		m_delta.y +=1;
+		m_delta.x +=s;
+		m_delta.y +=s;
 
 	} else if ((angle > 135.0 && angle <= 225.0)) {
 		//cout << "SOUTH_EAST" << endl;
-		m_delta.y +=1;
+		m_delta.y +=s;
 
 	} else if(angle > 225.0 && angle <= 256.7) {
 		//cout << "SOUTH" << endl;
-		m_delta.x -=1;
-		m_delta.y +=1;
+		m_delta.x -=s;
+		m_delta.y +=s;
 
 	} else if(angle > 256.7 && angle <= 283.3) {
 		//cout << "SOUTH_WEST" << endl;
-		m_delta.x -=1;
+		m_delta.x -=s;
 
 	} else if(angle > 283.3 && angle <= 315.0) {
 		//cout << "WEST" << endl;
-		m_delta.x -=1;
-		m_delta.y -=1;
+		m_delta.x -=s;
+		m_delta.y -=s;
 
 	} else if((angle > 315.0 && angle <= 405.0) || (angle > -45.0 && angle <= 45.0)) {
 		//cout << "NORTH_WEST" << endl;
-		m_delta.y -=1;
+		m_delta.y -=s;
 
 	} else {
 		cout << "Angle is not between 0 and 360 : " << angle << endl;

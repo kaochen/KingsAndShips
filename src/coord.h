@@ -48,7 +48,7 @@ public:
 
 	virtual void reverseDelta(){m_delta.x *=(-1); m_delta.y *=(-1);};
 	virtual void refreshGrid();
-	virtual void move(float const &angle);
+	virtual void move(float const &angle, int speed);
 
 	virtual float atan2_360(int const &ab, int const &bc);
 	virtual bool closeToCenter(S_Coord grid, int step_nbr);

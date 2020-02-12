@@ -103,7 +103,7 @@ void C_Boat::move()
 
 			//simulate next move
 			C_Coord next = m_coord;
-			next.move(angle);
+			next.move(angle, m_speed);
 			next.refreshGrid();
 
 		//check if next tile is available
