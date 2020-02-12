@@ -95,11 +95,7 @@ void C_Texture::render(int x, int y, double angle, int align)
 			pos.y = y - pos.h/2;
 		} else if(align == CENTER_TILE) {
 			pos.x = x - pos.w/2;
-			int i = 1;
-			if(pos.h > 128) {
-				i = 2;
-			}
-			pos.y = y - pos.h/2 - i*(settings.getTileHeight()/2);
+			pos.y = y - pos.h/2 - (settings.getTileHeight()/2);
 		}
 
 		/*if(m_name == "Ground_01_Grass00" && pos.x > 1000 && pos.x < 1100){
