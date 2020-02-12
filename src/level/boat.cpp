@@ -91,10 +91,6 @@ void C_Boat::move()
 	if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
 			changeState("Waiting");
 	} else {
-		if(!nextStepEmpty()) {
-			if(m_state == "Waiting"){
-				changeState("Moving");
-			}
 			//old
 			C_Coord oldCoord = m_coord;
 			//destination
@@ -105,10 +101,18 @@ void C_Boat::move()
 			double angle = calcAngle(destCoord);
 			m_direction = destCoord.angleToDirection(angle);
 
+			//simulate next move
+			C_Coord next = m_coord;
+			next.move(angle);
+			next.refreshGrid();
 
+		//check if next tile is available
+		if(!grid.mainEmpty(next.getXGrid(),next.getYGrid(),this)) {
+			if(m_state == "Waiting"){
+				changeState("Moving");
+			}
 			//move
-			m_coord.move(angle);
-			m_coord.refreshGrid();
+			m_coord = next;
 			grid.moveUnit(oldCoord.getXGrid(), oldCoord.getYGrid(),  m_coord.getXGrid (), m_coord.getYGrid ());
 
 			//got next
@@ -134,20 +138,6 @@ void C_Boat::move()
 	}
 }
 
-
-bool C_Boat::nextStepEmpty(){
-	bool ret = false;
-
-	C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
-	float angle = calcAngle(destCoord);
-
-	C_Coord tmp = m_coord;
-	tmp.move(angle);
-
-	C_Grid& grid= C_Locator::getGrid();
-	ret = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
-	return ret;
-}
 
 float C_Boat::calcAngle(C_Coord destCoord){
 	C_Coord startCoord = m_coord;

@@ -39,8 +39,6 @@ protected:
 	virtual void recalcPath(S_Coord dest);
 	virtual void move();
 	virtual float calcAngle(C_Coord nextStep);
-	virtual bool nextStepEmpty();
-
 	virtual void kill();
 
 	//attributs
