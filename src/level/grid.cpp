@@ -154,8 +154,9 @@ bool C_Grid::addANewTower(S_Unit unit){
 	return ret;
 }
 
-void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
+bool C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 {
+	bool ret = false;
 	if(x_from == x_dest && y_from == y_dest) {}
 	else {
 		if(x_from >= 0 && x_from < (int)(m_vgrid.size()) && y_from >= 0 && y_from < (int)(m_vgrid.size())) {
@@ -163,10 +164,12 @@ void C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 				if(m_vgrid[x_from][y_from].get(FIELD) != nullptr) {
 					m_vgrid[x_dest][y_dest].set(FIELD,m_vgrid[x_from][y_from].get(FIELD));
 					m_vgrid[x_from][y_from].set(FIELD,nullptr);
+					ret = true;
 				}
 			}
 		}
 	}
+	return ret;
 }
 
 
@@ -312,7 +315,7 @@ void C_Grid::deleteGrid()
 bool C_Grid::selectATower(C_Coord clic)
 {
 	S_Coord grid = clic.getGrid();
-	cout << "Select: " << grid.x << ":" << grid.y << endl;
+	//cout << "Select: " << grid.x << ":" << grid.y << endl;
 	bool selected = false, top = false, bottom = false;
 	C_Settings& settings=C_Locator::getSettings();
 	string message ="";

@@ -44,7 +44,7 @@ public:
 	int getUsefullSize(){return m_vgrid.size() - 2;};
 	void addANewBoat(S_Unit boat);
 	bool addUnit(std::string &type, S_Coord coord);
-	void moveUnit(int x_from, int y_from, int x_dest, int y_dest);
+	bool moveUnit(int x_from, int y_from, int x_dest, int y_dest);
 	void moveToDead(int x_grid, int y_grid);
 	void upgradeUnit(C_GameUnits * unit){m_factory.upgrade (unit);};
 	bool isUnitupgradable(C_GameUnits * unit) {return m_factory.isUpgradable(unit);};

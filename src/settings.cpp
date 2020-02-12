@@ -205,7 +205,7 @@ void C_Settings::moveCameraPosition(const int &x,const int &y)
 void C_Settings::zoomDown(){
 	m_zoom +=1;
 	if(m_zoom <= m_zoom_max){
-		moveCameraPosition(0,-(TILE_WIDTH/4));
+		moveCameraPosition(0,-(getTileWidth()/4));
 	}
 
 	if(m_zoom > m_zoom_max){
@@ -218,7 +218,7 @@ void C_Settings::zoomDown(){
 void C_Settings::zoomUp(){
 	m_zoom -=1;
 	if(m_zoom >= m_zoom_min){
-		moveCameraPosition(0,(TILE_WIDTH/4));
+		moveCameraPosition(0,(getTileWidth()/4));
 	}
 	if(m_zoom <= m_zoom_min){
 		m_zoom = m_zoom_min;

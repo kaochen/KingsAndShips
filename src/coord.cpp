@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#define STEPSNBR 48
 
 #include "coord.h"
 #include "time.h"
@@ -39,7 +40,7 @@ C_Coord::C_Coord(int x_grid, int y_grid)
 		y_grid = gridSize;
 
 	m_grid = {x_grid,y_grid};
-	m_screenDelta = {0,0};
+	m_delta = {0,0};
 }
 
 C_Coord::C_Coord(S_Coord coord)
@@ -53,9 +54,7 @@ C_Coord::C_Coord(const C_Coord &a)
 {
 	m_grid.x = a.m_grid.x;
 	m_grid.y = a.m_grid.y;
-
-	m_screenDelta.x = a.m_screenDelta.x;
-	m_screenDelta.y = a.m_screenDelta.y;
+	m_delta = a.m_delta;
 }
 
 
@@ -81,11 +80,6 @@ bool C_Coord::isEqual(C_Coord const &b) const
 	return (m_grid.x == b.m_grid.x && m_grid.y == b.m_grid.y);
 }
 
-void C_Coord::applyOffset(S_Coord offset)
-{
-	m_screenDelta.x += offset.x;
-	m_screenDelta.y += offset.y;
-}
 
 
 bool C_Coord::onScreen()
@@ -104,15 +98,15 @@ S_Coord C_Coord::screenToGrid(S_Coord screen)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	S_Coord cameraPos = settings.getCameraPosition();
-	float xOffset = cameraPos.x + settings.getTileWidth()/2;
+	float xOffset = cameraPos.x;
 	float yOffset = cameraPos.y + settings.getTileHeight()/2;
 	float tempX = 0.0, tempY = 0.0;
 	S_Coord coord;
 	tempX = ((screen.x - xOffset ) / (settings.getTileWidth()/2) + (screen.y + yOffset)/(settings.getTileHeight()/2) )/2;
 	tempY = (screen.y + yOffset )/(settings.getTileHeight()) - (screen.x - xOffset)/(settings.getTileWidth());
 
-	coord.x = tempX + 1;
-	coord.y = tempY;
+	coord.x = tempX ;
+	coord.y = tempY ;
 	return coord;
 }
 
@@ -129,8 +123,7 @@ S_Coord C_Coord::gridToScreen(S_Coord grid)
 void C_Coord::displayStatus()
 {
 	cout << "\tgrid: "<< m_grid.x << ":"<< m_grid.y;
-
-	cout << "\tdelta: "<< m_screenDelta.x << ":"<< m_screenDelta.y << endl;
+	cout << "\tdelta: "<< m_delta.x << ":"<< m_delta.y << endl;
 }
 
 S_Coord C_Coord::getGrid()
@@ -150,10 +143,12 @@ int C_Coord::getYGrid() const
 
 S_Coord C_Coord::getScreen()
 {
-	S_Coord ret;
-	ret = gridToScreen(m_grid);
-	ret.x +=  m_screenDelta.x;
-	ret.y +=  m_screenDelta.y;
+	C_Settings& settings= C_Locator::getSettings();
+	int tileWidth = settings.getTileWidth();
+	int step = tileWidth/STEPSNBR;
+	S_Coord ret = gridToScreen(m_grid);
+	ret.x +=  m_delta.x*step*2;
+	ret.y +=  m_delta.y*step;
 	return ret;
 }
 
@@ -169,7 +164,7 @@ int C_Coord::getYScreen()
 
 void C_Coord::centerOnTile()
 {
-	m_screenDelta = {0,0};
+	m_delta = {0,0};
 }
 
 int C_Coord::angleToDirection(float const &angle)
@@ -236,201 +231,66 @@ float C_Coord::directionToAngle(int const direction)
 	return angle;
 }
 
-
-void C_Coord::move(float const &angle, int const &speed)
-{
-	C_Time& time = C_Locator::getTime();
-	//One pixel can't be split, on even frame number use an offset of 0 instead of 1.
-	int halfPixel = 1;
-	if(time.getFrameNbr ()%2 == 0) {
-		halfPixel =0;
+void C_Coord::refreshGrid(){
+	C_Settings& settings= C_Locator::getSettings();
+	S_Coord currentScreen = getScreen();
+	S_Coord newGrid = screenToGrid(currentScreen);
+	if(newGrid.x != m_grid.x || newGrid.y != m_grid.y){
+		m_grid = newGrid;
+		m_delta = {0,0};
+		int tileWidth = settings.getTileWidth();
+		int step = tileWidth/STEPSNBR;
+		if(step != 0){
+			m_delta.x = (currentScreen.x - getXScreen())/(2*step);
+			m_delta.y = (currentScreen.y - getYScreen())/step;
+		}
 	}
 
+}
+
+void C_Coord::move(float const &angle)
+{
 	//cout << "Angle : " << angle << endl;
 
 	if(angle > 45.0 && angle <= 76.7) {
 		//cout << "NORTH" << endl;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.x +=1;
-			m_screenDelta.y -=halfPixel;
-			break;
-		case SLOW:
-			m_screenDelta.x +=2;
-			m_screenDelta.y -=1;
-			break;
-		case NORMAL:
-			m_screenDelta.x +=3;
-			m_screenDelta.y -=(1 + halfPixel);
-			break;
-		case FAST:
-			m_screenDelta.x +=4;
-			m_screenDelta.y -=2;
-			break;
-		case VERY_FAST:
-			m_screenDelta.x +=5;
-			m_screenDelta.y -=(2 + halfPixel);
-			break;
-		}
+		m_delta.x +=1;
+		m_delta.y -=1;
+
 	} else if(angle > 76.7 && angle <=103.3) {
 		//cout << "NORTH_EAST" << endl;
-		m_screenDelta.x +=speed;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.x +=1;
-			break;
-		case SLOW:
-			m_screenDelta.x +=2;
-			break;
-		case NORMAL:
-			m_screenDelta.x +=3;
-			break;
-		case FAST:
-			m_screenDelta.x +=4;
-			break;
-		case VERY_FAST:
-			m_screenDelta.x -=5;
-			break;
-		}
+		m_delta.x +=1;
+
 	} else if (angle > 103.3 && angle <=135.0) {
 		//cout << "EAST" << endl;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.x +=1;
-			m_screenDelta.y +=halfPixel;
-			break;
-		case SLOW:
-			m_screenDelta.x +=2;
-			m_screenDelta.y +=1;
-			break;
-		case NORMAL:
-			m_screenDelta.x +=3;
-			m_screenDelta.y +=(1 + halfPixel);
-			break;
-		case FAST:
-			m_screenDelta.x +=4;
-			m_screenDelta.y +=2;
-			break;
-		case VERY_FAST:
-			m_screenDelta.x +=5;
-			m_screenDelta.y +=(2 + halfPixel);
-			break;
-		}
-	}
+		m_delta.x +=1;
+		m_delta.y +=1;
 
-	else if ((angle > 135.0 && angle <= 225.0)) {
+	} else if ((angle > 135.0 && angle <= 225.0)) {
 		//cout << "SOUTH_EAST" << endl;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.y +=halfPixel;
-			break;
-		case SLOW:
-			m_screenDelta.y +=1;
-			break;
-		case NORMAL:
-			m_screenDelta.y +=(1 + halfPixel);
-			break;
-		case FAST:
-			m_screenDelta.y +=2;
-			break;
-		case VERY_FAST:
-			m_screenDelta.y +=(2 + halfPixel);
-			break;
-		}
-	} else if(angle > 225.0 && angle <= 256.7) {
+		m_delta.y +=1;
 
+	} else if(angle > 225.0 && angle <= 256.7) {
 		//cout << "SOUTH" << endl;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.x -=1;
-			m_screenDelta.y +=halfPixel;
-			break;
-		case SLOW:
-			m_screenDelta.x -=2;
-			m_screenDelta.y +=1;
-			break;
-		case NORMAL:
-			m_screenDelta.x -=3;
-			m_screenDelta.y +=(1 + halfPixel);
-			break;
-		case FAST:
-			m_screenDelta.x -=4;
-			m_screenDelta.y +=2;
-			break;
-		case VERY_FAST:
-			m_screenDelta.x -=5;
-			m_screenDelta.y +=(2 + halfPixel);
-			break;
-		}
+		m_delta.x -=1;
+		m_delta.y +=1;
+
 	} else if(angle > 256.7 && angle <= 283.3) {
 		//cout << "SOUTH_WEST" << endl;
-		m_screenDelta.x -=speed;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.x -=1;
-			break;
-		case SLOW:
-			m_screenDelta.x -=2;
-			break;
-		case NORMAL:
-			m_screenDelta.x -=3;
-			break;
-		case FAST:
-			m_screenDelta.x -=4;
-			break;
-		case VERY_FAST:
-			m_screenDelta.x -=5;
-			break;
-		}
+		m_delta.x -=1;
+
 	} else if(angle > 283.3 && angle <= 315.0) {
 		//cout << "WEST" << endl;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.x -=1;
-			m_screenDelta.y -=halfPixel;
-			break;
-		case SLOW:
-			m_screenDelta.x -=2;
-			m_screenDelta.y -=1;
-			break;
-		case NORMAL:
-			m_screenDelta.x -=3;
-			m_screenDelta.y -=(1 + halfPixel);
-			break;
-		case FAST:
-			m_screenDelta.x -=4;
-			m_screenDelta.y -=2;
-			break;
-		case VERY_FAST:
-			m_screenDelta.x -=5;
-			m_screenDelta.y -=(2 + halfPixel);
-			break;
-		}
+		m_delta.x -=1;
+		m_delta.y -=1;
+
 	} else if((angle > 315.0 && angle <= 405.0) || (angle > -45.0 && angle <= 45.0)) {
 		//cout << "NORTH_WEST" << endl;
-		switch(speed) {
-		case VERY_SLOW:
-			m_screenDelta.y -=halfPixel;
-			break;
-		case SLOW:
-			m_screenDelta.y -=1;
-			break;
-		case NORMAL:
-			m_screenDelta.y -=2;
-			break;
-		case FAST:
-			m_screenDelta.y -=3;
-			break;
-		case VERY_FAST:
-			m_screenDelta.y -=4;
-			break;
-		}
-	}
+		m_delta.y -=1;
 
-	else {
+	} else {
 		cout << "Angle is not between 0 and 360 : " << angle << endl;
 	}
-
 }
 
 
@@ -445,30 +305,40 @@ float C_Coord::atan2_360(int const &ab, int const &bc)
 	return angle;
 }
 
+bool C_Coord::atCenter(S_Coord destGrid){
+	bool ret = false;
+	if(destGrid.x == m_grid.x && destGrid.y == m_grid.y){
+		if(m_delta.x < 2 &&  m_delta.x > -2 && m_delta.y < 2 &&  m_delta.y > -2){
+			ret = true;
+		}
+	}
+	return ret;
+}
 
 
 
-
-bool C_Coord::closeToCenter(S_Coord grid, int px_length)
+bool C_Coord::closeToCenter(S_Coord grid, int step_nbr)
 {
 	C_CoordGrid tmp(grid);
-	tmp.centerOnTile();
 	S_Coord center = tmp.getScreen();
-	int l = gridToScreen(m_grid).x + m_screenDelta.x - center.x;
-	int h = gridToScreen(m_grid).y + m_screenDelta.y - center.y;
+	int l = getXScreen() - center.x;
+	int h = getYScreen() - center.y;
 	if ( l < 0)
 		l *=-1;
 	if (h < 0)
 		h *=-1;
-	if(l < 2*px_length && h < px_length) {
+
+	C_Settings& settings= C_Locator::getSettings();
+	int tileWidth = settings.getTileWidth();
+	int step = (tileWidth/STEPSNBR)*step_nbr;
+
+	if(l < 2*step && h < step) {
 		//cout << "center true" << endl;
 		return true;
 	} else {
 		//cout << "center false" << endl;
 		return false;
 	}
-
-
 
 }
 
@@ -510,7 +380,7 @@ int C_Coord::guessADirection(S_Coord start,S_Coord end)
 C_CoordGrid::C_CoordGrid(S_Coord coord): C_Coord(coord)
 {
 	m_grid = {coord.x,coord.y};
-	m_screenDelta = {0,0};
+	m_delta = {0,0};
 	//cout << "grid to screen" << endl;
 }
 
@@ -528,7 +398,7 @@ C_CoordGrid::C_CoordGrid(int x_grid, int y_grid ): C_Coord(x_grid, y_grid)
 		y_grid = size;
 
 	m_grid = {x_grid,y_grid};
-	m_screenDelta = {0,0};
+	m_delta = {0,0};
 
 }
 
@@ -545,13 +415,13 @@ C_CoordScreen::C_CoordScreen(int x_screen, int y_screen ): C_Coord(x_screen, y_s
 
 void C_Coord::createCoordFromScreen(int x_screen, int y_screen)
 {
+	C_Settings& settings= C_Locator::getSettings();
 	S_Coord screen = {x_screen, y_screen};
 	m_grid = screenToGrid(screen);
-
-	m_screenDelta.x = screen.x - getScreen().x;
-	m_screenDelta.y = screen.y - getScreen().y;
+	int tileWidth = settings.getTileWidth();
+	int step = tileWidth/STEPSNBR;
+	m_delta.x = (screen.x - getXScreen())/step;
+	m_delta.y = (screen.y - getYScreen())/step;
 }
-
-
 
 

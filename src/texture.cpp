@@ -198,7 +198,7 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 				if(i>0){
 					SDL_Rect pos;
 					SDL_QueryTexture(subClip, NULL, NULL, &pos.w, &pos.h);
-					cout << "W:" << pos.w <<  " H:" << pos.h << endl;
+					//cout << "W:" << pos.w <<  " H:" << pos.h << endl;
 				}
 			}
 		}

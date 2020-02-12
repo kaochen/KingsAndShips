@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "../window.h"
 #include "../locator.h"
+#include "../settings.h"
+
 
 using namespace std;
 
@@ -48,6 +50,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_isTopAnimated = false;
 	m_haveATop = false;
 	m_haveABottom = true;
+	m_step = {0,0};
 }
 
 C_Boat::~C_Boat()
@@ -84,7 +87,6 @@ void C_Boat::kill()
 void C_Boat::move()
 {
 	C_Grid& grid= C_Locator::getGrid();
-	S_Coord finalDestination = grid.foundTown();
 
 	if(m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),1) || m_C_Path->getPath().size() <= 1) {
 			changeState("Waiting");
@@ -93,27 +95,31 @@ void C_Boat::move()
 			if(m_state == "Waiting"){
 				changeState("Moving");
 			}
-
-			int old_x_grid = m_coord.getXGrid();
-			int old_y_grid = m_coord.getYGrid();
-
+			//old
+			C_Coord oldCoord = m_coord;
+			//destination
 			C_Coord destCoord = m_C_Path->getPath().top()->getCoord();
 			destCoord.centerOnTile();
-			double angle = calcAngle(destCoord);
 
-			m_coord.move(angle,m_speed);
+			//orientation
+			double angle = calcAngle(destCoord);
 			m_direction = destCoord.angleToDirection(angle);
 
-			grid.moveUnit(old_x_grid, old_y_grid,  m_coord.getXGrid (), m_coord.getYGrid ());
 
+			//move
+			m_coord.move(angle);
+			m_coord.refreshGrid();
+			grid.moveUnit(oldCoord.getXGrid(), oldCoord.getYGrid(),  m_coord.getXGrid (), m_coord.getYGrid ());
 
-			if(m_coord.closeToCenter(destCoord.getGrid(),2)) {
+			//got next
+			if(m_coord.atCenter(destCoord.getGrid())) {
 				m_coord.centerOnTile(); //to not deviate too much from the path
 				m_countRegenPath++;
 				m_C_Path->goNextStep();
 			}
 			//recalc path anyway
 			if(m_countRegenPath > 3) {
+				S_Coord finalDestination = grid.foundTown();
 				recalcPath(finalDestination);
 				m_countRegenPath = 0;
 			}
@@ -121,6 +127,7 @@ void C_Boat::move()
 			changeState("Waiting");
 
 			if(!m_C_Path->closeToDestination(m_coord.getXGrid(),m_coord.getYGrid(),3)){
+				S_Coord finalDestination = grid.foundTown();
 				recalcPath(finalDestination);
 			}
 		}
@@ -135,7 +142,7 @@ bool C_Boat::nextStepEmpty(){
 	float angle = calcAngle(destCoord);
 
 	C_Coord tmp = m_coord;
-	tmp.move(angle,m_speed);
+	tmp.move(angle);
 
 	C_Grid& grid= C_Locator::getGrid();
 	ret = grid.mainEmpty(tmp.getXGrid(),tmp.getYGrid(),this);
@@ -143,14 +150,14 @@ bool C_Boat::nextStepEmpty(){
 }
 
 float C_Boat::calcAngle(C_Coord destCoord){
-	destCoord.centerOnTile();
-	S_Coord start = m_coord.getScreen();
+	C_Coord startCoord = m_coord;
+	//startCoord.centerOnTile();
+	S_Coord start = startCoord.getScreen();
 	S_Coord dest = destCoord.getScreen();
 	int ab = dest.x - start.x;
 	int bc = dest.y - start.y;
-	return destCoord.atan2_360(ab,bc);
+	return startCoord.atan2_360(ab,bc);
 }
-
 
 
 

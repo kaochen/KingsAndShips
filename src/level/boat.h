@@ -47,6 +47,7 @@ protected:
 	C_Path* m_C_Path;
 	int m_speed;
 	int m_countRegenPath;
+	S_Coord m_step;
 };
 
 #endif
