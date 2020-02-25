@@ -2,7 +2,7 @@
 <tileset version="1.2" tiledversion="1.3.1" name="trees" tilewidth="256" tileheight="256" tilecount="22" columns="11">
  <tileoffset x="-32" y="32"/>
  <grid orientation="isometric" width="128" height="128"/>
- <image source="original/t_trees_01.png" width="2816" height="512" zoom="yes"/>
+ <image source="original/t_trees_01.png" width="2816" height="512"/>
  <tile id="0" type="01_00">
   <animation>
    <frame tileid="0" duration="100"/>

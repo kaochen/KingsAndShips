@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <libxml++/parsers/textreader.h>
 #include <sys/stat.h>
 
+#include <algorithm>
+#include <cctype>
+
 #include "message.h"
 using namespace std;
 
@@ -406,7 +409,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	int tile_width = 128, tile_height = 128, file_width = 1024, file_height = 1024;
 	int tileNbr = 0, previousTileNbr = -1;
 	bool firstID = false;
-	int nbrOfZoom = 1;
+	int nbr_of_zoom = 1;
 	int startCount = m_count + 1;
 
 	//Get general values :
@@ -420,8 +423,10 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 				string attributes = reader.get_name();
 				//cout << attributes << "-----"<< endl;
 				//tileset node
-				if (nodeName == "tileset" && attributes == "name")
+				if (nodeName == "tileset" && attributes == "name"){
 					name = reader.get_value();
+					nbr_of_zoom = nbrOfZoom(name);
+					}
 				if (nodeName == "tileset" && attributes == "tilewidth")
 					tile_width = stoi(reader.get_value());
 				if (nodeName == "tileset" && attributes == "tileheight")
@@ -439,14 +444,6 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 				}
 				if (nodeName == "image" && attributes == "height") {
 					file_height = stoi(reader.get_value());
-				}
-				if (nodeName == "image" && attributes == "zoom") {
-					string tmp = reader.get_value();
-
-					if(tmp == "yes"){
-						nbrOfZoom = ZOOM_MAX;
-						cout << name << " " << tmp << " zoom active" << endl;
-					}
 				}
 			} while(reader.move_to_next_attribute());
 		}
@@ -485,7 +482,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			int id = tileNbr + startCount;
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()) {
-				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbrOfZoom );
+				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbr_of_zoom);
 				m_count++;
 				//cout << m_count << ": " << fullname << "Size: " << tile_width <<":"<< tile_height<< endl;
 			}
@@ -498,6 +495,35 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	if (texture == nullptr) {
 		SDL_DestroyTexture(texture); //Don't need anymore
 	}
+}
+int C_TextureList::nbrOfZoom(std::string name){
+	int ret = 1;
+	vector <string> list;
+	list.push_back("boat");
+	list.push_back("barricade");
+	list.push_back("town");
+	list.push_back("catapult");
+	list.push_back("clouds");
+	list.push_back("ground");
+	list.push_back("tower");
+	list.push_back("tree");
+	list.push_back("rock");
+	list.push_back("smoke");
+	list.push_back("select");
+	list.push_back("water");
+	list.push_back("weapons");
+
+	string tmp = name;
+	transform(tmp.begin(), tmp.end(), tmp.begin(),
+    [](unsigned char c){ return std::tolower(c); });
+
+	for(auto i : list){
+		size_t found = tmp.find(i);
+		if (found!=std::string::npos){
+			ret = ZOOM_MAX;
+		}
+	}
+	return ret;
 }
 
 void C_TextureList::displayTexturesList()

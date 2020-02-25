@@ -12,7 +12,7 @@
     <property name="weapon.firerange" type="int" value="0"/>
     <property name="weapon.firerate" type="int" value="0"/>
  </properties>
- <image source="original/t_barricade_01.png" width="1024" height="256" zoom="yes"/>
+ <image source="original/t_barricade_01.png" width="1024" height="256"/>
  <tile id="0" type="A_EE_0"/>
  <tile id="1" type="A_EE_1"/>
  <tile id="2" type="A_EE_2"/>

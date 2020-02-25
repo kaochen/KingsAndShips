@@ -2,7 +2,7 @@
 <tileset version="1.2" tiledversion="1.3.1" name="Ground_01" tilewidth="256" tileheight="256" tilecount="33" columns="8">
  <tileoffset x="-32" y="32"/>
  <grid orientation="orthogonal" width="8" height="1"/>
- <image source="original/t_ground_01.png" width="2048" height="1024" zoom="yes"/>
+ <image source="original/t_ground_01.png" width="2048" height="1024"/>
  <tile id="0" type="Grass00"/>
  <tile id="1" type="Grass01"/>
  <tile id="2" type="Grass02"/>

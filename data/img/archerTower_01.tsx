@@ -12,6 +12,6 @@
   <property name="weapon.firerange" type="int" value="2"/>
   <property name="weapon.firerate" type="int" value="2000"/>
  </properties>
- <image source="original/t_archerTower_01.png" width="256" height="256" zoom="yes"/>
+ <image source="original/t_archerTower_01.png" width="256" height="256"/>
  <tile id="0" type="A_EE_0"/>
 </tileset>

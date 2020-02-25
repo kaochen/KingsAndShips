@@ -119,6 +119,7 @@ public:
 	void freeTexture(std::string name);
 
 private:
+	int nbrOfZoom(std::string name);
 	SDL_Texture* imageToTexture(std::string &path);
 	int m_count;
 	std::map<std::string, C_Texture*> m_map_textures;
