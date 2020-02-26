@@ -270,8 +270,9 @@ vector<string> C_Menu::getMenuItemsList()
 	if(unit != nullptr){
 	    list.push_back("upgradeTower");
 	    S_Coord coord = unit->getScreen();
+	    C_Settings& settings= C_Locator::getSettings();
 	    coord.x -=32;
-	    coord.y -=150;
+	    coord.y -= settings.getTileHeight()*3;
 	    m_menuItemsList["upgradeTower"]->setScreen(coord);
     }
 

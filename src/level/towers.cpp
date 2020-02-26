@@ -59,11 +59,15 @@ void C_Towers::render(S_Coord screen)
 
 void C_Towers::renderSelected()
 {
+	C_Settings& settings= C_Locator::getSettings();
+	int x = settings.getTileWidth();
+	int y = settings.getTileHeight();
+
 	if (m_selected == true) {
 		drawEllipse(m_coord.getXScreen (),m_coord.getYScreen (),m_weapon->getFireRange(), true);
-		renderTowerStatus("firerate",m_coord.getXScreen (), m_coord.getYScreen () + 90);
-		renderTowerStatus("firerange",m_coord.getXScreen () -50, m_coord.getYScreen () + 80);
-		renderTowerStatus("Damage",m_coord.getXScreen () +50, m_coord.getYScreen () + 80);
+		renderTowerStatus("firerate",m_coord.getXScreen (), m_coord.getYScreen () + 2*y);
+		renderTowerStatus("firerange",m_coord.getXScreen () -x, m_coord.getYScreen () + y);
+		renderTowerStatus("Damage",m_coord.getXScreen () +x , m_coord.getYScreen () + y);
 	}
 }
 
@@ -104,8 +108,8 @@ void C_Towers::renderTowerStatusCircle(std::string name, int x_screen, int y_scr
 			max = (value*72)/100;
 		}
 		for(int i = 0; i < max; i++){
-		double angle = 5.0 * i;
-		t.renderTextureEx("Buttons_Torus_"+ color, x_screen,y_screen-24, angle, CENTER);
+			double angle = 5.0 * i;
+			t.renderTextureEx("Buttons_Torus_"+ color, x_screen,y_screen, angle, CENTER_TILE);
 		}
 }
 

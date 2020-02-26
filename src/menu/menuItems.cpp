@@ -119,6 +119,21 @@ void C_MenuItem::background(){
 	}
 }
 
+std::string C_MenuItem::getStateAsStr(){
+		string ret = "_Disabled";
+		if(m_state == ACTIVE) {
+			ret ="_Active";
+		} else if(m_state == HOVER) {
+			ret ="_Hover";
+		} else {
+			ret ="_Disabled";
+		}
+
+		if(m_enable == false) {
+			ret ="_Disabled";
+		}
+		return ret;
+}
 
 //-------------------------------------------------------------
 
@@ -140,19 +155,7 @@ void C_Button::render()
 		}
 	}
 
-	string prefix;
-	if(m_state == ACTIVE) {
-		prefix ="_Active";
-	} else if(m_state == HOVER) {
-		prefix ="_Hover";
-	} else {
-		prefix ="_Disabled";
-	}
-
-	if(m_enable == false) {
-		prefix ="_Disabled";
-	}
-	name += prefix;
+	name += getStateAsStr();
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
 }
@@ -257,19 +260,7 @@ void C_MB_LevelCard::render()
 {
 	string name = "Parchment_Card";
 
-	string prefix;
-	if(m_state == ACTIVE) {
-		prefix ="_Active";
-	} else if(m_state == HOVER) {
-		prefix ="_Hover";
-	} else {
-		prefix ="_Disabled";
-	}
-
-	if(m_enable == false) {
-		prefix ="_Disabled";
-	}
-	name += prefix;
+	name += getStateAsStr();
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
 
@@ -460,12 +451,21 @@ C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
     m_command = new C_UpgradeUnit();
     m_text = "0";
     m_textName = "upgrade_Text_" + name;
-    m_fontSize = 12;
+    m_fontSize = 18;
 }
 
 
 void C_GU_Upgrade::render()
 {
+	C_TextureList& t= C_Locator::getTextureList();
+	string state =  getStateAsStr();
+	string flagName = "Buttons_Flag" + state;
+	t.renderTexture(flagName, m_x_screen + m_width/2,m_y_screen + m_height + 10,CENTER);
+	if(state == "_Disabled"){
+		m_color = {0,0,0,255};
+	} else {
+		m_color = {200,200,200,255};
+	}
 	C_Button::render();
 
 	C_Grid& grid= C_Locator::getGrid();
@@ -474,9 +474,8 @@ void C_GU_Upgrade::render()
 	bool check = factory.getSelectedModel(1,model);
 	if(check) {
 		m_text = to_string(model.cost);
-
 		C_TextureList& t= C_Locator::getTextureList();
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 50,CENTER);
+		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 72,CENTER);
 	}
 }

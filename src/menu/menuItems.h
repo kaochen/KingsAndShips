@@ -65,6 +65,7 @@ public:
 
 protected:
 	virtual void background();
+	std::string getStateAsStr();
 
 	int m_type;
 	std::string m_name;
