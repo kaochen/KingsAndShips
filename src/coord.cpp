@@ -123,6 +123,7 @@ S_Coord C_Coord::gridToScreen(S_Coord grid)
 void C_Coord::displayStatus()
 {
 	cout << "\tgrid: "<< m_grid.x << ":"<< m_grid.y;
+	cout << "\tscreen: "<< getXScreen() << ":"<< getYScreen();
 	cout << "\tdelta: "<< m_delta.x << ":"<< m_delta.y << endl;
 }
 
