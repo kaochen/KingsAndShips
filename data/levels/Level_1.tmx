@@ -79,7 +79,7 @@
 </data>
  </layer>
  <group id="3" name="Waves">
-  <layer id="4" name="Wave0" width="30" height="30" visible="0" locked="1">
+  <layer id="4" name="Wave0" width="30" height="30" locked="1">
    <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
