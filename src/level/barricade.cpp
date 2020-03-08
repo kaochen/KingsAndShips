@@ -25,7 +25,7 @@ using namespace std;
 
 C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model)
 {
-	m_anim.add(new C_Anim("Waiting",0,10,100));
+	m_anim.add(new C_Anim("Waiting",0,23,60));
 	m_isBottomAnimated = true;
 	m_canRotate = false;
 	m_renderDead = false;
@@ -34,11 +34,11 @@ C_Barricade::C_Barricade(S_UnitModel model):C_Shooter(model)
 void C_Barricade::play()
 {
 	if(alive()){
-		if(m_state == "Waiting"){
+		/*if(m_state == "Waiting"){
 			if(m_anim.end(m_state)){
 				changeState("Waiting");
 			}
-		}
+		}*/
 		m_anim.get(m_state)->play();
 	} else {
 		kill();
