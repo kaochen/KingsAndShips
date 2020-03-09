@@ -62,6 +62,10 @@ public:
 protected:
 	int m_type;
 	int m_typeOnTop;
+	std::string m_cloudName;
+	std::string m_cloudOnTopName;
+	std::string m_shadowName;
+	std::string m_shadowOnTopName;
 	int m_randStart;
 };
 
