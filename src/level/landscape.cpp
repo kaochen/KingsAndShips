@@ -43,11 +43,6 @@ C_Landscape::~C_Landscape()
 
 void C_Landscape::render(int gridSize)
 {
-	renderWater(m_waterDirection,gridSize);
-};
-
-void C_Landscape::renderWater(int direction, int gridSize)
-{
 	C_Window& win=C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	C_Settings& settings=C_Locator::getSettings();
@@ -57,18 +52,24 @@ void C_Landscape::renderWater(int direction, int gridSize)
 	SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 	SDL_RenderClear(renderer);
 	gridSize +=2;
+	int tilewidth = settings.getTileWidth();
 	for(int j = -2; j < (gridSize+4); j++) {
-		int h = settings.getTileWidth();
-		if (j%2 ==0)
+		int h = tilewidth;
+		if (j%2 ==0){
 			h = 0;
+		}
 
-		int y = j*settings.getTileWidth()/2 - camera.y;
+		int y = j*tilewidth/2 - camera.y;
 		for(int i = -(gridSize/4); i < (gridSize/4); i++) {
-			int x =  i*2*settings.getTileWidth() + h + camera.x;
+			int x =  i*2*tilewidth + h + camera.x;
 			t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x,y + m_waterDrift.y);
 			t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1),y + m_waterDrift.y*(-1));
 		}
 	}
+}
+
+void C_Landscape::play(){
+	C_Settings& settings=C_Locator::getSettings();
 	int pause = m_animWater->getImageNbr();
 	m_animWater->play();
 	if(m_animWater->end()){
@@ -78,7 +79,7 @@ void C_Landscape::renderWater(int direction, int gridSize)
 	int limit = 2*settings.getTileWidth() - 1;
 
 	if(pause%2 == 0) {
-		switch (direction) {
+		switch (m_waterDirection) {
 		case WEST:
 			m_waterDrift.x += 1;
 			m_waterDrift.y += 1;

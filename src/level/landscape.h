@@ -28,12 +28,12 @@ public:
 	C_Landscape(S_Coord town);
 	~C_Landscape();
 	void render(int gridSize);
+	void play();
 	void renderBottomMask(int gridSize);
 	void renderTopMask(int gridSize);
 protected:
 private:
 	//methods
-	void renderWater(int direction, int gridSize);
 	int waterDirection(S_Coord town);
 
 	//attributes

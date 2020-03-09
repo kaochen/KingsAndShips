@@ -276,6 +276,7 @@ void C_Level::renderSelected(){
 
 void C_Level::play()
 {
+        m_landscape->play();
 	long current = SDL_GetTicks();
 	C_Settings& settings= C_Locator::getSettings();
 	if(settings.getPlaying() == PLAY){
