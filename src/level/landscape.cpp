@@ -241,10 +241,10 @@ C_Clouds::C_Clouds(int x_grid, int y_grid):
 {
 	m_type = rand() %5;
 	m_typeOnTop = rand() %5;
-	string m_cloudName = "clouds_Cloud_0"+to_string(m_type);
-	string m_cloudOnTopName = "clouds_Cloud_0"+to_string(m_typeOnTop);
-	string m_shadowName = "clouds_Shadow_0"+to_string(m_type);
-	string m_shadowOnTopName = "clouds_Shadow_0"+to_string(m_typeOnTop);
+	m_cloudName = "clouds_Cloud_0"+to_string(m_type);
+	m_cloudOnTopName = "clouds_Cloud_0"+to_string(m_typeOnTop);
+	m_shadowName = "clouds_Shadow_0"+to_string(m_type);
+	m_shadowOnTopName = "clouds_Shadow_0"+to_string(m_typeOnTop);
 
 	m_randStart = rand() %800;
 	m_anim.add(new C_AnimRewind("Moving",-20,20,60,true));
