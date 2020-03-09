@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.2.0" name="Catapult_0" tilewidth="258" tileheight="258" tilecount="96" columns="11">
+<tileset version="1.2" tiledversion="1.2.0" name="Catapult_0" tilewidth="256" tileheight="256" tilecount="96" columns="11">
  <tileoffset x="-32" y="32"/>
  <properties>
   <property name="unit.type" type="str" value="Catapult"/>
