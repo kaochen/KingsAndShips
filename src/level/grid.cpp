@@ -467,7 +467,7 @@ void C_Grid::cleanClouds(S_Coord grid, int range){
 
 	for(int y = (grid.y - range); y <= (grid.y + range); y++) {
 		for(int x = (grid.x - range); x <= (grid.x + range); x++) {
-			if(x >= 0 && x <= m_size && y >= 0 && y <= m_size) {
+			if(x >= 0 && x < m_size && y >= 0 && y < m_size) {
 				m_vgrid[x][y].del(CLOUD);
 			}
 		}
