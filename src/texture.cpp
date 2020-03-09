@@ -89,7 +89,8 @@ void C_Texture::render(int x, int y, double angle, int align)
 	C_Settings& settings= C_Locator::getSettings();
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())) {
 		SDL_Rect pos;
-		SDL_QueryTexture(getTexture(), NULL, NULL, &pos.w, &pos.h);
+		SDL_Texture* texture = getTexture();
+		SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
 		if(align == CENTER) {
 			pos.x = x - pos.w/2;
 			pos.y = y - pos.h/2;
@@ -101,14 +102,11 @@ void C_Texture::render(int x, int y, double angle, int align)
 			pos.y = y - pos.h/2;
 		} else if(align == CENTER_TILE) {
 			pos.x = x - pos.w/2;
-			pos.y = y - pos.h/2 - ((pos.h/16)*3);
+			pos.y = y - (11*pos.h)/16;
 		}
 
-		/*if(m_name == "Ground_01_Grass00" && pos.x > 1000 && pos.x < 1100){
-			cout << m_name << " -> "  << pos.x << ":" << pos.y << " -> " << pos.w << ":" << pos.h  << endl;
-		}*/
 		C_Window& win=C_Locator::getWindow();
-		SDL_RenderCopyEx(win.getRenderer(),getTexture(), NULL, &pos,angle,NULL,SDL_FLIP_NONE);
+		SDL_RenderCopyEx(win.getRenderer(),texture, NULL, &pos,angle,NULL,SDL_FLIP_NONE);
 	}
 }
 
