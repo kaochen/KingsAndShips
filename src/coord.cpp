@@ -87,8 +87,8 @@ bool C_Coord::onScreen()
 	C_Settings& settings=C_Locator::getSettings();
 	bool visible = false;
 	S_Coord screen = gridToScreen(m_grid);
-	if(screen.x > - settings.getTileWidth()/2 && screen.x < settings.getWindowWidth() + settings.getTileWidth()/2
-			&& screen.y > - settings.getTileHeight()/2 && screen.y < settings.getWindowHeight() + settings.getTileWidth()) {
+	if(screen.x > - 2*settings.getTileWidth() && screen.x < settings.getWindowWidth() + settings.getTileWidth()/2
+			&& screen.y > - 2*settings.getTileHeight() && screen.y < settings.getWindowHeight() + settings.getTileWidth()) {
 		visible = true;
 	}
 	return visible;
