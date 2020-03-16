@@ -58,6 +58,7 @@ cd KingsAndShips
 ```
 
  * Drag & drop Tower or Turbines on to the map.
+ * Roll the mouse wheel to zoom in or to zoom out
  * Push "n" to send next wave.
  * Push "l" to load the next level.
  * Push "r" to reset level.
@@ -65,6 +66,16 @@ cd KingsAndShips
  * Push "d+p" to get access to the debug path mode.
  * Push "q" to quit.
 
+
+###change preferences:
+edit .ini file from
+/usr/local/share/games/kingsandships/preferences.ini
+
+And change resolution
+```
+window_width = 1280
+window_height = 720
+```
 
 ## Dev tips:
 ### Graphic tools
