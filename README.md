@@ -68,7 +68,8 @@ cd KingsAndShips
 
 
 ###change preferences:
-edit .ini file from
+edit preferences.ini file from the source file
+or when the package is installed from:
 /usr/local/share/games/kingsandships/preferences.ini
 
 And change resolution
