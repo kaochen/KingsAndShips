@@ -29,8 +29,8 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory()
 {
-	int size = 10;
-	string file[size] = {"boat_00.tsx","boat_01.tsx","boat_02.tsx","archerTower_00.tsx",
+	int size = 11;
+	string file[size] = {"boat_00.tsx","boat_01.tsx","boat_02.tsx","boat_03.tsx","archerTower_00.tsx",
 			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
 			"barricade_01.tsx","town_01.tsx","catapult_00.tsx"
 						};
@@ -54,7 +54,7 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 	S_UnitModel current = m_models[type.name];
 	current.coord = type.coord;
 
-	if(type.name == "boat_1" || type.name == "boat_0" || type.name == "boat_2"  ) {
+	if(type.name == "boat_1" || type.name == "boat_0" || type.name == "boat_2" || type.name == "boat_3" ) {
 		unit = new C_Boat(current);
 	} else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1"  ||
 		type.name == "ArcherTower_2" || type.name == "ArcherTower_3") {

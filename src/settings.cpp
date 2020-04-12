@@ -251,18 +251,41 @@ void C_Settings::updateTileWidth(){
 
 void C_Settings::initTSXfileList()
 {
-	int size = 28;
-	string list[size] {"Ground_01.tsx","boat_01.tsx","town_01.tsx",
-			"Rocks_00.tsx","Trees_00.tsx","boat_00.tsx","boat_02.tsx","archerTower_00.tsx",
-			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx","catapult_00.tsx",
-			"buttons.tsx","Water_00.tsx","smoke_01.tsx",
-			"charaters.tsx","boat_dead_00.tsx","boat_dead_01.tsx","boat_dead_02.tsx","Weapons.tsx","barricade_01.tsx",
-			"gold.tsx","ProgressBar.tsx","Parchments.tsx",
-			"Select_01.tsx","Menu_01.tsx","Menu_details.tsx","Clouds_00.tsx"
-			};
+	vector <string> list;
+	list.push_back("Ground_01.tsx");
+	list.push_back("boat_01.tsx");
+	list.push_back("town_01.tsx");
+	list.push_back("Rocks_00.tsx");
+	list.push_back("Trees_00.tsx");
+	list.push_back("boat_00.tsx");
+	list.push_back("boat_02.tsx");
+	list.push_back("boat_03.tsx");
+	for(int i = 0; i <= 3; i++){
+    	list.push_back("archerTower_0"+to_string(i)+".tsx");
+	}
+	list.push_back("catapult_00.tsx");
 
-	for(int i = 0; i < size; i++) {
-		string filePath = m_imgFolder + list[i];
+	list.push_back("buttons.tsx");
+	list.push_back("Water_00.tsx");
+	list.push_back("smoke_01.tsx");
+	list.push_back("charaters.tsx");
+	for(int i = 0; i <= 3; i++){
+    	list.push_back("boat_dead_0"+to_string(i)+".tsx");
+	}
+	list.push_back("Weapons.tsx");
+	list.push_back("barricade_01.tsx");
+	list.push_back("gold.tsx");
+	list.push_back("ProgressBar.tsx");
+	list.push_back("Parchments.tsx");
+	list.push_back("Select_01.tsx");
+	list.push_back("Menu_01.tsx");
+	list.push_back("Menu_details.tsx");
+	list.push_back("Clouds_00.tsx");
+
+
+
+	for(auto j : list) {
+		string filePath = m_imgFolder + j;
 		if(fileExist(filePath))
 			m_tsxFileList.push(filePath);
 		else
