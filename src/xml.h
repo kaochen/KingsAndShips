@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 /*! \class C_Xml
  * \brief functions to extract data from tmx and tsx files
@@ -57,11 +58,22 @@ protected:
 
 };
 
+struct S_Tileset{
+    std::string name;
+    int first;
+    int last;
+};
 
 class C_Tmx : public C_Xml
 {
 public:
     C_Tmx(std::string const file_Path);
     virtual S_tmxLayer extractLayerInTMX(std::string layerName);
+protected:
+    std::vector <S_Tileset> extractTilesetList();
+    void showAllTileset();
+    void showTileset(S_Tileset tileset);
+    void calcTilesetLast();
+    std::vector <S_Tileset> m_tilesetList;
 };
 #endif

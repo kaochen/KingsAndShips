@@ -225,6 +225,9 @@ string C_Xml::getStrProperty(string const &property, string Default)
 
 C_Tmx::C_Tmx(string const file_Path):C_Xml(file_Path)
 {
+        m_tilesetList = extractTilesetList();
+        calcTilesetLast();
+        showAllTileset();
 }
 
 S_tmxLayer C_Tmx::extractLayerInTMX(string layerName)
@@ -245,4 +248,53 @@ S_tmxLayer C_Tmx::extractLayerInTMX(string layerName)
 	}
 	//cout  << data << "////" << endl;
 	return layer;
+}
+
+std::vector <S_Tileset> C_Tmx::extractTilesetList(){
+    //<tileset firstgid="1" source="../img/Ground_01.tsx"/
+    vector <S_Tileset> list;
+
+	xmlpp::TextReader reader(m_file_path);
+	string value;
+	while(reader.read()) {
+		string nodeName = reader.get_name();
+        S_Tileset tileset {"noName",0,99999};
+		if (reader.has_attributes()) {
+			reader.move_to_first_attribute();
+			do {
+				string attrib = reader.get_name();
+				if (nodeName == "tileset") {
+				    if(attrib == "firstgid"){
+    					tileset.first = stoi(reader.get_value());
+				    } else if (attrib == "source") {
+				        tileset.name = reader.get_value();
+				    }
+				}
+			} while(reader.move_to_next_attribute());
+		}
+		if(tileset.name != "noName"){
+		    list.push_back(tileset);
+		}
+		reader.move_to_element();
+	}
+	string filename = C_Message::extractFilename(m_file_path);
+	return list;
+}
+
+void C_Tmx::showAllTileset(){
+    for(auto i: m_tilesetList){
+        showTileset(i);
+    }
+}
+
+void C_Tmx::showTileset(S_Tileset tileset){
+    C_Message::printV("Source: " + tileset.name + " first= " + to_string(tileset.first) + " last= " + to_string(tileset.last) + "\n");
+}
+
+void C_Tmx::calcTilesetLast(){
+    int l = 99999;
+    for(int i = (m_tilesetList.size()-1); i >= 0; i--){
+          m_tilesetList[i].last = l;
+          l = m_tilesetList[i].first - 1;
+    }
 }
