@@ -58,10 +58,18 @@ protected:
 
 };
 
-struct S_Tileset{
-    std::string name;
-    int first;
-    int last;
+class C_Tileset{
+public :
+    C_Tileset(std::string source, int first);
+    ~C_Tileset(){};
+    void setLast(int last){m_last = last;};
+    int getFirst(){return m_first;};
+    void show();
+private:
+    std::string m_source;
+    std::string m_type;
+    int m_first;
+    int m_last;
 };
 
 class C_Tmx : public C_Xml
@@ -70,10 +78,9 @@ public:
     C_Tmx(std::string const file_Path);
     virtual S_tmxLayer extractLayerInTMX(std::string layerName);
 protected:
-    std::vector <S_Tileset> extractTilesetList();
+    std::vector <C_Tileset> extractTilesetList();
     void showAllTileset();
-    void showTileset(S_Tileset tileset);
     void calcTilesetLast();
-    std::vector <S_Tileset> m_tilesetList;
+    std::vector <C_Tileset> m_tilesetList;
 };
 #endif

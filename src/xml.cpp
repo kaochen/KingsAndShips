@@ -223,6 +223,21 @@ string C_Xml::getStrProperty(string const &property, string Default)
 }
 
 
+C_Tileset::C_Tileset(std::string source, int first):
+    m_source(source),
+    m_first(first)
+{
+    m_type = "noType";
+    m_last = 99999;
+}
+
+void C_Tileset::show(){
+    C_Message::printV("Source: " + m_source + " type: "+ m_type +" first= " + to_string(m_first) + " last= " + to_string(m_last) + "\n");
+}
+
+
+
+
 C_Tmx::C_Tmx(string const file_Path):C_Xml(file_Path)
 {
         m_tilesetList = extractTilesetList();
@@ -250,30 +265,32 @@ S_tmxLayer C_Tmx::extractLayerInTMX(string layerName)
 	return layer;
 }
 
-std::vector <S_Tileset> C_Tmx::extractTilesetList(){
+std::vector <C_Tileset> C_Tmx::extractTilesetList(){
     //<tileset firstgid="1" source="../img/Ground_01.tsx"/
-    vector <S_Tileset> list;
+    vector <C_Tileset> list;
 
 	xmlpp::TextReader reader(m_file_path);
 	string value;
 	while(reader.read()) {
 		string nodeName = reader.get_name();
-        S_Tileset tileset {"noName",0,99999};
+		int first = 0;
+		string source;
+
 		if (reader.has_attributes()) {
 			reader.move_to_first_attribute();
 			do {
 				string attrib = reader.get_name();
 				if (nodeName == "tileset") {
 				    if(attrib == "firstgid"){
-    					tileset.first = stoi(reader.get_value());
+    					first = stoi(reader.get_value());
 				    } else if (attrib == "source") {
-				        tileset.name = reader.get_value();
+				        source = reader.get_value();
 				    }
 				}
 			} while(reader.move_to_next_attribute());
 		}
-		if(tileset.name != "noName"){
-		    list.push_back(tileset);
+		if(!source.empty()){
+		    list.push_back(C_Tileset(source, first));
 		}
 		reader.move_to_element();
 	}
@@ -283,18 +300,15 @@ std::vector <S_Tileset> C_Tmx::extractTilesetList(){
 
 void C_Tmx::showAllTileset(){
     for(auto i: m_tilesetList){
-        showTileset(i);
+        i.show();
     }
-}
-
-void C_Tmx::showTileset(S_Tileset tileset){
-    C_Message::printV("Source: " + tileset.name + " first= " + to_string(tileset.first) + " last= " + to_string(tileset.last) + "\n");
 }
 
 void C_Tmx::calcTilesetLast(){
     int l = 99999;
     for(int i = (m_tilesetList.size()-1); i >= 0; i--){
-          m_tilesetList[i].last = l;
-          l = m_tilesetList[i].first - 1;
+          m_tilesetList[i].setLast(l);
+          l = m_tilesetList[i].getFirst() - 1;
     }
 }
+
