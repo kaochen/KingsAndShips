@@ -121,26 +121,6 @@ string C_Xml::extractStrData(string const &node, string const &name)
 }
 
 
-S_tmxLayer C_Xml::extractLayerInTMX(string layerName)
-{
-
-	S_tmxLayer layer;
-	layer.name = layerName;
-	layer.width = stoi(extractStrValue("layer","name",layerName,"width"));
-	layer.height = stoi(extractStrValue("layer","name",layerName,"height"));
-	layer.data =  extractStrData("layer", layerName);
-
-	//drop all \n
-	size_t start = 0;
-	string in = "\n", out = "";
-	while((start = layer.data.find(in,start)) != std::string::npos) {
-		layer.data.replace(start,in.length(),out);
-		start += out.length();
-	}
-	//cout  << data << "////" << endl;
-	return layer;
-}
-
 
 int C_Xml::countAttributes(string pattern)
 {
@@ -240,4 +220,29 @@ string C_Xml::getStrProperty(string const &property, string Default)
 		C_Message::printV("From: " + filename +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
 	}
 	return ret;
+}
+
+
+C_Tmx::C_Tmx(string const file_Path):C_Xml(file_Path)
+{
+}
+
+S_tmxLayer C_Tmx::extractLayerInTMX(string layerName)
+{
+
+	S_tmxLayer layer;
+	layer.name = layerName;
+	layer.width = stoi(extractStrValue("layer","name",layerName,"width"));
+	layer.height = stoi(extractStrValue("layer","name",layerName,"height"));
+	layer.data =  extractStrData("layer", layerName);
+
+	//drop all \n
+	size_t start = 0;
+	string in = "\n", out = "";
+	while((start = layer.data.find(in,start)) != std::string::npos) {
+		layer.data.replace(start,in.length(),out);
+		start += out.length();
+	}
+	//cout  << data << "////" << endl;
+	return layer;
 }

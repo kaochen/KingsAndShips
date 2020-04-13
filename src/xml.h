@@ -37,23 +37,31 @@ struct S_tmxLayer{
 
 class C_Xml
 {
-	public:
+public:
     C_Xml(std::string const file_Path);
-    ~C_Xml(){};
+    virtual ~C_Xml(){};
+
     //values
-    std::string extractStrValue(std::string const &node, std::string const &id, std::string const &idValue, std::string const &name); //in the "node" where "id" = "idValue" get value of "name"
-    std::string extractStrValue(std::string const &node, std::string const &name); //in the only one "node" get value of "name"
+    virtual std::string extractStrValue(std::string const &node, std::string const &id, std::string const &idValue, std::string const &name); //in the "node" where "id" = "idValue" get value of "name"
+    virtual std::string extractStrValue(std::string const &node, std::string const &name); //in the only one "node" get value of "name"
+                                                                                           //
     //data
-    std::string extractStrData(std::string const &node, std::string const &name);                                                                      //
-    S_tmxLayer extractLayerInTMX(std::string layerName);
-    int countAttributes(std::string pattern);
-    int getIntProperty(std::string const &idValue, int Default);
-    std::string getStrProperty(std::string const &property, std::string Default);
-    bool nodeExist(std::string const &node, std::string const &name);
-  protected:
+    virtual std::string extractStrData(std::string const &node, std::string const &name);                                                                      //
+    virtual int countAttributes(std::string pattern);
+    virtual int getIntProperty(std::string const &idValue, int Default);
+    virtual std::string getStrProperty(std::string const &property, std::string Default);
+    virtual bool nodeExist(std::string const &node, std::string const &name);
 
-	private:
-  std::string m_file_path;
+protected:
+    std::string m_file_path;
 
+};
+
+
+class C_Tmx : public C_Xml
+{
+public:
+    C_Tmx(std::string const file_Path);
+    virtual S_tmxLayer extractLayerInTMX(std::string layerName);
 };
 #endif

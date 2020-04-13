@@ -47,7 +47,7 @@ C_Level::C_Level(S_LevelModel model):
 	m_filename = settings.getLevelFolder() + "Level_" + to_string(model.nbr) + ".tmx";
 	struct stat buffer;
 	if (stat (m_filename.c_str(),  &buffer) == 0) {
-		C_Xml tmx(m_filename);
+		C_Tmx tmx(m_filename);
 		m_groundLayer = tmx.extractLayerInTMX("Ground");
 		m_decorLayer = tmx.extractLayerInTMX("Decors");
 
@@ -174,7 +174,7 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr)
 
 	C_Wave wave;
 	string name = "Wave" + to_string(waveNbr);
-	C_Xml tmx(tmx_File_Path);
+	C_Tmx tmx(tmx_File_Path);
 	S_tmxLayer layer = tmx.extractLayerInTMX(name);
 	string data = layer.data;
 	for (int y = 0; y < layer.height; y++) {
