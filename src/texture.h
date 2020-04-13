@@ -68,7 +68,7 @@ public:
 	virtual void displayStatus();
 
 protected:
-	int m_tileNbr;
+    int m_tileNbr;
 	int m_tile_height;
 	int m_tile_width;
 	int m_file_width;

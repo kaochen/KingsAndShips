@@ -137,8 +137,8 @@ C_Image::C_Image(int id, int tileNbr, string name,
 
 void C_Image::displayStatus()
 {
-	C_Message::printV("Image: " + to_string(m_id) + " "+ m_name + " " + to_string(m_tile_width)
-			 + ":" + to_string(m_tile_height)
+	C_Message::printV("Image: " + to_string(m_id) + " -> "+ to_string(m_tileNbr) + " " + m_name + " " + to_string(m_tile_width)
+			 + ":" + to_string(m_tile_height) + " "
 			 + to_string(m_file_width) + ":" + to_string(m_file_height)+"\n");
 }
 
