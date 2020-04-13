@@ -67,7 +67,6 @@ public :
     void show();
 private:
     std::string m_source;
-    std::string m_type;
     int m_first;
     int m_last;
 };

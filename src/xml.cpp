@@ -227,14 +227,12 @@ C_Tileset::C_Tileset(std::string source, int first):
     m_source(source),
     m_first(first)
 {
-    m_type = "noType";
     m_last = 99999;
 }
 
 void C_Tileset::show(){
-    C_Message::printV("Source: " + m_source + " type: "+ m_type +" first= " + to_string(m_first) + " last= " + to_string(m_last) + "\n");
+    C_Message::printV("Source: " + m_source + " first= " + to_string(m_first) + " last= " + to_string(m_last) + "\n");
 }
-
 
 
 
@@ -284,7 +282,7 @@ std::vector <C_Tileset> C_Tmx::extractTilesetList(){
 				    if(attrib == "firstgid"){
     					first = stoi(reader.get_value());
 				    } else if (attrib == "source") {
-				        source = reader.get_value();
+				        source = C_Message::extractFilename(reader.get_value());
 				    }
 				}
 			} while(reader.move_to_next_attribute());
