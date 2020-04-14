@@ -47,6 +47,7 @@ public:
 	virtual void loadTexture(SDL_Texture* fullImage){if(fullImage !=nullptr){}};
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize){
 		std::cout << "What for ?? " << message << fontSize << color.a << std::endl;};
+    virtual std::string getSourceFileName(){return "noFromAFile";};
 
 protected:
 	std::string m_name;
@@ -62,10 +63,12 @@ public:
 	C_Image(int id,int tileNbr, std::string name,
 			SDL_Texture * texture, int tile_width,
 			int tile_height, int file_width,
-			int file_height, int nbrOfZoom);
+			int file_height, int nbrOfZoom,
+            std::string sourcefile);
 
 	virtual void loadTexture(SDL_Texture* fullImage);
 	virtual void displayStatus();
+    virtual std::string getSourceFileName(){return m_sourcefile;};
 
 protected:
     int m_tileNbr;
@@ -74,6 +77,7 @@ protected:
 	int m_file_width;
 	int m_file_height;
 	bool m_whiteBgrd;
+    std::string m_sourcefile;
 };
 
 //C_Text

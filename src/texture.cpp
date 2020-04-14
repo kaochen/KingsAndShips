@@ -115,7 +115,8 @@ void C_Texture::render(int x, int y, double angle, int align)
 C_Image::C_Image(int id, int tileNbr, string name,
 				 SDL_Texture * texture, int tile_width,
 				 int tile_height, int file_width,
-				 int file_height, int nbrOfZoom):
+				 int file_height, int nbrOfZoom,
+				 std::string sourcefile):
 	C_Texture(name)
 {
 	m_id = id;
@@ -125,6 +126,7 @@ C_Image::C_Image(int id, int tileNbr, string name,
 	m_file_width = file_width;
 	m_file_height =file_height;
 	m_nbr_of_sub_res = nbrOfZoom;
+	m_sourcefile = sourcefile;
 	size_t found = m_name.find("clouds_Cloud");
 	if (found!=std::string::npos){
 		m_whiteBgrd =  true;
@@ -139,7 +141,8 @@ void C_Image::displayStatus()
 {
 	C_Message::printV("Image: " + to_string(m_id) + " -> "+ to_string(m_tileNbr) + " " + m_name + " " + to_string(m_tile_width)
 			 + ":" + to_string(m_tile_height) + " "
-			 + to_string(m_file_width) + ":" + to_string(m_file_height)+"\n");
+			 + to_string(m_file_width) + ":" + to_string(m_file_height)
+			 + " from " + m_sourcefile +"\n");
 }
 
 
@@ -480,7 +483,8 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			int id = tileNbr + startCount;
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()) {
-				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbr_of_zoom);
+			    string filename = C_Message::extractFilename(tsx_File_Path);
+				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbr_of_zoom, filename );
 				m_count++;
 				//cout << m_count << ": " << fullname << "Size: " << tile_width <<":"<< tile_height<< endl;
 			}
