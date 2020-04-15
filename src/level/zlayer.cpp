@@ -213,7 +213,7 @@ bool C_ZLayer::render(int layer)
 			break;
 		case  CLOUD:
 			if(m_cloud != nullptr) {
-				m_cloud->render();
+                m_cloud->render();
 				ret = true;
 			}
 			break;

@@ -48,7 +48,6 @@ C_Level::C_Level(S_LevelModel model):
 	struct stat buffer;
 	if (stat (m_filename.c_str(),  &buffer) == 0) {
 	    m_tmx = new C_Tmx(m_filename);
-		m_groundLayer = m_tmx->extractLayerInTMX("Ground");
 		m_decorLayer = m_tmx->extractLayerInTMX("Decors");
 
 		m_nbrOfWaves = 0;
@@ -77,8 +76,11 @@ void C_Level::load(int levelNbr)
 	struct stat buffer;
 	if (stat (m_filename.c_str(),  &buffer) == 0) {
 
-		loadGroundLayerIntoTheGrid();
+		loadLayerIntoTheGrid("Ground");
 		loadDecorLayerIntoTheGrid();
+		//loadLayerIntoTheGrid("Decors");
+
+
 		setWallet();
 		C_Xml tmx(m_filename);
 		m_nbrOfWaves = tmx.countAttributes("Wave");
@@ -129,27 +131,34 @@ void C_Level::sendNextWave()
 }
 
 
-void C_Level::loadGroundLayerIntoTheGrid()
+void C_Level::loadLayerIntoTheGrid(std::string type)
 {
 	C_Grid& grid= C_Locator::getGrid();
-	string data = m_groundLayer.data;
-	S_Coord start = getFirstTile(m_groundLayer);
-	for (int y = start.y; y < m_groundLayer.height; y++) {
-		for (int x = start.x; x < m_groundLayer.width; x++) {
+	S_tmxLayer	layer = m_tmx->extractLayerInTMX(type);
+	string data = layer.data;
+	S_Coord start = getFirstTile(layer);
+	for (int y = start.y; y < layer.height; y++) {
+		for (int x = start.x; x < layer.width; x++) {
 			string extract = data;
 			int mark = extract.find_first_of(',');
 			if (mark > 0)
 				extract.resize(mark,'C');
 			int nbr = stoi(extract);
 			//cout << nbr;
-			if(nbr == 0) {
-				nbr = 27;
-			}; //FIXME water is not the 0 but the 27 in the tileset
-			S_Tile tile = m_tmx->getTileInfos(nbr);
-			grid.setGround(x,y,tile.name);
-
-			//cout << extract <<":";
-			data = data.substr(mark + 1);
+			if(type == "Ground"){
+			    if(nbr == 0) {
+				    grid.setGround(x,y,"Ground_01_Water27"); //FIXME should be more easy
+			    } else {
+			        S_Tile tile = m_tmx->getTileInfos(nbr);
+			        grid.setGround(x,y,tile.name);
+			    }
+			} else {
+			    if(nbr != 0){
+			    	S_Tile tile = m_tmx->getTileInfos(nbr);
+			        grid.setGround(x,y,tile.name);
+			    }
+			}
+    			data = data.substr(mark + 1);
 		}
 	}
 }

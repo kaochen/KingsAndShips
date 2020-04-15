@@ -77,7 +77,7 @@ public:
 
 protected:
 //methods
-	void loadGroundLayerIntoTheGrid();
+	void loadLayerIntoTheGrid(std::string type);
 	void loadWave(std::string tmx_File_Path, int waveNbr);
 	void loadDecorLayerIntoTheGrid();
 	S_Coord getFirstTile(S_tmxLayer &layer);
@@ -87,7 +87,6 @@ protected:
 //attibutes
 	int m_count;
 	int m_id;
-	S_tmxLayer m_groundLayer;
 	S_tmxLayer m_decorLayer;
     C_Tmx* m_tmx;
 
