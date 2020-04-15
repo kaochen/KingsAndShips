@@ -180,20 +180,15 @@ void C_Grid::setGround(int x, int y, std::string name)
 	}
 }
 
-void C_Grid::setDecors(int x, int y, int id)
+void C_Grid::setDecors(int x, int y, std::string name)
 {
-	C_TextureList& t= C_Locator::getTextureList();
-	string rocks = "rocks";
-	string trees = "trees";
-	string town = "town";
-	if(id !=0) {
-		string str = t.getNameFromID(id);
-		if(str.find(town) != std::string::npos) {
+	if(!name.empty()) {
+		if(name.find("town") != std::string::npos) {
 			setTown(x,y);
-		} else if(str.find(rocks) != std::string::npos) {
-			m_vgrid[x][y].set(FIELD,new C_Decors(str,x,y));
-		} else if(str.find(trees) != std::string::npos) {
-			m_vgrid[x][y].set(FIELD,new C_Trees(str,x,y));
+		} else if(name.find("rocks") != std::string::npos) {
+			m_vgrid[x][y].set(FIELD,new C_Decors(name,x,y));
+		} else if(name.find("trees") != std::string::npos) {
+			m_vgrid[x][y].set(FIELD,new C_Trees(name,x,y));
 		}
 	}
 }

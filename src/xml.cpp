@@ -238,7 +238,7 @@ void C_Tileset::show(){
 
 bool C_Tileset::find(int tmxNbr){
     bool ret = false;
-    if(tmxNbr >= m_first && tmxNbr < m_last){
+    if(tmxNbr >= m_first && tmxNbr <= m_last){
         ret = true;
     }
     return ret;
@@ -323,7 +323,6 @@ void C_Tmx::calcTilesetLast(){
 S_Tile C_Tmx::getTileInfos(int tmxNbr){
     S_Tile ret;
     ret.tmxNbr = tmxNbr;
-
     for(auto i : m_tilesetList){
             if(i.find(tmxNbr)){
                 ret.tsxNbr = tmxNbr - i.getFirst();

@@ -240,9 +240,9 @@ void C_Level::loadDecorLayerIntoTheGrid()
 				extract.resize(mark,'C');
 			int nbr = stoi(extract);
 			if(nbr != 0) {
-				grid.setDecors(x,y,nbr);
+				S_Tile tile = m_tmx->getTileInfos(nbr);
+			    grid.setDecors(x,y,tile.name);
 			}
-			//cout << extract <<":";
 			data = data.substr(mark + 1);
 		}
 	}
