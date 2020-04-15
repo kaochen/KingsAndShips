@@ -89,7 +89,9 @@ protected:
 	int m_id;
 	S_tmxLayer m_groundLayer;
 	S_tmxLayer m_decorLayer;
-//waves
+    C_Tmx* m_tmx;
+
+    //waves
 	int m_nbrOfWaves;
 	int m_currentWaveNbr;
 	long m_lastWaveTime;

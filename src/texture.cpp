@@ -39,6 +39,7 @@ C_Texture::C_Texture():
 	m_name("texture")
 {
 	m_id = 0;
+	m_tileNbr = 0;
 	m_nbr_of_sub_res = 1;
 }
 
@@ -46,6 +47,7 @@ C_Texture::C_Texture(string name):
 	m_name(name)
 {
 	m_id = 0;
+	m_tileNbr = 0;
 	m_nbr_of_sub_res = 1;
 }
 
@@ -551,6 +553,27 @@ string C_TextureList::getNameFromID(int id)
 		} else {
 			idTmp = m_map_textures[n]->getId();
 			if (idTmp == id) {
+				result = n;
+			}
+		}
+
+	}
+	return result;
+}
+
+std::string C_TextureList::getNameFromID(int nbr, std::string tsxName)
+{
+	string result="error with getNameFromID: \"" + to_string(nbr) + " from " + tsxName + "\"";
+	for (auto const& x : m_map_textures) {
+		string n = x.first;  // string (key)
+		map<string, C_Texture*>::iterator search = m_map_textures.find(n);
+		if(search == m_map_textures.end()) {
+			C_Message::printM("\""+ n + "\" not available in the texture map  (getNameFromID)\n");
+			result = "notFound";
+		} else {
+			int tileNbr = m_map_textures[n]->getTileNbr();
+			string sourcefile = m_map_textures[n]->getSourceFileName();
+			if (tileNbr  == nbr && sourcefile == tsxName ) {
 				result = n;
 			}
 		}

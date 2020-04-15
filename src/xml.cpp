@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "xml.h"
 #include "message.h"
+#include "locator.h"
+#include "texture.h"
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
 
@@ -234,6 +236,13 @@ void C_Tileset::show(){
     C_Message::printV("Source: " + m_source + " first= " + to_string(m_first) + " last= " + to_string(m_last) + "\n");
 }
 
+bool C_Tileset::find(int tmxNbr){
+    bool ret = false;
+    if(tmxNbr >= m_first && tmxNbr < m_last){
+        ret = true;
+    }
+    return ret;
+}
 
 
 C_Tmx::C_Tmx(string const file_Path):C_Xml(file_Path)
@@ -310,3 +319,18 @@ void C_Tmx::calcTilesetLast(){
     }
 }
 
+
+S_Tile C_Tmx::getTileInfos(int tmxNbr){
+    S_Tile ret;
+    ret.tmxNbr = tmxNbr;
+
+    for(auto i : m_tilesetList){
+            if(i.find(tmxNbr)){
+                ret.tsxNbr = tmxNbr - i.getFirst();
+                ret.sourcefile = i.getSourceFile();
+                C_TextureList& t= C_Locator::getTextureList();
+                ret.name = t.getNameFromID(ret.tsxNbr,ret.sourcefile);
+            }
+    }
+    return ret;
+}

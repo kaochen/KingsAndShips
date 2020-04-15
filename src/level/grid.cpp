@@ -173,12 +173,10 @@ bool C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 }
 
 
-void C_Grid::setGround(int x, int y, int id)
+void C_Grid::setGround(int x, int y, std::string name)
 {
-	C_TextureList& t= C_Locator::getTextureList();
-	if(id !=0) {
-		string str = t.getNameFromID(id);
-		m_vgrid[x][y].set(GROUND,new C_Ground(str,x,y));
+	if(!name.empty()){
+		m_vgrid[x][y].set(GROUND,new C_Ground(name,x,y));
 	}
 }
 

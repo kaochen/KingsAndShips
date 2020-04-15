@@ -48,11 +48,13 @@ public:
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize){
 		std::cout << "What for ?? " << message << fontSize << color.a << std::endl;};
     virtual std::string getSourceFileName(){return "noFromAFile";};
+    virtual int getTileNbr(){return m_tileNbr;};
 
 protected:
 	std::string m_name;
 	std::vector <SDL_Texture*> m_textures;
 	int m_id;
+    int m_tileNbr;
 	int m_nbr_of_sub_res;
 };
 
@@ -71,7 +73,6 @@ public:
     virtual std::string getSourceFileName(){return m_sourcefile;};
 
 protected:
-    int m_tileNbr;
 	int m_tile_height;
 	int m_tile_width;
 	int m_file_width;
@@ -120,6 +121,7 @@ public:
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
 	std::string getNameFromID(int id);
+	std::string getNameFromID(int nbr, std::string tsxName);
 	void freeTexture(std::string name);
 
 private:

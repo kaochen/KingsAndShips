@@ -64,11 +64,20 @@ public :
     ~C_Tileset(){};
     void setLast(int last){m_last = last;};
     int getFirst(){return m_first;};
+    std::string getSourceFile(){return m_source;};
     void show();
+    bool find(int tmxNbr);
 private:
     std::string m_source;
     int m_first;
     int m_last;
+};
+
+struct S_Tile{
+    int tmxNbr;
+    int tsxNbr;
+    std::string name;
+    std::string sourcefile;
 };
 
 class C_Tmx : public C_Xml
@@ -76,6 +85,7 @@ class C_Tmx : public C_Xml
 public:
     C_Tmx(std::string const file_Path);
     virtual S_tmxLayer extractLayerInTMX(std::string layerName);
+    virtual S_Tile getTileInfos(int tmxNbr);
 protected:
     std::vector <C_Tileset> extractTilesetList();
     void showAllTileset();

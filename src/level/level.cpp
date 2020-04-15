@@ -47,9 +47,9 @@ C_Level::C_Level(S_LevelModel model):
 	m_filename = settings.getLevelFolder() + "Level_" + to_string(model.nbr) + ".tmx";
 	struct stat buffer;
 	if (stat (m_filename.c_str(),  &buffer) == 0) {
-		C_Tmx tmx(m_filename);
-		m_groundLayer = tmx.extractLayerInTMX("Ground");
-		m_decorLayer = tmx.extractLayerInTMX("Decors");
+	    m_tmx = new C_Tmx(m_filename);
+		m_groundLayer = m_tmx->extractLayerInTMX("Ground");
+		m_decorLayer = m_tmx->extractLayerInTMX("Decors");
 
 		m_nbrOfWaves = 0;
 		m_currentWaveNbr = -1;
@@ -64,6 +64,7 @@ C_Level::C_Level(S_LevelModel model):
 C_Level::~C_Level()
 {
 	delete m_landscape;
+	delete m_tmx;
 }
 
 void C_Level::load(int levelNbr)
@@ -144,7 +145,8 @@ void C_Level::loadGroundLayerIntoTheGrid()
 			if(nbr == 0) {
 				nbr = 27;
 			}; //FIXME water is not the 0 but the 27 in the tileset
-			grid.setGround(x,y,nbr);
+			S_Tile tile = m_tmx->getTileInfos(nbr);
+			grid.setGround(x,y,tile.name);
 
 			//cout << extract <<":";
 			data = data.substr(mark + 1);
