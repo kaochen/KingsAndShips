@@ -77,9 +77,7 @@ void C_Level::load(int levelNbr)
 	if (stat (m_filename.c_str(),  &buffer) == 0) {
 
 		loadLayerIntoTheGrid("Ground");
-		loadDecorLayerIntoTheGrid();
-		//loadLayerIntoTheGrid("Decors");
-
+		loadLayerIntoTheGrid("Decors");
 
 		setWallet();
 		C_Xml tmx(m_filename);
@@ -233,28 +231,6 @@ void C_Level::loadWaveIntoGrid(int i)
 		c++;
 	}
 	updateMenuInfo();
-}
-
-
-void C_Level::loadDecorLayerIntoTheGrid()
-{
-	C_Grid& grid= C_Locator::getGrid();
-	string data = m_decorLayer.data;
-	S_Coord start = getFirstTile(m_decorLayer);
-	for (int y = start.y; y < m_decorLayer.height; y++) {
-		for (int x = start.x; x < m_decorLayer.width; x++) {
-			string extract = data;
-			int mark = extract.find_first_of(',');
-			if (mark > 0)
-				extract.resize(mark,'C');
-			int nbr = stoi(extract);
-			if(nbr != 0) {
-				S_Tile tile = m_tmx->getTileInfos(nbr);
-			    grid.setDecors(x,y,tile.name);
-			}
-			data = data.substr(mark + 1);
-		}
-	}
 }
 
 

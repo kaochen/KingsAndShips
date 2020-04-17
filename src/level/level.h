@@ -79,7 +79,6 @@ protected:
 //methods
 	void loadLayerIntoTheGrid(std::string type);
 	void loadWave(std::string tmx_File_Path, int waveNbr);
-	void loadDecorLayerIntoTheGrid();
 	S_Coord getFirstTile(S_tmxLayer &layer);
 	void setWallet();
 	void createLandscape();

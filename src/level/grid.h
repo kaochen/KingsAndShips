@@ -50,8 +50,7 @@ public:
 	bool isUnitupgradable(C_GameUnits * unit) {return m_factory.isUpgradable(unit);};
 
 	C_GameUnits* getUnits(int x_grid, int y_grid);
-    void setGround(int x, int y, std::string name);
-    void setDecors(int x, int y, std::string name);
+	void setGround(int x, int y, std::string name);
 	bool waterway(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid, bool water);
 	void displayStatus();
