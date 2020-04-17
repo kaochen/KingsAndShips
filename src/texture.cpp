@@ -38,7 +38,6 @@ using namespace std;
 C_Texture::C_Texture():
 	m_name("texture")
 {
-	m_id = 0;
 	m_tileNbr = 0;
 	m_nbr_of_sub_res = 1;
 }
@@ -46,7 +45,6 @@ C_Texture::C_Texture():
 C_Texture::C_Texture(string name):
 	m_name(name)
 {
-	m_id = 0;
 	m_tileNbr = 0;
 	m_nbr_of_sub_res = 1;
 }
@@ -114,14 +112,13 @@ void C_Texture::render(int x, int y, double angle, int align)
 
 //C_Image
 
-C_Image::C_Image(int id, int tileNbr, string name,
+C_Image::C_Image(int tileNbr, string name,
 				 SDL_Texture * texture, int tile_width,
 				 int tile_height, int file_width,
 				 int file_height, int nbrOfZoom,
 				 std::string sourcefile):
 	C_Texture(name)
 {
-	m_id = id;
 	m_tileNbr = tileNbr;
 	m_tile_height = tile_height;
 	m_tile_width = tile_width;
@@ -141,7 +138,7 @@ C_Image::C_Image(int id, int tileNbr, string name,
 
 void C_Image::displayStatus()
 {
-	C_Message::printV("Image: " + to_string(m_id) + " -> "+ to_string(m_tileNbr) + " " + m_name + " " + to_string(m_tile_width)
+	C_Message::printV("Image: " +  to_string(m_tileNbr) + " " + m_name + " " + to_string(m_tile_width)
 			 + ":" + to_string(m_tile_height) + " "
 			 + to_string(m_file_width) + ":" + to_string(m_file_height)
 			 + " from " + m_sourcefile +"\n");
@@ -293,8 +290,7 @@ string C_Text::findFont()
 
 //#######################################Texture List##################################################
 
-C_TextureList::C_TextureList():
-	m_count (0)
+C_TextureList::C_TextureList()
 {
 	C_Message::printM("Constructor C_TextureList() : done\n");
 }
@@ -342,20 +338,6 @@ C_Texture* C_TextureList::searchTexture(string name)
 		}
 	}
 	return texture;
-}
-
-
-
-void C_TextureList::renderTextureFromId(int id, int x, int y)
-{
-
-	string	name = "notFound";
-	//cout << "ID: " << id << endl;
-	if (id > 0)
-		name = getNameFromID(id);
-
-	if (name !="notFound")
-		renderTexture(name, x, y);
 }
 
 
@@ -413,7 +395,6 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	int tileNbr = 0, previousTileNbr = -1;
 	bool firstID = false;
 	int nbr_of_zoom = 1;
-	int startCount = m_count + 1;
 
 	//Get general values :
 	while(reader.read()) {
@@ -455,7 +436,6 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 
 	SDL_Texture* texture = imageToTexture(filePath);
 
-	//	cout << "Tile Count" << startCount << endl;
 	xmlpp::TextReader reader2(tsx_File_Path);
 	while(reader2.read()) {
 		string nodeName = reader2.get_name();
@@ -482,13 +462,10 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 		//create new texture
 		if(tileNbr != previousTileNbr && firstID == true) {
 			previousTileNbr = tileNbr;
-			int id = tileNbr + startCount;
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()) {
 			    string filename = C_Message::extractFilename(tsx_File_Path);
-				m_map_textures[fullname] = new C_Image(id,tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbr_of_zoom, filename );
-				m_count++;
-				//cout << m_count << ": " << fullname << "Size: " << tile_width <<":"<< tile_height<< endl;
+				m_map_textures[fullname] = new C_Image(tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbr_of_zoom, filename );
 			}
 		}
 
@@ -537,28 +514,6 @@ void C_TextureList::displayTexturesList()
 		m_map_textures[x.first]->displayStatus();
 
 	}
-}
-
-
-string C_TextureList::getNameFromID(int id)
-{
-	string result="error with getNameFromID: \"" + to_string(id) + "\"";
-	for (auto const& x : m_map_textures) {
-		int idTmp = -1;
-		string n = x.first;  // string (key)
-		map<string, C_Texture*>::iterator search = m_map_textures.find(n);
-		if(search == m_map_textures.end()) {
-			C_Message::printM("\""+ n + "\" not available in the texture map  (getNameFromID)\n");
-			result = "notFound";
-		} else {
-			idTmp = m_map_textures[n]->getId();
-			if (idTmp == id) {
-				result = n;
-			}
-		}
-
-	}
-	return result;
 }
 
 std::string C_TextureList::getNameFromID(int nbr, std::string tsxName)

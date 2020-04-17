@@ -42,7 +42,6 @@ public:
 	virtual void displayStatus();
 	virtual void render(int x, int y, double angle, int align);
 
-	virtual int getId(){return m_id;};
 	//Should be virtual :
 	virtual void loadTexture(SDL_Texture* fullImage){if(fullImage !=nullptr){}};
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize){
@@ -53,7 +52,6 @@ public:
 protected:
 	std::string m_name;
 	std::vector <SDL_Texture*> m_textures;
-	int m_id;
     int m_tileNbr;
 	int m_nbr_of_sub_res;
 };
@@ -62,7 +60,7 @@ protected:
 class C_Image: public C_Texture
 {
 public:
-	C_Image(int id,int tileNbr, std::string name,
+	C_Image(int tileNbr, std::string name,
 			SDL_Texture * texture, int tile_width,
 			int tile_height, int file_width,
 			int file_height, int nbrOfZoom,
@@ -115,19 +113,16 @@ public:
 	void renderTexture(std::string name, int x, int y,int align);
 	void renderTextureEx(std::string name, int x, int y, double angle, int align);
 	C_Texture* searchTexture(std::string name);
-	void renderTextureFromId(int id, int x, int y);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);
 	void extractTSXfile(std::string tsx_File_Path);
 	void displayTexturesList();
-	std::string getNameFromID(int id);
 	std::string getNameFromID(int nbr, std::string tsxName);
 	void freeTexture(std::string name);
 
 private:
 	int nbrOfZoom(std::string name);
 	SDL_Texture* imageToTexture(std::string &path);
-	int m_count;
 	std::map<std::string, C_Texture*> m_map_textures;
 };
 

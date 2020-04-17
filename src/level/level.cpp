@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../wallet.h"
 #include "../message.h"
 #include "../menu/menu.h"
-#include "../coord.h"
+
 using namespace std;
 
 
@@ -178,9 +178,6 @@ S_Coord C_Level::getFirstTile(S_tmxLayer &layer)
 
 void C_Level::loadWave(string tmx_File_Path, int waveNbr)
 {
-
-	C_TextureList& t= C_Locator::getTextureList();
-
 	C_Wave wave;
 	string name = "Wave" + to_string(waveNbr);
 	C_Tmx tmx(tmx_File_Path);
@@ -194,10 +191,10 @@ void C_Level::loadWave(string tmx_File_Path, int waveNbr)
 				extract.resize(mark,'C');
 			int nbr = stoi(extract);
 			if (nbr!=0) {
-				string str = t.getNameFromID(nbr);
-				C_Message::printDebug(to_string(x) + ":" + to_string(y) + "->" + str + "\n") ;
+				S_Tile tile = m_tmx->getTileInfos(nbr);
+				C_Message::printDebug(to_string(x) + ":" + to_string(y) + "->" + tile.name + "\n") ;
 				S_Coord pos = {x,y};
-				wave.add(str,pos);
+				wave.add(tile.name,pos);
 			}
 			data = data.substr(mark + 1);
 		}

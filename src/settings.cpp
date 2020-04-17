@@ -253,25 +253,19 @@ void C_Settings::initTSXfileList()
 {
 	vector <string> list;
 	list.push_back("Ground_01.tsx");
-	list.push_back("boat_01.tsx");
 	list.push_back("town_01.tsx");
 	list.push_back("Rocks_00.tsx");
 	list.push_back("Trees_00.tsx");
-	list.push_back("boat_00.tsx");
-	list.push_back("boat_02.tsx");
-	list.push_back("boat_03.tsx");
 	for(int i = 0; i <= 3; i++){
     	list.push_back("archerTower_0"+to_string(i)+".tsx");
+    	list.push_back("boat_0"+to_string(i)+".tsx");
+    	list.push_back("boat_dead_0"+to_string(i)+".tsx");
 	}
 	list.push_back("catapult_00.tsx");
-
 	list.push_back("buttons.tsx");
 	list.push_back("Water_00.tsx");
 	list.push_back("smoke_01.tsx");
 	list.push_back("charaters.tsx");
-	for(int i = 0; i <= 3; i++){
-    	list.push_back("boat_dead_0"+to_string(i)+".tsx");
-	}
 	list.push_back("Weapons.tsx");
 	list.push_back("barricade_01.tsx");
 	list.push_back("gold.tsx");
