@@ -104,9 +104,3 @@ void C_Message::timestamp()
 
 	cout << time[3] << ":" <<  time[2] << ":" << time[1] << ":" <<  time[0] << " ";
 }
-
-string C_Message::extractFilename(string path){
-	size_t pos = path.find_last_of("/\\");
-	string label = path.substr(pos+1);
-	return label;
-	}

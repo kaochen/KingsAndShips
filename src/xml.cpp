@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "xml.h"
+#include "tools.h"
 #include "message.h"
 #include "locator.h"
 #include "texture.h"
@@ -63,7 +64,7 @@ string C_Xml::extractStrValue(string const &node, string const &id, string const
 		}
 		reader.move_to_element();
 	}
-	string filename = C_Message::extractFilename(m_file_path);
+	string filename = C_Tools::extractFilename(m_file_path);
 	C_Message::printV("From: " + filename +" in Node: "+ node + " where "+id+ "="+ idValue +", " +name+ " = "+ value+"\n");
 	return value;
 }
@@ -88,7 +89,7 @@ string C_Xml::extractStrValue(string const &node, string const &name)
 		}
 		reader.move_to_element();
 	}
-	string filename = C_Message::extractFilename(m_file_path);
+	string filename = C_Tools::extractFilename(m_file_path);
 	C_Message::printV("From: " + filename +" in Node \""+ node  +"\": " + name+ " = "+ value+"\n");
 	return value;
 }
@@ -117,7 +118,7 @@ string C_Xml::extractStrData(string const &node, string const &name)
 		}
 		reader.move_to_element();
 	}
-	string filename = C_Message::extractFilename(m_file_path);
+	string filename = C_Tools::extractFilename(m_file_path);
 	C_Message::printDebug("From: " + filename +" in Node \""+ node  +"\": " + name+ " = "+ data+"\n");
 	return data;
 }
@@ -149,7 +150,7 @@ int C_Xml::countAttributes(string pattern)
 		reader.move_to_element();
 		nodeName = "";
 	}
-	string filename = C_Message::extractFilename(m_file_path);
+	string filename = C_Tools::extractFilename(m_file_path);
 	C_Message::printV(to_string(c) +" "+ pattern + " in " + filename +"\n");
 	return c;
 }
@@ -206,7 +207,7 @@ bool C_Xml::nodeExist(string const &node, string const &name)
 	}
 
 	if(!ret) {
-		string filename = C_Message::extractFilename(m_file_path);
+		string filename = C_Tools::extractFilename(m_file_path);
 		C_Message::printError("From: " + filename +" the Node: "+ node  +" where " + "name="+ name + " does not exist\n");
 	}
 
@@ -218,7 +219,7 @@ string C_Xml::getStrProperty(string const &property, string Default)
 	string ret = extractStrValue("property","name",property,"value");
 	if(ret.size()==0) {
 		ret = Default;
-		string filename = C_Message::extractFilename(m_file_path);
+		string filename = C_Tools::extractFilename(m_file_path);
 		C_Message::printV("From: " + filename +" in Node: property where name="+ property + " is empty. -> Apply \"Default\": " + Default +"\n");
 	}
 	return ret;
@@ -291,7 +292,7 @@ std::vector <C_Tileset> C_Tmx::extractTilesetList(){
 				    if(attrib == "firstgid"){
     					first = stoi(reader.get_value());
 				    } else if (attrib == "source") {
-				        source = C_Message::extractFilename(reader.get_value());
+				        source = C_Tools::extractFilename(reader.get_value());
 				    }
 				}
 			} while(reader.move_to_next_attribute());
@@ -301,7 +302,7 @@ std::vector <C_Tileset> C_Tmx::extractTilesetList(){
 		}
 		reader.move_to_element();
 	}
-	string filename = C_Message::extractFilename(m_file_path);
+	string filename = C_Tools::extractFilename(m_file_path);
 	return list;
 }
 

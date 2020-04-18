@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "window.h"
+#include "tools.h"
 #include "settings.h"
 #include "locator.h"
 #include "texture.h"
@@ -128,7 +129,7 @@ void C_Window::loadGame()
 	int all = list->size();
 	while(list->size()>0) {
 		string imgPath = list->front();
-		string label = C_Message::extractFilename(imgPath);
+		string label = C_Tools::extractFilename(imgPath);
 		//render
 		t.loadTextAsTexturesIntoMap(label, label, 20, color);
 		loadingPage(all-list->size(), label,all+1);

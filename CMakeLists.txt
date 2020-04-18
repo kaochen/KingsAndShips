@@ -23,6 +23,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
 set (SRCS
+	src/tools.cpp
 	src/settings.cpp
 	src/coord.cpp
 	src/time.cpp
@@ -57,6 +58,7 @@ set (SRCS
 
 
 set (HEADERS
+	src/tools.h
 	src/settings.h
 	src/coord.h
 	src/time.h

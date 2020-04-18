@@ -15,25 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef MESSAGE_H
-#define MESSAGE_H
-
-#include <iostream>
-
-class C_Message {
-public:
-	static void printM(std::string message);
-	static void printV(std::string message);
-	static void printError(std::string message);
-	static void printDebug(std::string message);
-	static void printDebugPath(std::string message);
-	static void printSDLerror(std::string message);
-	static void printTTFerror(std::string message);
-
-private:
-	static void timestamp();
-};
+#include "tools.h"
+#include <fstream>
+#include <unistd.h>
+#include <string>
 
 
-#endif
+using namespace std;
+
+std::string C_Tools::extractFilename(std::string path){
+	size_t pos = path.find_last_of("/\\");
+	string label = path.substr(pos+1);
+	return label;
+}
+
+bool C_Tools::fileExist(const std::string &file)
+{
+	ifstream tmp(file.c_str());
+	return !tmp.fail();
+}

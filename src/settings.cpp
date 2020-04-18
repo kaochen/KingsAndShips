@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "settings.h"
+#include "tools.h"
 #include "message.h"
 #include <cmath>
 #include <string.h>
@@ -24,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <unistd.h>
 #include <config.h>
 #include <algorithm>
-#include <fstream>
 #include <limits.h>
 
 #include <experimental/filesystem>
@@ -280,7 +280,7 @@ void C_Settings::initTSXfileList()
 
 	for(auto j : list) {
 		string filePath = m_imgFolder + j;
-		if(fileExist(filePath))
+		if(C_Tools::fileExist(filePath))
 			m_tsxFileList.push(filePath);
 		else
 			C_Message::printError(filePath + " is missing\n");
@@ -344,21 +344,15 @@ void C_Settings::setNbrOfLevels()
 {
 	int i = 1;
 	string filePath = m_levelFolder + "Level_" + to_string(i) + ".tmx";
-	while(fileExist(filePath)) {
+	while(C_Tools::fileExist(filePath)) {
 		i++;
-		string filename = C_Message::extractFilename(filePath);
+		string filename = C_Tools::extractFilename(filePath);
 		C_Message::printM("Found level file: " + filename + "\n");
 		filePath = m_levelFolder + "Level_" + to_string(i) + ".tmx";
 	}
 	m_nbrOfLevels = i - 1;
 }
 
-
-bool C_Settings::fileExist(const string &file)
-{
-	ifstream tmp(file.c_str());
-	return !tmp.fail();
-}
 
 
 bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &filename)
