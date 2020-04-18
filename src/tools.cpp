@@ -19,18 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <fstream>
 #include <unistd.h>
 #include <string>
-
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 
 using namespace std;
 
 std::string C_Tools::extractFilename(std::string path){
-	size_t pos = path.find_last_of("/\\");
-	string label = path.substr(pos+1);
-	return label;
+	fs::path p = path;
+	return p.filename();
 }
 
 bool C_Tools::fileExist(const std::string &file)
 {
-	ifstream tmp(file.c_str());
-	return !tmp.fail();
+	return fs::exists(file);
 }
+

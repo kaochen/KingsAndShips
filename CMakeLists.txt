@@ -18,7 +18,7 @@ ENDIF()
 	configure_file("src/config.h.in" "config.h" @ONLY)
 	configure_file("kingsandships.desktop.in" "kingsandships.desktop" @ONLY)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
@@ -111,9 +111,9 @@ target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY}
 
 target_link_libraries(${PROJECT_NAME} stdc++fs)
 IF (WIN32)
-	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++11 -D Windows)
+	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17 -D Windows)
 ELSE()
-	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++11)
+	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17)
 ENDIF()
 
 
