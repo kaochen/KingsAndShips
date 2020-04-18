@@ -145,7 +145,7 @@ void C_Level::loadLayerIntoTheGrid(std::string type)
 			//cout << nbr;
 			if(type == "Ground"){
 			    if(nbr == 0) {
-				    grid.setGround(x,y,"Ground_01_Water27"); //FIXME should be more easy
+				    grid.setGround(x,y,"Water");
 			    } else {
 			        S_Tile tile = m_tmx->getTileInfos(nbr);
 			        grid.setGround(x,y,tile.name);

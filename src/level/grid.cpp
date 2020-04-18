@@ -178,6 +178,8 @@ void C_Grid::setGround(int x, int y, std::string name)
 	if(!name.empty()){
 		if(name.find("Ground") != std::string::npos) {
 			m_vgrid[x][y].set(GROUND,new C_Ground(name,x,y));
+		} else if(name.find("Water") != std::string::npos) {
+			m_vgrid[x][y].set(GROUND,new C_Water(name,x,y));
 		} else if(name.find("town") != std::string::npos) {
 			setTown(x,y);
 		} else if(name.find("rocks") != std::string::npos) {

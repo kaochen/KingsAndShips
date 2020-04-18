@@ -306,7 +306,6 @@ void C_Ground::render()
 	}
 }
 
-
 //---------------------------C_Trees-------------------------
 C_Trees::C_Trees(string name, int x_grid, int y_grid):
 	C_Decors(name, x_grid, y_grid)

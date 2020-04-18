@@ -76,6 +76,12 @@ public:
 	virtual void render();
 };
 
+class C_Water : public C_GameUnits {
+public:
+	C_Water(std::string name, int x_grid, int y_grid):C_GameUnits(name,x_grid,y_grid,0){};
+	virtual void render(){};
+};
+
 class C_Trees : public C_Decors {
 public:
 	C_Trees(std::string name, int x_grid, int y_grid);
