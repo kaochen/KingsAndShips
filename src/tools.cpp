@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tools.h"
 #include <fstream>
 #include <unistd.h>
-#include <string>
 #include <experimental/filesystem>
 namespace fs = std::experimental::filesystem;
 
@@ -34,3 +33,21 @@ bool C_Tools::fileExist(const std::string &file)
 	return fs::exists(file);
 }
 
+std::vector <std::string> C_Tools::listFiles(std::string path){
+	vector <string> ret;
+	for(const auto & entry : fs::directory_iterator(path)){
+		ret.push_back(entry.path());
+	}
+	return ret;
+}
+
+
+bool C_Tools::checkExtension(std::string path, std::string extension){
+	bool ret = false;
+	fs::path p = path;
+	string ext =  p.extension();
+	if(ext == extension){
+		ret = true;
+	}
+	return ret;
+}

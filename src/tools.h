@@ -20,11 +20,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TOOLS_H
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 class C_Tools {
 public:
 	static std::string extractFilename(std::string path);
+	static bool checkExtension(std::string path, std::string extension);
 	static bool fileExist(const std::string &file);
+	static std::vector <std::string> listFiles(std::string path);
 };
 
 

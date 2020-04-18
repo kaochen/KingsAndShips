@@ -251,39 +251,16 @@ void C_Settings::updateTileWidth(){
 
 void C_Settings::initTSXfileList()
 {
-	vector <string> list;
-	list.push_back("Ground_01.tsx");
-	list.push_back("town_01.tsx");
-	list.push_back("Rocks_00.tsx");
-	list.push_back("Trees_00.tsx");
-	for(int i = 0; i <= 3; i++){
-    	list.push_back("archerTower_0"+to_string(i)+".tsx");
-    	list.push_back("boat_0"+to_string(i)+".tsx");
-    	list.push_back("boat_dead_0"+to_string(i)+".tsx");
-	}
-	list.push_back("catapult_00.tsx");
-	list.push_back("buttons.tsx");
-	list.push_back("Water_00.tsx");
-	list.push_back("smoke_01.tsx");
-	list.push_back("charaters.tsx");
-	list.push_back("Weapons.tsx");
-	list.push_back("barricade_01.tsx");
-	list.push_back("gold.tsx");
-	list.push_back("ProgressBar.tsx");
-	list.push_back("Parchments.tsx");
-	list.push_back("Select_01.tsx");
-	list.push_back("Menu_01.tsx");
-	list.push_back("Menu_details.tsx");
-	list.push_back("Clouds_00.tsx");
-
-
-
-	for(auto j : list) {
-		string filePath = m_imgFolder + j;
-		if(C_Tools::fileExist(filePath))
-			m_tsxFileList.push(filePath);
-		else
-			C_Message::printError(filePath + " is missing\n");
+	vector <string> list = C_Tools::listFiles(m_imgFolder);
+	for(auto i : list){
+		if(C_Tools::fileExist(i)){
+			if(C_Tools::checkExtension(i, ".tsx")){
+				C_Message::printM("Found tsx file: "+i + "\n");
+				m_tsxFileList.push(i);
+			}
+		} else {
+			C_Message::printError(i + " is missing\n");
+		}
 	}
 }
 
