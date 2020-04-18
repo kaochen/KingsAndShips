@@ -54,16 +54,15 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 	S_UnitModel current = m_models[type.name];
 	current.coord = type.coord;
 
-	if(type.name == "boat_1" || type.name == "boat_0" || type.name == "boat_2" || type.name == "boat_3" ) {
+	if(type.name.find("boat_") != string::npos){
 		unit = new C_Boat(current);
-	} else if(type.name == "ArcherTower_0" || type.name == "ArcherTower_1"  ||
-		type.name == "ArcherTower_2" || type.name == "ArcherTower_3") {
+	} else if(type.name.find("ArcherTower_") != string::npos){
 		unit = new C_ArcherTower(current);
-	} else if(type.name == "barricade_1") {
+	} else if(type.name.find("barricade_") != string::npos){
 		unit = new C_Barricade(current);
-	} else if(type.name == "town_1") {
+	} else if(type.name.find("town_") != string::npos){
 		unit = new C_Town(current);
-	} else if(type.name == "Catapult_0") {
+	} else if(type.name.find("Catapult_") != string::npos){
 		unit = new C_Catapult(current);
 	}
 
