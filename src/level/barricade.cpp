@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include "barricade.h"
-#include "../texture.h"
-#include "../locator.h"
 
 using namespace std;
 

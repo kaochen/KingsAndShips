@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../locator.h"
 #include "../window.h"
 #include "../locator.h"
-#include "../texture.h"
+#include "../textureList.h"
 #include "../message.h"
 
 using namespace std;

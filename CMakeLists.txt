@@ -32,6 +32,7 @@ set (SRCS
 	src/xml.cpp
 	src/wallet.cpp
 	src/texture.cpp
+	src/textureList.cpp
 	src/level/node.cpp
 	src/level/pathfinding.cpp
 	src/level/zlayer.cpp
@@ -67,6 +68,7 @@ set (HEADERS
 	src/xml.h
 	src/wallet.h
 	src/texture.h
+	src/textureList.h
 	src/level/node.h
 	src/level/pathfinding.h
 	src/level/zlayer.h

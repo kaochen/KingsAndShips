@@ -98,33 +98,5 @@ protected:
 	SDL_Color m_color;
 };
 
-/*! \class C_TextureList
- * \brief C_TextureList is a database for SDL Texture.
- * It store SDL_Texture by name into a map
- */
-
-//C_TextureList
-class C_TextureList
-{
-public:
-	C_TextureList();
-	virtual ~C_TextureList();
-	void renderTexture(std::string name, int x, int y);
-	void renderTexture(std::string name, int x, int y,int align);
-	void renderTextureEx(std::string name, int x, int y, double angle, int align);
-	C_Texture* searchTexture(std::string name);
-	std::map<std::string, C_Texture*>  getTextMap();
-	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);
-	void extractTSXfile(std::string tsx_File_Path);
-	void displayTexturesList();
-	std::string getNameFromID(int nbr, std::string tsxName);
-	void freeTexture(std::string name);
-
-private:
-	int nbrOfZoom(std::string name);
-	SDL_Texture* imageToTexture(std::string &path);
-	std::map<std::string, C_Texture*> m_map_textures;
-};
-
 
 #endif

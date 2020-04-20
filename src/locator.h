@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "time.h"
 #include "menu/menu.h"
-#include "texture.h"
+#include "textureList.h"
 #include "window.h"
 #include "wallet.h"
 #include "level/grid.h"

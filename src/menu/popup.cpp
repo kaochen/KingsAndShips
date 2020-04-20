@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 #include "popup.h"
-#include "../texture.h"
+#include "../textureList.h"
 #include "../locator.h"
 #include "../level/grid.h"
 

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menuItems.h"
 #include "../window.h"
 #include "../locator.h"
-#include "../texture.h"
+#include "../textureList.h"
 #include "../message.h"
 #include "../level/factory.h"
 #include "../level/grid.h"

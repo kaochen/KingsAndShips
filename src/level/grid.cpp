@@ -23,7 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "town.h"
 #include "landscape.h"
 
-#include "../texture.h"
 #include "../locator.h"
 #include "../message.h"
 #include "../menu/menu.h"

@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tools.h"
 #include "message.h"
 #include "locator.h"
-#include "texture.h"
+#include "textureList.h"
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
 

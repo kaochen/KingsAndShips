@@ -19,8 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "landscape.h"
 #include "grid.h"
 #include "../settings.h"
-#include "../texture.h"
 #include "../locator.h"
+#include "../textureList.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdlib.h>
 
 using namespace std;

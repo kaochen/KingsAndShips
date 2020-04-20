@@ -17,14 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #include <cmath>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 #include "gameUnits.h"
 #include "grid.h"
 
 #include "../locator.h"
-#include "../texture.h"
+#include "../textureList.h"
 #include "../message.h"
 
 using namespace std;

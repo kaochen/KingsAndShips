@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "time.h"
 #include "window.h"
 #include "locator.h"
+#include "textureList.h"
 #include <string>
 
 using namespace std;
