@@ -9,7 +9,7 @@
  <tileset firstgid="98" source="../img/town_01.tsx"/>
  <tileset firstgid="99" source="../img/Rocks_00.tsx"/>
  <tileset firstgid="102" source="../img/Trees_00.tsx"/>
- <tileset firstgid="124" source="../img/boat_00.tsx"/>
+ <tileset firstgid="124" source="../img/boat_00_sailing.tsx"/>
  <tileset firstgid="188" source="../img/boat_02.tsx"/>
  <tileset firstgid="252" source="../img/boat_03.tsx"/>
  <layer id="1" name="Ground" width="30" height="30" locked="1">
