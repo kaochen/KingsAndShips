@@ -31,13 +31,14 @@ C_Tab::C_Tab(string title)
 	m_name = "tab_" + to_string(m_id);
 	m_title = title;
 	C_Settings& settings=C_Locator::getSettings();
-	m_width = settings.getWindowWidth();
+	m_width = 900;
 	m_height = 400;
-	m_screen.x = 0;
-	m_screen.y = (settings.getWindowHeight() - m_height)/2;
+	m_screen.x = (settings.getWindowWidth())/2;
+	m_screen.y = (settings.getWindowHeight())/2;
 	m_tabSize = 120;
+	int x = m_screen.x - ((m_tabSize *3) / 2);
 
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18,m_screen.x + m_id*(m_tabSize + 10) + 10,m_screen.y + 20);
+	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18, x + (m_tabSize*m_id) ,m_screen.y - 225);
 	if(m_itemsList[m_name] != nullptr) {
 		m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -54,18 +55,7 @@ void C_Tab::displayTab(bool open)
 {
 	if(open) {
 		C_TextureList& t= C_Locator::getTextureList();
-		int x = m_screen.x + m_width/2;
-		int y = m_screen.y + m_height/2;
-		t.renderTexture("Menu_01_background", x,y,CENTER);
-		int nbr = (m_width/12) - 4;
-		for(int i = 0; i < nbr; i++){
-			int x2 = m_screen.x+20;
-			if(i>0){
-				x2 += (i*12);
-			}
-			int y2 = m_screen.y+50;
-			t.renderTexture("Menu_details_bottom_line_active",x2 ,y2,CENTER);
-		}
+		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
 	}
 }
 
@@ -89,7 +79,7 @@ C_Tab_Settings::C_Tab_Settings()
 	string width = to_string(settings.getWindowWidth());
 	string height = to_string(settings.getWindowHeight());
 	string text = width + "x" + height;
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  60);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y);
 
 	name = "Grid Size";
 	text =  to_string(settings.getGridWidth())+ "x" +to_string(settings.getGridHeight());
@@ -103,7 +93,7 @@ C_Tab_Levels::C_Tab_Levels()
 	C_Settings& settings=C_Locator::getSettings();
 	string name = "Number of Levels";
 	string text = to_string(settings.getNbrOfLevels());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  60);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y);
 
 	int j = 0;
 	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {

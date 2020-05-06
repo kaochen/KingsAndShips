@@ -166,9 +166,9 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 	:C_MenuItem(name,x_screen,y_screen)
 {
 	setText(text, fontSize);
-	m_width = 100;
+	m_width = 120;
 	m_height = 30;
-	m_color = {165,146,113,255};
+	m_color = {79,54,51,255};
 }
 
 
@@ -178,10 +178,11 @@ void C_MB_TabSelect::render()
 	SDL_Color color = m_color;
 
 	if(m_state == HOVER){
-		m_color = {195,176,143,255};
-	}
+		m_color = {147,106,84,255};
+	} else {
+		m_color = {79,54,51,255};
 
-	background();
+	}
 
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
