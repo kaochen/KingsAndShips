@@ -25,7 +25,7 @@ using namespace std;
 
 int C_Tab::m_id = -1;
 
-C_Tab::C_Tab(string title)
+C_Tab::C_Tab(std::string title)
 {
 	m_id++;
 	m_name = "tab_" + to_string(m_id);
@@ -35,6 +35,9 @@ C_Tab::C_Tab(string title)
 	m_height = 400;
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
+	m_flagScreen.x = m_screen.x - 295;
+	m_flagScreen.y = m_screen.y - 140;
+
 	m_tabSize = 120;
 	int x = m_screen.x - ((m_tabSize *3) / 2);
 
@@ -63,7 +66,7 @@ void C_Tab::displayTab(bool open)
 
 std::vector<string> C_Tab::getListOfVisibleItems()
 {
-	vector <string> list;
+	std::vector <std::string> list;
 	for(auto const& x : m_itemsList) {
 		if(x.first != m_name)
 			list.push_back(x.first);
@@ -74,16 +77,16 @@ std::vector<string> C_Tab::getListOfVisibleItems()
 C_Tab_Settings::C_Tab_Settings()
 	:C_Tab("Settings")
 {
-	string name = "Resolution";
+	std::string name = "Resolution";
 	C_Settings& settings=C_Locator::getSettings();
-	string width = to_string(settings.getWindowWidth());
-	string height = to_string(settings.getWindowHeight());
-	string text = width + "x" + height;
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y);
+	std::string width = std::to_string(settings.getWindowWidth());
+	std::string height = std::to_string(settings.getWindowHeight());
+	std::string text = width + "x" + height;
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
 
 	name = "Grid Size";
-	text =  to_string(settings.getGridWidth())+ "x" +to_string(settings.getGridHeight());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y +  90);
+	text =  std::to_string(settings.getGridWidth())+ "x" +std::to_string(settings.getGridHeight());
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y +  35);
 
 }
 
@@ -91,9 +94,9 @@ C_Tab_Levels::C_Tab_Levels()
 	:C_Tab("Levels")
 {
 	C_Settings& settings=C_Locator::getSettings();
-	string name = "Number of Levels";
-	string text = to_string(settings.getNbrOfLevels());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_screen.x + 10,m_screen.y);
+	std::string name = "Number of Levels";
+	std::string text = std::to_string(settings.getNbrOfLevels());
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
 
 	int j = 0;
 	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {

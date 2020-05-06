@@ -168,7 +168,7 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 	setText(text, fontSize);
 	m_width = 120;
 	m_height = 30;
-	m_color = {79,54,51,255};
+	m_color = m_colorText;
 }
 
 
@@ -178,12 +178,11 @@ void C_MB_TabSelect::render()
 	SDL_Color color = m_color;
 
 	if(m_state == HOVER){
-		m_color = {147,106,84,255};
+		m_color = m_colorTextHover;
 	} else {
-		m_color = {79,54,51,255};
+		m_color = m_colorText;
 
 	}
-
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
 
@@ -203,34 +202,29 @@ C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	m_titleName = "Settings_Title_" + name;
 	m_text = text;
 	m_textName = "Settings_Text_" + name;
-	m_width = 408;
+	m_width = 250;
 	m_height = 24;
-	m_color = {165,146,113,255};
+	m_color = m_colorText;
 }
 
 
 void C_MB_1Line::render()
 {
-	SDL_Color color = m_color;
-
 	if(m_state == HOVER){
-		color = {23,4,0,255};
+		m_color = m_colorTextHover;
+	} else {
+		m_color = m_colorText;
 	}
-
-	background();
-
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
-
-	int border = 4;
+	t.renderTexture("Menu_01_flagOpen", m_x_screen + 70, y1, CENTER);
 	if(m_title !="") {
 		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
-		t.renderTexture(m_titleName, m_x_screen+border, y1, LEFT);
+		t.renderTexture(m_titleName, m_x_screen, y1, LEFT);
 	}
-
 	if(m_text !="") {
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + m_width-border, y1, RIGHT);
+		t.renderTexture(m_textName, m_x_screen + m_width, y1, RIGHT);
 	}
 }
 

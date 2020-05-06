@@ -81,6 +81,8 @@ protected:
 	std::string m_text;
 	int  m_fontSize;
 	SDL_Color m_color;
+	const SDL_Color m_colorText = {79,54,51,255};
+	const SDL_Color m_colorTextHover = {147,106,84,255};
 	int m_x_text;
 	int m_y_text;
 	int m_state;

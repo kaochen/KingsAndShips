@@ -39,6 +39,7 @@ protected:
 	std::string m_name;
 	std::string m_title;
 	S_Coord m_screen /*!< top left corner of the tab*/;
+	S_Coord m_flagScreen /*!< first flag position in menu*/;
 	int m_height;
 	int m_width;
 	Sint16 m_tabSize;
