@@ -35,6 +35,7 @@ public:
 
 
 protected:
+    void fillWithClosedFlags();
 	static int m_id;
 	std::string m_name;
 	std::string m_title;
@@ -42,6 +43,7 @@ protected:
 	S_Coord m_flagScreen /*!< first flag position in menu*/;
 	int m_height;
 	int m_width;
+    int m_flagOffset;
 	Sint16 m_tabSize;
 	std::map<std::string, C_MenuItem*> m_itemsList;
 };

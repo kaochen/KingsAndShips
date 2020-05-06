@@ -217,15 +217,19 @@ void C_MB_1Line::render()
 	}
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
-	t.renderTexture("Menu_01_flagOpen", m_x_screen + 70, y1, CENTER);
 	if(m_title !="") {
+    	t.renderTexture("Menu_01_flagOpen", m_x_screen + 70, y1, CENTER);
 		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
 		t.renderTexture(m_titleName, m_x_screen, y1, LEFT);
+		if(m_text !="") {
+	        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+		    t.renderTexture(m_textName, m_x_screen + m_width, y1, RIGHT);
+	    }
+	} else {
+    	t.renderTexture("Menu_01_flagClosed", m_x_screen + 70, y1 + 10, CENTER);
+
 	}
-	if(m_text !="") {
-		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + m_width, y1, RIGHT);
-	}
+
 }
 
 //-------------------------------------------------------------

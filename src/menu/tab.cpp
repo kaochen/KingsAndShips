@@ -36,7 +36,9 @@ C_Tab::C_Tab(std::string title)
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
 	m_flagScreen.x = m_screen.x - 295;
-	m_flagScreen.y = m_screen.y - 140;
+	m_flagScreen.y = m_screen.y - 145;
+	m_flagOffset = 35;
+
 
 	m_tabSize = 120;
 	int x = m_screen.x - ((m_tabSize *3) / 2);
@@ -60,6 +62,17 @@ void C_Tab::displayTab(bool open)
 		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
 	}
+}
+
+void C_Tab::fillWithClosedFlags(){
+    size_t start = m_itemsList.size();
+    if(start > 0){
+        start--;
+    }
+    for(size_t i = start; i < 10 ; i++){
+        std::string name = "closedFlag" + std::to_string(i);
+     	m_itemsList[name] = new C_MB_1Line("","",m_flagScreen.x,m_flagScreen.y + m_flagOffset*i);
+    }
 }
 
 
@@ -86,8 +99,8 @@ C_Tab_Settings::C_Tab_Settings()
 
 	name = "Grid Size";
 	text =  std::to_string(settings.getGridWidth())+ "x" +std::to_string(settings.getGridHeight());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y +  35);
-
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y + m_flagOffset);
+    fillWithClosedFlags();
 }
 
 C_Tab_Levels::C_Tab_Levels()
@@ -97,7 +110,7 @@ C_Tab_Levels::C_Tab_Levels()
 	std::string name = "Number of Levels";
 	std::string text = std::to_string(settings.getNbrOfLevels());
 	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
-
+    fillWithClosedFlags();
 	int j = 0;
 	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {
 		name = "Card_" + to_string(i);
