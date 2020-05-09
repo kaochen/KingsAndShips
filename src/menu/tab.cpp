@@ -111,13 +111,11 @@ C_Tab_Levels::C_Tab_Levels()
 	std::string text = std::to_string(settings.getNbrOfLevels());
 	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
     fillWithClosedFlags();
-	int j = 0;
-	for(int i = 1; i <= settings.getNbrOfLevels(); i++) {
-		name = "Card_" + to_string(i);
-		m_itemsList[name] = new C_MB_LevelCard(i,name,m_screen.x + 20 + j*(160),m_screen.y +  90);
-		C_LoadALevel *command = new C_LoadALevel();
-		m_itemsList[name]->setCommand(command);
-		m_itemsList[name]->getCommand()->setNbr(i);
-		j++;
-	}
+
+    int currentNbr = settings.getCurrentLevelNbr();
+	name = "Card_" + to_string(currentNbr);
+	m_itemsList[name] = new C_MB_LevelCard(currentNbr,name,m_screen.x + 50,m_screen.y);
+	C_LoadALevel *command = new C_LoadALevel();
+	m_itemsList[name]->setCommand(command);
+	m_itemsList[name]->getCommand()->setNbr(currentNbr);
 }

@@ -28,6 +28,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 enum menuLayer {BACK,FRONT};
 enum buttonState {ACTIVE,HOVER,DISABLED};
 
+struct S_Line{
+    std::string name;
+    std::string text;
+};
+
 class C_MenuItem {
 public:
 	C_MenuItem(std::string name, int x_screen, int y_screen);
@@ -65,6 +70,7 @@ public:
 
 protected:
 	virtual void background();
+    virtual SDL_Color getTextColor();
 	std::string getStateAsStr();
 
 	int m_type;
@@ -124,12 +130,7 @@ public:
   	virtual	~C_MB_LevelCard() {};
 	virtual void render();
 protected:
-	int m_nbr;
-	std::string m_id;
-	std::string m_idName;
-
-	std::string m_title;
-	std::string m_titleName;
+    std::vector <S_Line> m_list;
 };
 
 class C_GB_AddUnit: public C_Button { /*!Game Button add a new unit on the ground*/

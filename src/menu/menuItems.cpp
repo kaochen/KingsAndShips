@@ -63,6 +63,15 @@ void C_MenuItem::setTextPosition(int x_text, int y_text)
 	m_y_text = y_text;
 }
 
+SDL_Color C_MenuItem::getTextColor(){
+    SDL_Color ret = {200,200,200,255};
+	if(m_state == HOVER){
+		ret = m_colorTextHover;
+	} else {
+		ret = m_colorText;
+	}
+	return ret;
+}
 
 void C_MenuItem::renderText()
 {
@@ -174,20 +183,11 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 
 void C_MB_TabSelect::render()
 {
-
-	SDL_Color color = m_color;
-
-	if(m_state == HOVER){
-		m_color = m_colorTextHover;
-	} else {
-		m_color = m_colorText;
-
-	}
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
 
 	if(m_text !="") {
-		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, color);
+		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
 		t.renderTexture(m_textName, m_x_screen + m_width/2, y1 ,CENTER);
 	}
 }
@@ -237,48 +237,35 @@ void C_MB_1Line::render()
 C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
-	m_nbr = nbr;
-	C_Window& win= C_Locator::getWindow();
-
-	S_LevelModel model = win.getLevelModel(m_nbr);
-
 	m_fontSize = 18;
-	m_title = model.name;
-	m_titleName = "Card_Title_" + name;
+	C_Window& win= C_Locator::getWindow();
+    S_LevelModel model = win.getLevelModel(nbr);
 
-	m_id = to_string(model.nbr);
-	m_idName = "Card_id_" + name;
+    S_Line t0 = {"Card_"+to_string(model.nbr)+"_name",model.name};
+    m_list.push_back(t0);
+    S_Line t1 = {"Card_"+to_string(model.nbr)+"_levelNbr", "Level: "+to_string(model.nbr)};
+    m_list.push_back(t1);
+    S_Line t2 = {"Card_"+to_string(model.nbr)+"_size","Grid Size: " + to_string(model.gridSize)};
+    m_list.push_back(t2);
 
-	m_text = "Grid Size: " + to_string(model.gridSize);
-	m_textName = "Card_Text_" + name;
-	m_width = 144;
-	m_height = 218;
+	m_width = 260;
+	m_height = 300;
 }
 
 void C_MB_LevelCard::render()
 {
-	string name = "Parchment_Card";
-
-	name += getStateAsStr();
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
 
     //Text
-    m_color = {0,0,0,255};
-	if(t.searchTexture(m_titleName)== nullptr) {
-		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
-	}
-	t.renderTexture(m_titleName, m_x_screen + m_width/2, m_y_screen + 40,CENTER);
-
-	if(t.searchTexture(m_idName)== nullptr) {
-		t.loadTextAsTexturesIntoMap(m_idName, m_id, m_fontSize - 4, m_color);
-	}
-	t.renderTexture(m_idName, m_x_screen + 16, m_y_screen + 20,LEFT);
-
-	if(t.searchTexture(m_textName)== nullptr) {
-		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize - 4, m_color);
-	}
-	t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height - 40,CENTER);
+    int x = m_x_screen + m_width/2;
+    int y = m_y_screen + 40;
+    for(auto i :m_list){
+    	if(t.searchTexture(i.name)== nullptr) {
+		    t.loadTextAsTexturesIntoMap(i.name, i.text, m_fontSize,  m_colorText);
+	    }
+	    t.renderTexture(i.name, x , y,CENTER);
+			y += 20;
+    }
 }
 
 //-------------------------------------------------------------
