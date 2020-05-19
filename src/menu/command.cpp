@@ -46,6 +46,21 @@ void C_ChangeTab::action()
 	menu.setTabNbr(m_nbr);
 }
 
+void C_ChangeLevelLeft::action()
+{
+	C_Message::printM("Send an C_ChangeLevelLeft action\n");
+	C_Menu& menu=C_Locator::getMenu();
+	menu.go(GO_LEFT);
+}
+
+void C_ChangeLevelRight::action()
+{
+	C_Message::printM("Send an C_ChangeLevelRigth action\n");
+	C_Menu& menu=C_Locator::getMenu();
+	menu.go(GO_RIGHT);
+}
+
+
 void C_LoadALevel::action()
 {
 	C_Window& win=C_Locator::getWindow();

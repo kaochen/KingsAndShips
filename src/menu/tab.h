@@ -32,7 +32,7 @@ public:
 	virtual std::string getTitle(){return m_title;};
 	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
 	virtual std::vector<std::string> getListOfVisibleItems();
-
+    virtual void go(int direction){std::cout << direction << std::endl;};
 
 protected:
     void fillWithClosedFlags();
@@ -56,6 +56,9 @@ public:
 class C_Tab_Levels : public C_Tab {
 public:
 	C_Tab_Levels();
+    virtual void go(int direction);
+protected:
+    int m_currentCardLevelNbr;
 };
 
 #endif

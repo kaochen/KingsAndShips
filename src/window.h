@@ -48,6 +48,8 @@ public:
 	void listenButtons();
 	void loadLevel(int levelNbr);
 	S_LevelModel getLevelModel(int levelNbr);
+    int getLastLevelNbr();
+
 protected:
 	void initSDL();
 	void loadingPage(int progress, std::string label, int stepsNbr);

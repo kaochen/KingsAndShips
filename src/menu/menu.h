@@ -50,6 +50,8 @@ public:
 	void displayBottomMenu();
 	std::vector<std::string> getMenuItemsList();
 	void setTabNbr(int nbr);
+    void go(int direction);
+    void Nbr(int nbr);
 	void resetEndLevelMenu();
 protected:
 	void updateDefenderStatus(); /*!Create or update defender informations*/

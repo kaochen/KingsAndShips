@@ -316,6 +316,9 @@ void C_Menu::setTabNbr(int nbr)
 
 }
 
+void C_Menu::go(int direction){
+    m_tabs[m_currentTab]->go(direction);
+}
 
 void C_Menu::bottomButton(const string &name,S_Coord screen)
 {

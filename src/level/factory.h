@@ -75,6 +75,7 @@ public:
 	C_LevelFactory();
 	virtual ~C_LevelFactory() {};
 	virtual C_Level* create(int levelNbr);
+	virtual int getLastLevelNbr(){return m_lastLevelNbr;};
 	S_LevelModel getModel(int leveNbr);
 protected:
 	S_LevelModel extractInfosFromTmx(int levelNbr);

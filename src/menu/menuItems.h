@@ -106,11 +106,19 @@ public:
 	virtual void render();
 };
 
-class C_MB_TabSelect: public C_MenuItem { /*!Button Menu one line two texts*/
+class C_MB_TabSelect: public C_MenuItem { /*!Main Menu button to select a specific tab*/
 public:
 	C_MB_TabSelect(std::string name,std::string text, int fontSize, int x_screen, int y_screen);
-  	virtual	~C_MB_TabSelect() {};
 	virtual void render();
+};
+enum arrows {GO_LEFT,GO_RIGHT,Go_UP,GO_DOWN};
+
+class C_MB_Arrows: public C_MenuItem { /*!Main menu button in a shape of an arrow*/
+public:
+	C_MB_Arrows(std::string name,int direction , int x_screen, int y_screen);
+	virtual void render();
+protected:
+    int m_direction;
 };
 
 class C_MB_1Line: public C_MenuItem { /*!Button Menu one line two texts*/

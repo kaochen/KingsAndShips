@@ -112,10 +112,41 @@ C_Tab_Levels::C_Tab_Levels()
 	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
     fillWithClosedFlags();
 
-    int currentNbr = settings.getCurrentLevelNbr();
-	name = "Card_" + to_string(currentNbr);
-	m_itemsList[name] = new C_MB_LevelCard(currentNbr,name,m_screen.x + 50,m_screen.y);
+    m_currentCardLevelNbr = settings.getCurrentLevelNbr();
+	name = "Card_Level";
+	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_screen.x + 50,m_screen.y);
 	C_LoadALevel *command = new C_LoadALevel();
 	m_itemsList[name]->setCommand(command);
-	m_itemsList[name]->getCommand()->setNbr(currentNbr);
+	m_itemsList[name]->getCommand()->setNbr(m_currentCardLevelNbr);
+
+	std::string arrowLeft = "Level_Change_Arrow_Left";
+	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_screen.x +20,m_screen.y);
+	m_itemsList[arrowLeft]->setCommand(new C_ChangeLevelLeft());
+
+	std::string arrowRight = "Level_Change_Arrow_Right";
+	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_screen.x + 320,m_screen.y);
+	m_itemsList[arrowRight]->setCommand(new C_ChangeLevelRight());
 }
+
+void C_Tab_Levels::go(int direction){
+    if(direction == GO_LEFT){
+        m_currentCardLevelNbr--;
+    } else if (direction == GO_RIGHT){
+        m_currentCardLevelNbr++;
+    }
+    //limits
+    if(m_currentCardLevelNbr < 1){
+        m_currentCardLevelNbr = 1;
+    }
+    C_Window& win= C_Locator::getWindow();
+    int last = win.getLastLevelNbr();
+    if(m_currentCardLevelNbr > last){
+        m_currentCardLevelNbr = last;
+    }
+
+    std::string name = "Card_" + to_string(m_currentCardLevelNbr);
+
+    m_itemsList.erase("Card_Level");
+    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_screen.x + 50,m_screen.y);
+}
+

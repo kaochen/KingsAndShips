@@ -192,6 +192,32 @@ void C_MB_TabSelect::render()
 	}
 }
 
+C_MB_Arrows::C_MB_Arrows(std::string name,int direction , int x_screen, int y_screen)
+    :C_MenuItem(name,x_screen,y_screen)
+{
+    m_direction = direction;
+    m_width = 32;
+	m_height = 32;
+}
+
+void C_MB_Arrows::render(){
+    std::string name = "Menu_01_Go";
+    if(m_direction == GO_LEFT){
+        name += "Left";
+    } else {
+        name += "Right";
+    }
+
+    if(m_state == HOVER){
+        name += "_Hover";
+    } else {
+        name += "_Active";
+    }
+
+    C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
+}
+
 //-------------------------------------------------------------
 
 C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
@@ -241,13 +267,17 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	m_fontSize = 18;
 	C_Window& win= C_Locator::getWindow();
     S_LevelModel model = win.getLevelModel(nbr);
-
-    S_Line t0 = {"Card_"+to_string(model.nbr)+"_name",model.name};
+    S_Line t0 = {"Card_name",model.name};
     m_list.push_back(t0);
-    S_Line t1 = {"Card_"+to_string(model.nbr)+"_levelNbr", "Level: "+to_string(model.nbr)};
+    S_Line t1 = {"Card_levelNbr", "Level: "+to_string(model.nbr)};
     m_list.push_back(t1);
-    S_Line t2 = {"Card_"+to_string(model.nbr)+"_size","Grid Size: " + to_string(model.gridSize)};
+    S_Line t2 = {"Card_size","Grid Size: " + to_string(model.gridSize)};
     m_list.push_back(t2);
+
+	C_TextureList& t= C_Locator::getTextureList();
+    for(auto i :m_list){
+		t.loadTextAsTexturesIntoMap(i.name, i.text, m_fontSize,  m_colorText);
+    }
 
 	m_width = 260;
 	m_height = 300;
@@ -261,9 +291,6 @@ void C_MB_LevelCard::render()
     int x = m_x_screen + m_width/2;
     int y = m_y_screen + 40;
     for(auto i :m_list){
-    	if(t.searchTexture(i.name)== nullptr) {
-		    t.loadTextAsTexturesIntoMap(i.name, i.text, m_fontSize,  m_colorText);
-	    }
 	    t.renderTexture(i.name, x , y,CENTER);
 			y += 20;
     }

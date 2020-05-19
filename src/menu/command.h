@@ -58,6 +58,16 @@ public:
 	virtual void action();
 };
 
+class C_ChangeLevelLeft : public C_Command {
+public:
+	virtual void action();
+};
+
+class C_ChangeLevelRight : public C_Command {
+public:
+	virtual void action();
+};
+
 class C_LoadALevel : public C_Command {
 public:
 	virtual void action();
