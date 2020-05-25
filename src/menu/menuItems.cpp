@@ -264,6 +264,7 @@ void C_MB_1Line::render()
 C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
+	m_type = STATUS;
 	m_fontSize = 18;
 	C_Window& win= C_Locator::getWindow();
     S_LevelModel model = win.getLevelModel(nbr);
@@ -296,6 +297,28 @@ void C_MB_LevelCard::render()
     }
 }
 
+C_MB_CardButton::C_MB_CardButton(std::string name, int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen){
+	m_width = 230;
+	m_height = 32;
+
+}
+
+void C_MB_CardButton::render(){
+	int up = 0;
+	if(m_state == HOVER){
+		m_color = m_colorTextHover;
+		up = -2;
+	} else {
+		m_color = m_colorText;
+	}
+	C_TextureList& t= C_Locator::getTextureList();
+	std::string text = "Load";
+	t.loadTextAsTexturesIntoMap("Load_Level", text, 20,  m_color);
+	t.renderTexture("Menu_01_message1", m_x_screen - 30, m_y_screen -16 + up,CENTER);
+	t.renderTexture("Menu_01_message2", m_x_screen + 195 , m_y_screen -16 + up,CENTER);
+	t.renderTexture("Load_Level", m_x_screen + 120, m_y_screen + 18 + up ,CENTER);
+}
 //-------------------------------------------------------------
 
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)

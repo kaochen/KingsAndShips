@@ -114,10 +114,7 @@ C_Tab_Levels::C_Tab_Levels()
 
     m_currentCardLevelNbr = settings.getCurrentLevelNbr();
 	name = "Card_Level";
-	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_screen.x + 50,m_screen.y);
-	C_LoadALevel *command = new C_LoadALevel();
-	m_itemsList[name]->setCommand(command);
-	m_itemsList[name]->getCommand()->setNbr(m_currentCardLevelNbr);
+	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_screen.x + 50,m_screen.y + 20);
 
 	std::string arrowLeft = "Level_Change_Arrow_Left";
 	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_screen.x +20,m_screen.y);
@@ -126,6 +123,14 @@ C_Tab_Levels::C_Tab_Levels()
 	std::string arrowRight = "Level_Change_Arrow_Right";
 	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_screen.x + 320,m_screen.y);
 	m_itemsList[arrowRight]->setCommand(new C_ChangeLevelRight());
+
+	std::string load = "Level_Load";
+	m_itemsList[load]  = new C_MB_CardButton(load, m_screen.x + 60 , m_screen.y + 130);
+	C_LoadALevel *command = new C_LoadALevel();
+	m_itemsList[load]->setCommand(command);
+	m_itemsList[load]->getCommand()->setNbr(m_currentCardLevelNbr);
+
+
 }
 
 void C_Tab_Levels::go(int direction){
@@ -147,6 +152,7 @@ void C_Tab_Levels::go(int direction){
     std::string name = "Card_" + to_string(m_currentCardLevelNbr);
 
     m_itemsList.erase("Card_Level");
-    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_screen.x + 50,m_screen.y);
+    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_screen.x + 50,m_screen.y + 20);
+    m_itemsList["Level_Load"]->getCommand()->setNbr(m_currentCardLevelNbr);
 }
 

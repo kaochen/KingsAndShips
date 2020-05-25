@@ -141,6 +141,12 @@ protected:
     std::vector <S_Line> m_list;
 };
 
+class C_MB_CardButton: public C_MenuItem{
+public:
+    C_MB_CardButton(std::string name, int x_screen, int y_screen);
+	virtual void render();
+};
+
 class C_GB_AddUnit: public C_Button { /*!Game Button add a new unit on the ground*/
 public:
 	C_GB_AddUnit(std::string name,std::string image,int x_screen, int y_screen);
