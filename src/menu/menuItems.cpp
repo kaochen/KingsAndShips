@@ -110,23 +110,6 @@ void C_MenuItem::actionHover(bool state)
 	}
 }
 
-void C_MenuItem::background(){
-	C_TextureList& t= C_Locator::getTextureList();
-	string textureName = "Menu_details_background_line_";
-	if(m_state == HOVER){
-		textureName +="hover";
-	} else {
-		textureName +="active";
-	}
-	for(int j= 0; j <= 1; j++){
-		Sint16 y1 = m_y_screen + 2 + m_height/4  + 11*j;
-		t.renderTexture(textureName,m_x_screen ,y1,CENTER);
-		t.renderTexture(textureName,m_x_screen + m_width ,y1,CENTER);
-		for(int i = 0; i <= (m_width/4); i++){
-			t.renderTexture(textureName, m_x_screen + 4*i, y1, CENTER);
-		}
-	}
-}
 
 std::string C_MenuItem::getStateAsStr(){
 		string ret = "_Disabled";

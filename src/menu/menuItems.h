@@ -69,7 +69,6 @@ public:
 	virtual void setImage(std::string image){m_image = image;};
 
 protected:
-	virtual void background();
     virtual SDL_Color getTextColor();
 	std::string getStateAsStr();
 
