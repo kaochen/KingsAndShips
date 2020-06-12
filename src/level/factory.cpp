@@ -41,6 +41,8 @@ C_UnitFactory::C_UnitFactory()
 		if(tsxExist(path)) {
 			C_Message::printV("tsx file: "+ file[i]+"\n");
 			S_UnitModel unit = extractProperties(path);
+			size_t pos = unit.name.find("_") + 2;
+			unit.name = unit.name.substr(0,pos);
 			m_models[unit.name]= unit;
 		} else {
 			C_Message::printError("Can not find the tsx file: " + path);
@@ -53,7 +55,6 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 	C_GameUnits* unit = nullptr;
 	S_UnitModel current = m_models[type.name];
 	current.coord = type.coord;
-
 	if(type.name.find("boat_") != string::npos){
 		unit = new C_Boat(current);
 	} else if(type.name.find("ArcherTower_") != string::npos){

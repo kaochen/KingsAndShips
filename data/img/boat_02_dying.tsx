@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="boat_0" tilewidth="256" tileheight="256" tilecount="32" columns="8">
+<tileset version="1.2" tiledversion="1.3.1" name="boat_2_Dying" tilewidth="256" tileheight="256" tilecount="32" columns="8">
  <tileoffset x="-32" y="32"/>
  <grid orientation="orthogonal" width="32" height="32"/>
- <properties>
-  <property name="unit.cost" type="int" value="30"/>
-  <property name="unit.health" type="int" value="50"/>
-  <property name="unit.rank" type="int" value="0"/>
-  <property name="unit.speed" type="int" value="3"/>
-  <property name="unit.type" value="boat"/>
-  <property name="weapon.damage" type="int" value="1"/>
-  <property name="weapon.firerange" type="int" value="2"/>
-  <property name="weapon.firerate" type="int" value="1500"/>
-  <property name="weapon.type" value="ARCHER"/>
- </properties>
- <image source="original/t_boat_00-0.png" width="2048" height="2048"/>
+ <image source="original/t_boat_02-2.png" width="2048" height="2048"/>
  <tile id="0" type="EE_0"/>
  <tile id="1" type="EE_1"/>
  <tile id="2" type="EE_2"/>

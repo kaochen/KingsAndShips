@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="boat_2_Damaged_" tilewidth="256" tileheight="256" tilecount="32" columns="8">
+<tileset version="1.2" tiledversion="1.3.1" name="boat_2_Damaged" tilewidth="256" tileheight="256" tilecount="32" columns="8">
  <tileoffset x="-32" y="32"/>
  <grid orientation="orthogonal" width="32" height="32"/>
  <image source="original/t_boat_02-1.png" width="2048" height="2048"/>
