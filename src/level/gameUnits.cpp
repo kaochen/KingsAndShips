@@ -104,6 +104,11 @@ string C_GameUnits::imageName(int status,int direction,int imageNbr)
 	switch (status) {
 	case ALIVE:
 		statusStr = "A";
+		if(m_type == "boat"){
+			if(m_health < m_max_health/2){
+				statusStr = "Damaged";
+			}
+		}
 		break;
 	case DEAD:
 		statusStr = "Dying";
