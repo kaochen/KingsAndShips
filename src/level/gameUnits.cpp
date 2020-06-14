@@ -99,20 +99,22 @@ void C_GameUnits::reverseSelectedStatus()
 
 string C_GameUnits::imageName(int status,int direction,int imageNbr)
 {
+	int image = imageNbr;
 	string statusStr = "A";
 	switch (status) {
 	case ALIVE:
 		statusStr = "A";
 		break;
 	case DEAD:
-		statusStr = "D";
+		statusStr = "Dying";
+		image = 7;
 		break;
 	case WEAPON:
 		statusStr = "W";
 		break;
 	}
 	return m_type + "_" + to_string(m_rank) + "_"+ statusStr + "_"
-		   + directionToStr(direction) + "_" + to_string(imageNbr) ;
+		   + directionToStr(direction) + "_" + to_string(image) ;
 }
 
 
