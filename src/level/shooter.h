@@ -72,6 +72,7 @@ protected:
 	bool m_renderLifeBar;
 	bool m_haveATop; /*!< Have a something on top like a rotating weapon*/
 	bool m_haveABottom;
+    bool m_dying = false;
 
 	void changeWeaponState(std::string weaponState);
 	std::string m_weaponState;

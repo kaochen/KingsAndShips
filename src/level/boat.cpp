@@ -44,6 +44,8 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_state ="Moving";
 	m_anim.add(new C_AnimRewind("Moving",1,7,80));
 	m_anim.add(new C_Anim("Waiting",1,1,800));
+	m_anim.add(new C_Anim("Dying",1,7,60));
+	m_anim.add(new C_Anim("Dead",7,7,800));
 
 	m_canRotate = true;
 	m_isBottomAnimated = true;
@@ -71,7 +73,13 @@ void C_Boat::play()
 		}
 		shoot();
 	} else {
-		kill();
+	    if(m_state != "Dying" && m_state != "Dead"){
+		    changeState("Dying");
+		}
+		if(m_anim.end("Dying")){
+			changeState("Dead");
+			kill();
+		}
 	}
 	m_anim.get(m_state)->play();
 };
@@ -153,7 +161,37 @@ float C_Boat::calcAngle(C_Coord destCoord){
 
 void C_Boat::render(S_Coord screen)
 {
-	C_Shooter::render(screen);
+	int imageNbr = 0;
+	C_TextureList& t= C_Locator::getTextureList();
+	if(m_state != "Dying" && m_state != "Dead"){
+		if(m_isBottomAnimated){
+			imageNbr = m_anim.getImageNbr(m_state);
+		}
+		if(m_haveABottom){
+			string fileName = imageName(ALIVE,m_direction,imageNbr);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		}
+		if(m_isTopAnimated){
+			imageNbr = m_anim.getImageNbr(m_weaponState);
+		}
+		if( m_haveATop){
+			string fileName = imageName(WEAPON,m_direction,imageNbr);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		}
+		//life bar on top
+		if(m_renderLifeBar){
+			renderLifeBar(screen.x, screen.y);
+		}
+	} else {
+		imageNbr = m_anim.getImageNbr(m_state);
+		int status = DEAD;
+		if(m_state == "Dying"){
+    	    status = DYING;
+		}
+		string fileName = imageName(status,m_direction,imageNbr);
+		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	}
+
 	m_C_Path->displayPath();
 }
 

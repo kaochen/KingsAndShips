@@ -110,6 +110,9 @@ string C_GameUnits::imageName(int status,int direction,int imageNbr)
 			}
 		}
 		break;
+	case DYING:
+		statusStr = "Dying";
+		break;
 	case DEAD:
 		statusStr = "Dying";
 		image = 7;
