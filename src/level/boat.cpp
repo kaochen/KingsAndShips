@@ -44,8 +44,9 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_state ="Moving";
 	m_anim.add(new C_AnimRewind("Moving",1,7,80));
 	m_anim.add(new C_Anim("Waiting",1,1,800));
-	m_anim.add(new C_Anim("Dying",1,7,60));
+	m_anim.add(new C_Anim("Dying",1,7,100));
 	m_anim.add(new C_Anim("Dead",7,7,800));
+	m_anim.add(new C_Anim("Gold",1,25,20));
 
 	m_canRotate = true;
 	m_isBottomAnimated = true;
@@ -76,9 +77,12 @@ void C_Boat::play()
 	    if(m_state != "Dying" && m_state != "Dead"){
 		    changeState("Dying");
 		}
-		if(m_anim.end("Dying")){
-			changeState("Dead");
-			kill();
+		if(m_state == "Dying"){
+			m_anim.get("Gold")->play();
+			if(m_anim.end("Dying")){
+				changeState("Dead");
+				kill();
+			}
 		}
 	}
 	m_anim.get(m_state)->play();
@@ -183,13 +187,16 @@ void C_Boat::render(S_Coord screen)
 			renderLifeBar(screen.x, screen.y);
 		}
 	} else {
-		imageNbr = m_anim.getImageNbr(m_state);
-		int status = DEAD;
-		if(m_state == "Dying"){
-    	    status = DYING;
+		int status = DYING;
+		if(m_state == "Dead"){
+    	    status = DEAD;
 		}
-		string fileName = imageName(status,m_direction,imageNbr);
+		string fileName = imageName(status,m_direction,m_anim.getImageNbr(m_state));
 		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		if(m_state == "Dying"){
+			fileName = "gold_anim_" + to_string(m_anim.getImageNbr("Gold"));
+			t.renderTexture(fileName, screen.x,screen.y - 60,CENTER_TILE);
+		}
 	}
 
 	m_C_Path->displayPath();
