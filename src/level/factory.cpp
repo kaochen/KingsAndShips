@@ -164,7 +164,7 @@ bool C_UnitFactory::tsxExist(const string &file)
 //-------------------------------Level Factory --------------------
 C_LevelFactory::C_LevelFactory()
 {
-	m_lastLevelNbr = 6;
+	m_lastLevelNbr = 3;
 	for(int i = 1; i <= m_lastLevelNbr; i++) {
 		m_levelList.push_back(extractInfosFromTmx(i));
 	}
