@@ -57,6 +57,12 @@ void C_MenuItem::setText(string text, int fontSize)
 	m_text = text;
 	m_fontSize = fontSize;
 }
+
+void C_MenuItem::setText(string text)
+{
+	m_text = text;
+}
+
 void C_MenuItem::setTextPosition(int x_text, int y_text)
 {
 	m_x_text = x_text;
@@ -284,6 +290,7 @@ C_MB_CardButton::C_MB_CardButton(std::string name, int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen){
 	m_width = 230;
 	m_height = 32;
+	m_text = "Waiting...";
 
 }
 
@@ -296,11 +303,11 @@ void C_MB_CardButton::render(){
 		m_color = m_colorText;
 	}
 	C_TextureList& t= C_Locator::getTextureList();
-	std::string text = "Load";
-	t.loadTextAsTexturesIntoMap("Load_Level", text, 20,  m_color);
 	t.renderTexture("Menu_01_message1", m_x_screen - 30, m_y_screen -16 + up,CENTER);
 	t.renderTexture("Menu_01_message2", m_x_screen + 195 , m_y_screen -16 + up,CENTER);
-	t.renderTexture("Load_Level", m_x_screen + 120, m_y_screen + 18 + up ,CENTER);
+	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
+	t.renderTexture(m_name, m_x_screen + 120, m_y_screen + 18 + up ,CENTER);
+
 }
 //-------------------------------------------------------------
 

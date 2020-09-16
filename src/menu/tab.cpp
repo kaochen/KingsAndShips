@@ -23,9 +23,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+std::vector<std::string> C_Page::getListOfVisibleItems()
+{
+	std::vector <std::string> list;
+	for(auto const& x : m_itemsList) {
+		list.push_back(x.first);
+	}
+	return list;
+}
+
 int C_Tab::m_id = -1;
 
 C_Tab::C_Tab(std::string title)
+    : C_Page(title)
 {
 	m_id++;
 	m_name = "tab_" + to_string(m_id);
@@ -51,7 +61,7 @@ C_Tab::C_Tab(std::string title)
 	}
 }
 
-C_Tab::~C_Tab()
+C_Page::~C_Page()
 {
     m_itemsList.clear(); //items are allready delete
 }
@@ -127,10 +137,12 @@ C_Tab_Levels::C_Tab_Levels()
 
 	std::string load = "Level_Load";
 	m_itemsList[load]  = new C_MB_CardButton(load, m_screen.x + 60 , m_screen.y + 130);
-	C_LoadALevel *command = new C_LoadALevel();
-	m_itemsList[load]->setCommand(command);
-	m_itemsList[load]->getCommand()->setNbr(m_currentCardLevelNbr);
-
+	if(m_itemsList[load]!= nullptr){
+	    m_itemsList[load]->setText("Load");
+	    C_LoadALevel *command = new C_LoadALevel();
+	    m_itemsList[load]->setCommand(command);
+	    m_itemsList[load]->getCommand()->setNbr(m_currentCardLevelNbr);
+    }
 
 }
 
@@ -157,3 +169,37 @@ void C_Tab_Levels::go(int direction){
     m_itemsList["Level_Load"]->getCommand()->setNbr(m_currentCardLevelNbr);
 }
 
+
+C_Tab_endGame::C_Tab_endGame(std::string name)
+	:C_Page(name)
+{
+	C_Settings& settings=C_Locator::getSettings();
+	m_screen.x = (settings.getWindowWidth())/2;
+	m_screen.y = (settings.getWindowHeight())/2;
+
+    std::string replay = "EndGame_Replay";
+    int current = settings.getCurrentLevelNbr();
+	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x , m_screen.y +100);
+	if(m_itemsList[replay] != nullptr){
+	    m_itemsList[replay]->setText("Replay Level " + to_string(current));
+	    C_LoadALevel *command = new C_LoadALevel();
+	    m_itemsList[replay]->setCommand(command);
+	    m_itemsList[replay]->getCommand()->setNbr(current);
+	}
+
+	std::string next = "EndGame_Next";
+	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x, m_screen.y + 150);
+	if(m_itemsList[next]!= nullptr){
+		m_itemsList[next]->setText("Next Level" + to_string(current + 1));
+	    C_LoadALevel *command1 = new C_LoadALevel();
+	    m_itemsList[next]->setCommand(command1);
+	    m_itemsList[next]->getCommand()->setNbr(current + 1);
+	}
+}
+
+
+void C_Tab_endGame::render()
+{
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture("Menu_01_parchment", m_screen.x, m_screen.y,CENTER);
+}

@@ -103,7 +103,7 @@ C_EndLevelMenu::C_EndLevelMenu():
 void C_EndLevelMenu::render(){
 	if(m_open){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Parchment_Finish_Active", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_parchment", m_screen.x,m_screen.y,CENTER);
 		if(m_levelStatus == WIN)
 			m_sentences["win"]->render(m_screen,CENTER);
 		else if(m_levelStatus == LOSE)

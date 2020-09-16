@@ -57,6 +57,8 @@ C_Menu::C_Menu():
 	line.y = settings.getWindowHeight() - 20;
 	bottomButtonsLine(line);
 	m_endLevelMenu = new C_EndLevelMenu();
+	m_endGameMenu =  new C_Tab_endGame("endGame");
+
 	C_Message::printM("Constructor C_Menu() : done\n");
 }
 
@@ -72,6 +74,7 @@ C_Menu::~C_Menu()
 			delete  tab;
 	}
 	delete m_endLevelMenu;
+	delete m_endGameMenu;
 }
 
 
@@ -86,6 +89,7 @@ void C_Menu::updateInfos()
 void C_Menu::render()
 {
 	displayBottomMenu();
+	m_endLevelMenu->render();
 	vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
 	for(int j = BACK; j <= FRONT; j++) {
@@ -98,7 +102,7 @@ void C_Menu::render()
 			}
 		}
 	}
-	m_endLevelMenu->render();
+	m_endGameMenu->render();
 }
 
 
@@ -291,6 +295,10 @@ vector<string> C_Menu::getMenuItemsList()
 		list.push_back("AddCatapult");
 	}
 
+	if(m_endGameMenu != nullptr){
+	    std::vector<std::string> tmp = m_endGameMenu->getListOfVisibleItems();
+		list.insert(list.end(), tmp.begin(), tmp.end());
+	}
 	return list;
 }
 
@@ -300,6 +308,14 @@ void C_Menu::menuBanner()
 	m_tabs.push_back( new C_Tab_Levels());
 	m_tabs.push_back( new C_Tab_Settings());
 	m_tabs.push_back( new C_Tab("About"));
+
+    //
+    if(m_endGameMenu != nullptr){
+        std::map<std::string, C_MenuItem*> items;
+		items = m_endGameMenu->getItemList();
+		m_menuItemsList.insert(items.begin(),items.end());
+    }
+
 
 	//declare buttons from tabs into the mainItemList
 	for (size_t i = 0; i < m_tabs.size() ; i++) {

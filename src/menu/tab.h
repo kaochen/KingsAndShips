@@ -23,29 +23,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include <map>
 
-class C_Tab {
+class C_Page {
+public :
+    C_Page(std::string name):m_name(name){};
+	virtual ~C_Page();
+	virtual std::string getName(){return m_name;};
+	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
+    virtual void render() = 0;
+    virtual std::vector<std::string> getListOfVisibleItems();
+protected:
+  	std::string m_name;
+	std::map<std::string, C_MenuItem*> m_itemsList;
+	S_Coord m_screen /*!< top left corner of the tab*/;
+};
+
+class C_Tab : public C_Page {
 public:
 	C_Tab(std::string title);
-	virtual ~C_Tab();
 	virtual void displayTab(bool open);
-	virtual std::string getName(){return m_name;};
+    virtual void render(){displayTab(true);};
 	virtual std::string getTitle(){return m_title;};
-	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
-	virtual std::vector<std::string> getListOfVisibleItems();
+    virtual std::vector<std::string> getListOfVisibleItems();
     virtual void go(int direction){std::cout << direction << std::endl;};
 
 protected:
     void fillWithClosedFlags();
 	static int m_id;
-	std::string m_name;
 	std::string m_title;
-	S_Coord m_screen /*!< top left corner of the tab*/;
 	S_Coord m_flagScreen /*!< first flag position in menu*/;
 	int m_height;
 	int m_width;
     int m_flagOffset;
 	Sint16 m_tabSize;
-	std::map<std::string, C_MenuItem*> m_itemsList;
 };
 
 class C_Tab_Settings : public C_Tab {
@@ -60,5 +69,12 @@ public:
 protected:
     int m_currentCardLevelNbr;
 };
+
+class C_Tab_endGame : public C_Page {
+public:
+	C_Tab_endGame(std::string name);
+    void render();
+};
+
 
 #endif

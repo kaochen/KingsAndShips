@@ -63,6 +63,7 @@ public:
 	//set Text
 	virtual void renderText();
 	virtual void setText(std::string text, int fontSize);
+	virtual void setText(std::string text);
 	virtual void setTextPosition(int x_text, int y_text);
 	virtual void setTextColor(SDL_Color color){m_color = color;};
 
@@ -84,7 +85,7 @@ protected:
 	//text
 	std::string m_textName;
 	std::string m_text;
-	int  m_fontSize;
+	int  m_fontSize = 18;
 	SDL_Color m_color;
 	const SDL_Color m_colorText = {79,54,51,255};
 	const SDL_Color m_colorTextHover = {147,106,84,255};
