@@ -101,10 +101,14 @@ void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int 
 			exist = true;
 		}
 	}
+	std::string str = message;
+	if(str.empty()){
+	    str = " "; //SDL cannot render text without width
+	}
 	if(exist)
-		m_map_textures[name]->loadTextAsTextures(message, color, fontSize);
+		m_map_textures[name]->loadTextAsTextures(str, color, fontSize);
 	else
-		m_map_textures[name] = new C_Text(name,message,color,fontSize);
+		m_map_textures[name] = new C_Text(name,str,color,fontSize);
 }
 
 void C_TextureList::freeTexture(string name)
