@@ -61,6 +61,7 @@ void C_Tab::displayTab(bool open)
 	if(open) {
 		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_parchment", m_screen.x + 225,m_screen.y,CENTER);
 	}
 }
 
