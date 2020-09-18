@@ -31,6 +31,7 @@ public :
 	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
     virtual void render() = 0;
     virtual std::vector<std::string> getListOfVisibleItems();
+    virtual void setWin(int win){ std::cout << win;};
 protected:
   	std::string m_name;
 	std::map<std::string, C_MenuItem*> m_itemsList;
@@ -73,7 +74,10 @@ protected:
 class C_Tab_endGame : public C_Page {
 public:
 	C_Tab_endGame(std::string name);
-    void render();
+    virtual void render();
+    virtual void setWin(int win){ m_levelStatus = win;};
+protected:
+    int m_levelStatus;
 };
 
 

@@ -133,6 +133,22 @@ std::string C_MenuItem::getStateAsStr(){
 		return ret;
 }
 
+C_MenuText::C_MenuText(std::string name,std::string text,int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen)
+{
+    m_text = text;
+    m_type = STATUS;
+}
+
+void C_MenuText::render()
+{
+	if(m_text !="") {
+    	C_TextureList& t= C_Locator::getTextureList();
+    	t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
+		t.renderTexture(m_textName, m_x_screen , m_y_screen ,CENTER);
+	}
+}
+
 //-------------------------------------------------------------
 
 C_Button::C_Button(string name,string image,int x_screen, int y_screen)

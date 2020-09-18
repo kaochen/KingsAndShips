@@ -90,6 +90,7 @@ void C_Menu::render()
 {
 	displayBottomMenu();
 	m_endLevelMenu->render();
+	m_endGameMenu->render();
 	vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
 	for(int j = BACK; j <= FRONT; j++) {
@@ -102,7 +103,6 @@ void C_Menu::render()
 			}
 		}
 	}
-	m_endGameMenu->render();
 }
 
 
@@ -238,6 +238,7 @@ void C_Menu::openEndLevelMenu(int status)
 		settings.setPlaying(PAUSE);
 	}
 	m_endLevelMenu->setWin(status);
+	m_endGameMenu->setWin(status);
 }
 void C_Menu::resetEndLevelMenu(){
 	if(m_endLevelMenu != nullptr){

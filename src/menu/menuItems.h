@@ -96,12 +96,16 @@ protected:
 	C_Command * m_command;
 };
 
+class C_MenuText : public C_MenuItem {
+public :
+    C_MenuText(std::string name,std::string text,int x_screen, int y_screen);
+   	virtual void render();
+};
 
 
 class C_Button: public C_MenuItem {
 public:
 	C_Button(std::string name,std::string image,int x_screen, int y_screen);
-	virtual ~C_Button() {};
 
 	virtual void render();
 };
