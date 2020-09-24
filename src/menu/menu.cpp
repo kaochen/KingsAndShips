@@ -90,7 +90,7 @@ void C_Menu::render()
 {
 	displayBottomMenu();
 	m_endLevelMenu->render();
-	m_endGameMenu->render();
+	//m_endGameMenu->render();
 	vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
 	for(int j = BACK; j <= FRONT; j++) {

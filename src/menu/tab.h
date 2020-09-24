@@ -48,7 +48,6 @@ public:
     virtual void go(int direction){std::cout << direction << std::endl;};
 
 protected:
-    void fillWithClosedFlags();
 	static int m_id;
 	std::string m_title;
 	S_Coord m_flagScreen /*!< first flag position in menu*/;

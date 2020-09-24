@@ -249,17 +249,12 @@ void C_MB_1Line::render()
 	C_TextureList& t= C_Locator::getTextureList();
 	Sint16 y1 = m_y_screen + m_height/2;
 	if(m_title !="") {
-    	t.renderTexture("Menu_01_flagOpen1", m_x_screen - 40, y1, CENTER);
-    	t.renderTexture("Menu_01_flagOpen2", m_x_screen + 185, y1, CENTER);
 		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
 		t.renderTexture(m_titleName, m_x_screen, y1, LEFT);
 		if(m_text !="") {
 	        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		    t.renderTexture(m_textName, m_x_screen + m_width, y1, RIGHT);
 	    }
-	} else {
-    	t.renderTexture("Menu_01_flagClosed", m_x_screen - 40, y1, CENTER);
-
 	}
 
 }
@@ -319,10 +314,10 @@ void C_MB_CardButton::render(){
 		m_color = m_colorText;
 	}
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture("Menu_01_message1", m_x_screen - 30, m_y_screen -16 + up,CENTER);
-	t.renderTexture("Menu_01_message2", m_x_screen + 195 , m_y_screen -16 + up,CENTER);
+	t.renderTexture("Menu_01_message1", m_x_screen, m_y_screen + up,CENTER);
+	t.renderTexture("Menu_01_message2", m_x_screen + 225 , m_y_screen + up,CENTER);
 	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
-	t.renderTexture(m_name, m_x_screen + 120, m_y_screen + 18 + up ,CENTER);
+	t.renderTexture(m_name, m_x_screen + 120, m_y_screen + up ,CENTER);
 
 }
 //-------------------------------------------------------------
