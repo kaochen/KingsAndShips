@@ -73,7 +73,6 @@ private:
 	std::vector<C_Tab *> m_tabs;
 	int m_currentTab;
 
-	C_EndLevelMenu* m_endLevelMenu;
 	C_Page* m_endGameMenu;
 };
 

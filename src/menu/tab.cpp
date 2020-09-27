@@ -165,36 +165,68 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	m_levelStatus = ONGOING;
 
     std::string replay = "EndGame_Replay";
-    int current = settings.getCurrentLevelNbr();
-	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x - 160, m_screen.y +100);
+	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x - 160, m_screen.y + 90);
 	if(m_itemsList[replay] != nullptr){
-	    m_itemsList[replay]->setText("Replay Level " + to_string(current));
 	    C_LoadALevel *command = new C_LoadALevel();
 	    m_itemsList[replay]->setCommand(command);
-	    m_itemsList[replay]->getCommand()->setNbr(current);
 	}
 
 	std::string next = "EndGame_Next";
-	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x - 160, m_screen.y + 150);
+	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x - 160, m_screen.y + 140);
 	if(m_itemsList[next]!= nullptr){
-		m_itemsList[next]->setText("Next Level " + to_string(current + 1));
 	    C_LoadALevel *command1 = new C_LoadALevel();
 	    m_itemsList[next]->setCommand(command1);
-	    m_itemsList[next]->getCommand()->setNbr(current + 1);
 	}
 
 	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x - 20 , m_screen.y + 40);
+	refresh();
 }
 
 
+void C_Tab_endGame::refresh(){
+    std::string replay = "EndGame_Replay";
+    C_Settings& settings=C_Locator::getSettings();
+    int current = settings.getCurrentLevelNbr();
+    if(m_itemsList[replay] != nullptr){
+	        m_itemsList[replay]->setText("Replay level :" + to_string(current));
+	        if(m_itemsList[replay]->getCommand() != nullptr){
+	        	   m_itemsList[replay]->getCommand()->setNbr(current);
+	        }
+	}
+	std::string next = "EndGame_Next";
+	int nextLevel = current + 1;
+	if (nextLevel > settings.getNbrOfLevels()){
+	    nextLevel = 1;
+	}
+	if(m_itemsList[next] != nullptr){
+	    m_itemsList[next]->setText("Next level : " + to_string(nextLevel));
+	       if(m_itemsList[next]->getCommand() != nullptr){
+	        	  m_itemsList[next]->getCommand()->setNbr(nextLevel);
+	        }
+    }
+}
+
 void C_Tab_endGame::render()
 {
-	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture("Menu_01_parchment", m_screen.x, m_screen.y,CENTER);
-	if(m_levelStatus == WIN)
-			m_itemsList["EndGameResultText"]->setText("Your castle is safe for now");
-		else if(m_levelStatus == LOSE)
-			m_itemsList["EndGameResultText"]->setText("You lost this castle");
-		else if(m_levelStatus == ONGOING)
-			m_itemsList["EndGameResultText"]->setText("The game continue");
+    if(m_open){
+	    C_TextureList& t= C_Locator::getTextureList();
+	    t.renderTexture("Menu_01_parchment", m_screen.x, m_screen.y,CENTER);
+	    if(m_levelStatus == WIN)
+			    m_itemsList["EndGameResultText"]->setText("Your castle is safe for now");
+		    else if(m_levelStatus == LOSE)
+			    m_itemsList["EndGameResultText"]->setText("You lost this castle");
+		    else if(m_levelStatus == ONGOING)
+			    m_itemsList["EndGameResultText"]->setText("The game continue");
+	}
+}
+
+std::vector<string> C_Tab_endGame::getListOfVisibleItems()
+{
+	std::vector <std::string> list;
+    if(m_open){
+	    for(auto const& x : m_itemsList) {
+		    list.push_back(x.first);
+	    }
+	}
+	return list;
 }

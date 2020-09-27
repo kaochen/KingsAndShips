@@ -56,7 +56,6 @@ C_Menu::C_Menu():
 	line.x = 20;
 	line.y = settings.getWindowHeight() - 20;
 	bottomButtonsLine(line);
-	m_endLevelMenu = new C_EndLevelMenu();
 	m_endGameMenu =  new C_Tab_endGame("endGame");
 
 	C_Message::printM("Constructor C_Menu() : done\n");
@@ -73,7 +72,6 @@ C_Menu::~C_Menu()
 		if(tab != nullptr)
 			delete  tab;
 	}
-	delete m_endLevelMenu;
 	delete m_endGameMenu;
 }
 
@@ -89,8 +87,8 @@ void C_Menu::updateInfos()
 void C_Menu::render()
 {
 	displayBottomMenu();
-	m_endLevelMenu->render();
-	//m_endGameMenu->render();
+	m_endGameMenu->refresh();
+	m_endGameMenu->render();
 	vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
 	for(int j = BACK; j <= FRONT; j++) {
@@ -118,8 +116,8 @@ void C_Menu::resetValues()
 	m_total_waves = 1;
 	updateAttackerStatus();
 	updateDefenderStatus();
-	if(m_endLevelMenu != nullptr)
-		m_endLevelMenu->setOpen(false);
+	if(m_endGameMenu != nullptr)
+		m_endGameMenu->setOpen(false);
 }
 
 
@@ -230,21 +228,20 @@ void C_Menu::openBottomMenu()
 void C_Menu::openEndLevelMenu(int status)
 {
 	C_Settings& settings=C_Locator::getSettings();
-	if(m_endLevelMenu->getOpen()) {
-		m_endLevelMenu->setOpen(false);
+	if(m_endGameMenu->getOpen()) {
+		m_endGameMenu->setOpen(false);
 		settings.setPlaying(PLAY);
 	} else {
-		m_endLevelMenu->setOpen(true);
+		m_endGameMenu->setOpen(true);
 		settings.setPlaying(PAUSE);
 	}
-	m_endLevelMenu->setWin(status);
 	m_endGameMenu->setWin(status);
 }
 void C_Menu::resetEndLevelMenu(){
-	if(m_endLevelMenu != nullptr){
-		delete m_endLevelMenu;
+	if(m_endGameMenu != nullptr){
+		delete m_endGameMenu;
 	}
-	m_endLevelMenu = new C_EndLevelMenu();
+	m_endGameMenu = new C_Tab_endGame("endGame");
 	C_Settings& settings=C_Locator::getSettings();
 	settings.setPlaying(PLAY);
 }

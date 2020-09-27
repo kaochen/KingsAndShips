@@ -32,10 +32,14 @@ public :
     virtual void render() = 0;
     virtual std::vector<std::string> getListOfVisibleItems();
     virtual void setWin(int win){ std::cout << win;};
+    virtual void refresh(){};
+    virtual bool getOpen(){return m_open;};
+    virtual void setOpen(bool open){m_open =  open;};
 protected:
   	std::string m_name;
 	std::map<std::string, C_MenuItem*> m_itemsList;
 	S_Coord m_screen /*!< top left corner of the tab*/;
+    bool m_open = false;
 };
 
 class C_Tab : public C_Page {
@@ -73,8 +77,10 @@ protected:
 class C_Tab_endGame : public C_Page {
 public:
 	C_Tab_endGame(std::string name);
+    virtual std::vector<std::string> getListOfVisibleItems();
     virtual void render();
     virtual void setWin(int win){ m_levelStatus = win;};
+    virtual void refresh();
 protected:
     int m_levelStatus;
 };
