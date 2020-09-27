@@ -99,7 +99,8 @@ apt install tiled
 #### Graphics
   * **Blender** for editing graphic elements
   * **ImageMagick** to build tileset from Blender render 
-  * **Inkscpae** for creating the logo as svg file.
+  * **Inkscape** for creating the logo as svg file.
+  * **Textures Haven** some textures for blender come from : https://texturehaven.com/
 
 ```
 apt install blender imagemagick
