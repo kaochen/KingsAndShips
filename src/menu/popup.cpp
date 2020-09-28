@@ -81,35 +81,3 @@ void C_Panel::addLine(string name, string text, S_Coord screen, string color){
 
 }
 
-
-
-C_EndLevelMenu::C_EndLevelMenu():
-	m_open(false)
-{
-	C_Settings& settings=C_Locator::getSettings();
-	m_screen.x = (settings.getWindowWidth())/2;
-	m_screen.y = (settings.getWindowHeight())/2;
-	m_levelStatus = ONGOING;
-
-	S_Coord screen = {0,0};
-	string text = "Your castle is safe for now";
-	addLine("win", text, screen, "black");
-	text = "You lost this castle";
-	addLine("lose", text, screen, "black");
-	text = "The game continue";
-	addLine("ongoing", text, screen, "black");
-}
-
-void C_EndLevelMenu::render(){
-	if(m_open){
-		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_parchment", m_screen.x,m_screen.y,CENTER);
-		if(m_levelStatus == WIN)
-			m_sentences["win"]->render(m_screen,CENTER);
-		else if(m_levelStatus == LOSE)
-			m_sentences["lose"]->render(m_screen,CENTER);
-		else if(m_levelStatus == ONGOING)
-			m_sentences["ongoing"]->render(m_screen,CENTER);
-	}
-}
-

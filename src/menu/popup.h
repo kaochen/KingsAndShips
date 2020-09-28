@@ -61,16 +61,4 @@ protected:
 	std::string m_name;
 };
 
-
-class C_EndLevelMenu: public C_Panel{
-public:
-	C_EndLevelMenu();
-	void setWin(int win){ m_levelStatus = win;};
-	bool getOpen(){ return m_open;}
-	void setOpen(bool open){ m_open = open;}
-	void render();
-private:
-	bool m_open;
-	int m_levelStatus;
-};
 #endif
