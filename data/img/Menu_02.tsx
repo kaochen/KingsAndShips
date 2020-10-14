@@ -5,9 +5,9 @@
  <tile id="1" type="message2"/>
  <tile id="2" type="GoLeft_Active"/>
  <tile id="3" type="GoRight_Active"/>
- <tile id="4" type="flagOpen1"/>
- <tile id="5" type="flagOpen2"/>
  <tile id="6" type="GoLeft_Hover"/>
  <tile id="7" type="GoRight_Hover"/>
- <tile id="8" type="flagClosed"/>
+ <tile id="12" type="line1"/>
+ <tile id="13" type="line2"/>
+ <tile id="14" type="lineShort"/>
 </tileset>

@@ -195,6 +195,7 @@ void C_MB_TabSelect::render()
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
 		t.renderTexture(m_textName, m_x_screen + m_width/2, y1 ,CENTER);
 	}
+    t.renderTexture("Menu_01_lineShort", m_x_screen + m_width/2,m_y_screen + 28,CENTER);
 }
 
 C_MB_Arrows::C_MB_Arrows(std::string name,int direction , int x_screen, int y_screen)
@@ -255,6 +256,8 @@ void C_MB_1Line::render()
 	        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		    t.renderTexture(m_textName, m_x_screen + m_width, y1, RIGHT);
 	    }
+	    t.renderTexture("Menu_01_line1", m_x_screen + 10,m_y_screen + 28,CENTER);
+		t.renderTexture("Menu_01_line2", m_x_screen + m_width - 15,m_y_screen + 28,CENTER);
 	}
 
 }

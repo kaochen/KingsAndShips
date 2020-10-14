@@ -45,15 +45,15 @@ C_Tab::C_Tab(std::string title)
 	m_height = 400;
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
-	m_flagScreen.x = m_screen.x - 300;
+	m_flagScreen.x = m_screen.x - 315;
 	m_flagScreen.y = m_screen.y - 155;
 	m_flagOffset = 35;
 
 
-	m_tabSize = 120;
+	m_tabSize = 150;
 	int x = m_screen.x - ((m_tabSize *3) / 2);
 
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,18, x + (m_tabSize*m_id) ,m_screen.y - 230);
+	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,22, x + (m_tabSize*m_id) ,m_screen.y - 253);
 	if(m_itemsList[m_name] != nullptr) {
 		m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -111,18 +111,19 @@ C_Tab_Levels::C_Tab_Levels()
 
     m_currentCardLevelNbr = settings.getCurrentLevelNbr();
 	name = "Card_Level";
-	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_screen.x + 30,m_screen.y);
+	int x = m_screen.x + 70;
+	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),x,m_screen.y);
 
 	std::string arrowLeft = "Level_Change_Arrow_Left";
-	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_screen.x,m_screen.y);
+	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,x - 50,m_screen.y);
 	m_itemsList[arrowLeft]->setCommand(new C_ChangeLevelLeft());
 
 	std::string arrowRight = "Level_Change_Arrow_Right";
-	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_screen.x + 300,m_screen.y);
+	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,x + 285,m_screen.y);
 	m_itemsList[arrowRight]->setCommand(new C_ChangeLevelRight());
 
 	std::string load = "Level_Load";
-	m_itemsList[load]  = new C_MB_CardButton(load, m_screen.x + 40 , m_screen.y + 130);
+	m_itemsList[load]  = new C_MB_CardButton(load, x + 20 , m_screen.y + 130);
 	if(m_itemsList[load]!= nullptr){
 	    m_itemsList[load]->setText("Load");
 	    C_LoadALevel *command = new C_LoadALevel();
