@@ -166,20 +166,20 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	m_levelStatus = ONGOING;
 
     std::string replay = "EndGame_Replay";
-	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x - 160, m_screen.y + 90);
+	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x - 115, m_screen.y + 90);
 	if(m_itemsList[replay] != nullptr){
 	    C_LoadALevel *command = new C_LoadALevel();
 	    m_itemsList[replay]->setCommand(command);
 	}
 
 	std::string next = "EndGame_Next";
-	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x - 160, m_screen.y + 140);
+	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x - 115, m_screen.y + 140);
 	if(m_itemsList[next]!= nullptr){
 	    C_LoadALevel *command1 = new C_LoadALevel();
 	    m_itemsList[next]->setCommand(command1);
 	}
 
-	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x - 20 , m_screen.y + 40);
+	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x , m_screen.y + 40);
 	refresh();
 }
 
