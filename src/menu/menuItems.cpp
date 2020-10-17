@@ -133,6 +133,25 @@ std::string C_MenuItem::getStateAsStr(){
 		return ret;
 }
 
+void C_MenuItem::renderFlagUnderButton(){
+		C_TextureList& t= C_Locator::getTextureList();
+		string state =  getStateAsStr();
+	    string flagName = "Buttons_Flag" + state;
+	    t.renderTexture(flagName, m_x_screen + m_width/2,m_y_screen + m_height + 10,CENTER);
+
+		if(!m_enable){
+		    m_color = {0,0,0,255};
+	    } else {
+		    m_color = {200,200,200,255};
+	    }
+		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+		t.renderTexture(m_textName, m_x_screen + 30, m_y_screen + 70,CENTER);
+}
+
+
+//-------------------------------------------------------------
+
+
 C_MenuText::C_MenuText(std::string name,std::string text,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
@@ -348,7 +367,7 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 		m_text = to_string(m_unit->getCost());
 	else
 		m_text = "empty";
-	m_fontSize = 9;
+	m_fontSize = 18;
 }
 
 C_GB_AddUnit::~C_GB_AddUnit()
@@ -373,14 +392,8 @@ void C_GB_AddUnit::render()
 		} else {
 			m_enable = true;
 		}
-
-		C_Button::render();
-		C_TextureList& t= C_Locator::getTextureList();
-		m_color = {165,146,113,255};
-		if(t.searchTexture(m_textName)== nullptr) {
-			t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		}
-		t.renderTexture(m_textName, m_x_screen + 11, m_y_screen+10,CENTER);
+        renderFlagUnderButton();
+	    C_Button::render();
 	}
 }
 //-------------------------------------------------------------
@@ -498,25 +511,13 @@ C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
 
 void C_GU_Upgrade::render()
 {
-	C_TextureList& t= C_Locator::getTextureList();
-	string state =  getStateAsStr();
-	string flagName = "Buttons_Flag" + state;
-	t.renderTexture(flagName, m_x_screen + m_width/2,m_y_screen + m_height + 10,CENTER);
-	if(state == "_Disabled"){
-		m_color = {0,0,0,255};
-	} else {
-		m_color = {200,200,200,255};
-	}
-	C_Button::render();
-
 	C_Grid& grid= C_Locator::getGrid();
 	C_UnitFactory factory = grid.getFactory();
 	S_UnitModel model;
 	bool check = factory.getSelectedModel(1,model);
 	if(check) {
-		m_text = to_string(model.cost);
-		C_TextureList& t= C_Locator::getTextureList();
-		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + 32, m_y_screen + 72,CENTER);
+    	m_text = to_string(model.cost);
+        renderFlagUnderButton();
 	}
+	C_Button::render();
 }

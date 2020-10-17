@@ -35,7 +35,7 @@ C_Menu::C_Menu():
 {
 	C_Message::printM("Constructor C_Menu() : start\n");
 	C_Settings& settings=C_Locator::getSettings();
-	int size = 64 + 10;
+	int size = 64 + 30;
 	int x_button = settings.getWindowWidth() - size;
 	int y_button = settings.getWindowHeight()/2 - size;
 	//left buttons
