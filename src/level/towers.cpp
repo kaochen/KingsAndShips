@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "weapons.h"
 
 #include "../textureList.h"
+#include "../menu/menuItems.h"
 #include "../locator.h"
 #include "../anim.h"
 
@@ -72,48 +73,35 @@ void C_Towers::renderSelected()
 }
 
 void C_Towers::renderTowerStatus(std::string name, int x_screen, int y_screen){
-		C_TextureList& t= C_Locator::getTextureList();
-		string textureName = "Buttons_"+ name + "_Active";
-		t.renderTexture(textureName, x_screen,y_screen);
-		int fireRange = m_weapon->getFireRange();
-		int fireRate = m_weapon->getFireRate();
-		int damage = m_weapon->getDamage();
-		if(m_upgrade){
-		C_Grid& grid= C_Locator::getGrid();
-				C_UnitFactory factory = grid.getFactory();
-				S_UnitModel up;
-				bool check = factory.getSelectedModel(1,up);
-				if(check){
-					renderTowerStatusCircle(name, x_screen, y_screen, up.weapon.fireRate,up.weapon.fireRange, up.weapon.damage, "Dark");
-				}
-		}
-		renderTowerStatusCircle(name, x_screen, y_screen, fireRate,fireRange, damage, "Green");
+        C_Button *b = new C_Button(name, name, x_screen, y_screen);
+        S_Weapon w = m_weapon->getWeaponInfo();
 
-}
-void C_Towers::renderTowerStatusCircle(std::string name, int x_screen, int y_screen, int fireRate, int fireRange, int damage, std::string color){
-		C_TextureList& t= C_Locator::getTextureList();
-		int value = 0;
-		if(name == "firerange"){
-			value = (fireRange*100)/8;
-		} else if(name == "firerate") {
-			if(m_weapon->getFireRate() != 0){
-				int maxSpeed = 5000;
-				value = (((maxSpeed - fireRate)*100)/maxSpeed);
+        if(m_upgrade){ //if over mouse over upgrade button
+		    C_Grid& grid= C_Locator::getGrid();
+			C_UnitFactory factory = grid.getFactory();
+			S_UnitModel up;
+			if(factory.getSelectedModel(1,up)){ //if upgrade is possible get weapon info from unit + 1 level
+			    w = up.weapon;
 			}
-		} else if(name == "Damage") {
-			value = (damage*100)/40;
 		}
-		int max = 0;
-		if(value != 0){
-			max = (value*72)/100;
-		}
-		for(int i = 0; i < max; i++){
-			double angle = 5.0 * i;
-			t.renderTextureEx("Buttons_Torus_"+ color, x_screen,y_screen, angle, CENTER_TILE);
-		}
+
+        string text;
+		if(name == "firerange"){
+		    text = to_string(w.fireRange);
+        } else if (name == "firerate") {
+            double f = 0.0;
+            if(w.fireRate != 0) {
+                f = w.fireRate/1000;
+            }
+        	text = to_string(f).substr(0,3) + " ms";
+        } else if(name == "Damage") {
+            text = to_string(w.damage);
+        }
+        b->setText(text);
+		b->renderFlagUnderButton();
+        b->render();
+        delete b;
 }
-
-
 
 //---------------------------------------------------
 

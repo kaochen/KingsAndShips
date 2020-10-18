@@ -35,7 +35,6 @@ protected:
 	virtual void renderSelected();
 	virtual void renderTowerStatus(std::string name, int x_screen, int y_screen);
 	virtual void renderSmoke();
-	virtual void renderTowerStatusCircle(std::string name, int x_screen, int y_screen, int fireRate, int fireRange, int damage, std::string color);
 };
 
 
