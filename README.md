@@ -101,6 +101,8 @@ apt install tiled
   * **ImageMagick** to build tileset from Blender render 
   * **Inkscape** for creating the logo as svg file.
   * **Textures Haven** some textures for blender come from : https://texturehaven.com/
+  ** Active plugin Node Wrangler in blender . https://docs.blender.org/manual/en/2.90/addons/node/node_wrangler.html
+  ** Ctrl + Shift + T : https://www.youtube.com/watch?v=iP3_WOl4aco
 
 ```
 apt install blender imagemagick
