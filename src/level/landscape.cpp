@@ -282,8 +282,8 @@ void C_Clouds::render()
 	t.renderTexture(m_shadowName, m_coord.getXScreen()-h,m_coord.getYScreen()+3*h,CENTER_TILE);
 	t.renderTexture(m_shadowOnTopName, m_coord.getXScreen()-h + x ,m_coord.getYScreen()+3*h,CENTER_TILE);
 
-	t.renderTexture(m_cloudName, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
-	t.renderTexture(m_cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen(),CENTER_TILE);
+	t.renderTexture(m_cloudName, m_coord.getXScreen(),m_coord.getYScreen() + 5,CENTER_TILE);
+	t.renderTexture(m_cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen()+ 5,CENTER_TILE);
 }
 
 

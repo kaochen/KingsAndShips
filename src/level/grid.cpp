@@ -83,14 +83,18 @@ void C_Grid::renderLayer(int layer)
 		for (int y = 0; y < size; y++) {
 			if(x >= 0 && x < size && y >= 0 && y < size) {
 				//cout << "|" << x << ":"<< y;
-				if(m_vgrid[x][y].render(layer)) {
-					//c++;
-				};
+				if(m_vgrid[x][y].isCloud() && layer != CLOUD){
+
+				} else {
+				    if(m_vgrid[x][y].render(layer)) {
+                        //c++;
+				    }
+				}
 
 			}
 		}
 	}
-	//cout << "render: "<< c <<"tiles"<< endl;
+	//cout << "render: "<< c <<" tiles for layer :" << layer << endl;
 }
 
 

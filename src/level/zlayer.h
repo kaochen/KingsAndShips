@@ -35,6 +35,7 @@ public:
 	void delAll();
 	bool play(int layer);
 	bool render(int layer);
+    bool isCloud(){if(m_cloud != nullptr){return true;} else {return false;} };
 private:
 	void cliStatus(); //print basic status in the CLI
 
