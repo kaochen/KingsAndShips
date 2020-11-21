@@ -27,7 +27,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <algorithm>
 #include <limits.h>
 
-#include <experimental/filesystem>
+#if __has_include(<filesystem>)
+	#include <filesystem>
+	namespace fs = std::filesystem;
+	#define FILESYSTEM
+#elif __has_include(<experimental/filesystem>)
+	#include <experimental/filesystem>
+	namespace fs = std::experimental::filesystem;
+	#define FILESYSTEM
+#else
+	#define NOFILESYSTEM
+#endif
+
 using namespace std;
 
 C_Settings::C_Settings(std::vector<std::string> args)
@@ -47,7 +58,7 @@ C_Settings::C_Settings(std::vector<std::string> args)
 
 	string share_path = app_folder + share_folder;
 	//determine if the program is installed or if it is execute from a local folder
-	if(!std::experimental::filesystem::equivalent(app_folder,cmake_install_prefix)){
+	if(!fs::equivalent(app_folder,cmake_install_prefix)){
 		share_path = a_Path;
 	}
 
@@ -386,14 +397,21 @@ std::string C_Settings::getPgmPath(){
 	return std::string( result, (count > 0) ? count : 0 );
 }
 
-std::string C_Settings::mergePath(std::string path1, std::string path2){
-	string fullpath = path1 + path2;
-	if(path1.back() != '\\' && path1.back() != '/' ){
-		#if defined (Windows)
-			fullpath = path1  + "\\" + path2;
-	#else
-			fullpath = path1 +  "/" + path2 ;
-		#endif
-	}
-		return  fullpath;
-	}
+std::string C_Settings::mergePath(const std::string &first, const std::string &last)
+{
+    std::string ret = first + last;
+    #ifdef NOFILESYSTEM
+    if(first.back() != '\\' && first.back() != '/' ){
+	    #if defined _WIN32 || defined __CYGWIN__
+		    ret = first + "\\" + last;
+	    #else
+		    ret = first +  "/" + last ;
+	    #endif
+    }
+    #else
+		fs::path path = first;
+	    ret = path / last;
+    #endif
+    return  ret;
+}
+

@@ -112,12 +112,7 @@ target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY}
                              ${LibXML++_LIBRARIES})
 
 target_link_libraries(${PROJECT_NAME} stdc++fs)
-IF (WIN32)
-	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17 -D Windows)
-ELSE()
-	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17)
-ENDIF()
-
+target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17)
 
 
 install(TARGETS ${PROJECT_NAME}

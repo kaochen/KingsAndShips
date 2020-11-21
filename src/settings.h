@@ -116,7 +116,7 @@ private:
 	bool extractIntFromINI(int &nbr, const std::string &name, const std::string &filename);
 	void setNbrOfLevels();
 	std::string getPgmPath();
-	static std::string mergePath(std::string path1, std::string path2);
+    static std::string mergePath(const std::string &first, const std::string &last);
 	void updateTileWidth();
 
 
