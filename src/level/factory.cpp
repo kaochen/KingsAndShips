@@ -29,10 +29,10 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory()
 {
-	int size = 11;
+	int size = 12;
 	string file[size] = {"boat_00.tsx","boat_01.tsx","boat_02.tsx","boat_03.tsx","archerTower_00.tsx",
 			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
-			"barricade_01.tsx","town_01.tsx","catapult_00.tsx"
+			"barricade_01.tsx","town_01.tsx","castle_00.tsx","catapult_00.tsx"
 						};
 	C_Settings& settings=C_Locator::getSettings();
 	string imageFolder = settings.getImgFolder();
