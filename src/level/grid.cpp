@@ -176,20 +176,26 @@ bool C_Grid::moveUnit(int x_from, int y_from, int x_dest, int y_dest)
 }
 
 
-void C_Grid::setGround(int x, int y, std::string name)
+void C_Grid::setGround(S_Unit unit)
 {
-	if(!name.empty()){
-		if(name.find("Ground") != std::string::npos) {
-			m_vgrid[x][y].set(GROUND,new C_Ground(name,x,y));
-		} else if(name.find("Water") != std::string::npos) {
-			m_vgrid[x][y].set(GROUND,new C_Water(name,x,y));
-		} else if(name.find("town") != std::string::npos) {
-			setTown(x,y);
-		} else if(name.find("rocks") != std::string::npos) {
-			m_vgrid[x][y].set(FIELD,new C_Decors(name,x,y));
-		} else if(name.find("trees") != std::string::npos) {
-			m_vgrid[x][y].set(FIELD,new C_Trees(name,x,y));
-		}
+	if(unit.coord.x >= 0 && unit.coord.x < (int)(m_vgrid.size()) && unit.coord.y >= 0 && unit.coord.y < (int)(m_vgrid.size())) {
+	    if(!unit.name.empty()){
+		    if(unit.name.find("Ground") != std::string::npos) {
+			    m_vgrid[unit.coord.x][unit.coord.y].set(GROUND,new C_Ground(unit));
+		    } else if(unit.name.find("Water") != std::string::npos) {
+			    m_vgrid[unit.coord.x][unit.coord.y].set(GROUND,new C_Water(unit));
+		    } else if(unit.name.find("town") != std::string::npos) {
+		        setUnit(unit);
+			    cleanClouds(unit.coord, 6);
+		    } else if(unit.name.find("CastleTower") != std::string::npos){
+		        setUnit(unit);
+		        cleanClouds(unit.coord, 2);
+		    } else if(unit.name.find("rocks") != std::string::npos) {
+			    m_vgrid[unit.coord.x][unit.coord.y].set(FIELD,new C_Decors(unit));
+		    } else if(unit.name.find("trees") != std::string::npos) {
+			    m_vgrid[unit.coord.x][unit.coord.y].set(FIELD,new C_Trees(unit));
+		    }
+	    }
 	}
 }
 
@@ -419,35 +425,13 @@ string C_Grid::getUnitType(int layer, int x_grid, int y_grid)
 	}
 }
 
-
-
-void C_Grid::setTown(int x_grid, int y_grid)
-{
-	//first reset
-	for (size_t x = 0; x < m_vgrid.size(); x++) {
-		for(size_t y = 0; y < m_vgrid.size(); y++) {
-			if(m_vgrid[x][y].get(FIELD) != nullptr) {
-				if(m_vgrid[x][y].get(FIELD)->getName() == "town") {
-					m_vgrid[x][y].del(FIELD);
-				}
-			}
-		}
+void C_Grid::setUnit(S_Unit unit){
+	C_GameUnits *tmp = m_factory.create(unit);
+	if(tmp){
+		m_vgrid[unit.coord.x][unit.coord.y].set(FIELD,tmp);
 	}
-	//then set
-	if(x_grid >= 0 && x_grid < (int)(m_vgrid.size()) && y_grid >= 0 && y_grid < (int)(m_vgrid.size())) {
-		S_Unit town;
-		town.name = "town_1";
-		town.coord = {x_grid,y_grid};
-		C_GameUnits *tmp = m_factory.create(town);
-		if(tmp != nullptr) {
-			m_vgrid[x_grid][y_grid].set(FIELD,tmp);
-		} else {
-		    C_Message::printM("Cannot create the Town");
-		}
-		cleanClouds(town.coord, 6);
-
-	} else {
-		C_Message::printM("Set Town outside the grid");
+	else {
+		C_Message::printM("Cannot create " + unit.name + " at " + std::to_string(unit.coord.x) +":"+ std::to_string(unit.coord.y) );
 	}
 }
 

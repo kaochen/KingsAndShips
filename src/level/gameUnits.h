@@ -45,9 +45,10 @@ struct S_Weapon {
 };
 
 struct S_UnitModel {
-	std::string name;
-	std::string type;
-	int rank;
+	std::string name; /*the model name ArcherTower_0 extract from the tsx file ( = type + rank)*/
+	std::string type; /*the type ArcherTower*/
+    std::string tileSource; /* indicate the full tile name from the the tsx file ex: CastleTower_0_A_ArcherTower_0*/
+	int rank; /*the rank of ArcherTower*/
 	int health;
 	S_Coord coord;
 	int cost;
@@ -118,6 +119,7 @@ protected:
 	//attibuts
 	std::string m_name;
 	std::string m_type;
+    std::string m_tileSource;
 	int m_rank;
 
 	int m_health;

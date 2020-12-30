@@ -222,11 +222,6 @@ void C_Landscape::renderTopMask(int gridSize)
 
 //---------------------------Decors-------------------------
 
-C_Decors::C_Decors(string name, int x_grid, int y_grid):
-	C_GameUnits(name, x_grid, y_grid, 0)
-{
-}
-
 void C_Decors::render(S_Coord screen)
 {
 	string fileName = m_name;
@@ -290,10 +285,6 @@ void C_Clouds::render()
 
 
 //---------------------------C_Ground -------------------------
-C_Ground::C_Ground(string name, int x_grid, int y_grid):
-	C_GameUnits(name, x_grid, y_grid,0)
-{
-}
 
 void C_Ground::render()
 {
@@ -309,10 +300,10 @@ void C_Ground::render()
 }
 
 //---------------------------C_Trees-------------------------
-C_Trees::C_Trees(string name, int x_grid, int y_grid):
-	C_Decors(name, x_grid, y_grid)
+C_Trees::C_Trees(S_Unit unit):
+	C_Decors(unit)
 {
-	int size =  name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
+	int size =  unit.name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
 	m_name = m_name.substr(0,size);
 	m_state = "Wind";
 	m_anim.add(new C_AnimRewind("Wind",1,10,90,true));

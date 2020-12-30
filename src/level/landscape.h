@@ -44,7 +44,7 @@ private:
 
 class C_Decors : public C_GameUnits {
 public:
-	C_Decors(std::string name, int x_grid, int y_grid);
+	C_Decors(S_Unit unit):C_GameUnits(unit.name, unit.coord.x, unit.coord.y,0){};
 	virtual void render(S_Coord screen);
 	virtual void render()
 	{
@@ -72,19 +72,19 @@ protected:
 
 class C_Ground : public C_GameUnits {
 public:
-	C_Ground(std::string name, int x_grid, int y_grid);
+	C_Ground(S_Unit unit):C_GameUnits(unit.name, unit.coord.x, unit.coord.y,0){};
 	virtual void render();
 };
 
 class C_Water : public C_GameUnits {
 public:
-	C_Water(std::string name, int x_grid, int y_grid):C_GameUnits(name,x_grid,y_grid,0){};
+	C_Water(S_Unit unit):C_GameUnits(unit.name, unit.coord.x, unit.coord.y,0){};
 	virtual void render(){};
 };
 
 class C_Trees : public C_Decors {
 public:
-	C_Trees(std::string name, int x_grid, int y_grid);
+	C_Trees(S_Unit unit);
 	virtual void play();
 	virtual void render(S_Coord screen);
 

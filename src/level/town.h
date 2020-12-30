@@ -27,8 +27,13 @@ class C_Town: public C_Shooter {
 public:
 	C_Town(S_UnitModel model);
 protected:
-	//virtual void play();
+    virtual std::string imageName(int status,int direction,int imageNbr);
 private:
+};
+
+class C_CastleTower: public C_Town {
+public:
+	C_CastleTower(S_UnitModel model);
 };
 
 #endif

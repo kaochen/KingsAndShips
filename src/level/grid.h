@@ -50,7 +50,7 @@ public:
 	bool isUnitupgradable(C_GameUnits * unit) {return m_factory.isUpgradable(unit);};
 
 	C_GameUnits* getUnits(int x_grid, int y_grid);
-	void setGround(int x, int y, std::string name);
+	void setGround(S_Unit unit);
 	bool waterway(int x_grid, int y_grid);
 	bool isThisConstructible(S_Coord grid, bool water);
 	void displayStatus();
@@ -66,7 +66,7 @@ public:
 	virtual bool mainEmpty(int x_grid, int y_grid);
 	virtual std::string getUnitType(int layer, int x_grid, int y_grid);
 
-	void setTown(int x_grid, int y_grid);
+    void setUnit(S_Unit unit);
 	S_Coord foundTown();
 	int getAllTownsLifeLevel();
 

@@ -142,18 +142,23 @@ void C_Level::loadLayerIntoTheGrid(std::string type)
 			if (mark > 0)
 				extract.resize(mark,'C');
 			int nbr = stoi(extract);
+			S_Unit unit;
+		    unit.coord = {x,y};
 			//cout << nbr;
 			if(type == "Ground"){
 			    if(nbr == 0) {
-				    grid.setGround(x,y,"Water");
+			        unit.name = "Water";
+				    grid.setGround(unit);
 			    } else {
 			        S_Tile tile = m_tmx->getTileInfos(nbr);
-			        grid.setGround(x,y,tile.name);
+			        unit.name = tile.name;
+			        grid.setGround(unit);
 			    }
 			} else {
 			    if(nbr != 0){
 			    	S_Tile tile = m_tmx->getTileInfos(nbr);
-			        grid.setGround(x,y,tile.name);
+			    	unit.name = tile.name;
+			        grid.setGround(unit);
 			    }
 			}
     			data = data.substr(mark + 1);

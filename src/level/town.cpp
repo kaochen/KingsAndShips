@@ -30,3 +30,19 @@ C_Town::C_Town(S_UnitModel model):C_Shooter(model)
 	m_renderLifeBar = false;
 }
 
+std::string C_Town::imageName(int status,int direction,int imageNbr){
+    (void)status;
+    (void)direction;
+    (void)imageNbr;
+    return m_tileSource;
+}
+
+C_CastleTower::C_CastleTower(S_UnitModel model):C_Town(model)
+{
+	m_targetsTypes.push_back("boat");
+	m_canRotate = false;
+	m_isBottomAnimated = false;
+	m_renderDead = false;
+	m_renderLifeBar = false;
+}
+

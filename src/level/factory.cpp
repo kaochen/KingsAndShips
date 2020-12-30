@@ -44,32 +44,38 @@ C_UnitFactory::C_UnitFactory()
 			size_t pos = unit.name.find("_") + 2;
 			unit.name = unit.name.substr(0,pos);
 			m_models[unit.name]= unit;
+    	std::cout << "unit.name " << unit.name << std::endl;
 		} else {
 			C_Message::printError("Can not find the tsx file: " + path);
 		}
 	}
 }
 
-C_GameUnits* C_UnitFactory::create(S_Unit type)
+C_GameUnits* C_UnitFactory::create(S_Unit unit)
 {
-	C_GameUnits* unit = nullptr;
-	S_UnitModel current = m_models[type.name];
-	current.coord = type.coord;
-	if(type.name.find("boat_") != string::npos){
-		unit = new C_Boat(current);
-	} else if(type.name.find("ArcherTower_") != string::npos){
-		unit = new C_ArcherTower(current);
-	} else if(type.name.find("CastleTower_") != string::npos){
-		unit = new C_ArcherTower(current);
-	} else if(type.name.find("barricade_") != string::npos){
-		unit = new C_Barricade(current);
-	} else if(type.name.find("town_") != string::npos){
-		unit = new C_Town(current);
-	} else if(type.name.find("Catapult_") != string::npos){
-		unit = new C_Catapult(current);
+	C_GameUnits* ret = nullptr;
+
+	size_t pos = unit.name.find("_") + 2;
+	string shortname = unit.name.substr(0,pos);
+	std::cout << "unit.name " << unit.name << " - " << shortname << std::endl;
+	S_UnitModel current = m_models[shortname];
+	current.tileSource = unit.name;
+	current.coord = unit.coord;
+	if(unit.name.find("boat_") != string::npos){
+		ret = new C_Boat(current);
+	} else if(unit.name.find("ArcherTower_") != string::npos){
+		ret = new C_ArcherTower(current);
+	} else if(unit.name.find("CastleTower_") != string::npos){
+		ret = new C_CastleTower(current);
+	} else if(unit.name.find("barricade_") != string::npos){
+		ret = new C_Barricade(current);
+	} else if(unit.name.find("town_") != string::npos){
+		ret = new C_Town(current);
+	} else if(unit.name.find("Catapult_") != string::npos){
+		ret = new C_Catapult(current);
 	}
 
-	return unit;
+	return ret;
 }
 
 void C_UnitFactory::upgrade(C_GameUnits * unit)

@@ -32,6 +32,7 @@ using namespace std;
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 	m_name(name),
 	m_type("unit"),
+	m_tileSource(name),
 	m_rank(rank),
 	m_health(100),
 	m_max_health(100),
@@ -44,6 +45,7 @@ C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
 C_GameUnits::C_GameUnits(S_UnitModel model):
 	m_name(model.name),
 	m_type(model.type),
+	m_tileSource(model.tileSource),
 	m_rank(model.rank),
 	m_health(model.health),
 	m_max_health(model.health),
