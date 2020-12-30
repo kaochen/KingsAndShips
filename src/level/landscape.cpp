@@ -236,8 +236,8 @@ void C_Decors::render(S_Coord screen)
 C_Clouds::C_Clouds(int x_grid, int y_grid):
 	C_GameUnits("clouds_01", x_grid, y_grid, 0)
 {
-	m_type = rand() %5;
-	m_typeOnTop = rand() %5;
+	m_type = rand() %8;
+	m_typeOnTop = rand() %8;
 	m_cloudName = "clouds_Cloud_0"+to_string(m_type);
 	m_cloudOnTopName = "clouds_Cloud_0"+to_string(m_typeOnTop);
 	m_shadowName = "clouds_Shadow_0"+to_string(m_type);
@@ -274,7 +274,7 @@ void C_Clouds::render()
 	C_TextureList& t= C_Locator::getTextureList();
 	C_Settings& settings=C_Locator::getSettings();
 	int h = settings.getTileHeight()/2;
-	t.renderTexture(m_shadowName, m_coord.getXScreen()-h,m_coord.getYScreen()+3*h,CENTER_TILE);
+	//t.renderTexture(m_shadowName, m_coord.getXScreen()-h,m_coord.getYScreen()+3*h,CENTER_TILE);
 	t.renderTexture(m_shadowOnTopName, m_coord.getXScreen()-h + x ,m_coord.getYScreen()+3*h,CENTER_TILE);
 
 	t.renderTexture(m_cloudName, m_coord.getXScreen(),m_coord.getYScreen() + 5,CENTER_TILE);
