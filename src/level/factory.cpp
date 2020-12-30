@@ -59,6 +59,8 @@ C_GameUnits* C_UnitFactory::create(S_Unit type)
 		unit = new C_Boat(current);
 	} else if(type.name.find("ArcherTower_") != string::npos){
 		unit = new C_ArcherTower(current);
+	} else if(type.name.find("CastleTower_") != string::npos){
+		unit = new C_ArcherTower(current);
 	} else if(type.name.find("barricade_") != string::npos){
 		unit = new C_Barricade(current);
 	} else if(type.name.find("town_") != string::npos){
