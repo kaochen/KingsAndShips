@@ -92,7 +92,6 @@ public:
 	std::string getImgFolder(){return m_imgFolder;};
 	std::string getThemePath(){return m_imgFolder + m_theme;};
 	int getZoom(){return m_zoom;};
-	int getZoomMax(){return m_zoom;};
 	void zoomUp();
 	void zoomDown();
 	//level
@@ -142,7 +141,7 @@ private:
 	std::queue<std::string> m_tsxFileList;
 	int m_zoom = ZOOM_MAX/2;
 	int m_zoom_max = ZOOM_MAX;
-	int m_zoom_min = 1;
+	int m_zoom_min = 0;
 	//levels
 	int m_currentLevel;
 	int m_nbrOfLevels;
