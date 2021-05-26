@@ -13,7 +13,7 @@ Meson 0.37 is needed at the minimun.
 
 ### Dependencies
 ```
-apt install build-essential git cmake ninja-build gettext libxml++2.6-dev
+apt install build-essential git cmake ninja-build gettext libxml++2.6-dev rpm
 apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev fonts-roboto
 
 ```
