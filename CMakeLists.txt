@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8)
 
 project(kingsandships)
 
-set(CMAKE_BUILD_TYPE Debug)
 SET(MAJOR_VERSION 0)
 SET(MINOR_VERSION 1)
 SET(PATCH_VERSION 1)
@@ -112,7 +111,16 @@ target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARY}
                              ${LibXML++_LIBRARIES})
 
 target_link_libraries(${PROJECT_NAME} stdc++fs)
-target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17)
+
+IF(CMAKE_COMPILER_IS_GNUCXX)
+ IF(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        message("Generated with config types: ${CMAKE_BUILD_TYPE}")
+     	target_compile_options(${PROJECT_NAME} PUBLIC -Wall -Wextra -Wno-deprecated-declarations -g -std=gnu++17)
+    ELSE()
+	message("Generated with config types: Release")
+    	target_compile_options(${PROJECT_NAME} PUBLIC -Wno-error -Wno-deprecated-declarations -O3  -std=gnu++17)
+    ENDIF()
+ENDIF()
 
 
 install(TARGETS ${PROJECT_NAME}

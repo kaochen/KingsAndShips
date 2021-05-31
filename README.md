@@ -36,6 +36,11 @@ cmake -G "Ninja" ..
 ninja //ninja-build on CentOS
 ```
 
+If compilation fail you can try capturing more message by using the "Debug" type :
+```
+cmake -DCMAKE_BUILD_TYPE=Debug -G "Ninja" ..
+```
+
 ### Create Package
 ```
 cpack
