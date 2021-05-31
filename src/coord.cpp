@@ -52,9 +52,7 @@ C_Coord::C_Coord(S_Coord coord)
 
 C_Coord::C_Coord(const C_Coord &a)
 {
-	m_grid.x = a.m_grid.x;
-	m_grid.y = a.m_grid.y;
-	m_delta = a.m_delta;
+    copy(a);
 }
 
 
@@ -74,6 +72,15 @@ bool operator!=(C_Coord const &a, C_Coord const &b)
 		return true;
 }
 
+void C_Coord::operator=(C_Coord const &a){
+    copy(a);
+}
+
+void C_Coord::copy(C_Coord const &a){
+   	m_grid.x = a.m_grid.x;
+	m_grid.y = a.m_grid.y;
+	m_delta = a.m_delta;
+}
 
 bool C_Coord::isEqual(C_Coord const &b) const
 {
