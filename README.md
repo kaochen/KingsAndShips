@@ -42,12 +42,15 @@ cmake -DCMAKE_BUILD_TYPE=Debug -G "Ninja" ..
 ```
 
 ### Create Package
+for Debian family
 ```
-cpack
+cpack -G DEB
 sudo dpkg -i kingsandships*.deb
 ```
-or
+
+for Red-Hat family
 ```
+cpack -G RPM
 sudo yum install kingsandships*.rpm
 ```
 
