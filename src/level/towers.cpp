@@ -120,7 +120,7 @@ C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 	m_haveABottom = false ;
 	m_haveATop = true;
 	m_targetsTypes.push_back("boat");
-	m_anim.add(new C_Anim("Weapon_Shooting",0,5,100));
-	m_anim.add(new C_Anim("Weapon_Reloading",6,10,120));
+	m_anim.add(new C_Anim("Weapon_Shooting",0,7,120));
+	m_anim.add(new C_Anim("Weapon_Reloading",8,15,120));
 }
 

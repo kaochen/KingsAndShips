@@ -121,6 +121,13 @@ Build a tileset from images with imagemagick
 montage Src*.png -tile 8x8 -geometry +0+0 -background none tilset.png
 ```
 
+New workflow :
+Using multiview camera in Blender:
+rename to get images in the right order :
+```
+rename 's/^R_([^_]*)_([^_]*)_([^.]*)/R_$1_$3_$2/' R_*.png
+montage R_*.png  -tile 16x8 -geometry +0+0 -background none t_catapult_00.png
+```
 ### Coding tools
 Search where improving the code is more usefull
 #### linux-perf
