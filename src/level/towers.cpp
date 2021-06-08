@@ -108,6 +108,7 @@ void C_Towers::renderTowerStatus(std::string name, int x_screen, int y_screen){
 
 C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 {
+    m_max_rank = 3;
 	m_targetsTypes.push_back("boat");
 	m_canRotate = false;
 	m_isBottomAnimated = false;
@@ -115,6 +116,7 @@ C_ArcherTower::C_ArcherTower(S_UnitModel model):C_Towers(model)
 
 C_Catapult::C_Catapult(S_UnitModel model):C_Towers(model)
 {
+    m_max_rank = 3;
 	m_isBottomAnimated = false;
 	m_isTopAnimated = true;
 	m_haveABottom = false ;

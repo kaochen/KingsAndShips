@@ -76,6 +76,7 @@ public:
 	virtual std::string getType() const { return m_type; };
 
 	virtual int getRank() const {return m_rank;};
+	virtual int getMaxRank() const {return m_max_rank;};
 	virtual void displayStatus();
 	virtual void render(S_Coord screen);
 	virtual void render(){std::cout << "render";};
@@ -121,6 +122,7 @@ protected:
 	std::string m_type;
     std::string m_tileSource;
 	int m_rank;
+    int m_max_rank = 0;
 
 	int m_health;
 	int m_max_health;

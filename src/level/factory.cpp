@@ -29,10 +29,11 @@ using namespace std;
 
 C_UnitFactory::C_UnitFactory()
 {
-	int size = 12;
+	int size = 15;
 	string file[size] = {"boat_00.tsx","boat_01.tsx","boat_02.tsx","boat_03.tsx","archerTower_00.tsx",
 			"archerTower_01.tsx","archerTower_02.tsx","archerTower_03.tsx",
-			"barricade_01.tsx","town_01.tsx","castle_00.tsx","catapult_00.tsx"
+			"barricade_01.tsx","town_01.tsx","castle_00.tsx","catapult_00.tsx","catapult_01.tsx",
+			"catapult_02.tsx","catapult_03.tsx"
 						};
 	C_Settings& settings=C_Locator::getSettings();
 	string imageFolder = settings.getImgFolder();
@@ -85,7 +86,7 @@ void C_UnitFactory::upgrade(C_GameUnits * unit)
 		string currentName = unit->getName();
 		string type = unit->getType();
 		int newRank = currentRank + 1;
-		if(type == "ArcherTower" && currentRank < 3){
+		if((type == "ArcherTower" || type == "Catapult") && currentRank < unit->getMaxRank()){
 			string up = type +"_"+ to_string(newRank);
 			S_UnitModel model = m_models[up];
 			C_Wallet& wallet=C_Locator::getWallet();
@@ -105,7 +106,7 @@ bool C_UnitFactory::isUpgradable(C_GameUnits * unit){
 		string currentName = unit->getName();
 		string type = unit->getType();
 		int newRank = currentRank + 1;
-		if(type == "ArcherTower" && currentRank < 3){
+		if((type == "ArcherTower" || type == "Catapult") && currentRank < unit->getMaxRank()){
 			string up = type +"_"+ to_string(newRank);
 			if(m_models.count(up) > 0){
 				C_Wallet& wallet=C_Locator::getWallet();
