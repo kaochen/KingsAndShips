@@ -87,6 +87,14 @@ window_height = 720
 ```
 
 ## Dev tips:
+
+###create a source package:
+
+```
+cmake --build . --target package_source
+
+```
+
 ### Graphic tools
 #### Tiled
 To edit or build levels (Minimum 1.1) http://www.mapeditor.org
