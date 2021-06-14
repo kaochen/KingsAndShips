@@ -2,8 +2,7 @@ Source: kingsandships
 Section: game
 Priority: optional
 Maintainer: Simon Folco <kaochen2@gmail.com>
-Uploaders:
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: debhelper (>= 11),
 		build-essential,
 		cmake,
 		ninja-build,
@@ -13,29 +12,24 @@ Build-Depends: debhelper-compat (= 13),
 		libsdl2-ttf-dev,
 		libfreetype6-dev,
 		libxml2-dev,
-		libsdl2-image-dev,
-
-
-Standards-Version: 4.5.0
+		libsdl2-image-dev
+Standards-Version: 4.3.0
 Homepage: https://github.com/kaochen/KingsAndShips
-Vcs-Git: https://github.com/kaochen/KingsAndShips.git
 
-Rules-Requires-Root: no
-
+Package: kingsandships
 Architecture: any
 Multi-Arch: foreign
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: A defense Tower game
-The king is going back with his ships, but you have taken his throne during his journey.
-You don't want him to go back.
-Organize your defense to push him back away and enjoy your new lifestyle.
-
-
-Depends: ${misc:Depends},
+Depends:${misc:Depends},
         ${shlibs:Depends},
         libsdl2-2.0-0,
         libsdl2-image-2.0-0,
         libsdl2-ttf-2.0-0,
-	libxml++2.6-2v5
-	fonts-robot
+	libxml++2.6-2v5,
+	fonts-roboto
+Description: A defense Tower game
+ The king is going back with his ships, but you have taken
+ his throne during his journey. You don't want him to go back.
+ Organize your defense to push him back away and enjoy your new lifestyle.
+
+
 
