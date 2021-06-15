@@ -1,7 +1,5 @@
-kingsandships (0.1.1) unstable; urgency=medium
+kingsandships (0.1.1) unstable; urgency=low
 
-  * Initial release.
+  * Initial packaging
 
-  -- Simon Folco <kaochen2@gmail.com>  Mon, 14 Jun 2021 11:02:02 +0200
-
-
+ -- Simon Folco <kaochen2@gmail.com>  Mon, 14 Jun 2021 11:12:43 +0200

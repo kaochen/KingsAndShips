@@ -2,7 +2,8 @@ Source: kingsandships
 Section: game
 Priority: optional
 Maintainer: Simon Folco <kaochen2@gmail.com>
-Build-Depends: debhelper (>= 11),
+Build-Depends: cmake (>= 3.15),
+		debhelper (>= 11),
 		build-essential,
 		cmake,
 		ninja-build,
