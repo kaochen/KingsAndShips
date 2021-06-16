@@ -15,7 +15,7 @@ ELSE()
 	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST /usr/local /usr/local/bin /usr/local/share)
 ENDIF()
 	configure_file("src/config.h.in" "config.h" @ONLY)
-	configure_file("kingsandships.desktop.in" "kingsandships.desktop" @ONLY)
+	configure_file("kingsandships.desktop.in" "../kingsandships.desktop" @ONLY)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -133,7 +133,7 @@ IF (WIN32)
 ELSE()
 	set(CPACK_GENERATOR "RPM;DEB;TGZ")
 	##install (FILES icon.png DESTINATION share/pixmaps)
-	##install (FILES bin/kingsandships.desktop DESTINATION share/applications)
+	install (FILES kingsandships.desktop DESTINATION share/applications)
 ENDIF()
 
 
