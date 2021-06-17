@@ -43,7 +43,7 @@ void C_Towers::renderSmoke()
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen ());
+	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen (), true);
 }
 
 void C_Towers::render(S_Coord screen)
@@ -52,23 +52,23 @@ void C_Towers::render(S_Coord screen)
 		renderSmoke();
 	}
 	if(alive()){
-		renderSelected();
+		renderSelected(screen);
 	}
 	C_Shooter::render(screen);
 }
 
 
-void C_Towers::renderSelected()
+void C_Towers::renderSelected(S_Coord screen)
 {
 	C_Settings& settings= C_Locator::getSettings();
 	int x = settings.getTileWidth();
 	int y = settings.getTileHeight();
 
 	if (m_selected == true) {
-		drawEllipse(m_coord.getXScreen (),m_coord.getYScreen (),m_weapon->getFireRange(), true);
-		renderTowerStatus("firerate",m_coord.getXScreen (), m_coord.getYScreen () + 2*y);
-		renderTowerStatus("firerange",m_coord.getXScreen () -x, m_coord.getYScreen () + y);
-		renderTowerStatus("Damage",m_coord.getXScreen () +x , m_coord.getYScreen () + y);
+		drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), true);
+		renderTowerStatus("firerate",screen.x, screen.y + 2*y);
+		renderTowerStatus("firerange",screen.x -x, screen.y + y);
+		renderTowerStatus("Damage",screen.x +x , screen.y + y);
 	}
 }
 

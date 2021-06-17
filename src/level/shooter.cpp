@@ -277,19 +277,19 @@ void C_Shooter::render(S_Coord screen)
 		}
 		if(m_haveABottom){
 			string fileName = imageName(ALIVE,m_direction,imageNbr);
-			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE , true);
 		}
 		if(m_isTopAnimated){
 			imageNbr = m_anim.getImageNbr(m_weaponState);
 		}
 		if( m_haveATop){
 			string fileName = imageName(WEAPON,m_direction,imageNbr);
-			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 		}
 	} else {
 		if(m_renderDead){
 			string fileName = imageName(DEAD,m_direction,imageNbr);
-			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 		}
 	}
 
@@ -350,7 +350,7 @@ void C_Shooter::drag(S_Coord screen)
 			}
 			if(!status){ color = "Red";};
 
-			t.renderTexture("Select_"+color+"_"+imageNbr, x_s,y_s);
+			t.renderTexture("Select_"+color+"_"+imageNbr, x_s,y_s, CENTER_TILE, true);
 
 		}
 		x = coord.getXGrid () - 2;
@@ -373,14 +373,14 @@ void C_Shooter::drawEllipse(int x,int y,int size,bool ok)
 		C_Settings& settings=C_Locator::getSettings();
 		int width = settings.getTileWidth()/2;
 		int height = width/2;
-		t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height);
-		t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height);
-		t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height);
-		t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y);
-		t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height);
-		t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height);
-		t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height);
-		t.renderTexture("Select_Corner_"+color+"_NE", x+(size+1)*width,y);
+		t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height, true);
+		t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height, true);
+		t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height, true);
+		t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y, true);
+		t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height, true);
+		t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height, true);
+		t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height, true);
+		t.renderTexture("Select_Corner_"+color+"_NE", x+(size+1)*width,y, true);
 	}
 
 }

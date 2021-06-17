@@ -173,14 +173,14 @@ void C_Boat::render(S_Coord screen)
 		}
 		if(m_haveABottom){
 			string fileName = imageName(ALIVE,m_direction,imageNbr);
-			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 		}
 		if(m_isTopAnimated){
 			imageNbr = m_anim.getImageNbr(m_weaponState);
 		}
 		if( m_haveATop){
 			string fileName = imageName(WEAPON,m_direction,imageNbr);
-			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+			t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 		}
 		//life bar on top
 		if(m_renderLifeBar){
@@ -192,10 +192,10 @@ void C_Boat::render(S_Coord screen)
     	    status = DEAD;
 		}
 		string fileName = imageName(status,m_direction,m_anim.getImageNbr(m_state));
-		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+		t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 		if(m_state == "Dying"){
 			fileName = "gold_anim_" + to_string(m_anim.getImageNbr("Gold"));
-			t.renderTexture(fileName, screen.x,screen.y - 60,CENTER_TILE);
+			t.renderTexture(fileName, screen.x,screen.y - 60,CENTER_TILE, true);
 		}
 	}
 
