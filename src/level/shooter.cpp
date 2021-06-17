@@ -350,7 +350,7 @@ void C_Shooter::drag(S_Coord screen)
 			}
 			if(!status){ color = "Red";};
 
-			t.renderTexture("Select_"+color+"_"+imageNbr, x_s,y_s, true);
+			t.renderTexture("Select_"+color+"_"+imageNbr, x_s,y_s, CENTER_TILE, true);
 
 		}
 		x = coord.getXGrid () - 2;
@@ -376,7 +376,7 @@ void C_Shooter::drawEllipse(int x,int y,int size,bool ok)
 		t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height, true);
 		t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height, true);
 		t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height, true);
-		t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y);
+		t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y, true);
 		t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height, true);
 		t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height, true);
 		t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height, true);
