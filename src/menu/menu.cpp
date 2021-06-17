@@ -142,7 +142,7 @@ void C_Menu::updateDefenderStatus()
 		m_menuItemsList["playerlife"]->setPercentage(playerLife);
 		m_menuItemsList["playerlife"]->setText(text, 18);
 	} else {
-		C_Message::printM("the progess bar playerlife does not exist");
+		C_Message::printM("the progress bar playerlife does not exist");
 	}
 }
 
