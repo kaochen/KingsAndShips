@@ -54,14 +54,16 @@ void C_Landscape::render(int gridSize)
 	SDL_SetRenderDrawColor(renderer, 26, 60, 108, 255);	//fill with background color
 	SDL_RenderClear(renderer);
 	gridSize +=2;
-	int tilewidth = settings.getTileWidth();
-	for(int j = -2; j < (gridSize+4); j++) {
-		int h = tilewidth;
-		if (j%2 ==0){
-			h = 0;
-		}
 
-		int y = j*tilewidth/2 - camera.y;
+	for(int j = -2; j < (gridSize+4); j++) {
+		int tilewidth = 192 ;
+	    int tileheight = 96;
+
+        int h = tilewidth;
+            if (j%2 ==0){
+            h = 0;
+        }
+		int y = j*tileheight - camera.y;
 		for(int i = -(gridSize/4); i < (gridSize/4); i++) {
 			int x =  i*2*tilewidth + h + camera.x;
 			t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x,y + m_waterDrift.y, true);

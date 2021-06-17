@@ -92,8 +92,8 @@ void C_Texture::render(int x, int y, double angle, int align, bool zoom)
 		if(!m_textures.empty()){
 		    SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
             if(zoom){
-		        size_t z = settings.getZoom() - 1;
-		        if(z > 0){
+		        int z = settings.getZoom() - 1;
+		        if(z != 0){
 		            pos.w -= STEP*z;
 		            if(pos.h < pos.w){
 		                pos.h -= STEP*z/2;
