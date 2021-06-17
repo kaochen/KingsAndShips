@@ -22,6 +22,8 @@ doc/html/
 src/img/blendcache_*/
 src/img/cache_fluid/
 kingsandships.desktop
+kingsandships.1
+kingsandships.1.gz
 
 
 # Precompiled Headers

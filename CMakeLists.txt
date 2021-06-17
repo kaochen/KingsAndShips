@@ -13,10 +13,14 @@ IF (WIN32)
 ELSE()
 	set(SHARE_FOLDER share/games/${PROJECT_NAME})
 	set(BIN_FOLDER games)
+	set(DOC_FOLDER share/doc/${PROJECT_NAME})
 	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST /usr/local /usr/local/bin /usr/local/share)
 ENDIF()
 	configure_file("src/config.h.in" "config.h" @ONLY)
 	configure_file("kingsandships.desktop.in" "../kingsandships.desktop" @ONLY)
+	set(MAN_FOLDER share/man/man1)
+	set(MAN_FILE "${PROJECT_NAME}.1")
+	configure_file("${MAN_FILE}.in" ${CMAKE_CURRENT_SOURCE_DIR}/${MAN_FILE} @ONLY)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -135,11 +139,20 @@ ELSE()
 	set(CPACK_GENERATOR "RPM;DEB;TGZ")
 	install (FILES kingsandships_icon.png DESTINATION share/pixmaps)
 	install (FILES kingsandships.desktop DESTINATION share/applications)
+	##create a man
+	add_custom_target(man ALL)
+	add_custom_command(
+	TARGET man
+	COMMAND gzip -c "${CMAKE_CURRENT_SOURCE_DIR}/${MAN_FILE}" > "${CMAKE_CURRENT_SOURCE_DIR}/${MAN_FILE}.gz"
+	DEPENDS ${MAN_FILE}
+	)
+	install (FILES ${PROJECT_NAME}.1.gz DESTINATION ${MAN_FOLDER})
+
 ENDIF()
 
 
 install (DIRECTORY data DESTINATION ${SHARE_FOLDER})
-install (FILES README.md DESTINATION ${SHARE_FOLDER})
+install (FILES README.md DESTINATION ${DOC_FOLDER})
 install (FILES preferences.ini DESTINATION ${SHARE_FOLDER})
 
 
