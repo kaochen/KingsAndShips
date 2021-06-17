@@ -1,6 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version="@PROJECT_VERSION@"
+Icon=kingsandships_icon.png
 Type=Application
 Terminal=False
 Exec="@PROJECT_NAME@"

@@ -132,7 +132,7 @@ IF (WIN32)
 	set(CPACK_GENERATOR "TGZ;NSIS")
 ELSE()
 	set(CPACK_GENERATOR "RPM;DEB;TGZ")
-	##install (FILES icon.png DESTINATION share/pixmaps)
+	install (FILES kingsandships_icon.png DESTINATION share/pixmaps)
 	install (FILES kingsandships.desktop DESTINATION share/applications)
 ENDIF()
 
