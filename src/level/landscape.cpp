@@ -64,8 +64,8 @@ void C_Landscape::render(int gridSize)
 		int y = j*tilewidth/2 - camera.y;
 		for(int i = -(gridSize/4); i < (gridSize/4); i++) {
 			int x =  i*2*tilewidth + h + camera.x;
-			t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x,y + m_waterDrift.y);
-			t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1),y + m_waterDrift.y*(-1));
+			t.renderTexture("Water_00_Blue_EE_0", x + m_waterDrift.x,y + m_waterDrift.y, true);
+			t.renderTexture("Water_00_White_EE_0", x + m_waterDrift.x*(-1),y + m_waterDrift.y*(-1), true);
 		}
 	}
 }
@@ -228,7 +228,7 @@ void C_Decors::render(S_Coord screen)
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 }
 
 //---------------------------Clouds-------------------------
@@ -275,10 +275,10 @@ void C_Clouds::render()
 	C_Settings& settings=C_Locator::getSettings();
 	int h = settings.getTileHeight()/2;
 	//t.renderTexture(m_shadowName, m_coord.getXScreen()-h,m_coord.getYScreen()+3*h,CENTER_TILE);
-	t.renderTexture(m_shadowOnTopName, m_coord.getXScreen()-h + x ,m_coord.getYScreen()+3*h,CENTER_TILE);
+	t.renderTexture(m_shadowOnTopName, m_coord.getXScreen()-h + x ,m_coord.getYScreen()+3*h,CENTER_TILE, true);
 
-	t.renderTexture(m_cloudName, m_coord.getXScreen(),m_coord.getYScreen() + 5,CENTER_TILE);
-	t.renderTexture(m_cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen()+ 5,CENTER_TILE);
+	t.renderTexture(m_cloudName, m_coord.getXScreen(),m_coord.getYScreen() + 5,CENTER_TILE, true);
+	t.renderTexture(m_cloudOnTopName, m_coord.getXScreen()+x,m_coord.getYScreen()+ 5,CENTER_TILE, true);
 }
 
 
@@ -289,12 +289,12 @@ void C_Clouds::render()
 void C_Ground::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(m_name, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE);
+	t.renderTexture(m_name, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE, true);
 
 	size_t found = m_name.find("Water");
 	if(found == string::npos) {
 		if ((m_coord.getXGrid()+m_coord.getYGrid())%2 == 0) {
-			t.renderTexture("Ground_01_darken", m_coord.getXScreen(),m_coord.getYScreen() -2, CENTER_TILE);
+			t.renderTexture("Ground_01_darken", m_coord.getXScreen(),m_coord.getYScreen() -2, CENTER_TILE, true);
 		}
 	}
 }
@@ -323,7 +323,7 @@ void C_Trees::render(S_Coord screen)
 	}
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE);
+	t.renderTexture(fileName, screen.x,screen.y,CENTER_TILE, true);
 }
 
 //---------------------------C_Trees-------------------------
@@ -344,7 +344,7 @@ void C_OutsideTile::render(S_Coord grid)
 	S_Coord screen = coord.getScreen();
 	if(screen.x > x_min && screen.x < x_max && screen.y > y_min && screen.y < y_max) {
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Ground_01_paper", screen.x,screen.y);
+		t.renderTexture("Ground_01_paper", screen.x,screen.y, true);
 	}
 }
 

@@ -46,7 +46,8 @@ public:
 	virtual ~C_TextureList();
 	void renderTexture(std::string name, int x, int y);
 	void renderTexture(std::string name, int x, int y,int align);
-	void renderTextureEx(std::string name, int x, int y, double angle, int align);
+	void renderTexture(std::string name, int x, int y,int align, bool zoom);
+	void renderTextureEx(std::string name, int x, int y, double angle, int align, bool zoom);
 	C_Texture* searchTexture(std::string name);
 	std::map<std::string, C_Texture*>  getTextMap();
 	void loadTextAsTexturesIntoMap(std::string name, std::string &message, int fontSize, SDL_Color color);

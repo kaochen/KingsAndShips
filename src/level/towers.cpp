@@ -43,7 +43,7 @@ void C_Towers::renderSmoke()
 	//smoke_01_smoke0
 	string fileName = "smoke_01_smoke" + to_string(imageNbr);
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen ());
+	t.renderTexture(fileName, m_coord.getXScreen (),m_coord.getYScreen (), true);
 }
 
 void C_Towers::render(S_Coord screen)

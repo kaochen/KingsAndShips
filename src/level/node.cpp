@@ -131,7 +131,7 @@ void C_Node::highlight()
 	C_TextureList& t= C_Locator::getTextureList();
 	int x_screen = m_coord.getXScreen ();
 	int y_screen = m_coord.getYScreen ();
-	t.renderTexture("Menu_details_Ellipse", x_screen,y_screen,CENTER);
+	t.renderTexture("Menu_details_Ellipse", x_screen,y_screen,CENTER, true);
 }
 
 void C_Node::prepareRender()
@@ -162,9 +162,9 @@ void C_Node::render()
 	C_Settings& settings=C_Locator::getSettings();
 	y_screen += settings.getTileHeight(); //FIXME
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(m_h_texture_name,x_screen - 20,y_screen + 12);
-	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12);
-	t.renderTexture(m_f_texture_name,x_screen,y_screen + 25);
+	t.renderTexture(m_h_texture_name,x_screen - 20,y_screen + 12, true);
+	t.renderTexture(m_g_texture_name,x_screen + 20,y_screen + 12, true);
+	t.renderTexture(m_f_texture_name,x_screen,y_screen + 25, true);
 
 }
 

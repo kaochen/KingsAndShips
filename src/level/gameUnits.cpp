@@ -68,7 +68,7 @@ void C_GameUnits::render(S_Coord screen)
 {
 	C_TextureList& t= C_Locator::getTextureList();
 	string fileName = imageName(ALIVE,m_direction,0);
-	t.renderTexture(fileName, screen.x,screen.y);
+	t.renderTexture(fileName, screen.x,screen.y, true);
 }
 
 void C_GameUnits::receiveDamage(S_Weapon weapon)

@@ -49,23 +49,28 @@ C_TextureList::~C_TextureList()
 
 void C_TextureList::renderTexture(string name, int x, int y)
 {
-	renderTextureEx(name, x,y,0.0,CENTER_TILE);
+	renderTextureEx(name, x,y,0.0,CENTER_TILE,false);
 }
 
 void C_TextureList::renderTexture(string name, int x, int y,int align)
 {
-	renderTextureEx(name, x,y,0.0,align);
+	renderTextureEx(name, x,y,0.0,align,false);
+}
+
+void C_TextureList::renderTexture(string name, int x, int y,int align, bool zoom)
+{
+	renderTextureEx(name, x,y,0.0,align,zoom);
 }
 
 
-void C_TextureList::renderTextureEx(string name, int x, int y, double angle, int align)
+void C_TextureList::renderTextureEx(string name, int x, int y, double angle, int align, bool zoom)
 {
 	if(name != "") {
 		map<string, C_Texture*>::iterator search = m_map_textures.find(name);
 		if(search == m_map_textures.end()) {
 			C_Message::printError("\""+ name + "\" not available in the texture map (renderTextureEx)\n");
 		} else {
-			m_map_textures[name]->render(x,y,angle,align);
+			m_map_textures[name]->render(x,y,angle,align,zoom);
 		}
 	}
 }

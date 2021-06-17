@@ -40,7 +40,7 @@ public:
 	virtual SDL_Texture* getTexture();
 	virtual void destroyTexture();
 	virtual void displayStatus();
-	virtual void render(int x, int y, double angle, int align);
+	virtual void render(int x, int y, double angle, int align, bool zoom);
 
 	//Should be virtual :
 	virtual void loadTexture(SDL_Texture* fullImage){if(fullImage !=nullptr){}};
