@@ -38,7 +38,6 @@ public:
 
 	virtual ~C_Texture();
 	virtual SDL_Texture* getTexture();
-	virtual void destroyTexture();
 	virtual void displayStatus();
 	virtual void render(int x, int y, double angle, int align, bool zoom);
 
@@ -51,9 +50,8 @@ public:
 
 protected:
 	std::string m_name;
-	std::vector <SDL_Texture*> m_textures;
+	SDL_Texture* m_texture = nullptr;
     int m_tileNbr;
-	int m_nbr_of_sub_res;
 };
 
 
@@ -63,7 +61,7 @@ public:
 	C_Image(int tileNbr, std::string name,
 			SDL_Texture * texture, int tile_width,
 			int tile_height, int file_width,
-			int file_height, int nbrOfZoom,
+			int file_height,
             std::string sourcefile);
 
 	virtual void loadTexture(SDL_Texture* fullImage);
