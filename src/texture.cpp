@@ -38,42 +38,28 @@ C_Texture::C_Texture():
 	m_name("texture")
 {
 	m_tileNbr = 0;
-	m_nbr_of_sub_res = 1;
 }
 
 C_Texture::C_Texture(string name):
 	m_name(name)
 {
 	m_tileNbr = 0;
-	m_nbr_of_sub_res = 1;
 }
 
 C_Texture::~C_Texture()
 {
-	destroyTexture();
+    SDL_DestroyTexture(m_texture);
 }
 
 SDL_Texture* C_Texture::getTexture()
 {
-	C_Settings& settings= C_Locator::getSettings();
-	size_t zoom = settings.getZoom() - 1;
 	SDL_Texture* ret = nullptr;
-	if(!m_textures.empty()){
-		if(zoom < m_textures.size()){
-			ret = m_textures[zoom];
-		} else {
-			ret = m_textures.front();
-		}
+	if(m_texture){
+	    ret = m_texture;
 	}
 	return ret;
 }
-void C_Texture::destroyTexture()
-{
-	for(auto i: m_textures){
-		SDL_DestroyTexture(i);
-	}
-	m_textures.clear();
-}
+
 
 void C_Texture::displayStatus()
 {
@@ -88,8 +74,8 @@ void C_Texture::render(int x, int y, double angle, int align, bool zoom)
 	C_Settings& settings= C_Locator::getSettings();
 	if((x >= 0 || x <= settings.getWindowWidth()) && ( y >= 0  || y <= settings.getWindowHeight())) {
 		SDL_Rect pos;
-		SDL_Texture* texture = m_textures.front();
-		if(!m_textures.empty()){
+		SDL_Texture* texture = getTexture();
+		if(texture){
 		    SDL_QueryTexture(texture, NULL, NULL, &pos.w, &pos.h);
             if(zoom){
 		        int z = settings.getZoom() - 1;
@@ -128,7 +114,7 @@ void C_Texture::render(int x, int y, double angle, int align, bool zoom)
 C_Image::C_Image(int tileNbr, string name,
 				 SDL_Texture * texture, int tile_width,
 				 int tile_height, int file_width,
-				 int file_height, int nbrOfZoom,
+				 int file_height,
 				 std::string sourcefile):
 	C_Texture(name)
 {
@@ -137,7 +123,6 @@ C_Image::C_Image(int tileNbr, string name,
 	m_tile_width = tile_width;
 	m_file_width = file_width;
 	m_file_height =file_height;
-	m_nbr_of_sub_res = nbrOfZoom;
 	m_sourcefile = sourcefile;
 	size_t found = m_name.find("clouds_Cloud");
 	if (found!=std::string::npos){
@@ -198,13 +183,13 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 		SDL_RenderClear(renderer);
 		SDL_RenderCopy(renderer, fullImage, &src, &dest);
 			// reset target to renderer
-			SDL_SetRenderTarget(renderer, NULL);
-			//save the clip
-			m_textures.push_back(subClip);
+		SDL_SetRenderTarget(renderer, NULL);
+		//save the clip
+		m_texture = subClip;
 
-			SDL_Rect pos;
-			SDL_QueryTexture(subClip, NULL, NULL, &pos.w, &pos.h);
-			//cout << "W:" << pos.w <<  " H:" << pos.h << endl;
+		SDL_Rect pos;
+		SDL_QueryTexture(subClip, NULL, NULL, &pos.w, &pos.h);
+		//cout << "W:" << pos.w <<  " H:" << pos.h << endl;
 	}
 
 }
@@ -260,9 +245,9 @@ void C_Text::createNewTexture(){
 		TTF_CloseFont(font);
 		C_Message::printSDLerror("TTF_RenderText");
 	} else {
-		destroyTexture();
-		m_textures.push_back(SDL_CreateTextureFromSurface(renderer, surf));
-		if (m_textures.back() == nullptr) {
+		SDL_DestroyTexture(m_texture);
+		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
+		if (m_texture == nullptr) {
 			C_Message::printSDLerror("CreateTexture from this text:" + m_message + " failed ");
 		}
 	}

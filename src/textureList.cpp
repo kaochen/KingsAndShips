@@ -147,7 +147,6 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	int tile_width = 128, tile_height = 128, file_width = 1024, file_height = 1024;
 	int tileNbr = 0, previousTileNbr = -1;
 	bool firstID = false;
-	int nbr_of_zoom = 1;
 
 	//Get general values :
 	while(reader.read()) {
@@ -162,7 +161,6 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 				//tileset node
 				if (nodeName == "tileset" && attributes == "name"){
 					name = reader.get_value();
-					nbr_of_zoom = nbrOfZoom(name);
 					}
 				if (nodeName == "tileset" && attributes == "tilewidth")
 					tile_width = stoi(reader.get_value());
@@ -218,7 +216,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
 			if(search == m_map_textures.end()) {
 			    string filename = C_Tools::extractFilename(tsx_File_Path);
-				m_map_textures[fullname] = new C_Image(tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, nbr_of_zoom, filename );
+				m_map_textures[fullname] = new C_Image(tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, filename );
 			}
 		}
 
@@ -229,35 +227,6 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	if (texture == nullptr) {
 		SDL_DestroyTexture(texture); //Don't need anymore
 	}
-}
-int C_TextureList::nbrOfZoom(std::string name){
-	int ret = 1;
-	vector <string> list;
-	list.push_back("boat");
-	list.push_back("barricade");
-	list.push_back("town");
-	list.push_back("catapult");
-	list.push_back("clouds");
-	list.push_back("ground");
-	list.push_back("tower");
-	list.push_back("tree");
-	list.push_back("rock");
-	list.push_back("smoke");
-	list.push_back("select");
-	list.push_back("water");
-	list.push_back("weapons");
-
-	string tmp = name;
-	transform(tmp.begin(), tmp.end(), tmp.begin(),
-    [](unsigned char c){ return std::tolower(c); });
-
-	for(auto i : list){
-		size_t found = tmp.find(i);
-		if (found!=std::string::npos){
-			ret = ZOOM_MAX;
-		}
-	}
-	return ret;
 }
 
 void C_TextureList::displayTexturesList()
