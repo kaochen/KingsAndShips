@@ -21,6 +21,7 @@ src/img/old/
 doc/html/
 src/img/blendcache_*/
 src/img/cache_fluid/
+kingsandships.desktop
 
 
 # Precompiled Headers
@@ -51,3 +52,15 @@ src/img/cache_fluid/
 perf.dat*
 .buildconfig
 *.blend1
+data/KingsAndShips.tiled-session
+
+
+# Debian files
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/kingsandships.debhelper.log
+debian/kingsandships.substvars
+debian/kingsandships/
+obj-x86_64-linux-gnu/
+
