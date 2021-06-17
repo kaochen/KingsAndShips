@@ -12,6 +12,7 @@ IF (WIN32)
 	set(SHARE_FOLDER .)
 ELSE()
 	set(SHARE_FOLDER share/games/${PROJECT_NAME})
+	set(BIN_FOLDER games)
 	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST /usr/local /usr/local/bin /usr/local/share)
 ENDIF()
 	configure_file("src/config.h.in" "config.h" @ONLY)
@@ -125,7 +126,7 @@ ENDIF()
 
 install(TARGETS ${PROJECT_NAME}
 	RUNTIME
-	DESTINATION bin
+	DESTINATION ${BIN_FOLDER}
 	RENAME ${PROJECT_NAME}-${PROJECT_VERSION})
 
 IF (WIN32)

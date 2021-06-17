@@ -95,6 +95,17 @@ cmake --build . --target package_source
 
 ```
 
+Build the package using the debian way
+```
+dpkg-buildpackage -B
+
+```
+check if package is ok
+```
+lintian -EvIL +pedantic kingsandships_*.deb
+
+```
+
 ### Graphic tools
 #### Tiled
 To edit or build levels (Minimum 1.1) http://www.mapeditor.org

@@ -1,5 +1,5 @@
 Source: kingsandships
-Section: game
+Section: games
 Priority: optional
 Maintainer: Simon Folco <kaochen2@gmail.com>
 Build-Depends: cmake (>= 3.15),
@@ -27,7 +27,7 @@ Depends:${misc:Depends},
         libsdl2-ttf-2.0-0,
 	libxml++2.6-2v5,
 	fonts-roboto
-Description: A defense Tower game
+Description: 2D isometric Tower defense game
  The king is going back with his ships, but you have taken
  his throne during his journey. You don't want him to go back.
  Organize your defense to push him back away and enjoy your new lifestyle.

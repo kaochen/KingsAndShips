@@ -53,7 +53,7 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	C_Message::printM("Share Folder: "+  share_folder+"\n");
 	string pgm_path = getPgmPath();
 	C_Message::printM("Pgm Path: "+  pgm_path + "\n");
-	string app_folder = pgm_path.substr(0,pgm_path.find("bin"));
+	string app_folder = pgm_path.substr(0,pgm_path.find(BIN_FOLDER));
 	C_Message::printM("App folder: "+  app_folder + "\n");
 
 	string share_path = app_folder + share_folder;

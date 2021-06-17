@@ -12,6 +12,5 @@ Comment=Keep the king out of its kingdom
 Comment[fr]=Garder le roi hors de son Royaume
 Keywords=games;tower;defense;strategy;
 Keywords[fr]=games;jeux;tower;defense;strategie;
-Categories=game;StrategyGame;
+Categories=Game;StrategyGame;
 StartupNotify=false
-Type=Application
