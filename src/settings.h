@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ASPECT_RATIO 9/16
 #define FRAMERATE 30
 #define STEP 8
-#define ZOOM_MAX 17
+#define ZOOM_MAX 16
 #define ZOOM_STEP 32
 #define IMG_WIDTH 256
 #define TILE_WIDTH (IMG_WIDTH - (IMG_WIDTH/4))
