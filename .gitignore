@@ -61,6 +61,7 @@ data/KingsAndShips.tiled-session
 debian/.debhelper/
 debian/debhelper-build-stamp
 debian/files
+debian/tmp
 debian/kingsandships.debhelper.log
 debian/kingsandships.substvars
 debian/kingsandships/
