@@ -97,7 +97,7 @@ cmake --build . --target package_source
 
 Build the package using the debian way
 ```
-dpkg-buildpackage -B
+dpkg-buildpackage -b
 
 ```
 check if package is ok
