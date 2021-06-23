@@ -67,3 +67,8 @@ debian/kingsandships.substvars
 debian/kingsandships/
 obj-x86_64-linux-gnu/
 
+debian/kingsandships-data.debhelper.log
+debian/kingsandships-data.substvars
+debian/kingsandships-data/
+
+

@@ -105,6 +105,10 @@ check if package is ok
 lintian -EvIL +pedantic kingsandships_*.deb
 
 ```
+Install :
+```
+sudo apt install ./../kingsandships_*.deb ./../kingsandships-data*.deb
+```
 
 ### Graphic tools
 #### Tiled
