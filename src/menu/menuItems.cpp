@@ -137,7 +137,7 @@ void C_MenuItem::renderFlagUnderButton(){
 		C_TextureList& t= C_Locator::getTextureList();
 		string state =  getStateAsStr();
 	    string flagName = "Buttons_Flag" + state;
-	    t.renderTexture(flagName, m_x_screen + m_width/2,m_y_screen + m_height + 10,CENTER);
+	    t.renderTexture(flagName, m_x_screen + m_width/2,m_y_screen + m_height + 20,CENTER);
 
 		if(!m_enable){
 		    m_color = {0,0,0,255};
@@ -145,7 +145,7 @@ void C_MenuItem::renderFlagUnderButton(){
 		    m_color = {200,200,200,255};
 	    }
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + 30, m_y_screen + 70,CENTER);
+		t.renderTexture(m_textName, m_x_screen + 33, m_y_screen + 80,CENTER);
 }
 
 
