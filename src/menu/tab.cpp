@@ -41,19 +41,19 @@ C_Tab::C_Tab(std::string title)
 	m_name = "tab_" + to_string(m_id);
 	m_title = title;
 	C_Settings& settings=C_Locator::getSettings();
-	m_width = 900;
+	m_width = 450;
 	m_height = 400;
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
-	m_flagScreen.x = m_screen.x - 315;
-	m_flagScreen.y = m_screen.y - 155;
+	m_flagScreen.x = m_screen.x - m_width/3;
+	m_flagScreen.y = m_screen.y - m_height/3;
 	m_flagOffset = 35;
 
 
-	m_tabSize = 150;
-	int x = m_screen.x - ((m_tabSize *3) / 2);
+	m_tabSize = 95;
+	int x = m_screen.x - ((m_tabSize *3) / 2) + 35;
 
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,22, x + (m_tabSize*m_id) ,m_screen.y - 253);
+	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,22, x + (m_tabSize*m_id) ,m_screen.y + 133);
 	if(m_itemsList[m_name] != nullptr) {
 		m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -70,7 +70,7 @@ void C_Tab::displayTab(bool open)
 {
 	if(open) {
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x - 20 ,m_screen.y + 20,CENTER);
+		t.renderTexture("Menu_01_background", m_screen.x - 10,m_screen.y,CENTER);
 	}
 }
 
@@ -111,19 +111,18 @@ C_Tab_Levels::C_Tab_Levels()
 
     m_currentCardLevelNbr = settings.getCurrentLevelNbr();
 	name = "Card_Level";
-	int x = m_screen.x + 70;
-	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),x,m_screen.y);
+	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_screen.x,m_screen.y - 50);
 
 	std::string arrowLeft = "Level_Change_Arrow_Left";
-	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,x - 50,m_screen.y);
+	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_screen.x - 150,m_screen.y - 20 );
 	m_itemsList[arrowLeft]->setCommand(new C_ChangeLevelLeft());
 
 	std::string arrowRight = "Level_Change_Arrow_Right";
-	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,x + 285,m_screen.y);
+	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_screen.x + 100,m_screen.y - 20);
 	m_itemsList[arrowRight]->setCommand(new C_ChangeLevelRight());
 
 	std::string load = "Level_Load";
-	m_itemsList[load]  = new C_MB_CardButton(load, x + 20 , m_screen.y + 130);
+	m_itemsList[load]  = new C_MB_CardButton(load, m_screen.x -10, m_screen.y + 80);
 	if(m_itemsList[load]!= nullptr){
 	    m_itemsList[load]->setText("Load");
 	    C_LoadALevel *command = new C_LoadALevel();
@@ -152,7 +151,7 @@ void C_Tab_Levels::go(int direction){
     std::string name = "Card_" + to_string(m_currentCardLevelNbr);
 
     m_itemsList.erase("Card_Level");
-    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_screen.x + 50,m_screen.y + 20);
+    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_screen.x,m_screen.y);
     m_itemsList["Level_Load"]->getCommand()->setNbr(m_currentCardLevelNbr);
 }
 

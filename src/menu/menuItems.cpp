@@ -199,8 +199,8 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 	:C_MenuItem(name,x_screen,y_screen)
 {
 	setText(text, fontSize);
-	m_width = 120;
-	m_height = 30;
+	m_width = 80;
+	m_height = 60;
 	m_color = m_colorText;
 }
 
@@ -208,13 +208,22 @@ C_MB_TabSelect::C_MB_TabSelect(string name,string text, int fontSize,int x_scree
 void C_MB_TabSelect::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
-	Sint16 y1 = m_y_screen + m_height/2;
+    int up = 0;
+	std::string textureName = "Menu_01_tab_Active";
+	if(m_state == HOVER){
+	    textureName = "Menu_01_tab_Hover";
+		up = +10;
+    }
+	t.renderTexture(textureName, m_x_screen, m_y_screen,CENTER);
+
+
+	Sint16 y1 = m_y_screen - 12 + m_height/2 + up;
 
 	if(m_text !="") {
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
-		t.renderTexture(m_textName, m_x_screen + m_width/2, y1 ,CENTER);
+		t.renderTexture(m_textName, m_x_screen, y1 ,CENTER);
 	}
-    t.renderTexture("Menu_01_lineShort", m_x_screen + m_width/2,m_y_screen + 28,CENTER);
+    t.renderTexture("Menu_01_lineShort", m_x_screen,m_y_screen + 28 + up,CENTER);
 }
 
 C_MB_Arrows::C_MB_Arrows(std::string name,int direction , int x_screen, int y_screen)
@@ -302,8 +311,8 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 		t.loadTextAsTexturesIntoMap(i.name, i.text, m_fontSize,  m_colorText);
     }
 
-	m_width = 260;
-	m_height = 300;
+	m_width = 280;
+	m_height = 330;
 }
 
 void C_MB_LevelCard::render()
@@ -311,17 +320,16 @@ void C_MB_LevelCard::render()
 	C_TextureList& t= C_Locator::getTextureList();
 
     //Text
-    int x = m_x_screen + m_width/2;
-    int y = m_y_screen + 40;
+    int y = m_y_screen;
     for(auto i :m_list){
-	    t.renderTexture(i.name, x , y,CENTER);
+	    t.renderTexture(i.name, m_x_screen , y,CENTER);
 			y += 20;
     }
 }
 
 C_MB_CardButton::C_MB_CardButton(std::string name, int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen){
-	m_width = 230;
+	m_width = 200;
 	m_height = 32;
 	m_text = "Waiting...";
 
@@ -329,17 +337,17 @@ C_MB_CardButton::C_MB_CardButton(std::string name, int x_screen, int y_screen)
 
 void C_MB_CardButton::render(){
 	int up = 0;
+	std::string textureName = "Menu_01_board_Active";
+	m_color = {255,255,255,180};
 	if(m_state == HOVER){
-		m_color = m_colorTextHover;
-		up = -2;
-	} else {
-		m_color = m_colorText;
-	}
+		m_color = {255,255,255,230};
+    	textureName = "Menu_01_board_Hover";
+		up = +1;
+    }
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture("Menu_01_message1", m_x_screen, m_y_screen + up,CENTER);
-	t.renderTexture("Menu_01_message2", m_x_screen + 225 , m_y_screen + up,CENTER);
-	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
-	t.renderTexture(m_name, m_x_screen + 120, m_y_screen + up ,CENTER);
+	t.renderTexture(textureName, m_x_screen, m_y_screen,CENTER);
+	t.loadTextAsTexturesIntoMap(m_name, m_text, 22,  m_color);
+	t.renderTexture(m_name, m_x_screen, m_y_screen + 5 + up ,CENTER);
 
 }
 //-------------------------------------------------------------
