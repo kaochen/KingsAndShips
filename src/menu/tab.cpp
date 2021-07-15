@@ -165,20 +165,28 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	m_levelStatus = ONGOING;
 
     std::string replay = "EndGame_Replay";
-	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x - 115, m_screen.y + 90);
+	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x, m_screen.y - 20);
 	if(m_itemsList[replay] != nullptr){
 	    C_LoadALevel *command = new C_LoadALevel();
 	    m_itemsList[replay]->setCommand(command);
 	}
 
 	std::string next = "EndGame_Next";
-	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x - 115, m_screen.y + 140);
+	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x, m_screen.y + 30);
 	if(m_itemsList[next]!= nullptr){
 	    C_LoadALevel *command1 = new C_LoadALevel();
 	    m_itemsList[next]->setCommand(command1);
 	}
 
-	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x , m_screen.y + 40);
+	std::string quit = "EndGame_Quit";
+	m_itemsList[quit]  = new C_MB_CardButton(quit, m_screen.x, m_screen.y + 80);
+	if(m_itemsList[quit]!= nullptr){
+	    C_QuitProgram *command2 = new C_QuitProgram();
+	    m_itemsList[quit]->setCommand(command2);
+	    m_itemsList[quit]->setText("Quit");
+	}
+
+	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x , m_screen.y - 80 );
 	refresh();
 }
 
@@ -210,7 +218,7 @@ void C_Tab_endGame::render()
 {
     if(m_open){
 	    C_TextureList& t= C_Locator::getTextureList();
-	    t.renderTexture("Menu_01_parchment", m_screen.x, m_screen.y,CENTER);
+	    t.renderTexture("Menu_01_background", m_screen.x - 10, m_screen.y,CENTER);
 	    if(m_levelStatus == WIN)
 			    m_itemsList["EndGameResultText"]->setText("Your castle is safe for now");
 		    else if(m_levelStatus == LOSE)

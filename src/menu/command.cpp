@@ -113,3 +113,10 @@ void C_OpenEndLevelMenu::action()
 	C_Menu& menu=C_Locator::getMenu();
 	menu.openEndLevelMenu(m_nbr);
 }
+
+
+void C_QuitProgram::action()
+{
+    C_Window& win=C_Locator::getWindow();
+    win.quit();
+}

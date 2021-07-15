@@ -93,4 +93,9 @@ class C_OpenEndLevelMenu : public C_Command {
 public:
 	virtual void action();
 };
+
+class C_QuitProgram : public C_Command {
+public:
+	virtual void action();
+};
 #endif

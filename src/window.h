@@ -43,6 +43,7 @@ public:
 	void listLevels();
   	void loadGame();
 	void gameLoop();
+	void quit();
 	void quitProgram();
 	bool testIfButton(S_Coord screen);
 	void listenButtons();
