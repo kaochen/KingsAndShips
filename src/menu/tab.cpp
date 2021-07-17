@@ -41,19 +41,19 @@ C_Tab::C_Tab(std::string title)
 	m_name = "tab_" + to_string(m_id);
 	m_title = title;
 	C_Settings& settings=C_Locator::getSettings();
-	m_width = 450;
-	m_height = 400;
+	m_width = 768;
+	m_height = 512;
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
-	m_flagScreen.x = m_screen.x - m_width/3;
-	m_flagScreen.y = m_screen.y - m_height/3;
+	m_flagScreen.x = m_screen.x;
+	m_flagScreen.y = m_screen.y - m_height/3 + 20;
 	m_flagOffset = 35;
 
 
-	m_tabSize = 95;
+	m_tabSize = 30;
 	int x = m_screen.x - ((m_tabSize *3) / 2) + 35;
 
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,22, x + (m_tabSize*m_id) ,m_screen.y + 133);
+	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,22, m_screen.x - m_width/3 - 20  ,m_screen.y - m_height/3 + (m_flagOffset*m_id) + 20 );
 	if(m_itemsList[m_name] != nullptr) {
 		m_itemsList[m_name]->setCommand(new C_ChangeTab);
 		if( m_itemsList[m_name]->getCommand() != nullptr)
@@ -94,11 +94,11 @@ C_Tab_Settings::C_Tab_Settings()
 	std::string width = std::to_string(settings.getWindowWidth());
 	std::string height = std::to_string(settings.getWindowHeight());
 	std::string text = width + "x" + height;
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x - 128,m_flagScreen.y);
 
 	name = "Grid Size";
 	text =  std::to_string(settings.getGridWidth())+ "x" +std::to_string(settings.getGridHeight());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y + m_flagOffset);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x - 128,m_flagScreen.y + m_flagOffset);
 }
 
 C_Tab_Levels::C_Tab_Levels()
@@ -107,22 +107,22 @@ C_Tab_Levels::C_Tab_Levels()
 	C_Settings& settings=C_Locator::getSettings();
 	std::string name = "Number of Levels";
 	std::string text = std::to_string(settings.getNbrOfLevels());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x,m_flagScreen.y);
+	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x - 128,m_flagScreen.y);
 
     m_currentCardLevelNbr = settings.getCurrentLevelNbr();
 	name = "Card_Level";
-	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_screen.x,m_screen.y - 50);
+	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_flagScreen.x + 82,m_screen.y -32);
 
 	std::string arrowLeft = "Level_Change_Arrow_Left";
-	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_screen.x - 150,m_screen.y - 20 );
+	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_flagScreen.x - 48 ,m_screen.y - 32);
 	m_itemsList[arrowLeft]->setCommand(new C_ChangeLevelLeft());
 
 	std::string arrowRight = "Level_Change_Arrow_Right";
-	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_screen.x + 100,m_screen.y - 20);
+	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_flagScreen.x + 192,m_screen.y - 32);
 	m_itemsList[arrowRight]->setCommand(new C_ChangeLevelRight());
 
 	std::string load = "Level_Load";
-	m_itemsList[load]  = new C_MB_CardButton(load, m_screen.x -10, m_screen.y + 80);
+	m_itemsList[load]  = new C_MB_CardButton(load, m_flagScreen.x - 10, m_screen.y + 64);
 	if(m_itemsList[load]!= nullptr){
 	    m_itemsList[load]->setText("Load");
 	    C_LoadALevel *command = new C_LoadALevel();
@@ -186,7 +186,7 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	    m_itemsList[quit]->setText("Quit");
 	}
 
-	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x , m_screen.y - 80 );
+	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x  +  92, m_screen.y - 80 );
 	refresh();
 }
 

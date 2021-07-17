@@ -209,21 +209,18 @@ void C_MB_TabSelect::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
     int up = 0;
-	std::string textureName = "Menu_01_tab_Active";
 	if(m_state == HOVER){
-	    textureName = "Menu_01_tab_Hover";
-		up = +10;
+		up = +2;
     }
-	t.renderTexture(textureName, m_x_screen, m_y_screen,CENTER);
 
-
-	Sint16 y1 = m_y_screen - 12 + m_height/2 + up;
+	Sint16 x1 = m_x_screen + m_width/2;
+	Sint16 y1 = m_y_screen + m_height/2 + up;
 
 	if(m_text !="") {
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
-		t.renderTexture(m_textName, m_x_screen, y1 ,CENTER);
+		t.renderTexture(m_textName, x1, y1 ,CENTER);
 	}
-    t.renderTexture("Menu_01_lineShort", m_x_screen,m_y_screen + 28 + up,CENTER);
+    t.renderTexture("Menu_01_lineShort", x1 ,y1 + 10 + up,CENTER);
 }
 
 C_MB_Arrows::C_MB_Arrows(std::string name,int direction , int x_screen, int y_screen)
@@ -262,7 +259,7 @@ C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	m_titleName = "Settings_Title_" + name;
 	m_text = text;
 	m_textName = "Settings_Text_" + name;
-	m_width = 250;
+	m_width = 400;
 	m_height = 24;
 	m_color = m_colorText;
 }
@@ -276,16 +273,17 @@ void C_MB_1Line::render()
 		m_color = m_colorText;
 	}
 	C_TextureList& t= C_Locator::getTextureList();
+	Sint16 x1 = m_x_screen + m_width/2;
 	Sint16 y1 = m_y_screen + m_height/2;
 	if(m_title !="") {
 		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
-		t.renderTexture(m_titleName, m_x_screen, y1, LEFT);
+		t.renderTexture(m_titleName, x1 - m_width/2 + 30, y1, LEFT);
 		if(m_text !="") {
 	        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		    t.renderTexture(m_textName, m_x_screen + m_width, y1, RIGHT);
+		    t.renderTexture(m_textName, x1 + m_width/4 + 30 , y1, RIGHT);
 	    }
-	    t.renderTexture("Menu_01_line1", m_x_screen + 10,m_y_screen + 28,CENTER);
-		t.renderTexture("Menu_01_line2", m_x_screen + m_width - 15,m_y_screen + 28,CENTER);
+	    t.renderTexture("Menu_01_line1", x1 - m_width/4 + 8,m_y_screen + 28,CENTER);
+		t.renderTexture("Menu_01_line2", x1 + m_width/4 ,m_y_screen + 28,CENTER);
 	}
 
 }
@@ -344,10 +342,14 @@ void C_MB_CardButton::render(){
     	textureName = "Menu_01_board_Hover";
 		up = +1;
     }
+
+    Sint16 x1 = m_x_screen + m_width/2;
+	Sint16 y1 = m_y_screen + m_height/2 + up;
+
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(textureName, m_x_screen, m_y_screen,CENTER);
+	t.renderTexture(textureName, x1 , y1,CENTER);
 	t.loadTextAsTexturesIntoMap(m_name, m_text, 22,  m_color);
-	t.renderTexture(m_name, m_x_screen, m_y_screen + 5 + up ,CENTER);
+	t.renderTexture(m_name, x1, y1 ,CENTER);
 
 }
 //-------------------------------------------------------------
