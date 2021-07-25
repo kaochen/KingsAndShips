@@ -328,7 +328,7 @@ void C_Shooter::drag(S_Coord screen)
 	bool status = grid.isThisConstructible(coord.getGrid(), water);
 	//draw ellipse
 
-	drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
+	//drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
 	//draw square
 	x -=2;
 	y -=2;
@@ -345,12 +345,14 @@ void C_Shooter::drag(S_Coord screen)
 			C_TextureList& t= C_Locator::getTextureList();
 			string color = "Green";
 			string imageNbr = "01";
+			int offset = 0;
 			if (i == 1 && j == 1) {
-				imageNbr = "0" + to_string(m_anim.getImageNbr("Drag"));
+				offset = m_anim.getImageNbr("Drag");
 			}
 			if(!status){ color = "Red";};
 
-			t.renderTexture("Select_"+color+"_"+imageNbr, x_s,y_s, CENTER_TILE, true);
+			t.renderTexture("Select_Cross_Shadow", x_s - offset/2,y_s - offset/2, CENTER_TILE, true);
+			t.renderTexture("Select_"+color, x_s,y_s - offset, CENTER_TILE, true);
 
 		}
 		x = coord.getXGrid () - 2;
@@ -361,28 +363,34 @@ void C_Shooter::drag(S_Coord screen)
 }
 
 
-void C_Shooter::drawEllipse(int x,int y,int size,bool ok)
+void C_Shooter::drawEllipse(int screen_x,int screen_y,int size,bool ok)
 {
 	if(size>0){
+		C_CoordScreen coord(screen_x,screen_y);
+		int x_o = coord.getXGrid ();
+	    int y_o = coord.getYGrid ();
 		C_TextureList& t= C_Locator::getTextureList();
+		int s = (size + 1);
+		int square = (s*2)-1;
+		int x = x_o - s;
+		int y = y_o - s;
+		//std::cout << "Size: " << size << " -> s:" << s << " Coord " << x << ":"<< y << std::endl;
 
-		string color = "Green";
-		if(!ok){
-			color= "Red";
-			}
-		C_Settings& settings=C_Locator::getSettings();
-		int width = settings.getTileWidth()/2;
-		int height = width/2;
-		t.renderTexture("Select_Corner_"+color+"_EE", x+size*width,y+size*height, true);
-		t.renderTexture("Select_Corner_"+color+"_SE", x,y+(size+1)*height, true);
-		t.renderTexture("Select_Corner_"+color+"_SS", x-size*width,y+size*height, true);
-		t.renderTexture("Select_Corner_"+color+"_SW", x-(size+1)*width,y, true);
-		t.renderTexture("Select_Corner_"+color+"_WW", x-size*width,y-size*height, true);
-		t.renderTexture("Select_Corner_"+color+"_NW", x,y-(size+1)*height, true);
-		t.renderTexture("Select_Corner_"+color+"_NN", x+size*width,y-size*height, true);
-		t.renderTexture("Select_Corner_"+color+"_NE", x+(size+1)*width,y, true);
+	    for(int i = 0; i < square; i++) {
+		    y++;
+		    for(int j = 0; j < square; j++) {
+			    x++;
+			    C_CoordGrid tmp(x,y);
+			    int x_s = tmp.getXScreen ();
+			    int y_s = tmp.getYScreen ();
+                if(x != x_o || y != y_o ){ //Do not draw the center tile
+                        t.renderTexture("Select_Cross_Shadow", x_s,y_s, CENTER_TILE, true);
+                        t.renderTexture("Select_Dark", x_s,y_s, CENTER_TILE, true);
+                }
+            }
+            x = coord.getXGrid () - s;
+        }
 	}
-
 }
 
 
