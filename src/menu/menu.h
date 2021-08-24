@@ -44,10 +44,10 @@ public:
 
  	void updateUpgradeButtonsStatus();
 	//commands
-	void openBottomMenu();
+	void openMainMenu();
 	void openEndLevelMenu(int status);
-	bool isOpen(){return m_bottomMenuOpen;};
-	void displayBottomMenu();
+	bool isOpen(){return m_menuMainOpen;};
+	void displayMainMenu();
 	std::vector<std::string> getMenuItemsList();
 	void setTabNbr(int nbr);
     void go(int direction);
@@ -68,7 +68,7 @@ private:
 	//information to display
 	int m_current_wave;
 	int m_total_waves;
-	bool m_bottomMenuOpen;
+	bool m_menuMainOpen;
 	std::map<std::string, C_MenuItem*> m_menuItemsList;
 	std::vector<C_Tab *> m_tabs;
 	int m_currentTab;

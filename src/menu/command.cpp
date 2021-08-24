@@ -28,9 +28,9 @@ using namespace std;
 
 void C_OpenMenu::action()
 {
-	C_Message::printM("Send an openMenu action\n");
+	C_Message::printM("Send an openMainMenu action\n");
 	C_Menu& menu=C_Locator::getMenu();
-	menu.openBottomMenu();
+	menu.openMainMenu();
 }
 
 bool C_OpenMenu::getBool()

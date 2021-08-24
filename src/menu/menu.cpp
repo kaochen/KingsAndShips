@@ -31,7 +31,7 @@ using namespace std;
 C_Menu::C_Menu():
 	m_current_wave(1),
 	m_total_waves(1),
-	m_bottomMenuOpen(false)
+	m_menuMainOpen(false)
 {
 	C_Message::printM("Constructor C_Menu() : start\n");
 	C_Settings& settings=C_Locator::getSettings();
@@ -86,7 +86,7 @@ void C_Menu::updateInfos()
 
 void C_Menu::render()
 {
-	displayBottomMenu();
+	displayMainMenu();
 	m_endGameMenu->refresh();
 	m_endGameMenu->render();
 	vector<string>  list = getMenuItemsList();
@@ -214,14 +214,14 @@ void C_Menu::updateUpgradeButtonsStatus(){
 
 
 
-void C_Menu::openBottomMenu()
+void C_Menu::openMainMenu()
 {
 	C_Settings& settings=C_Locator::getSettings();
-	if(m_bottomMenuOpen) {
-		m_bottomMenuOpen = false;
+	if(m_menuMainOpen) {
+		m_menuMainOpen = false;
 		settings.setPlaying(PLAY);
 	} else {
-		m_bottomMenuOpen = true;
+		m_menuMainOpen = true;
 		settings.setPlaying(PAUSE);
 	}
 }
@@ -247,9 +247,9 @@ void C_Menu::resetEndLevelMenu(){
 }
 
 
-void C_Menu::displayBottomMenu()
+void C_Menu::displayMainMenu()
 {
-	m_tabs[0]->displayTab(m_bottomMenuOpen);
+	m_tabs[0]->displayTab(m_menuMainOpen);
 }
 
 
@@ -278,7 +278,7 @@ vector<string> C_Menu::getMenuItemsList()
 	    m_menuItemsList["upgradeTower"]->setScreen(coord);
     }
 
-	if(m_bottomMenuOpen) {
+	if(m_menuMainOpen) {
 		//get tab selector buttons
 		for (size_t i = 0; i < m_tabs.size() ; i++) {
 			list.push_back(m_tabs[i]->getName());
