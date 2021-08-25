@@ -133,9 +133,6 @@ void C_Menu::updateDefenderStatus()
 	C_Settings& settings=C_Locator::getSettings();
 	int x = settings.getWindowWidth();
 
-	if(m_menuItemsList["Characters_fox"] == nullptr) {
-		m_menuItemsList["Characters_fox"] = new C_MenuItem("Characters_fox",x - 92,20);
-	}
 
 	//progress bar value
 	if(m_menuItemsList["playerlife"] == nullptr) {
@@ -153,9 +150,6 @@ void C_Menu::updateDefenderStatus()
 
 void C_Menu::updateAttackerStatus()
 {
-	if (m_menuItemsList["Characters_lion"] == nullptr) {
-		m_menuItemsList["Characters_lion"] = new C_MenuItem("Characters_lion",20,30);
-	}
 	if(m_menuItemsList["boatLife"] == nullptr) {
 		m_menuItemsList["boatLife"] = new C_GP_Status("boatLife",60,40, GREEN,BLUE);
 	}
@@ -263,9 +257,7 @@ vector<string> C_Menu::getMenuItemsList()
 {
 	vector<string> list;
 	//Always Visible
-	list.push_back("Characters_lion");
 	list.push_back("boatLife");
-	list.push_back("Characters_fox");
 	list.push_back("playerlife");
 	list.push_back("gold_pile");
 	list.push_back("walletBar");
