@@ -238,3 +238,36 @@ std::vector<string> C_Tab_endGame::getListOfVisibleItems()
 	}
 	return list;
 }
+
+
+C_Menu_Bottom::C_Menu_Bottom(std::string name)
+	:C_Page(name)
+{
+	C_Settings& settings=C_Locator::getSettings();
+	m_screen.x = (settings.getWindowWidth())/2;
+	m_screen.y = (settings.getWindowHeight());
+
+	std::string text = "Add";
+	m_itemsList[text]  = new C_MB_CardButton(text, m_screen.x - 320, m_screen.y - 50);
+	if(m_itemsList[text] != nullptr){
+	    m_itemsList[text]->setText("Add");
+	}
+
+	int size = 64 + 20;
+	int x_button = m_screen.x - 100;
+	int y_button = m_screen.y - 70;
+	//left buttons
+	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
+	x_button +=size;
+	m_itemsList["AddCatapult"] = new C_GB_AddUnit("AddCatapult","AddCatapult",x_button,y_button);
+	x_button +=size;
+	m_itemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
+}
+
+void C_Menu_Bottom::render(){
+    if(m_open){
+		C_TextureList& t= C_Locator::getTextureList();
+		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y + 100,CENTER);
+	}
+}
+

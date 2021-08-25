@@ -74,6 +74,7 @@ private:
 	int m_currentTab;
 
 	C_Page* m_endGameMenu;
+	C_Page* m_bottomMenu;
 };
 
 #endif

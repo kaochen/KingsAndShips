@@ -85,5 +85,10 @@ protected:
     int m_levelStatus;
 };
 
+class C_Menu_Bottom : public C_Page {
+    public:
+    	C_Menu_Bottom(std::string name);
+        virtual void render();
+};
 
 #endif

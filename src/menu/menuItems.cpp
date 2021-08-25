@@ -135,17 +135,13 @@ std::string C_MenuItem::getStateAsStr(){
 
 void C_MenuItem::renderFlagUnderButton(){
 		C_TextureList& t= C_Locator::getTextureList();
-		string state =  getStateAsStr();
-	    string flagName = "Buttons_Flag" + state;
-	    t.renderTexture(flagName, m_x_screen + m_width/2,m_y_screen + m_height + 20,CENTER);
-
 		if(!m_enable){
 		    m_color = {0,0,0,255};
 	    } else {
-		    m_color = {200,200,200,255};
+		    m_color = m_colorText;
 	    }
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + 33, m_y_screen + 80,CENTER);
+		t.renderTexture(m_textName, m_x_screen + m_width + 10, m_y_screen + m_height/2,CENTER);
 }
 
 
@@ -335,11 +331,9 @@ C_MB_CardButton::C_MB_CardButton(std::string name, int x_screen, int y_screen)
 
 void C_MB_CardButton::render(){
 	int up = 0;
-	std::string textureName = "Menu_01_board_Active";
-	m_color = {255,255,255,180};
+	m_color = m_colorText;
 	if(m_state == HOVER){
-		m_color = {255,255,255,230};
-    	textureName = "Menu_01_board_Hover";
+		m_color = m_colorTextHover;
 		up = +1;
     }
 
@@ -347,8 +341,8 @@ void C_MB_CardButton::render(){
 	Sint16 y1 = m_y_screen + m_height/2 + up;
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(textureName, x1 , y1,CENTER);
-	t.loadTextAsTexturesIntoMap(m_name, m_text, 22,  m_color);
+	t.renderTexture("Menu_01_lineShort", x1 , y1 + 10,CENTER);
+	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
 	t.renderTexture(m_name, x1, y1 ,CENTER);
 
 }
@@ -402,8 +396,16 @@ void C_GB_AddUnit::render()
 		} else {
 			m_enable = true;
 		}
-        renderFlagUnderButton();
 	    C_Button::render();
+	    //render price:
+        if(!m_enable){
+	        m_color = {0,0,0,255};
+	    } else {
+	        m_color = getTextColor();
+	    }
+	    C_TextureList& t= C_Locator::getTextureList();
+	    t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+	    t.renderTexture(m_textName, m_x_screen + m_width + 10, m_y_screen + m_height/2,CENTER);
 	}
 }
 //-------------------------------------------------------------
