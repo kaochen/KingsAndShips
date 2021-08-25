@@ -61,8 +61,6 @@ protected:
 
 private:
 
-	void bottomButton(const std::string &name,S_Coord screen);/*!setup button for the bottom line of buttons*/
-	void bottomButtonsLine(S_Coord screen);
 	std::string tabName(int nbr){
 		return "tab" + std::to_string(nbr) + "_Flag";};
 	//information to display
@@ -75,6 +73,7 @@ private:
 
 	C_Page* m_endGameMenu;
 	C_Page* m_bottomMenu;
+	C_Page* m_topMenu;
 };
 
 #endif

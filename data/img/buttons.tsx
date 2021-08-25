@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.2" tiledversion="1.3.1" name="Buttons" tilewidth="64" tileheight="64" tilecount="54" columns="6">
+<tileset version="1.5" tiledversion="1.7.1" name="Buttons" tilewidth="64" tileheight="64" tilecount="54" columns="6">
  <image source="original/t_buttons.png" width="384" height="576"/>
  <tile id="0" type="repair_Active"/>
  <tile id="1" type="repair_Hover"/>
@@ -28,15 +28,15 @@
  <tile id="24" type="pause_Active"/>
  <tile id="25" type="pause_Hover"/>
  <tile id="26" type="pause_Disabled"/>
- <tile id="27" type="quit_Active"/>
- <tile id="28" type="quit_Hover"/>
- <tile id="29" type="quit_Disabled"/>
+ <tile id="27" type="popOutMenu_Active"/>
+ <tile id="28" type="popOutMenu_Hover"/>
+ <tile id="29" type="popOutMenu_Disabled"/>
  <tile id="30" type="reset_Active"/>
  <tile id="31" type="reset_Hover"/>
  <tile id="32" type="reset_Disabled"/>
- <tile id="33" type="popOutMenu_Active"/>
- <tile id="34" type="popOutMenu_Hover"/>
- <tile id="35" type="popOutMenu_Disabled"/>
+ <tile id="33" type="quit_Active"/>
+ <tile id="34" type="quit_Hover"/>
+ <tile id="35" type="quit_Disabled"/>
  <tile id="36" type="firerate_Active"/>
  <tile id="37" type="firerate_Hover"/>
  <tile id="38" type="firerate_Disabled"/>

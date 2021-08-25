@@ -23,14 +23,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+
 std::vector<std::string> C_Page::getListOfVisibleItems()
 {
 	std::vector <std::string> list;
-	for(auto const& x : m_itemsList) {
-		list.push_back(x.first);
+    if(m_open){
+	    for(auto const& x : m_itemsList) {
+		    list.push_back(x.first);
+	    }
 	}
 	return list;
 }
+
+C_Page::~C_Page()
+{
+    m_itemsList.clear(); //items are allready delete
+}
+
+void C_Page::flagLine(std::vector <std::string> names, S_Coord first)
+{
+        int size = 64;
+	    //left buttons
+	    int offset = 0;
+	    for(auto i : names){
+	        if(!m_itemsList[i]){
+	            std::string img = i;
+	            C_Command *command = nullptr;
+	            if(i ==  "popOutMenu" || i ==  "popOutMenu2" ) {
+			        command = new C_OpenMenu();
+			        img = "popOutMenu";
+		        } else if(i ==  "home") {
+			        command = new C_CenterCamera();
+		        } else if(i ==  "play") {
+			        command = new C_Play();
+		        } else if(i ==  "quit") {
+			        command = new C_QuitProgram();
+		        }
+	            m_itemsList[i] = new C_Button(i,img,first.x + offset ,first.y);
+		        if(m_itemsList[i]!= nullptr){
+		            if(command){
+		                m_itemsList[i]->setCommand(command);
+		            }
+	            }
+	        }
+	        offset += size;
+	    }
+}
+
 
 int C_Tab::m_id = -1;
 
@@ -59,12 +98,13 @@ C_Tab::C_Tab(std::string title)
 		if( m_itemsList[m_name]->getCommand() != nullptr)
 			m_itemsList[m_name]->getCommand()->setNbr(m_id);
 	}
+
+
+	std::vector <string> names = {"popOutMenu2"};
+    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4};
+    flagLine(names,first);
 }
 
-C_Page::~C_Page()
-{
-    m_itemsList.clear(); //items are allready delete
-}
 
 void C_Tab::displayTab(bool open)
 {
@@ -163,6 +203,7 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
 	m_levelStatus = ONGOING;
+	m_open = false;
 
     std::string replay = "EndGame_Replay";
 	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x, m_screen.y - 20);
@@ -228,18 +269,6 @@ void C_Tab_endGame::render()
 	}
 }
 
-std::vector<string> C_Tab_endGame::getListOfVisibleItems()
-{
-	std::vector <std::string> list;
-    if(m_open){
-	    for(auto const& x : m_itemsList) {
-		    list.push_back(x.first);
-	    }
-	}
-	return list;
-}
-
-
 C_Menu_Bottom::C_Menu_Bottom(std::string name)
 	:C_Page(name)
 {
@@ -270,4 +299,29 @@ void C_Menu_Bottom::render(){
 		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y + 100,CENTER);
 	}
 }
+
+
+C_Menu_Top::C_Menu_Top(std::string name)
+	:C_Page(name)
+{
+
+	C_Settings& settings=C_Locator::getSettings();
+	m_screen.x = (settings.getWindowWidth())/2;
+	m_screen.y = 30;
+    if(m_open){
+        std::vector <string> names = {"home","play","popOutMenu"};
+        S_Coord first = {m_screen.x + 100,m_screen.y+30};
+        flagLine(names,first);
+	}
+
+}
+
+
+void C_Menu_Top::render(){
+    if(m_open){
+		C_TextureList& t= C_Locator::getTextureList();
+		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y - 100,CENTER);
+	}
+}
+
 

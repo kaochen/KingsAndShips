@@ -186,7 +186,11 @@ void C_Button::render()
 
 	name += getStateAsStr();
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
+	int up = 0;
+	if(m_state == HOVER){
+	    up = 1;
+	}
+	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
 }
 
 //-------------------------------------------------------------

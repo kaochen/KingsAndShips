@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menuItems.h"
 #include <string>
 #include <map>
+#include "../coord.h"
 
 class C_Page {
 public :
@@ -36,10 +37,11 @@ public :
     virtual bool getOpen(){return m_open;};
     virtual void setOpen(bool open){m_open =  open;};
 protected:
+    virtual void flagLine(std::vector <std::string> names, S_Coord first);
   	std::string m_name;
 	std::map<std::string, C_MenuItem*> m_itemsList;
 	S_Coord m_screen /*!< top left corner of the tab*/;
-    bool m_open = false;
+    bool m_open = true;
 };
 
 class C_Tab : public C_Page {
@@ -77,7 +79,6 @@ protected:
 class C_Tab_endGame : public C_Page {
 public:
 	C_Tab_endGame(std::string name);
-    virtual std::vector<std::string> getListOfVisibleItems();
     virtual void render();
     virtual void setWin(int win){ m_levelStatus = win;};
     virtual void refresh();
@@ -88,6 +89,12 @@ protected:
 class C_Menu_Bottom : public C_Page {
     public:
     	C_Menu_Bottom(std::string name);
+        virtual void render();
+};
+
+class C_Menu_Top : public C_Page {
+    public:
+    	C_Menu_Top(std::string name);
         virtual void render();
 };
 

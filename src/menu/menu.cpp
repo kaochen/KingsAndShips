@@ -46,12 +46,9 @@ C_Menu::C_Menu():
 	line.x = 20;
 	C_Settings& settings=C_Locator::getSettings();
 	line.y = settings.getWindowHeight() - 20;
-	bottomButtonsLine(line);
 	m_endGameMenu =  new C_Tab_endGame("endGame");
     m_bottomMenu =  new C_Menu_Bottom("bottomMenu");
-    if(m_bottomMenu){
-        m_bottomMenu->setOpen(true);
-    }
+    m_topMenu =  new C_Menu_Top("topMenu");
 
 	C_Message::printM("Constructor C_Menu() : done\n");
 }
@@ -69,6 +66,7 @@ C_Menu::~C_Menu()
 	}
 	delete m_endGameMenu;
 	delete m_bottomMenu;
+	delete m_topMenu;
 }
 
 
@@ -90,6 +88,10 @@ void C_Menu::render()
 	if(m_bottomMenu){
 	    m_bottomMenu->refresh();
 	    m_bottomMenu->render();
+    }
+    if(m_topMenu){
+	    m_topMenu->refresh();
+	    m_topMenu->render();
     }
 	vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
@@ -122,6 +124,8 @@ void C_Menu::resetValues()
 		m_endGameMenu->setOpen(false);
 	if(m_bottomMenu)
 		m_bottomMenu->setOpen(true);
+	if(m_topMenu)
+		m_topMenu->setOpen(true);
 }
 
 
@@ -218,10 +222,12 @@ void C_Menu::openMainMenu()
 	if(m_menuMainOpen) {
 		m_menuMainOpen = false;
 		m_bottomMenu->setOpen(true);
+		m_topMenu->setOpen(true);
 		settings.setPlaying(PLAY);
 	} else {
 		m_menuMainOpen = true;
 		m_bottomMenu->setOpen(false);
+		m_topMenu->setOpen(false);
 		settings.setPlaying(PAUSE);
 	}
 }
@@ -261,9 +267,6 @@ vector<string> C_Menu::getMenuItemsList()
 	list.push_back("playerlife");
 	list.push_back("gold_pile");
 	list.push_back("walletBar");
-	list.push_back("popOutMenu");
-	list.push_back("home");
-	list.push_back("play");
 
 	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
@@ -285,19 +288,23 @@ vector<string> C_Menu::getMenuItemsList()
 		vector<string> tmp = m_tabs[m_currentTab]->getListOfVisibleItems();
 		list.insert(list.end(), tmp.begin(), tmp.end());
 
-	} else {
-		list.push_back("AddTower");
-		list.push_back("AddBarricade");
-		list.push_back("AddCatapult");
 	}
 
 	if(m_endGameMenu){
-	    std::vector<std::string> tmp = m_endGameMenu->getListOfVisibleItems();
-		list.insert(list.end(), tmp.begin(), tmp.end());
+    	if(m_endGameMenu->getOpen()){
+	        std::vector<std::string> tmp = m_endGameMenu->getListOfVisibleItems();
+		    list.insert(list.end(), tmp.begin(), tmp.end());
+		}
 	}
 	if(m_bottomMenu){
     	if(m_bottomMenu->getOpen()){
 	        std::vector<std::string> tmp = m_bottomMenu->getListOfVisibleItems();
+		    list.insert(list.end(), tmp.begin(), tmp.end());
+		}
+	}
+	if(m_topMenu){
+    	if(m_topMenu->getOpen()){
+	        std::vector<std::string> tmp = m_topMenu->getListOfVisibleItems();
 		    list.insert(list.end(), tmp.begin(), tmp.end());
 		}
 	}
@@ -323,7 +330,11 @@ void C_Menu::menuBanner()
 		items = m_bottomMenu->getItemList();
 		m_menuItemsList.insert(items.begin(),items.end());
     }
-
+    if(m_topMenu){
+        std::map<std::string, C_MenuItem*> items;
+		items = m_topMenu->getItemList();
+		m_menuItemsList.insert(items.begin(),items.end());
+    }
 
 	//declare buttons from tabs into the mainItemList
 	for (size_t i = 0; i < m_tabs.size() ; i++) {
@@ -344,35 +355,6 @@ void C_Menu::go(int direction){
     m_tabs[m_currentTab]->go(direction);
 }
 
-void C_Menu::bottomButton(const string &name,S_Coord screen)
-{
-	if(m_menuItemsList[name] == nullptr) {
-		m_menuItemsList[name] = new C_Button(name,name,screen.x,screen.y);
-		C_Command *command = nullptr;
-		if(name ==  "popOutMenu") {
-			command = new C_OpenMenu();
-		} else if(name ==  "home") {
-			command = new C_CenterCamera();
-		} else if(name ==  "play") {
-			command = new C_Play();
-		}
-		m_menuItemsList[name]->setCommand(command);
-		command = nullptr;
-	}
-}
 
-void C_Menu::bottomButtonsLine(S_Coord screen)
-{
-	S_Coord pos;
-	int buttonSize = 64;
-	int space = 10;
-	pos.x = screen.x;
-	pos.y = screen.y - buttonSize;
-	bottomButton("popOutMenu", pos);
-	pos.x += buttonSize + space;
-	bottomButton("home", pos);
-	pos.x += buttonSize + space;
-	bottomButton("play", pos);
-}
 
 
