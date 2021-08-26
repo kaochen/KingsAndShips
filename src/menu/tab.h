@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class C_Page {
 public :
-    C_Page(std::string name):m_name(name){};
+    C_Page(std::string name);
 	virtual ~C_Page();
 	virtual std::string getName(){return m_name;};
 	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
@@ -37,10 +37,12 @@ public :
     virtual bool getOpen(){return m_open;};
     virtual void setOpen(bool open){m_open =  open;};
 protected:
-    virtual void flagLine(std::vector <std::string> names, S_Coord first);
+    virtual void flagLine(std::vector <std::string> names, S_Coord last);
   	std::string m_name;
 	std::map<std::string, C_MenuItem*> m_itemsList;
 	S_Coord m_screen /*!< top left corner of the tab*/;
+    int m_height;
+	int m_width;
     bool m_open = true;
 };
 
@@ -57,8 +59,6 @@ protected:
 	static int m_id;
 	std::string m_title;
 	S_Coord m_flagScreen /*!< first flag position in menu*/;
-	int m_height;
-	int m_width;
     int m_flagOffset;
 	Sint16 m_tabSize;
 };

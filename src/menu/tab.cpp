@@ -22,7 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../locator.h"
 
 using namespace std;
-
+C_Page::C_Page(std::string name):
+    m_name(name)
+{
+	m_width = 768;
+	m_height = 512;
+}
 
 std::vector<std::string> C_Page::getListOfVisibleItems()
 {
@@ -40,9 +45,9 @@ C_Page::~C_Page()
     m_itemsList.clear(); //items are allready delete
 }
 
-void C_Page::flagLine(std::vector <std::string> names, S_Coord first)
+void C_Page::flagLine(std::vector <std::string> names, S_Coord last)
 {
-        int size = 64;
+        int size = 48;
 	    //left buttons
 	    int offset = 0;
 	    for(auto i : names){
@@ -59,7 +64,7 @@ void C_Page::flagLine(std::vector <std::string> names, S_Coord first)
 		        } else if(i ==  "quit") {
 			        command = new C_QuitProgram();
 		        }
-	            m_itemsList[i] = new C_Button(i,img,first.x + offset ,first.y);
+	            m_itemsList[i] = new C_Button(i,img,last.x - offset , last.y);
 		        if(m_itemsList[i]!= nullptr){
 		            if(command){
 		                m_itemsList[i]->setCommand(command);
@@ -100,7 +105,7 @@ C_Tab::C_Tab(std::string title)
 	}
 
 
-	std::vector <string> names = {"popOutMenu2"};
+	std::vector <string> names = {"popOutMenu2", "quit"};
     S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4};
     flagLine(names,first);
 }
@@ -309,8 +314,8 @@ C_Menu_Top::C_Menu_Top(std::string name)
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = 30;
     if(m_open){
-        std::vector <string> names = {"home","play","popOutMenu"};
-        S_Coord first = {m_screen.x + 100,m_screen.y+30};
+        std::vector <string> names = {"popOutMenu","home","play"};
+        S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y+28};
         flagLine(names,first);
 	}
 
