@@ -41,15 +41,14 @@ public:
 	void updateLevelInfos(int current_wave, int total_waves);
 	void resetValues(); /*!reset values when change or reset the level*/
 	void menuBanner();
+    C_Frame* getFrame(std::string name);
 
  	void updateUpgradeButtonsStatus();
 	//commands
 	void openMainMenu();
 	void openEndLevelMenu(int status);
-	bool isOpen(){return m_menuMainOpen;};
-	void displayMainMenu();
+	bool isOpen(){return getFrame("mainMenu")->getOpen();};
 	std::vector<std::string> getMenuItemsList();
-	void setTabNbr(int nbr);
     void go(int direction);
     void Nbr(int nbr);
 	void resetEndLevelMenu();
@@ -61,19 +60,12 @@ protected:
 
 private:
 
-	std::string tabName(int nbr){
-		return "tab" + std::to_string(nbr) + "_Flag";};
 	//information to display
 	int m_current_wave;
 	int m_total_waves;
-	bool m_menuMainOpen;
 	std::map<std::string, C_MenuItem*> m_menuItemsList;
-	std::vector<C_Tab *> m_tabs;
-	int m_currentTab;
 
-	C_Page* m_endGameMenu;
-	C_Page* m_bottomMenu;
-	C_Page* m_topMenu;
+    std::vector <C_Frame*> m_frames;
 };
 
 #endif

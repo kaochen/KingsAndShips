@@ -30,8 +30,7 @@ using namespace std;
 
 C_Menu::C_Menu():
 	m_current_wave(1),
-	m_total_waves(1),
-	m_menuMainOpen(false)
+	m_total_waves(1)
 {
 	C_Message::printM("Constructor C_Menu() : start\n");
 	S_Coord upgradeCoord = {10,10};
@@ -41,14 +40,19 @@ C_Menu::C_Menu():
 	updateAttackerStatus();
 	updateWalletStatus();
 
-	//add the bottom buttons line
-	S_Coord line;
-	line.x = 20;
-	C_Settings& settings=C_Locator::getSettings();
-	line.y = settings.getWindowHeight() - 20;
-	m_endGameMenu =  new C_Tab_endGame("endGame");
-    m_bottomMenu =  new C_Menu_Bottom("bottomMenu");
-    m_topMenu =  new C_Menu_Top("topMenu");
+
+    C_Frame *top = new C_Frame("topMenu");
+    top->addPage(new C_Menu_Top("topMenu"));
+    m_frames.push_back(top);
+
+    C_Frame *bottom = new C_Frame("bottomMenu");
+    bottom->addPage(new C_Menu_Bottom("bottomMenu"));
+    m_frames.push_back(bottom);
+
+    C_Frame *end = new C_Frame("endGame");
+    end->addPage(new C_Tab_endGame("endGame"));
+    m_frames.push_back(end);
+
 
 	C_Message::printM("Constructor C_Menu() : done\n");
 }
@@ -60,13 +64,22 @@ C_Menu::~C_Menu()
 			delete  x.second;
 	}
 
-	for(auto const& tab : m_tabs) {
-		if(tab != nullptr)
-			delete  tab;
+	for(auto const& f : m_frames) {
+		if(f != nullptr)
+			delete  f;
 	}
-	delete m_endGameMenu;
-	delete m_bottomMenu;
-	delete m_topMenu;
+}
+
+C_Frame* C_Menu::getFrame(std::string name){
+	C_Frame* ret = nullptr;
+	for(auto const& f : m_frames) {
+		if(f != nullptr){
+	        if(f->getName() == name){
+	            ret = f;
+	        }
+		}
+	}
+    return ret;
 }
 
 
@@ -80,19 +93,13 @@ void C_Menu::updateInfos()
 
 void C_Menu::render()
 {
-	displayMainMenu();
-	if(m_endGameMenu){
-	    m_endGameMenu->refresh();
-	    m_endGameMenu->render();
+	for(auto const& f : m_frames) {
+		if(f != nullptr){
+			f->refresh();
+			f->render();
+		}
 	}
-	if(m_bottomMenu){
-	    m_bottomMenu->refresh();
-	    m_bottomMenu->render();
-    }
-    if(m_topMenu){
-	    m_topMenu->refresh();
-	    m_topMenu->render();
-    }
+
 	vector<string>  list = getMenuItemsList();
 	//draw all buttons, layer by layer;
 	for(int j = BACK; j <= FRONT; j++) {
@@ -120,12 +127,14 @@ void C_Menu::resetValues()
 	m_total_waves = 1;
 	updateAttackerStatus();
 	updateDefenderStatus();
-	if(m_endGameMenu)
-		m_endGameMenu->setOpen(false);
-	if(m_bottomMenu)
-		m_bottomMenu->setOpen(true);
-	if(m_topMenu)
-		m_topMenu->setOpen(true);
+	if(getFrame("mainMenu") !=  nullptr)
+		getFrame("mainMenu")->setOpen(false);
+	if(getFrame("endGame") !=  nullptr)
+		getFrame("endGame")->setOpen(false);
+	if(getFrame("bottomMenu") !=  nullptr)
+		getFrame("bottomMenu")->setOpen(true);
+	if(getFrame("topMenu") !=  nullptr)
+		getFrame("topMenu")->setOpen(true);
 }
 
 
@@ -219,43 +228,51 @@ void C_Menu::updateUpgradeButtonsStatus(){
 void C_Menu::openMainMenu()
 {
 	C_Settings& settings=C_Locator::getSettings();
-	if(m_menuMainOpen) {
-		m_menuMainOpen = false;
-		m_bottomMenu->setOpen(true);
-		m_topMenu->setOpen(true);
-		settings.setPlaying(PLAY);
-	} else {
-		m_menuMainOpen = true;
-		m_bottomMenu->setOpen(false);
-		m_topMenu->setOpen(false);
-		settings.setPlaying(PAUSE);
+	C_Frame* main = getFrame("mainMenu");
+	if(main != nullptr){
+	    if(main->getOpen()) {
+		    main->setOpen(false);
+	        if(getFrame("topMenu") !=  nullptr)
+		        getFrame("topMenu")->setOpen(true);
+		    if(getFrame("bottomMenu") !=  nullptr)
+		        getFrame("bottomMenu")->setOpen(true);
+		    settings.setPlaying(PLAY);
+	    } else {
+		    main->setOpen(true);
+	        if(getFrame("topMenu") !=  nullptr)
+		        getFrame("topMenu")->setOpen(false);
+		    if(getFrame("bottomMenu") !=  nullptr)
+		        getFrame("bottomMenu")->setOpen(false);
+		    settings.setPlaying(PAUSE);
+	    }
 	}
 }
 void C_Menu::openEndLevelMenu(int status)
 {
 	C_Settings& settings=C_Locator::getSettings();
-	if(m_endGameMenu->getOpen()) {
-		m_endGameMenu->setOpen(false);
-		settings.setPlaying(PLAY);
-	} else {
-		m_endGameMenu->setOpen(true);
-		settings.setPlaying(PAUSE);
+	C_Frame * tmp = getFrame("endGame");
+	if(tmp != nullptr){
+	    if(tmp->getOpen()) {
+		    tmp->setOpen(false);
+		    settings.setPlaying(PLAY);
+	    } else {
+		    tmp->setOpen(true);
+		    settings.setPlaying(PAUSE);
+	    }
+    //tmp->setWin(status);
 	}
-	m_endGameMenu->setWin(status);
 }
 void C_Menu::resetEndLevelMenu(){
-	if(m_endGameMenu != nullptr){
-		delete m_endGameMenu;
+    C_Frame * tmp = getFrame("endGame");
+	if(tmp != nullptr){
+		delete tmp;
 	}
-	m_endGameMenu = new C_Tab_endGame("endGame");
+
+	tmp = new C_Frame("endGame");
+    tmp->addPage(new C_Tab_endGame("endGame"));
+
 	C_Settings& settings=C_Locator::getSettings();
 	settings.setPlaying(PLAY);
-}
-
-
-void C_Menu::displayMainMenu()
-{
-	m_tabs[0]->displayTab(m_menuMainOpen);
 }
 
 
@@ -279,32 +296,9 @@ vector<string> C_Menu::getMenuItemsList()
 	    m_menuItemsList["upgradeTower"]->setScreen(coord);
     }
 
-	if(m_menuMainOpen) {
-		//get tab selector buttons
-		for (size_t i = 0; i < m_tabs.size() ; i++) {
-			list.push_back(m_tabs[i]->getName());
-		}
-		//get the list of active button from the selected tab
-		vector<string> tmp = m_tabs[m_currentTab]->getListOfVisibleItems();
-		list.insert(list.end(), tmp.begin(), tmp.end());
-
-	}
-
-	if(m_endGameMenu){
-    	if(m_endGameMenu->getOpen()){
-	        std::vector<std::string> tmp = m_endGameMenu->getListOfVisibleItems();
-		    list.insert(list.end(), tmp.begin(), tmp.end());
-		}
-	}
-	if(m_bottomMenu){
-    	if(m_bottomMenu->getOpen()){
-	        std::vector<std::string> tmp = m_bottomMenu->getListOfVisibleItems();
-		    list.insert(list.end(), tmp.begin(), tmp.end());
-		}
-	}
-	if(m_topMenu){
-    	if(m_topMenu->getOpen()){
-	        std::vector<std::string> tmp = m_topMenu->getListOfVisibleItems();
+    for(auto const& f : m_frames) {
+		if(f != nullptr){
+			std::vector<std::string> tmp = f->getListOfVisibleItems();
 		    list.insert(list.end(), tmp.begin(), tmp.end());
 		}
 	}
@@ -315,44 +309,31 @@ vector<string> C_Menu::getMenuItemsList()
 
 void C_Menu::menuBanner()
 {
-	m_tabs.push_back( new C_Tab_Levels());
-	m_tabs.push_back( new C_Tab_Settings());
-	m_tabs.push_back( new C_Tab("About"));
+	C_Frame *main = new C_Frame("mainMenu");
+	if(main != nullptr){
+	    main->setOpen(false);
+        main->addPage( new C_Tab_Levels());
+        main->addPage( new C_Tab_Settings());
+        main->addPage( new C_Tab("About"));
+        m_frames.push_back(main);
+    }
 
     //
-    if(m_endGameMenu){
-        std::map<std::string, C_MenuItem*> items;
-		items = m_endGameMenu->getItemList();
-		m_menuItemsList.insert(items.begin(),items.end());
-    }
-    if(m_bottomMenu){
-        std::map<std::string, C_MenuItem*> items;
-		items = m_bottomMenu->getItemList();
-		m_menuItemsList.insert(items.begin(),items.end());
-    }
-    if(m_topMenu){
-        std::map<std::string, C_MenuItem*> items;
-		items = m_topMenu->getItemList();
-		m_menuItemsList.insert(items.begin(),items.end());
-    }
-
-	//declare buttons from tabs into the mainItemList
-	for (size_t i = 0; i < m_tabs.size() ; i++) {
-		std::map<std::string, C_MenuItem*> tabItems;
-		tabItems = m_tabs[i]->getItemList();
-		m_menuItemsList.insert(tabItems.begin(),tabItems.end());
+    for(auto const& f : m_frames) {
+		if(f != nullptr){
+			std::map<std::string, C_MenuItem*> items = f->getItemList();
+		    m_menuItemsList.insert(items.begin(),items.end());
+		}
 	}
-	setTabNbr(0); //set the focus on the first tab
 }
 
-void C_Menu::setTabNbr(int nbr)
-{
-	m_currentTab = nbr;
-
-}
 
 void C_Menu::go(int direction){
-    m_tabs[m_currentTab]->go(direction);
+    if(getFrame("mainMenu") != nullptr){
+        if(getFrame("mainMenu")->getCurrent() != nullptr){
+            getFrame("mainMenu")->getCurrent()->go(direction);
+         }
+    }
 }
 
 

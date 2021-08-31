@@ -22,6 +22,82 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../locator.h"
 
 using namespace std;
+
+C_Frame::C_Frame(std::string name):
+    m_name(name)
+{
+}
+
+C_Frame::~C_Frame(){
+    for(auto const& i : m_list) {
+		if(i != nullptr)
+			delete  i;
+	}
+}
+
+
+
+void C_Frame::addPage(C_Page *page){
+    if(page != nullptr){
+        for(auto i : m_list){
+            if(page->getName() == i->getName()){
+                std::cout << "Page " << page->getName() << " exist allready." << std::endl;
+            }
+        }
+        m_list.push_back(page);
+    }
+}
+
+void C_Frame::refresh(){
+    for(auto const& i : m_list) {
+		if(i != nullptr)
+			i->refresh();
+	}
+}
+
+void C_Frame::render(){
+	if(m_open){
+        for(auto const& i : m_list) {
+		    if(i != nullptr){
+			        i->render();
+			    }
+	    }
+	}
+}
+
+
+std::vector<std::string> C_Frame::getListOfVisibleItems(){
+    std::vector<std::string> ret;
+	if(m_open){
+        for(auto const& i : m_list) {
+		    if(i != nullptr){
+	                ret = i->getListOfVisibleItems();
+		    };
+		}
+	}
+	return ret;
+}
+
+std::map<std::string, C_MenuItem*> C_Frame::getItemList(){
+    std::map<std::string, C_MenuItem*> ret;
+	if(m_open){
+        for(auto const& i : m_list) {
+    		if(i != nullptr){
+	            ret = i->getItemList();
+		    };
+		}
+	}
+	return ret;
+}
+
+C_Page* C_Frame::getCurrent(){
+    C_Page* ret = nullptr;
+    if(m_list.size()<= m_currentPage){
+       ret = m_list[m_currentPage];
+    }
+	return ret;
+}
+
 C_Page::C_Page(std::string name):
     m_name(name)
 {

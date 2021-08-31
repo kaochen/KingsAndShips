@@ -163,7 +163,7 @@ sudo perf report --sort comm,dso
 #### Valgind :
 ```
 sudo apt install valgrind
-valgrind --leak-check=full --show-leak-kinds=all --log-file=valgrind.log ./build/kingsandships
+valgrind --leak-check=full --show-leak-kinds=all --log-file=valgrind.log ./kingsandships
 
 ```
 Then read the valgrind.log (It is helpfull, especialy with a segmentation fault)

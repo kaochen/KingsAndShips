@@ -43,7 +43,7 @@ void C_ChangeTab::action()
 {
 	C_Message::printM("Send an ChangeTab action\n");
 	C_Menu& menu=C_Locator::getMenu();
-	menu.setTabNbr(m_nbr);
+	//menu.setTabNbr(m_nbr);
 }
 
 void C_ChangeLevelLeft::action()

@@ -34,8 +34,7 @@ public :
     virtual std::vector<std::string> getListOfVisibleItems();
     virtual void setWin(int win){ std::cout << win;};
     virtual void refresh(){};
-    virtual bool getOpen(){return m_open;};
-    virtual void setOpen(bool open){m_open =  open;};
+    virtual void go(int direction){std::cout << direction << std::endl;};
 protected:
     virtual void flagLine(std::vector <std::string> names, S_Coord last);
   	std::string m_name;
@@ -53,7 +52,6 @@ public:
     virtual void render(){displayTab(true);};
 	virtual std::string getTitle(){return m_title;};
     virtual std::vector<std::string> getListOfVisibleItems();
-    virtual void go(int direction){std::cout << direction << std::endl;};
 
 protected:
 	static int m_id;
@@ -97,5 +95,26 @@ class C_Menu_Top : public C_Page {
     	C_Menu_Top(std::string name);
         virtual void render();
 };
+
+class C_Frame {
+public :
+    C_Frame(std::string name);
+	virtual ~C_Frame();
+    virtual std::string getName(){return m_name;};
+    virtual void addPage(C_Page *page);
+    virtual C_Page* getCurrent();
+    virtual void refresh();
+    virtual void render();
+    virtual std::vector<std::string> getListOfVisibleItems();
+    virtual std::map<std::string, C_MenuItem*> getItemList();
+    virtual bool getOpen(){return m_open;};
+    virtual void setOpen(bool open){m_open =  open;};
+protected:
+    std::string m_name;
+    int m_currentPage = 0;
+    std::vector <C_Page*> m_list;
+    bool m_open = true;
+};
+
 
 #endif
