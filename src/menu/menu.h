@@ -38,7 +38,6 @@ public:
 	void updateInfos(); /*!Create or update informations before render them on screen*/
 	void render(); /*!Render the menu on screen*/
 	C_MenuItem * getMenuItem(std::string name){return m_menuItemsList[name];};
-	void updateLevelInfos(int current_wave, int total_waves);
 	void resetValues(); /*!reset values when change or reset the level*/
 	void menuBanner();
     C_Frame* getFrame(std::string name);
@@ -53,18 +52,11 @@ public:
     void Nbr(int nbr);
 	void resetEndLevelMenu();
 protected:
-	void updateDefenderStatus(); /*!Create or update defender informations*/
 	void updateAttackerStatus(); /*!Create or update attacker informations*/
-	void updateWalletStatus(); /*!Create or update wallet informations of the attacker*/
-	std::string nbrToString(int nbr);/*!fill empty space when convert int to string, "10" become "  10"*/
 
 private:
-
 	//information to display
-	int m_current_wave;
-	int m_total_waves;
 	std::map<std::string, C_MenuItem*> m_menuItemsList;
-
     std::vector <C_Frame*> m_frames;
 };
 

@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../coord.h"
 #include "../xml.h"
 
-struct S_LevelModel {
+struct S_LevelData {
 	int nbr;
 	std::string filename;
 	std::string name;
@@ -39,6 +39,8 @@ struct S_LevelModel {
 	int tileheight;
 	int gridSize;
 	std::string backgroundcolor;
+    int currentWave;
+    int totalWaves;
 };
 
 class C_Wave {
@@ -52,20 +54,18 @@ public:
 private:
 //attibutes
 	std::vector <S_Unit> m_boatList;
-	int m_count;
 };
 
 class C_Level {
 
 public:
 //methods
-	C_Level(S_LevelModel model);
+	C_Level(S_LevelData model);
 	~C_Level();
 	void load(int levelNbr);
 	void sendNextWave();
 	void cliWaveStatus(int i);
 	void loadWaveIntoGrid(int i);
-	void updateMenuInfo();
 	void render();
 	void renderSelected();
 	void play();
@@ -74,6 +74,7 @@ public:
 	void addUnit(std::string &type, S_Coord clic);
 	void endOfALevel();
 	S_Coord getGridTown();
+    S_LevelData getData(){return m_data;};
 
 protected:
 //methods
@@ -84,29 +85,19 @@ protected:
 	void createLandscape();
 
 //attibutes
-	int m_count;
 	int m_id;
 	S_tmxLayer m_decorLayer;
     C_Tmx* m_tmx;
 
     //waves
-	int m_nbrOfWaves;
-	int m_currentWaveNbr;
 	long m_lastWaveTime;
 	std::vector <C_Wave> m_waves;
 
 	C_Landscape* m_landscape;
 
 //properties
-	std::string m_filename;
-	std::string m_levelName;
-	int m_width;
-	int m_height;
-	int m_gridSize;
-	int m_tilewidth;
-	int m_tileheight;
-	std::string m_backgroundcolor;
 	int m_levelStatus;
+    S_LevelData m_data;
 };
 
 

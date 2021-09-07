@@ -31,31 +31,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 using namespace std;
 
 
-C_Level::C_Level(S_LevelModel model):
+C_Level::C_Level(S_LevelData model):
 	m_id(model.nbr),
-	m_levelName(model.name),
-	m_width(model.width),
-	m_height(model.height),
-	m_gridSize(model.gridSize),
-	m_tilewidth(model.tilewidth),
-	m_tileheight(model.tileheight),
-	m_backgroundcolor(model.backgroundcolor),
-	m_levelStatus(ONGOING)
+	m_levelStatus(ONGOING),
+	m_data(model)
 {
-	m_count = ++m_id;
-	C_Settings& settings=C_Locator::getSettings();
-	m_filename = settings.getLevelFolder() + "Level_" + to_string(model.nbr) + ".tmx";
 	struct stat buffer;
-	if (stat (m_filename.c_str(),  &buffer) == 0) {
-	    m_tmx = new C_Tmx(m_filename);
+	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
+	    m_tmx = new C_Tmx(m_data.filename);
 		m_decorLayer = m_tmx->extractLayerInTMX("Decors");
-
-		m_nbrOfWaves = 0;
-		m_currentWaveNbr = -1;
+		m_data.currentWave = -1;
 		m_lastWaveTime = SDL_GetTicks();
 		m_landscape = nullptr;
 	} else {
-		C_Message::printM("Can not find " + m_filename+"\n");
+		C_Message::printM("Can not find " + m_data.filename+"\n");
 	}
 }
 
@@ -70,28 +59,23 @@ void C_Level::load(int levelNbr)
 {
 	//clean before loading
 	C_Grid& grid= C_Locator::getGrid();
-	grid.reset(m_gridSize);
+	grid.reset(m_data.gridSize);
 	m_levelStatus = ONGOING;
 
 	struct stat buffer;
-	if (stat (m_filename.c_str(),  &buffer) == 0) {
+	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
 
 		loadLayerIntoTheGrid("Ground");
 		loadLayerIntoTheGrid("Decors");
 
 		setWallet();
-		C_Xml tmx(m_filename);
-		m_nbrOfWaves = tmx.countAttributes("Wave");
-		for(int i = 0; i < m_nbrOfWaves; i++) {
-			loadWave(m_filename.c_str(),i);
+		for(int i = 0; i < m_data.totalWaves; i++) {
+			loadWave(m_data.filename.c_str(),i);
 		}
-		updateMenuInfo();
-
-
 		createLandscape();
 		C_Message::printM("Level " + to_string(levelNbr) +" Loaded\n");
 	} else {
-		C_Message::printM("Can not find " + m_filename+"\n");
+		C_Message::printM("Can not find " + m_data.filename+"\n");
 		C_Message::printM("Can not load level " + to_string(levelNbr)+"\n");
 	}
 }
@@ -99,7 +83,7 @@ void C_Level::load(int levelNbr)
 void C_Level::setWallet()
 {
 	C_Wallet& wallet= C_Locator::getWallet();
-	C_Xml tmx(m_filename);
+	C_Xml tmx(m_data.filename);
 	int walletCredit =  stoi(tmx.extractStrValue("property","name","wallet","value"));
 	if(walletCredit < 1) {
 		walletCredit = 500;
@@ -118,13 +102,13 @@ void C_Level::createLandscape()
 
 void C_Level::sendNextWave()
 {
-	m_currentWaveNbr++;
-	if(m_currentWaveNbr < m_nbrOfWaves && m_currentWaveNbr >= 0) {
-		cliWaveStatus(m_currentWaveNbr);
-		loadWaveIntoGrid(m_currentWaveNbr);
-		C_Message::printM("Next wave: " + to_string(m_currentWaveNbr)+"\n");
-	} else if(m_currentWaveNbr > m_nbrOfWaves) {
-		m_currentWaveNbr--;
+	m_data.currentWave++;
+	if(m_data.currentWave < m_data.totalWaves && m_data.currentWave >= 0) {
+		cliWaveStatus(m_data.currentWave);
+		loadWaveIntoGrid(m_data.currentWave);
+		C_Message::printM("Next wave: " + to_string(m_data.currentWave)+"\n");
+	} else if(m_data.currentWave > m_data.totalWaves) {
+		m_data.currentWave--;
 	}
 }
 
@@ -232,15 +216,8 @@ void C_Level::loadWaveIntoGrid(int i)
 		}
 		c++;
 	}
-	updateMenuInfo();
 }
 
-
-void C_Level::updateMenuInfo()
-{
-	C_Menu& menu=C_Locator::getMenu();
-	menu.updateLevelInfos(m_nbrOfWaves - m_currentWaveNbr, m_nbrOfWaves);
-}
 
 void C_Level::render()
 {
@@ -322,7 +299,7 @@ void C_Level::endOfALevel(){
 	int playerLife = grid.getAllTownsLifeLevel();
 	if(playerLife > 0){
 		//check if it is the last wave
-		int waveLeft = m_waves.size() - 1 - m_currentWaveNbr;
+		int waveLeft = m_waves.size() - 1 - m_data.currentWave;
 		if(waveLeft <= 0){
 			//check if boats of last wave are all dead
 			int boats = grid.nbrOfboatStillAlive();
@@ -352,7 +329,6 @@ void C_Level::endOfALevel(){
 
 C_Wave::C_Wave()
 {
-	m_count = 0;
 }
 
 
@@ -369,7 +345,6 @@ void C_Wave::add(string name, S_Coord coord)
 
 	tmp.coord = coord;
 	m_boatList.push_back(tmp);
-	m_count++;
 }
 
 void C_Wave::cliStatus()

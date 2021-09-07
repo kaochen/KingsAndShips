@@ -93,6 +93,7 @@ class C_Menu_Bottom : public C_Page {
 class C_Menu_Top : public C_Page {
     public:
     	C_Menu_Top(std::string name);
+        virtual void refresh();
         virtual void render();
 };
 

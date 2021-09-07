@@ -29,6 +29,7 @@ public:
 	static bool checkExtension(std::string path, std::string extension);
 	static bool fileExist(const std::string &file);
 	static std::vector <std::string> listFiles(std::string path);
+    static std::string nbrToString(int nbr);/*!fill empty space when convert int to string, "10" become "  10"*/
 };
 
 

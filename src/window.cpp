@@ -558,7 +558,7 @@ void C_Window::navigateOverTheMap(S_Coord const &button)
 	}
 }
 
-S_LevelModel C_Window::getLevelModel(int levelNbr)
+S_LevelData C_Window::getLevelModel(int levelNbr)
 {
 	return m_levelFactory->getModel(levelNbr);
 }

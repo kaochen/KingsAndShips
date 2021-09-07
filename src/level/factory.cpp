@@ -179,9 +179,9 @@ C_LevelFactory::C_LevelFactory()
 	}
 }
 
-S_LevelModel C_LevelFactory::extractInfosFromTmx(int levelNbr)
+S_LevelData C_LevelFactory::extractInfosFromTmx(int levelNbr)
 {
-	S_LevelModel level;
+	S_LevelData level;
 	level.nbr = levelNbr;
 	C_Settings& settings=C_Locator::getSettings();
 	level.filename = settings.getLevelFolder() + "Level_" + to_string(levelNbr) + ".tmx";
@@ -196,6 +196,8 @@ S_LevelModel C_LevelFactory::extractInfosFromTmx(int levelNbr)
 		level.tileheight = stoi( tmx.extractStrValue( "map", "tileheight"));
 		level.backgroundcolor =  tmx.extractStrValue( "map", "backgroundcolor");
 		level.name = tmx.extractStrValue("property","name","subname","value");
+		level.currentWave = 0;
+		level.totalWaves = tmx.countAttributes("Wave");
 	} else {
 		C_Message::printError("Can not find " + level.filename+"\n");
 	}
@@ -220,11 +222,11 @@ C_Level * C_LevelFactory::create(int nbr)
 	} else if(id > m_lastLevelNbr) {
 		id = m_lastLevelNbr;
 	}
-	S_LevelModel level = m_levelList[id - 1];
+	S_LevelData level = m_levelList[id - 1];
 	return  new C_Level(level);
 }
 
-S_LevelModel C_LevelFactory::getModel(int levelNbr)
+S_LevelData C_LevelFactory::getModel(int levelNbr)
 {
 	int id = levelNbr;
 	if(id < 1) {

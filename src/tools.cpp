@@ -51,3 +51,19 @@ bool C_Tools::checkExtension(std::string path, std::string extension){
 	}
 	return ret;
 }
+
+
+std::string C_Tools::nbrToString(int nbr)
+{
+	std::string space = "";
+	std::string nbrStr = std::to_string(nbr);
+
+	if (nbrStr.size()==2) {
+		space = "  ";
+	} else if (nbrStr.size()==1) {
+		space = "    ";
+	} else {
+		space = "";
+	}
+	return space + nbrStr;
+}

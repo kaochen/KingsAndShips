@@ -296,7 +296,7 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	m_type = STATUS;
 	m_fontSize = 18;
 	C_Window& win= C_Locator::getWindow();
-    S_LevelModel model = win.getLevelModel(nbr);
+    S_LevelData model = win.getLevelModel(nbr);
     S_Line t0 = {"Card_name",model.name};
     m_list.push_back(t0);
     S_Line t1 = {"Card_levelNbr", "Level: "+to_string(model.nbr)};

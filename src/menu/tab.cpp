@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../window.h"
 #include "../textureList.h"
 #include "../locator.h"
+#include "../tools.h"
 
 using namespace std;
 
@@ -68,7 +69,7 @@ void C_Frame::render(){
 
 std::vector<std::string> C_Frame::getListOfVisibleItems(){
     std::vector<std::string> ret;
-	if(m_open){
+    if(m_open){
         for(auto const& i : m_list) {
 		    if(i != nullptr){
 	                ret = i->getListOfVisibleItems();
@@ -394,9 +395,51 @@ C_Menu_Top::C_Menu_Top(std::string name)
         S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y+28};
         flagLine(names,first);
 	}
+	int x_button = m_screen.x - 100;
+	int y_button = m_screen.y - 30;
+	if(m_itemsList["gold_pile"]== nullptr) {
+        m_itemsList["gold_pile"] = new C_MenuItem("gold_pile",x_button,y_button);
+    }
+    if(m_itemsList["walletBar"]== nullptr) {
+		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 70,y_button + 30, GREEN, BLUE);
+	}
+    //progress bar value
+	if(m_itemsList["playerlife"] == nullptr) {
+		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 70,y_button + 10, GREEN, RED);
+	}
 
+	if(m_itemsList["waveCount"] == nullptr) {
+		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 170,y_button + 10, GREEN,BLUE);
+	}
 }
 
+void C_Menu_Top::refresh(){
+    if(m_open){
+        if(m_itemsList["walletBar"] != nullptr) {
+		    C_Wallet& wallet= C_Locator::getWallet();
+		    std::string text = C_Tools::nbrToString(wallet.getBalance());
+		    m_itemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
+		    m_itemsList["walletBar"]->setText(text, 18);
+	    }
+
+	    if(m_itemsList["playerlife"] != nullptr) {
+	        C_Grid& grid= C_Locator::getGrid();
+	        int playerLife = grid.getAllTownsLifeLevel();
+	    	string text = "Life: " + C_Tools::nbrToString(playerLife);
+		    m_itemsList["playerlife"]->setPercentage(playerLife);
+		    m_itemsList["playerlife"]->setText(text, 18);
+	    }
+
+	    if(m_itemsList["waveCount"] != nullptr) {
+	        C_Window& win=C_Locator::getWindow();
+	        S_LevelData l = win.getCurrentLevel()->getData();
+		    std::string text = "Wave " + std::to_string(l.currentWave  + 1) + "/" + to_string(l.totalWaves);
+		    m_itemsList["waveCount"]->setPercentage(l.currentWave,l.totalWaves);
+		    m_itemsList["waveCount"]->setText(text, 18);
+	    }
+
+    }
+}
 
 void C_Menu_Top::render(){
     if(m_open){

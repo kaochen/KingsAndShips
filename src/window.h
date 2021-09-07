@@ -48,8 +48,9 @@ public:
 	bool testIfButton(S_Coord screen);
 	void listenButtons();
 	void loadLevel(int levelNbr);
-	S_LevelModel getLevelModel(int levelNbr);
+	S_LevelData getLevelModel(int levelNbr);
     int getLastLevelNbr();
+    C_Level* getCurrentLevel(){return m_level;};
 
 protected:
 	void initSDL();
