@@ -75,10 +75,38 @@ C_Frame* C_Menu::getFrame(std::string name){
     return ret;
 }
 
+void C_Menu::openTab(std::string name){
+    for(auto const& f : m_frames) {
+		if(f != nullptr){
+		    f->openTabIfExist(name);
+		}
+	}
+}
 
-void C_Menu::updateInfos()
+void C_Menu::refresh()
 {
 	updateUpgradeButtonsStatus();
+
+	C_Window& win=C_Locator::getWindow();
+	S_LevelData data = win.getCurrentLevel()->getData();
+	if(data.status == WIN){
+	    C_Frame* main = getFrame("mainMenu");
+	    if(main != nullptr){
+	        main->setOpen(false);
+	    }
+		if(getFrame("endGame") !=  nullptr){
+	    	getFrame("endGame")->setOpen(true);
+    		C_Settings& settings=C_Locator::getSettings();
+		    settings.setPlaying(PAUSE);
+	    }
+	}
+
+	for(auto const& f : m_frames) {
+		if(f != nullptr){
+			std::map<std::string, C_MenuItem*> items = f->getItemList();
+		    m_menuItemsList.insert(items.begin(),items.end());
+		}
+	}
 }
 
 void C_Menu::render()
@@ -104,18 +132,6 @@ void C_Menu::render()
 	}
 }
 
-
-void C_Menu::resetValues()
-{
-	if(getFrame("mainMenu") !=  nullptr)
-		getFrame("mainMenu")->setOpen(false);
-	if(getFrame("endGame") !=  nullptr)
-		getFrame("endGame")->setOpen(false);
-	if(getFrame("bottomMenu") !=  nullptr)
-		getFrame("bottomMenu")->setOpen(true);
-	if(getFrame("topMenu") !=  nullptr)
-		getFrame("topMenu")->setOpen(true);
-}
 
 
 void C_Menu::updateUpgradeButtonsStatus(){
@@ -156,41 +172,12 @@ void C_Menu::openMainMenu()
 	    }
 	}
 }
-void C_Menu::openEndLevelMenu(int status)
-{
-	C_Settings& settings=C_Locator::getSettings();
-	C_Frame * tmp = getFrame("endGame");
-	if(tmp != nullptr){
-	    if(tmp->getOpen()) {
-		    tmp->setOpen(false);
-		    settings.setPlaying(PLAY);
-	    } else {
-		    tmp->setOpen(true);
-		    settings.setPlaying(PAUSE);
-	    }
-    //tmp->setWin(status);
-	}
-}
-void C_Menu::resetEndLevelMenu(){
-    C_Frame * tmp = getFrame("endGame");
-	if(tmp != nullptr){
-		delete tmp;
-	}
-
-	tmp = new C_Frame("endGame");
-    tmp->addPage(new C_Tab_endGame("endGame"));
-
-	C_Settings& settings=C_Locator::getSettings();
-	settings.setPlaying(PLAY);
-}
 
 
 vector<string> C_Menu::getMenuItemsList()
 {
 	vector<string> list;
 	//Always Visible
-	list.push_back("boatLife");
-
 	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
@@ -199,13 +186,17 @@ vector<string> C_Menu::getMenuItemsList()
 	    C_Settings& settings= C_Locator::getSettings();
 	    coord.x -=32;
 	    coord.y -= settings.getTileHeight()*3;
-	    m_menuItemsList["upgradeTower"]->setScreen(coord);
+	    if(m_menuItemsList["upgradeTower"] != nullptr){
+	        m_menuItemsList["upgradeTower"]->setScreen(coord);
+	    }
     }
 
     for(auto const& f : m_frames) {
 		if(f != nullptr){
 			std::vector<std::string> tmp = f->getListOfVisibleItems();
-		    list.insert(list.end(), tmp.begin(), tmp.end());
+			if(!tmp.empty()){
+		        list.insert(list.end(), tmp.begin(), tmp.end());
+		    }
 		}
 	}
 
@@ -223,14 +214,6 @@ void C_Menu::menuBanner()
         main->addPage( new C_Tab("About"));
         m_frames.push_back(main);
     }
-
-    //
-    for(auto const& f : m_frames) {
-		if(f != nullptr){
-			std::map<std::string, C_MenuItem*> items = f->getItemList();
-		    m_menuItemsList.insert(items.begin(),items.end());
-		}
-	}
 }
 
 

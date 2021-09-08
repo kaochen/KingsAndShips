@@ -33,9 +33,9 @@ using namespace std;
 
 C_Level::C_Level(S_LevelData model):
 	m_id(model.nbr),
-	m_levelStatus(ONGOING),
 	m_data(model)
 {
+    setStatus(ONGOING);
 	struct stat buffer;
 	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
 	    m_tmx = new C_Tmx(m_data.filename);
@@ -60,7 +60,7 @@ void C_Level::load(int levelNbr)
 	//clean before loading
 	C_Grid& grid= C_Locator::getGrid();
 	grid.reset(m_data.gridSize);
-	m_levelStatus = ONGOING;
+    setStatus(ONGOING);
 
 	struct stat buffer;
 	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
@@ -293,6 +293,14 @@ S_Coord C_Level::getGridTown()
 	return grid.foundTown();
 }
 
+void C_Level::setStatus(int status){
+    if(status >= 0 && status <= WIN){
+        m_data.status = status;
+    } else {
+        C_Message::printError("Level Status : "+ std::to_string(status) + "  not possible\n");
+    }
+}
+
 
 void C_Level::endOfALevel(){
 	C_Grid& grid= C_Locator::getGrid();
@@ -304,22 +312,16 @@ void C_Level::endOfALevel(){
 			//check if boats of last wave are all dead
 			int boats = grid.nbrOfboatStillAlive();
 			if(boats <= 0){
-				if(m_levelStatus == ONGOING){
+				if(m_data.status == ONGOING){
 					C_Message::printM("You won this battle\n");
-					C_OpenEndLevelMenu end;
-					end.setNbr(WIN);
-					end.action();
-					m_levelStatus = WIN;
+        			setStatus(WIN);
 				}
 			}
 		}
 	} else {
-		if(m_levelStatus == ONGOING){
+		if(m_data.status == ONGOING){
 			C_Message::printM("You lost this battle\n");
-			C_OpenEndLevelMenu end;
-			end.setNbr(LOSE);
-			end.action();
-			m_levelStatus = LOSE;
+			setStatus(LOSE);
 		}
 	}
 }

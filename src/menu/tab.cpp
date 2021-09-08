@@ -36,10 +36,11 @@ C_Frame::~C_Frame(){
 	}
 }
 
-
-
 void C_Frame::addPage(C_Page *page){
     if(page != nullptr){
+        if(m_list.empty()){
+            m_current = page->getName();
+        }
         for(auto i : m_list){
             if(page->getName() == i->getName()){
                 std::cout << "Page " << page->getName() << " exist allready." << std::endl;
@@ -60,7 +61,9 @@ void C_Frame::render(){
 	if(m_open){
         for(auto const& i : m_list) {
 		    if(i != nullptr){
-			        i->render();
+		        if(i->getName()== m_current){
+			            i->render();
+			        }
 			    }
 	    }
 	}
@@ -72,7 +75,9 @@ std::vector<std::string> C_Frame::getListOfVisibleItems(){
     if(m_open){
         for(auto const& i : m_list) {
 		    if(i != nullptr){
+		        if(i->getName()== m_current){
 	                ret = i->getListOfVisibleItems();
+	            }
 		    };
 		}
 	}
@@ -84,7 +89,9 @@ std::map<std::string, C_MenuItem*> C_Frame::getItemList(){
 	if(m_open){
         for(auto const& i : m_list) {
     		if(i != nullptr){
-	            ret = i->getItemList();
+    		    if(i->getName()== m_current){
+	                ret = i->getItemList();
+	            }
 		    };
 		}
 	}
@@ -98,6 +105,19 @@ C_Page* C_Frame::getCurrent(){
     }
 	return ret;
 }
+
+void C_Frame::openTabIfExist(std::string tabname){
+    for(auto const& i : m_list) {
+    		if(i != nullptr){
+    		    if(i->getName()== tabname){
+	                m_open = true;
+	                m_current = tabname;
+	            }
+		    };
+		}
+}
+
+
 
 C_Page::C_Page(std::string name):
     m_name(name)
@@ -131,16 +151,17 @@ void C_Page::flagLine(std::vector <std::string> names, S_Coord last)
 	        if(!m_itemsList[i]){
 	            std::string img = i;
 	            C_Command *command = nullptr;
-	            if(i ==  "popOutMenu" || i ==  "popOutMenu2" ) {
-			        command = new C_OpenMenu();
-			        img = "popOutMenu";
-		        } else if(i ==  "home") {
-			        command = new C_CenterCamera();
-		        } else if(i ==  "play") {
-			        command = new C_Play();
-		        } else if(i ==  "quit") {
-			        command = new C_QuitProgram();
-		        }
+                   if(i ==  "popOutMenu" || i ==  "popOutMenu2" ) {
+                               command = new C_OpenMenu();
+                               img = "popOutMenu";
+                       } else if(i ==  "home") {
+                               command = new C_CenterCamera();
+                       } else if(i ==  "play") {
+                               command = new C_Play();
+                       } else if(i ==  "quit") {
+                               command = new C_QuitProgram();
+                       }
+
 	            m_itemsList[i] = new C_Button(i,img,last.x - offset , last.y);
 		        if(m_itemsList[i]!= nullptr){
 		            if(command){
@@ -152,15 +173,31 @@ void C_Page::flagLine(std::vector <std::string> names, S_Coord last)
 	    }
 }
 
-
-int C_Tab::m_id = -1;
+void C_Page::column(std::vector <std::string> names, S_Coord first)
+{
+        int size = 32;
+	    //left buttons
+	    int offset = 0;
+	    for(auto i : names){
+	        std::string uniqueName = m_name+"_"+i;
+	        if(m_itemsList[uniqueName] == nullptr){
+	            C_Command *command = new C_ChangeTab();
+	            command->setText(i);
+	            m_itemsList[uniqueName]  = new C_MB_CardButton(i,first.x , first.y + offset);
+		        if(m_itemsList[uniqueName]!= nullptr){
+	                m_itemsList[uniqueName]->setText(i);
+		            if(command){
+		                m_itemsList[uniqueName]->setCommand(command);
+		            }
+	            }
+	        }
+	        offset += size;
+	    }
+}
 
 C_Tab::C_Tab(std::string title)
     : C_Page(title)
 {
-	m_id++;
-	m_name = "tab_" + to_string(m_id);
-	m_title = title;
 	C_Settings& settings=C_Locator::getSettings();
 	m_width = 768;
 	m_height = 512;
@@ -170,27 +207,19 @@ C_Tab::C_Tab(std::string title)
 	m_flagScreen.y = m_screen.y - m_height/3 + 20;
 	m_flagOffset = 35;
 
-
-	m_tabSize = 30;
-	int x = m_screen.x - ((m_tabSize *3) / 2) + 35;
-
-	m_itemsList[m_name] = new C_MB_TabSelect(m_name,m_title,22, m_screen.x - m_width/3 - 20  ,m_screen.y - m_height/3 + (m_flagOffset*m_id) + 20 );
-	if(m_itemsList[m_name] != nullptr) {
-		m_itemsList[m_name]->setCommand(new C_ChangeTab);
-		if( m_itemsList[m_name]->getCommand() != nullptr)
-			m_itemsList[m_name]->getCommand()->setNbr(m_id);
-	}
-
-
-	std::vector <string> names = {"popOutMenu2", "quit"};
+	std::vector <std::string> names = {"popOutMenu2", "quit"};
     S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4};
     flagLine(names,first);
+
+    std::vector <std::string> columnNames = {"Levels","Settings", "About"};
+    S_Coord first_c = {m_screen.x - m_width/2 + 40,m_screen.y - m_height/3 + 20};
+    column(columnNames,first_c);
 }
 
 
-void C_Tab::displayTab(bool open)
+void C_Tab::render()
 {
-	if(open) {
+	if(m_open) {
 		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture("Menu_01_background", m_screen.x - 10,m_screen.y,CENTER);
 	}
@@ -284,7 +313,6 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
-	m_levelStatus = ONGOING;
 	m_open = false;
 
     std::string replay = "EndGame_Replay";
@@ -310,7 +338,6 @@ C_Tab_endGame::C_Tab_endGame(std::string name)
 	}
 
 	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x  +  92, m_screen.y - 80 );
-	refresh();
 }
 
 
@@ -335,6 +362,23 @@ void C_Tab_endGame::refresh(){
 	        	  m_itemsList[next]->getCommand()->setNbr(nextLevel);
 	        }
     }
+
+	if(m_itemsList["EndGameResultText"] != nullptr){
+        C_Window& win=C_Locator::getWindow();
+        C_Level * current = win.getCurrentLevel();
+        if(current != nullptr){
+	        S_LevelData l = current->getData();
+	        std::string text;
+	        if(l.status == WIN){
+		        text = "Your castle is safe for now";
+	        } else if(l.status == LOSE){
+	            text = "You lost this castle";
+	        } else if(l.status == ONGOING){
+		        text = "You lost this castle";
+	        }
+	        m_itemsList["EndGameResultText"]->setText(text);
+	    }
+	}
 }
 
 void C_Tab_endGame::render()
@@ -342,12 +386,6 @@ void C_Tab_endGame::render()
     if(m_open){
 	    C_TextureList& t= C_Locator::getTextureList();
 	    t.renderTexture("Menu_01_background", m_screen.x - 10, m_screen.y,CENTER);
-	    if(m_levelStatus == WIN)
-			    m_itemsList["EndGameResultText"]->setText("Your castle is safe for now");
-		    else if(m_levelStatus == LOSE)
-			    m_itemsList["EndGameResultText"]->setText("You lost this castle");
-		    else if(m_levelStatus == ONGOING)
-			    m_itemsList["EndGameResultText"]->setText("The game continue");
 	}
 }
 

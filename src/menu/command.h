@@ -30,17 +30,12 @@ public:
 	virtual ~C_Command() {};
 	virtual void action() = 0;
 	virtual void actionHover(bool state){if(state){};};
-	virtual void setNbr(int nbr)
-	{
-		m_nbr = nbr;
-	};
-	virtual bool getBool()
-	{
-		std::cout << "return false \n";
-		return false;
-	};
+	virtual void setNbr(int nbr){m_nbr = nbr;};
+	virtual void setText(std::string text){m_text = text;};
+	virtual bool getBool(){std::cout << "return false \n"; return false;};
 protected:
 	int m_nbr;
+    std::string m_text;
 };
 
 class C_OpenMenu : public C_Command {
@@ -89,10 +84,6 @@ public:
 	virtual void actionHover(bool state);
 };
 
-class C_OpenEndLevelMenu : public C_Command {
-public:
-	virtual void action();
-};
 
 class C_QuitProgram : public C_Command {
 public:

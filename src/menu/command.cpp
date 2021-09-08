@@ -41,9 +41,10 @@ bool C_OpenMenu::getBool()
 
 void C_ChangeTab::action()
 {
-	C_Message::printM("Send an ChangeTab action\n");
+    std::string msg = "Send an ChangeTab action for "+ m_text +"\n";
+	C_Message::printM(msg);
 	C_Menu& menu=C_Locator::getMenu();
-	//menu.setTabNbr(m_nbr);
+	menu.openTab(m_text);
 }
 
 void C_ChangeLevelLeft::action()
@@ -105,13 +106,6 @@ void C_UpgradeUnit::actionHover(bool state)
 			unit->upgrade(false);
 		}
 	}
-}
-
-void C_OpenEndLevelMenu::action()
-{
-	C_Message::printM("Send an openEndLevelMenu action\n");
-	C_Menu& menu=C_Locator::getMenu();
-	menu.openEndLevelMenu(m_nbr);
 }
 
 

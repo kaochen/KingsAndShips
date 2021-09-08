@@ -198,6 +198,7 @@ S_LevelData C_LevelFactory::extractInfosFromTmx(int levelNbr)
 		level.name = tmx.extractStrValue("property","name","subname","value");
 		level.currentWave = 0;
 		level.totalWaves = tmx.countAttributes("Wave");
+		level.status = STOPPED;
 	} else {
 		C_Message::printError("Can not find " + level.filename+"\n");
 	}

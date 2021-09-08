@@ -54,7 +54,7 @@ enum imageType {ALIVE,DAMAGED,DYING,DEAD,WEAPON};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
 enum game {PLAY,PAUSE};
-enum level {ONGOING,LOSE,WIN};
+enum level {STOPPED,ONGOING,LOSE,WIN};
 
 
 class C_Settings

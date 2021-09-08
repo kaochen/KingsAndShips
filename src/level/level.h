@@ -41,6 +41,7 @@ struct S_LevelData {
 	std::string backgroundcolor;
     int currentWave;
     int totalWaves;
+    int status; //level status ONGOING, LOSE, WIN
 };
 
 class C_Wave {
@@ -75,6 +76,7 @@ public:
 	void endOfALevel();
 	S_Coord getGridTown();
     S_LevelData getData(){return m_data;};
+    void setStatus(int status);
 
 protected:
 //methods
@@ -96,7 +98,6 @@ protected:
 	C_Landscape* m_landscape;
 
 //properties
-	int m_levelStatus;
     S_LevelData m_data;
 };
 

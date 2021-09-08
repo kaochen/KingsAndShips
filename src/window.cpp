@@ -238,11 +238,11 @@ void C_Window::gameLoop()
 			//render image
 			if (m_forceRefresh) {
 				m_level->endOfALevel();
+				menu.refresh();
 				//display game content from bottom to top
 				m_level->render();
 				m_level->renderSelected();
 				listenButtons();
-				menu.updateInfos();
 				menu.render();
 				time.showFPS ();
 				//print the final render
@@ -425,9 +425,9 @@ void C_Window::listenKeyboard(SDL_Event &event)
 		settings.zoomUp();
 		break;
 	case SDLK_w:{
-		C_OpenEndLevelMenu end;
-		end.setNbr(1);
-		end.action();
+	    if(m_level != nullptr){
+            m_level->setStatus(WIN);
+            }
 		}
 		break;
 	case SDLK_RIGHT:
@@ -454,8 +454,6 @@ void C_Window::loadLevel(int levelNbr)
 
 	if(m_level != nullptr) {
 		delete m_level;
-		C_Menu& menu=C_Locator::getMenu();
-		menu.resetEndLevelMenu();
 	}
 	m_level = m_levelFactory->create(levelNbr);
 	if(m_level != nullptr) {

@@ -382,13 +382,14 @@ void C_Settings::setPlaying()
 
 void C_Settings::setPlaying(int state)
 {
-	if(state == PLAY) {
-		m_playing = PLAY;
-		C_Message::printM("PLAY\n");
-	} else if(state == PAUSE) {
-		m_playing = PAUSE;
-		C_Message::printM("PAUSE\n");
-	}
+	if(m_playing != state) {
+		m_playing = state;
+	    if(m_playing == PLAY) {
+		    C_Message::printM("PLAY\n");
+	    } else if (m_playing == PAUSE) {
+		    C_Message::printM("PAUSE\n");
+	    }
+	 }
 }
 
 std::string C_Settings::getPgmPath(){

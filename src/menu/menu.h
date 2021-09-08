@@ -35,22 +35,19 @@ class C_Menu {
 public:
 	C_Menu();
 	virtual ~C_Menu();
-	void updateInfos(); /*!Create or update informations before render them on screen*/
+	void refresh(); /*!Create or update informations before render them on screen*/
 	void render(); /*!Render the menu on screen*/
 	C_MenuItem * getMenuItem(std::string name){return m_menuItemsList[name];};
-	void resetValues(); /*!reset values when change or reset the level*/
 	void menuBanner();
     C_Frame* getFrame(std::string name);
-
+    void openTab(std::string name);
  	void updateUpgradeButtonsStatus();
 	//commands
 	void openMainMenu();
-	void openEndLevelMenu(int status);
 	bool isOpen(){return getFrame("mainMenu")->getOpen();};
 	std::vector<std::string> getMenuItemsList();
     void go(int direction);
     void Nbr(int nbr);
-	void resetEndLevelMenu();
 protected:
 	void updateAttackerStatus(); /*!Create or update attacker informations*/
 

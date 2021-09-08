@@ -32,10 +32,10 @@ public :
 	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
     virtual void render() = 0;
     virtual std::vector<std::string> getListOfVisibleItems();
-    virtual void setWin(int win){ std::cout << win;};
     virtual void refresh(){};
     virtual void go(int direction){std::cout << direction << std::endl;};
 protected:
+    virtual void column(std::vector <std::string> names, S_Coord first);
     virtual void flagLine(std::vector <std::string> names, S_Coord last);
   	std::string m_name;
 	std::map<std::string, C_MenuItem*> m_itemsList;
@@ -48,14 +48,10 @@ protected:
 class C_Tab : public C_Page {
 public:
 	C_Tab(std::string title);
-	virtual void displayTab(bool open);
-    virtual void render(){displayTab(true);};
-	virtual std::string getTitle(){return m_title;};
+    virtual void render();
     virtual std::vector<std::string> getListOfVisibleItems();
 
 protected:
-	static int m_id;
-	std::string m_title;
 	S_Coord m_flagScreen /*!< first flag position in menu*/;
     int m_flagOffset;
 	Sint16 m_tabSize;
@@ -78,10 +74,8 @@ class C_Tab_endGame : public C_Page {
 public:
 	C_Tab_endGame(std::string name);
     virtual void render();
-    virtual void setWin(int win){ m_levelStatus = win;};
     virtual void refresh();
 protected:
-    int m_levelStatus;
 };
 
 class C_Menu_Bottom : public C_Page {
@@ -110,9 +104,11 @@ public :
     virtual std::map<std::string, C_MenuItem*> getItemList();
     virtual bool getOpen(){return m_open;};
     virtual void setOpen(bool open){m_open =  open;};
+    virtual void openTabIfExist(std::string tabname);
 protected:
     std::string m_name;
     int m_currentPage = 0;
+    std::string m_current;
     std::vector <C_Page*> m_list;
     bool m_open = true;
 };
