@@ -415,7 +415,7 @@ void C_GB_AddUnit::render()
 //-------------------------------------------------------------
 
 C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, int colorOut)
-	:C_MenuItem(name,x_screen,y_screen)
+	:C_MB_CardButton(name,x_screen,y_screen)
 {
 	m_type = STATUS;
 	m_width = 128;
@@ -447,55 +447,29 @@ void C_GP_Status::setPercentage(int a, int b)
 void C_GP_Status::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
-	int y = m_y_screen + 13;
-	int size = 6; //ProgressBar_Center are 6px wide
-	int all = m_width/size;
-	int mark = 0;
-	if(m_percentage !=0) {
-		mark = (m_percentage * m_width)/(100*size);
-	}
-	int xOffset = 0;
-	if(m_oldPercentage !=100) {
-		xOffset = (100 - m_percentage) * m_width/100;
-	}
-	string name = "ProgressBar_";
-	for (int i = 0; i <= all; i++) {
-		string image = name + "Center" ;
-		if(i < mark) {
-			if(i % 2 == 0) {
-				image += "2_";
-			} else {
-				image += "1_";
-			}
-			image +=colorToStr(m_colorIn);
-		} else {
-			if(i % 2 == 0) {
-				image += "2_";
-			} else {
-				image += "1_";
-			}
-			image +=colorToStr(m_colorOut);
-		}
-		t.renderTexture(image, m_x_screen + i*size - xOffset, y,CENTER);
+    std::string line;
+    size_t length = 12;
+    int x1 = m_x_screen + 18;
+	int y1 = m_y_screen + 12;
+	int offset = 0;
+	for (int i = 0; i <= length; i++){
+    	t.renderTexture("Buttons_Progress_Bright", x1 + offset ,y1,CENTER);
+    	offset += 10;
 	}
 
-	string leftImage = name + "Left_";
-	if(m_percentage > size)
-		leftImage += colorToStr(m_colorIn);
-	else
-		leftImage += colorToStr(m_colorOut);
-
-	t.renderTexture(leftImage, m_x_screen, y,CENTER);
-
-
-	string rightImage = name + "Right_";
-	if(100 - size <= m_percentage)
-		rightImage += colorToStr(m_colorIn);
-	else
-		rightImage += colorToStr(m_colorOut);
-
-	t.renderTexture(rightImage, m_x_screen + m_width, y,CENTER);
-	renderText();
+	int length2 = (m_percentage * length)/(100);
+	if(m_percentage>0){
+	    offset = 0;
+	    for (int i = 0; i <= length2; i++){
+        	t.renderTexture("Buttons_Progress_Dark", x1 + offset ,y1,CENTER);
+        	offset += 10;
+	    }
+    }
+	m_color = {255,255,255,180};
+    Sint16 x2 = m_x_screen + m_width/2;
+	Sint16 y2 = m_y_screen + m_height/2;
+	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
+	t.renderTexture(m_name, x2, y2 ,CENTER);
 }
 
 

@@ -50,11 +50,6 @@ C_Menu::C_Menu()
 
 C_Menu::~C_Menu()
 {
-	for(auto const& x : m_menuItemsList) {
-		if(x.second != nullptr)
-			delete  x.second;
-	}
-
 	for(auto const& f : m_frames) {
 		if(f != nullptr)
 			delete  f;
@@ -107,13 +102,6 @@ void C_Menu::refresh()
         }
     }
 
-
-	for(auto const& f : m_frames) {
-		if(f != nullptr){
-			std::map<std::string, C_MenuItem*> items = f->getItemList();
-		    m_menuItemsList.insert(items.begin(),items.end());
-		}
-	}
 }
 
 std::vector <C_MenuItem *> C_Menu::getMenuItems(){
@@ -160,6 +148,8 @@ void C_Menu::openMainMenu()
 		        getFrame("topMenu")->setOpen(false);
 		    if(getFrame("bottomMenu") !=  nullptr)
 		        getFrame("bottomMenu")->setOpen(false);
+		    if(getFrame("unitSelected") !=  nullptr)
+		        getFrame("unitSelected")->setOpen(false);
 		    settings.setPlaying(PAUSE);
 	    }
 	}

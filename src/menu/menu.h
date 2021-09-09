@@ -36,7 +36,6 @@ public:
 	virtual ~C_Menu();
 	void refresh(); /*!Create or update informations before render them on screen*/
 	void render(); /*!Render the menu on screen*/
-	C_MenuItem * getMenuItem(std::string name){return m_menuItemsList[name];};
 	std::vector<C_MenuItem *> getMenuItems();
 	void menuBanner();
     C_Frame* getFrame(std::string name);
@@ -47,11 +46,8 @@ public:
     void go(int direction);
     void Nbr(int nbr);
 protected:
-	void updateAttackerStatus(); /*!Create or update attacker informations*/
-
 private:
 	//information to display
-	std::map<std::string, C_MenuItem*> m_menuItemsList;
     std::vector <C_Frame*> m_frames;
 };
 

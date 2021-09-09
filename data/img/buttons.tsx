@@ -51,4 +51,6 @@
  <tile id="47" type="Flag_Active"/>
  <tile id="48" type="Flag_Hover"/>
  <tile id="49" type="Flag_Disabled"/>
+ <tile id="51" type="Progress_Bright"/>
+ <tile id="52" type="Progress_Dark"/>
 </tileset>

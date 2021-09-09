@@ -394,13 +394,13 @@ C_Menu_Top::C_Menu_Top(std::string name)
     S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4 };
     flagLine(names,first);
 
-	int x_button = m_screen.x - 60;
+	int x_button = m_screen.x - 90;
 	int y_button = m_screen.y + 70;
 	if(m_itemsList["gold_pile"]== nullptr) {
-        m_itemsList["gold_pile"] = new C_MenuItem("gold_pile",x_button,y_button - 20);
+        m_itemsList["gold_pile"] = new C_MenuItem("gold_pile",x_button - 10,y_button - 10);
     }
     if(m_itemsList["walletBar"]== nullptr) {
-		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 40 ,y_button + 20, GREEN, BLUE);
+		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 40 ,y_button + 30, GREEN, BLUE);
 	}
     //progress bar value
 	if(m_itemsList["playerlife"] == nullptr) {

@@ -165,7 +165,7 @@ protected:
 
 enum colorList {GREEN,RED,BLUE};
 
-class C_GP_Status: public C_MenuItem { /*!In Game Progress to show the status (Life, wallet)*/
+class C_GP_Status: public C_MB_CardButton { /*!In Game Progress to show the status (Life, wallet)*/
 public:
 	C_GP_Status(std::string name,int x_screen, int y_screen, int colorIn, int colorOut);
   	virtual	~C_GP_Status() {};
