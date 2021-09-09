@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../locator.h"
 #include "../level/level.h"
 #include "menuItems.h"
-#include "popup.h"
 #include "tab.h"
 
 class C_MenuItem;

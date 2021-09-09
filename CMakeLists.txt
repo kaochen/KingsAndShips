@@ -53,7 +53,6 @@ set (SRCS
 	src/level/gameUnits.cpp
 	src/window.cpp
 	src/menu/command.cpp
-	src/menu/popup.cpp
 	src/menu/menuItems.cpp
 	src/menu/tab.cpp
 	src/menu/menu.cpp
@@ -89,7 +88,6 @@ set (HEADERS
 	src/level/gameUnits.h
 	src/window.h
 	src/menu/command.h
-	src/menu/popup.h
 	src/menu/menuItems.h
 	src/menu/tab.h
 	src/menu/menu.h
