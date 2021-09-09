@@ -297,23 +297,24 @@ void C_Window::listenSDL_Events()
 bool C_Window::testIfButton(S_Coord screen){
 	C_Menu& menu=C_Locator::getMenu();
     bool ret = false;
-	C_MenuItem* menuButton;
-	vector <string> list;
-	list = menu.getMenuItemsList();
-	for (size_t i = 0; i < list.size(); i++) {
-		menuButton = menu.getMenuItem(list[i]);
-		if(menuButton != nullptr) {
-			int type = menuButton->getType();
-			if(type != STATUS) {
-				int xl = menuButton->getXScreen();
-				int xr = xl + menuButton->getWidth();
-				int yt= menuButton->getYScreen();
-				int yb = yt + menuButton->getHeight();
-				string name = menuButton->getName();
-				if (screen.x > xl && screen.x < xr && screen.y > yt && screen.y < yb) {
-				    ret = true;
-				}
-			}
+    std::vector <C_MenuItem*> buttonList = menu.getMenuItems();
+    if(!buttonList.empty()){
+        for(auto i : buttonList){
+            if(i != nullptr){
+            	int type = i->getType();
+			        if(type != STATUS) {
+				        int xl = i->getXScreen();
+				        int xr = xl + i->getWidth();
+				        int yt= i->getYScreen();
+				        int yb = yt + i->getHeight();
+				        string name = i->getName();
+				        if (screen.x > xl && screen.x < xr && screen.y > yt && screen.y < yb) {
+				            ret = true;
+				        }
+			    }
+
+            }
+
         }
     }
     return ret;
@@ -322,55 +323,53 @@ bool C_Window::testIfButton(S_Coord screen){
 void C_Window::listenButtons()
 {
 	C_Menu& menu=C_Locator::getMenu();
+    std::vector <C_MenuItem*> buttonList = menu.getMenuItems();
+    if(!buttonList.empty()){
+        for(auto i : buttonList){
+            if(i != nullptr){
+            	int type = i->getType();
+			    if(type != STATUS) {
+				    int xl = i->getXScreen();
+				    int xr = xl + i->getWidth();
+				    int yt= i->getYScreen();
+				    int yb = yt + i->getHeight();
+				    string name = i->getName();
+				    if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb) {
+					    if(i->getEnable()== true) {
+						    if( type == DRAGUNIT) {
+							    m_level->unselectedAll();
+							    m_aTowerIsSelected = false;
 
-	C_MenuItem* menuButton;
-	vector <string> list;
-	list = menu.getMenuItemsList();
-	for (size_t i = 0; i < list.size(); i++) {
-		menuButton = menu.getMenuItem(list[i]);
-		if(menuButton != nullptr) {
-			int type = menuButton->getType();
-			if(type != STATUS) {
-				int xl = menuButton->getXScreen();
-				int xr = xl + menuButton->getWidth();
-				int yt= menuButton->getYScreen();
-				int yb = yt + menuButton->getHeight();
-				string name = menuButton->getName();
-				if (m_clic.x > xl && m_clic.x < xr && m_clic.y > yt && m_clic.y < yb) {
-					if(menuButton->getEnable()== true) {
-						if( type == DRAGUNIT) {
-							m_level->unselectedAll();
-							m_aTowerIsSelected = false;
-
-							menuButton->drag(m_cursor);
-							m_addingAnewTower = true;
-						}
-						if( type == ACTION) {
-							menuButton->action();
-							m_clic.x = m_clic.y = 0;
-							if(menuButton->getName() == "popOutMenu" ){
-								m_level->unselectedAll();
-								m_aTowerIsSelected = false;
-							}
-						}
-						m_buttonType = name;
-					} else {
-						if(menuButton->getType() == DRAGUNIT) {
-							m_addingAnewTower = false;
-						}
-						m_buttonType = "";
-						m_clic.x = m_clic.y = 0;
-					}
-				}
-				//mouse Over
-				if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb) {
-					menuButton->actionHover(true);
-				} else {
-					menuButton->actionHover(false);
-				}
-			}
-		}
-	}
+							    i->drag(m_cursor);
+							    m_addingAnewTower = true;
+						    }
+						    if( type == ACTION) {
+							    i->action();
+							    m_clic.x = m_clic.y = 0;
+							    if(i->getName() == "popOutMenu" ){
+								    m_level->unselectedAll();
+								    m_aTowerIsSelected = false;
+							    }
+						    }
+						    m_buttonType = name;
+					    } else {
+						    if(i->getType() == DRAGUNIT) {
+							    m_addingAnewTower = false;
+						    }
+						    m_buttonType = "";
+						    m_clic.x = m_clic.y = 0;
+					    }
+				    }
+				    //mouse Over
+				    if (m_cursor.x > xl && m_cursor.x < xr && m_cursor.y > yt && m_cursor.y < yb) {
+					    i->actionHover(true);
+				    } else {
+					   i->actionHover(false);
+				    }
+			    }
+            }
+        }
+    }
 }
 
 void C_Window::listenKeyboard(SDL_Event &event)

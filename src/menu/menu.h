@@ -38,14 +38,13 @@ public:
 	void refresh(); /*!Create or update informations before render them on screen*/
 	void render(); /*!Render the menu on screen*/
 	C_MenuItem * getMenuItem(std::string name){return m_menuItemsList[name];};
+	std::vector<C_MenuItem *> getMenuItems();
 	void menuBanner();
     C_Frame* getFrame(std::string name);
     void openTab(std::string name);
- 	void updateUpgradeButtonsStatus();
 	//commands
 	void openMainMenu();
 	bool isOpen(){return getFrame("mainMenu")->getOpen();};
-	std::vector<std::string> getMenuItemsList();
     void go(int direction);
     void Nbr(int nbr);
 protected:

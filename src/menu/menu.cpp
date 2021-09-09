@@ -31,8 +31,6 @@ using namespace std;
 C_Menu::C_Menu()
 {
 	C_Message::printM("Constructor C_Menu() : start\n");
-	S_Coord upgradeCoord = {10,10};
-	m_menuItemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",upgradeCoord);
 
     C_Frame *top = new C_Frame("topMenu");
     top->addPage(new C_Menu_Top("topMenu"));
@@ -42,10 +40,10 @@ C_Menu::C_Menu()
     bottom->addPage(new C_Menu_Bottom("bottomMenu"));
     m_frames.push_back(bottom);
 
-    C_Frame *end = new C_Frame("endGame");
-    end->addPage(new C_Tab_endGame("endGame"));
-    m_frames.push_back(end);
-
+    C_Frame *select = new C_Frame("unitSelected");
+    select->addPage(new C_Unit_Selected());
+    select->setOpen(false);
+    m_frames.push_back(select);
 
 	C_Message::printM("Constructor C_Menu() : done\n");
 }
@@ -85,8 +83,6 @@ void C_Menu::openTab(std::string name){
 
 void C_Menu::refresh()
 {
-	updateUpgradeButtonsStatus();
-
 	C_Window& win=C_Locator::getWindow();
 	S_LevelData data = win.getCurrentLevel()->getData();
 	if(data.status == WIN){
@@ -100,6 +96,17 @@ void C_Menu::refresh()
 		    settings.setPlaying(PAUSE);
 	    }
 	}
+	//When a unit is selected :
+	if(getFrame("unitSelected") !=  nullptr){
+	    C_Grid& grid= C_Locator::getGrid();
+	    C_GameUnits * unit = grid.getSelected();
+	    if(unit != nullptr){
+		            getFrame("unitSelected")->setOpen(true);
+        } else {
+		            getFrame("unitSelected")->setOpen(false);
+        }
+    }
+
 
 	for(auto const& f : m_frames) {
 		if(f != nullptr){
@@ -107,6 +114,21 @@ void C_Menu::refresh()
 		    m_menuItemsList.insert(items.begin(),items.end());
 		}
 	}
+}
+
+std::vector <C_MenuItem *> C_Menu::getMenuItems(){
+    std::vector <C_MenuItem *> ret;
+        for(auto const& f : m_frames) {
+		        if(f != nullptr){
+			        std::map<std::string, C_MenuItem*> items = f->getItemList();
+			        for(auto i : items){
+			            if (i.second !=  nullptr){
+			                ret.push_back(i.second);
+			            }
+			        }
+		        }
+	        }
+    return ret;
 }
 
 void C_Menu::render()
@@ -118,37 +140,7 @@ void C_Menu::render()
 		}
 	}
 
-	vector<string>  list = getMenuItemsList();
-	//draw all buttons, layer by layer;
-	for(int j = BACK; j <= FRONT; j++) {
-		for(size_t i = 0; i < list.size(); i++) {
-			C_MenuItem * b = getMenuItem(list[i]);
-			if( b != nullptr) {
-				if(b->getLayer() == j) {
-					b->render();
-				}
-			}
-		}
-	}
 }
-
-
-
-void C_Menu::updateUpgradeButtonsStatus(){
-	C_Grid& grid= C_Locator::getGrid();
-	C_GameUnits * unit = grid.getSelected();
-	if(unit != nullptr){
-		if(m_menuItemsList["upgradeTower"] != nullptr){
-			if(grid.isUnitupgradable(unit)){
-				m_menuItemsList["upgradeTower"]->setEnable(true);
-			} else {
-				m_menuItemsList["upgradeTower"]->setEnable(false);
-			}
-		}
-	}
-}
-
-
 
 void C_Menu::openMainMenu()
 {
@@ -173,37 +165,6 @@ void C_Menu::openMainMenu()
 	}
 }
 
-
-vector<string> C_Menu::getMenuItemsList()
-{
-	vector<string> list;
-	//Always Visible
-	C_Grid& grid= C_Locator::getGrid();
-	C_GameUnits * unit = grid.getSelected();
-	if(unit != nullptr){
-	    list.push_back("upgradeTower");
-	    S_Coord coord = unit->getScreen();
-	    C_Settings& settings= C_Locator::getSettings();
-	    coord.x -=32;
-	    coord.y -= settings.getTileHeight()*3;
-	    if(m_menuItemsList["upgradeTower"] != nullptr){
-	        m_menuItemsList["upgradeTower"]->setScreen(coord);
-	    }
-    }
-
-    for(auto const& f : m_frames) {
-		if(f != nullptr){
-			std::vector<std::string> tmp = f->getListOfVisibleItems();
-			if(!tmp.empty()){
-		        list.insert(list.end(), tmp.begin(), tmp.end());
-		    }
-		}
-	}
-
-	return list;
-}
-
-
 void C_Menu::menuBanner()
 {
 	C_Frame *main = new C_Frame("mainMenu");
@@ -212,6 +173,7 @@ void C_Menu::menuBanner()
         main->addPage( new C_Tab_Levels());
         main->addPage( new C_Tab_Settings());
         main->addPage( new C_Tab("About"));
+        main->addPage( new C_Tab_endGame());
         m_frames.push_back(main);
     }
 }

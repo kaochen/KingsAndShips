@@ -30,8 +30,7 @@ public :
 	virtual ~C_Page();
 	virtual std::string getName(){return m_name;};
 	virtual std::map<std::string, C_MenuItem*> getItemList(){return m_itemsList;};
-    virtual void render() = 0;
-    virtual std::vector<std::string> getListOfVisibleItems();
+    virtual void render();
     virtual void refresh(){};
     virtual void go(int direction){std::cout << direction << std::endl;};
 protected:
@@ -42,14 +41,12 @@ protected:
 	S_Coord m_screen /*!< top left corner of the tab*/;
     int m_height;
 	int m_width;
-    bool m_open = true;
 };
 
 class C_Tab : public C_Page {
 public:
 	C_Tab(std::string title);
     virtual void render();
-    virtual std::vector<std::string> getListOfVisibleItems();
 
 protected:
 	S_Coord m_flagScreen /*!< first flag position in menu*/;
@@ -70,10 +67,9 @@ protected:
     int m_currentCardLevelNbr;
 };
 
-class C_Tab_endGame : public C_Page {
+class C_Tab_endGame : public C_Tab {
 public:
-	C_Tab_endGame(std::string name);
-    virtual void render();
+	C_Tab_endGame();
     virtual void refresh();
 protected:
 };
@@ -91,6 +87,13 @@ class C_Menu_Top : public C_Page {
         virtual void render();
 };
 
+
+class C_Unit_Selected : public C_Page {
+    public:
+	    C_Unit_Selected();
+        virtual void refresh();
+};
+
 class C_Frame {
 public :
     C_Frame(std::string name);
@@ -100,7 +103,6 @@ public :
     virtual C_Page* getCurrent();
     virtual void refresh();
     virtual void render();
-    virtual std::vector<std::string> getListOfVisibleItems();
     virtual std::map<std::string, C_MenuItem*> getItemList();
     virtual bool getOpen(){return m_open;};
     virtual void setOpen(bool open){m_open =  open;};

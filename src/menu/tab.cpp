@@ -69,21 +69,6 @@ void C_Frame::render(){
 	}
 }
 
-
-std::vector<std::string> C_Frame::getListOfVisibleItems(){
-    std::vector<std::string> ret;
-    if(m_open){
-        for(auto const& i : m_list) {
-		    if(i != nullptr){
-		        if(i->getName()== m_current){
-	                ret = i->getListOfVisibleItems();
-	            }
-		    };
-		}
-	}
-	return ret;
-}
-
 std::map<std::string, C_MenuItem*> C_Frame::getItemList(){
     std::map<std::string, C_MenuItem*> ret;
 	if(m_open){
@@ -100,9 +85,13 @@ std::map<std::string, C_MenuItem*> C_Frame::getItemList(){
 
 C_Page* C_Frame::getCurrent(){
     C_Page* ret = nullptr;
-    if(m_list.size()<= m_currentPage){
-       ret = m_list[m_currentPage];
-    }
+    for(auto const& i : m_list) {
+    		if(i != nullptr){
+    		    if(i->getName()== m_current){
+                    ret = i;
+	            }
+		    };
+	}
 	return ret;
 }
 
@@ -113,7 +102,7 @@ void C_Frame::openTabIfExist(std::string tabname){
 	                m_open = true;
 	                m_current = tabname;
 	            }
-		    };
+		    }
 		}
 }
 
@@ -124,17 +113,6 @@ C_Page::C_Page(std::string name):
 {
 	m_width = 768;
 	m_height = 512;
-}
-
-std::vector<std::string> C_Page::getListOfVisibleItems()
-{
-	std::vector <std::string> list;
-    if(m_open){
-	    for(auto const& x : m_itemsList) {
-		    list.push_back(x.first);
-	    }
-	}
-	return list;
 }
 
 C_Page::~C_Page()
@@ -195,6 +173,14 @@ void C_Page::column(std::vector <std::string> names, S_Coord first)
 	    }
 }
 
+void C_Page::render(){
+        //render each items
+		for(auto const& i : m_itemsList) {
+		    if(i.second != nullptr)
+			    i.second->render();
+	    }
+}
+
 C_Tab::C_Tab(std::string title)
     : C_Page(title)
 {
@@ -211,30 +197,15 @@ C_Tab::C_Tab(std::string title)
     S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4};
     flagLine(names,first);
 
-    std::vector <std::string> columnNames = {"Levels","Settings", "About"};
+    std::vector <std::string> columnNames = {"Levels","Settings", "About", "endGame"};
     S_Coord first_c = {m_screen.x - m_width/2 + 40,m_screen.y - m_height/3 + 20};
     column(columnNames,first_c);
 }
 
-
-void C_Tab::render()
-{
-	if(m_open) {
+void C_Tab::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x - 10,m_screen.y,CENTER);
-	}
-}
-
-
-
-std::vector<string> C_Tab::getListOfVisibleItems()
-{
-	std::vector <std::string> list;
-	for(auto const& x : m_itemsList) {
-		if(x.first != m_name)
-			list.push_back(x.first);
-	}
-	return list;
+		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		C_Page::render();
 }
 
 C_Tab_Settings::C_Tab_Settings()
@@ -307,13 +278,12 @@ void C_Tab_Levels::go(int direction){
 }
 
 
-C_Tab_endGame::C_Tab_endGame(std::string name)
-	:C_Page(name)
+C_Tab_endGame::C_Tab_endGame()
+	:C_Tab("endGame")
 {
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
-	m_open = false;
 
     std::string replay = "EndGame_Replay";
 	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x, m_screen.y - 20);
@@ -381,30 +351,22 @@ void C_Tab_endGame::refresh(){
 	}
 }
 
-void C_Tab_endGame::render()
-{
-    if(m_open){
-	    C_TextureList& t= C_Locator::getTextureList();
-	    t.renderTexture("Menu_01_background", m_screen.x - 10, m_screen.y,CENTER);
-	}
-}
-
 C_Menu_Bottom::C_Menu_Bottom(std::string name)
 	:C_Page(name)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
-	m_screen.y = (settings.getWindowHeight());
+	m_screen.y = (settings.getWindowHeight()) + 100;
 
 	std::string text = "Add";
-	m_itemsList[text]  = new C_MB_CardButton(text, m_screen.x - 320, m_screen.y - 50);
+	m_itemsList[text]  = new C_MB_CardButton(text, m_screen.x - 320, m_screen.y - 150);
 	if(m_itemsList[text] != nullptr){
 	    m_itemsList[text]->setText("Add");
 	}
 
 	int size = 64 + 20;
 	int x_button = m_screen.x - 100;
-	int y_button = m_screen.y - 70;
+	int y_button = m_screen.y - 170;
 	//left buttons
 	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
 	x_button +=size;
@@ -414,11 +376,11 @@ C_Menu_Bottom::C_Menu_Bottom(std::string name)
 }
 
 void C_Menu_Bottom::render(){
-    if(m_open){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y + 100,CENTER);
-	}
+		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		C_Page::render();
 }
+
 
 
 C_Menu_Top::C_Menu_Top(std::string name)
@@ -427,32 +389,30 @@ C_Menu_Top::C_Menu_Top(std::string name)
 
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
-	m_screen.y = 30;
-    if(m_open){
-        std::vector <string> names = {"popOutMenu","home","play"};
-        S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y+28};
-        flagLine(names,first);
-	}
-	int x_button = m_screen.x - 100;
-	int y_button = m_screen.y - 30;
+	m_screen.y = -50;
+    std::vector <string> names = {"popOutMenu","home","play"};
+    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4 };
+    flagLine(names,first);
+
+	int x_button = m_screen.x - 60;
+	int y_button = m_screen.y + 70;
 	if(m_itemsList["gold_pile"]== nullptr) {
-        m_itemsList["gold_pile"] = new C_MenuItem("gold_pile",x_button,y_button);
+        m_itemsList["gold_pile"] = new C_MenuItem("gold_pile",x_button,y_button - 20);
     }
     if(m_itemsList["walletBar"]== nullptr) {
-		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 70,y_button + 30, GREEN, BLUE);
+		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 40 ,y_button + 20, GREEN, BLUE);
 	}
     //progress bar value
 	if(m_itemsList["playerlife"] == nullptr) {
-		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 70,y_button + 10, GREEN, RED);
+		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 40,y_button, GREEN, RED);
 	}
 
 	if(m_itemsList["waveCount"] == nullptr) {
-		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 170,y_button + 10, GREEN,BLUE);
+		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 200,y_button, GREEN,BLUE);
 	}
 }
 
 void C_Menu_Top::refresh(){
-    if(m_open){
         if(m_itemsList["walletBar"] != nullptr) {
 		    C_Wallet& wallet= C_Locator::getWallet();
 		    std::string text = C_Tools::nbrToString(wallet.getBalance());
@@ -475,15 +435,39 @@ void C_Menu_Top::refresh(){
 		    m_itemsList["waveCount"]->setPercentage(l.currentWave,l.totalWaves);
 		    m_itemsList["waveCount"]->setText(text, 18);
 	    }
-
-    }
 }
 
 void C_Menu_Top::render(){
-    if(m_open){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y - 100,CENTER);
+		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		C_Page::render();
+}
+
+
+C_Unit_Selected::C_Unit_Selected()
+    :C_Page("unitSelected")
+{
+   	C_Settings& settings=C_Locator::getSettings();
+	m_screen.x = (settings.getWindowWidth())/2;
+	m_screen.y = (settings.getWindowHeight())/2;
+    m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",m_screen);
+
+}
+
+void C_Unit_Selected::refresh(){
+
+	C_Grid& grid= C_Locator::getGrid();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+		if(m_itemsList["upgradeTower"] != nullptr){
+			if(grid.isUnitupgradable(unit)){
+				m_itemsList["upgradeTower"]->setEnable(true);
+			} else {
+				m_itemsList["upgradeTower"]->setEnable(false);
+			}
+		}
 	}
 }
+
 
 
