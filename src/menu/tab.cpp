@@ -408,7 +408,7 @@ C_Menu_Top::C_Menu_Top(std::string name)
 	}
 
 	if(m_itemsList["waveCount"] == nullptr) {
-		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 200,y_button, GREEN,BLUE);
+		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 180,y_button, GREEN,BLUE);
 	}
 }
 
@@ -440,6 +440,7 @@ void C_Menu_Top::refresh(){
 void C_Menu_Top::render(){
 		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Buttons_boat", m_screen.x - m_width/2 + 100,m_screen.y + 90,CENTER);
 		C_Page::render();
 }
 

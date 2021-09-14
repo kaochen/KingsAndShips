@@ -448,7 +448,7 @@ void C_GP_Status::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
     std::string line;
-    size_t length = 12;
+    size_t length = 10;
     int x1 = m_x_screen + 18;
 	int y1 = m_y_screen + 12;
 	int offset = 0;
