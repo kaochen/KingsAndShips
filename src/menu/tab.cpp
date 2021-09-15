@@ -440,7 +440,8 @@ void C_Menu_Top::refresh(){
 void C_Menu_Top::render(){
 		C_TextureList& t= C_Locator::getTextureList();
 		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
-		t.renderTexture("Buttons_boat", m_screen.x - m_width/2 + 100,m_screen.y + 90,CENTER);
+		t.renderTexture("Buttons_Big_icon_boat", m_screen.x - m_width/2 + 80,m_screen.y + 85,CENTER);
+		t.renderTexture("Buttons_Big_icon_castle", m_screen.x + m_width/2 - 140,m_screen.y + 90,CENTER);
 		C_Page::render();
 }
 
