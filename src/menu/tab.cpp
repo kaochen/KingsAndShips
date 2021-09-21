@@ -204,7 +204,15 @@ C_Tab::C_Tab(std::string title)
 
 void C_Tab::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_background_1", m_screen.x-256,m_screen.y-128,CENTER);
+		t.renderTexture("Menu_01_background_2", m_screen.x,m_screen.y-128,CENTER);
+		t.renderTexture("Menu_01_background_3", m_screen.x+256,m_screen.y-128,CENTER);
+		t.renderTexture("Menu_01_background_4", m_screen.x-256,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_background_5", m_screen.x,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_background_6", m_screen.x+256,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_vflag_1", m_screen.x - 130,m_screen.y-128,CENTER);
+		t.renderTexture("Menu_01_vflag_2", m_screen.x - 130,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_vflag_3", m_screen.x - 130,m_screen.y+128,CENTER);
 		C_Page::render();
 }
 
@@ -360,17 +368,10 @@ C_Menu_Bottom::C_Menu_Bottom(std::string name)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
-	m_screen.y = (settings.getWindowHeight()) + 100;
-
-	std::string text = "Add";
-	m_itemsList[text]  = new C_MB_CardButton(text, m_screen.x - 320, m_screen.y - 150);
-	if(m_itemsList[text] != nullptr){
-	    m_itemsList[text]->setText("Add");
-	}
-
+	m_screen.y = (settings.getWindowHeight());
 	int size = 64 + 20;
 	int x_button = m_screen.x - 100;
-	int y_button = m_screen.y - 170;
+	int y_button = m_screen.y - 70;
 	//left buttons
 	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
 	x_button +=size;
@@ -381,7 +382,9 @@ C_Menu_Bottom::C_Menu_Bottom(std::string name)
 
 void C_Menu_Bottom::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_background_1", m_screen.x-256,m_screen.y-28,CENTER);
+		t.renderTexture("Menu_01_background_2", m_screen.x,m_screen.y-28,CENTER);
+		t.renderTexture("Menu_01_background_3", m_screen.x+256,m_screen.y-28,CENTER);
 		C_Page::render();
 }
 
@@ -443,7 +446,11 @@ void C_Menu_Top::refresh(){
 
 void C_Menu_Top::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background", m_screen.x,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_background_4", m_screen.x-256,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_background_5", m_screen.x,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_background_6", m_screen.x+256,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_vflag_2", m_screen.x - 130,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_vflag_3", m_screen.x - 130,m_screen.y+128,CENTER);
 		t.renderTexture("Buttons_Big_icon_boat", m_screen.x - m_width/2 + 80,m_screen.y + 85,CENTER);
 		t.renderTexture("Buttons_Big_icon_castle", m_screen.x + m_width/2 - 140,m_screen.y + 90,CENTER);
 		C_Page::render();
