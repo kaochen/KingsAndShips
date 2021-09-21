@@ -85,8 +85,8 @@ void C_Menu::refresh()
 	    if(main != nullptr){
 	        main->setOpen(false);
 	    }
-		if(getFrame("endGame") !=  nullptr){
-	    	getFrame("endGame")->setOpen(true);
+		if(getFrame("Status") !=  nullptr){
+	    	getFrame("Status")->setOpen(true);
     		C_Settings& settings=C_Locator::getSettings();
 		    settings.setPlaying(PAUSE);
 	    }
@@ -160,10 +160,10 @@ void C_Menu::menuBanner()
 	C_Frame *main = new C_Frame("mainMenu");
 	if(main != nullptr){
 	    main->setOpen(false);
+        main->addPage( new C_Tab_Status());
         main->addPage( new C_Tab_Levels());
         main->addPage( new C_Tab_Settings());
         main->addPage( new C_Tab("About"));
-        main->addPage( new C_Tab_endGame());
         m_frames.push_back(main);
     }
 }

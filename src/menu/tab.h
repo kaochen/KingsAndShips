@@ -67,9 +67,9 @@ protected:
     int m_currentCardLevelNbr;
 };
 
-class C_Tab_endGame : public C_Tab {
+class C_Tab_Status : public C_Tab {
 public:
-	C_Tab_endGame();
+	C_Tab_Status();
     virtual void refresh();
 protected:
 };

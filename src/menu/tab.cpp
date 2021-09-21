@@ -197,7 +197,7 @@ C_Tab::C_Tab(std::string title)
     S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4};
     flagLine(names,first);
 
-    std::vector <std::string> columnNames = {"Levels","Settings", "About", "endGame"};
+    std::vector <std::string> columnNames = {"Status","Levels","Settings", "About"};
     S_Coord first_c = {m_screen.x - m_width/2 + 40,m_screen.y - m_height/3 + 20};
     column(columnNames,first_c);
 }
@@ -282,28 +282,28 @@ void C_Tab_Levels::go(int direction){
 }
 
 
-C_Tab_endGame::C_Tab_endGame()
-	:C_Tab("endGame")
+C_Tab_Status::C_Tab_Status()
+	:C_Tab("Status")
 {
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight())/2;
 
-    std::string replay = "EndGame_Replay";
+    std::string replay = "status_Replay";
 	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x, m_screen.y - 20);
 	if(m_itemsList[replay] != nullptr){
 	    C_LoadALevel *command = new C_LoadALevel();
 	    m_itemsList[replay]->setCommand(command);
 	}
 
-	std::string next = "EndGame_Next";
+	std::string next = "status_Next";
 	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x, m_screen.y + 30);
 	if(m_itemsList[next]!= nullptr){
 	    C_LoadALevel *command1 = new C_LoadALevel();
 	    m_itemsList[next]->setCommand(command1);
 	}
 
-	std::string quit = "EndGame_Quit";
+	std::string quit = "status_Quit";
 	m_itemsList[quit]  = new C_MB_CardButton(quit, m_screen.x, m_screen.y + 80);
 	if(m_itemsList[quit]!= nullptr){
 	    C_QuitProgram *command2 = new C_QuitProgram();
@@ -311,12 +311,12 @@ C_Tab_endGame::C_Tab_endGame()
 	    m_itemsList[quit]->setText("Quit");
 	}
 
-	m_itemsList["EndGameResultText"]  = new C_MenuText("EndGameResultText","Winner", m_screen.x  +  92, m_screen.y - 80 );
+	m_itemsList["statusResultText"]  = new C_MenuText("statusResultText","Winner", m_screen.x  +  92, m_screen.y - 80 );
 }
 
 
-void C_Tab_endGame::refresh(){
-    std::string replay = "EndGame_Replay";
+void C_Tab_Status::refresh(){
+    std::string replay = "status_Replay";
     C_Settings& settings=C_Locator::getSettings();
     int current = settings.getCurrentLevelNbr();
     if(m_itemsList[replay] != nullptr){
@@ -325,7 +325,7 @@ void C_Tab_endGame::refresh(){
 	        	   m_itemsList[replay]->getCommand()->setNbr(current);
 	        }
 	}
-	std::string next = "EndGame_Next";
+	std::string next = "status_Next";
 	int nextLevel = current + 1;
 	if (nextLevel > settings.getNbrOfLevels()){
 	    nextLevel = 1;
@@ -337,7 +337,7 @@ void C_Tab_endGame::refresh(){
 	        }
     }
 
-	if(m_itemsList["EndGameResultText"] != nullptr){
+	if(m_itemsList["statusResultText"] != nullptr){
         C_Window& win=C_Locator::getWindow();
         C_Level * current = win.getCurrentLevel();
         if(current != nullptr){
@@ -350,7 +350,7 @@ void C_Tab_endGame::refresh(){
 	        } else if(l.status == ONGOING){
 		        text = "You lost this castle";
 	        }
-	        m_itemsList["EndGameResultText"]->setText(text);
+	        m_itemsList["statusResultText"]->setText(text);
 	    }
 	}
 }
