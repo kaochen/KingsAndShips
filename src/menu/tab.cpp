@@ -273,8 +273,12 @@ void C_Tab_Levels::go(int direction){
     std::string name = "Card_" + to_string(m_currentCardLevelNbr);
 
     m_itemsList.erase("Card_Level");
-    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_screen.x,m_screen.y);
-    m_itemsList["Level_Load"]->getCommand()->setNbr(m_currentCardLevelNbr);
+    m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,name,m_flagScreen.x + 82,m_screen.y -32);
+    if(m_itemsList["Level_Load"] != nullptr){
+        if( m_itemsList["Level_Load"]->getCommand() != nullptr){
+        m_itemsList["Level_Load"]->getCommand()->setNbr(m_currentCardLevelNbr);
+     }
+    }
 }
 
 
