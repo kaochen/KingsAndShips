@@ -74,24 +74,30 @@ public:
 protected:
 };
 
+//-----------------------Bottom Menu-----------------------
 class C_Menu_Bottom : public C_Page {
     public:
     	C_Menu_Bottom(std::string name);
         virtual void render();
 };
+class C_Menu_Bottom_Add : public C_Menu_Bottom {
+    public:
+    	C_Menu_Bottom_Add();
+};
+
+class C_Menu_Bottom_Select : public C_Menu_Bottom {
+    public:
+    	C_Menu_Bottom_Select();
+        void refresh();
+};
+
+//-----------------------Top Menu-----------------------
 
 class C_Menu_Top : public C_Page {
     public:
     	C_Menu_Top(std::string name);
         virtual void refresh();
         virtual void render();
-};
-
-
-class C_Unit_Selected : public C_Page {
-    public:
-	    C_Unit_Selected();
-        virtual void refresh();
 };
 
 class C_Frame {

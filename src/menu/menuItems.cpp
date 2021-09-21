@@ -496,6 +496,7 @@ C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
     m_text = "0";
     m_textName = "upgrade_Text_" + name;
     m_fontSize = 18;
+    m_color = {255,255,255,180};
 }
 
 
@@ -509,5 +510,18 @@ void C_GU_Upgrade::render()
     	m_text = to_string(model.cost);
         renderFlagUnderButton();
 	}
-	C_Button::render();
+    std::string name = "Menu_01_action" + getStateAsStr();
+	std::string text = "Upgrade (" + m_text +")";
+	int up = 8;
+    	m_color = {255,255,255,220};
+	 if(m_state == HOVER){
+        up = 6;
+    } else if (m_state == DISABLED){
+    	m_color = {20,20,20,220};
+    }
+
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
+	t.loadTextAsTexturesIntoMap(m_textName, text, m_fontSize, m_color);
+	t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 + up,CENTER);
 }

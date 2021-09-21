@@ -37,13 +37,9 @@ C_Menu::C_Menu()
     m_frames.push_back(top);
 
     C_Frame *bottom = new C_Frame("bottomMenu");
-    bottom->addPage(new C_Menu_Bottom("bottomMenu"));
+    bottom->addPage(new C_Menu_Bottom_Add());
+    bottom->addPage(new C_Menu_Bottom_Select());
     m_frames.push_back(bottom);
-
-    C_Frame *select = new C_Frame("unitSelected");
-    select->addPage(new C_Unit_Selected());
-    select->setOpen(false);
-    m_frames.push_back(select);
 
 	C_Message::printM("Constructor C_Menu() : done\n");
 }
@@ -92,16 +88,15 @@ void C_Menu::refresh()
 	    }
 	}
 	//When a unit is selected :
-	if(getFrame("unitSelected") !=  nullptr){
+	if(getFrame("bottomMenu") !=  nullptr){
 	    C_Grid& grid= C_Locator::getGrid();
 	    C_GameUnits * unit = grid.getSelected();
 	    if(unit != nullptr){
-		            getFrame("unitSelected")->setOpen(true);
-        } else {
-		            getFrame("unitSelected")->setOpen(false);
+        	openTab("Select");
+		} else {
+            openTab("Add");
         }
     }
-
 }
 
 std::vector <C_MenuItem *> C_Menu::getMenuItems(){
@@ -148,8 +143,6 @@ void C_Menu::openMainMenu()
 		        getFrame("topMenu")->setOpen(false);
 		    if(getFrame("bottomMenu") !=  nullptr)
 		        getFrame("bottomMenu")->setOpen(false);
-		    if(getFrame("unitSelected") !=  nullptr)
-		        getFrame("unitSelected")->setOpen(false);
 		    settings.setPlaying(PAUSE);
 	    }
 	}

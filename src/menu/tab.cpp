@@ -363,12 +363,27 @@ void C_Tab_Status::refresh(){
 	}
 }
 
+//-----------------------Bottom Menu-----------------------
+
 C_Menu_Bottom::C_Menu_Bottom(std::string name)
 	:C_Page(name)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight());
+}
+
+void C_Menu_Bottom::render(){
+		C_TextureList& t= C_Locator::getTextureList();
+		t.renderTexture("Menu_01_background_1", m_screen.x-256,m_screen.y-28,CENTER);
+		t.renderTexture("Menu_01_background_2", m_screen.x,m_screen.y-28,CENTER);
+		t.renderTexture("Menu_01_background_3", m_screen.x+256,m_screen.y-28,CENTER);
+		C_Page::render();
+}
+
+C_Menu_Bottom_Add::C_Menu_Bottom_Add()
+	:C_Menu_Bottom("Add")
+{
 	int size = 64 + 20;
 	int x_button = m_screen.x - 100;
 	int y_button = m_screen.y - 70;
@@ -380,15 +395,30 @@ C_Menu_Bottom::C_Menu_Bottom(std::string name)
 	m_itemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
 }
 
-void C_Menu_Bottom::render(){
-		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background_1", m_screen.x-256,m_screen.y-28,CENTER);
-		t.renderTexture("Menu_01_background_2", m_screen.x,m_screen.y-28,CENTER);
-		t.renderTexture("Menu_01_background_3", m_screen.x+256,m_screen.y-28,CENTER);
-		C_Page::render();
+C_Menu_Bottom_Select::C_Menu_Bottom_Select()
+	:C_Menu_Bottom("Select")
+{
+	S_Coord coord = {m_screen.x - m_width/4, m_screen.y - 100};
+	//left buttons
+    m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",coord);
 }
 
+void C_Menu_Bottom_Select::refresh(){
 
+	C_Grid& grid= C_Locator::getGrid();
+	C_GameUnits * unit = grid.getSelected();
+	if(unit != nullptr){
+		if(m_itemsList["upgradeTower"] != nullptr){
+			if(grid.isUnitupgradable(unit)){
+				m_itemsList["upgradeTower"]->setEnable(true);
+			} else {
+				m_itemsList["upgradeTower"]->setEnable(false);
+			}
+		}
+	}
+}
+
+//-----------------------Bottom Top-----------------------
 
 C_Menu_Top::C_Menu_Top(std::string name)
 	:C_Page(name)
@@ -454,32 +484,6 @@ void C_Menu_Top::render(){
 		t.renderTexture("Buttons_Big_icon_boat", m_screen.x - m_width/2 + 80,m_screen.y + 85,CENTER);
 		t.renderTexture("Buttons_Big_icon_castle", m_screen.x + m_width/2 - 140,m_screen.y + 90,CENTER);
 		C_Page::render();
-}
-
-
-C_Unit_Selected::C_Unit_Selected()
-    :C_Page("unitSelected")
-{
-   	C_Settings& settings=C_Locator::getSettings();
-	m_screen.x = (settings.getWindowWidth())/2;
-	m_screen.y = (settings.getWindowHeight())/2;
-    m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",m_screen);
-
-}
-
-void C_Unit_Selected::refresh(){
-
-	C_Grid& grid= C_Locator::getGrid();
-	C_GameUnits * unit = grid.getSelected();
-	if(unit != nullptr){
-		if(m_itemsList["upgradeTower"] != nullptr){
-			if(grid.isUnitupgradable(unit)){
-				m_itemsList["upgradeTower"]->setEnable(true);
-			} else {
-				m_itemsList["upgradeTower"]->setEnable(false);
-			}
-		}
-	}
 }
 
 
