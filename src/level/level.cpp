@@ -302,7 +302,8 @@ void C_Level::setStatus(int status){
 }
 
 
-void C_Level::endOfALevel(){
+int C_Level::endOfALevel(){
+    int ret = ONGOING;
 	C_Grid& grid= C_Locator::getGrid();
 	int playerLife = grid.getAllTownsLifeLevel();
 	if(playerLife > 0){
@@ -315,6 +316,7 @@ void C_Level::endOfALevel(){
 				if(m_data.status == ONGOING){
 					C_Message::printM("You won this battle\n");
         			setStatus(WIN);
+        			ret = WIN;
 				}
 			}
 		}
@@ -322,8 +324,10 @@ void C_Level::endOfALevel(){
 		if(m_data.status == ONGOING){
 			C_Message::printM("You lost this battle\n");
 			setStatus(LOSE);
+			ret = LOSE;
 		}
 	}
+	return ret;
 }
 
 //______________________________Waves_____________________________//

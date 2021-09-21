@@ -73,7 +73,7 @@ public:
 	bool selectATower(S_Coord clic);
 	void unselectedAll();
 	void addUnit(std::string &type, S_Coord clic);
-	void endOfALevel();
+	int endOfALevel();
 	S_Coord getGridTown();
     S_LevelData getData(){return m_data;};
     void setStatus(int status);

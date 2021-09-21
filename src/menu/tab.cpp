@@ -348,7 +348,7 @@ void C_Tab_Status::refresh(){
 	        } else if(l.status == LOSE){
 	            text = "You lost this castle";
 	        } else if(l.status == ONGOING){
-		        text = "You lost this castle";
+		        text = "The battle is not over";
 	        }
 	        m_itemsList["statusResultText"]->setText(text);
 	    }

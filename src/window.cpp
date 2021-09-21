@@ -237,7 +237,10 @@ void C_Window::gameLoop()
 			m_level->play();
 			//render image
 			if (m_forceRefresh) {
-				m_level->endOfALevel();
+				int status = m_level->endOfALevel();
+                if(status == WIN || status == LOSE){
+                    openMenu();
+                }
 				menu.refresh();
 				//display game content from bottom to top
 				m_level->render();
@@ -394,14 +397,9 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	case SDLK_l:
 		loadLevel(m_levelNbr +1);
 		break;
-	case SDLK_m:{
-		C_OpenMenu openMenu;
-		openMenu.action();
-		m_level->unselectedAll();
-		m_aTowerIsSelected = false;
-		}
+	case SDLK_m:
+        openMenu();
 		break;
-
 	case SDLK_n:
 		m_level->sendNextWave();
 		break;
@@ -574,4 +572,13 @@ void C_Window::listenMouseWheel(SDL_Event &event){
 			settings.zoomDown();
 		}
     }
+}
+
+void C_Window::openMenu(){
+	C_OpenMenu openMenu;
+	openMenu.action();
+	if(m_level != nullptr){
+	    m_level->unselectedAll();
+	}
+	m_aTowerIsSelected = false;
 }
