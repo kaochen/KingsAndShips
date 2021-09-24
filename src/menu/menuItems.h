@@ -68,8 +68,6 @@ public:
 	virtual void setTextColor(SDL_Color color){m_color = color;};
 
 	virtual void setImage(std::string image){m_image = image;};
-
-    virtual void renderFlagUnderButton();
 protected:
     virtual SDL_Color getTextColor();
 	std::string getStateAsStr();

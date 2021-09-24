@@ -133,18 +133,6 @@ std::string C_MenuItem::getStateAsStr(){
 		return ret;
 }
 
-void C_MenuItem::renderFlagUnderButton(){
-		C_TextureList& t= C_Locator::getTextureList();
-		if(!m_enable){
-		    m_color = {0,0,0,255};
-	    } else {
-		    m_color = m_colorText;
-	    }
-		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + m_width + 10, m_y_screen + m_height/2,CENTER);
-}
-
-
 //-------------------------------------------------------------
 
 
@@ -508,7 +496,6 @@ void C_GU_Upgrade::render()
 	bool check = factory.getSelectedModel(1,model);
 	if(check) {
     	m_text = to_string(model.cost);
-        renderFlagUnderButton();
 	}
     std::string name = "Menu_01_action" + getStateAsStr();
 	std::string text = "Upgrade (" + m_text +")";

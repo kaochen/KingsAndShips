@@ -400,7 +400,23 @@ C_Menu_Bottom_Select::C_Menu_Bottom_Select()
 {
 	S_Coord coord = {m_screen.x - m_width/4, m_screen.y - 100};
 	//left buttons
-    m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",coord);
+    if(m_itemsList["unitFirerate"]== nullptr) {
+        m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",coord);
+    }
+
+    S_Coord c = {m_screen.x - m_width/4, m_screen.y -30};
+    int size = 150;
+    if(m_itemsList["unitFirerate"] == nullptr) {
+	    m_itemsList["unitFirerate"] = new C_GP_Status("unitFirerate",c.x ,c.y, GREEN, BLUE);
+	}
+	if(m_itemsList["unitFirerange"] == nullptr) {
+	    m_itemsList["unitFirerange"] = new C_GP_Status("unitFirerange",c.x + size ,c.y, GREEN, BLUE);
+	}
+	if(m_itemsList["unitDamage"] == nullptr) {
+	    m_itemsList["unitDamage"] = new C_GP_Status("unitDamage",c.x + 2*size ,c.y, GREEN, BLUE);
+	}
+
+
 }
 
 void C_Menu_Bottom_Select::refresh(){
@@ -408,6 +424,7 @@ void C_Menu_Bottom_Select::refresh(){
 	C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
+    	S_UnitModel data = unit->getInfo();
 		if(m_itemsList["upgradeTower"] != nullptr){
 			if(grid.isUnitupgradable(unit)){
 				m_itemsList["upgradeTower"]->setEnable(true);
@@ -415,6 +432,30 @@ void C_Menu_Bottom_Select::refresh(){
 				m_itemsList["upgradeTower"]->setEnable(false);
 			}
 		}
+
+        if(m_itemsList["unitFirerate"] != nullptr){
+		    string text = "Firerate: " + C_Tools::nbrToString(data.weapon.fireRate);
+		    double f = 0.0;
+            if(data.weapon.fireRate != 0) {
+                f = data.weapon.fireRate/1000;
+            }
+            text = to_string(f).substr(0,3) + " ms";
+		    m_itemsList["unitFirerate"]->setPercentage(f,5);
+		    m_itemsList["unitFirerate"]->setText(text, 18);
+	    }
+
+	     if(m_itemsList["unitFirerange"] != nullptr){
+		    string text = "Firerange: " + C_Tools::nbrToString(data.weapon.fireRange);
+		    m_itemsList["unitFirerange"]->setPercentage(data.weapon.fireRange,10);
+		    m_itemsList["unitFirerange"]->setText(text, 18);
+	    }
+
+	    if(m_itemsList["unitDamage"] != nullptr){
+		    string text = "Damage: " + C_Tools::nbrToString(data.weapon.damage);
+		    m_itemsList["unitDamage"]->setPercentage(data.weapon.fireRange,10);
+		    m_itemsList["unitDamage"]->setText(text, 18);
+	    }
+
 	}
 }
 

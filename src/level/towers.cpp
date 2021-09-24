@@ -60,47 +60,9 @@ void C_Towers::render(S_Coord screen)
 
 void C_Towers::renderSelected(S_Coord screen)
 {
-	C_Settings& settings= C_Locator::getSettings();
-	int x = settings.getTileWidth();
-	int y = settings.getTileHeight();
-
 	if (m_selected == true) {
 		drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), true);
-		renderTowerStatus("firerate",screen.x, screen.y + 2*y);
-		renderTowerStatus("firerange",screen.x -x, screen.y + y);
-		renderTowerStatus("Damage",screen.x +x , screen.y + y);
 	}
-}
-
-void C_Towers::renderTowerStatus(std::string name, int x_screen, int y_screen){
-        C_Button *b = new C_Button(name, name, x_screen, y_screen);
-        S_Weapon w = m_weapon->getWeaponInfo();
-
-        if(m_upgrade){ //if over mouse over upgrade button
-		    C_Grid& grid= C_Locator::getGrid();
-			C_UnitFactory factory = grid.getFactory();
-			S_UnitModel up;
-			if(factory.getSelectedModel(1,up)){ //if upgrade is possible get weapon info from unit + 1 level
-			    w = up.weapon;
-			}
-		}
-
-        string text;
-		if(name == "firerange"){
-		    text = to_string(w.fireRange);
-        } else if (name == "firerate") {
-            double f = 0.0;
-            if(w.fireRate != 0) {
-                f = w.fireRate/1000;
-            }
-        	text = to_string(f).substr(0,3) + " ms";
-        } else if(name == "Damage") {
-            text = to_string(w.damage);
-        }
-        b->setText(text);
-		b->renderFlagUnderButton();
-        b->render();
-        delete b;
 }
 
 //---------------------------------------------------
