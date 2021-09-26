@@ -131,7 +131,7 @@ void C_Window::loadGame()
 		string imgPath = list->front();
 		string label = C_Tools::extractFilename(imgPath);
 		//render
-		t.loadTextAsTexturesIntoMap(label, label, 20, color);
+		t.loadTextAsTexturesIntoMap(label, label, FONT_BIG, color);
 		loadingPage(all-list->size(), label,all+1);
 		t.extractTSXfile(imgPath); //extract;
 		list->pop(); //go next

@@ -258,17 +258,13 @@ void C_Text::createNewTexture(){
 
 string C_Text::findFont()
 {
-	string font =   "/usr/share/fonts/truetype/roboto/hinted/Roboto-Bold.ttf";
+	C_Settings& settings= C_Locator::getSettings();
+	string font =  settings.getFontPath();
 	struct stat buffer;
 	if(stat (font.c_str(), &buffer) == 0){
 		return font;
-	} else {
-	    font = "/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Bold.ttf";
-	    if(stat (font.c_str(), &buffer) == 0){
-		    return font;
-    	} else {
-		    cout << "Roboto-Bold.ttf was not found. You should install the fonts-roboto package\n" << endl;
+	}  else {
+		    cout << font +"\n" << endl;
 		    return "default";
-		}
 	}
 }

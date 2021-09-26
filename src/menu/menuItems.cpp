@@ -45,6 +45,7 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_x_text = 0;
 	m_y_text = 0;
 	m_command = nullptr;
+	m_fontSize = FONT_BIG;
 }
 
 C_MenuItem::~C_MenuItem(){
@@ -242,7 +243,7 @@ void C_MB_Arrows::render(){
 C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
-	m_fontSize = 18;
+	m_fontSize = FONT_BIG;
 	m_title = name;
 	m_titleName = "Settings_Title_" + name;
 	m_text = text;
@@ -282,7 +283,7 @@ C_MB_LevelCard::C_MB_LevelCard(int nbr, string name,int x_screen, int y_screen)
 	:C_MenuItem(name,x_screen,y_screen)
 {
 	m_type = STATUS;
-	m_fontSize = 18;
+	m_fontSize = FONT_BIG;
 	C_Window& win= C_Locator::getWindow();
     S_LevelData model = win.getLevelModel(nbr);
     S_Line t0 = {"Card_name",model.name};
@@ -318,6 +319,7 @@ C_MB_CardButton::C_MB_CardButton(std::string name, int x_screen, int y_screen)
 	m_width = 200;
 	m_height = 32;
 	m_text = "Waiting...";
+	m_fontSize = FONT_BIG;
 
 }
 
@@ -334,7 +336,7 @@ void C_MB_CardButton::render(){
 
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture("Menu_01_lineShort", x1 , y1 + 10,CENTER);
-	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
+	t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize,  m_color);
 	t.renderTexture(m_name, x1, y1 ,CENTER);
 
 }
@@ -363,7 +365,7 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 		m_text = to_string(m_unit->getCost());
 	else
 		m_text = "empty";
-	m_fontSize = 18;
+	m_fontSize = FONT_BIG;
 }
 
 C_GB_AddUnit::~C_GB_AddUnit()
@@ -453,10 +455,10 @@ void C_GP_Status::render()
         	offset += 10;
 	    }
     }
-	m_color = {255,255,255,180};
+	m_color = m_colorText;
     Sint16 x2 = m_x_screen + m_width/2;
 	Sint16 y2 = m_y_screen + m_height/2;
-	t.loadTextAsTexturesIntoMap(m_name, m_text, 20,  m_color);
+	t.loadTextAsTexturesIntoMap(m_name, m_text, FONT_SMALL,  m_color);
 	t.renderTexture(m_name, x2, y2 ,CENTER);
 }
 
@@ -483,8 +485,8 @@ C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
     m_command = new C_UpgradeUnit();
     m_text = "0";
     m_textName = "upgrade_Text_" + name;
-    m_fontSize = 18;
-    m_color = {255,255,255,180};
+	m_fontSize = FONT_SMALL;
+    m_color = {255,255,255,255};
 }
 
 
@@ -498,17 +500,18 @@ void C_GU_Upgrade::render()
     	m_text = to_string(model.cost);
 	}
     std::string name = "Menu_01_action" + getStateAsStr();
-	std::string text = "Upgrade (" + m_text +")";
-	int up = 8;
-    	m_color = {255,255,255,220};
-	 if(m_state == HOVER){
-        up = 6;
-    } else if (m_state == DISABLED){
-    	m_color = {20,20,20,220};
+	std::string text = "Upgrade (" +  m_text +")";
+	int up = 0;
+	if(m_state == HOVER){
+        up = 2;
+    }
+
+    if (m_state == DISABLED){
+    	m_color = m_colorText;
     }
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2,CENTER);
+	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
 	t.loadTextAsTexturesIntoMap(m_textName, text, m_fontSize, m_color);
-	t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 + up,CENTER);
+	t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 - up +2,CENTER);
 }

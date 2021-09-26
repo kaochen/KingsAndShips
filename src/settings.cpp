@@ -78,6 +78,8 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	m_debugPath = getArg("-dp",args);
 	m_imgFolder = mergePath(share_path,"data/img/");
 	C_Message::printM("images folder: "+  m_imgFolder + "\n");
+	m_fontPath = mergePath(m_imgFolder,"fonts/promocyja-webfont.ttf");
+	C_Message::printM("font Path: "+  m_fontPath + "\n");
 	m_theme = "original";
 	initTSXfileList();
 	m_currentLevel = 1;

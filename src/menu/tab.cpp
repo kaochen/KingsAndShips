@@ -404,8 +404,8 @@ C_Menu_Bottom_Select::C_Menu_Bottom_Select()
         m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",coord);
     }
 
-    S_Coord c = {m_screen.x - m_width/4, m_screen.y -30};
-    int size = 150;
+    S_Coord c = {m_screen.x - m_width/3, m_screen.y -30};
+    int size = 200;
     if(m_itemsList["unitFirerate"] == nullptr) {
 	    m_itemsList["unitFirerate"] = new C_GP_Status("unitFirerate",c.x ,c.y, GREEN, BLUE);
 	}
@@ -434,12 +434,12 @@ void C_Menu_Bottom_Select::refresh(){
 		}
 
         if(m_itemsList["unitFirerate"] != nullptr){
-		    string text = "Firerate: " + C_Tools::nbrToString(data.weapon.fireRate);
+		    string text = "Firerate: ";
 		    double f = 0.0;
             if(data.weapon.fireRate != 0) {
                 f = data.weapon.fireRate/1000;
             }
-            text = to_string(f).substr(0,3) + " ms";
+            text += to_string(f).substr(0,3) + " ms";
 		    m_itemsList["unitFirerate"]->setPercentage(f,5);
 		    m_itemsList["unitFirerate"]->setText(text, 18);
 	    }

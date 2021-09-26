@@ -30,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ZOOM_STEP 32
 #define IMG_WIDTH 256
 #define TILE_WIDTH (IMG_WIDTH - (IMG_WIDTH/4))
+#define FONT_SMALL 28
+#define FONT_BIG 34
 
 struct S_Coord{
 	int x;
@@ -91,6 +93,7 @@ public:
 	std::queue<std::string>* getTSXfileList(){return &m_tsxFileList;};
 	std::string getImgFolder(){return m_imgFolder;};
 	std::string getThemePath(){return m_imgFolder + m_theme;};
+	std::string getFontPath(){return m_fontPath;};
 	int getZoom(){return m_zoom;};
 	void zoomUp();
 	void zoomDown();
@@ -137,6 +140,7 @@ private:
 	bool m_debugPath;
 	//images
 	std::string m_imgFolder;
+	std::string m_fontPath;
 	std::string m_theme;
 	std::queue<std::string> m_tsxFileList;
 	int m_zoom = ZOOM_MAX/2;
