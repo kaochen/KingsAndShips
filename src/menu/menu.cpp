@@ -75,26 +75,25 @@ void C_Menu::openTab(std::string name){
 void C_Menu::refresh()
 {
 	C_Window& win=C_Locator::getWindow();
-	S_LevelData data = win.getCurrentLevel()->getData();
-	if(data.status == WIN){
-	    C_Frame* main = getFrame("mainMenu");
-	    if(main != nullptr){
-	        main->setOpen(false);
-	    }
-		if(getFrame("Status") !=  nullptr){
-	    	getFrame("Status")->setOpen(true);
-    		C_Settings& settings=C_Locator::getSettings();
-		    settings.setPlaying(PAUSE);
-	    }
+	C_Frame* main = getFrame("mainMenu");
+	if(win.currentLevelIsOver()){
+        openTab("Status");
+    	C_Settings& settings=C_Locator::getSettings();
+		settings.setPlaying(PAUSE);
 	}
+
 	//When a unit is selected :
-	if(getFrame("bottomMenu") !=  nullptr){
-	    C_Grid& grid= C_Locator::getGrid();
-	    C_GameUnits * unit = grid.getSelected();
-	    if(unit != nullptr){
-        	openTab("Select");
-		} else {
-            openTab("Add");
+	if(main != nullptr){
+	    if(!main->getOpen()) {
+	        if(getFrame("bottomMenu") !=  nullptr){
+	            C_Grid& grid= C_Locator::getGrid();
+	            C_GameUnits * unit = grid.getSelected();
+	            if(unit != nullptr){
+                	openTab("Select");
+		        } else {
+                    openTab("Add");
+                }
+            }
         }
     }
 }

@@ -51,6 +51,7 @@ public:
 	S_LevelData getLevelModel(int levelNbr);
     int getLastLevelNbr();
     C_Level* getCurrentLevel(){return m_level;};
+    bool currentLevelIsOver();
 
 protected:
 	void initSDL();

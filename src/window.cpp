@@ -582,3 +582,15 @@ void C_Window::openMenu(){
 	}
 	m_aTowerIsSelected = false;
 }
+
+
+bool C_Window::currentLevelIsOver(){
+    bool ret = false;
+    if(m_level != nullptr){
+	    S_LevelData data = m_level->getData();
+	    if(data.status == WIN || data.status == LOSE ){
+	        return true;
+	    }
+	}
+    return ret;
+}
