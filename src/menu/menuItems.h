@@ -61,7 +61,6 @@ public:
 	virtual void drag(S_Coord screen){std::cout << "GCC calm: " << screen.x;};
 
 	//set Text
-	virtual void renderText();
 	virtual void setText(std::string text, int fontSize);
 	virtual void setText(std::string text);
 	virtual void setTextPosition(int x_text, int y_text);

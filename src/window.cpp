@@ -199,7 +199,7 @@ void C_Window::renderProgressBar(int progress, string label, int stepsNbr)
 	}
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(label,settings.getWindowWidth()/2, settings.getWindowHeight()/2 + 2*height);
+	t.renderText(label,settings.getWindowWidth()/2, settings.getWindowHeight()/2 + 2*height,CENTER);
 }
 void C_Window::quit(){
 	m_quit = true;

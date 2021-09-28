@@ -80,20 +80,14 @@ SDL_Color C_MenuItem::getTextColor(){
 	return ret;
 }
 
-void C_MenuItem::renderText()
-{
-	C_TextureList& t= C_Locator::getTextureList();
-	if(m_text !="") {
-		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen +  m_height/2,CENTER);
-	}
-}
-
 void C_MenuItem::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(m_image, m_x_screen + m_width/2,m_y_screen+m_height/2,CENTER);
-	renderText();
+	if(m_text !="") {
+		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
+		t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen +  m_height/2,CENTER);
+	}
 }
 
 void C_MenuItem::action()
@@ -149,7 +143,7 @@ void C_MenuText::render()
 	if(m_text !="") {
     	C_TextureList& t= C_Locator::getTextureList();
     	t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
-		t.renderTexture(m_textName, m_x_screen , m_y_screen ,CENTER);
+		t.renderText(m_textName, m_x_screen , m_y_screen ,CENTER);
 	}
 }
 
@@ -207,7 +201,7 @@ void C_MB_TabSelect::render()
 
 	if(m_text !="") {
 		t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
-		t.renderTexture(m_textName, x1, y1 ,CENTER);
+		t.renderText(m_textName, x1, y1 ,CENTER);
 	}
     t.renderTexture("Menu_01_lineShort", x1 ,y1 + 10 + up,CENTER);
 }
@@ -266,10 +260,10 @@ void C_MB_1Line::render()
 	Sint16 y1 = m_y_screen + m_height/2;
 	if(m_title !="") {
 		t.loadTextAsTexturesIntoMap(m_titleName, m_title, m_fontSize, m_color);
-		t.renderTexture(m_titleName, x1 - m_width/2 + 30, y1, LEFT);
+		t.renderText(m_titleName, x1 - m_width/2 + 30, y1, LEFT);
 		if(m_text !="") {
 	        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-		    t.renderTexture(m_textName, x1 + m_width/4 + 30 , y1, RIGHT);
+		    t.renderText(m_textName, x1 + m_width/4 + 30 , y1, RIGHT);
 	    }
 	    t.renderTexture("Menu_01_line1", x1 - m_width/4 + 8,m_y_screen + 28,CENTER);
 		t.renderTexture("Menu_01_line2", x1 + m_width/4 ,m_y_screen + 28,CENTER);
@@ -309,7 +303,7 @@ void C_MB_LevelCard::render()
     //Text
     int y = m_y_screen;
     for(auto i :m_list){
-	    t.renderTexture(i.name, m_x_screen , y,CENTER);
+	    t.renderText(i.name, m_x_screen , y,CENTER);
 			y += 20;
     }
 }
@@ -337,8 +331,7 @@ void C_MB_CardButton::render(){
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture("Menu_01_lineShort", x1 , y1 + 10,CENTER);
 	t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize,  m_color);
-	t.renderTexture(m_name, x1, y1 ,CENTER);
-
+	t.renderText(m_name, x1, y1 ,CENTER);
 }
 //-------------------------------------------------------------
 
@@ -399,7 +392,7 @@ void C_GB_AddUnit::render()
 	    }
 	    C_TextureList& t= C_Locator::getTextureList();
 	    t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-	    t.renderTexture(m_textName, m_x_screen + m_width + 10, m_y_screen + m_height/2,CENTER);
+	    t.renderText(m_textName, m_x_screen + m_width + 10, m_y_screen + m_height/2,CENTER);
 	}
 }
 //-------------------------------------------------------------
@@ -459,7 +452,7 @@ void C_GP_Status::render()
     Sint16 x2 = m_x_screen + m_width/2;
 	Sint16 y2 = m_y_screen + m_height/2;
 	t.loadTextAsTexturesIntoMap(m_name, m_text, FONT_SMALL,  m_color);
-	t.renderTexture(m_name, x2, y2 ,CENTER);
+	t.renderText(m_name, x2, y2 ,CENTER);
 }
 
 
@@ -513,5 +506,5 @@ void C_GU_Upgrade::render()
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
 	t.loadTextAsTexturesIntoMap(m_textName, text, m_fontSize, m_color);
-	t.renderTexture(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 - up +2,CENTER);
+	t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 - up +2,CENTER);
 }

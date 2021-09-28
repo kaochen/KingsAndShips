@@ -75,6 +75,11 @@ void C_TextureList::renderTextureEx(string name, int x, int y, double angle, int
 	}
 }
 
+void C_TextureList::renderText(std::string name, int x, int y,int align){
+    renderTexture(name, x, y,align);
+    renderTexture(name, x+1, y,align); //the promocyja-webfont is too thin, this simulate a bold version
+}
+
 C_Texture* C_TextureList::searchTexture(string name)
 {
 	C_Texture * texture = nullptr;
