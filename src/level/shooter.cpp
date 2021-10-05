@@ -314,21 +314,19 @@ void C_Shooter::renderWeapon(){
 void C_Shooter::drag(S_Coord screen)
 {
 	m_anim.get("Drag")->play();
-	C_Grid& grid= C_Locator::getGrid();
-
 	bool water = false;
 	if(m_type == "barricade") {
 		water = true;
 	}
 	C_CoordScreen coord(screen);
-
 	int x = coord.getXGrid ();
 	int y = coord.getYGrid ();
 
+	C_Grid& grid= C_Locator::getGrid();
 	bool status = grid.isThisConstructible(coord.getGrid(), water);
 	//draw ellipse
 
-	//drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
+	drawEllipse(screen.x,screen.y,m_weapon->getFireRange(), status);
 	//draw square
 	x -=2;
 	y -=2;
@@ -342,17 +340,16 @@ void C_Shooter::drag(S_Coord screen)
 			int x_s = tmp.getXScreen ();
 			int y_s = tmp.getYScreen ();
 
-			C_TextureList& t= C_Locator::getTextureList();
-			string color = "Green";
-			string imageNbr = "01";
 			int offset = 0;
 			if (i == 1 && j == 1) {
 				offset = m_anim.getImageNbr("Drag");
 			}
-			if(!status){ color = "Red";};
 
-			t.renderTexture("Select_Cross_Shadow", x_s - offset/2,y_s - offset/2, CENTER_TILE, true);
-			t.renderTexture("Select_"+color, x_s,y_s - offset, CENTER_TILE, true);
+			if(status){
+    			C_TextureList& t= C_Locator::getTextureList();
+    			t.renderTexture("Select_Green", x_s,y_s - offset, CENTER_TILE, true);
+			    t.renderTexture("Select_Shadow", x_s,y_s, CENTER_TILE, true);
+			};
 
 		}
 		x = coord.getXGrid () - 2;
@@ -367,29 +364,17 @@ void C_Shooter::drawEllipse(int screen_x,int screen_y,int size,bool ok)
 {
 	if(size>0){
 		C_CoordScreen coord(screen_x,screen_y);
-		int x_o = coord.getXGrid ();
-	    int y_o = coord.getYGrid ();
+		int x = coord.getXGrid ();
+	    int y = coord.getYGrid ();
 		C_TextureList& t= C_Locator::getTextureList();
-		int s = (size + 1);
-		int square = (s*2)-1;
-		int x = x_o - s;
-		int y = y_o - s;
-		//std::cout << "Size: " << size << " -> s:" << s << " Coord " << x << ":"<< y << std::endl;
-
-	    for(int i = 0; i < square; i++) {
-		    y++;
-		    for(int j = 0; j < square; j++) {
-			    x++;
-			    C_CoordGrid tmp(x,y);
-			    int x_s = tmp.getXScreen ();
-			    int y_s = tmp.getYScreen ();
-                if(x != x_o || y != y_o ){ //Do not draw the center tile
-                        t.renderTexture("Select_Cross_Shadow", x_s,y_s, CENTER_TILE, true);
-                        t.renderTexture("Select_Dark", x_s,y_s, CENTER_TILE, true);
-                }
-            }
-            x = coord.getXGrid () - s;
-        }
+		C_CoordGrid n(x-size,y-size);
+        t.renderTexture("Select_Corner_North", n.getXScreen (),n.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid s(x+size,y+size);
+        t.renderTexture("Select_Corner_South", s.getXScreen (),s.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid w(x+size,y-size);
+        t.renderTexture("Select_Corner_West", w.getXScreen (),w.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid e(x-size,y+size);
+        t.renderTexture("Select_Corner_East", e.getXScreen (),e.getYScreen (), CENTER_TILE, true);
 	}
 }
 
