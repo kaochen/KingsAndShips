@@ -433,19 +433,20 @@ void C_GP_Status::render()
     std::string line;
     size_t length = 10;
     int x1 = m_x_screen + 18;
-	int y1 = m_y_screen + 12;
+	int y1 = m_y_screen + m_height +2 ;
 	int offset = 0;
 	for (int i = 0; i <= length; i++){
     	t.renderTexture("Buttons_Progress_Bright", x1 + offset ,y1,CENTER);
-    	offset += 10;
+    	offset += 9;
 	}
 
 	int length2 = (m_percentage * length)/(100);
 	if(m_percentage>0){
 	    offset = 0;
+	    std::string color = colorToStr(m_colorIn);
 	    for (int i = 0; i <= length2; i++){
-        	t.renderTexture("Buttons_Progress_Dark", x1 + offset ,y1,CENTER);
-        	offset += 10;
+        	t.renderTexture("Buttons_Progress_"+color, x1 + offset ,y1,CENTER);
+        	offset += 9;
 	    }
     }
 	m_color = m_colorText;
@@ -465,7 +466,7 @@ string C_GP_Status::colorToStr(int color)
 	} else if(color == BLUE) {
 		return "Blue";
 	} else {
-		return "Green";
+		return "Dark";
 	}
 
 }
