@@ -120,12 +120,15 @@ void C_Window::createWindow()
 
 void C_Window::loadGame()
 {
+	SDL_Color color = {0,0,0,255};
 	C_TextureList& t= C_Locator::getTextureList();
+	string title = "Kings and Ships";
+	t.loadTextAsTexturesIntoMap("title", title, 100, color);
+
 	C_Settings& settings= C_Locator::getSettings();
 	queue<string> *list = settings.getTSXfileList();
 
 	//create texture from the path
-	SDL_Color color = {0,0,0,255};
 	int all = list->size();
 	while(list->size()>0) {
 		string imgPath = list->front();
@@ -157,6 +160,9 @@ void C_Window::loadingPage(int progress, string label, int stepsNbr)
 	SDL_SetRenderDrawColor(m_renderer, 64, 64, 64, 255);
 	SDL_RenderClear(m_renderer);
 	renderProgressBar(progress, label, stepsNbr);
+	C_Settings& settings= C_Locator::getSettings();
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderText("title",settings.getWindowWidth()/2, settings.getWindowHeight()/3,CENTER);
 	SDL_RenderPresent(m_renderer);
 }
 
