@@ -497,12 +497,13 @@ void C_Window::listenMouseButtonUP(SDL_Event &event)
 
 	    if(!testIfButton(m_clic)){
 		    //Select or add a new Tower
+		    m_aTowerIsSelected = m_level->selectATower(m_clic);
 		    if(m_addingAnewTower == true) {
 			    m_level->addUnit(m_buttonType, m_clic);
 			    m_addingAnewTower = false;
+    			m_level->unselectedAll();
 		    }
 
-		    m_aTowerIsSelected = m_level->selectATower(m_clic);
 
 		}
 		m_dragAndDropTower = false;
