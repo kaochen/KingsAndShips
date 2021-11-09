@@ -74,14 +74,7 @@ void C_Menu::openTab(std::string name){
 
 void C_Menu::refresh()
 {
-	C_Window& win=C_Locator::getWindow();
 	C_Frame* main = getFrame("mainMenu");
-	if(win.currentLevelIsOver()){
-        openTab("Status");
-    	C_Settings& settings=C_Locator::getSettings();
-		settings.setPlaying(PAUSE);
-	}
-
 	//When a unit is selected :
 	if(main != nullptr){
 	    if(!main->getOpen()) {
@@ -135,15 +128,17 @@ void C_Menu::openMainMenu()
 		        getFrame("topMenu")->setOpen(true);
 		    if(getFrame("bottomMenu") !=  nullptr)
 		        getFrame("bottomMenu")->setOpen(true);
-		    settings.setPlaying(PLAY);
+		    if(settings.getPlaying() == PAUSE)
+		        settings.setPlaying(PLAYING);
 	    } else {
-		    main->setOpen(true);
+            openTab("Status");
 	        if(getFrame("topMenu") !=  nullptr)
 		        getFrame("topMenu")->setOpen(false);
 		    if(getFrame("bottomMenu") !=  nullptr)
 		        getFrame("bottomMenu")->setOpen(false);
-		    settings.setPlaying(PAUSE);
-	    }
+		    if(settings.getPlaying() == PLAYING)
+		        settings.setPlaying(PAUSE);
+	        }
 	}
 }
 

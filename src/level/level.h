@@ -63,7 +63,7 @@ public:
 //methods
 	C_Level(S_LevelData model);
 	~C_Level();
-	void load(int levelNbr);
+	bool load(int levelNbr);
 	void sendNextWave();
 	void cliWaveStatus(int i);
 	void loadWaveIntoGrid(int i);
@@ -73,7 +73,7 @@ public:
 	bool selectATower(S_Coord clic);
 	void unselectedAll();
 	void addUnit(std::string &type, S_Coord clic);
-	int endOfALevel();
+	bool endOfALevel();
 	S_Coord getGridTown();
     S_LevelData getData(){return m_data;};
     void setStatus(int status);

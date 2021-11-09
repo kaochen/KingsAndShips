@@ -87,7 +87,7 @@ C_Settings::C_Settings(std::vector<std::string> args)
 	C_Message::printM("levels folder: "+  m_levelFolder  + "\n");
 
 	setNbrOfLevels();
-	m_playing = PLAY;
+	m_playing = READY;
 	C_Message::printM("Constructor C_Settings() : done\n");
 }
 
@@ -370,28 +370,47 @@ bool C_Settings::extractIntFromINI(int &nbr, const string &name, const string &f
 }
 
 
+void C_Settings::showPlaying()
+{
+	switch(m_playing) {
+    case EMPTY : C_Message::printM("EMPTY\n");
+             break;
+    case LOADING : C_Message::printM("LOADING\n");
+             break;
+    case READY : C_Message::printM("READY\n");
+             break;
+    case PLAYING: C_Message::printM("PLAYING\n");
+             break;
+    case PAUSE : C_Message::printM("PAUSE\n");
+             break;
+    case FINISHED : C_Message::printM("FINISHED\n");
+             break;
+    }
+}
+
 void C_Settings::setPlaying()
 {
-
-	if(m_playing==PAUSE) {
-		m_playing = PLAY;
-		C_Message::printM("PLAY\n");
-	} else if(m_playing == PLAY) {
+	if(m_playing == PLAYING) {
 		m_playing = PAUSE;
-		C_Message::printM("PAUSE\n");
-	}
+	 } else {
+		m_playing = PLAYING;
+	 }
+	showPlaying();
 }
 
 void C_Settings::setPlaying(int state)
 {
-	if(m_playing != state) {
-		m_playing = state;
-	    if(m_playing == PLAY) {
-		    C_Message::printM("PLAY\n");
-	    } else if (m_playing == PAUSE) {
-		    C_Message::printM("PAUSE\n");
+    //A finished level can not go in PLAYING mode or PAUSE, it need to go EMPTY, LOADING or READY before
+    if(m_playing != FINISHED){
+	    if(m_playing != state) {
+		    m_playing = state;
+	        showPlaying();
 	    }
-	 }
+	} else {
+	    if (state == EMPTY || state == LOADING || state == READY){
+	        m_playing == state;
+	    }
+	}
 }
 
 std::string C_Settings::getPgmPath(){

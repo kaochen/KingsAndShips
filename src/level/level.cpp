@@ -55,13 +55,13 @@ C_Level::~C_Level()
 	delete m_tmx;
 }
 
-void C_Level::load(int levelNbr)
+bool C_Level::load(int levelNbr)
 {
+    bool ret = false;
 	//clean before loading
 	C_Grid& grid= C_Locator::getGrid();
 	grid.reset(m_data.gridSize);
     setStatus(ONGOING);
-
 	struct stat buffer;
 	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
 
@@ -74,10 +74,13 @@ void C_Level::load(int levelNbr)
 		}
 		createLandscape();
 		C_Message::printM("Level " + to_string(levelNbr) +" Loaded\n");
+		ret = true;
 	} else {
 		C_Message::printM("Can not find " + m_data.filename+"\n");
 		C_Message::printM("Can not load level " + to_string(levelNbr)+"\n");
+		ret = false;
 	}
+	return ret;
 }
 
 void C_Level::setWallet()
@@ -242,15 +245,14 @@ void C_Level::renderSelected(){
 
 void C_Level::play()
 {
-        m_landscape->play();
+    m_landscape->play();
 	long current = SDL_GetTicks();
 	C_Settings& settings= C_Locator::getSettings();
-	if(settings.getPlaying() == PLAY){
+	if(settings.getPlaying() == PLAYING){
 		if((current - m_lastWaveTime)>20000) {
 			sendNextWave();
 			m_lastWaveTime = current;
 		}
-
 	}
 	C_Grid& grid= C_Locator::getGrid();
 	grid.playAllUnits(GRAVEYARD);
@@ -302,8 +304,8 @@ void C_Level::setStatus(int status){
 }
 
 
-int C_Level::endOfALevel(){
-    int ret = ONGOING;
+bool C_Level::endOfALevel(){
+    bool ret = false;
 	C_Grid& grid= C_Locator::getGrid();
 	int playerLife = grid.getAllTownsLifeLevel();
 	if(playerLife > 0){
@@ -316,7 +318,7 @@ int C_Level::endOfALevel(){
 				if(m_data.status == ONGOING){
 					C_Message::printM("You won this battle\n");
         			setStatus(WIN);
-        			ret = WIN;
+        			ret = true;
 				}
 			}
 		}
@@ -324,8 +326,13 @@ int C_Level::endOfALevel(){
 		if(m_data.status == ONGOING){
 			C_Message::printM("You lost this battle\n");
 			setStatus(LOSE);
-			ret = LOSE;
+        	ret = true;
 		}
+	}
+	if (ret){
+    	C_Settings& settings= C_Locator::getSettings();
+	    settings.setPlaying(FINISHED);
+		C_Message::printM("This game is finished\n");
 	}
 	return ret;
 }

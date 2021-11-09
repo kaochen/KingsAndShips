@@ -162,7 +162,7 @@ void C_Button::render()
 
 	C_Settings& settings= C_Locator::getSettings();
 	if(m_name == "play") {
-		if(settings.getPlaying() == PLAY) {
+		if(settings.getPlaying() == PLAYING) {
 			name = "Buttons_pause";
 		}
 	}

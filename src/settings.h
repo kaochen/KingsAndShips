@@ -51,11 +51,10 @@ struct S_NodeCoord{
 
 
 enum Direction {NORTH, NORTH_EAST, NORTH_WEST,SOUTH, SOUTH_EAST, SOUTH_WEST,EAST,WEST,UNKNOWN};
-enum Speed {VERY_SLOW,SLOW, NORMAL,FAST,VERY_FAST};
 enum imageType {ALIVE,DAMAGED,DYING,DEAD,WEAPON};
 enum buttonType {ACTION,DRAGUNIT,STATUS};
 enum texture_align {LEFT,CENTER,RIGHT,CENTER_TILE};
-enum game {PLAY,PAUSE};
+enum game {EMPTY,LOADING,READY,PLAYING,PAUSE,FINISHED};
 enum level {STOPPED,ONGOING,LOSE,WIN};
 
 
@@ -107,6 +106,7 @@ public:
 	int getPlaying(){return m_playing;};
 	void setPlaying();
 	void setPlaying(int state);
+	void showPlaying();
 
 
 private:

@@ -227,7 +227,6 @@ void C_Window::quitProgram()
 void C_Window::gameLoop()
 {
 	C_Time& time = C_Locator::getTime();
-	C_Menu& menu = C_Locator::getMenu();
 
 	//load the first level
 	loadLevel(m_levelNbr);
@@ -243,10 +242,11 @@ void C_Window::gameLoop()
 			m_level->play();
 			//render image
 			if (m_forceRefresh) {
-				int status = m_level->endOfALevel();
-                if(status == WIN || status == LOSE){
+                if(m_level->endOfALevel()){
                     openMenu();
+    		    C_Message::printM("End of Level Open the menu --------------------------------\n");
                 }
+            	C_Menu& menu = C_Locator::getMenu();
 				menu.refresh();
 				//display game content from bottom to top
 				m_level->render();
@@ -460,10 +460,16 @@ void C_Window::loadLevel(int levelNbr)
 	}
 	m_level = m_levelFactory->create(levelNbr);
 	if(m_level != nullptr) {
-		m_level->load(m_levelNbr);
-		settings.cameraOnAPoint(m_level->getGridTown());
+		if(m_level->load(m_levelNbr)){
+		    settings.setPlaying();
+    		settings.cameraOnAPoint(m_level->getGridTown());
+		} else {
+    		C_Message::printM("Can not create level" + to_string(m_levelNbr));
+    		quitProgram();
+		}
 	} else {
 		C_Message::printM("Can not create level" + to_string(m_levelNbr));
+		quitProgram();
 	}
 }
 
@@ -582,12 +588,15 @@ void C_Window::listenMouseWheel(SDL_Event &event){
 }
 
 void C_Window::openMenu(){
-	C_OpenMenu openMenu;
-	openMenu.action();
-	if(m_level != nullptr){
-	    m_level->unselectedAll();
+    C_Menu& menu = C_Locator::getMenu();
+    if(!menu.isOpen()){
+	    C_OpenMenu openMenu;
+	    openMenu.action();
+	    if(m_level != nullptr){
+	        m_level->unselectedAll();
+	    }
+	    m_aTowerIsSelected = false;
 	}
-	m_aTowerIsSelected = false;
 }
 
 

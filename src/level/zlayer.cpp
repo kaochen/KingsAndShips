@@ -148,7 +148,7 @@ bool C_ZLayer::play(int layer)
 {
 	C_Settings& settings=C_Locator::getSettings();
 	bool ret = false;
-	if(settings.getPlaying() == PLAY) {
+	if(settings.getPlaying() == PLAYING) {
 		switch(layer) {
 		case GROUND :
 			if(m_ground != nullptr) {
