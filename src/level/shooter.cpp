@@ -334,6 +334,7 @@ void C_Shooter::drag(S_Coord screen)
 		y++;
 		for(int j = 0; j < 3; j++) {
 			x++;
+			//mark the center spot with red or green
 			C_CoordGrid tmp(x,y);
 			status = grid.isThisConstructible(tmp.getGrid (),water);
 
@@ -344,18 +345,18 @@ void C_Shooter::drag(S_Coord screen)
 			if (i == 1 && j == 1) {
 				offset = m_anim.getImageNbr("Drag");
 			}
-
+			std::string color = "Red";
 			if(status){
-    			C_TextureList& t= C_Locator::getTextureList();
-    			t.renderTexture("Select_Green", x_s,y_s - offset, CENTER_TILE, true);
-			    t.renderTexture("Select_Shadow", x_s,y_s, CENTER_TILE, true);
-			};
-
+    			color = "Green";
+			}
+    		C_TextureList& t= C_Locator::getTextureList();
+			t.renderTexture("Select_"+color, x_s,y_s - offset, CENTER_TILE, true);
+			t.renderTexture("Select_Shadow", x_s,y_s, CENTER_TILE, true);
 		}
 		x = coord.getXGrid () - 2;
 	}
 	C_Settings& settings=C_Locator::getSettings();
-	screen.y -= settings.getTileHeight();
+	screen.y -= settings.getTileHeight()/2;
 	render(screen);
 }
 
@@ -375,6 +376,14 @@ void C_Shooter::drawEllipse(int screen_x,int screen_y,int size,bool ok)
         t.renderTexture("Select_Corner_West", w.getXScreen (),w.getYScreen (), CENTER_TILE, true);
         C_CoordGrid e(x-size,y+size);
         t.renderTexture("Select_Corner_East", e.getXScreen (),e.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid n1(x-size,y);
+        t.renderTexture("Select_Border_North", n1.getXScreen (),n1.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid s1(x+size,y);
+        t.renderTexture("Select_Border_South", s1.getXScreen (),s1.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid w1(x,y-size);
+        t.renderTexture("Select_Border_West", w1.getXScreen (),w1.getYScreen (), CENTER_TILE, true);
+        C_CoordGrid e1(x,y+size);
+        t.renderTexture("Select_Border_East", e1.getXScreen (),e1.getYScreen (), CENTER_TILE, true);
 	}
 }
 
