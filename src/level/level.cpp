@@ -40,7 +40,7 @@ C_Level::C_Level(S_LevelData model):
 	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
 	    m_tmx = new C_Tmx(m_data.filename);
 		m_decorLayer = m_tmx->extractLayerInTMX("Decors");
-		m_data.currentWave = -1;
+		m_data.currentWave = 0;
 		m_lastWaveTime = SDL_GetTicks();
 		m_landscape = nullptr;
 	} else {
@@ -69,7 +69,7 @@ bool C_Level::load(int levelNbr)
 		loadLayerIntoTheGrid("Decors");
 
 		setWallet();
-		for(int i = 0; i < m_data.totalWaves; i++) {
+		for(int i = 1; i <= m_data.totalWaves; i++) {
 			loadWave(m_data.filename.c_str(),i);
 		}
 		createLandscape();
@@ -106,10 +106,10 @@ void C_Level::createLandscape()
 void C_Level::sendNextWave()
 {
 	m_data.currentWave++;
-	if(m_data.currentWave < m_data.totalWaves && m_data.currentWave >= 0) {
+	if(m_data.currentWave <= m_data.totalWaves && m_data.currentWave > 0) {
 		cliWaveStatus(m_data.currentWave);
 		loadWaveIntoGrid(m_data.currentWave);
-		C_Message::printM("Next wave: " + to_string(m_data.currentWave)+"\n");
+		C_Message::printM("Next wave: " + to_string(m_data.currentWave)+ "/" + to_string(m_data.totalWaves)+"\n");
 	} else if(m_data.currentWave > m_data.totalWaves) {
 		m_data.currentWave--;
 	}

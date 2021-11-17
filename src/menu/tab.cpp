@@ -509,7 +509,7 @@ void C_Menu_Top::refresh(){
 	    if(m_itemsList["waveCount"] != nullptr) {
 	        C_Window& win=C_Locator::getWindow();
 	        S_LevelData l = win.getCurrentLevel()->getData();
-		    std::string text = "Wave " + std::to_string(l.currentWave  + 1) + "/" + to_string(l.totalWaves);
+		    std::string text = "Wave " + std::to_string(l.currentWave) + "/" + to_string(l.totalWaves);
 		    m_itemsList["waveCount"]->setPercentage(l.currentWave,l.totalWaves);
 		    m_itemsList["waveCount"]->setText(text, 18);
 	    }
