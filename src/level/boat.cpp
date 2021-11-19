@@ -46,7 +46,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_anim.add(new C_Anim("Waiting",1,1,800));
 	m_anim.add(new C_Anim("Dying",1,7,100));
 	m_anim.add(new C_Anim("Dead",7,7,800));
-	m_anim.add(new C_Anim("Gold",1,25,20));
+	m_anim.add(new C_Anim("Gold",1,16,40));
 
 	m_canRotate = true;
 	m_isBottomAnimated = true;
