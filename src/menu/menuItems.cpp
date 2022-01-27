@@ -35,15 +35,12 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_y_screen(y_screen),
 	m_width(64),
 	m_height(64),
-	m_layer(FRONT),
 	m_enable(true),
 	m_state(ACTIVE)
 {
 	m_textName = name + "Text";
 	m_text = "";
 	m_color = {200,200,200,255};
-	m_x_text = 0;
-	m_y_text = 0;
 	m_command = nullptr;
 	m_fontSize = FONT_BIG;
 }
@@ -62,12 +59,6 @@ void C_MenuItem::setText(string text, int fontSize)
 void C_MenuItem::setText(string text)
 {
 	m_text = text;
-}
-
-void C_MenuItem::setTextPosition(int x_text, int y_text)
-{
-	m_x_text = x_text;
-	m_y_text = y_text;
 }
 
 SDL_Color C_MenuItem::getTextColor(){
@@ -406,8 +397,6 @@ C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, in
 	m_percentage = 100;
 	m_oldPercentage = m_percentage;
 	m_xOffset = 0;
-	m_layer = BACK;
-	m_y_text = -4;
 	m_colorIn = colorIn;
 	m_colorOut = colorOut;
 }
@@ -509,3 +498,24 @@ void C_GU_Upgrade::render()
 	t.loadTextAsTexturesIntoMap(m_textName, text, m_fontSize, m_color);
 	t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 - up +2,CENTER);
 }
+
+//-------------------------------------------------------------
+
+C_MenuStateIcon::C_MenuStateIcon(std::string name, S_Coord screen, int state)
+        :C_MenuItem(name,screen.x,screen.y)
+{
+    m_state = state;
+}
+
+void C_MenuStateIcon::render()
+{
+    std::string img = m_image;
+    if(m_state == ACTIVE){
+        img += "_Active";
+    } else {
+        img += "_Disabled";
+    }
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture(img, m_x_screen + m_width/2,m_y_screen+m_height/2,CENTER);
+}
+

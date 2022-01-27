@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.5" tiledversion="1.7.2" name="gold" tilewidth="128" tileheight="128" tilecount="18" columns="8">
+<tileset version="1.5" tiledversion="1.7.2" name="gold" tilewidth="128" tileheight="128" tilecount="24" columns="8">
  <image source="original/t_gold.png" width="1024" height="384"/>
  <tile id="0" type="Big_Pile"/>
  <tile id="1" type="Small_Pile"/>
@@ -37,4 +37,8 @@
  <tile id="15" type="anim_14"/>
  <tile id="16" type="anim_15"/>
  <tile id="17" type="heart"/>
+ <tile id="18" type="starBig_Active"/>
+ <tile id="19" type="starBig_Disabled"/>
+ <tile id="20" type="starSmall_Active"/>
+ <tile id="21" type="starSmall_Disabled"/>
 </tileset>

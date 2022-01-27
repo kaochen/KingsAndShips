@@ -45,7 +45,6 @@ public:
 	virtual int getWidth() const{return m_width;};
 	virtual int getHeight() const{return m_height;};
 	virtual	std::string getName(){return m_name;};
-	virtual int getLayer(){return m_layer;};
 	virtual void setCommand(C_Command *c){m_command = c;};
 	virtual C_Command * getCommand(){return m_command;};
 
@@ -63,7 +62,6 @@ public:
 	//set Text
 	virtual void setText(std::string text, int fontSize);
 	virtual void setText(std::string text);
-	virtual void setTextPosition(int x_text, int y_text);
 	virtual void setTextColor(SDL_Color color){m_color = color;};
 
 	virtual void setImage(std::string image){m_image = image;};
@@ -78,7 +76,6 @@ protected:
 	int m_y_screen;
 	int m_width;
 	int m_height;
-	int m_layer;
 	bool m_enable;
 	//text
 	std::string m_textName;
@@ -87,9 +84,7 @@ protected:
 	SDL_Color m_color;
 	const SDL_Color m_colorText = {79,54,51,255};
 	const SDL_Color m_colorTextHover = {147,106,84,255};
-	int m_x_text;
-	int m_y_text;
-	int m_state;
+	int m_state; //buttonState ACTIVE,HOVER,DISABLED
 
 	C_Command * m_command;
 };
@@ -165,7 +160,6 @@ enum colorList {GREEN,RED,BLUE};
 class C_GP_Status: public C_MB_CardButton { /*!In Game Progress to show the status (Life, wallet)*/
 public:
 	C_GP_Status(std::string name,int x_screen, int y_screen, int colorIn, int colorOut);
-  	virtual	~C_GP_Status() {};
 	virtual void render();
 	virtual void setPercentage(int percentage)
 	{
@@ -184,8 +178,13 @@ protected:
 class C_GU_Upgrade: public C_Button{
 public:
   	C_GU_Upgrade(std::string name,S_Coord screen);
-    	virtual ~C_GU_Upgrade(){};
   	virtual void render();
+};
+
+class C_MenuStateIcon: public C_MenuItem{ /*Items with an image to indicate a state, like a star yellow or gray, no action*/
+public:
+    C_MenuStateIcon(std::string name, S_Coord screen, int state);
+    virtual void render();
 };
 
 #endif

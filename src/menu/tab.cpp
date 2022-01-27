@@ -319,7 +319,13 @@ C_Tab_Status::C_Tab_Status()
 	    m_itemsList[quit]->setText("Quit");
 	}
 
-	m_itemsList["statusResultText"]  = new C_MenuText("statusResultText","Winner", m_screen.x  +  92, m_screen.y - 80 );
+	m_itemsList["statusResultText"]  = new C_MenuText("statusResultText","Winner", m_screen.x  +  92, m_screen.y - 40 );
+	S_Coord starPos {m_screen.x  +  10 , m_screen.y - 130  };
+	m_itemsList["gold_start1"] = new C_MenuStateIcon("gold_starSmall",starPos,DISABLED);
+	starPos.x = m_screen.x  +  120;
+	m_itemsList["gold_start2"] = new C_MenuStateIcon("gold_starSmall",starPos,DISABLED);
+	starPos.x = m_screen.x  +  65;
+	m_itemsList["gold_start3"] = new C_MenuStateIcon("gold_starBig",starPos,DISABLED);
 }
 
 
@@ -351,14 +357,26 @@ void C_Tab_Status::refresh(){
         if(current != nullptr){
 	        S_LevelData l = current->getData();
 	        std::string text;
+	        std::string starType = "gold_star";
 	        if(l.status == WIN){
 		        text = "Your castle is safe for now";
+		        //FIXME Use the stars to differiance clear victories from others
+	            if(m_itemsList["gold_start1"] != nullptr) {
+                       m_itemsList["gold_start1"]->setState(ACTIVE);
+                }
+                if(m_itemsList["gold_start2"] != nullptr) {
+                       m_itemsList["gold_start2"]->setState(ACTIVE);
+                }
+                if(m_itemsList["gold_start3"] != nullptr) {
+                       m_itemsList["gold_start3"]->setState(ACTIVE);
+                }
 	        } else if(l.status == LOSE){
 	            text = "You lost this castle";
 	        } else if(l.status == ONGOING){
 		        text = "The battle is not over";
 	        }
 	        m_itemsList["statusResultText"]->setText(text);
+
 	    }
 	}
 }
