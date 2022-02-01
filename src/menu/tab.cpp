@@ -43,7 +43,7 @@ void C_Frame::addPage(C_Page *page){
         }
         for(auto i : m_list){
             if(page->getName() == i->getName()){
-                std::cout << "Page " << page->getName() << " exist allready." << std::endl;
+                std::cout << "Page " << page->getName() << " exist already." << std::endl;
             }
         }
         m_list.push_back(page);
@@ -117,7 +117,7 @@ C_Page::C_Page(std::string name):
 
 C_Page::~C_Page()
 {
-    m_itemsList.clear(); //items are allready delete
+    m_itemsList.clear(); //items are already delete
 }
 
 void C_Page::flagLine(std::vector <std::string> names, S_Coord last)

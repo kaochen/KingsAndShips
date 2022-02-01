@@ -91,7 +91,10 @@ window_height = 720
 ###create a source package:
 
 ```
+cd bin
 cmake --build . --target package_source
+cp kingsandships_*.orig.* ../../
+cd ..
 
 ```
 

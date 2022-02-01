@@ -170,6 +170,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
 IF(UNIX AND NOT WINDOWS)
 	set(CPACK_SOURCE_IGNORE_FILES "bin/" "build" "logs/" ".git/" ".vscode/" "doc/" "src/img/cache_fluid/" "src/img/render/" "src/img/blendcache_barricade_01/" "valgrind.log" "perf.log")
 	set (CPACK_SOURCE_GENERATOR TGZ)
+	set (CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CPACK_PACKAGE_VERSION}.orig")
 	## Debian
 	IF (CPACK_GENERATOR MATCHES "DEB")
 		set(CPACK_PACKAGING_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX})
