@@ -1,0 +1,74 @@
+#dev files
+valgrind.log
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Build directory
+build/
+bin/
+data/img/original/renderFolder/
+data/img/render/
+src/img/render/
+src/img/renderFolder/
+src/img/old/
+doc/html/
+src/img/blendcache_*/
+src/img/cache_fluid/
+kingsandships.desktop
+kingsandships.1
+kingsandships.1.gz
+
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+perf.dat*
+.buildconfig
+*.blend1
+data/KingsAndShips.tiled-session
+
+
+# Debian files
+debian/.debhelper/
+debian/debhelper-build-stamp
+debian/files
+debian/tmp
+debian/kingsandships.debhelper.log
+debian/kingsandships.substvars
+debian/kingsandships/
+obj-x86_64-linux-gnu/
+
+debian/kingsandships-data.debhelper.log
+debian/kingsandships-data.substvars
+debian/kingsandships-data/
+
+
