@@ -16,11 +16,9 @@ ELSE()
 	set(DOC_FOLDER share/doc/${PROJECT_NAME})
 	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST /usr/local /usr/local/bin /usr/local/share)
 ENDIF()
-	configure_file("src/config.h.in" "config.h" @ONLY)
-	configure_file("kingsandships.desktop.in" "../kingsandships.desktop" @ONLY)
-	set(MAN_FOLDER share/man/man1)
-	set(MAN_FILE "${PROJECT_NAME}.1")
-	configure_file("${MAN_FILE}.in" ${CMAKE_CURRENT_SOURCE_DIR}/${MAN_FILE} @ONLY)
+
+configure_file("src/config.h.in" "config.h" @ONLY)
+
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -135,16 +133,26 @@ IF (WIN32)
 	set(CPACK_GENERATOR "TGZ;NSIS")
 ELSE()
 	set(CPACK_GENERATOR "RPM;DEB;TGZ")
-	install (FILES kingsandships_icon.png DESTINATION share/pixmaps)
-	install (FILES kingsandships.desktop DESTINATION share/applications)
+	##create the desktop file
+	set (DESKTOP_TMP_PATH "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.desktop")
+	configure_file("${PROJECT_NAME}.desktop.in" "${DESKTOP_TMP_PATH}" @ONLY)
+	install (FILES ${DESKTOP_TMP_PATH} DESTINATION share/applications)
+
 	##create a man
+	set(MAN_FOLDER share/man/man1)
+	set(MAN_FILE "${PROJECT_NAME}.1")
+	set (MAN_TMP_PATH "${CMAKE_CURRENT_BINARY_DIR}/${MAN_FILE}")
+	configure_file("${MAN_FILE}.in" ${MAN_TMP_PATH} @ONLY)
 	add_custom_target(man ALL)
 	add_custom_command(
 	TARGET man
-	COMMAND gzip -c "${CMAKE_CURRENT_SOURCE_DIR}/${MAN_FILE}" > "${CMAKE_CURRENT_SOURCE_DIR}/${MAN_FILE}.gz"
+	COMMAND gzip -c "${MAN_TMP_PATH}" > "${MAN_TMP_PATH}.gz"
 	DEPENDS ${MAN_FILE}
 	)
-	install (FILES ${PROJECT_NAME}.1.gz DESTINATION ${MAN_FOLDER})
+	install (FILES ${MAN_TMP_PATH}.gz DESTINATION ${MAN_FOLDER})
+
+	##install the icon app
+	install (FILES kingsandships_icon.png DESTINATION share/pixmaps)
 
 ENDIF()
 
@@ -168,7 +176,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY ${PROJECT_NAME})
 
 
 IF(UNIX AND NOT WINDOWS)
-	set(CPACK_SOURCE_IGNORE_FILES "bin/" "build" "logs/" ".git/" ".vscode/" "doc/" "src/img/cache_fluid/" "src/img/render/" "src/img/blendcache_barricade_01/" "valgrind.log" "perf.log")
+	set (CPACK_SOURCE_IGNORE_FILES "bin/" "build" "logs/" ".git/" ".vscode/" "doc/" "src/img/cache_fluid/" "src/img/render/" "src/img/blendcache_barricade_01/" "valgrind.log" "perf.log")
 	set (CPACK_SOURCE_GENERATOR TGZ)
 	set (CPACK_SOURCE_PACKAGE_FILE_NAME "${PROJECT_NAME}_${CPACK_PACKAGE_VERSION}.orig")
 	## Debian
