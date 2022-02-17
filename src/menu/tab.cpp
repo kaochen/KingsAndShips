@@ -504,14 +504,17 @@ C_Menu_Top::C_Menu_Top(std::string name)
 	}
     //progress bar value
     if(m_itemsList["gold_heart"]== nullptr) {
-        m_itemsList["gold_heart"] = new C_MenuItem("gold_heart",x_button - 10,y_button - 30);
+        m_itemsList["gold_heart"] = new C_MenuItem("gold_heart",x_button - 10,y_button - 40);
     }
 	if(m_itemsList["playerlife"] == nullptr) {
-		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 40,y_button, GREEN, RED);
+		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 40,y_button -10, GREEN, RED);
 	}
 
+	if(m_itemsList["levelCount"] == nullptr) {
+		m_itemsList["levelCount"] = new C_GP_Status("levelCount",x_button - 180,y_button -10, GREEN,BLUE);
+	}
 	if(m_itemsList["waveCount"] == nullptr) {
-		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 180,y_button, GREEN,BLUE);
+		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 180,y_button + 30, GREEN,BLUE);
 	}
 }
 
@@ -531,13 +534,22 @@ void C_Menu_Top::refresh(){
 		    m_itemsList["playerlife"]->setText(text, 18);
 	    }
 
+    C_Window& win=C_Locator::getWindow();
+    S_LevelData l = win.getCurrentLevel()->getData();
+
 	    if(m_itemsList["waveCount"] != nullptr) {
-	        C_Window& win=C_Locator::getWindow();
-	        S_LevelData l = win.getCurrentLevel()->getData();
 		    std::string text = "Wave " + std::to_string(l.currentWave) + "/" + to_string(l.totalWaves);
 		    m_itemsList["waveCount"]->setPercentage(l.currentWave,l.totalWaves);
 		    m_itemsList["waveCount"]->setText(text, 18);
 	    }
+	    if(m_itemsList["levelCount"] != nullptr) {
+	    	C_Settings& settings=C_Locator::getSettings();
+	        int nbrOfLevels = settings.getNbrOfLevels();
+		    std::string text = "Level " + std::to_string(l.nbr) + "/" + to_string(nbrOfLevels);
+		    m_itemsList["levelCount"]->setPercentage(l.nbr,nbrOfLevels);
+		    m_itemsList["levelCount"]->setText(text, 18);
+	    }
+
 }
 
 void C_Menu_Top::render(){
