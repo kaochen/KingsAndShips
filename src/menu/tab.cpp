@@ -358,23 +358,27 @@ void C_Tab_Status::refresh(){
 	        S_LevelData l = current->getData();
 	        std::string text;
 	        std::string starType = "gold_star";
+	        int starStatus = DISABLED;
 	        if(l.status == WIN){
 		        text = "Your castle is safe for now";
-		        //FIXME Use the stars to differiance clear victories from others
-	            if(m_itemsList["gold_start1"] != nullptr) {
-                       m_itemsList["gold_start1"]->setState(ACTIVE);
-                }
-                if(m_itemsList["gold_start2"] != nullptr) {
-                       m_itemsList["gold_start2"]->setState(ACTIVE);
-                }
-                if(m_itemsList["gold_start3"] != nullptr) {
-                       m_itemsList["gold_start3"]->setState(ACTIVE);
-                }
+		        starStatus = ACTIVE;
 	        } else if(l.status == LOSE){
 	            text = "You lost this castle";
 	        } else if(l.status == ONGOING){
 		        text = "The battle is not over";
 	        }
+
+		    //FIXME Use the stars to differiance clear victories from others
+	        if(m_itemsList["gold_start1"] != nullptr) {
+                m_itemsList["gold_start1"]->setState(starStatus);
+            }
+            if(m_itemsList["gold_start2"] != nullptr) {
+                m_itemsList["gold_start2"]->setState(starStatus);
+            }
+            if(m_itemsList["gold_start3"] != nullptr) {
+                m_itemsList["gold_start3"]->setState(starStatus);
+	        }
+
 	        m_itemsList["statusResultText"]->setText(text);
 
 	    }
