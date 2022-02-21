@@ -15,6 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "config.h"
 #include "locator.h"
 #include "window.h"
 #include "menu/menu.h"
@@ -24,10 +25,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <libintl.h>
+#include <locale.h>
+
 using namespace std;
 
 int main(int argc, char** argv)
 {
+
+     /* Set up gettext for internationalisation */
+  	setlocale (LC_ALL, "");
+  	textdomain ("kingsandships");
+  	bindtextdomain ("kingsandships", LOCALE_FOLDER);
+
 	vector<string> args;
 	for (int i = 0; i < argc; ++i)
 		args.push_back(argv[i]);

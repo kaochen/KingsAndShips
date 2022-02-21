@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../textureList.h"
 #include "../locator.h"
 #include "../tools.h"
+#include <libintl.h>
+#include <locale.h>
 
 using namespace std;
 
@@ -334,7 +336,7 @@ void C_Tab_Status::refresh(){
     C_Settings& settings=C_Locator::getSettings();
     int current = settings.getCurrentLevelNbr();
     if(m_itemsList[replay] != nullptr){
-	        m_itemsList[replay]->setText("Replay level :" + to_string(current));
+	        m_itemsList[replay]->setText(gettext("Replay level :") + to_string(current));
 	        if(m_itemsList[replay]->getCommand() != nullptr){
 	        	   m_itemsList[replay]->getCommand()->setNbr(current);
 	        }
@@ -345,7 +347,7 @@ void C_Tab_Status::refresh(){
 	    nextLevel = 1;
 	}
 	if(m_itemsList[next] != nullptr){
-	    m_itemsList[next]->setText("Next level : " + to_string(nextLevel));
+	    m_itemsList[next]->setText(gettext("Next level : ") + to_string(nextLevel));
 	       if(m_itemsList[next]->getCommand() != nullptr){
 	        	  m_itemsList[next]->getCommand()->setNbr(nextLevel);
 	        }
@@ -360,12 +362,12 @@ void C_Tab_Status::refresh(){
 	        std::string starType = "gold_star";
 	        int starStatus = DISABLED;
 	        if(l.status == WIN){
-		        text = "Your castle is safe for now";
+		        text = gettext("Your castle is safe for now");
 		        starStatus = ACTIVE;
 	        } else if(l.status == LOSE){
-	            text = "You lost this castle";
+	            text = gettext("You lost this castle");
 	        } else if(l.status == ONGOING){
-		        text = "The battle is not over";
+		        text = gettext("The battle is not over");
 	        }
 
 		    //FIXME Use the stars to differiance clear victories from others

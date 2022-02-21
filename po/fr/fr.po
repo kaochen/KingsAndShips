@@ -1,0 +1,38 @@
+# TRANSLATION FILE FOR KINGSANDSHIPS
+# Copyright (C) 2022 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <kaochen2@gmail.com>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-21 11:17+0100\n"
+"PO-Revision-Date: 2022-02-21 10:11+0100\n"
+"Last-Translator: kao <kaochen2@gmail.com>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../../src/menu/tab.cpp:339
+msgid "Replay level :"
+msgstr "Rejouez le niveau:"
+
+#: ../../src/menu/tab.cpp:350
+msgid "Next level : "
+msgstr "Prochain niveau: "
+
+#: ../../src/menu/tab.cpp:365
+msgid "Your castle is safe for now"
+msgstr "Votre château est sauvé pour le moment"
+
+#: ../../src/menu/tab.cpp:368
+msgid "You lost this castle"
+msgstr "Vous avez perdu ce château"
+
+#: ../../src/menu/tab.cpp:370
+msgid "The battle is not over"
+msgstr "La bataille n'est pas finie"

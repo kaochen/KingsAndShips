@@ -11,10 +11,27 @@ set(PROJECT_NAME kingsandships)
 IF (WIN32)
 	set(SHARE_FOLDER .)
 ELSE()
+	set(LOCALE_FOLDER "/usr/share/locale")
 	set(SHARE_FOLDER share/games/${PROJECT_NAME})
 	set(BIN_FOLDER games)
 	set(DOC_FOLDER share/doc/${PROJECT_NAME})
-	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST /usr/local /usr/local/bin /usr/local/share)
+	set(CPACK_RPM_EXCLUDE_FROM_AUTO_FILELIST
+			${CMAKE_INSTALL_PREFIX}
+			${CMAKE_INSTALL_PREFIX}/bin
+			${CMAKE_INSTALL_PREFIX}/share
+			${CMAKE_INSTALL_PREFIX}/share/man
+			${CMAKE_INSTALL_PREFIX}/share/man/man1
+			${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/256x256/apps
+			${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/256x256
+			${CMAKE_INSTALL_PREFIX}/share/icons/hicolor
+			${CMAKE_INSTALL_PREFIX}/share/icons
+			${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps
+			${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable
+			${CMAKE_INSTALL_PREFIX}/share/applications
+			${CMAKE_INSTALL_PREFIX}/share/locale
+			${CMAKE_INSTALL_PREFIX}/share/locale/fr
+			${CMAKE_INSTALL_PREFIX}/share/locale/fr/LC_MESSAGES
+	)
 ENDIF()
 
 configure_file("src/config.h.in" "config.h" @ONLY)
@@ -137,6 +154,9 @@ ELSE()
 	set (DESKTOP_TMP_PATH "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.desktop")
 	configure_file("${PROJECT_NAME}.desktop.in" "${DESKTOP_TMP_PATH}" @ONLY)
 	install (FILES ${DESKTOP_TMP_PATH} DESTINATION share/applications)
+
+	## Install translation files :
+	install (FILES po/fr/${PROJECT_NAME}.mo DESTINATION share/locale/fr/LC_MESSAGES)
 
 	##create a man
 	set(MAN_FOLDER share/man/man1)

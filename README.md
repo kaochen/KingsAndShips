@@ -112,7 +112,33 @@ Install :
 ```
 sudo apt install ./../kingsandships_*.deb ./../kingsandships-data*.deb
 ```
-
+###Localization Create a new po file
+```
+cd po/fr
+xgettext --from-code=UTF-8 -s  -o kingsandships.pot ../src/*.cpp
+```
+Init specific language
+```
+msginit -l fr -o fr.po -i kingsandships.pot
+```
+Compile
+```
+msgfmt -c -v -o kingsandships.mo fr.po
+sudo cp kingsandships.mo /usr/share/locale/fr/LC_MESSAGES/
+```
+Change langage :
+```
+export LANG=fr_FR.utf-8
+```
+Run mediascope, check and Go back
+```
+export LANG=en_GB.utf8
+```
+Update langage (Only French for now):
+```
+edit fr.po then 
+./updatePO.sh
+```
 ### Graphic tools
 #### Tiled
 To edit or build levels (Minimum 1.1) http://www.mapeditor.org
