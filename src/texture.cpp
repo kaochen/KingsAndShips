@@ -238,7 +238,7 @@ void C_Text::createNewTexture(){
 		string error= "TTF_OpenFont open " + findFont() + " failed";
 		C_Message::printTTFerror(error);
 	} else {
-		surf = TTF_RenderText_Blended(font, m_message.c_str(), m_color);
+		surf = TTF_RenderUTF8_Blended(font, m_message.c_str(), m_color);
 	}
 
 	if (surf == nullptr) {
