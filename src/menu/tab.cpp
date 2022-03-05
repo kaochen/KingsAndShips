@@ -226,24 +226,21 @@ C_Tab_Settings::C_Tab_Settings()
 	std::string width = std::to_string(settings.getWindowWidth());
 	std::string height = std::to_string(settings.getWindowHeight());
 	std::string text = width + "x" + height;
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x - 128,m_flagScreen.y);
+	m_itemsList["Resolution"] = new C_MB_1Line(gettext("Resolution"),text,m_flagScreen.x - 128,m_flagScreen.y);
 
-	name = "Grid Size";
 	text =  std::to_string(settings.getGridWidth())+ "x" +std::to_string(settings.getGridHeight());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x - 128,m_flagScreen.y + m_flagOffset);
+	m_itemsList["Grid Size"] = new C_MB_1Line(gettext("Grid Size"),text,m_flagScreen.x - 128,m_flagScreen.y + m_flagOffset);
 }
 
 C_Tab_Levels::C_Tab_Levels()
 	:C_Tab("Levels")
 {
 	C_Settings& settings=C_Locator::getSettings();
-	std::string name = "Number of Levels";
 	std::string text = std::to_string(settings.getNbrOfLevels());
-	m_itemsList[name] = new C_MB_1Line(name,text,m_flagScreen.x - 128,m_flagScreen.y);
+	m_itemsList["Number of Levels"] = new C_MB_1Line(gettext("Number of Levels"),text,m_flagScreen.x - 128,m_flagScreen.y);
 
     m_currentCardLevelNbr = settings.getCurrentLevelNbr();
-	name = "Card_Level";
-	m_itemsList[name] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_flagScreen.x + 82,m_screen.y -32);
+	m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_flagScreen.x + 82,m_screen.y -32);
 
 	std::string arrowLeft = "Level_Change_Arrow_Left";
 	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_flagScreen.x - 48 ,m_screen.y - 32);
@@ -256,7 +253,7 @@ C_Tab_Levels::C_Tab_Levels()
 	std::string load = "Level_Load";
 	m_itemsList[load]  = new C_MB_CardButton(load, m_flagScreen.x - 10, m_screen.y + 64);
 	if(m_itemsList[load]!= nullptr){
-	    m_itemsList[load]->setText("Load");
+	    m_itemsList[load]->setText(gettext("Load"));
 	    C_LoadALevel *command = new C_LoadALevel();
 	    m_itemsList[load]->setCommand(command);
 	    m_itemsList[load]->getCommand()->setNbr(m_currentCardLevelNbr);
@@ -318,7 +315,7 @@ C_Tab_Status::C_Tab_Status()
 	if(m_itemsList[quit]!= nullptr){
 	    C_QuitProgram *command2 = new C_QuitProgram();
 	    m_itemsList[quit]->setCommand(command2);
-	    m_itemsList[quit]->setText("Quit");
+	    m_itemsList[quit]->setText(gettext("Quit"));
 	}
 
 	m_itemsList["statusResultText"]  = new C_MenuText("statusResultText","Winner", m_screen.x  +  92, m_screen.y - 40 );
@@ -458,7 +455,7 @@ void C_Menu_Bottom_Select::refresh(){
 		}
 
         if(m_itemsList["unitFirerate"] != nullptr){
-		    string text = "Firerate: ";
+		    string text = gettext("Fire rate: ");
 		    double f = 0.0;
             if(data.weapon.fireRate != 0) {
                 f = data.weapon.fireRate/1000;
@@ -469,13 +466,13 @@ void C_Menu_Bottom_Select::refresh(){
 	    }
 
 	     if(m_itemsList["unitFirerange"] != nullptr){
-		    string text = "Firerange: " + C_Tools::nbrToString(data.weapon.fireRange);
+		    string text = gettext("Fire range: ") + C_Tools::nbrToString(data.weapon.fireRange);
 		    m_itemsList["unitFirerange"]->setPercentage(data.weapon.fireRange,10);
 		    m_itemsList["unitFirerange"]->setText(text, 18);
 	    }
 
 	    if(m_itemsList["unitDamage"] != nullptr){
-		    string text = "Damage: " + C_Tools::nbrToString(data.weapon.damage);
+		    string text = gettext("Damage: ") + C_Tools::nbrToString(data.weapon.damage);
 		    m_itemsList["unitDamage"]->setPercentage(data.weapon.fireRange,10);
 		    m_itemsList["unitDamage"]->setText(text, 18);
 	    }
@@ -523,7 +520,7 @@ C_Menu_Top::C_Menu_Top(std::string name)
 void C_Menu_Top::refresh(){
         if(m_itemsList["walletBar"] != nullptr) {
 		    C_Wallet& wallet= C_Locator::getWallet();
-		    std::string text = C_Tools::nbrToString(wallet.getBalance());
+		    std::string text = gettext("Money: ") + C_Tools::nbrToString(wallet.getBalance());
 		    m_itemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
 		    m_itemsList["walletBar"]->setText(text, 18);
 	    }
@@ -531,7 +528,7 @@ void C_Menu_Top::refresh(){
 	    if(m_itemsList["playerlife"] != nullptr) {
 	        C_Grid& grid= C_Locator::getGrid();
 	        int playerLife = grid.getAllTownsLifeLevel();
-	    	string text = "Life: " + C_Tools::nbrToString(playerLife);
+	    	string text = gettext("Life: ") + C_Tools::nbrToString(playerLife);
 		    m_itemsList["playerlife"]->setPercentage(playerLife);
 		    m_itemsList["playerlife"]->setText(text, 18);
 	    }
@@ -540,14 +537,14 @@ void C_Menu_Top::refresh(){
     S_LevelData l = win.getCurrentLevel()->getData();
 
 	    if(m_itemsList["waveCount"] != nullptr) {
-		    std::string text = "Wave " + std::to_string(l.currentWave) + "/" + to_string(l.totalWaves);
+		    std::string text = gettext("Wave ") + std::to_string(l.currentWave) + "/" + to_string(l.totalWaves);
 		    m_itemsList["waveCount"]->setPercentage(l.currentWave,l.totalWaves);
 		    m_itemsList["waveCount"]->setText(text, 18);
 	    }
 	    if(m_itemsList["levelCount"] != nullptr) {
 	    	C_Settings& settings=C_Locator::getSettings();
 	        int nbrOfLevels = settings.getNbrOfLevels();
-		    std::string text = "Level " + std::to_string(l.nbr) + "/" + to_string(nbrOfLevels);
+		    std::string text = gettext("Level ") + std::to_string(l.nbr) + "/" + to_string(nbrOfLevels);
 		    m_itemsList["levelCount"]->setPercentage(l.nbr,nbrOfLevels);
 		    m_itemsList["levelCount"]->setText(text, 18);
 	    }

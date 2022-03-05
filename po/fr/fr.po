@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-22 10:25+0100\n"
+"POT-Creation-Date: 2022-03-05 18:25+0100\n"
 "PO-Revision-Date: 2022-02-21 10:11+0100\n"
 "Last-Translator: kao <kaochen2@gmail.com>\n"
 "Language-Team: French\n"
@@ -17,22 +17,74 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../src/menu/tab.cpp:339
+#: ../../src/menu/menuItems.cpp:488
+msgid "Upgrade ("
+msgstr "Amélioration ("
+
+#: ../../src/menu/tab.cpp:229
+msgid "Resolution"
+msgstr "Résolution"
+
+#: ../../src/menu/tab.cpp:232
+msgid "Grid Size"
+msgstr "Taille de la grille"
+
+#: ../../src/menu/tab.cpp:240
+msgid "Number of Levels"
+msgstr "Nombre de niveaux"
+
+#: ../../src/menu/tab.cpp:256
+msgid "Load"
+msgstr "Chargez"
+
+#: ../../src/menu/tab.cpp:318
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../../src/menu/tab.cpp:336
 msgid "Replay level :"
 msgstr "Rejouez le niveau:"
 
-#: ../../src/menu/tab.cpp:350
+#: ../../src/menu/tab.cpp:347
 msgid "Next level : "
-msgstr "Prochain niveau: "
+msgstr "Prochain niveau : "
 
-#: ../../src/menu/tab.cpp:365
+#: ../../src/menu/tab.cpp:362
 msgid "Your castle is safe for now"
 msgstr "Votre château est sauvé pour le moment"
 
-#: ../../src/menu/tab.cpp:368
+#: ../../src/menu/tab.cpp:365
 msgid "You lost this castle"
 msgstr "Vous avez perdu ce château"
 
-#: ../../src/menu/tab.cpp:370
+#: ../../src/menu/tab.cpp:367
 msgid "The battle is not over"
 msgstr "La bataille n'est pas terminé"
+
+#: ../../src/menu/tab.cpp:458
+msgid "Fire rate: "
+msgstr "Cadence de tir :"
+
+#: ../../src/menu/tab.cpp:469
+msgid "Fire range: "
+msgstr "Portée de tir :"
+
+#: ../../src/menu/tab.cpp:475
+msgid "Damage: "
+msgstr "Dégat :"
+
+#: ../../src/menu/tab.cpp:523
+msgid "Money: "
+msgstr "Argent : "
+
+#: ../../src/menu/tab.cpp:531
+msgid "Life: "
+msgstr "Vie: "
+
+#: ../../src/menu/tab.cpp:540
+msgid "Wave "
+msgstr "Vague "
+
+#: ../../src/menu/tab.cpp:547
+msgid "Level "
+msgstr "Niveau "

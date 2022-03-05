@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../level/factory.h"
 #include "../level/grid.h"
 #include <string>
+#include <libintl.h>
+#include <locale.h>
 
 
 using namespace std;
@@ -483,7 +485,7 @@ void C_GU_Upgrade::render()
     	m_text = to_string(model.cost);
 	}
     std::string name = "Menu_01_action" + getStateAsStr();
-	std::string text = "Upgrade (" +  m_text +")";
+	std::string text = gettext("Upgrade (") +  m_text +")";
 	int up = 0;
 	if(m_state == HOVER){
         up = 2;
