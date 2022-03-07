@@ -496,57 +496,57 @@ C_Menu_Top::C_Menu_Top(std::string name)
 	int x_button = m_screen.x - 90;
 	int y_button = m_screen.y + 70;
 	if(m_itemsList["gold_pile"]== nullptr) {
-        m_itemsList["gold_pile"] = new C_MenuItem("gold_Big_Pile",x_button - 10,y_button );
+        m_itemsList["gold_pile"] = new C_MenuItem("gold_Big_Pile",x_button +30,y_button );
     }
     if(m_itemsList["walletBar"]== nullptr) {
-		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 40 ,y_button + 30, GREEN, BLUE);
+		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 90 ,y_button + 30, GREEN, BLUE);
+		m_itemsList["walletBar"]->setText(gettext("Money: "), 18);
 	}
     //progress bar value
     if(m_itemsList["gold_heart"]== nullptr) {
-        m_itemsList["gold_heart"] = new C_MenuItem("gold_heart",x_button - 10,y_button - 40);
+        m_itemsList["gold_heart"] = new C_MenuItem("gold_heart",x_button +30,y_button - 40);
     }
 	if(m_itemsList["playerlife"] == nullptr) {
-		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 40,y_button -10, GREEN, RED);
+		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 90,y_button -10, GREEN, RED);
+		m_itemsList["playerlife"]->setText(gettext("Life: "), 18);
 	}
 
 	if(m_itemsList["levelCount"] == nullptr) {
-		m_itemsList["levelCount"] = new C_GP_Status("levelCount",x_button - 180,y_button -10, GREEN,BLUE);
+		m_itemsList["levelCount"] = new C_GP_Status("levelCount",x_button - 140,y_button -10, GREEN,BLUE);
+		m_itemsList["levelCount"]->setText(gettext("Level "), 18);
 	}
 	if(m_itemsList["waveCount"] == nullptr) {
-		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 180,y_button + 30, GREEN,BLUE);
+		m_itemsList["waveCount"] = new C_GP_Status("waveCount",x_button - 140,y_button + 30, GREEN,BLUE);
+		 m_itemsList["waveCount"]->setText(gettext("Wave "), 18);
 	}
 }
 
 void C_Menu_Top::refresh(){
         if(m_itemsList["walletBar"] != nullptr) {
 		    C_Wallet& wallet= C_Locator::getWallet();
-		    std::string text = gettext("Money: ") + C_Tools::nbrToString(wallet.getBalance());
 		    m_itemsList["walletBar"]->setPercentage(wallet.getBalance(),wallet.getWalletMax());
-		    m_itemsList["walletBar"]->setText(text, 18);
+		    m_itemsList["walletBar"]->setText2(C_Tools::nbrToString(wallet.getBalance()));
 	    }
 
 	    if(m_itemsList["playerlife"] != nullptr) {
 	        C_Grid& grid= C_Locator::getGrid();
 	        int playerLife = grid.getAllTownsLifeLevel();
-	    	string text = gettext("Life: ") + C_Tools::nbrToString(playerLife);
 		    m_itemsList["playerlife"]->setPercentage(playerLife);
-		    m_itemsList["playerlife"]->setText(text, 18);
+		    m_itemsList["playerlife"]->setText2(C_Tools::nbrToString(playerLife));
 	    }
 
     C_Window& win=C_Locator::getWindow();
     S_LevelData l = win.getCurrentLevel()->getData();
 
 	    if(m_itemsList["waveCount"] != nullptr) {
-		    std::string text = gettext("Wave ") + std::to_string(l.currentWave) + "/" + to_string(l.totalWaves);
 		    m_itemsList["waveCount"]->setPercentage(l.currentWave,l.totalWaves);
-		    m_itemsList["waveCount"]->setText(text, 18);
+		    m_itemsList["waveCount"]->setText2(std::to_string(l.currentWave) + "/" + to_string(l.totalWaves));
 	    }
 	    if(m_itemsList["levelCount"] != nullptr) {
 	    	C_Settings& settings=C_Locator::getSettings();
 	        int nbrOfLevels = settings.getNbrOfLevels();
-		    std::string text = gettext("Level ") + std::to_string(l.nbr) + "/" + to_string(nbrOfLevels);
 		    m_itemsList["levelCount"]->setPercentage(l.nbr,nbrOfLevels);
-		    m_itemsList["levelCount"]->setText(text, 18);
+		    m_itemsList["levelCount"]->setText2(std::to_string(l.nbr) + "/" + to_string(nbrOfLevels));
 	    }
 
 }
@@ -556,8 +556,8 @@ void C_Menu_Top::render(){
 		t.renderTexture("Menu_01_background_4", m_screen.x-256,m_screen.y+128,CENTER);
 		t.renderTexture("Menu_01_background_5", m_screen.x,m_screen.y+128,CENTER);
 		t.renderTexture("Menu_01_background_6", m_screen.x+256,m_screen.y+128,CENTER);
-		t.renderTexture("Menu_01_vflag_2", m_screen.x - 130,m_screen.y,CENTER);
-		t.renderTexture("Menu_01_vflag_3", m_screen.x - 130,m_screen.y+128,CENTER);
+		t.renderTexture("Menu_01_vflag_2", m_screen.x - 60,m_screen.y,CENTER);
+		t.renderTexture("Menu_01_vflag_3", m_screen.x - 60,m_screen.y+128,CENTER);
 		t.renderTexture("Buttons_Big_icon_boat", m_screen.x - m_width/2 + 80,m_screen.y + 85,CENTER);
 		t.renderTexture("Buttons_Big_icon_castle", m_screen.x + m_width/2 - 140,m_screen.y + 90,CENTER);
 		C_Page::render();

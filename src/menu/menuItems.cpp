@@ -42,6 +42,8 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 {
 	m_textName = name + "Text";
 	m_text = "";
+	m_textName2 = name + "Text2";
+	m_text2 = "";
 	m_color = {200,200,200,255};
 	m_command = nullptr;
 	m_fontSize = FONT_BIG;
@@ -56,11 +58,6 @@ void C_MenuItem::setText(string text, int fontSize)
 {
 	m_text = text;
 	m_fontSize = fontSize;
-}
-
-void C_MenuItem::setText(string text)
-{
-	m_text = text;
 }
 
 SDL_Color C_MenuItem::getTextColor(){
@@ -394,8 +391,8 @@ C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, in
 	:C_MB_CardButton(name,x_screen,y_screen)
 {
 	m_type = STATUS;
-	m_width = 128;
-	m_height = 24;
+	m_width = 152;
+	m_height = 42;
 	m_percentage = 100;
 	m_oldPercentage = m_percentage;
 	m_xOffset = 0;
@@ -422,9 +419,9 @@ void C_GP_Status::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
     std::string line;
-    size_t length = 10;
-    int x1 = m_x_screen + 18;
-	int y1 = m_y_screen + m_height +2 ;
+    size_t length = m_width/10;
+    int x1 = m_x_screen;
+	int y1 = m_y_screen + m_height/2 + 10 ;
 	int offset = 0;
 	for (int i = 0; i <= length; i++){
     	t.renderTexture("Buttons_Progress_Bright", x1 + offset ,y1,CENTER);
@@ -443,8 +440,14 @@ void C_GP_Status::render()
 	m_color = m_colorText;
     Sint16 x2 = m_x_screen + m_width/2;
 	Sint16 y2 = m_y_screen + m_height/2;
-	t.loadTextAsTexturesIntoMap(m_name, m_text, FONT_SMALL,  m_color);
-	t.renderText(m_name, x2, y2 ,CENTER);
+	if(m_text !="") {
+    	t.loadTextAsTexturesIntoMap(m_textName, m_text, FONT_SMALL,  m_color);
+    	t.renderText(m_textName, m_x_screen, y2 ,LEFT);
+	    if(m_text2 !="") {
+        	t.loadTextAsTexturesIntoMap(m_textName2, m_text2, FONT_SMALL,  m_color);
+        	t.renderText(m_textName2, m_x_screen + m_width - 10, y2 ,RIGHT);
+	    }
+	}
 }
 
 

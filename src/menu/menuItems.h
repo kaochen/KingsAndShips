@@ -61,7 +61,8 @@ public:
 
 	//set Text
 	virtual void setText(std::string text, int fontSize);
-	virtual void setText(std::string text);
+	virtual void setText(std::string text){m_text = text;};
+    virtual void setText2(std::string text2){m_text2 = text2;};
 	virtual void setTextColor(SDL_Color color){m_color = color;};
 
 	virtual void setImage(std::string image){m_image = image;};
@@ -80,6 +81,8 @@ protected:
 	//text
 	std::string m_textName;
 	std::string m_text;
+    std::string m_textName2;
+    std::string m_text2;
 	int  m_fontSize = 18;
 	SDL_Color m_color;
 	const SDL_Color m_colorText = {79,54,51,255};
