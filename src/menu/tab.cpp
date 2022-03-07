@@ -183,6 +183,41 @@ void C_Page::render(){
 	    }
 }
 
+void C_Page::renderBackgoundTop(S_Coord coord){
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture("Menu_01_background_1", coord.x-320,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_2", coord.x-192,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_2", coord.x- 128,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_2", coord.x,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_2", coord.x + 128,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_3", coord.x + 192,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_4", coord.x+320,coord.y,CENTER);
+}
+
+void C_Page::renderBackgoundMiddle(S_Coord coord){
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture("Menu_01_background_5", coord.x-320,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_6", coord.x-192,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_6", coord.x- 128,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_6", coord.x,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_6", coord.x + 128,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_6", coord.x + 192,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_8", coord.x+320,coord.y,CENTER);
+}
+
+void C_Page::renderBackgoundBottom(S_Coord coord){
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture("Menu_01_background_9", coord.x-320,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_11", coord.x-210,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_10", coord.x- 128,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_10", coord.x,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_10", coord.x + 128,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_10", coord.x+192,coord.y,CENTER);
+	t.renderTexture("Menu_01_background_12", coord.x+320,coord.y,CENTER);
+}
+
+
+
 C_Tab::C_Tab(std::string title)
     : C_Page(title)
 {
@@ -196,7 +231,7 @@ C_Tab::C_Tab(std::string title)
 	m_flagOffset = 35;
 
 	std::vector <std::string> names = {"popOutMenu2", "quit"};
-    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4};
+    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/3 + 10};
     flagLine(names,first);
 
     std::vector <std::string> columnNames = {"Status","Levels","Settings", "About"};
@@ -206,15 +241,21 @@ C_Tab::C_Tab(std::string title)
 
 void C_Tab::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background_1", m_screen.x-256,m_screen.y-128,CENTER);
-		t.renderTexture("Menu_01_background_2", m_screen.x,m_screen.y-128,CENTER);
-		t.renderTexture("Menu_01_background_3", m_screen.x+256,m_screen.y-128,CENTER);
-		t.renderTexture("Menu_01_background_4", m_screen.x-256,m_screen.y+128,CENTER);
-		t.renderTexture("Menu_01_background_5", m_screen.x,m_screen.y+128,CENTER);
-		t.renderTexture("Menu_01_background_6", m_screen.x+256,m_screen.y+128,CENTER);
-		t.renderTexture("Menu_01_vflag_1", m_screen.x - 130,m_screen.y-128,CENTER);
-		t.renderTexture("Menu_01_vflag_2", m_screen.x - 130,m_screen.y,CENTER);
-		t.renderTexture("Menu_01_vflag_3", m_screen.x - 130,m_screen.y+128,CENTER);
+		//background first line
+		S_Coord coord = {m_screen.x, m_screen.y -184};
+        renderBackgoundTop(coord);
+		//render second line twice
+		for(size_t i = 1 ; i <=2 ; i++){
+		    coord.y += 128;
+            renderBackgoundMiddle(coord);
+		}
+		//background bottom line
+		coord.y += 128;
+        renderBackgoundBottom(coord);
+
+		t.renderTexture("Menu_01_vflag_1", m_screen.x - 130,m_screen.y-138,CENTER);
+		t.renderTexture("Menu_01_vflag_2", m_screen.x - 130,m_screen.y -10,CENTER);
+		t.renderTexture("Menu_01_vflag_3", m_screen.x - 130,m_screen.y+118,CENTER);
 		C_Page::render();
 }
 
@@ -396,9 +437,12 @@ C_Menu_Bottom::C_Menu_Bottom(std::string name)
 
 void C_Menu_Bottom::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background_1", m_screen.x-256,m_screen.y-28,CENTER);
-		t.renderTexture("Menu_01_background_2", m_screen.x,m_screen.y-28,CENTER);
-		t.renderTexture("Menu_01_background_3", m_screen.x+256,m_screen.y-28,CENTER);
+		//background first line
+		S_Coord coord = {m_screen.x, m_screen.y -128};
+        renderBackgoundTop(coord);
+        coord.y += 128;
+        renderBackgoundMiddle(coord);
+
 		C_Page::render();
 }
 
@@ -480,7 +524,7 @@ void C_Menu_Bottom_Select::refresh(){
 	}
 }
 
-//-----------------------Bottom Top-----------------------
+//----------------------- Top-----------------------
 
 C_Menu_Top::C_Menu_Top(std::string name)
 	:C_Page(name)
@@ -553,9 +597,18 @@ void C_Menu_Top::refresh(){
 
 void C_Menu_Top::render(){
 		C_TextureList& t= C_Locator::getTextureList();
-		t.renderTexture("Menu_01_background_4", m_screen.x-256,m_screen.y+128,CENTER);
-		t.renderTexture("Menu_01_background_5", m_screen.x,m_screen.y+128,CENTER);
-		t.renderTexture("Menu_01_background_6", m_screen.x+256,m_screen.y+128,CENTER);
+
+		//background first line
+		int y1 = m_screen.y + 18;
+				//background first line
+		S_Coord coord = {m_screen.x, m_screen.y +18};
+        renderBackgoundMiddle(coord);
+		//render second line twice
+		coord.y += 128;
+        renderBackgoundBottom(coord);
+
+
+		//background decor
 		t.renderTexture("Menu_01_vflag_2", m_screen.x - 60,m_screen.y,CENTER);
 		t.renderTexture("Menu_01_vflag_3", m_screen.x - 60,m_screen.y+128,CENTER);
 		t.renderTexture("Buttons_Big_icon_boat", m_screen.x - m_width/2 + 80,m_screen.y + 85,CENTER);

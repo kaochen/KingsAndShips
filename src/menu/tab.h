@@ -36,6 +36,9 @@ public :
 protected:
     virtual void column(std::vector <std::string> names, S_Coord first);
     virtual void flagLine(std::vector <std::string> names, S_Coord last);
+    virtual void renderBackgoundTop(S_Coord coord);
+    virtual void renderBackgoundMiddle(S_Coord coord);
+    virtual void renderBackgoundBottom(S_Coord coord);
   	std::string m_name;
 	std::map<std::string, C_MenuItem*> m_itemsList;
 	S_Coord m_screen /*!< top left corner of the tab*/;

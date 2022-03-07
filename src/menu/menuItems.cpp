@@ -499,7 +499,7 @@ void C_GU_Upgrade::render()
     }
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
+	//t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
 	t.loadTextAsTexturesIntoMap(m_textName, text, m_fontSize, m_color);
 	t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 - up +2,CENTER);
 }
