@@ -424,7 +424,7 @@ void C_GP_Status::render()
 	int y1 = m_y_screen + m_height/2 + 10 ;
 	int offset = 0;
 	for (int i = 0; i <= length; i++){
-    	t.renderTexture("Buttons_Progress_Bright", x1 + offset ,y1,CENTER);
+    	t.renderTexture("Menu_details_Progress_Bright", x1 + offset ,y1,CENTER);
     	offset += 9;
 	}
 
@@ -433,7 +433,7 @@ void C_GP_Status::render()
 	    offset = 0;
 	    std::string color = colorToStr(m_colorIn);
 	    for (int i = 0; i <= length2; i++){
-        	t.renderTexture("Buttons_Progress_"+color, x1 + offset ,y1,CENTER);
+        	t.renderTexture("Menu_details_Progress_"+color, x1 + offset ,y1,CENTER);
         	offset += 9;
 	    }
     }

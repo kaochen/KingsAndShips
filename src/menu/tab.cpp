@@ -124,7 +124,7 @@ C_Page::~C_Page()
 
 void C_Page::flagLine(std::vector <std::string> names, S_Coord last)
 {
-        int size = 48;
+        int size = 64;
 	    //left buttons
 	    int offset = 0;
 	    for(auto i : names){
@@ -231,7 +231,7 @@ C_Tab::C_Tab(std::string title)
 	m_flagOffset = 35;
 
 	std::vector <std::string> names = {"popOutMenu2", "quit"};
-    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/3 + 10};
+    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/3 + 20};
     flagLine(names,first);
 
     std::vector <std::string> columnNames = {"Status","Levels","Settings", "About"};
@@ -451,7 +451,7 @@ C_Menu_Bottom_Add::C_Menu_Bottom_Add()
 {
 	int size = 64 + 20;
 	int x_button = m_screen.x - 100;
-	int y_button = m_screen.y - 70;
+	int y_button = m_screen.y - 155;
 	//left buttons
 	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
 	x_button +=size;
@@ -534,7 +534,7 @@ C_Menu_Top::C_Menu_Top(std::string name)
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = -50;
     std::vector <string> names = {"popOutMenu","home","play"};
-    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4 };
+    S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/4 + 8 };
     flagLine(names,first);
 
 	int x_button = m_screen.x - 90;
