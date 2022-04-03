@@ -35,5 +35,18 @@ private:
 	static void timestamp();
 };
 
+class C_Text {
+public:
+    C_Text(){};
+	C_Text(std::string text, std::string translatedText);
+    virtual std::string& getText(){return m_text;};
+    virtual void setText(std::string text) {m_text = text;};
+    virtual std::string& getTranslatedText(){return m_translatedText;};
+    virtual void setTranslatedText(std::string translatedText) {m_translatedText = translatedText;};
+private:
+    std::string m_text;
+    std::string m_translatedText;
+};
+
 
 #endif

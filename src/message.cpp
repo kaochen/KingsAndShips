@@ -104,3 +104,8 @@ void C_Message::timestamp()
 
 	cout << time[3] << ":" <<  time[2] << ":" << time[1] << ":" <<  time[0] << " ";
 }
+
+C_Text::C_Text(std::string text, std::string translatedText){
+    m_text = text;
+    m_translatedText = translatedText;
+}

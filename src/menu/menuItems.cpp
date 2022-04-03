@@ -29,6 +29,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 using namespace std;
+
+unsigned C_MenuItem::m_count = 0;
+
 C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_type(ACTION),
 	m_name(name),
@@ -40,9 +43,11 @@ C_MenuItem::C_MenuItem(string name, int x_screen, int y_screen):
 	m_enable(true),
 	m_state(ACTIVE)
 {
-	m_textName = name + "Text";
+    m_count++;
+    m_id = m_count;
+	m_textName = to_string(m_id) + "_Text";
 	m_text = "";
-	m_textName2 = name + "Text2";
+	m_textName2 = to_string(m_id) + "_Text2";
 	m_text2 = "";
 	m_color = {200,200,200,255};
 	m_command = nullptr;
@@ -64,6 +69,8 @@ SDL_Color C_MenuItem::getTextColor(){
     SDL_Color ret = {200,200,200,255};
 	if(m_state == HOVER){
 		ret = m_colorTextHover;
+	} else if (m_state == DISABLED){
+    	ret = m_colorTextDisabled;
 	} else {
 		ret = m_colorText;
 	}
@@ -82,7 +89,7 @@ void C_MenuItem::render()
 
 void C_MenuItem::action()
 {
-	C_Message::printM("push button " + m_name + "\n");
+	C_Message::printM("push button " + to_string(m_id) + ": "+ m_name +" \n");
 	if(m_command != nullptr) {
 		m_command->action();
 	}
@@ -135,35 +142,6 @@ void C_MenuText::render()
     	t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, getTextColor());
 		t.renderText(m_textName, m_x_screen , m_y_screen ,CENTER);
 	}
-}
-
-//-------------------------------------------------------------
-
-C_Button::C_Button(string name,string image,int x_screen, int y_screen)
-	:C_MenuItem(name,x_screen,y_screen)
-{
-	m_image = image;
-}
-
-
-void C_Button::render()
-{
-	string name = "Buttons_"+m_image;
-
-	C_Settings& settings= C_Locator::getSettings();
-	if(m_name == "play") {
-		if(settings.getPlaying() == PLAYING) {
-			name = "Buttons_pause";
-		}
-	}
-
-	name += getStateAsStr();
-	C_TextureList& t= C_Locator::getTextureList();
-	int up = 0;
-	if(m_state == HOVER){
-	    up = 1;
-	}
-	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
 }
 
 //-------------------------------------------------------------
@@ -231,7 +209,6 @@ C_MB_1Line::C_MB_1Line(string name,string text,int x_screen, int y_screen)
 	m_title = name;
 	m_titleName = "Settings_Title_" + name;
 	m_text = text;
-	m_textName = "Settings_Text_" + name;
 	m_width = 400;
 	m_height = 24;
 	m_color = m_colorText;
@@ -323,6 +300,42 @@ void C_MB_CardButton::render(){
 	t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize,  m_color);
 	t.renderText(m_name, x1, y1 ,CENTER);
 }
+
+//-------------------------------------------------------------
+
+C_Button::C_Button(string name,string image,int x_screen, int y_screen)
+	:C_MenuItem(name,x_screen,y_screen)
+{
+	m_image = image;
+	m_fontSize = FONT_SMALL;
+}
+
+
+void C_Button::render()
+{
+	string name = "Buttons_"+m_image;
+
+	C_Settings& settings= C_Locator::getSettings();
+	if(m_name == "play") {
+		if(settings.getPlaying() == PLAYING) {
+			name = "Buttons_pause";
+		}
+	}
+
+	name += getStateAsStr();
+	int up = 0;
+	if(m_state == HOVER){
+        up = 2;
+    }
+
+	C_TextureList& t= C_Locator::getTextureList();
+	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
+	if(!m_ctext.getText().empty()) {
+	    t.loadTextAsTexturesIntoMap(m_textName, m_ctext.getTranslatedText(), m_fontSize, getTextColor());
+	    t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height - up + 10,CENTER);
+	}
+}
+
 //-------------------------------------------------------------
 
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
@@ -344,11 +357,11 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 		unit.name = "barricade_1";
 		m_unit = factory.create(unit);
 	}
-	if(m_unit != nullptr)
-		m_text = to_string(m_unit->getCost());
-	else
-		m_text = "empty";
-	m_fontSize = FONT_BIG;
+	if(m_unit != nullptr){
+		std::string text = to_string(m_unit->getCost());
+	    m_ctext.setText( "unit (" +  text +")");
+	    m_ctext.setTranslatedText(m_ctext.getText());
+		}
 }
 
 C_GB_AddUnit::~C_GB_AddUnit()
@@ -374,17 +387,35 @@ void C_GB_AddUnit::render()
 			m_enable = true;
 		}
 	    C_Button::render();
-	    //render price:
-        if(!m_enable){
-	        m_color = {0,0,0,255};
-	    } else {
-	        m_color = getTextColor();
-	    }
-	    C_TextureList& t= C_Locator::getTextureList();
-	    t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
-	    t.renderText(m_textName, m_x_screen + m_width + 10, m_y_screen + m_height/2,CENTER);
 	}
 }
+
+//-------------------------------------------------------------
+
+C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
+	:C_Button(name,"upgrade",screen.x,screen.y)
+{
+    m_type = ACTION;
+    m_command = new C_UpgradeUnit();
+}
+
+
+void C_GU_Upgrade::render()
+{
+	C_Grid& grid= C_Locator::getGrid();
+	C_UnitFactory factory = grid.getFactory();
+	S_UnitModel model;
+	bool check = factory.getSelectedModel(1,model);
+	std::string text;
+	if(check) {
+    	text = to_string(model.cost);
+	}
+	m_ctext.setText("Upgrade (" +  text +")");
+	m_ctext.setTranslatedText(gettext("Upgrade (") +  text +")");
+	C_Button::render();
+}
+
+
 //-------------------------------------------------------------
 
 C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, int colorOut)
@@ -463,45 +494,6 @@ string C_GP_Status::colorToStr(int color)
 		return "Dark";
 	}
 
-}
-
-
-C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
-	:C_Button(name,"upgrade",screen.x,screen.y)
-{
-    m_type = ACTION;
-    m_command = new C_UpgradeUnit();
-    m_text = "0";
-    m_textName = "upgrade_Text_" + name;
-	m_fontSize = FONT_SMALL;
-    m_color = {255,255,255,255};
-}
-
-
-void C_GU_Upgrade::render()
-{
-	C_Grid& grid= C_Locator::getGrid();
-	C_UnitFactory factory = grid.getFactory();
-	S_UnitModel model;
-	bool check = factory.getSelectedModel(1,model);
-	if(check) {
-    	m_text = to_string(model.cost);
-	}
-    std::string name = "Menu_01_action" + getStateAsStr();
-	std::string text = gettext("Upgrade (") +  m_text +")";
-	int up = 0;
-	if(m_state == HOVER){
-        up = 2;
-    }
-
-    if (m_state == DISABLED){
-    	m_color = m_colorText;
-    }
-
-	C_TextureList& t= C_Locator::getTextureList();
-	//t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
-	t.loadTextAsTexturesIntoMap(m_textName, text, m_fontSize, m_color);
-	t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height/2 - up +2,CENTER);
 }
 
 //-------------------------------------------------------------

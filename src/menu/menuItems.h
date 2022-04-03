@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string>
 #include "../level/shooter.h"
 #include "command.h"
+#include "../message.h"
 
 enum menuLayer {BACK,FRONT};
 enum buttonState {ACTIVE,HOVER,DISABLED};
@@ -67,6 +68,9 @@ public:
 
 	virtual void setImage(std::string image){m_image = image;};
 protected:
+    static unsigned m_count;
+    unsigned m_id;
+
     virtual SDL_Color getTextColor();
 	std::string getStateAsStr();
 
@@ -87,6 +91,7 @@ protected:
 	SDL_Color m_color;
 	const SDL_Color m_colorText = {79,54,51,255};
 	const SDL_Color m_colorTextHover = {147,106,84,255};
+    const SDL_Color m_colorTextDisabled = {81,75,75,255};
 	int m_state; //buttonState ACTIVE,HOVER,DISABLED
 
 	C_Command * m_command;
@@ -96,14 +101,6 @@ class C_MenuText : public C_MenuItem {
 public :
     C_MenuText(std::string name,std::string text,int x_screen, int y_screen);
    	virtual void render();
-};
-
-
-class C_Button: public C_MenuItem {
-public:
-	C_Button(std::string name,std::string image,int x_screen, int y_screen);
-
-	virtual void render();
 };
 
 class C_MB_TabSelect: public C_MenuItem { /*!Main Menu button to select a specific tab*/
@@ -147,6 +144,14 @@ public:
 	virtual void render();
 };
 
+class C_Button: public C_MenuItem { /*!Game Button use in the bottom menu*/
+public:
+	C_Button(std::string name,std::string image,int x_screen, int y_screen);
+	virtual void render();
+protected:
+    C_Text m_ctext;
+};
+
 class C_GB_AddUnit: public C_Button { /*!Game Button add a new unit on the ground*/
 public:
 	C_GB_AddUnit(std::string name,std::string image,int x_screen, int y_screen);
@@ -156,6 +161,12 @@ public:
 
 protected:
 	C_GameUnits * m_unit;
+};
+
+class C_GU_Upgrade: public C_Button{ /*!Game Button to upgrade a unit already on the ground*/
+public:
+  	C_GU_Upgrade(std::string name,S_Coord screen);
+  	virtual void render();
 };
 
 enum colorList {GREEN,RED,BLUE};
@@ -176,12 +187,6 @@ protected:
 	int m_xOffset;
 	int m_colorIn;
 	int m_colorOut;
-};
-
-class C_GU_Upgrade: public C_Button{
-public:
-  	C_GU_Upgrade(std::string name,S_Coord screen);
-  	virtual void render();
 };
 
 class C_MenuStateIcon: public C_MenuItem{ /*Items with an image to indicate a state, like a star yellow or gray, no action*/

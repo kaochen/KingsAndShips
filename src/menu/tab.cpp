@@ -449,7 +449,7 @@ void C_Menu_Bottom::render(){
 C_Menu_Bottom_Add::C_Menu_Bottom_Add()
 	:C_Menu_Bottom("Add")
 {
-	int size = 64 + 20;
+	int size = 64*2;
 	int x_button = m_screen.x - 100;
 	int y_button = m_screen.y - 155;
 	//left buttons
