@@ -77,11 +77,11 @@ protected:
     std::string m_sourcefile;
 };
 
-//C_Text
-class C_Text: public C_Texture
+//C_TextAsTexture
+class C_TextAsTexture: public C_Texture
 {
 public:
-	C_Text(std::string name, std::string message, SDL_Color color, int fontSize);
+	C_TextAsTexture(std::string name, std::string message, SDL_Color color, int fontSize);
 
 	virtual void loadTextAsTextures(std::string &message,SDL_Color color, int fontSize);
 

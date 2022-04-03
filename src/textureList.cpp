@@ -118,7 +118,7 @@ void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int 
 	if(exist)
 		m_map_textures[name]->loadTextAsTextures(str, color, fontSize);
 	else
-		m_map_textures[name] = new C_Text(name,str,color,fontSize);
+		m_map_textures[name] = new C_TextAsTexture(name,str,color,fontSize);
 }
 
 void C_TextureList::freeTexture(string name)

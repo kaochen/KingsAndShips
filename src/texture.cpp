@@ -195,9 +195,9 @@ void C_Image::loadTexture(SDL_Texture* fullImage)
 }
 
 
-//C_Text
+//C_TextAsTexture
 
-C_Text::C_Text(std::string name, std::string message, SDL_Color color, int fontSize):
+C_TextAsTexture::C_TextAsTexture(std::string name, std::string message, SDL_Color color, int fontSize):
 	C_Texture(name)
 {
 	m_message = message;
@@ -207,7 +207,7 @@ C_Text::C_Text(std::string name, std::string message, SDL_Color color, int fontS
 }
 
 
-void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
+void C_TextAsTexture::loadTextAsTextures(std::string &message,SDL_Color color, int fontSize)
 {
 	bool needUpdate = false;
 	if(message != m_message){
@@ -228,7 +228,7 @@ void C_Text::loadTextAsTextures(std::string &message,SDL_Color color, int fontSi
 	}
 }
 
-void C_Text::createNewTexture(){
+void C_TextAsTexture::createNewTexture(){
 	C_Window& win= C_Locator::getWindow();
 	SDL_Renderer* renderer = win.getRenderer ();
 	SDL_Surface *surf = nullptr;
@@ -256,7 +256,7 @@ void C_Text::createNewTexture(){
 }
 
 
-string C_Text::findFont()
+string C_TextAsTexture::findFont()
 {
 	C_Settings& settings= C_Locator::getSettings();
 	string font =  settings.getFontPath();
