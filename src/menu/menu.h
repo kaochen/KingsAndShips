@@ -39,6 +39,7 @@ public:
 	std::vector<C_MenuItem *> getMenuItems();
 	void menuBanner();
     C_Frame* getFrame(std::string name);
+    S_Coord getCoord(std::string name);
     void openTab(std::string name);
 	//commands
 	void openMainMenu();

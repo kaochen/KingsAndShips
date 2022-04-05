@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "menuItems.h"
 #include "../window.h"
+#include "../tools.h"
 #include "../locator.h"
 #include "../textureList.h"
 #include "../message.h"
@@ -97,14 +98,13 @@ void C_MenuItem::action()
 
 void C_MenuItem::actionHover(bool state)
 {
+    if(state){
+		    m_state = HOVER;
+	} else {
+			m_state = ACTIVE;
+	}
 	if(m_command != nullptr) {
 		m_command->actionHover(state);
-		if(state){
-			m_state = HOVER;
-		}
-		else {
-			m_state = ACTIVE;
-		}
 	}
 }
 
@@ -330,16 +330,93 @@ void C_Button::render()
 
 	C_TextureList& t= C_Locator::getTextureList();
 	t.renderTexture(name, m_x_screen + m_width/2,m_y_screen + m_height/2 - up,CENTER);
-	if(!m_ctext.getText().empty()) {
+
+}
+//-------------------------------------------------------------
+C_GB_Button::C_GB_Button(std::string name,std::string image,int x_screen, int y_screen)
+	:C_Button(name,image,x_screen,y_screen)
+{
+    m_unit = nullptr;
+    //can not invoke menu locator here, it is too soon
+    if(m_itemsList["unitFirerate"] == nullptr) {
+	    m_itemsList["unitFirerate"] = new C_GP_Status("unitFirerate",0 ,0, GREEN, BLUE);
+	}
+	if(m_itemsList["unitFirerange"] == nullptr) {
+	    m_itemsList["unitFirerange"] = new C_GP_Status("unitFirerange",0 ,0, GREEN, BLUE);
+	}
+	if(m_itemsList["unitDamage"] == nullptr) {
+	    m_itemsList["unitDamage"] = new C_GP_Status("unitDamage",0 ,0, GREEN, BLUE);
+	}
+}
+
+void C_GB_Button::refresh(){
+	if(m_unit != nullptr){
+	    S_UnitModel data = m_unit->getInfo();
+        if(m_itemsList["unitFirerate"] != nullptr) {
+		    string text = gettext("Fire rate: ");
+		    double f = 0.0;
+            if(data.weapon.fireRate != 0) {
+                f = data.weapon.fireRate/1000;
+            }
+            text += to_string(f).substr(0,3) + " ms";
+		    m_itemsList["unitFirerate"]->setPercentage(f,5);
+		    m_itemsList["unitFirerate"]->setText(text, 18);
+	    }
+	    if(m_itemsList["unitFirerange"] != nullptr){
+		    string text = gettext("Fire range: ") + C_Tools::nbrToString(data.weapon.fireRange);
+		    m_itemsList["unitFirerange"]->setPercentage(data.weapon.fireRange,10);
+		    m_itemsList["unitFirerange"]->setText(text, 18);
+	    }
+
+	    if(m_itemsList["unitDamage"] != nullptr){
+		    string text = gettext("Damage: ") + C_Tools::nbrToString(data.weapon.damage);
+		    m_itemsList["unitDamage"]->setPercentage(data.weapon.damage,10);
+		    m_itemsList["unitDamage"]->setText(text, 18);
+	    }
+	}
+
+}
+
+void C_GB_Button::render(){
+	C_Button::render();
+	int up = 0;
+	C_Menu& menu=C_Locator::getMenu();
+    S_Coord bottomCoord  = menu.getCoord("bottomMenu");
+    bottomCoord.x -= 300;
+    bottomCoord.y -= 50;
+
+	if(m_state == HOVER){
+        up = 2;
+	    size_t c = 0;
+	    for ( auto [ k, i] : m_itemsList ){
+            if(i !=nullptr){
+	            i->setScreen(bottomCoord);
+	            i->render();
+                bottomCoord.x += i->getWidth() + 70;
+                if(c > 3){
+                    bottomCoord.y += i->getHeight() + 10;
+                }
+	        }
+	    }
+	}
+
+	C_TextureList& t= C_Locator::getTextureList();
+    if(!m_ctext.getText().empty()) {
 	    t.loadTextAsTexturesIntoMap(m_textName, m_ctext.getTranslatedText(), m_fontSize, getTextColor());
 	    t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height - up + 10,CENTER);
 	}
 }
 
+C_GB_Button::~C_GB_Button()
+{
+	if(m_unit !=nullptr)
+		delete m_unit;
+}
+
 //-------------------------------------------------------------
 
 C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
-	:C_Button(name,image,x_screen,y_screen)
+	:C_GB_Button(name,image,x_screen,y_screen)
 {
 	C_Grid& grid= C_Locator::getGrid();
 	C_UnitFactory factory = grid.getFactory();
@@ -364,12 +441,6 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 		}
 }
 
-C_GB_AddUnit::~C_GB_AddUnit()
-{
-	if(m_unit !=nullptr)
-		delete m_unit;
-}
-
 void C_GB_AddUnit::drag(S_Coord screen)
 {
 	if (m_unit != nullptr) {
@@ -386,19 +457,44 @@ void C_GB_AddUnit::render()
 		} else {
 			m_enable = true;
 		}
-	    C_Button::render();
+	    C_GB_Button::render();
 	}
 }
 
 //-------------------------------------------------------------
 
 C_GU_Upgrade::C_GU_Upgrade(string name,S_Coord screen)
-	:C_Button(name,"upgrade",screen.x,screen.y)
+	:C_GB_Button(name,"upgrade",screen.x,screen.y)
 {
     m_type = ACTION;
     m_command = new C_UpgradeUnit();
 }
 
+void C_GU_Upgrade::refresh(){
+	C_Grid& grid= C_Locator::getGrid();
+	C_GameUnits * current = grid.getSelected();
+	C_UnitFactory factory = grid.getFactory();
+	//check is a unit is selected
+    if(current != nullptr){
+	    string currentType = current->getType();
+	    int currentRank = current->getRank();
+	    //load the upgrade version into the m_unit to get info from it
+	    S_Unit unit;
+	    unit.name = currentType +"_"+ to_string(currentRank + 1);
+	    unit.coord = {0,0};
+
+	    if(m_unit == nullptr){
+	        m_unit = factory.create(unit);
+	    } else {
+	        //do not recreate if no change
+	        if(m_unit->getName() != unit.name){
+	            delete m_unit;
+    	        m_unit = factory.create(unit);
+	        }
+	    }
+	}
+    C_GB_Button::refresh();
+}
 
 void C_GU_Upgrade::render()
 {
@@ -412,7 +508,7 @@ void C_GU_Upgrade::render()
 	}
 	m_ctext.setText("Upgrade (" +  text +")");
 	m_ctext.setTranslatedText(gettext("Upgrade (") +  text +")");
-	C_Button::render();
+	C_GB_Button::render();
 }
 
 

@@ -33,6 +33,7 @@ public :
     virtual void render();
     virtual void refresh(){};
     virtual void go(int direction){std::cout << direction << std::endl;};
+    virtual S_Coord getCoord(){return m_screen;};
 protected:
     virtual void column(std::vector <std::string> names, S_Coord first);
     virtual void flagLine(std::vector <std::string> names, S_Coord last);
@@ -82,6 +83,7 @@ class C_Menu_Bottom : public C_Page {
     public:
     	C_Menu_Bottom(std::string name);
         virtual void render();
+        void refresh();
 };
 class C_Menu_Bottom_Add : public C_Menu_Bottom {
     public:
@@ -91,7 +93,6 @@ class C_Menu_Bottom_Add : public C_Menu_Bottom {
 class C_Menu_Bottom_Select : public C_Menu_Bottom {
     public:
     	C_Menu_Bottom_Select();
-        void refresh();
 };
 
 //-----------------------Top Menu-----------------------

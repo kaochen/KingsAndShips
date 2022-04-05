@@ -64,6 +64,18 @@ C_Frame* C_Menu::getFrame(std::string name){
     return ret;
 }
 
+S_Coord C_Menu::getCoord(std::string name){
+    S_Coord ret;
+	C_Frame* f = getFrame(name);
+	if(f != nullptr){
+	    C_Page* p = f->getCurrent();
+    	if(p != nullptr){
+	        ret = p->getCoord();
+	    }
+	}
+    return ret;
+}
+
 void C_Menu::openTab(std::string name){
     for(auto const& f : m_frames) {
 		if(f != nullptr){

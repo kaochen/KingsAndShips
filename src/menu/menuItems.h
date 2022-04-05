@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iostream>
 #include <string>
+#include "../level/gameUnits.h"
 #include "../level/shooter.h"
 #include "command.h"
 #include "../message.h"
@@ -52,6 +53,7 @@ public:
 	virtual void setPercentage(int percentage){std::cout << percentage;};
 	virtual void setPercentage(int a, int b){std::cout << a << b;};
 	virtual	void render();
+    virtual void refresh(){};
 	virtual void action();
 	virtual void actionHover(bool state);
 	virtual int getEnable(){return m_enable;};
@@ -144,7 +146,7 @@ public:
 	virtual void render();
 };
 
-class C_Button: public C_MenuItem { /*!Game Button use in the bottom menu*/
+class C_Button: public C_MenuItem { /*!Game Button*/
 public:
 	C_Button(std::string name,std::string image,int x_screen, int y_screen);
 	virtual void render();
@@ -152,21 +154,29 @@ protected:
     C_Text m_ctext;
 };
 
-class C_GB_AddUnit: public C_Button { /*!Game Button add a new unit on the ground*/
+class C_GB_Button: public C_Button { /*!Game Button use in the bottom menu*/
 public:
-	C_GB_AddUnit(std::string name,std::string image,int x_screen, int y_screen);
-	virtual ~C_GB_AddUnit();
-	virtual void drag(S_Coord screen);
+	C_GB_Button(std::string name,std::string image,int x_screen, int y_screen);
+	virtual ~C_GB_Button();
 	virtual void render();
-
+    virtual void refresh();
 protected:
+    std::map<std::string, C_MenuItem*> m_itemsList;;
 	C_GameUnits * m_unit;
 };
 
-class C_GU_Upgrade: public C_Button{ /*!Game Button to upgrade a unit already on the ground*/
+class C_GB_AddUnit: public C_GB_Button { /*!Game Button add a new unit on the ground*/
+public:
+	C_GB_AddUnit(std::string name,std::string image,int x_screen, int y_screen);
+	virtual void drag(S_Coord screen);
+	virtual void render();
+};
+
+class C_GU_Upgrade: public C_GB_Button{ /*!Game Button to upgrade a unit already on the ground*/
 public:
   	C_GU_Upgrade(std::string name,S_Coord screen);
   	virtual void render();
+    virtual void refresh();
 };
 
 enum colorList {GREEN,RED,BLUE};
