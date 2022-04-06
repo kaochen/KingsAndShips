@@ -150,8 +150,6 @@ class C_Button: public C_MenuItem { /*!Game Button*/
 public:
 	C_Button(std::string name,std::string image,int x_screen, int y_screen);
 	virtual void render();
-protected:
-    C_Text m_ctext;
 };
 
 class C_GB_Button: public C_Button { /*!Game Button use in the bottom menu*/
@@ -161,7 +159,7 @@ public:
 	virtual void render();
     virtual void refresh();
 protected:
-    std::map<std::string, C_MenuItem*> m_itemsList;;
+    std::vector<C_MenuItem*> m_itemsList;;
 	C_GameUnits * m_unit;
 };
 

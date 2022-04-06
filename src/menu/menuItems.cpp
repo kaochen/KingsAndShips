@@ -338,43 +338,48 @@ C_GB_Button::C_GB_Button(std::string name,std::string image,int x_screen, int y_
 {
     m_unit = nullptr;
     //can not invoke menu locator here, it is too soon
-    if(m_itemsList["unitFirerate"] == nullptr) {
-	    m_itemsList["unitFirerate"] = new C_GP_Status("unitFirerate",0 ,0, GREEN, BLUE);
-	}
-	if(m_itemsList["unitFirerange"] == nullptr) {
-	    m_itemsList["unitFirerange"] = new C_GP_Status("unitFirerange",0 ,0, GREEN, BLUE);
-	}
-	if(m_itemsList["unitDamage"] == nullptr) {
-	    m_itemsList["unitDamage"] = new C_GP_Status("unitDamage",0 ,0, GREEN, BLUE);
-	}
+	m_itemsList.push_back(new C_GP_Status("unitName",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitCost",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitDamage",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitFirerange",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitFirerate",0 ,0, GREEN, BLUE));
 }
 
 void C_GB_Button::refresh(){
 	if(m_unit != nullptr){
-	    S_UnitModel data = m_unit->getInfo();
-        if(m_itemsList["unitFirerate"] != nullptr) {
-		    string text = gettext("Fire rate: ");
-		    double f = 0.0;
-            if(data.weapon.fireRate != 0) {
-                f = data.weapon.fireRate/1000;
-            }
-            text += to_string(f).substr(0,3) + " ms";
-		    m_itemsList["unitFirerate"]->setPercentage(f,5);
-		    m_itemsList["unitFirerate"]->setText(text, 18);
-	    }
-	    if(m_itemsList["unitFirerange"] != nullptr){
-		    string text = gettext("Fire range: ") + C_Tools::nbrToString(data.weapon.fireRange);
-		    m_itemsList["unitFirerange"]->setPercentage(data.weapon.fireRange,10);
-		    m_itemsList["unitFirerange"]->setText(text, 18);
-	    }
 
-	    if(m_itemsList["unitDamage"] != nullptr){
-		    string text = gettext("Damage: ") + C_Tools::nbrToString(data.weapon.damage);
-		    m_itemsList["unitDamage"]->setPercentage(data.weapon.damage,10);
-		    m_itemsList["unitDamage"]->setText(text, 18);
+	    S_UnitModel data = m_unit->getInfo();
+	    for(auto i : m_itemsList){
+	        if(i != nullptr){
+	            if(i->getName() == "unitFirerate" ){
+	                string text = gettext("Fire rate: ");
+		            double f = 0.0;
+                    if(data.weapon.fireRate != 0) {
+                        f = data.weapon.fireRate/1000;
+                    }
+                    text += to_string(f).substr(0,3) + " ms";
+		            i->setPercentage(f,5);
+		            i->setText(text);
+	            } else if (i->getName() == "unitFirerange" ){
+	            	string text = gettext("Fire range: ") + C_Tools::nbrToString(data.weapon.fireRange);
+		            i->setPercentage(data.weapon.fireRange,4);
+		            i->setText(text);
+	            } else if (i->getName() == "unitDamage" ){
+		            string text = gettext("Damage: ") + C_Tools::nbrToString(data.weapon.damage);
+		            i->setPercentage(data.weapon.damage,30);
+		            i->setText(text);
+		        } else if (i->getName() == "unitCost" ){
+		            string text = gettext("Cost: ") + C_Tools::nbrToString(data.cost);
+		            i->setPercentage(data.cost,200);
+		            i->setText(text);
+	            } else if (i->getName() == "unitName" ){
+	                if(m_unit !=  nullptr){
+	                    i->setText(m_unit->getType());
+	                }
+	            }
+	        }
 	    }
 	}
-
 }
 
 void C_GB_Button::render(){
@@ -383,34 +388,35 @@ void C_GB_Button::render(){
 	C_Menu& menu=C_Locator::getMenu();
     S_Coord bottomCoord  = menu.getCoord("bottomMenu");
     bottomCoord.x -= 300;
-    bottomCoord.y -= 50;
+    bottomCoord.y -= 100;
 
 	if(m_state == HOVER){
         up = 2;
-	    size_t c = 0;
-	    for ( auto [ k, i] : m_itemsList ){
+	    size_t c = 1;
+	    S_Coord tmp = bottomCoord;
+	    for ( auto i : m_itemsList ){
             if(i !=nullptr){
-	            i->setScreen(bottomCoord);
+	            i->setScreen(tmp);
 	            i->render();
-                bottomCoord.x += i->getWidth() + 70;
-                if(c > 3){
-                    bottomCoord.y += i->getHeight() + 10;
+                tmp.x += i->getWidth() + 50;
+                if(c == 3){
+                    tmp.x = bottomCoord.x;
+                    tmp.y += 40;
                 }
+                c++;
 	        }
 	    }
-	}
-
-	C_TextureList& t= C_Locator::getTextureList();
-    if(!m_ctext.getText().empty()) {
-	    t.loadTextAsTexturesIntoMap(m_textName, m_ctext.getTranslatedText(), m_fontSize, getTextColor());
-	    t.renderText(m_textName, m_x_screen + m_width/2, m_y_screen + m_height - up + 10,CENTER);
 	}
 }
 
 C_GB_Button::~C_GB_Button()
 {
-	if(m_unit !=nullptr)
+	if(m_unit !=nullptr){
 		delete m_unit;
+	}
+	for(auto i : m_itemsList){
+	    delete i;
+	}
 }
 
 //-------------------------------------------------------------
@@ -434,11 +440,6 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 		unit.name = "barricade_1";
 		m_unit = factory.create(unit);
 	}
-	if(m_unit != nullptr){
-		std::string text = to_string(m_unit->getCost());
-	    m_ctext.setText( "unit (" +  text +")");
-	    m_ctext.setTranslatedText(m_ctext.getText());
-		}
 }
 
 void C_GB_AddUnit::drag(S_Coord screen)
@@ -506,8 +507,6 @@ void C_GU_Upgrade::render()
 	if(check) {
     	text = to_string(model.cost);
 	}
-	m_ctext.setText("Upgrade (" +  text +")");
-	m_ctext.setTranslatedText(gettext("Upgrade (") +  text +")");
 	C_GB_Button::render();
 }
 
