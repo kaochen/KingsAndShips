@@ -433,10 +433,26 @@ C_Menu_Bottom::C_Menu_Bottom(std::string name)
 	C_Settings& settings=C_Locator::getSettings();
 	m_screen.x = (settings.getWindowWidth())/2;
 	m_screen.y = (settings.getWindowHeight());
+	lastHover = "AddTower";
 }
 
 void C_Menu_Bottom::refresh(){
+    //use the lastHover string keep the focus open on the last button where the mousse pass over"
+    std::string last = lastHover;
+    for(auto [ k, i] : m_itemsList ){
+        if(i !=nullptr){
+	        if (i->getState() == HOVER){
+	            if(k != lastHover){
+	                last = k;
+	            }
+	        }
+	    }
+	}
+	lastHover = last;
 
+    if(m_itemsList[lastHover]!= nullptr){
+        m_itemsList[lastHover]->setState(HOVER);
+    }
     for ( auto [ k, i] : m_itemsList ){
         if(i !=nullptr){
 	        i->refresh();
@@ -445,6 +461,7 @@ void C_Menu_Bottom::refresh(){
     C_Grid& grid= C_Locator::getGrid();
 	C_GameUnits * unit = grid.getSelected();
 	if(unit != nullptr){
+	    lastHover = "upgradeTower";
     	S_UnitModel data = unit->getInfo();
 		if(m_itemsList["upgradeTower"] != nullptr){
 			if(grid.isUnitupgradable(unit)){
@@ -453,6 +470,8 @@ void C_Menu_Bottom::refresh(){
 				m_itemsList["upgradeTower"]->setEnable(false);
 			}
 		}
+    } else {
+        lastHover = "AddTower";
     }
 }
 

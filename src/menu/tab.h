@@ -84,6 +84,7 @@ class C_Menu_Bottom : public C_Page {
     	C_Menu_Bottom(std::string name);
         virtual void render();
         void refresh();
+        std::string lastHover;
 };
 class C_Menu_Bottom_Add : public C_Menu_Bottom {
     public:
