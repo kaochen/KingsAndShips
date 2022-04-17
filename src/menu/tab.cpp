@@ -489,8 +489,8 @@ void C_Menu_Bottom::render(){
 C_Menu_Bottom_Add::C_Menu_Bottom_Add()
 	:C_Menu_Bottom("Add")
 {
-	int size = 64*2;
-	int x_button = m_screen.x - 100;
+	int size = 64+20;
+	int x_button = m_screen.x - m_width/3;
 	int y_button = m_screen.y - 155;
 	//left buttons
 	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
@@ -503,7 +503,7 @@ C_Menu_Bottom_Add::C_Menu_Bottom_Add()
 C_Menu_Bottom_Select::C_Menu_Bottom_Select()
 	:C_Menu_Bottom("Select")
 {
-	S_Coord coord = {m_screen.x - 100, m_screen.y - 155};
+	S_Coord coord = {m_screen.x - m_width/3, m_screen.y - 155};
 	//left buttons
     if(m_itemsList["upgradeTower"]== nullptr) {
         m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",coord);
