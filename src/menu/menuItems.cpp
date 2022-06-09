@@ -232,8 +232,9 @@ void C_MB_1Line::render()
 	        t.loadTextAsTexturesIntoMap(m_textName, m_text, m_fontSize, m_color);
 		    t.renderText(m_textName, x1 + m_width/4 + 30 , y1, RIGHT);
 	    }
-	    t.renderTexture("Menu_01_line1", x1 - m_width/4 + 8,m_y_screen + 28,CENTER);
-		t.renderTexture("Menu_01_line2", x1 + m_width/4 ,m_y_screen + 28,CENTER);
+	    t.renderTexture("Menu_01_line1", x1 - 128 ,m_y_screen + 28,CENTER);
+		t.renderTexture("Menu_01_line2", x1 + 0 ,m_y_screen + 28,CENTER);
+		t.renderTexture("Menu_01_line3", x1 + 128 ,m_y_screen + 28,CENTER);
 	}
 
 }
