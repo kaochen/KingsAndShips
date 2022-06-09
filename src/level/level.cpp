@@ -211,10 +211,11 @@ void C_Level::cliWaveStatus(int i)
 void C_Level::loadWaveIntoGrid(int i)
 {
 	int c = 0;
+	i--;
 	for(vector <C_Wave>::iterator it = m_waves.begin(); it !=m_waves.end(); it++) {
 		C_Wave wave = *it;
 		if(i == c) {
-			C_Message::printM("load wave: " + to_string(c) + "\n");
+			C_Message::printM("load wave: " + to_string(i) + "\n");
 			wave.loadIntoGrid();
 		}
 		c++;
