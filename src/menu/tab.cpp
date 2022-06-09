@@ -312,8 +312,8 @@ void C_Tab_Levels::go(int direction){
     if(m_currentCardLevelNbr < 1){
         m_currentCardLevelNbr = 1;
     }
-    C_Window& win= C_Locator::getWindow();
-    int last = win.getLastLevelNbr();
+    C_Settings& settings=C_Locator::getSettings();
+	int last = settings.getNbrOfLevels();
     if(m_currentCardLevelNbr > last){
         m_currentCardLevelNbr = last;
     }

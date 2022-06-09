@@ -571,11 +571,6 @@ S_LevelData C_Window::getLevelModel(int levelNbr)
 	return m_levelFactory->getModel(levelNbr);
 }
 
-int C_Window::getLastLevelNbr()
-{
-	return m_levelFactory->getLastLevelNbr();
-}
-
 void C_Window::listenMouseWheel(SDL_Event &event){
 	if(event.wheel.y != 0){
 		C_Settings& settings= C_Locator::getSettings();

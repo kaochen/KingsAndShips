@@ -173,8 +173,9 @@ bool C_UnitFactory::tsxExist(const string &file)
 //-------------------------------Level Factory --------------------
 C_LevelFactory::C_LevelFactory()
 {
-	m_lastLevelNbr = 3;
-	for(int i = 1; i <= m_lastLevelNbr; i++) {
+    C_Settings& settings=C_Locator::getSettings();
+	int last = settings.getNbrOfLevels();
+	for(int i = 1; i <= last; i++) {
 		m_levelList.push_back(extractInfosFromTmx(i));
 	}
 }
@@ -217,11 +218,13 @@ int C_LevelFactory::calcGridSize(int width, int height)
 
 C_Level * C_LevelFactory::create(int nbr)
 {
+	C_Settings& settings=C_Locator::getSettings();
+	int last = settings.getNbrOfLevels();
 	int id = nbr;
 	if(id < 1) {
 		id = 1;
-	} else if(id > m_lastLevelNbr) {
-		id = m_lastLevelNbr;
+	} else if(id > last) {
+		id = last;
 	}
 	S_LevelData level = m_levelList[id - 1];
 	return  new C_Level(level);
@@ -229,11 +232,13 @@ C_Level * C_LevelFactory::create(int nbr)
 
 S_LevelData C_LevelFactory::getModel(int levelNbr)
 {
+	C_Settings& settings=C_Locator::getSettings();
+	int last = settings.getNbrOfLevels();
 	int id = levelNbr;
 	if(id < 1) {
 		id = 1;
-	} else if(id > m_lastLevelNbr) {
-		id = m_lastLevelNbr;
+	} else if(id > last) {
+		id = last;
 	}
 	return m_levelList[id - 1];
 }
