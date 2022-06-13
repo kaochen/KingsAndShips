@@ -339,10 +339,10 @@ C_GB_Button::C_GB_Button(std::string name,std::string image,int x_screen, int y_
 {
     m_unit = nullptr;
     //can not invoke menu locator here, it is too soon
-	m_itemsList.push_back(new C_GP_Status("unitName",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_MenuText("unitName","unitName",0 ,0));
 	m_itemsList.push_back(new C_GP_Status("unitCost",0 ,0, GREEN, BLUE));
-	m_itemsList.push_back(new C_GP_Status("unitDamage",0 ,0, GREEN, BLUE));
 	m_itemsList.push_back(new C_GP_Status("unitFirerange",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitDamage",0 ,0, GREEN, BLUE));
 	m_itemsList.push_back(new C_GP_Status("unitFirerate",0 ,0, GREEN, BLUE));
 }
 
@@ -385,26 +385,30 @@ void C_GB_Button::refresh(){
 
 void C_GB_Button::render(){
 	C_Button::render();
-	int up = 0;
 	C_Menu& menu=C_Locator::getMenu();
-    S_Coord bottomCoord  = menu.getCoord("bottomMenu");
-    bottomCoord.x -= 300;
-    bottomCoord.y -= 100;
+    S_Coord menuCoord  = menu.getCoord("bottomMenu");
+    S_Coord statusCoord = { menuCoord.x - 200, menuCoord.y - 80};
 
 	if(m_state == HOVER){
-        up = 2;
+
 	    size_t c = 1;
-	    S_Coord tmp = bottomCoord;
+	    S_Coord tmp = statusCoord;
 	    for ( auto i : m_itemsList ){
             if(i !=nullptr){
-	            i->setScreen(tmp);
-	            i->render();
-                tmp.x += i->getWidth() + 50;
-                if(c == 3){
-                    tmp.x = bottomCoord.x;
-                    tmp.y += 40;
+                if(i->getName() == "unitName"){
+                    S_Coord coord = { menuCoord.x + 90 , menuCoord.y - 100};
+                    i->setScreen(coord);
+	                i->render();
+                } else {
+	                i->setScreen(tmp);
+	                i->render();
+                    tmp.x += i->getWidth() + 60;
+                    if(c == 2){
+                        tmp.x = statusCoord.x;
+                        tmp.y += 40;
+                    }
+                    c++;
                 }
-                c++;
 	        }
 	    }
 	}

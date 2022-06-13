@@ -489,21 +489,20 @@ void C_Menu_Bottom::render(){
 C_Menu_Bottom_Add::C_Menu_Bottom_Add()
 	:C_Menu_Bottom("Add")
 {
-	int size = 64+20;
-	int x_button = m_screen.x - m_width/3;
-	int y_button = m_screen.y - 155;
+	int size = 64;
+	S_Coord coord = {m_screen.x - m_width/4 - 20, m_screen.y - 128};
 	//left buttons
-	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",x_button,y_button);
-	x_button +=size;
-	m_itemsList["AddCatapult"] = new C_GB_AddUnit("AddCatapult","AddCatapult",x_button,y_button);
-	x_button +=size;
-	m_itemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",x_button,y_button);
+	m_itemsList["AddTower"] = new C_GB_AddUnit("AddTower","AddTower",coord.x,coord.y);
+	coord.x +=size;
+	m_itemsList["AddCatapult"] = new C_GB_AddUnit("AddCatapult","AddCatapult",coord.x,coord.y);
+	coord.x +=size;
+	m_itemsList["AddBarricade"] = new C_GB_AddUnit("AddBarricade","AddBarricade",coord.x,coord.y);
 }
 
 C_Menu_Bottom_Select::C_Menu_Bottom_Select()
 	:C_Menu_Bottom("Select")
 {
-	S_Coord coord = {m_screen.x - m_width/3, m_screen.y - 155};
+	S_Coord coord = {m_screen.x - m_width/4 - 20 , m_screen.y - 128};
 	//left buttons
     if(m_itemsList["upgradeTower"]== nullptr) {
         m_itemsList["upgradeTower"] = new C_GU_Upgrade("upgradeTower",coord);
@@ -524,20 +523,20 @@ C_Menu_Top::C_Menu_Top(std::string name)
     flagLine(names,first);
 
 	int x_button = m_screen.x - 90;
-	int y_button = m_screen.y + 70;
+	int y_button = m_screen.y + 60;
 	if(m_itemsList["gold_pile"]== nullptr) {
-        m_itemsList["gold_pile"] = new C_MenuItem("gold_Big_Pile",x_button +30,y_button );
+        m_itemsList["gold_pile"] = new C_MenuItem("gold_Big_Pile",x_button +40,y_button );
     }
     if(m_itemsList["walletBar"]== nullptr) {
-		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 90 ,y_button + 30, GREEN, BLUE);
+		m_itemsList["walletBar"] = new C_GP_Status("walletBar",x_button + 100 ,y_button + 30, GREEN, BLUE);
 		m_itemsList["walletBar"]->setText(gettext("Money: "), 18);
 	}
     //progress bar value
     if(m_itemsList["gold_heart"]== nullptr) {
-        m_itemsList["gold_heart"] = new C_MenuItem("gold_heart",x_button +30,y_button - 40);
+        m_itemsList["gold_heart"] = new C_MenuItem("gold_heart",x_button +40,y_button - 40);
     }
 	if(m_itemsList["playerlife"] == nullptr) {
-		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 90,y_button -10, GREEN, RED);
+		m_itemsList["playerlife"] = new C_GP_Status("playerlife",x_button + 100,y_button -10, GREEN, RED);
 		m_itemsList["playerlife"]->setText(gettext("Life: "), 18);
 	}
 
