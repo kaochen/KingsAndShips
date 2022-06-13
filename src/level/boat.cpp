@@ -38,7 +38,7 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_direction = EAST;
 	m_countRegenPath = 0;
 	m_targetsTypes.push_back("town");
-	m_targetsTypes.push_back("barricade");
+	m_targetsTypes.push_back("Barricade");
 	m_targetsTypes.push_back("ArcherTower");
 	m_targetsTypes.push_back("Catapult");
 	m_state ="Moving";

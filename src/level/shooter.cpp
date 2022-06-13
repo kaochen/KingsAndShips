@@ -315,7 +315,7 @@ void C_Shooter::drag(S_Coord screen)
 {
 	m_anim.get("Drag")->play();
 	bool water = false;
-	if(m_type == "barricade") {
+	if(m_type == "Barricade") {
 		water = true;
 	}
 	C_CoordScreen coord(screen);

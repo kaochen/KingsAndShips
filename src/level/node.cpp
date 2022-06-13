@@ -102,7 +102,7 @@ int C_Node::calcG_offset(int x_from, int y_from,
 		//if barricade on a corner add a malus
 		string corner1 = grid.getUnitType(FIELD,x_dest,y_from);
 		string corner2 = grid.getUnitType(FIELD,x_from,y_dest);
-		if(corner1 == "barricade" || corner2 == "barricade") {
+		if(corner1 == "Barricade" || corner2 == "Barricade") {
 			offset += 2*G_DIAG;
 		}
 	} else {
@@ -111,7 +111,7 @@ int C_Node::calcG_offset(int x_from, int y_from,
 
 	//if boat or barricade on destination add malus
 	string name = grid.getUnitType(FIELD,x_dest,y_dest);
-	if(name == "barricade") {
+	if(name == "Barricade") {
 		offset += 3*G_HV;
 	} else if(name == "boat") {
 		offset += 2*G_HV;

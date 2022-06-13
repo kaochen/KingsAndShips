@@ -68,7 +68,7 @@ C_GameUnits* C_UnitFactory::create(S_Unit unit)
 		ret = new C_ArcherTower(current);
 	} else if(unit.name.find("CastleTower_") != string::npos){
 		ret = new C_CastleTower(current);
-	} else if(unit.name.find("barricade_") != string::npos){
+	} else if(unit.name.find("Barricade_") != string::npos){
 		ret = new C_Barricade(current);
 	} else if(unit.name.find("town_") != string::npos){
 		ret = new C_Town(current);

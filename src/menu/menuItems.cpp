@@ -442,7 +442,7 @@ C_GB_AddUnit::C_GB_AddUnit(string name,string image,int x_screen, int y_screen)
 		unit.name = "Catapult_0";
 		m_unit = factory.create(unit);
 	} else if(name == "AddBarricade") {
-		unit.name = "barricade_1";
+		unit.name = "Barricade_1";
 		m_unit = factory.create(unit);
 	}
 }

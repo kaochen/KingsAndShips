@@ -131,7 +131,7 @@ bool C_Grid::addUnit(string &type, S_Coord coord)
 		}
 	} else if(type == "AddBarricade") {
 		if(isThisConstructible(coord, true)){
-			unit.name = "barricade_1";
+			unit.name = "Barricade_1";
 			typeOk = true;
 		}
 	}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="barricade_1" tilewidth="256" tileheight="256" tilecount="24" columns="8">
+<tileset name="Barricade_1" tilewidth="256" tileheight="256" tilecount="24" columns="8">
  <tileoffset x="-14" y="11"/>
   <properties>
-    <property name="unit.type" type="str" value="barricade"/>
+    <property name="unit.type" type="str" value="Barricade"/>
     <property name="unit.health" type="int" value="20"/>
     <property name="unit.cost" type="int" value="100"/>
     <property name="unit.rank" type="int" value="1"/>
