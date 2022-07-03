@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-05 18:25+0100\n"
+"POT-Creation-Date: 2022-07-03 20:52+0200\n"
 "PO-Revision-Date: 2022-02-21 10:11+0100\n"
 "Last-Translator: kao <kaochen2@gmail.com>\n"
 "Language-Team: French\n"
@@ -17,74 +17,81 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: ../../src/menu/menuItems.cpp:488
-msgid "Upgrade ("
-msgstr "Amélioration ("
-
-#: ../../src/menu/tab.cpp:229
-msgid "Resolution"
-msgstr "Résolution"
-
-#: ../../src/menu/tab.cpp:232
-msgid "Grid Size"
-msgstr "Taille de la grille"
-
-#: ../../src/menu/tab.cpp:240
-msgid "Number of Levels"
-msgstr "Nombre de niveaux"
-
-#: ../../src/menu/tab.cpp:256
-msgid "Load"
-msgstr "Chargez"
-
-#: ../../src/menu/tab.cpp:318
-msgid "Quit"
-msgstr "Quitter"
-
-#: ../../src/menu/tab.cpp:336
-msgid "Replay level :"
-msgstr "Rejouez le niveau:"
-
-#: ../../src/menu/tab.cpp:347
-msgid "Next level : "
-msgstr "Prochain niveau : "
-
-#: ../../src/menu/tab.cpp:362
-msgid "Your castle is safe for now"
-msgstr "Votre château est sauvé pour le moment"
-
-#: ../../src/menu/tab.cpp:365
-msgid "You lost this castle"
-msgstr "Vous avez perdu ce château"
-
-#: ../../src/menu/tab.cpp:367
-msgid "The battle is not over"
-msgstr "La bataille n'est pas terminé"
-
-#: ../../src/menu/tab.cpp:458
+#: ../../src/menu/menuItems.cpp:351
 msgid "Fire rate: "
-msgstr "Cadence de tir :"
+msgstr "Cadence :"
 
-#: ../../src/menu/tab.cpp:469
+#: ../../src/menu/menuItems.cpp:353
 msgid "Fire range: "
-msgstr "Portée de tir :"
+msgstr "Portée :"
 
-#: ../../src/menu/tab.cpp:475
+#: ../../src/menu/menuItems.cpp:355
 msgid "Damage: "
 msgstr "Dégat :"
 
-#: ../../src/menu/tab.cpp:523
+#: ../../src/menu/menuItems.cpp:357
+msgid "Cost: "
+msgstr "Coût :"
+
+#: ../../src/menu/menuItems.cpp:537
+msgid "Upgrade"
+msgstr "Amélioration"
+
+#: ../../src/menu/tab.cpp:270
+msgid "Resolution"
+msgstr "Résolution"
+
+#: ../../src/menu/tab.cpp:273
+msgid "Grid Size"
+msgstr "Taille de la grille"
+
+#: ../../src/menu/tab.cpp:281
+msgid "Number of Levels"
+msgstr "Nombre de niveaux"
+
+#: ../../src/menu/tab.cpp:297
+msgid "Load"
+msgstr "Chargez"
+
+#: ../../src/menu/tab.cpp:359
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../../src/menu/tab.cpp:377
+msgid "Replay level :"
+msgstr "Rejouez le niveau:"
+
+#: ../../src/menu/tab.cpp:388
+msgid "Next level : "
+msgstr "Niveau suivant : "
+
+#: ../../src/menu/tab.cpp:403
+msgid "Your castle is safe for now"
+msgstr "Votre château est sauvé pour le moment"
+
+#: ../../src/menu/tab.cpp:406
+msgid "You lost this castle"
+msgstr "Vous avez perdu ce château"
+
+#: ../../src/menu/tab.cpp:408
+msgid "The battle is not over"
+msgstr "La bataille n'est pas terminé"
+
+#: ../../src/menu/tab.cpp:532
 msgid "Money: "
 msgstr "Argent : "
 
-#: ../../src/menu/tab.cpp:531
+#: ../../src/menu/tab.cpp:540
 msgid "Life: "
 msgstr "Vie: "
 
-#: ../../src/menu/tab.cpp:540
+#: ../../src/menu/tab.cpp:545
+msgid "Level "
+msgstr "Niveau "
+
+#: ../../src/menu/tab.cpp:549
 msgid "Wave "
 msgstr "Vague "
 
-#: ../../src/menu/tab.cpp:547
-msgid "Level "
-msgstr "Niveau "
+#~ msgid "Upgrade ("
+#~ msgstr "Amélioration ("

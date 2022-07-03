@@ -340,43 +340,54 @@ C_GB_Button::C_GB_Button(std::string name,std::string image,int x_screen, int y_
     m_unit = nullptr;
     //can not invoke menu locator here, it is too soon
 	m_itemsList.push_back(new C_MenuText("unitName","unitName",0 ,0));
-	m_itemsList.push_back(new C_GP_Status("unitCost",0 ,0, GREEN, BLUE));
-	m_itemsList.push_back(new C_GP_Status("unitFirerange",0 ,0, GREEN, BLUE));
-	m_itemsList.push_back(new C_GP_Status("unitDamage",0 ,0, GREEN, BLUE));
-	m_itemsList.push_back(new C_GP_Status("unitFirerate",0 ,0, GREEN, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitCost",0 ,0, BLUE, BLUE));
+	m_itemsList.push_back(new C_GP_Status("unitFirerange",0 ,0, GREEN, RED));
+	m_itemsList.push_back(new C_GP_Status("unitDamage",0 ,0, GREEN, RED));
+	m_itemsList.push_back(new C_GP_Status("unitFirerate",0 ,0, GREEN, RED));
+	for(auto i : m_itemsList){
+	    if(i != nullptr){
+	        i->setWidth(220);
+	        if(i->getName() == "unitFirerate" ){
+		            i->setText(gettext("Fire rate: "));
+	            } else if (i->getName() == "unitFirerange" ){
+		            i->setText(gettext("Fire range: "));
+	            } else if (i->getName() == "unitDamage" ){
+		            i->setText(gettext("Damage: "));
+		        } else if (i->getName() == "unitCost" ){
+		            i->setText(gettext("Cost: "));
+	            }
+	    }
+	}
+}
+
+double C_GB_Button::convertFireRate(double value){
+     double ret = 0.0;
+     if(value != 0) {
+        ret = value/1000;
+        }
+    return ret;
 }
 
 void C_GB_Button::refresh(){
 	if(m_unit != nullptr){
-
 	    S_UnitModel data = m_unit->getInfo();
 	    for(auto i : m_itemsList){
 	        if(i != nullptr){
 	            if(i->getName() == "unitFirerate" ){
-	                string text = gettext("Fire rate: ");
-		            double f = 0.0;
-                    if(data.weapon.fireRate != 0) {
-                        f = data.weapon.fireRate/1000;
-                    }
-                    text += to_string(f).substr(0,3) + " ms";
+		            double f = convertFireRate(data.weapon.fireRate);
 		            i->setPercentage(f,5);
-		            i->setText(text);
+		            i->setText2(to_string(f).substr(0,3) + " ms");
 	            } else if (i->getName() == "unitFirerange" ){
-	            	string text = gettext("Fire range: ") + C_Tools::nbrToString(data.weapon.fireRange);
 		            i->setPercentage(data.weapon.fireRange,4);
-		            i->setText(text);
+		            i->setText2(std::to_string(data.weapon.fireRange));
 	            } else if (i->getName() == "unitDamage" ){
-		            string text = gettext("Damage: ") + C_Tools::nbrToString(data.weapon.damage);
 		            i->setPercentage(data.weapon.damage,30);
-		            i->setText(text);
+		            i->setText2(std::to_string(data.weapon.damage));
 		        } else if (i->getName() == "unitCost" ){
-		            string text = gettext("Cost: ") + C_Tools::nbrToString(data.cost);
 		            i->setPercentage(data.cost,200);
-		            i->setText(text);
+		            i->setText2("+ "+std::to_string(data.cost));
 	            } else if (i->getName() == "unitName" ){
-	                if(m_unit !=  nullptr){
-	                    i->setText(m_unit->getType());
-	                }
+	                i->setText(data.type);
 	            }
 	        }
 	    }
@@ -387,7 +398,7 @@ void C_GB_Button::render(){
 	C_Button::render();
 	C_Menu& menu=C_Locator::getMenu();
     S_Coord menuCoord  = menu.getCoord("bottomMenu");
-    S_Coord statusCoord = { menuCoord.x - 200, menuCoord.y - 80};
+    S_Coord statusCoord = { menuCoord.x - 260, menuCoord.y - 80};
 
 	if(m_state == HOVER){
 
@@ -481,12 +492,12 @@ void C_GU_Upgrade::refresh(){
 	C_GameUnits * current = grid.getSelected();
 	C_UnitFactory factory = grid.getFactory();
 	//check is a unit is selected
+	S_UnitModel currentData;
     if(current != nullptr){
-	    string currentType = current->getType();
-	    int currentRank = current->getRank();
+	    currentData = current->getInfo();
 	    //load the upgrade version into the m_unit to get info from it
 	    S_Unit unit;
-	    unit.name = currentType +"_"+ to_string(currentRank + 1);
+	    unit.name = currentData.type +"_"+ to_string(currentData.rank + 1);
 	    unit.coord = {0,0};
 
 	    if(m_unit == nullptr){
@@ -499,7 +510,35 @@ void C_GU_Upgrade::refresh(){
 	        }
 	    }
 	}
-    C_GB_Button::refresh();
+	if(m_unit != nullptr){
+	    S_UnitModel data = m_unit->getInfo();
+	    for(auto i : m_itemsList){
+	        if(i != nullptr){
+	            if(i->getName() == "unitFirerate" ){
+	                double f = convertFireRate(data.weapon.fireRate);
+	                double f2 = convertFireRate(currentData.weapon.fireRate);
+		            i->setPercentage2(f,5);
+		            i->setPercentage(f2,5);
+		            i->setText2( to_string(f2).substr(0,3) + "-" + to_string(f2-f).substr(0,3) + " ms");
+	            } else if (i->getName() == "unitFirerange" ){
+	            	string text2 = std::to_string(currentData.weapon.fireRange) + " + "+ std::to_string(data.weapon.fireRange - currentData.weapon.fireRange);
+		            i->setPercentage(currentData.weapon.fireRange,4);
+		            i->setPercentage2(data.weapon.fireRange,4);
+		            i->setText2(text2);
+	            } else if (i->getName() == "unitDamage" ){
+		            string text2 = std::to_string(currentData.weapon.damage) + " + "+ std::to_string(data.weapon.damage - currentData.weapon.damage);
+		            i->setPercentage(currentData.weapon.damage,30);
+		            i->setPercentage2(data.weapon.damage,30);
+		            i->setText2(text2);
+		        }else if (i->getName() == "unitCost" ){
+		            i->setPercentage(data.cost,200);
+		            i->setText2("+ "+C_Tools::nbrToString(data.cost));
+	            } else if (i->getName() == "unitName" ){
+                    i->setText(gettext("Upgrade"));
+	            }
+	        }
+	    }
+	}
 }
 
 void C_GU_Upgrade::render()
@@ -518,52 +557,80 @@ void C_GU_Upgrade::render()
 
 //-------------------------------------------------------------
 
-C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int colorIn, int colorOut)
+C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int color1, int color2)
 	:C_MB_CardButton(name,x_screen,y_screen)
 {
 	m_type = STATUS;
 	m_width = 152;
 	m_height = 42;
-	m_percentage = 100;
-	m_oldPercentage = m_percentage;
+	m_percentage1 = 100;
+	m_percentage2 = 0;
 	m_xOffset = 0;
-	m_colorIn = colorIn;
-	m_colorOut = colorOut;
+	m_color1 = color1;
+	m_color2 = color2;
 }
 
 
 void C_GP_Status::setPercentage(int a, int b)
 {
-	if(a != 0 && b !=0)
-		m_percentage = ((100*a)/b);
-	else
-		m_percentage = 0;
-
-	if (m_percentage > 100)
-		m_percentage = 100;
-	if (m_percentage < 0)
-		m_percentage = 0;
+    m_percentage1 = getPercentage(a,b);
 }
+
+void C_GP_Status::setPercentage2(int a, int b)
+{
+    m_percentage2 = getPercentage(a,b);
+}
+
+int C_GP_Status::getPercentage(int a, int b)
+{
+    int ret = 0;
+	if(a != 0 && b !=0)
+		ret = ((100*a)/b);
+	else
+		ret = 0;
+
+	if (ret > 100)
+		ret = 100;
+	if (ret < 0)
+		ret = 0;
+	return ret;
+}
+
 
 
 void C_GP_Status::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
     std::string line;
-    size_t length = m_width/10;
+    int length = m_width/10;
     int x1 = m_x_screen;
 	int y1 = m_y_screen + m_height/2 + 10 ;
 	int offset = 0;
+	//draw background
 	for (int i = 0; i <= length; i++){
     	t.renderTexture("Menu_details_Progress_Bright", x1 + offset ,y1,CENTER);
     	offset += 9;
 	}
 
-	int length2 = (m_percentage * length)/(100);
-	if(m_percentage>0){
+	//draw step2 if longer than step1
+	if(m_percentage2>0){
+        if(m_percentage2 > m_percentage1){
+            int lengthStep2 = (m_percentage2 * length)/(100);
+	        offset = 0;
+	        std::string color = colorToStr(m_color2);
+	        for (int i = 0; i <= lengthStep2; i++){
+            	t.renderTexture("Menu_details_Progress_"+color, x1 + offset ,y1,CENTER);
+            	offset += 9;
+	        }
+        }
+    }
+
+	//draw step1 over step2
+	if(m_percentage1>0){
+    	int lengthStep1 = (m_percentage1 * length)/(100);
 	    offset = 0;
-	    std::string color = colorToStr(m_colorIn);
-	    for (int i = 0; i <= length2; i++){
+	    std::string color = colorToStr(m_color1);
+	    for (int i = 0; i <= lengthStep1; i++){
         	t.renderTexture("Menu_details_Progress_"+color, x1 + offset ,y1,CENTER);
         	offset += 9;
 	    }

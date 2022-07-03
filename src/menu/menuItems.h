@@ -45,6 +45,7 @@ public:
 	virtual void setScreen(S_Coord const screen) {m_x_screen = screen.x; m_y_screen = screen.y;};
 
 	virtual int getWidth() const{return m_width;};
+	virtual void setWidth(int width) {m_width = width;};
 	virtual int getHeight() const{return m_height;};
 	virtual	std::string getName(){return m_name;};
 	virtual void setCommand(C_Command *c){m_command = c;};
@@ -52,6 +53,7 @@ public:
 
 	virtual void setPercentage(int percentage){std::cout << percentage;};
 	virtual void setPercentage(int a, int b){std::cout << a << b;};
+	virtual void setPercentage2(int a, int b){std::cout << a << b;};
 	virtual	void render();
     virtual void refresh(){};
 	virtual void action();
@@ -159,6 +161,7 @@ public:
 	virtual void render();
     virtual void refresh();
 protected:
+    virtual double convertFireRate(double value);
     std::vector<C_MenuItem*> m_itemsList;;
 	C_GameUnits * m_unit;
 };
@@ -181,20 +184,23 @@ enum colorList {GREEN,RED,BLUE};
 
 class C_GP_Status: public C_MB_CardButton { /*!In Game Progress to show the status (Life, wallet)*/
 public:
-	C_GP_Status(std::string name,int x_screen, int y_screen, int colorIn, int colorOut);
+	C_GP_Status(std::string name,int x_screen, int y_screen, int color1, int color2);
 	virtual void render();
 	virtual void setPercentage(int percentage)
 	{
-		m_percentage = percentage;
+		m_percentage1 = percentage;
 	};
 	virtual void setPercentage(int a, int b);
+	virtual void setPercentage2(int a, int b);
 protected:
+    virtual int  getPercentage(int a, int b);
 	std::string colorToStr(int color);
-	int m_percentage;
-	int m_oldPercentage;
+	int m_percentage1;
+    int m_percentage2;
+    int m_max;
 	int m_xOffset;
-	int m_colorIn;
-	int m_colorOut;
+	int m_color1;
+	int m_color2;
 };
 
 class C_MenuStateIcon: public C_MenuItem{ /*Items with an image to indicate a state, like a star yellow or gray, no action*/
