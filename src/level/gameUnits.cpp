@@ -30,37 +30,36 @@ using namespace std;
 //constructor
 
 C_GameUnits::C_GameUnits(string name, int x_grid, int y_grid, int rank):
-	m_name(name),
-	m_type("unit"),
-	m_tileSource(name),
-	m_rank(rank),
-	m_health(100),
 	m_max_health(100),
 	m_coord(C_CoordGrid(x_grid,y_grid)),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
+	m_model.name = name;
+	m_model.type = "unit";
+	m_model.tileSource = name;
+	m_model.rank = rank;
+	m_model.health = 100;
 }
 
 C_GameUnits::C_GameUnits(S_UnitModel model):
-	m_name(model.name),
-	m_type(model.type),
-	m_tileSource(model.tileSource),
-	m_rank(model.rank),
-	m_health(model.health),
 	m_max_health(model.health),
 	m_coord(C_CoordGrid(model.coord)),
 	m_direction(UNKNOWN),
 	m_selected(false)
 {
-
+	m_model.name = model.name;
+	m_model.type = model.type;
+	m_model.tileSource = model.tileSource;
+	m_model.rank = model.rank;
+	m_model.health = model.health;
 }
 
 
 
 void C_GameUnits::displayStatus()
 {
-	C_Message::printM( "Name: " + m_name + " Life: " + to_string(m_health)  + " Rank : " + to_string(m_rank));
+	C_Message::printM( "Name: " + m_model.name + " Life: " + to_string(m_model.health)  + " Rank : " + to_string(m_model.rank));
 	m_coord.displayStatus();
 }
 
@@ -73,9 +72,9 @@ void C_GameUnits::render(S_Coord screen)
 
 void C_GameUnits::receiveDamage(S_Weapon weapon)
 {
-	m_health -=weapon.damage;
-	if (m_health < 0) {
-		m_health = 0;
+	m_model.health -=weapon.damage;
+	if (m_model.health < 0) {
+		m_model.health = 0;
 	}
 }
 
@@ -118,7 +117,7 @@ string C_GameUnits::imageName(int status,int direction,int imageNbr)
 		statusStr = "W";
 		break;
 	}
-	return m_type + "_" + to_string(m_rank) + "_"+ statusStr + "_"
+	return m_model.type + "_" + to_string(m_model.rank) + "_"+ statusStr + "_"
 		   + directionToStr(direction) + "_" + to_string(image) ;
 }
 
@@ -164,10 +163,10 @@ void C_GameUnits::changeState(std::string state){
 
 S_UnitModel C_GameUnits::getInfo(){
 	S_UnitModel unit;
-	unit.name = m_name;
-	unit.type = m_type;
-	unit.rank = m_rank;
-	unit.health = m_health;
+	unit.name = m_model.name;
+	unit.type = m_model.type;
+	unit.rank = m_model.rank;
+	unit.health = m_model.health;
 	unit.coord = m_coord.getGrid();
 	unit.cost = 0;
 	unit.speed = 0;

@@ -34,7 +34,7 @@ std::string C_Town::imageName(int status,int direction,int imageNbr){
     (void)status;
     (void)direction;
     (void)imageNbr;
-    return m_tileSource;
+    return m_model.tileSource;
 }
 
 C_CastleTower::C_CastleTower(S_UnitModel model):C_Town(model)

@@ -72,10 +72,10 @@ public:
 	virtual void drag(S_Coord screen){std::cout << "drag() "<< screen.x;};
 
 	virtual C_GameUnits * getUnit(){return this;};
-	virtual std::string getName() const { return m_name; };
-	virtual std::string getType() const { return m_type; };
+	virtual std::string getName() const { return m_model.name; };
+	virtual std::string getType() const { return m_model.type; };
 
-	virtual int getRank() const {return m_rank;};
+	virtual int getRank() const {return m_model.rank;};
 	virtual int getMaxRank() const {return m_max_rank;};
 	virtual void displayStatus();
 	virtual void render(S_Coord screen);
@@ -98,7 +98,7 @@ public:
 	virtual void reverseSelectedStatus();
 
 	//alive or dead
-	virtual int getHealth() const {	return m_health;};
+	virtual int getHealth() const {	return m_model.health;};
 
 	//wallet
 	virtual int getCost(){return 0;};
@@ -108,7 +108,7 @@ public:
 
 protected:
 	//alive or dead
-	virtual bool alive() const {return m_health>0;};
+	virtual bool alive() const {return m_model.health>0;};
 
 	virtual int getDistance(int x, int y);
 	virtual std::string imageName(int status,int direction,int imageNbr);
@@ -116,15 +116,9 @@ protected:
 
 	void changeState(std::string state);
 	std::string m_state;
-
+    S_UnitModel m_model;
 	//attibuts
-	std::string m_name;
-	std::string m_type;
-    std::string m_tileSource;
-	int m_rank;
     int m_max_rank = 0;
-
-	int m_health;
 	int m_max_health;
 
 	//Coord

@@ -226,7 +226,7 @@ void C_Landscape::renderTopMask(int gridSize)
 
 void C_Decors::render(S_Coord screen)
 {
-	string fileName = m_name;
+	string fileName = m_model.name;
 	//cout << "image name is "<< fileName << endl;
 
 	C_TextureList& t= C_Locator::getTextureList();
@@ -291,9 +291,9 @@ void C_Clouds::render()
 void C_Ground::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture(m_name, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE, true);
+	t.renderTexture(m_model.name, m_coord.getXScreen(),m_coord.getYScreen(),CENTER_TILE, true);
 
-	size_t found = m_name.find("Water");
+	size_t found = m_model.name.find("Water");
 	if(found == string::npos) {
 		if ((m_coord.getXGrid()+m_coord.getYGrid())%2 == 0) {
 			t.renderTexture("Ground_01_darken", m_coord.getXScreen(),m_coord.getYScreen() -2, CENTER_TILE, true);
@@ -306,7 +306,7 @@ C_Trees::C_Trees(S_Unit unit):
 	C_Decors(unit)
 {
 	int size =  unit.name.size() - 3;  //cut the last tree letters Trees_01_00 -> Trees_01
-	m_name = m_name.substr(0,size);
+	m_model.name = m_model.name.substr(0,size);
 	m_state = "Wind";
 	m_anim.add(new C_AnimRewind("Wind",1,10,90,true));
 }
@@ -319,9 +319,9 @@ void C_Trees::play()
 void C_Trees::render(S_Coord screen)
 {
 	int imageNbr = m_anim.getImageNbr(m_state);
-	string fileName = m_name + "_0" + to_string(imageNbr);
+	string fileName = m_model.name + "_0" + to_string(imageNbr);
 	if(imageNbr>9) {
-		fileName = m_name + "_" + to_string(imageNbr);
+		fileName = m_model.name + "_" + to_string(imageNbr);
 	}
 	//cout << "image name is "<< fileName << endl;
 	C_TextureList& t= C_Locator::getTextureList();

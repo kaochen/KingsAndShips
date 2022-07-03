@@ -31,7 +31,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 	m_state = "Waiting";
 	m_weaponState = "Weapon_Waiting";
 	m_weapon = new C_Weapon(model.weapon);
-	string message = "Add new shooter: " + m_name +" life: "+ to_string(m_health) + " rank: "+ to_string(m_rank);
+	string message = "Add new shooter: " + m_model.name +" life: "+ to_string(m_model.health) + " rank: "+ to_string(m_model.rank);
 	C_Message::printM(message);
 	m_coord.displayStatus();
 	m_anim.add(new C_AnimRewind("Drag",1,8,40));
@@ -191,7 +191,7 @@ bool C_Shooter::shoot(C_GameUnits* target){
 void C_Shooter::kill()
 {
 	C_Grid& grid= C_Locator::getGrid();
-	C_Message::printM("kill " + m_name + " from:"+ to_string(m_coord.getXGrid ())
+	C_Message::printM("kill " + m_model.name + " from:"+ to_string(m_coord.getXGrid ())
 			 + ":" + to_string(m_coord.getYGrid ()) + "\n");
 	grid.moveToDead(m_coord.getXGrid (), m_coord.getYGrid ());
 	m_selected = false;
@@ -208,8 +208,8 @@ void C_Shooter::displayStatus()
 
 void C_Shooter::upgrade(S_UnitModel model)
 {
-	m_rank = model.rank;
-	m_name = model.name;
+	m_model.rank = model.rank;
+	m_model.name = model.name;
 
 	if(m_weapon != nullptr){
 		delete m_weapon;
@@ -230,7 +230,7 @@ void C_Shooter::shootTarget(C_GameUnits &target)
 
 void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 {
-    if(m_health < (m_max_health - (m_health/20))){
+    if(m_model.health < (m_max_health - (m_model.health/20))){
 		C_TextureList& t= C_Locator::getTextureList();
 		int x_size = 50;
 		int y = y_screen - 80;
@@ -242,7 +242,7 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 			textureName += "Back";
 			t.renderTexture(textureName, x + i ,y,CENTER);
 		}
-		int life = (x_size*m_health/m_max_health);
+		int life = (x_size*m_model.health/m_max_health);
 		for(int i = 0; i <= life; i++){
 			string image = "Menu_details_Progress_";
 			if (i == life){
@@ -254,9 +254,9 @@ void C_Shooter::renderLifeBar(int x_screen, int y_screen)
 			} else {
 				image += "1_";
 			}
-			if (m_health < m_max_health/2 && m_health > m_max_health/3){
+			if (m_model.health < m_max_health/2 && m_model.health > m_max_health/3){
 				image += "Orange";
-			} else if (m_health < m_max_health/3) {
+			} else if (m_model.health < m_max_health/3) {
 				image += "Red";
 			} else {
 				image += "Green";
@@ -315,7 +315,7 @@ void C_Shooter::drag(S_Coord screen)
 {
 	m_anim.get("Drag")->play();
 	bool water = false;
-	if(m_type == "Barricade") {
+	if(m_model.type == "Barricade") {
 		water = true;
 	}
 	C_CoordScreen coord(screen);
@@ -390,10 +390,10 @@ void C_Shooter::drawEllipse(int screen_x,int screen_y,int size,bool ok)
 
 S_UnitModel C_Shooter::getInfo(){
 	S_UnitModel unit;
-	unit.name = m_name;
-	unit.type = m_type;
-	unit.rank = m_rank;
-	unit.health = m_health;
+	unit.name = m_model.name;
+	unit.type = m_model.type;
+	unit.rank = m_model.rank;
+	unit.health = m_model.health;
 	unit.coord = m_coord.getGrid();
 	unit.cost = m_cost;
 	unit.speed = 0;
