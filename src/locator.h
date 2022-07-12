@@ -56,6 +56,7 @@ public:
 	static void setService(C_Wallet* service){m_wallet = service;};
 	static void setService(C_Grid* service){m_grid = service;};
 	static void setService(C_Settings* service){m_settings = service;};
+    static void deleteAllService();
 
 private:
 	static C_Time* m_time;

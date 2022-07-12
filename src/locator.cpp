@@ -28,5 +28,13 @@ C_Wallet* C_Locator::m_wallet = nullptr;
 C_Grid* C_Locator::m_grid = nullptr;
 C_Settings* C_Locator::m_settings = nullptr;
 
-
+void C_Locator::deleteAllService(){
+    if(m_window){delete m_window;};
+    if(m_menu){delete m_menu;};
+    if(m_wallet){delete m_wallet;};
+    if(m_grid){delete m_grid;};
+    if(m_texturelist){delete m_texturelist;};
+    //if(m_time){delete m_time;};
+    if(m_settings){delete m_settings;};
+}
 

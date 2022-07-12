@@ -119,6 +119,9 @@ C_Page::C_Page(std::string name):
 
 C_Page::~C_Page()
 {
+	for(map<std::string, C_MenuItem*>::iterator it=m_itemsList.begin(); it != m_itemsList.end(); ++it){
+		delete it->second;
+	}
     m_itemsList.clear(); //items are already delete
 }
 

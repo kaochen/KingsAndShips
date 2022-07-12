@@ -62,5 +62,7 @@ int main(int argc, char** argv)
 	win.listLevels();
 	win.gameLoop();
 	win.quitProgram();
+
+	C_Locator::deleteAllService();
 	return 0;
 };

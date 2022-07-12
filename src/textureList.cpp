@@ -44,6 +44,7 @@ C_TextureList::~C_TextureList()
 	for(map<string, C_Texture*>::iterator it=m_map_textures.begin(); it != m_map_textures.end(); ++it){
 		delete it->second;
 	}
+	m_map_textures.clear();
 }
 
 
@@ -219,11 +220,10 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 		//create new texture
 		if(tileNbr != previousTileNbr && firstID == true) {
 			previousTileNbr = tileNbr;
-			map<string, C_Texture*>::iterator search = m_map_textures.find(fullname);
-			if(search == m_map_textures.end()) {
-			    string filename = C_Tools::extractFilename(tsx_File_Path);
+			if ( auto it{ m_map_textures.find(fullname) }; it == std::end( m_map_textures) ){
+                string filename = C_Tools::extractFilename(tsx_File_Path);
 				m_map_textures[fullname] = new C_Image(tileNbr,fullname, texture, tile_width, tile_height, file_width, file_height, filename );
-			}
+            }
 		}
 
 		reader2.move_to_element();
