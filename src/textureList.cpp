@@ -189,6 +189,7 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 		}
 		reader.move_to_element();
 	}
+    reader.close();
 
 	SDL_Texture* texture = imageToTexture(filePath);
 
@@ -227,9 +228,9 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 
 		reader2.move_to_element();
 	}
-
-	//erase the original textures FIXME should be done outside this function in order to load image just one time
-	if (texture == nullptr) {
+    reader2.close();
+	//erase the original textures
+	if (texture != nullptr) {
 		SDL_DestroyTexture(texture); //Don't need anymore
 	}
 }
