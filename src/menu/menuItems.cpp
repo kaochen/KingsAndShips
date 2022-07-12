@@ -561,7 +561,7 @@ C_GP_Status::C_GP_Status(string name,int x_screen, int y_screen, int color1, int
 	:C_MB_CardButton(name,x_screen,y_screen)
 {
 	m_type = STATUS;
-	m_width = 152;
+	m_width = 136;
 	m_height = 42;
 	m_percentage1 = 100;
 	m_percentage2 = 0;
@@ -602,25 +602,26 @@ void C_GP_Status::render()
 {
 	C_TextureList& t= C_Locator::getTextureList();
     std::string line;
-    int length = m_width/10;
+	const int size = 8; //size of the Menu_details_Progress_Bright
+    int length = m_width/size;
     int x1 = m_x_screen;
 	int y1 = m_y_screen + m_height/2 + 10 ;
-	int offset = 0;
+	int offset = size;
 	//draw background
 	for (int i = 0; i <= length; i++){
     	t.renderTexture("Menu_details_Progress_Bright", x1 + offset ,y1,CENTER);
-    	offset += 9;
+    	offset += size;
 	}
 
 	//draw step2 if longer than step1
 	if(m_percentage2>0){
         if(m_percentage2 > m_percentage1){
             int lengthStep2 = (m_percentage2 * length)/(100);
-	        offset = 0;
+	        offset = size;
 	        std::string color = colorToStr(m_color2);
 	        for (int i = 0; i <= lengthStep2; i++){
             	t.renderTexture("Menu_details_Progress_"+color, x1 + offset ,y1,CENTER);
-            	offset += 9;
+            	offset += size;
 	        }
         }
     }
@@ -628,22 +629,21 @@ void C_GP_Status::render()
 	//draw step1 over step2
 	if(m_percentage1>0){
     	int lengthStep1 = (m_percentage1 * length)/(100);
-	    offset = 0;
+	    offset = size;
 	    std::string color = colorToStr(m_color1);
 	    for (int i = 0; i <= lengthStep1; i++){
         	t.renderTexture("Menu_details_Progress_"+color, x1 + offset ,y1,CENTER);
-        	offset += 9;
+        	offset += size;
 	    }
     }
 	m_color = m_colorText;
-    Sint16 x2 = m_x_screen + m_width/2;
 	Sint16 y2 = m_y_screen + m_height/2;
 	if(m_text !="") {
     	t.loadTextAsTexturesIntoMap(m_textName, m_text, FONT_SMALL,  m_color);
     	t.renderText(m_textName, m_x_screen, y2 ,LEFT);
 	    if(m_text2 !="") {
         	t.loadTextAsTexturesIntoMap(m_textName2, m_text2, FONT_SMALL,  m_color);
-        	t.renderText(m_textName2, m_x_screen + m_width - 10, y2 ,RIGHT);
+        	t.renderText(m_textName2, m_x_screen + m_width, y2 ,RIGHT);
 	    }
 	}
 }
