@@ -8,13 +8,13 @@ The game is under the license: **GPLv3** , and all graphics are under Creative C
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 
-This is work in progress, use it carefully. It has been testing with Debian Stretch and Buster for now.
+This is work in progress, use it carefully. It has been testing with Debian Stretch and Buster, Ubuntu 20.04 and 22.04 for now.
 Meson 0.37 is needed at the minimun.
 
 ### Dependencies
 ```
 apt install build-essential git cmake ninja-build gettext libxml++2.6-dev rpm debhelper
-apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev fonts-roboto
+apt install libsdl2-dev libsdl2-ttf-dev libfreetype6-dev libxml2-dev libsdl2-image-dev
 
 ```
 
@@ -75,7 +75,7 @@ cd KingsAndShips
  * Push "q" to quit.
 
 
-###change preferences:
+### change preferences:
 edit preferences.ini file from the source file
 or when the package is installed from:
 /usr/local/share/games/kingsandships/preferences.ini
@@ -88,7 +88,7 @@ window_height = 720
 
 ## Dev tips:
 
-###create a source package:
+### create a source package:
 
 ```
 cd bin
@@ -112,7 +112,7 @@ Install :
 ```
 sudo apt install ./../kingsandships_*.deb ./../kingsandships-data*.deb
 ```
-###Localization Create a new po file
+### Localization:  Create a new po file
 ```
 cd po/fr
 xgettext --from-code=UTF-8 -s  -o kingsandships.pot ../src/*.cpp
@@ -161,11 +161,12 @@ apt install tiled
   * **ImageMagick** to build tileset from Blender render 
   * **Inkscape** for creating the logo as svg file.
   * **Textures Haven** some textures for blender come from : https://texturehaven.com/
-  ** Active plugin Node Wrangler in blender . https://docs.blender.org/manual/en/2.90/addons/node/node_wrangler.html
-  ** Ctrl + Shift + T : https://www.youtube.com/watch?v=iP3_WOl4aco
+    * Active plugin Node Wrangler in blender . https://docs.blender.org/manual/en/2.90/addons/node/node_wrangler.html
+    * Ctrl + Shift + T : https://www.youtube.com/watch?v=iP3_WOl4aco
+  * The game use the Promocyja font that is under Public Domain : https://www.dafont.com/promocyja.font
 
 ```
-apt install blender imagemagick
+apt install blender imagemagick gimp inkscape
 ```
 
 Build a tileset from images with imagemagick
