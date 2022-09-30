@@ -34,13 +34,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FONT_BIG 34
 
 struct S_Coord{
-	int x;
-	int y;
+	int x = 0;
+	int y = 0;
 };
 
 struct S_Size{
-	int w;
-	int h;
+	int w = 0;
+	int h = 0;
 };
 
 struct S_NodeCoord{

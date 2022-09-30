@@ -48,7 +48,9 @@ C_Texture::C_Texture(string name):
 
 C_Texture::~C_Texture()
 {
-    SDL_DestroyTexture(m_texture);
+	if(m_texture != nullptr){
+    	SDL_DestroyTexture(m_texture);
+	}
 }
 
 SDL_Texture* C_Texture::getTexture()
@@ -245,7 +247,9 @@ void C_TextAsTexture::createNewTexture(){
 		TTF_CloseFont(font);
 		C_Message::printSDLerror("TTF_RenderText");
 	} else {
-		SDL_DestroyTexture(m_texture);
+		if(m_texture != nullptr){
+    		SDL_DestroyTexture(m_texture);
+		}
 		m_texture = SDL_CreateTextureFromSurface(renderer, surf);
 		if (m_texture == nullptr) {
 			C_Message::printSDLerror("CreateTexture from this text:" + m_message + " failed ");

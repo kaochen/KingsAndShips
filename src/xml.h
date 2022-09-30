@@ -31,8 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 struct S_tmxLayer{
   std::string name;
-  int width;
-  int height;
+  int width = 0;
+  int height = 0;
   std::string data;
 };
 
@@ -74,8 +74,8 @@ private:
 };
 
 struct S_Tile{
-    int tmxNbr;
-    int tsxNbr;
+    int tmxNbr = 0;
+    int tsxNbr = 0;
     std::string name;
     std::string sourcefile;
 };

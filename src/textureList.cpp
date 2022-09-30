@@ -124,9 +124,12 @@ void C_TextureList::loadTextAsTexturesIntoMap(string name, string &message, int 
 
 void C_TextureList::freeTexture(string name)
 {
-
-	SDL_DestroyTexture(m_map_textures[name]->getTexture());
-	m_map_textures.erase(name);
+	SDL_Texture * t = nullptr;
+	t = m_map_textures[name]->getTexture();
+	if(t != nullptr){
+		SDL_DestroyTexture(m_map_textures[name]->getTexture());
+		m_map_textures.erase(name);
+	}
 }
 
 

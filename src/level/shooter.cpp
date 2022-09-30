@@ -58,7 +58,7 @@ C_Shooter::C_Shooter(S_UnitModel model):C_GameUnits(model),
 C_Shooter::~C_Shooter()
 {
 	delete m_weapon;
-	delete m_target;
+	m_target = nullptr;
 }
 
 void C_Shooter::play()
