@@ -66,7 +66,7 @@ void C_Texture::displayStatus()
 	C_Message::printM("Tileset Name: " + m_name);
 	SDL_Rect pos;
 	SDL_QueryTexture(getTexture(), NULL, NULL, &pos.w, &pos.h);
-	cout << "size: " << pos.w << ":" << pos.h << endl;
+	cout << " size: " << pos.w << ":" << pos.h << endl;
 }
 
 void C_Texture::render(int x, int y, double angle, int align, bool zoom)

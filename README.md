@@ -176,6 +176,7 @@ montage Src*.png -tile 8x8 -geometry +0+0 -background none tilset.png
 
 New workflow :
 Using multiview camera in Blender:
+https://www.youtube.com/watch?v=U3KlJNiw12k&t=2s
 rename to get images in the right order :
 ```
 rename 's/^R_([^_]*)_([^_]*)_([^.]*)/R_$1_$3_$2/' R_*.png

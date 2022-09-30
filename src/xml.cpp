@@ -302,7 +302,6 @@ std::vector <C_Tileset> C_Tmx::extractTilesetList(){
 		}
 		reader.move_to_element();
 	}
-	string filename = C_Tools::extractFilename(m_file_path);
 	return list;
 }
 

@@ -197,23 +197,22 @@ void C_TextureList::extractTSXfile(string tsx_File_Path)
 	xmlpp::TextReader reader2(tsx_File_Path);
 	while(reader2.read()) {
 		string nodeName = reader2.get_name();
-		//cout << nodeName << "---namespace---\n";
-
+        //cout << "Name " << name << endl;
 		if (reader2.has_attributes()) {
 			reader2.move_to_first_attribute();
 			do {
 				string attributes = reader2.get_name();
-				//cout << attributes << "-----"<< endl;
-
 				//tile node
 				if (nodeName == "tile" && attributes == "id") {
 					tileNbr = stoi(reader2.get_value());
 					firstID = true;
-					//cout << id << "<--" << endl;
 				}
-				if (nodeName == "tile" && attributes == "type")
+				if (nodeName == "tile" && (attributes == "type" || attributes =="class" )){
 					fullname = name +"_" + reader2.get_value();
-				//
+					}
+				/*if (nodeName == "tile"){
+				    cout << "- nodeName: " << nodeName << " - id: " << tileNbr << " - fullname " << fullname << endl;
+				}*/
 
 			} while(reader2.move_to_next_attribute());
 		}

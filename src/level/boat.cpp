@@ -42,9 +42,9 @@ C_Boat::C_Boat(S_UnitModel model):C_Shooter(model)
 	m_targetsTypes.push_back("ArcherTower");
 	m_targetsTypes.push_back("Catapult");
 	m_state ="Moving";
-	m_anim.add(new C_AnimRewind("Moving",1,7,80));
-	m_anim.add(new C_Anim("Waiting",1,1,800));
-	m_anim.add(new C_Anim("Dying",1,7,100));
+	m_anim.add(new C_AnimRewind("Moving",0,7,120));
+	m_anim.add(new C_Anim("Waiting",0,0,800));
+	m_anim.add(new C_Anim("Dying",0,7,120));
 	m_anim.add(new C_Anim("Dead",7,7,800));
 	m_anim.add(new C_Anim("Gold",1,16,40));
 
