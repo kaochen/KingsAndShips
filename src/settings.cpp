@@ -408,7 +408,7 @@ void C_Settings::setPlaying(int state)
 	    }
 	} else {
 	    if (state == EMPTY || state == LOADING || state == READY){
-	        m_playing == state;
+	        m_playing = state;
 	    }
 	}
 }
