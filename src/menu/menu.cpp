@@ -134,15 +134,7 @@ void C_Menu::openMainMenu()
 	C_Settings& settings=C_Locator::getSettings();
 	C_Frame* main = getFrame("mainMenu");
 	if(main != nullptr){
-	    if(main->getOpen()) {
-		    main->setOpen(false);
-	        if(getFrame("topMenu") !=  nullptr)
-		        getFrame("topMenu")->setOpen(true);
-		    if(getFrame("bottomMenu") !=  nullptr)
-		        getFrame("bottomMenu")->setOpen(true);
-		    if(settings.getPlaying() == PAUSE)
-		        settings.setPlaying(PLAYING);
-	    } else {
+	    if(!main->getOpen()) {
             openTab("Status");
 	        if(getFrame("topMenu") !=  nullptr)
 		        getFrame("topMenu")->setOpen(false);
@@ -151,6 +143,21 @@ void C_Menu::openMainMenu()
 		    if(settings.getPlaying() == PLAYING)
 		        settings.setPlaying(PAUSE);
 	        }
+	}
+}
+
+void C_Menu::closeMainMenu()
+{
+	C_Settings& settings=C_Locator::getSettings();
+	C_Frame* main = getFrame("mainMenu");
+	if(main != nullptr){
+		main->setOpen(false);
+	    if(getFrame("topMenu") !=  nullptr)
+		    getFrame("topMenu")->setOpen(true);
+		if(getFrame("bottomMenu") !=  nullptr)
+		    getFrame("bottomMenu")->setOpen(true);
+		if(settings.getPlaying() == PAUSE)
+		    settings.setPlaying(PLAYING);
 	}
 }
 

@@ -26,11 +26,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using namespace std;
 
+
+void C_OpenCloseMenu::action()
+{
+	C_Message::printM("Send an openCloseMenu action\n");
+	C_Menu& menu=C_Locator::getMenu();
+	if(!menu.isOpen()){
+		menu.openMainMenu();
+	} else {
+		menu.closeMainMenu();
+	}
+}
+
+bool C_OpenCloseMenu::getBool()
+{
+	C_Menu& menu=C_Locator::getMenu();
+	return menu.isOpen();
+}
+
 void C_OpenMenu::action()
 {
-	C_Message::printM("Send an openMainMenu action\n");
+	C_Message::printM("Send an openMenu action\n");
 	C_Menu& menu=C_Locator::getMenu();
 	menu.openMainMenu();
+}
+
+void C_CloseMenu::action()
+{
+	C_Message::printM("Send an closeMenu action\n");
+	C_Menu& menu=C_Locator::getMenu();
+	menu.closeMainMenu();
 }
 
 bool C_OpenMenu::getBool()

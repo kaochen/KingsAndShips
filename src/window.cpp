@@ -389,12 +389,8 @@ void C_Window::listenKeyboard(SDL_Event &event)
 	int u = 0;
 	int d = 0;
 	switch(event.key.keysym.sym) {
-	case SDLK_ESCAPE:{
-		C_OpenMenu menu;
-		if(menu.getBool()){//if menu open ?
-			menu.action(); //close it
-			}
-		}
+	case SDLK_ESCAPE:
+		closeMenu();
 		break;
 	case SDLK_d:
 		settings.setDebugMode();
@@ -404,7 +400,7 @@ void C_Window::listenKeyboard(SDL_Event &event)
 		loadLevel(m_levelNbr +1);
 		break;
 	case SDLK_m:
-        openMenu();
+        openCloseMenu();
 		break;
 	case SDLK_n:
 		m_level->sendNextWave();
@@ -454,7 +450,6 @@ void C_Window::loadLevel(int levelNbr)
 {
 	C_Settings& settings= C_Locator::getSettings();
 	m_levelNbr = settings.setCurrentLevelNbr(levelNbr);
-
 	if(m_level != nullptr) {
 		delete m_level;
 	}
@@ -463,6 +458,7 @@ void C_Window::loadLevel(int levelNbr)
 		if(m_level->load(m_levelNbr)){
 		    settings.setPlaying();
     		settings.cameraOnAPoint(m_level->getGridTown());
+			closeMenu();
 		} else {
     		C_Message::printM("Can not create level" + to_string(m_levelNbr));
     		quitProgram();
@@ -515,8 +511,8 @@ void C_Window::listenMouseButtonUP(SDL_Event &event)
 		m_dragAndDropTower = false;
 		m_mouseDragWindow = false;
 	} else if (event.button.button ==  SDL_BUTTON_RIGHT) {
-		C_OpenMenu openMenu;
-		if (!openMenu.getBool()) {
+		C_OpenMenu openCloseMenu;
+		if (!openCloseMenu.getBool()) {
 			m_level->unselectedAll();
 			m_aTowerIsSelected = false;
 		}
@@ -537,8 +533,8 @@ void C_Window::listenMouseButtonDown(SDL_Event &event)
 			m_mouseDragWindow = false;
 		} else {
 			m_dragAndDropTower = false;
-			C_OpenMenu openMenu;
-			if (openMenu.getBool()) {
+			C_OpenMenu openCloseMenu;
+			if (openCloseMenu.getBool()) {
 				m_mouseDragWindow = false;
 			} else {
 				m_mouseDragWindow = true;
@@ -582,15 +578,35 @@ void C_Window::listenMouseWheel(SDL_Event &event){
     }
 }
 
+void C_Window::openCloseMenu(){
+    C_Menu& menu = C_Locator::getMenu();
+	C_OpenCloseMenu openCloseMenu;
+	openCloseMenu.action();
+	if(m_level != nullptr){
+	    m_level->unselectedAll();
+	}
+	m_aTowerIsSelected = false;	
+}
+
 void C_Window::openMenu(){
     C_Menu& menu = C_Locator::getMenu();
-    if(!menu.isOpen()){
-	    C_OpenMenu openMenu;
-	    openMenu.action();
-	    if(m_level != nullptr){
-	        m_level->unselectedAll();
-	    }
-	    m_aTowerIsSelected = false;
+	C_OpenMenu openMenu;
+	openMenu.action();
+	if(m_level != nullptr){
+	    m_level->unselectedAll();
+	}
+	m_aTowerIsSelected = false;	
+}
+
+void C_Window::closeMenu(){
+	C_Settings& settings= C_Locator::getSettings();
+	if(settings.getPlaying() != FINISHED){
+		C_CloseMenu closeMenu;
+			closeMenu.action();
+		if(m_level != nullptr){
+			m_level->unselectedAll();
+		}
+		m_aTowerIsSelected = false;
 	}
 }
 

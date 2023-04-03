@@ -43,6 +43,7 @@ public:
     void openTab(std::string name);
 	//commands
 	void openMainMenu();
+	void closeMainMenu();
 	bool isOpen(){return getFrame("mainMenu")->getOpen();};
     void go(int direction);
     void Nbr(int nbr);

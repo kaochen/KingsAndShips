@@ -38,15 +38,25 @@ protected:
     std::string m_text;
 };
 
-class C_OpenMenu : public C_Command {
+class C_OpenCloseMenu : public C_Command {
 public:
-	C_OpenMenu() {};
-	virtual ~C_OpenMenu() {};
+	C_OpenCloseMenu() {};
 	virtual void action();
 	virtual bool getBool();
 };
 
+class C_OpenMenu : public C_Command {
+public:
+	C_OpenMenu() {};
+	virtual void action();
+	virtual bool getBool();
+};
 
+class C_CloseMenu : public C_Command {
+public:
+	C_CloseMenu() {};
+	virtual void action();
+};
 
 class C_ChangeTab : public C_Command {
 public:

@@ -51,6 +51,7 @@ public:
 	S_LevelData getLevelModel(int levelNbr);
     C_Level* getCurrentLevel(){return m_level;};
     bool currentLevelIsOver();
+	void closeMenu();
 
 protected:
 	void initSDL();
@@ -63,7 +64,8 @@ protected:
 	void listenMouseButtonDown(SDL_Event &event);
 	void navigateOverTheMap(S_Coord const &button);
 	void listenMouseWheel(SDL_Event &event);
-    void openMenu();
+	void openMenu();
+    void openCloseMenu();
 
 private:
 	SDL_Window* m_window;

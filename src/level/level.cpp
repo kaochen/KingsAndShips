@@ -62,6 +62,8 @@ bool C_Level::load(int levelNbr)
 	C_Grid& grid= C_Locator::getGrid();
 	grid.reset(m_data.gridSize);
     setStatus(ONGOING);
+	C_Settings& settings=C_Locator::getSettings();
+	settings.setPlaying(LOADING);
 	struct stat buffer;
 	if (stat (m_data.filename.c_str(),  &buffer) == 0) {
 

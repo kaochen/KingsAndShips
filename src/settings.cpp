@@ -391,9 +391,9 @@ void C_Settings::showPlaying()
 void C_Settings::setPlaying()
 {
 	if(m_playing == PLAYING) {
-		m_playing = PAUSE;
+		setPlaying(PAUSE);
 	 } else {
-		m_playing = PLAYING;
+		setPlaying(PLAYING);
 	 }
 	showPlaying();
 }

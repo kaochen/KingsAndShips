@@ -135,7 +135,7 @@ void C_Page::flagLine(std::vector <std::string> names, S_Coord last)
 	            std::string img = i;
 	            C_Command *command = nullptr;
                    if(i ==  "popOutMenu" || i ==  "popOutMenu2" ) {
-                               command = new C_OpenMenu();
+                               command = new C_OpenCloseMenu();
                                img = "popOutMenu";
                        } else if(i ==  "home") {
                                command = new C_CenterCamera();
