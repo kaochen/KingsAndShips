@@ -297,7 +297,7 @@ void C_MB_CardButton::render(){
 	Sint16 y1 = m_y_screen + m_height/2 + up;
 
 	C_TextureList& t= C_Locator::getTextureList();
-	t.renderTexture("Menu_01_lineShort", x1 , y1 + 10,CENTER);
+	t.renderTexture("Menu_01_lineShort", x1 , y1 + 12,CENTER);
 	t.loadTextAsTexturesIntoMap(m_name, m_text, m_fontSize,  m_color);
 	t.renderText(m_name, x1, y1 ,CENTER);
 }

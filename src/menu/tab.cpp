@@ -231,7 +231,7 @@ C_Tab::C_Tab(std::string title)
 	m_screen.y = (settings.getWindowHeight())/2;
 	m_flagScreen.x = m_screen.x;
 	m_flagScreen.y = m_screen.y - m_height/3 + 20;
-	m_flagOffset = 35;
+	m_flagOffset = 40;
 
 	std::vector <std::string> names = {"popOutMenu2", "quit"};
     S_Coord first = {m_screen.x + m_width/3 - 30,m_screen.y + m_height/3 + 20};
@@ -283,19 +283,20 @@ C_Tab_Levels::C_Tab_Levels()
 	std::string text = std::to_string(settings.getNbrOfLevels());
 	m_itemsList["Number of Levels"] = new C_MB_1Line(gettext("Number of Levels"),text,m_flagScreen.x - 128,m_flagScreen.y);
 
+	int yOffset = 32;
     m_currentCardLevelNbr = settings.getCurrentLevelNbr();
-	m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_flagScreen.x + 82,m_screen.y -32);
+	m_itemsList["Card_Level"] = new C_MB_LevelCard(m_currentCardLevelNbr,"Card_" + to_string(m_currentCardLevelNbr),m_flagScreen.x + 82,m_screen.y - yOffset);
 
 	std::string arrowLeft = "Level_Change_Arrow_Left";
-	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_flagScreen.x - 48 ,m_screen.y - 32);
+	m_itemsList[arrowLeft]  = new C_MB_Arrows(arrowLeft,GO_LEFT,m_flagScreen.x - 48 ,m_screen.y - yOffset);
 	m_itemsList[arrowLeft]->setCommand(new C_ChangeLevelLeft());
 
 	std::string arrowRight = "Level_Change_Arrow_Right";
-	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_flagScreen.x + 192,m_screen.y - 32);
+	m_itemsList[arrowRight]  = new C_MB_Arrows(arrowRight,GO_RIGHT,m_flagScreen.x + 192,m_screen.y - yOffset);
 	m_itemsList[arrowRight]->setCommand(new C_ChangeLevelRight());
 
 	std::string load = "Level_Load";
-	m_itemsList[load]  = new C_MB_CardButton(load, m_flagScreen.x - 10, m_screen.y + 64);
+	m_itemsList[load]  = new C_MB_CardButton(load, m_flagScreen.x - 10, m_screen.y + (2*yOffset));
 	if(m_itemsList[load]!= nullptr){
 	    m_itemsList[load]->setText(gettext("Load"));
 	    C_LoadALevel *command = new C_LoadALevel();
@@ -341,28 +342,28 @@ C_Tab_Status::C_Tab_Status()
 	m_screen.y = (settings.getWindowHeight())/2;
 
     std::string replay = "status_Replay";
-	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x, m_screen.y - 20);
+	m_itemsList[replay]  = new C_MB_CardButton(replay, m_screen.x, m_screen.y);
 	if(m_itemsList[replay] != nullptr){
 	    C_LoadALevel *command = new C_LoadALevel();
 	    m_itemsList[replay]->setCommand(command);
 	}
 
 	std::string next = "status_Next";
-	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x, m_screen.y + 30);
+	m_itemsList[next]  = new C_MB_CardButton(next, m_screen.x, m_screen.y + 50);
 	if(m_itemsList[next]!= nullptr){
 	    C_LoadALevel *command1 = new C_LoadALevel();
 	    m_itemsList[next]->setCommand(command1);
 	}
 
 	std::string quit = "status_Quit";
-	m_itemsList[quit]  = new C_MB_CardButton(quit, m_screen.x, m_screen.y + 80);
+	m_itemsList[quit]  = new C_MB_CardButton(quit, m_screen.x, m_screen.y + 95);
 	if(m_itemsList[quit]!= nullptr){
 	    C_QuitProgram *command2 = new C_QuitProgram();
 	    m_itemsList[quit]->setCommand(command2);
 	    m_itemsList[quit]->setText(gettext("Quit"));
 	}
 
-	m_itemsList["statusResultText"]  = new C_MenuText("statusResultText","Winner", m_screen.x  +  92, m_screen.y - 40 );
+	m_itemsList["statusResultText"]  = new C_MenuText("statusResultText","Winner", m_screen.x  +  92, m_screen.y - 35 );
 	S_Coord starPos {m_screen.x  +  10 , m_screen.y - 130  };
 	m_itemsList["gold_start1"] = new C_MenuStateIcon("gold_starSmall",starPos,DISABLED);
 	starPos.x = m_screen.x  +  120;
